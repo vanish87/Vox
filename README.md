@@ -5,7 +5,12 @@ Vox is a voxel based RPG adventure game with a heavy focus on player customizati
 // Todo //
 
 ## Setup
-// Todo //
+Setting up and compiling the project is fairly simple.
+
+### Windows
+Visual Studio projects are included.
+
+### Linux
 
 ## How To Contribute
 // Todo //
