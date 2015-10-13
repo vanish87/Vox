@@ -189,8 +189,9 @@ int main(void)
 
 			pRenderer->RenderFreeTypeText(defaultFont, 335.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lAnimationBuff);
 
+			pRenderer->RenderFreeTypeText(defaultFont, 635.0f, 75.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "R - Toggle Render Mode");
 			pRenderer->RenderFreeTypeText(defaultFont, 635.0f, 55.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "E - Toggle Talking");
-			pRenderer->RenderFreeTypeText(defaultFont, 635.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "W - Toggle wireframe");
+			pRenderer->RenderFreeTypeText(defaultFont, 635.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "W - Toggle Wireframe");
 			pRenderer->RenderFreeTypeText(defaultFont, 635.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Q - Cycle Animations");
 		pRenderer->PopMatrix();
 
