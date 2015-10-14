@@ -23,6 +23,7 @@ bool modelWireframe = false;
 bool modelTalking = false;
 int modelAnimationIndex = 0;
 VoxelCharacter* pVoxelCharacter = NULL;
+bool multiSampling = false;
 
 int main(void)
 {
@@ -30,7 +31,14 @@ int main(void)
 
 	/* Initialize the library */
 	if (!glfwInit())
+	{
 		exit(EXIT_FAILURE);
+	}
+
+	int samples = 8;
+	glfwWindowHint(GLFW_SAMPLES, samples);
+	glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
+	glGetIntegerv(GL_SAMPLES_ARB, &samples);
 
 	/* Create a windowed mode window and it's OpenGL context */
 	int windowWidth = 800;
@@ -56,6 +64,8 @@ int main(void)
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(0); // Disable v-sync
+
+	glfwShowWindow(window);
 
 	/* Create the renderer */
 	Renderer* pRenderer = new Renderer(windowWidth, windowHeight, 32, 8);
@@ -147,6 +157,15 @@ int main(void)
 			// Set the lookat camera
 			pGameCamera->Look();
 
+			if (multiSampling)
+			{
+				pRenderer->EnableMultiSampling();
+			}
+			else
+			{
+				pRenderer->DisableMultiSampling();
+			}
+
 			// Render the voxel character
 			Colour OulineColour(1.0f, 1.0f, 0.0f, 1.0f);
 			pRenderer->PushMatrix();
@@ -189,7 +208,7 @@ int main(void)
 
 			pRenderer->RenderFreeTypeText(defaultFont, 335.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lAnimationBuff);
 
-			pRenderer->RenderFreeTypeText(defaultFont, 635.0f, 75.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "R - Toggle Render Mode");
+			pRenderer->RenderFreeTypeText(defaultFont, 635.0f, 75.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "R - Toggle MSAA");
 			pRenderer->RenderFreeTypeText(defaultFont, 635.0f, 55.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "E - Toggle Talking");
 			pRenderer->RenderFreeTypeText(defaultFont, 635.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "W - Toggle Wireframe");
 			pRenderer->RenderFreeTypeText(defaultFont, 635.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Q - Cycle Animations");

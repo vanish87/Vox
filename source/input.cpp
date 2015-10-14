@@ -11,18 +11,13 @@ extern bool modelWireframe;
 extern bool modelTalking;
 extern int modelAnimationIndex;
 extern VoxelCharacter* pVoxelCharacter;
+extern bool multiSampling;
 
 void KeyPressed(GLFWwindow* window, int key, int scancode, int mods);
 void KeyReleased(GLFWwindow* window, int key, int scancode, int mods);
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	//printf("%08x to %i at %0.3f: Key 0x%04x Scancode 0x%04x (%s) (with%s) was %s\n",
-	//	counter++, slot->number, glfwGetTime(), key, scancode,
-	//	get_key_name(key),
-	//	get_mods_name(mods),
-	//	get_action_name(action));
-
 	switch (action)
 	{
         case GLFW_PRESS:
@@ -69,6 +64,12 @@ void KeyPressed(GLFWwindow* window, int key, int scancode, int mods)
 			pVoxelCharacter->PlayAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, pVoxelCharacter->GetAnimationName(modelAnimationIndex));
 			break;
 		}
+		case GLFW_KEY_R:
+		{
+			multiSampling = !multiSampling;
+			break;
+		}
+		
 	}
 }
 

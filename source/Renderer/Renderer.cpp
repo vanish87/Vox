@@ -629,6 +629,17 @@ GLenum Renderer::GetBlendEnum(BlendFunction flag)
 	return glFlag;
 }
 
+// Sampling
+void Renderer::EnableMultiSampling()
+{
+	glEnable(GL_MULTISAMPLE_ARB);
+}
+
+void Renderer::DisableMultiSampling()
+{
+	glDisable(GL_MULTISAMPLE_ARB);
+}
+
 // Depth testing
 void Renderer::EnableDepthTest(DepthTest lTestFunction)
 {

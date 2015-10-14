@@ -204,6 +204,10 @@ public:
 	void DisableTransparency();
 	GLenum GetBlendEnum(BlendFunction flag);
 
+	// Sampling
+	void EnableMultiSampling();
+	void DisableMultiSampling();
+
 	// Depth testing
 	void EnableDepthTest(DepthTest lTestFunction);
 	void DisableDepthTest();
