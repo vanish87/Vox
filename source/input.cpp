@@ -12,6 +12,8 @@ extern bool modelTalking;
 extern int modelAnimationIndex;
 extern VoxelCharacter* pVoxelCharacter;
 extern bool multiSampling;
+extern int weaponIndex;
+extern string weaponString;
 
 void KeyPressed(GLFWwindow* window, int key, int scancode, int mods);
 void KeyReleased(GLFWwindow* window, int key, int scancode, int mods);
@@ -62,6 +64,58 @@ void KeyPressed(GLFWwindow* window, int key, int scancode, int mods)
 			}
 
 			pVoxelCharacter->PlayAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, pVoxelCharacter->GetAnimationName(modelAnimationIndex));
+			break;
+		}
+		case GLFW_KEY_A:
+		{
+			switch (weaponIndex)
+			{
+				case 0:
+				{
+					weaponString = "Sword";
+					pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/Sword/Sword.weapon");
+					break;
+				}
+				case 1:
+				{
+					weaponString = "Sword & Shield";
+					pVoxelCharacter->LoadLeftWeapon("media/gamedata/weapons/Shield/Shield.weapon");
+					break;
+				}
+				case 2:
+				{
+					weaponString = "Staff";
+					pVoxelCharacter->UnloadLeftWeapon();
+					pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/Staff/Staff.weapon");
+					break;
+				}
+				case 3:
+				{
+					weaponString = "Bow";
+					pVoxelCharacter->UnloadRightWeapon();
+					pVoxelCharacter->LoadLeftWeapon("media/gamedata/weapons/Bow/Bow.weapon");
+					break;
+				}
+				case 4:
+				{
+					weaponString = "2HandedSword";
+					pVoxelCharacter->UnloadLeftWeapon();
+					pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/2HandedSword/2HandedSword.weapon");
+					break;
+				}
+				case 5:
+				{
+					weaponString = "NONE";
+					pVoxelCharacter->UnloadLeftWeapon();
+					pVoxelCharacter->UnloadRightWeapon();
+					break;
+				}
+			}
+
+			weaponIndex++;
+			if (weaponIndex == 6)
+				weaponIndex = 0;
+
 			break;
 		}
 		case GLFW_KEY_R:

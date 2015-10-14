@@ -2020,7 +2020,7 @@ bool InitOpenGLExtensions()
 
 	cout << "OpenGL Vendor: " << (char*)glGetString(GL_VENDOR) << "\n";
 	cout << "OpenGL Renderer: " << (char*)glGetString(GL_RENDERER) << "\n";
-	cout << "OpenGL Version: " << (char*)glGetString(GL_VERSION) << "\n\n";
+	cout << "OpenGL Version: " << (char*)glGetString(GL_VERSION) << "\n";
 	//cout << "OpenGL Extensions:\n" << (char*) glGetString(GL_EXTENSIONS) << "\n\n";
 
 	HasGLSLSupport();
@@ -2083,11 +2083,11 @@ bool HasGLSLSupport()
 
 	if (useGLSL)
 	{
-		cout << "[OK] OpenGL Shading Language is available!\n\n";
+		cout << "OpenGL Shading Language is available!\n\n";
 	}
 	else
 	{
-		cout << "[FAILED] OpenGL Shading Language is not available...\n\n";
+		cout << "OpenGL Shading Language is not available...\n\n";
 	}
 
 	return useGLSL;

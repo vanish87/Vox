@@ -23,7 +23,9 @@ bool modelWireframe = false;
 bool modelTalking = false;
 int modelAnimationIndex = 0;
 VoxelCharacter* pVoxelCharacter = NULL;
-bool multiSampling = false;
+bool multiSampling = true;
+int weaponIndex = 0;
+string weaponString = "NONE";
 
 int main(void)
 {
@@ -118,7 +120,6 @@ int main(void)
 	pVoxelCharacter->SetRandomLookDirection(true);
 	pVoxelCharacter->SetWireFrameRender(false);
 	pVoxelCharacter->SetCharacterScale(0.08f);
-	pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/Sword/Sword.weapon");
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
@@ -193,7 +194,9 @@ int main(void)
 		char lFPSBuff[128];
 		sprintf_s(lFPSBuff, "FPS: %.0f  Delta: %.4f", fps, deltaTime);
 		char lAnimationBuff[128];
-		sprintf_s(lAnimationBuff, "Animation: %s [%i/%i]", pVoxelCharacter->GetAnimationName(modelAnimationIndex), modelAnimationIndex, pVoxelCharacter->GetNumAnimations()-1);
+		sprintf_s(lAnimationBuff, "Animation [%i/%i]: %s", modelAnimationIndex, pVoxelCharacter->GetNumAnimations()-1, pVoxelCharacter->GetAnimationName(modelAnimationIndex));
+		char lWeaponBuff[128];
+		sprintf_s(lWeaponBuff, "Weapon: %s", weaponString.c_str());
 
 		pRenderer->PushMatrix();
 			glActiveTextureARB(GL_TEXTURE0_ARB);
@@ -206,12 +209,14 @@ int main(void)
 
 			pRenderer->RenderFreeTypeText(defaultFont, 15.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lFPSBuff);
 
-			pRenderer->RenderFreeTypeText(defaultFont, 335.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lAnimationBuff);
+			pRenderer->RenderFreeTypeText(defaultFont, 335.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lAnimationBuff);
+			pRenderer->RenderFreeTypeText(defaultFont, 335.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lWeaponBuff);
 
-			pRenderer->RenderFreeTypeText(defaultFont, 635.0f, 75.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "R - Toggle MSAA");
-			pRenderer->RenderFreeTypeText(defaultFont, 635.0f, 55.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "E - Toggle Talking");
-			pRenderer->RenderFreeTypeText(defaultFont, 635.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "W - Toggle Wireframe");
-			pRenderer->RenderFreeTypeText(defaultFont, 635.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Q - Cycle Animations");
+			pRenderer->RenderFreeTypeText(defaultFont, 635.0f, 95.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "R - Toggle MSAA");
+			pRenderer->RenderFreeTypeText(defaultFont, 635.0f, 75.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "E - Toggle Talking");
+			pRenderer->RenderFreeTypeText(defaultFont, 635.0f, 55.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "W - Toggle Wireframe");
+			pRenderer->RenderFreeTypeText(defaultFont, 635.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Q - Cycle Animations");
+			pRenderer->RenderFreeTypeText(defaultFont, 635.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "A - Cycle Weapons");
 		pRenderer->PopMatrix();
 
 		// End rendering
