@@ -11,9 +11,10 @@ Setting up and compiling the project is a fairly simple process.
 Visual Studio projects are included.
 
 ### Linux
+// Todo //
 
 ## How To Contribute
 // Todo //
 
 # Screenshots
-![Vox](http://i.imgur.com/jQihAdB.png)
+![Vox](http://i.imgur.com/TSPcgk2.png)
