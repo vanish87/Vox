@@ -1,8 +1,13 @@
 # Vox
 Vox is a voxel based RPG adventure game with a heavy focus on player customization and creation.
 
+## Features
+* Qubicle Binary (.qb) voxel model loading.
+* Polygon model loading via ms3d and obj files.
+* Keyframe and skeleton animation support.
+
 ## License
-// Todo //
+More information is provided in the [license file](https://github.com/AlwaysGeeky/Vox/blob/master/LICENSE.md).
 
 ## Setup
 Setting up and compiling the project is a fairly simple process.
