@@ -68,7 +68,7 @@ void KeyPressed(GLFWwindow* window, int key, int scancode, int mods)
 		}
 		case GLFW_KEY_A:
 		{
-			switch (weaponIndex)
+			switch(weaponIndex)
 			{
 				case 0:
 				{
