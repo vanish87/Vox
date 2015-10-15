@@ -55,6 +55,7 @@
     <ClCompile Include="source\setup.cpp" />
     <ClCompile Include="source\update.cpp" />
     <ClCompile Include="source\utils\Interpolator.cpp" />
+    <ClCompile Include="source\VoxGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\freetype\freetypefont.h" />
@@ -88,6 +89,7 @@
     <ClInclude Include="source\Renderer\viewport.h" />
     <ClInclude Include="source\utils\Interpolator.h" />
     <ClInclude Include="source\utils\Random.h" />
+    <ClInclude Include="source\VoxGame.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4496164E-D363-42DC-84E8-64D61B812689}</ProjectGuid>
