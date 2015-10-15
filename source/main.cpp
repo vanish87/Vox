@@ -17,7 +17,9 @@
 
 #include <GLFW/glfw3.h>
 
+#include "VoxGame.h"
 #include "input.h"
+
 
 bool modelWireframe = false;
 bool modelTalking = false;
@@ -29,6 +31,8 @@ string weaponString = "NONE";
 
 int main(void)
 {
+	VoxGame* m_pVoxGame = new VoxGame();
+
 	GLFWwindow* window;
 
 	/* Initialize the library */
@@ -232,5 +236,9 @@ int main(void)
 	}
 
 	glfwTerminate();
+
+	/* Cleanup */
+	delete m_pVoxGame;
+
 	exit(EXIT_SUCCESS);
 }
