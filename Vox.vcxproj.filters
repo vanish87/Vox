@@ -132,6 +132,15 @@
     <ClCompile Include="source\main.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="source\setup.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\update.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\render.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\glew\include\GL\glew.h">

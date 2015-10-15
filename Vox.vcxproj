@@ -42,6 +42,7 @@
     <ClCompile Include="source\models\VoxelCharacter.cpp" />
     <ClCompile Include="source\models\VoxelObject.cpp" />
     <ClCompile Include="source\models\VoxelWeapon.cpp" />
+    <ClCompile Include="source\render.cpp" />
     <ClCompile Include="source\Renderer\bmp.cpp" />
     <ClCompile Include="source\Renderer\bmp_class.cpp" />
     <ClCompile Include="source\Renderer\camera.cpp" />
@@ -51,6 +52,8 @@
     <ClCompile Include="source\Renderer\Renderer.cpp" />
     <ClCompile Include="source\Renderer\texture.cpp" />
     <ClCompile Include="source\Renderer\tga.cpp" />
+    <ClCompile Include="source\setup.cpp" />
+    <ClCompile Include="source\update.cpp" />
     <ClCompile Include="source\utils\Interpolator.cpp" />
   </ItemGroup>
   <ItemGroup>

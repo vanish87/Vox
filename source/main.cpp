@@ -37,6 +37,7 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
+	/* Initialize any rendering params */
 	int samples = 8;
 	glfwWindowHint(GLFW_SAMPLES, samples);
 	glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
@@ -67,6 +68,7 @@ int main(void)
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(0); // Disable v-sync
 
+	/* Show the window */
 	glfwShowWindow(window);
 
 	/* Create the renderer */
