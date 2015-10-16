@@ -20,6 +20,9 @@ public:
 	void Update(float dt);
 	void Render();
 
+	int GetWindowWidth();
+	int GetWindowHeight();
+
 	void PollEvents();
 	int ShouldCloseWindow();
 
@@ -38,4 +41,7 @@ protected:
 private:
 	/* Private members */
 	GLFWwindow* window;
+
+	int m_windowWidth;
+	int m_windowHeight;
 };

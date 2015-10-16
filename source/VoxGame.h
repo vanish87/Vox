@@ -21,6 +21,9 @@ public:
 	void Update();
 	void Render();
 
+	// Controls
+	void UpdateControls(float dt);
+
 	void KeyPressed(int key, int scancode, int mods);
 	void KeyReleased(int key, int scancode, int mods);
 	void MouseLeftPressed();
@@ -72,12 +75,24 @@ private:
 	float m_deltaTime;
 	float m_fps;
 
-	bool modelWireframe;
-	bool modelTalking;
-	int modelAnimationIndex;
-	bool multiSampling;
-	int weaponIndex;
-	string weaponString;
+	// Keyboard flags
+	bool m_bKeyboardForward;
+	bool m_bKeyboardBackward;
+	bool m_bKeyboardStrafeLeft;
+	bool m_bKeyboardStrafeRight;
+	bool m_bKeyboardLeft;
+	bool m_bKeyboardRight;
+	bool m_bKeyboardUp;
+	bool m_bKeyboardDown;
+	bool m_bKeyboardSpace;
+
+	// Toggle flags
+	bool m_modelWireframe;
+	bool m_modelTalking;
+	int m_modelAnimationIndex;
+	bool m_multiSampling;
+	int m_weaponIndex;
+	string m_weaponString;
 
 	// Singleton instance
 	static VoxGame *c_instance;

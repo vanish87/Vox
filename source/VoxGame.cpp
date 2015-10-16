@@ -87,12 +87,23 @@ void VoxGame::Create()
 	m_pVoxelCharacter->SetWireFrameRender(false);
 	m_pVoxelCharacter->SetCharacterScale(0.08f);
 
-	modelWireframe = false;
-	modelTalking = false;
-	modelAnimationIndex = 0;
-	multiSampling = true;
-	weaponIndex = 0;
-	weaponString = "NONE";
+	// Keyboard flags
+	m_bKeyboardForward = false;
+	m_bKeyboardBackward = false;
+	m_bKeyboardStrafeLeft = false;
+	m_bKeyboardStrafeRight = false;
+	m_bKeyboardLeft = false;
+	m_bKeyboardRight = false;
+	m_bKeyboardUp = false;
+	m_bKeyboardDown = false;
+	m_bKeyboardSpace = false;
+
+	m_modelWireframe = false;
+	m_modelTalking = false;
+	m_modelAnimationIndex = 0;
+	m_multiSampling = true;
+	m_weaponIndex = 0;
+	m_weaponString = "NONE";
 }
 
 void VoxGame::Destroy()
@@ -131,6 +142,9 @@ void VoxGame::Update()
 	m_pVoxelCharacter->Update(m_deltaTime, animationSpeeds);
 	m_pVoxelCharacter->UpdateWeaponTrails(m_deltaTime, worldMatrix);
 
+	// Update controls
+	UpdateControls(m_deltaTime);
+
 	// Update the application and window
 	m_pVoxApplication->Update(m_deltaTime);
 	m_pVoxWindow->Update(m_deltaTime);
@@ -147,11 +161,14 @@ void VoxGame::Render()
 		m_pRenderer->PushMatrix();
 			// Set the default projection mode
 			m_pRenderer->SetProjectionMode(PM_PERSPECTIVE, m_defaultViewport);
+			
+			// Set back culling as default
+			m_pRenderer->SetCullMode(CM_BACK);
 
 			// Set the lookat camera
 			m_pGameCamera->Look();
 
-			if(multiSampling)
+			if(m_multiSampling)
 			{
 				m_pRenderer->EnableMultiSampling();
 			}
@@ -186,12 +203,20 @@ void VoxGame::Render()
 		// ---------------------------------------
 		// Render 2d
 		// ---------------------------------------
+		char lCameraBuff[256];
+		sprintf_s(lCameraBuff, 256, "Pos(%.2f, %.2f, %.2f), Facing(%.2f, %.2f, %.2f) = %.2f, Up(%.2f, %.2f, %.2f) = %.2f, Right(%.2f, %.2f, %.2f) = %.2f",
+			m_pGameCamera->GetPosition().x, m_pGameCamera->GetPosition().y, m_pGameCamera->GetPosition().z,
+			m_pGameCamera->GetFacing().x, m_pGameCamera->GetFacing().y, m_pGameCamera->GetFacing().z, m_pGameCamera->GetFacing().GetLength(),
+			m_pGameCamera->GetUp().x, m_pGameCamera->GetUp().y, m_pGameCamera->GetUp().z, m_pGameCamera->GetUp().GetLength(),
+			m_pGameCamera->GetRight().x, m_pGameCamera->GetRight().y, m_pGameCamera->GetRight().z, m_pGameCamera->GetRight().GetLength());
 		char lFPSBuff[128];
 		sprintf_s(lFPSBuff, "FPS: %.0f  Delta: %.4f", m_fps, m_deltaTime);
 		char lAnimationBuff[128];
-		sprintf_s(lAnimationBuff, "Animation [%i/%i]: %s", modelAnimationIndex, m_pVoxelCharacter->GetNumAnimations() - 1, m_pVoxelCharacter->GetAnimationName(modelAnimationIndex));
+		sprintf_s(lAnimationBuff, "Animation [%i/%i]: %s", m_modelAnimationIndex, m_pVoxelCharacter->GetNumAnimations() - 1, m_pVoxelCharacter->GetAnimationName(m_modelAnimationIndex));
 		char lWeaponBuff[128];
-		sprintf_s(lWeaponBuff, "Weapon: %s", weaponString.c_str());
+		sprintf_s(lWeaponBuff, "Weapon: %s", m_weaponString.c_str());
+
+		int l_nTextHeight = m_pRenderer->GetFreeTypeTextHeight(m_defaultFont, "a");
 
 		m_pRenderer->PushMatrix();
 			glActiveTextureARB(GL_TEXTURE0_ARB);
@@ -201,6 +226,8 @@ void VoxGame::Render()
 			m_pRenderer->SetRenderMode(RM_SOLID);
 			m_pRenderer->SetProjectionMode(PM_2D, m_defaultViewport);
 			m_pRenderer->SetLookAtCamera(Vector3d(0.0f, 0.0f, 50.0f), Vector3d(0.0f, 0.0f, 0.0f), Vector3d(0.0f, 1.0f, 0.0f));
+
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_pVoxWindow->GetWindowHeight()-l_nTextHeight-10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lCameraBuff);
 
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lFPSBuff);
 
@@ -221,88 +248,53 @@ void VoxGame::Render()
 	m_pVoxWindow->Render();
 }
 
+// Controls
+void VoxGame::UpdateControls(float dt)
+{
+	// Keyboard camera movements
+	if (m_bKeyboardForward)
+	{
+		m_pGameCamera->Fly(20.0f * dt);
+	}
+
+	if (m_bKeyboardBackward)
+	{
+		m_pGameCamera->Fly(-20.0f * dt);
+	}
+
+	if (m_bKeyboardStrafeLeft)
+	{
+		m_pGameCamera->Strafe(-20.0f * dt);
+	}
+
+	if (m_bKeyboardStrafeRight)
+	{
+		m_pGameCamera->Strafe(20.0f * dt);
+	}
+}
+
 void VoxGame::KeyPressed(int key, int scancode, int mods)
 {
 	switch(key)
 	{
-		case GLFW_KEY_W:
+		case GLFW_KEY_UP:
 		{
-			modelWireframe = !modelWireframe;
-			m_pVoxelCharacter->SetWireFrameRender(modelWireframe);
+			m_bKeyboardForward = true;
 			break;
 		}
-		case GLFW_KEY_E:
+		case GLFW_KEY_DOWN:
 		{
-			modelTalking = !modelTalking;
-			m_pVoxelCharacter->SetTalkingAnimationEnabled(modelTalking);
+			m_bKeyboardBackward = true;
 			break;
 		}
-		case GLFW_KEY_Q:
+		case GLFW_KEY_LEFT:
 		{
-			modelAnimationIndex++;
-			if (modelAnimationIndex >= m_pVoxelCharacter->GetNumAnimations())
-			{
-				modelAnimationIndex = 0;
-			}
-
-			m_pVoxelCharacter->PlayAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, m_pVoxelCharacter->GetAnimationName(modelAnimationIndex));
+			m_bKeyboardStrafeLeft = true;
 			break;
 		}
-		case GLFW_KEY_A:
+		case GLFW_KEY_RIGHT:
 		{
-			switch (weaponIndex)
-			{
-			case 0:
-			{
-				weaponString = "Sword";
-				m_pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/Sword/Sword.weapon");
-				break;
-			}
-			case 1:
-			{
-				weaponString = "Sword & Shield";
-				m_pVoxelCharacter->LoadLeftWeapon("media/gamedata/weapons/Shield/Shield.weapon");
-				break;
-			}
-			case 2:
-			{
-				weaponString = "Staff";
-				m_pVoxelCharacter->UnloadLeftWeapon();
-				m_pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/Staff/Staff.weapon");
-				break;
-			}
-			case 3:
-			{
-				weaponString = "Bow";
-				m_pVoxelCharacter->UnloadRightWeapon();
-				m_pVoxelCharacter->LoadLeftWeapon("media/gamedata/weapons/Bow/Bow.weapon");
-				break;
-			}
-			case 4:
-			{
-				weaponString = "2HandedSword";
-				m_pVoxelCharacter->UnloadLeftWeapon();
-				m_pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/2HandedSword/2HandedSword.weapon");
-				break;
-			}
-			case 5:
-			{
-				weaponString = "NONE";
-				m_pVoxelCharacter->UnloadLeftWeapon();
-				m_pVoxelCharacter->UnloadRightWeapon();
-				break;
-			}
-			}
-
-			weaponIndex++;
-			if (weaponIndex == 6)
-				weaponIndex = 0;
-
-			break;
-		}
-		case GLFW_KEY_R:
-		{
-			multiSampling = !multiSampling;
+			m_bKeyboardStrafeRight = true;
 			break;
 		}
 	}
@@ -312,6 +304,107 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 {
 	switch(key)
 	{
+		case GLFW_KEY_UP:
+		{
+			m_bKeyboardForward = false;
+			break;
+		}
+		case GLFW_KEY_DOWN:
+		{
+			m_bKeyboardBackward = false;
+			break;
+		}
+		case GLFW_KEY_LEFT:
+		{
+			m_bKeyboardStrafeLeft = false;
+			break;
+		}
+		case GLFW_KEY_RIGHT:
+		{
+			m_bKeyboardStrafeRight = false;
+			break;
+		}
+
+		case GLFW_KEY_W:
+		{
+			m_modelWireframe = !m_modelWireframe;
+			m_pVoxelCharacter->SetWireFrameRender(m_modelWireframe);
+			break;
+		}
+		case GLFW_KEY_E:
+		{
+			m_modelTalking = !m_modelTalking;
+			m_pVoxelCharacter->SetTalkingAnimationEnabled(m_modelTalking);
+			break;
+		}
+		case GLFW_KEY_Q:
+		{
+			m_modelAnimationIndex++;
+			if(m_modelAnimationIndex >= m_pVoxelCharacter->GetNumAnimations())
+			{
+				m_modelAnimationIndex = 0;
+			}
+
+			m_pVoxelCharacter->PlayAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, m_pVoxelCharacter->GetAnimationName(m_modelAnimationIndex));
+			break;
+		}
+		case GLFW_KEY_A:
+		{
+			switch(m_weaponIndex)
+			{
+				case 0:
+				{
+					m_weaponString = "Sword";
+					m_pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/Sword/Sword.weapon");
+					break;
+				}
+				case 1:
+				{
+					m_weaponString = "Sword & Shield";
+					m_pVoxelCharacter->LoadLeftWeapon("media/gamedata/weapons/Shield/Shield.weapon");
+					break;
+				}
+				case 2:
+				{
+					m_weaponString = "Staff";
+					m_pVoxelCharacter->UnloadLeftWeapon();
+					m_pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/Staff/Staff.weapon");
+					break;
+				}
+				case 3:
+				{
+					m_weaponString = "Bow";
+					m_pVoxelCharacter->UnloadRightWeapon();
+					m_pVoxelCharacter->LoadLeftWeapon("media/gamedata/weapons/Bow/Bow.weapon");
+					break;
+				}
+				case 4:
+				{
+					m_weaponString = "2HandedSword";
+					m_pVoxelCharacter->UnloadLeftWeapon();
+					m_pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/2HandedSword/2HandedSword.weapon");
+					break;
+				}
+				case 5:
+				{
+					m_weaponString = "NONE";
+					m_pVoxelCharacter->UnloadLeftWeapon();
+					m_pVoxelCharacter->UnloadRightWeapon();
+					break;
+				}
+			}
+
+			m_weaponIndex++;
+			if(m_weaponIndex == 6)
+				m_weaponIndex = 0;
+
+			break;
+		}
+		case GLFW_KEY_R:
+		{
+			m_multiSampling = !m_multiSampling;
+			break;
+		}
 	}
 }
 

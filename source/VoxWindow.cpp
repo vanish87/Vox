@@ -38,9 +38,9 @@ void VoxWindow::Create()
 	glGetIntegerv(GL_SAMPLES_ARB, &samples);
 
 	/* Create a windowed mode window and it's OpenGL context */
-	int windowWidth = 800;
-	int windowHeight = 800;
-	window = glfwCreateWindow(windowWidth, windowHeight, "Vox", NULL, NULL);
+	m_windowWidth = 800;
+	m_windowHeight = 800;
+	window = glfwCreateWindow(m_windowWidth, m_windowHeight, "Vox", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -53,11 +53,9 @@ void VoxWindow::Create()
 	glfwSetScrollCallback(window, MouseScrollCallback);
 
 	/* Center on screen */
-	int width;
-	int height;
 	const GLFWvidmode* vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-	glfwGetWindowSize(window, &width, &height);
-	glfwSetWindowPos(window, (vidmode->width - width) / 2, (vidmode->height - height) / 2);
+	glfwGetWindowSize(window, &m_windowWidth, &m_windowHeight);
+	glfwSetWindowPos(window, (vidmode->width - m_windowWidth) / 2, (vidmode->height - m_windowHeight) / 2);
 
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
@@ -80,6 +78,16 @@ void VoxWindow::Render()
 {
 	/* Swap front and back buffers */
 	glfwSwapBuffers(window);
+}
+
+int VoxWindow::GetWindowWidth()
+{
+	return m_windowWidth;
+}
+
+int VoxWindow::GetWindowHeight()
+{
+	return m_windowHeight;
 }
 
 void VoxWindow::PollEvents()
