@@ -42,9 +42,9 @@ void VoxGame::Create()
 	m_fps = 0.0f;
 
 	/* Create the renderer */
-	int windowWidth = 800;
-	int windowHeight = 800;
-	m_pRenderer = new Renderer(windowWidth, windowHeight, 32, 8);
+	m_windowWidth = 800;
+	m_windowHeight = 800;
+	m_pRenderer = new Renderer(m_windowWidth, m_windowHeight, 32, 8);
 
 	/* Create cameras */
 	m_pGameCamera = new Camera(m_pRenderer);
@@ -54,7 +54,7 @@ void VoxGame::Create()
 	m_pGameCamera->SetRight(Vector3d(1.0f, 0.0f, 0.0f));
 
 	/* Create viewports */
-	m_pRenderer->CreateViewport(0, 0, windowWidth, windowHeight, 60.0f, &m_defaultViewport);
+	m_pRenderer->CreateViewport(0, 0, m_windowWidth, m_windowHeight, 60.0f, &m_defaultViewport);
 
 	/* Create fonts */
 	m_pRenderer->CreateFreeTypeFont("media/fonts/arial.ttf", 12, &m_defaultFont);
@@ -227,18 +227,18 @@ void VoxGame::Render()
 			m_pRenderer->SetProjectionMode(PM_2D, m_defaultViewport);
 			m_pRenderer->SetLookAtCamera(Vector3d(0.0f, 0.0f, 50.0f), Vector3d(0.0f, 0.0f, 0.0f), Vector3d(0.0f, 1.0f, 0.0f));
 
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_pVoxWindow->GetWindowHeight()-l_nTextHeight-10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lCameraBuff);
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - l_nTextHeight - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lCameraBuff);
 
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lFPSBuff);
 
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, 335.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lAnimationBuff);
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, 335.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lWeaponBuff);
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, (int)(m_windowWidth * 0.5f) - 75.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lAnimationBuff);
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, (int)(m_windowWidth * 0.5f) - 75.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lWeaponBuff);
 
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, 635.0f, 95.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "R - Toggle MSAA");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, 635.0f, 75.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "E - Toggle Talking");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, 635.0f, 55.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "W - Toggle Wireframe");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, 635.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Q - Cycle Animations");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, 635.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "A - Cycle Weapons");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 95.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "R - Toggle MSAA");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 75.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "E - Toggle Talking");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 55.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "W - Toggle Wireframe");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Q - Cycle Animations");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "A - Cycle Weapons");
 		m_pRenderer->PopMatrix();
 
 	// End rendering
@@ -246,6 +246,24 @@ void VoxGame::Render()
 
 	// Render the window
 	m_pVoxWindow->Render();
+}
+
+// Window functionality
+void VoxGame::ResizeWindow(int width, int height)
+{
+	m_windowWidth = width;
+	m_windowHeight = height;
+
+	m_pVoxWindow->ResizeWindow(m_windowWidth, m_windowHeight);
+
+	if(m_pRenderer)
+	{
+		// Let the renderer know we have resized the window
+		m_pRenderer->ResizeWindow(m_windowWidth, m_windowHeight);
+
+		// Resize the main viewport
+		m_pRenderer->ResizeViewport(m_defaultViewport, 0, 0, m_windowWidth, m_windowHeight, 60.0f);
+	}
 }
 
 // Controls

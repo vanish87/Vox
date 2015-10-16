@@ -21,9 +21,11 @@ public:
 	void Update();
 	void Render();
 
+	// Window functionality
+	void ResizeWindow(int width, int height);
+
 	// Controls
 	void UpdateControls(float dt);
-
 	void KeyPressed(int key, int scancode, int mods);
 	void KeyReleased(int key, int scancode, int mods);
 	void MouseLeftPressed();
@@ -61,6 +63,9 @@ private:
 	Camera* m_pGameCamera;
 	QubicleBinaryManager* m_pQubicleBinaryManager;
 	VoxelCharacter* m_pVoxelCharacter;
+
+	int m_windowWidth;
+	int m_windowHeight;
 
 	// View ports
 	unsigned int m_defaultViewport;

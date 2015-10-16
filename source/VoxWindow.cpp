@@ -8,8 +8,10 @@
 #pragma comment (lib, "glu32")
 
 #include "VoxWindow.h"
+#include "VoxGame.h"
 
-// Input callback functionality
+// callback functionality
+void WindowResizeCallback(GLFWwindow* window, int width, int height);
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 void MouseScrollCallback(GLFWwindow* window, double x, double y);
@@ -46,6 +48,9 @@ void VoxWindow::Create()
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
+
+	/* Window callbacks */
+	glfwSetWindowSizeCallback(window, WindowResizeCallback);
 
 	/* Input callbacks */
 	glfwSetKeyCallback(window, KeyCallback);
@@ -90,6 +95,12 @@ int VoxWindow::GetWindowHeight()
 	return m_windowHeight;
 }
 
+void VoxWindow::ResizeWindow(int width, int height)
+{
+	m_windowWidth = width;
+	m_windowHeight = height;
+}
+
 void VoxWindow::PollEvents()
 {
 	/* Poll for and process events */
@@ -99,4 +110,9 @@ void VoxWindow::PollEvents()
 int VoxWindow::ShouldCloseWindow()
 {
 	return glfwWindowShouldClose(window);
+}
+
+void WindowResizeCallback(GLFWwindow* window, int width, int height)
+{
+	VoxGame::GetInstance()->ResizeWindow(width, height);
 }

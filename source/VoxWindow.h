@@ -22,6 +22,7 @@ public:
 
 	int GetWindowWidth();
 	int GetWindowHeight();
+	void ResizeWindow(int width, int height);
 
 	void PollEvents();
 	int ShouldCloseWindow();
