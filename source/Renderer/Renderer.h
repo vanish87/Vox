@@ -36,6 +36,7 @@ using namespace std;
 #include "texture.h"
 #include "material.h"
 #include "light.h"
+#include "framebuffer.h"
 
 
 enum ProjectionMode
@@ -304,6 +305,19 @@ public:
 	int SphereInFrustum(unsigned int frustumid, const Vector3d &point, float radius);
 	int CubeInFrustum(unsigned int frustumid, const Vector3d &center, float x, float y, float z);
 
+	// Frame buffers
+	bool CreateFrameBuffer(int idToResetup, bool diffuse, bool position, bool normal, bool depth, int width, int height, float viewportScale, string name, unsigned int *pId);
+	int GetNumFrameBuffers();
+	FrameBuffer* GetFrameBuffer(string name);
+	FrameBuffer* GetFrameBuffer(int index);
+	int GetFrameBufferIndex(string name);
+	void StartRenderingToFrameBuffer(unsigned int frameBufferId);
+	void StopRenderingToFrameBuffer(unsigned int frameBufferId);
+	unsigned int GetDiffuseTextureFromFrameBuffer(unsigned int frameBufferId);
+	unsigned int GetPositionTextureFromFrameBuffer(unsigned int frameBufferId);
+	unsigned int GetNormalTextureFromFrameBuffer(unsigned int frameBufferId);
+	unsigned int GetDepthTextureFromFrameBuffer(unsigned int frameBufferId);
+
 protected:
 	/* Protected methods */
 
@@ -356,6 +370,9 @@ private:
 
 	// Vertex arrays, for storing static vertex data
 	vector<VertexArray *> m_vertexArrays;
+
+	// Frame buffers
+	vector<FrameBuffer*> m_vFrameBuffers;
 
 	// Matrices
 	Matrix4x4 *m_projection;

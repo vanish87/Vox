@@ -17,6 +17,7 @@
 
 #include "Renderer.h"
 
+// Global initialization functionality
 bool useGLSL = false;
 bool extensions_init = false;
 bool bGeometryShader = false;
@@ -75,6 +76,7 @@ Renderer::~Renderer()
 		delete m_vertexArrays[i];
 		m_vertexArrays[i] = 0;
 	}
+	m_vertexArrays.clear();
 
 	// Delete the viewports
 	for (i = 0; i < m_viewports.size(); i++)
@@ -82,6 +84,7 @@ Renderer::~Renderer()
 		delete m_viewports[i];
 		m_viewports[i] = 0;
 	}
+	m_viewports.clear();
 
 	// Delete the frustums
 	for (i = 0; i < m_frustums.size(); i++)
@@ -89,6 +92,7 @@ Renderer::~Renderer()
 		delete m_frustums[i];
 		m_frustums[i] = 0;
 	}
+	m_frustums.clear();
 
 	// Delete the materials
 	for (i = 0; i < m_materials.size(); i++)
@@ -96,6 +100,7 @@ Renderer::~Renderer()
 		delete m_materials[i];
 		m_materials[i] = 0;
 	}
+	m_materials.clear();
 
 	// Delete the textures
 	for (i = 0; i < m_textures.size(); i++)
@@ -103,6 +108,7 @@ Renderer::~Renderer()
 		delete m_textures[i];
 		m_textures[i] = 0;
 	}
+	m_textures.clear();
 
 	// Delete the lights
 	for (i = 0; i < m_lights.size(); i++)
@@ -110,6 +116,7 @@ Renderer::~Renderer()
 		delete m_lights[i];
 		m_lights[i] = 0;
 	}
+	m_lights.clear();
 
 	// Delete the FreeType fonts
 	for (i = 0; i < m_freetypeFonts.size(); i++)
@@ -117,6 +124,15 @@ Renderer::~Renderer()
 		delete m_freetypeFonts[i];
 		m_freetypeFonts[i] = 0;
 	}
+	m_freetypeFonts.clear();
+
+	// Delete the frame buffers
+	for (i = 0; i < m_vFrameBuffers.size(); i++)
+	{
+		delete m_vFrameBuffers[i];
+		m_vFrameBuffers[i] = 0;
+	}
+	m_vFrameBuffers.clear();
 }
 
 void Renderer::ResizeWindow(int newWidth, int newHeight)
@@ -2001,6 +2017,213 @@ int Renderer::CubeInFrustum(unsigned int frustumid, const Vector3d &center, floa
 	return pFrustum->CubeInFrustum(center, x, y, z);
 }
 
+// Frame buffers
+bool Renderer::CreateFrameBuffer(int idToResetup, bool diffuse, bool position, bool normal, bool depth, int width, int height, float viewportScale, string name, unsigned int *pId)
+{
+	FrameBuffer* pNewFrameBuffer = NULL;
+	if (idToResetup == -1)
+	{
+		pNewFrameBuffer = new FrameBuffer();
+	}
+	else
+	{
+		pNewFrameBuffer = m_vFrameBuffers[idToResetup];
+
+		glDeleteFramebuffersEXT(1, &pNewFrameBuffer->m_fbo);
+
+		glDeleteTextures(1, &pNewFrameBuffer->m_diffuseTexture);
+		glDeleteTextures(1, &pNewFrameBuffer->m_positionTexture);
+		glDeleteTextures(1, &pNewFrameBuffer->m_normalTexture);
+		glDeleteTextures(1, &pNewFrameBuffer->m_depthTexture);
+	}
+
+	pNewFrameBuffer->m_name = name;
+	pNewFrameBuffer->m_diffuseTexture = -1;
+	pNewFrameBuffer->m_positionTexture = -1;
+	pNewFrameBuffer->m_normalTexture = -1;
+	pNewFrameBuffer->m_depthTexture = -1;
+
+	pNewFrameBuffer->m_width = width;
+	pNewFrameBuffer->m_height = height;
+	pNewFrameBuffer->m_viewportScale = viewportScale;
+
+	glGenFramebuffersEXT(1, &pNewFrameBuffer->m_fbo);
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, pNewFrameBuffer->m_fbo);
+
+	if (diffuse)
+	{
+		glGenTextures(1, &pNewFrameBuffer->m_diffuseTexture);
+		glBindTexture(GL_TEXTURE_2D, pNewFrameBuffer->m_diffuseTexture);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F_ARB, (int)(width*viewportScale), (int)(height*viewportScale), 0, GL_RGBA, GL_FLOAT, NULL);
+		glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, pNewFrameBuffer->m_diffuseTexture, 0);
+	}
+
+	if (position)
+	{
+		glGenTextures(1, &pNewFrameBuffer->m_positionTexture);
+		glBindTexture(GL_TEXTURE_2D, pNewFrameBuffer->m_positionTexture);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F_ARB, (int)(width*viewportScale), (int)(height*viewportScale), 0, GL_RGBA, GL_FLOAT, NULL);
+		glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT1_EXT, GL_TEXTURE_2D, pNewFrameBuffer->m_positionTexture, 0);
+	}
+
+	if (normal)
+	{
+		glGenTextures(1, &pNewFrameBuffer->m_normalTexture);
+		glBindTexture(GL_TEXTURE_2D, pNewFrameBuffer->m_normalTexture);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F_ARB, (int)(width*viewportScale), (int)(height*viewportScale), 0, GL_RGBA, GL_FLOAT, NULL);
+		glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT2_EXT, GL_TEXTURE_2D, pNewFrameBuffer->m_normalTexture, 0);
+	}
+
+	if (depth)
+	{
+		glGenTextures(1, &pNewFrameBuffer->m_depthTexture);
+		glBindTexture(GL_TEXTURE_2D, pNewFrameBuffer->m_depthTexture);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE);
+		glTexParameterf(GL_TEXTURE_2D, GL_DEPTH_TEXTURE_MODE, GL_LUMINANCE);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, (int)(width*viewportScale), (int)(height*viewportScale), 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, NULL);
+
+		// Instruct openGL that we won't bind a color texture with the currently binded FBO
+		glDrawBuffer(GL_NONE);
+		glReadBuffer(GL_NONE);
+
+		glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_TEXTURE_2D, pNewFrameBuffer->m_depthTexture, 0);
+	}
+
+	// Check if all worked fine and unbind the FBO
+	GLenum status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
+	if (status != GL_FRAMEBUFFER_COMPLETE_EXT)
+	{
+		//throw new std::exception("Can't initialize an FBO render texture. FBO initialization failed.");
+		return false;
+	}
+
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+
+	if (idToResetup == -1)
+	{
+		// Push the frame buffer onto the list
+		m_vFrameBuffers.push_back(pNewFrameBuffer);
+
+		// Return the frame buffer id
+		*pId = (int)m_vFrameBuffers.size() - 1;
+	}
+	else
+	{
+		*pId = idToResetup;
+	}
+
+	return true;
+}
+
+int Renderer::GetNumFrameBuffers()
+{
+	return (int)m_vFrameBuffers.size();
+}
+
+FrameBuffer* Renderer::GetFrameBuffer(string name)
+{
+	int foundIndex = -1;
+	for (int i = 0; i < (int)m_vFrameBuffers.size(); i++)
+	{
+		if (m_vFrameBuffers[i]->m_name == name)
+		{
+			foundIndex = i;
+		}
+	}
+
+	if (foundIndex == -1)
+		return NULL;
+
+	return GetFrameBuffer(foundIndex);
+}
+
+FrameBuffer* Renderer::GetFrameBuffer(int index)
+{
+	return m_vFrameBuffers[index];
+}
+
+int Renderer::GetFrameBufferIndex(string name)
+{
+	int foundIndex = -1;
+	for (int i = 0; i < (int)m_vFrameBuffers.size(); i++)
+	{
+		if (m_vFrameBuffers[i]->m_name == name)
+		{
+			foundIndex = i;
+		}
+	}
+
+	return foundIndex;
+}
+
+void Renderer::StartRenderingToFrameBuffer(unsigned int frameBufferId)
+{
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, m_vFrameBuffers[frameBufferId]->m_fbo);
+	glPushAttrib(GL_VIEWPORT_BIT);
+	glViewport(0, 0, (int)(m_vFrameBuffers[frameBufferId]->m_width*m_vFrameBuffers[frameBufferId]->m_viewportScale), (int)(m_vFrameBuffers[frameBufferId]->m_height*m_vFrameBuffers[frameBufferId]->m_viewportScale));
+
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+
+	// Clear the render targets
+	GLbitfield clear(0);
+
+	if (m_vFrameBuffers[frameBufferId]->m_diffuseTexture != -1)
+		clear |= GL_COLOR_BUFFER_BIT;
+	if (m_vFrameBuffers[frameBufferId]->m_depthTexture != -1)
+		clear |= GL_DEPTH_BUFFER_BIT;
+	glClear(clear);
+
+	glActiveTextureARB(GL_TEXTURE0_ARB);
+	glEnable(GL_TEXTURE_2D);
+
+	// Specify what to render an start acquiring
+	GLenum buffers[] = { GL_COLOR_ATTACHMENT0_EXT, GL_COLOR_ATTACHMENT1_EXT, GL_COLOR_ATTACHMENT2_EXT };
+	glDrawBuffers(3, buffers);
+}
+
+void Renderer::StopRenderingToFrameBuffer(unsigned int frameBufferId)
+{
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+	glPopAttrib();
+}
+
+unsigned int Renderer::GetDiffuseTextureFromFrameBuffer(unsigned int frameBufferId)
+{
+	return m_vFrameBuffers[frameBufferId]->m_diffuseTexture;
+}
+
+unsigned int Renderer::GetPositionTextureFromFrameBuffer(unsigned int frameBufferId)
+{
+	return m_vFrameBuffers[frameBufferId]->m_positionTexture;
+}
+
+unsigned int Renderer::GetNormalTextureFromFrameBuffer(unsigned int frameBufferId)
+{
+	return m_vFrameBuffers[frameBufferId]->m_normalTexture;
+}
+
+unsigned int Renderer::GetDepthTextureFromFrameBuffer(unsigned int frameBufferId)
+{
+	return m_vFrameBuffers[frameBufferId]->m_depthTexture;
+}
+
+// Global initialization functionality
 bool InitOpenGLExtensions()
 {
 	if (extensions_init)
