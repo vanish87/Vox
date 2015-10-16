@@ -18,6 +18,9 @@
 * Deferred lighting support
 * Lighting effects
 * Particle effects
+* Add weapon trails
+* Weapon trails controlled by the animation file
+ 
 
 # BUGS
 * End of animation frame state - level up animation goes to mummy walk?
