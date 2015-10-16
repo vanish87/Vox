@@ -23,6 +23,13 @@ public:
 
 	void KeyPressed(int key, int scancode, int mods);
 	void KeyReleased(int key, int scancode, int mods);
+	void MouseLeftPressed();
+	void MouseLeftReleased();
+	void MouseRightPressed();
+	void MouseRightReleased();
+	void MouseMiddlePressed();
+	void MouseMiddleReleased();
+	void MouseScroll(double x, double y);
 
 	void PollEvents();
 	bool ShouldClose();

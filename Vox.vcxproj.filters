@@ -242,8 +242,5 @@
     <ClInclude Include="source\VoxWindow.h">
       <Filter>source</Filter>
     </ClInclude>
-    <ClInclude Include="source\VoxInput.h">
-      <Filter>source</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

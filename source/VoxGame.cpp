@@ -315,6 +315,34 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 	}
 }
 
+void VoxGame::MouseLeftPressed()
+{
+}
+
+void VoxGame::MouseLeftReleased()
+{
+}
+
+void VoxGame::MouseRightPressed()
+{
+}
+
+void VoxGame::MouseRightReleased()
+{
+}
+
+void VoxGame::MouseMiddlePressed()
+{
+}
+
+void VoxGame::MouseMiddleReleased()
+{
+}
+
+void VoxGame::MouseScroll(double x, double y)
+{
+}
+
 void VoxGame::PollEvents()
 {
 	m_pVoxWindow->PollEvents();

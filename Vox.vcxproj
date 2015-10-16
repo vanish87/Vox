@@ -89,7 +89,6 @@
     <ClInclude Include="source\utils\Random.h" />
     <ClInclude Include="source\VoxApplication.h" />
     <ClInclude Include="source\VoxGame.h" />
-    <ClInclude Include="source\VoxInput.h" />
     <ClInclude Include="source\VoxWindow.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

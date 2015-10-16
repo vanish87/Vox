@@ -7,12 +7,12 @@
 #pragma comment (lib, "opengl32")
 #pragma comment (lib, "glu32")
 
-#include "VoxInput.h"
 #include "VoxWindow.h"
 
 // Input callback functionality
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
-void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
+void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+void MouseScrollCallback(GLFWwindow* window, double x, double y);
 
 
 VoxWindow::VoxWindow()
@@ -48,8 +48,9 @@ void VoxWindow::Create()
 	}
 
 	/* Input callbacks */
-	glfwSetKeyCallback(window, key_callback);
-	glfwSetMouseButtonCallback(window, mouse_button_callback);
+	glfwSetKeyCallback(window, KeyCallback);
+	glfwSetMouseButtonCallback(window, MouseButtonCallback);
+	glfwSetScrollCallback(window, MouseScrollCallback);
 
 	/* Center on screen */
 	int width;
