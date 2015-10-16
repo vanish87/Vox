@@ -12,3 +12,6 @@
 * Use Cmake for build management.
 * Enable cross platform compiling and support, linux.
 * Enable x64 build configurations.
+* ~~Window and renderer resize functionality.~~
+* ~~Add proper license.~~
+* Better readme file.
