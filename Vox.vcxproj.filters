@@ -126,22 +126,19 @@
     <ClCompile Include="source\Renderer\camera.cpp">
       <Filter>source\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="source\input.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="source\main.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="source\setup.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\update.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\render.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="source\VoxGame.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\VoxApplication.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\VoxWindow.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\VoxInput.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -236,10 +233,16 @@
     <ClInclude Include="source\Renderer\camera.h">
       <Filter>source\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="source\input.h">
+    <ClInclude Include="source\VoxGame.h">
       <Filter>source</Filter>
     </ClInclude>
-    <ClInclude Include="source\VoxGame.h">
+    <ClInclude Include="source\VoxApplication.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\VoxWindow.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\VoxInput.h">
       <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
