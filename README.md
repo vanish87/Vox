@@ -12,10 +12,16 @@ This software is provided under the **GNU General Public License**, more informa
 ## Setup
 Setting up and compiling the project is a fairly simple process.
 
-### Windows
+**Windows**
+
 Visual Studio projects are included.
 
-### Linux
+**Linux**
+
+// Todo //
+
+**Mac**
+
 // Todo //
 
 ## How To Contribute
