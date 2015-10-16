@@ -98,6 +98,7 @@ void VoxGame::Create()
 	m_bKeyboardDown = false;
 	m_bKeyboardSpace = false;
 
+	m_displayHelpText = true;
 	m_modelWireframe = false;
 	m_modelTalking = false;
 	m_modelAnimationIndex = 0;
@@ -227,18 +228,22 @@ void VoxGame::Render()
 			m_pRenderer->SetProjectionMode(PM_2D, m_defaultViewport);
 			m_pRenderer->SetLookAtCamera(Vector3d(0.0f, 0.0f, 50.0f), Vector3d(0.0f, 0.0f, 0.0f), Vector3d(0.0f, 1.0f, 0.0f));
 
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - l_nTextHeight - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lCameraBuff);
-
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lFPSBuff);
 
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, (int)(m_windowWidth * 0.5f) - 75.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lAnimationBuff);
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, (int)(m_windowWidth * 0.5f) - 75.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lWeaponBuff);
+			if(m_displayHelpText)
+			{
+				m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - l_nTextHeight - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lCameraBuff);
 
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 95.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "R - Toggle MSAA");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 75.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "E - Toggle Talking");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 55.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "W - Toggle Wireframe");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Q - Cycle Animations");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "A - Cycle Weapons");
+				m_pRenderer->RenderFreeTypeText(m_defaultFont, (int)(m_windowWidth * 0.5f) - 75.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lAnimationBuff);
+				m_pRenderer->RenderFreeTypeText(m_defaultFont, (int)(m_windowWidth * 0.5f) - 75.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lWeaponBuff);
+
+				m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 115.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "R - Toggle MSAA");
+				m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 95.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "E - Toggle Talking");
+				m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 75.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "W - Toggle Wireframe");
+				m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 55.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Q - Cycle Animations");
+				m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "A - Cycle Weapons");
+				m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Z - Play Animation");
+			}
 		m_pRenderer->PopMatrix();
 
 	// End rendering
@@ -343,6 +348,11 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 			break;
 		}
 
+		case GLFW_KEY_H:
+		{
+			m_displayHelpText = !m_displayHelpText;
+			break;
+		}
 		case GLFW_KEY_W:
 		{
 			m_modelWireframe = !m_modelWireframe;
@@ -363,6 +373,11 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 				m_modelAnimationIndex = 0;
 			}
 
+			m_pVoxelCharacter->PlayAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, m_pVoxelCharacter->GetAnimationName(m_modelAnimationIndex));
+			break;
+		}
+		case GLFW_KEY_Z:
+		{
 			m_pVoxelCharacter->PlayAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, m_pVoxelCharacter->GetAnimationName(m_modelAnimationIndex));
 			break;
 		}

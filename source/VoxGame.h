@@ -92,6 +92,7 @@ private:
 	bool m_bKeyboardSpace;
 
 	// Toggle flags
+	bool m_displayHelpText;
 	bool m_modelWireframe;
 	bool m_modelTalking;
 	int m_modelAnimationIndex;
