@@ -2,7 +2,7 @@
 
 * ~~Create VoxGame VoxWindow and VoxApplication classes.~~
 * ~~Refactor windows functionality into discrete files and using the VoxWindow class.~~
-* Add camera controls and movement to mouse and keyboard controls.
+* ~~Add camera controls and movement to mouse and keyboard controls.~~
 * Add ability to camera class to rotate around point (rotate position around view).
 * Add Shader support to renderer.
 * Add frame buffer support to renderer.
