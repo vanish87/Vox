@@ -24,6 +24,9 @@ public:
 	int GetWindowHeight();
 	void ResizeWindow(int width, int height);
 
+	int GetCursorX();
+	int GetCursorY();
+
 	void PollEvents();
 	int ShouldCloseWindow();
 
@@ -45,4 +48,7 @@ private:
 
 	int m_windowWidth;
 	int m_windowHeight;
+
+	int m_cursorX;
+	int m_cursorY;
 };

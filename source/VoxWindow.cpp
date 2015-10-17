@@ -49,6 +49,10 @@ void VoxWindow::Create()
 		exit(EXIT_FAILURE);
 	}
 
+	/* Set default cursor positions */
+	m_cursorX = 0;
+	m_cursorY = 0;
+
 	/* Window callbacks */
 	glfwSetWindowSizeCallback(window, WindowResizeCallback);
 
@@ -77,6 +81,13 @@ void VoxWindow::Destroy()
 
 void VoxWindow::Update(float dt)
 {
+	// Updae the cursor positions
+	double x;
+	double y;
+	glfwGetCursorPos(window, &x, &y);
+
+	m_cursorX = (int)floor(x);
+	m_cursorY = (int)floor(y);
 }
 
 void VoxWindow::Render()
@@ -99,6 +110,16 @@ void VoxWindow::ResizeWindow(int width, int height)
 {
 	m_windowWidth = width;
 	m_windowHeight = height;
+}
+
+int VoxWindow::GetCursorX()
+{
+	return m_cursorX;
+}
+
+int VoxWindow::GetCursorY()
+{
+	return m_cursorY;
 }
 
 void VoxWindow::PollEvents()

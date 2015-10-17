@@ -60,10 +60,6 @@ void Camera::Strafe(const float speed)
 	m_position.z = m_position.z + m_right.z * speed;
 }
 
-void Camera::Zoom(const float speed)
-{
-}
-
 void Camera::Rotate(const float xAmount, const float yAmount, const float zAmount)
 {
 	Quaternion xRotation;
@@ -85,8 +81,4 @@ void Camera::Look() const {
 	Vector3d view = m_position + m_facing;
 	gluLookAt(m_position.x, m_position.y, m_position.z, view.x, view.y, view.z, m_up.x, m_up.y, m_up.z);
     m_pRenderer->GetFrustum(m_pRenderer->GetActiveViewPort())->SetCamera(m_position, view, m_up);
-}
-
-void Camera::SetLookAtCamera(const Vector3d &pos, const Vector3d &target, const Vector3d &up) {
-	gluLookAt(pos.x, pos.y, pos.z, target.x, target.y, target.z, up.x, up.y, up.z);
 }

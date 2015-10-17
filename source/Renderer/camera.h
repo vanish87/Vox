@@ -22,13 +22,10 @@ public:
 	void Move(const float speed);
 	void Levitate(const float speed);
 	void Strafe(const float speed);
-	void Zoom(const float speed);
 	void Rotate(const float xAmount, const float yAmount, const float zAmount);
 
 	// Viewing
 	void Look() const;
-
-	static void SetLookAtCamera(const Vector3d &pos, const Vector3d &target, const Vector3d &up);
 
 private:
 	Renderer *m_pRenderer;

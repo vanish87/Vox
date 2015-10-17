@@ -109,7 +109,7 @@ void VoxGame::Create()
 	m_pVoxelCharacter->SetWireFrameRender(false);
 	m_pVoxelCharacter->SetCharacterScale(0.08f);
 
-	// Keyboard flags
+	// Keyboard movement
 	m_bKeyboardForward = false;
 	m_bKeyboardBackward = false;
 	m_bKeyboardStrafeLeft = false;
@@ -119,6 +119,14 @@ void VoxGame::Create()
 	m_bKeyboardUp = false;
 	m_bKeyboardDown = false;
 	m_bKeyboardSpace = false;
+
+	// Camera movement
+	m_bCameraRotate = false;
+
+	m_pressedX = 0;
+	m_pressedY = 0;	
+	m_currentX = 0;
+	m_currentY = 0;
 
 	// Toggle flags
 	m_renderModeIndex = 0;
@@ -264,6 +272,16 @@ void VoxGame::Render()
 	m_pVoxWindow->Render();
 }
 
+void VoxGame::PollEvents()
+{
+	m_pVoxWindow->PollEvents();
+}
+
+bool VoxGame::ShouldClose()
+{
+	return (m_pVoxWindow->ShouldCloseWindow() == 1) || (m_pVoxApplication->ShouldCloseApplication() == 1);
+}
+
 // Window functionality
 void VoxGame::ResizeWindow(int width, int height)
 {
@@ -290,25 +308,31 @@ void VoxGame::ResizeWindow(int width, int height)
 // Controls
 void VoxGame::UpdateControls(float dt)
 {
-	// Keyboard camera movements
+	int x = m_pVoxWindow->GetCursorX();
+	int y = m_pVoxWindow->GetCursorY();
+
+	// Keyboard movements
 	if (m_bKeyboardForward)
 	{
 		m_pGameCamera->Fly(20.0f * dt);
 	}
-
 	if (m_bKeyboardBackward)
 	{
 		m_pGameCamera->Fly(-20.0f * dt);
 	}
-
 	if (m_bKeyboardStrafeLeft)
 	{
 		m_pGameCamera->Strafe(-20.0f * dt);
 	}
-
 	if (m_bKeyboardStrafeRight)
 	{
 		m_pGameCamera->Strafe(20.0f * dt);
+	}
+
+	// Camera movements
+	if (m_bCameraRotate)
+	{
+		MouseCameraRotate(x, y);
 	}
 }
 
@@ -474,14 +498,25 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 
 void VoxGame::MouseLeftPressed()
 {
+	m_currentX = m_pVoxWindow->GetCursorX();
+	m_currentY = m_pVoxWindow->GetCursorY();
+	m_pressedX = m_currentX;
+	m_pressedY = m_currentY;
+
+	m_bCameraRotate = true;
 }
 
 void VoxGame::MouseLeftReleased()
 {
+	m_bCameraRotate = false;
 }
 
 void VoxGame::MouseRightPressed()
 {
+	m_currentX = m_pVoxWindow->GetCursorX();
+	m_currentY = m_pVoxWindow->GetCursorY();
+	m_pressedX = m_currentX;
+	m_pressedY = m_currentY;
 }
 
 void VoxGame::MouseRightReleased()
@@ -500,15 +535,35 @@ void VoxGame::MouseScroll(double x, double y)
 {
 }
 
-void VoxGame::PollEvents()
+// Mouse controls
+void VoxGame::MouseCameraRotate(int x, int y)
 {
-	m_pVoxWindow->PollEvents();
+	float changeX;
+	float changeY;
+
+	// The mouse hasn't moved so just return
+	if ((m_currentX == x) && (m_currentY == y))
+	{
+		return;
+	}
+
+	// Calculate and scale down the change in position
+	changeX = (x - m_currentX) / 5.0f;
+	changeY = (y - m_currentY) / 5.0f;
+
+	// Upside down
+	if (m_pGameCamera->GetUp().y < 0.0f)
+	{
+		changeX = -changeX;
+	}
+
+	Vector3d up = m_pGameCamera->GetUp();
+	m_pGameCamera->Rotate(changeY*0.5f, -changeX*0.5f, 0.0f);
+
+	m_currentX = x;
+	m_currentY = y;
 }
 
-bool VoxGame::ShouldClose()
-{
-	return (m_pVoxWindow->ShouldCloseWindow() == 1) || (m_pVoxApplication->ShouldCloseApplication() == 1);
-}
 
 // Rendering
 void VoxGame::RenderSSAOTexture()
@@ -516,7 +571,7 @@ void VoxGame::RenderSSAOTexture()
 	m_pRenderer->PushMatrix();
 		m_pRenderer->SetProjectionMode(PM_2D, m_defaultViewport);
 
-		Camera::SetLookAtCamera(Vector3d(0.0f, 0.0f, 250.0f), Vector3d(0.0f, 0.0f, 0.0f), Vector3d(0.0f, 1.0f, 0.0f));
+		m_pRenderer->SetLookAtCamera(Vector3d(0.0f, 0.0f, 250.0f), Vector3d(0.0f, 0.0f, 0.0f), Vector3d(0.0f, 1.0f, 0.0f));
 
 		// SSAO
 		m_pRenderer->BeginGLSLShader(m_SSAOShader);
@@ -596,7 +651,7 @@ void VoxGame::RenderDebugInformation()
 
 		m_pRenderer->SetRenderMode(RM_SOLID);
 		m_pRenderer->SetProjectionMode(PM_2D, m_defaultViewport);
-		m_pRenderer->SetLookAtCamera(Vector3d(0.0f, 0.0f, 50.0f), Vector3d(0.0f, 0.0f, 0.0f), Vector3d(0.0f, 1.0f, 0.0f));
+		m_pRenderer->SetLookAtCamera(Vector3d(0.0f, 0.0f, 250.0f), Vector3d(0.0f, 0.0f, 0.0f), Vector3d(0.0f, 1.0f, 0.0f));
 
 		m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lFPSBuff);
 

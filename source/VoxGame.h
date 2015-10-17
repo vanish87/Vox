@@ -21,6 +21,9 @@ public:
 	void Update();
 	void Render();
 
+	void PollEvents();
+	bool ShouldClose();
+
 	// Window functionality
 	void ResizeWindow(int width, int height);
 
@@ -36,8 +39,8 @@ public:
 	void MouseMiddleReleased();
 	void MouseScroll(double x, double y);
 
-	void PollEvents();
-	bool ShouldClose();
+	// Mouse controls
+	void MouseCameraRotate(int x, int y);
 
 	// Rendering
 	void RenderSSAOTexture();
@@ -104,6 +107,14 @@ private:
 	bool m_bKeyboardUp;
 	bool m_bKeyboardDown;
 	bool m_bKeyboardSpace;
+
+	// Camera movement
+	bool m_bCameraRotate;
+
+	int m_pressedX;
+	int m_pressedY;
+	int m_currentX;
+	int m_currentY;
 
 	// Toggle flags
 	int m_renderModeIndex;
