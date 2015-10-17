@@ -23,6 +23,7 @@ public:
 	void Levitate(const float speed);
 	void Strafe(const float speed);
 	void Rotate(const float xAmount, const float yAmount, const float zAmount);
+	void RotateAroundPoint(const float xAmount, const float yAmount, const float zoomAmount);
 
 	// Viewing
 	void Look() const;
