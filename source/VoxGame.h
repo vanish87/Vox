@@ -106,6 +106,8 @@ private:
 	bool m_bKeyboardSpace;
 
 	// Toggle flags
+	int m_renderModeIndex;
+	string m_renderModeString;
 	bool m_displayHelpText;
 	bool m_modelWireframe;
 	bool m_modelTalking;

@@ -121,6 +121,8 @@ void VoxGame::Create()
 	m_bKeyboardSpace = false;
 
 	// Toggle flags
+	m_renderModeIndex = 0;
+	m_renderModeString = "SSAO";
 	m_displayHelpText = true;
 	m_modelWireframe = false;
 	m_modelTalking = false;
@@ -179,9 +181,11 @@ void VoxGame::Render()
 	// Begin rendering
 	m_pRenderer->BeginScene(true, true, true);
 
-
 		// SSAO frame buffer rendering start
-		m_pRenderer->StartRenderingToFrameBuffer(m_SSAOFrameBuffer);
+		if (m_renderModeIndex == 0)
+		{
+			m_pRenderer->StartRenderingToFrameBuffer(m_SSAOFrameBuffer);
+		}
 
 		// ---------------------------------------
 		// Render 3d
@@ -239,10 +243,16 @@ void VoxGame::Render()
 		m_pRenderer->PopMatrix();
 
 		// SSAO frame buffer rendering stop
-		m_pRenderer->StopRenderingToFrameBuffer(m_SSAOFrameBuffer);
+		if (m_renderModeIndex == 0)
+		{
+			m_pRenderer->StopRenderingToFrameBuffer(m_SSAOFrameBuffer);
+		}
 
 		// Render the SSAO texture
-		RenderSSAOTexture();
+		if(m_renderModeIndex == 0)
+		{
+			RenderSSAOTexture();
+		}
 
 		// Render debug information and text
 		RenderDebugInformation();
@@ -387,6 +397,26 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 			m_pVoxelCharacter->PlayAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, m_pVoxelCharacter->GetAnimationName(m_modelAnimationIndex));
 			break;
 		}
+		case GLFW_KEY_R:
+		{
+			m_multiSampling = !m_multiSampling;
+			break;
+		}
+		case GLFW_KEY_T:
+		{
+			m_renderModeIndex++;
+			if(m_renderModeIndex >= 2)
+			{
+				m_renderModeIndex = 0;
+			}
+
+			if (m_renderModeIndex == 0)
+				m_renderModeString = "SSAO";
+			if (m_renderModeIndex == 1)
+				m_renderModeString = "Normal";
+
+			break;
+		}
 		case GLFW_KEY_A:
 		{
 			switch(m_weaponIndex)
@@ -437,11 +467,6 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 			if(m_weaponIndex == 6)
 				m_weaponIndex = 0;
 
-			break;
-		}
-		case GLFW_KEY_R:
-		{
-			m_multiSampling = !m_multiSampling;
 			break;
 		}
 	}
@@ -582,13 +607,14 @@ void VoxGame::RenderDebugInformation()
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, (int)(m_windowWidth * 0.5f) - 75.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lAnimationBuff);
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, (int)(m_windowWidth * 0.5f) - 75.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lWeaponBuff);
 
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 135.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "H - Toggle HelpText");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 115.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "R - Toggle MSAA");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 95.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "E - Toggle Talking");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 75.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "W - Toggle Wireframe");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 55.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Q - Cycle Animations");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "A - Cycle Weapons");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Z - Play Animation");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 155.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "T - Render Mode [%s]", m_renderModeString.c_str());
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 135.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "R - Toggle MSAA [%s]", m_multiSampling ? "On" : "Off");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 115.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "E - Toggle Talking [%s]", m_modelTalking ? "On" : "Off");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 95.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "H - Toggle HelpText");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 75.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "W - Toggle Wireframe");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 55.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Q - Cycle Animations");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "A - Cycle Weapons");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Z - Play Animation");
 		}
 	m_pRenderer->PopMatrix();
 }
