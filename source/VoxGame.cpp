@@ -27,6 +27,11 @@ VoxGame* VoxGame::GetInstance()
 
 void VoxGame::Create()
 {
+	m_pRenderer = NULL;
+	m_pGameCamera = NULL;
+	m_pQubicleBinaryManager = NULL;
+	m_pVoxelCharacter = NULL;
+
 	m_pVoxApplication = new VoxApplication();
 	m_pVoxWindow = new VoxWindow();
 
@@ -58,6 +63,23 @@ void VoxGame::Create()
 
 	/* Create fonts */
 	m_pRenderer->CreateFreeTypeFont("media/fonts/arial.ttf", 12, &m_defaultFont);
+
+	/* Create lights */
+
+	/* Create materials */
+
+	/* Create the frame buffers */
+	bool frameBufferCreated = false;
+	frameBufferCreated = m_pRenderer->CreateFrameBuffer(-1, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "SSAO", &m_SSAOFrameBuffer);
+	frameBufferCreated = m_pRenderer->CreateFrameBuffer(-1, true, true, true, true, m_windowWidth, m_windowHeight, 5.0f, "Shadow", &m_shadowFrameBuffer);
+
+	/* Create the shaders */
+	m_defaultShader = -1;
+	m_SSAOShader = -1;
+	m_shadowShader = -1;
+	m_pRenderer->LoadGLSLShader("media/shaders/default.vertex", "media/shaders/default.pixel", &m_defaultShader);
+	m_pRenderer->LoadGLSLShader("media/shaders/fullscreen/SSAO.vertex", "media/shaders/fullscreen/SSAO.pixel", &m_SSAOShader);
+	m_pRenderer->LoadGLSLShader("media/shaders/shadow.vertex", "media/shaders/shadow.pixel", &m_shadowShader);
 
 	/* Create the qubicle binary file manager */
 	m_pQubicleBinaryManager = new QubicleBinaryManager(m_pRenderer);
@@ -98,6 +120,7 @@ void VoxGame::Create()
 	m_bKeyboardDown = false;
 	m_bKeyboardSpace = false;
 
+	// Toggle flags
 	m_displayHelpText = true;
 	m_modelWireframe = false;
 	m_modelTalking = false;
@@ -156,6 +179,10 @@ void VoxGame::Render()
 	// Begin rendering
 	m_pRenderer->BeginScene(true, true, true);
 
+
+		// SSAO frame buffer rendering start
+		m_pRenderer->StartRenderingToFrameBuffer(m_SSAOFrameBuffer);
+
 		// ---------------------------------------
 		// Render 3d
 		// ---------------------------------------
@@ -169,6 +196,7 @@ void VoxGame::Render()
 			// Set the lookat camera
 			m_pGameCamera->Look();
 
+			// Multisampling MSAA
 			if(m_multiSampling)
 			{
 				m_pRenderer->EnableMultiSampling();
@@ -177,6 +205,8 @@ void VoxGame::Render()
 			{
 				m_pRenderer->DisableMultiSampling();
 			}
+
+			m_pRenderer->BeginGLSLShader(m_defaultShader);
 
 			Matrix4x4 worldMatrix;
 
@@ -189,6 +219,8 @@ void VoxGame::Render()
 				m_pVoxelCharacter->Render(false, false, false, OulineColour, false);
 			m_pRenderer->PopMatrix();
 
+			m_pRenderer->EndGLSLShader(m_defaultShader);
+
 			// Render the voxel character Face
 			m_pRenderer->PushMatrix();
 				m_pRenderer->MultiplyWorldMatrix(worldMatrix);
@@ -198,54 +230,22 @@ void VoxGame::Render()
 
 				m_pVoxelCharacter->RenderFace();
 			m_pRenderer->PopMatrix();
-
 		m_pRenderer->PopMatrix();
-
-		// ---------------------------------------
-		// Render 2d
-		// ---------------------------------------
-		char lCameraBuff[256];
-		sprintf_s(lCameraBuff, 256, "Pos(%.2f, %.2f, %.2f), Facing(%.2f, %.2f, %.2f) = %.2f, Up(%.2f, %.2f, %.2f) = %.2f, Right(%.2f, %.2f, %.2f) = %.2f",
-			m_pGameCamera->GetPosition().x, m_pGameCamera->GetPosition().y, m_pGameCamera->GetPosition().z,
-			m_pGameCamera->GetFacing().x, m_pGameCamera->GetFacing().y, m_pGameCamera->GetFacing().z, m_pGameCamera->GetFacing().GetLength(),
-			m_pGameCamera->GetUp().x, m_pGameCamera->GetUp().y, m_pGameCamera->GetUp().z, m_pGameCamera->GetUp().GetLength(),
-			m_pGameCamera->GetRight().x, m_pGameCamera->GetRight().y, m_pGameCamera->GetRight().z, m_pGameCamera->GetRight().GetLength());
-		char lFPSBuff[128];
-		sprintf_s(lFPSBuff, "FPS: %.0f  Delta: %.4f", m_fps, m_deltaTime);
-		char lAnimationBuff[128];
-		sprintf_s(lAnimationBuff, "Animation [%i/%i]: %s", m_modelAnimationIndex, m_pVoxelCharacter->GetNumAnimations() - 1, m_pVoxelCharacter->GetAnimationName(m_modelAnimationIndex));
-		char lWeaponBuff[128];
-		sprintf_s(lWeaponBuff, "Weapon: %s", m_weaponString.c_str());
-
-		int l_nTextHeight = m_pRenderer->GetFreeTypeTextHeight(m_defaultFont, "a");
 
 		m_pRenderer->PushMatrix();
-			glActiveTextureARB(GL_TEXTURE0_ARB);
-			glDisable(GL_TEXTURE_2D);
-			glBindTexture(GL_TEXTURE_2D, 0);
-
-			m_pRenderer->SetRenderMode(RM_SOLID);
-			m_pRenderer->SetProjectionMode(PM_2D, m_defaultViewport);
-			m_pRenderer->SetLookAtCamera(Vector3d(0.0f, 0.0f, 50.0f), Vector3d(0.0f, 0.0f, 0.0f), Vector3d(0.0f, 1.0f, 0.0f));
-
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lFPSBuff);
-
-			if(m_displayHelpText)
-			{
-				m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - l_nTextHeight - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lCameraBuff);
-
-				m_pRenderer->RenderFreeTypeText(m_defaultFont, (int)(m_windowWidth * 0.5f) - 75.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lAnimationBuff);
-				m_pRenderer->RenderFreeTypeText(m_defaultFont, (int)(m_windowWidth * 0.5f) - 75.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lWeaponBuff);
-
-				m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 135.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "H - Toggle HelpText");
-				m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 115.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "R - Toggle MSAA");
-				m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 95.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "E - Toggle Talking");
-				m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 75.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "W - Toggle Wireframe");
-				m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 55.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Q - Cycle Animations");
-				m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "A - Cycle Weapons");
-				m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Z - Play Animation");
-			}
+			// ---------------------------------------
+			// Render 2d
+			// ---------------------------------------
 		m_pRenderer->PopMatrix();
+
+		// SSAO frame buffer rendering stop
+		m_pRenderer->StopRenderingToFrameBuffer(m_SSAOFrameBuffer);
+
+		// Render the SSAO texture
+		RenderSSAOTexture();
+
+		// Render debug information and text
+		RenderDebugInformation();
 
 	// End rendering
 	m_pRenderer->EndScene();
@@ -269,6 +269,11 @@ void VoxGame::ResizeWindow(int width, int height)
 
 		// Resize the main viewport
 		m_pRenderer->ResizeViewport(m_defaultViewport, 0, 0, m_windowWidth, m_windowHeight, 60.0f);
+
+		// Resize the frame buffers
+		bool frameBufferResize = false;
+		frameBufferResize = m_pRenderer->CreateFrameBuffer(m_SSAOFrameBuffer, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "SSAO", &m_SSAOFrameBuffer);
+		frameBufferResize = m_pRenderer->CreateFrameBuffer(m_shadowFrameBuffer, true, true, true, true, m_windowWidth, m_windowHeight, 5.0f, "Shadow", &m_shadowFrameBuffer);
 	}
 }
 
@@ -478,4 +483,112 @@ void VoxGame::PollEvents()
 bool VoxGame::ShouldClose()
 {
 	return (m_pVoxWindow->ShouldCloseWindow() == 1) || (m_pVoxApplication->ShouldCloseApplication() == 1);
+}
+
+// Rendering
+void VoxGame::RenderSSAOTexture()
+{
+	m_pRenderer->PushMatrix();
+		m_pRenderer->SetProjectionMode(PM_2D, m_defaultViewport);
+
+		Camera::SetLookAtCamera(Vector3d(0.0f, 0.0f, 250.0f), Vector3d(0.0f, 0.0f, 0.0f), Vector3d(0.0f, 1.0f, 0.0f));
+
+		// SSAO
+		m_pRenderer->BeginGLSLShader(m_SSAOShader);
+		glShader* pShader = m_pRenderer->GetShader(m_SSAOShader);
+
+		unsigned int textureId = glGetUniformLocationARB(pShader->GetProgramObject(), "bgl_DepthTexture");
+		glActiveTextureARB(GL_TEXTURE0_ARB);
+		m_pRenderer->BindRawTextureId(m_pRenderer->GetDepthTextureFromFrameBuffer(m_SSAOFrameBuffer));
+		glUniform1iARB(textureId, 0);
+
+		unsigned int textureId2 = glGetUniformLocationARB(pShader->GetProgramObject(), "bgl_RenderedTexture");
+		glActiveTextureARB(GL_TEXTURE1_ARB);
+		m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_SSAOFrameBuffer));
+		glUniform1iARB(textureId2, 1);
+
+		unsigned int textureId3 = glGetUniformLocationARB(pShader->GetProgramObject(), "light");
+		glActiveTextureARB(GL_TEXTURE2_ARB);
+		glDisable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		pShader->setUniform1i("screenWidth", (int)(m_windowWidth*5.0f));
+		pShader->setUniform1i("screenHeight", (int)(m_windowHeight*5.0f));
+		pShader->setUniform1f("nearZ", 0.01f);
+		pShader->setUniform1f("farZ", 1000.0f);
+
+		pShader->setUniform1f("samplingMultiplier", 1.5f);
+
+		m_pRenderer->SetRenderMode(RM_TEXTURED);
+			m_pRenderer->EnableImmediateMode(IM_QUADS);
+			m_pRenderer->ImmediateTextureCoordinate(0.0f, 0.0f);
+			m_pRenderer->ImmediateVertex(0.0f, 0.0f, 1.0f);
+			m_pRenderer->ImmediateTextureCoordinate(1.0f, 0.0f);
+			m_pRenderer->ImmediateVertex((float)m_windowWidth, 0.0f, 1.0f);
+			m_pRenderer->ImmediateTextureCoordinate(1.0f, 1.0f);
+			m_pRenderer->ImmediateVertex((float)m_windowWidth, (float)m_windowHeight, 1.0f);
+			m_pRenderer->ImmediateTextureCoordinate(0.0f, 1.0f);
+			m_pRenderer->ImmediateVertex(0.0f, (float)m_windowHeight, 1.0f);
+		m_pRenderer->DisableImmediateMode();
+
+		glActiveTextureARB(GL_TEXTURE2_ARB);
+		glDisable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glActiveTextureARB(GL_TEXTURE1_ARB);
+		glDisable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glActiveTextureARB(GL_TEXTURE0_ARB);
+		glDisable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		m_pRenderer->EndGLSLShader(m_SSAOShader);
+	m_pRenderer->PopMatrix();
+}
+
+void VoxGame::RenderDebugInformation()
+{
+	char lCameraBuff[256];
+	sprintf_s(lCameraBuff, 256, "Pos(%.2f, %.2f, %.2f), Facing(%.2f, %.2f, %.2f) = %.2f, Up(%.2f, %.2f, %.2f) = %.2f, Right(%.2f, %.2f, %.2f) = %.2f",
+		m_pGameCamera->GetPosition().x, m_pGameCamera->GetPosition().y, m_pGameCamera->GetPosition().z,
+		m_pGameCamera->GetFacing().x, m_pGameCamera->GetFacing().y, m_pGameCamera->GetFacing().z, m_pGameCamera->GetFacing().GetLength(),
+		m_pGameCamera->GetUp().x, m_pGameCamera->GetUp().y, m_pGameCamera->GetUp().z, m_pGameCamera->GetUp().GetLength(),
+		m_pGameCamera->GetRight().x, m_pGameCamera->GetRight().y, m_pGameCamera->GetRight().z, m_pGameCamera->GetRight().GetLength());
+	char lFPSBuff[128];
+	sprintf_s(lFPSBuff, "FPS: %.0f  Delta: %.4f", m_fps, m_deltaTime);
+	char lAnimationBuff[128];
+	sprintf_s(lAnimationBuff, "Animation [%i/%i]: %s", m_modelAnimationIndex, m_pVoxelCharacter->GetNumAnimations() - 1, m_pVoxelCharacter->GetAnimationName(m_modelAnimationIndex));
+	char lWeaponBuff[128];
+	sprintf_s(lWeaponBuff, "Weapon: %s", m_weaponString.c_str());
+
+	int l_nTextHeight = m_pRenderer->GetFreeTypeTextHeight(m_defaultFont, "a");
+
+	m_pRenderer->PushMatrix();
+		glActiveTextureARB(GL_TEXTURE0_ARB);
+		glDisable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		m_pRenderer->SetRenderMode(RM_SOLID);
+		m_pRenderer->SetProjectionMode(PM_2D, m_defaultViewport);
+		m_pRenderer->SetLookAtCamera(Vector3d(0.0f, 0.0f, 50.0f), Vector3d(0.0f, 0.0f, 0.0f), Vector3d(0.0f, 1.0f, 0.0f));
+
+		m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lFPSBuff);
+
+		if (m_displayHelpText)
+		{
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - l_nTextHeight - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lCameraBuff);
+
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, (int)(m_windowWidth * 0.5f) - 75.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lAnimationBuff);
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, (int)(m_windowWidth * 0.5f) - 75.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lWeaponBuff);
+
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 135.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "H - Toggle HelpText");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 115.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "R - Toggle MSAA");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 95.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "E - Toggle Talking");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 75.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "W - Toggle Wireframe");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 55.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Q - Cycle Animations");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "A - Cycle Weapons");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 130.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Z - Play Animation");
+		}
+	m_pRenderer->PopMatrix();
 }

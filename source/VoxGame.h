@@ -1,13 +1,13 @@
 #pragma once
 
+#include "Renderer/Renderer.h"
+#include "Renderer/camera.h"
+#include "models/VoxelCharacter.h"
+
 #include <windows.h>
 
 #include "VoxApplication.h"
 #include "VoxWindow.h"
-
-#include "Renderer/Renderer.h"
-#include "Renderer/camera.h"
-#include "models/VoxelCharacter.h"
 
 
 class VoxGame
@@ -39,6 +39,10 @@ public:
 	void PollEvents();
 	bool ShouldClose();
 
+	// Rendering
+	void RenderSSAOTexture();
+	void RenderDebugInformation();
+
 protected:
 	/* Protected methods */
 	VoxGame() {};
@@ -64,6 +68,7 @@ private:
 	QubicleBinaryManager* m_pQubicleBinaryManager;
 	VoxelCharacter* m_pVoxelCharacter;
 
+	// Window width and height
 	int m_windowWidth;
 	int m_windowHeight;
 
@@ -72,6 +77,15 @@ private:
 
 	// Fonts
 	unsigned int m_defaultFont;
+
+	// Frame buffers
+	unsigned int m_SSAOFrameBuffer;
+	unsigned int m_shadowFrameBuffer;
+
+	// Shaders
+	unsigned int m_defaultShader;
+	unsigned int m_SSAOShader;
+	unsigned int m_shadowShader;
 
 	// FPS and deltatime
 	LARGE_INTEGER m_fpsPreviousTicks;

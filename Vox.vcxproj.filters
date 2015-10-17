@@ -141,6 +141,9 @@
     <ClCompile Include="source\VoxInput.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="source\Renderer\glsl.cpp">
+      <Filter>source\Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\glew\include\GL\glew.h">
@@ -243,6 +246,9 @@
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="source\Renderer\framebuffer.h">
+      <Filter>source\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Renderer\glsl.h">
       <Filter>source\Renderer</Filter>
     </ClInclude>
   </ItemGroup>

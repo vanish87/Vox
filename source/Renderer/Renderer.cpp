@@ -17,16 +17,27 @@
 
 #include "Renderer.h"
 
-// Global initialization functionality
-bool useGLSL = false;
-bool extensions_init = false;
-bool bGeometryShader = false;
-bool bGPUShader4 = false;
-bool HasGeometryShaderSupport();
-bool HasGLSLSupport();
-bool InitOpenGLExtensions();
-bool HasShaderModel4();
+// GL ERROR CHECK
+int CheckGLErrors(char *file, int line)
+{
+	GLenum glErr;
+	int    retCode = 0;
 
+	glErr = glGetError();
+	while (glErr != GL_NO_ERROR)
+	{
+		const GLubyte* sError = gluErrorString(glErr);
+
+		if (sError)
+			cout << "GL Error #" << glErr << "(" << gluErrorString(glErr) << ") " << " in File " << file << " at line: " << line << endl;
+		else
+			cout << "GL Error #" << glErr << " (no message available)" << " in File " << file << " at line: " << line << endl;
+
+		retCode = 1;
+		glErr = glGetError();
+	}
+	return retCode;
+}
 
 Renderer::Renderer(int width, int height, int depthBits, int stencilBits)
 {
@@ -133,6 +144,14 @@ Renderer::~Renderer()
 		m_vFrameBuffers[i] = 0;
 	}
 	m_vFrameBuffers.clear();
+
+	// Delete the shaders
+	for (i = 0; i < m_shaders.size(); i++)
+	{
+		delete m_shaders[i];
+		m_shaders[i] = 0;
+	}
+	m_shaders.clear();
 }
 
 void Renderer::ResizeWindow(int newWidth, int newHeight)
@@ -612,7 +631,7 @@ void Renderer::SetLookAtCamera(Vector3d pos, Vector3d target, Vector3d up)
 // Transparency
 void Renderer::EnableTransparency(BlendFunction source, BlendFunction destination)
 {
-	glDisable(GL_DEPTH_WRITEMASK);
+	//glDisable(GL_DEPTH_WRITEMASK);
 	glEnable(GL_BLEND);
 	glBlendFunc(GetBlendEnum(source), GetBlendEnum(destination));
 }
@@ -620,7 +639,7 @@ void Renderer::EnableTransparency(BlendFunction source, BlendFunction destinatio
 void Renderer::DisableTransparency()
 {
 	glDisable(GL_BLEND);
-	glEnable(GL_DEPTH_WRITEMASK);
+	//glEnable(GL_DEPTH_WRITEMASK);
 }
 
 GLenum Renderer::GetBlendEnum(BlendFunction flag)
@@ -2223,111 +2242,39 @@ unsigned int Renderer::GetDepthTextureFromFrameBuffer(unsigned int frameBufferId
 	return m_vFrameBuffers[frameBufferId]->m_depthTexture;
 }
 
-// Global initialization functionality
-bool InitOpenGLExtensions()
+// Shaders
+bool Renderer::LoadGLSLShader(char* vertexFile, char* fragmentFile, unsigned int *pID)
 {
-	if (extensions_init)
+	glShader* lpShader = NULL;
+
+	// Load the shader
+	lpShader = ShaderManager.loadfromFile(vertexFile, fragmentFile);  // load (and compile, link) from file
+
+	if (lpShader != NULL)
+	{
+		// Push the vertex array onto the list
+		m_shaders.push_back(lpShader);
+
+		// Return the vertex array id
+		*pID = (int)m_shaders.size() - 1;
+
 		return true;
-
-	extensions_init = true;
-
-	glewExperimental = GL_TRUE;
-	GLenum err = glewInit();
-
-	if (GLEW_OK != err)
-	{
-		cout << "Error:" << glewGetErrorString(err) << endl;
-		extensions_init = false;
-		return false;
 	}
 
-	cout << "OpenGL Vendor: " << (char*)glGetString(GL_VENDOR) << "\n";
-	cout << "OpenGL Renderer: " << (char*)glGetString(GL_RENDERER) << "\n";
-	cout << "OpenGL Version: " << (char*)glGetString(GL_VERSION) << "\n";
-	//cout << "OpenGL Extensions:\n" << (char*) glGetString(GL_EXTENSIONS) << "\n\n";
-
-	HasGLSLSupport();
-
-	return true;
+	return false;
 }
 
-// OpenGL Extensions
-bool HasGLSLSupport()
+void Renderer::BeginGLSLShader(unsigned int shaderID)
 {
-	bGeometryShader = HasGeometryShaderSupport();
-	bGPUShader4 = HasShaderModel4();
-
-	if (useGLSL)
-		return true;  // already initialized and GLSL is available
-	useGLSL = true;
-
-	if (!extensions_init)
-		InitOpenGLExtensions();  // extensions were not yet initialized!!
-
-
-	if (GLEW_VERSION_2_0)
-	{
-		cout << "OpenGL 2.0 (or higher) is available!" << endl;
-	}
-	else if (GLEW_VERSION_1_5)
-	{
-		cout << "OpenGL 1.5 core functions are available" << endl;
-	}
-	else if (GLEW_VERSION_1_4)
-	{
-		cout << "OpenGL 1.4 core functions are available" << endl;
-	}
-	else if (GLEW_VERSION_1_3)
-	{
-		cout << "OpenGL 1.3 core functions are available" << endl;
-	}
-	else if (GLEW_VERSION_1_2)
-	{
-		cout << "OpenGL 1.2 core functions are available" << endl;
-	}
-
-	if (GL_TRUE != glewGetExtension("GL_ARB_fragment_shader"))
-	{
-		cout << "[WARNING] GL_ARB_fragment_shader extension is not available!\n";
-		useGLSL = false;
-	}
-
-	if (GL_TRUE != glewGetExtension("GL_ARB_vertex_shader"))
-	{
-		cout << "[WARNING] GL_ARB_vertex_shader extension is not available!\n";
-		useGLSL = false;
-	}
-
-	if (GL_TRUE != glewGetExtension("GL_ARB_shader_objects"))
-	{
-		cout << "[WARNING] GL_ARB_shader_objects extension is not available!\n";
-		useGLSL = false;
-	}
-
-	if (useGLSL)
-	{
-		cout << "OpenGL Shading Language is available!\n\n";
-	}
-	else
-	{
-		cout << "OpenGL Shading Language is not available...\n\n";
-	}
-
-	return useGLSL;
+	m_shaders[shaderID]->begin();
 }
 
-bool HasGeometryShaderSupport()
+void Renderer::EndGLSLShader(unsigned int shaderID)
 {
-	if (GL_TRUE != glewGetExtension("GL_EXT_geometry_shader4"))
-		return false;
-
-	return true;
+	m_shaders[shaderID]->end();
 }
 
-bool HasShaderModel4()
+glShader* Renderer::GetShader(unsigned int shaderID)
 {
-	if (GL_TRUE != glewGetExtension("GL_EXT_gpu_shader4"))
-		return false;
-
-	return true;
+	return m_shaders[shaderID];
 }

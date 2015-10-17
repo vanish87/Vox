@@ -46,6 +46,7 @@
     <ClCompile Include="source\Renderer\camera.cpp" />
     <ClCompile Include="source\Renderer\colour.cpp" />
     <ClCompile Include="source\Renderer\frustum.cpp" />
+    <ClCompile Include="source\Renderer\glsl.cpp" />
     <ClCompile Include="source\Renderer\mesh.cpp" />
     <ClCompile Include="source\Renderer\Renderer.cpp" />
     <ClCompile Include="source\Renderer\texture.cpp" />
@@ -78,6 +79,7 @@
     <ClInclude Include="source\Renderer\colour.h" />
     <ClInclude Include="source\Renderer\framebuffer.h" />
     <ClInclude Include="source\Renderer\frustum.h" />
+    <ClInclude Include="source\Renderer\glsl.h" />
     <ClInclude Include="source\Renderer\light.h" />
     <ClInclude Include="source\Renderer\material.h" />
     <ClInclude Include="source\Renderer\mesh.h" />

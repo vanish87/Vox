@@ -15,6 +15,8 @@
 
 #pragma once
 
+#include "glsl.h"
+
 #include "../Maths/3dmaths.h"
 #include "../freetype/freetypefont.h"
 
@@ -318,6 +320,12 @@ public:
 	unsigned int GetNormalTextureFromFrameBuffer(unsigned int frameBufferId);
 	unsigned int GetDepthTextureFromFrameBuffer(unsigned int frameBufferId);
 
+	// Shaders
+	bool LoadGLSLShader(char* vertexFile, char* fragmentFile, unsigned int *pID);
+	void BeginGLSLShader(unsigned int shaderID);
+	void EndGLSLShader(unsigned int shaderID);
+	glShader* GetShader(unsigned int shaderID);
+
 protected:
 	/* Protected methods */
 
@@ -374,6 +382,10 @@ private:
 	// Frame buffers
 	vector<FrameBuffer*> m_vFrameBuffers;
 
+	// Shaders
+	glShaderManager ShaderManager;
+	vector<glShader *> m_shaders;
+
 	// Matrices
 	Matrix4x4 *m_projection;
 	Matrix4x4  m_view;
@@ -386,3 +398,6 @@ private:
 	static const int NAME_PICKING_BUFFER = 64;
 	unsigned int m_SelectBuffer[NAME_PICKING_BUFFER];
 };
+
+int CheckGLErrors(char *file, int line);
+#define CHECK_GL_ERRORS() CheckGLErrors(__FILE__, __LINE__)
