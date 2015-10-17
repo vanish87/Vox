@@ -28,4 +28,4 @@ Visual Studio projects are included.
 // Todo //
 
 # Screenshots
-![Vox](http://i.imgur.com/TSPcgk2.png)
+![Vox](http://i.imgur.com/xsrn6zr.png)
