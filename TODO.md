@@ -26,3 +26,4 @@
 # BUGS
 * End of animation frame state - level up animation goes to mummy walk?
 * Weapon trails are not frame rate independent.
+* Fix block particle lighting params, reworkd shader for lighting.
