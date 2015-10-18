@@ -109,6 +109,12 @@ enum ImmediateModePrimitive
 	IM_POLYGON
 };
 
+enum FrontFaceDirection
+{
+	FrontFaceDirection_CW = 0,
+	FrontFaceDirection_CCW,
+};
+
 struct OGLPositionVertex
 {
 	float x, y, z; // Position.
@@ -167,6 +173,7 @@ public:
 	CullMode GetCullMode();
 	void SetLineWidth(float width);
 	void SetPointSize(float width);
+	void SetFrontFaceDirection(FrontFaceDirection direction);
 
 	// Projection
 	bool SetProjectionMode(ProjectionMode mode, int viewPort);

@@ -400,6 +400,18 @@ void Renderer::SetPointSize(float width)
 	glPointSize(width);
 }
 
+void Renderer::SetFrontFaceDirection(FrontFaceDirection direction)
+{
+	if(direction == FrontFaceDirection_CW)
+	{
+		glFrontFace(GL_CW);
+	}
+	else if (direction == FrontFaceDirection_CCW)
+	{
+		glFrontFace(GL_CCW);
+	}
+}
+
 // Projection
 bool Renderer::SetProjectionMode(ProjectionMode mode, int viewPort)
 {

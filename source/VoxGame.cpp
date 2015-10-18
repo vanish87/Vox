@@ -564,9 +564,9 @@ void VoxGame::RenderDeferredLighting()
 			//m_pRenderer->ClearScene(true, true, true);
 
 			m_pRenderer->StartRenderingToFrameBuffer(m_lightingFrameBuffer);
-			glFrontFace(GL_CW);
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_ONE, GL_ONE);
+
+			m_pRenderer->SetFrontFaceDirection(FrontFaceDirection_CW);
+			m_pRenderer->EnableTransparency(BF_ONE, BF_ONE);
 			m_pRenderer->DisableDepthTest();
 
 			// Set the default projection mode
@@ -638,10 +638,11 @@ void VoxGame::RenderDeferredLighting()
 
 			m_pRenderer->PopMatrix();
 
-			glDisable(GL_BLEND);
-			glFrontFace(GL_CCW);
+			m_pRenderer->SetFrontFaceDirection(FrontFaceDirection_CCW);
+			m_pRenderer->DisableTransparency();
 			m_pRenderer->SetCullMode(CM_BACK);
 			m_pRenderer->EnableDepthTest(DT_LESS);
+
 			m_pRenderer->StopRenderingToFrameBuffer(m_lightingFrameBuffer);
 
 		m_pRenderer->PopMatrix();
