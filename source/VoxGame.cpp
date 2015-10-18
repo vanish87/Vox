@@ -108,6 +108,8 @@ void VoxGame::Create()
 	m_pVoxelCharacter->SetRandomLookDirection(true);
 	m_pVoxelCharacter->SetWireFrameRender(false);
 	m_pVoxelCharacter->SetCharacterScale(0.08f);
+	m_pVoxelCharacter->GetRightWeapon()->StartWeaponTrails();
+	m_pVoxelCharacter->GetLeftWeapon()->StartWeaponTrails();
 
 	// Keyboard movement
 	m_bKeyboardForward = false;
@@ -233,7 +235,7 @@ void VoxGame::Render()
 
 			m_pRenderer->EndGLSLShader(m_defaultShader);
 
-			// Render the voxel character Face
+			// Render the voxel character face
 			m_pRenderer->PushMatrix();
 				m_pRenderer->MultiplyWorldMatrix(worldMatrix);
 				glActiveTextureARB(GL_TEXTURE0_ARB);
@@ -242,6 +244,12 @@ void VoxGame::Render()
 
 				m_pVoxelCharacter->RenderFace();
 			m_pRenderer->PopMatrix();
+
+			// Render the voxel character weapon trails
+			m_pRenderer->PushMatrix();
+				m_pVoxelCharacter->RenderWeaponTrails();
+			m_pRenderer->PopMatrix();
+
 		m_pRenderer->PopMatrix();
 
 		m_pRenderer->PushMatrix();
