@@ -1,15 +1,5 @@
 #include "../glew/include/GL/glew.h"
 
-#include <windows.h>
-#include <gl/gl.h>
-#include <gl/glu.h>
-
-#pragma comment (lib, "opengl32")
-#pragma comment (lib, "glu32")
-
-#include <stdio.h>
-#include <stdlib.h>
-
 #include "VoxGame.h"
 
 #include "utils/Interpolator.h"
@@ -516,10 +506,8 @@ void VoxGame::Render()
 			// Render the voxel character face
 			m_pRenderer->PushMatrix();
 				m_pRenderer->MultiplyWorldMatrix(worldMatrix);
-				glActiveTextureARB(GL_TEXTURE0_ARB);
-				glDisable(GL_TEXTURE_2D);
-				glBindTexture(GL_TEXTURE_2D, 0);
 
+				m_pRenderer->EmptyTextureIndex(0);
 				m_pVoxelCharacter->RenderFace();
 			m_pRenderer->PopMatrix();
 
@@ -596,21 +584,17 @@ void VoxGame::RenderDeferredLighting()
 				unsigned ColorsID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "colors");
 				unsigned PositionssID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "positions");
 
-				glActiveTextureARB(GL_TEXTURE0_ARB);
-				glBindTexture(GL_TEXTURE_2D, m_pRenderer->GetNormalTextureFromFrameBuffer(m_SSAOFrameBuffer));
-				glUniform1iARB(NormalsID, 0);
+				m_pRenderer->PrepareShaderTexture(0, NormalsID);
+				m_pRenderer->BindRawTextureId(m_pRenderer->GetNormalTextureFromFrameBuffer(m_SSAOFrameBuffer));
 
-				glActiveTextureARB(GL_TEXTURE1_ARB);
-				glBindTexture(GL_TEXTURE_2D, m_pRenderer->GetDepthTextureFromFrameBuffer(m_SSAOFrameBuffer));
-				glUniform1iARB(DepthsID, 1);
+				m_pRenderer->PrepareShaderTexture(1, DepthsID);
+				m_pRenderer->BindRawTextureId(m_pRenderer->GetDepthTextureFromFrameBuffer(m_SSAOFrameBuffer));
 
-				glActiveTextureARB(GL_TEXTURE2_ARB);
-				glBindTexture(GL_TEXTURE_2D, m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_SSAOFrameBuffer));
-				glUniform1iARB(ColorsID, 2);
+				m_pRenderer->PrepareShaderTexture(2, ColorsID);
+				m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_SSAOFrameBuffer));
 
-				glActiveTextureARB(GL_TEXTURE3_ARB);
-				glBindTexture(GL_TEXTURE_2D, m_pRenderer->GetPositionTextureFromFrameBuffer(m_SSAOFrameBuffer));
-				glUniform1iARB(PositionssID, 3);
+				m_pRenderer->PrepareShaderTexture(3, PositionssID);
+				m_pRenderer->BindRawTextureId(m_pRenderer->GetPositionTextureFromFrameBuffer(m_SSAOFrameBuffer));
 
 				pLightShader->setUniform1i("screenWidth", m_windowWidth);
 				pLightShader->setUniform1i("screenHeight", m_windowHeight);
@@ -645,21 +629,10 @@ void VoxGame::RenderDeferredLighting()
 					m_pRenderer->PopMatrix();
 				}
 
-				glActiveTextureARB(GL_TEXTURE3_ARB);
-				glDisable(GL_TEXTURE_2D);
-				glBindTexture(GL_TEXTURE_2D, 0);
-
-				glActiveTextureARB(GL_TEXTURE2_ARB);
-				glDisable(GL_TEXTURE_2D);
-				glBindTexture(GL_TEXTURE_2D, 0);
-
-				glActiveTextureARB(GL_TEXTURE1_ARB);
-				glDisable(GL_TEXTURE_2D);
-				glBindTexture(GL_TEXTURE_2D, 0);
-
-				glActiveTextureARB(GL_TEXTURE0_ARB);
-				glDisable(GL_TEXTURE_2D);
-				glBindTexture(GL_TEXTURE_2D, 0);
+				m_pRenderer->EmptyTextureIndex(3);
+				m_pRenderer->EmptyTextureIndex(2);
+				m_pRenderer->EmptyTextureIndex(1);
+				m_pRenderer->EmptyTextureIndex(0);
 
 				m_pRenderer->EndGLSLShader(m_lightingShader);
 
@@ -686,20 +659,17 @@ void VoxGame::RenderSSAOTexture()
 		m_pRenderer->BeginGLSLShader(m_SSAOShader);
 		glShader* pShader = m_pRenderer->GetShader(m_SSAOShader);
 
-		unsigned int textureId = glGetUniformLocationARB(pShader->GetProgramObject(), "bgl_DepthTexture");
-		glActiveTextureARB(GL_TEXTURE0_ARB);
+		unsigned int textureId0 = glGetUniformLocationARB(pShader->GetProgramObject(), "bgl_DepthTexture");
+		m_pRenderer->PrepareShaderTexture(0, textureId0);
 		m_pRenderer->BindRawTextureId(m_pRenderer->GetDepthTextureFromFrameBuffer(m_SSAOFrameBuffer));
-		glUniform1iARB(textureId, 0);
 
-		unsigned int textureId2 = glGetUniformLocationARB(pShader->GetProgramObject(), "bgl_RenderedTexture");
-		glActiveTextureARB(GL_TEXTURE1_ARB);
+		unsigned int textureId1 = glGetUniformLocationARB(pShader->GetProgramObject(), "bgl_RenderedTexture");
+		m_pRenderer->PrepareShaderTexture(1, textureId1);
 		m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_SSAOFrameBuffer));
-		glUniform1iARB(textureId2, 1);
 
-		unsigned int textureId3 = glGetUniformLocationARB(pShader->GetProgramObject(), "light");
-		glActiveTextureARB(GL_TEXTURE2_ARB);
+		unsigned int textureId2 = glGetUniformLocationARB(pShader->GetProgramObject(), "light");
+		m_pRenderer->PrepareShaderTexture(2, textureId2);
 		m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_lightingFrameBuffer));
-		glUniform1iARB(textureId3, 2);
 
 		pShader->setUniform1i("screenWidth", (int)(m_windowWidth*5.0f));
 		pShader->setUniform1i("screenHeight", (int)(m_windowHeight*5.0f));
@@ -720,17 +690,9 @@ void VoxGame::RenderSSAOTexture()
 			m_pRenderer->ImmediateVertex(0.0f, (float)m_windowHeight, 1.0f);
 		m_pRenderer->DisableImmediateMode();
 
-		glActiveTextureARB(GL_TEXTURE2_ARB);
-		glDisable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, 0);
-
-		glActiveTextureARB(GL_TEXTURE1_ARB);
-		glDisable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, 0);
-
-		glActiveTextureARB(GL_TEXTURE0_ARB);
-		glDisable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		m_pRenderer->EmptyTextureIndex(2);
+		m_pRenderer->EmptyTextureIndex(1);
+		m_pRenderer->EmptyTextureIndex(0);
 
 		m_pRenderer->EndGLSLShader(m_SSAOShader);
 	m_pRenderer->PopMatrix();
@@ -754,9 +716,7 @@ void VoxGame::RenderDebugInformation()
 	int l_nTextHeight = m_pRenderer->GetFreeTypeTextHeight(m_defaultFont, "a");
 
 	m_pRenderer->PushMatrix();
-		glActiveTextureARB(GL_TEXTURE0_ARB);
-		glDisable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		m_pRenderer->EmptyTextureIndex(0);
 
 		m_pRenderer->SetRenderMode(RM_SOLID);
 		m_pRenderer->SetProjectionMode(PM_2D, m_defaultViewport);

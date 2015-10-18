@@ -1208,6 +1208,19 @@ void Renderer::BindTexture(unsigned int id)
 	m_textures[id]->Bind();
 }
 
+void Renderer::PrepareShaderTexture(unsigned int textureIndex, unsigned int textureId)
+{
+	glActiveTextureARB(GL_TEXTURE0_ARB + textureIndex);
+	glUniform1iARB(textureId, textureIndex);
+}
+
+void Renderer::EmptyTextureIndex(unsigned int textureIndex)
+{
+	glActiveTextureARB(GL_TEXTURE0_ARB + textureIndex);
+	glDisable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, textureIndex);
+}
+
 void Renderer::DisableTexture()
 {
 	glDisable(GL_TEXTURE_2D);
