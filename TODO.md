@@ -20,6 +20,7 @@
 * Particle effects.
 * Add weapon trails.
 * Weapon trails controlled by the animation file.
+* Remove any GL calls from VoxGame - Add InitZeroTexture() functionality to renderer.
  
 
 # BUGS
