@@ -13,6 +13,7 @@
 * ~~Lighting effects.~~
 * ~~Particle effects.~~
 * ~~Add weapon trails.~~
+* App player class and put voxel character functionalit in player class.
 * Switch over to using glm maths lib.
 * Use Cmake for build management.
 * Enable cross platform compiling and support, linux.
