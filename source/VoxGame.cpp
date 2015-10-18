@@ -221,6 +221,9 @@ void VoxGame::Update()
 	m_fps = 1.0f / ((float)(m_fpsCurrentTicks.QuadPart - m_fpsPreviousTicks.QuadPart) / (float)m_fpsTicksPerSecond.QuadPart);
 	m_fpsPreviousTicks = m_fpsCurrentTicks;
 
+	// Pause the interpolator if animations are paused.
+	Interpolator::GetInstance()->SetPaused(m_animationUpdate == false);
+
 	// Animation update
 	if (m_animationUpdate)
 	{
