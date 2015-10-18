@@ -20,9 +20,11 @@
 * Better readme file.
 * Weapon trails controlled by the animation file.
 * Remove any GL calls from VoxGame - Add InitZeroTexture() functionality to renderer.
- 
+* Convert shaders over to be more unified.
+* Better SSAO shader.
 
 # BUGS
-* End of animation frame state - level up animation goes to mummy walk?
+* ~~End of animation frame state - level up animation goes to mummy walk?~~
 * Weapon trails are not frame rate independent.
 * Fix block particle lighting params, rework shader for better lighting.
+* Fix transparency and transparent textures when using the SSAO shader.
