@@ -140,6 +140,7 @@ void VoxGame::Create()
 	m_multiSampling = true;
 	m_weaponIndex = 0;
 	m_weaponString = "NONE";
+	m_animationUpdate = true;
 }
 
 void VoxGame::Destroy()
@@ -173,10 +174,13 @@ void VoxGame::Update()
 	m_fpsPreviousTicks = m_fpsCurrentTicks;
 
 	// Update the voxel model
-	float animationSpeeds[AnimationSections_NUMSECTIONS] = { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
-	Matrix4x4 worldMatrix;
-	m_pVoxelCharacter->Update(m_deltaTime, animationSpeeds);
-	m_pVoxelCharacter->UpdateWeaponTrails(m_deltaTime, worldMatrix);
+	if (m_animationUpdate)
+	{
+		float animationSpeeds[AnimationSections_NUMSECTIONS] = { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
+		Matrix4x4 worldMatrix;
+		m_pVoxelCharacter->Update(m_deltaTime, animationSpeeds);
+		m_pVoxelCharacter->UpdateWeaponTrails(m_deltaTime, worldMatrix);
+	}
 
 	// Update controls
 	UpdateControls(m_deltaTime);
@@ -449,6 +453,12 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 
 			break;
 		}
+		case GLFW_KEY_Y:
+		{
+			m_animationUpdate = !m_animationUpdate;
+
+			break;
+		}
 		case GLFW_KEY_A:
 		{
 			switch(m_weaponIndex)
@@ -488,15 +498,32 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 				}
 				case 5:
 				{
+					m_weaponString = "Torch";
+					m_pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/Torch/Torch.weapon");
+					break;
+				}
+				case 6:
+				{
+					m_weaponString = "Fireball";
+					m_pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/FireballHands/FireballHandsRight.weapon");
+					m_pVoxelCharacter->LoadLeftWeapon("media/gamedata/weapons/FireballHands/FireballHandsLeft.weapon");
+					m_pVoxelCharacter->SetQubicleMatrixRender("Right_Hand", false);
+					m_pVoxelCharacter->SetQubicleMatrixRender("Left_Hand", false);
+					break;
+				}
+				case 7:
+				{
 					m_weaponString = "NONE";
 					m_pVoxelCharacter->UnloadLeftWeapon();
 					m_pVoxelCharacter->UnloadRightWeapon();
+					m_pVoxelCharacter->SetQubicleMatrixRender("Right_Hand", true);
+					m_pVoxelCharacter->SetQubicleMatrixRender("Left_Hand", true);
 					break;
 				}
 			}
 
 			m_weaponIndex++;
-			if(m_weaponIndex == 6)
+			if(m_weaponIndex == 8)
 				m_weaponIndex = 0;
 
 			break;
@@ -669,9 +696,10 @@ void VoxGame::RenderDebugInformation()
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, (int)(m_windowWidth * 0.5f) - 75.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lAnimationBuff);
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, (int)(m_windowWidth * 0.5f) - 75.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lWeaponBuff);
 
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 155.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "T - Render Mode [%s]", m_renderModeString.c_str());
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 135.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "R - Toggle MSAA [%s]", m_multiSampling ? "On" : "Off");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 115.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "E - Toggle Talking [%s]", m_modelTalking ? "On" : "Off");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 175.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "T - Render Mode [%s]", m_renderModeString.c_str());
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 155.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "R - Toggle MSAA [%s]", m_multiSampling ? "On" : "Off");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 135.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "E - Toggle Talking [%s]", m_modelTalking ? "On" : "Off");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 115.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Y - Toggle Animation [%s]", m_animationUpdate ? "On" : "Off");
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 95.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "H - Toggle HelpText");
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 75.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "W - Toggle Wireframe");
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 55.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Q - Cycle Animations");

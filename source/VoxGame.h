@@ -126,6 +126,7 @@ private:
 	bool m_multiSampling;
 	int m_weaponIndex;
 	string m_weaponString;
+	bool m_animationUpdate;
 
 	// Singleton instance
 	static VoxGame *c_instance;
