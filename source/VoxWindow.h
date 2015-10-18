@@ -27,6 +27,7 @@ public:
 	int GetCursorX();
 	int GetCursorY();
 
+	// Events
 	void PollEvents();
 	int ShouldCloseWindow();
 

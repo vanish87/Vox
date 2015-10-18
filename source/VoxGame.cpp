@@ -496,7 +496,6 @@ void VoxGame::Render()
 			Colour OulineColour(1.0f, 1.0f, 0.0f, 1.0f);
 			m_pRenderer->PushMatrix();
 				m_pRenderer->MultiplyWorldMatrix(worldMatrix);
-
 				m_pVoxelCharacter->RenderWeapons(false, false, false, OulineColour);
 				m_pVoxelCharacter->Render(false, false, false, OulineColour, false);
 			m_pRenderer->PopMatrix();
@@ -506,7 +505,6 @@ void VoxGame::Render()
 			// Render the voxel character face
 			m_pRenderer->PushMatrix();
 				m_pRenderer->MultiplyWorldMatrix(worldMatrix);
-
 				m_pRenderer->EmptyTextureIndex(0);
 				m_pVoxelCharacter->RenderFace();
 			m_pRenderer->PopMatrix();
@@ -558,95 +556,90 @@ void VoxGame::Render()
 void VoxGame::RenderDeferredLighting()
 {
 	// Render deferred lighting to light frame buffer
-	{
+	m_pRenderer->PushMatrix();
+		m_pRenderer->StartRenderingToFrameBuffer(m_lightingFrameBuffer);
+
+		m_pRenderer->SetFrontFaceDirection(FrontFaceDirection_CW);
+		m_pRenderer->EnableTransparency(BF_ONE, BF_ONE);
+		m_pRenderer->DisableDepthTest();
+
+		// Set the default projection mode
+		m_pRenderer->SetProjectionMode(PM_PERSPECTIVE, m_defaultViewport);
+
+		// Set the lookat camera
+		m_pGameCamera->Look();
+
 		m_pRenderer->PushMatrix();
-			//m_pRenderer->SetClearColour(1.0f, 0.0f, 0.0f, 1.0f);
-			//m_pRenderer->ClearScene(true, true, true);
+			m_pRenderer->BeginGLSLShader(m_lightingShader);
 
-			m_pRenderer->StartRenderingToFrameBuffer(m_lightingFrameBuffer);
+			glShader* pLightShader = m_pRenderer->GetShader(m_lightingShader);
+			unsigned NormalsID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "normals");
+			unsigned DepthsID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "depths");
+			unsigned ColorsID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "colors");
+			unsigned PositionssID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "positions");
 
-			m_pRenderer->SetFrontFaceDirection(FrontFaceDirection_CW);
-			m_pRenderer->EnableTransparency(BF_ONE, BF_ONE);
-			m_pRenderer->DisableDepthTest();
+			m_pRenderer->PrepareShaderTexture(0, NormalsID);
+			m_pRenderer->BindRawTextureId(m_pRenderer->GetNormalTextureFromFrameBuffer(m_SSAOFrameBuffer));
 
-			// Set the default projection mode
-			m_pRenderer->SetProjectionMode(PM_PERSPECTIVE, m_defaultViewport);
+			m_pRenderer->PrepareShaderTexture(1, DepthsID);
+			m_pRenderer->BindRawTextureId(m_pRenderer->GetDepthTextureFromFrameBuffer(m_SSAOFrameBuffer));
 
-			// Set the lookat camera
-			m_pGameCamera->Look();
+			m_pRenderer->PrepareShaderTexture(2, ColorsID);
+			m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_SSAOFrameBuffer));
 
-			m_pRenderer->PushMatrix();
-				m_pRenderer->BeginGLSLShader(m_lightingShader);
+			m_pRenderer->PrepareShaderTexture(3, PositionssID);
+			m_pRenderer->BindRawTextureId(m_pRenderer->GetPositionTextureFromFrameBuffer(m_SSAOFrameBuffer));
 
-				glShader* pLightShader = m_pRenderer->GetShader(m_lightingShader);
-				unsigned NormalsID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "normals");
-				unsigned DepthsID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "depths");
-				unsigned ColorsID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "colors");
-				unsigned PositionssID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "positions");
+			pLightShader->setUniform1i("screenWidth", m_windowWidth);
+			pLightShader->setUniform1i("screenHeight", m_windowHeight);
 
-				m_pRenderer->PrepareShaderTexture(0, NormalsID);
-				m_pRenderer->BindRawTextureId(m_pRenderer->GetNormalTextureFromFrameBuffer(m_SSAOFrameBuffer));
+			for (int i = 0; i < m_pLightingManager->GetNumLights(); i++)
+			{
+				DynamicLight* lpLight = m_pLightingManager->GetLight(i);
+				float lightRadius = lpLight->m_radius;
 
-				m_pRenderer->PrepareShaderTexture(1, DepthsID);
-				m_pRenderer->BindRawTextureId(m_pRenderer->GetDepthTextureFromFrameBuffer(m_SSAOFrameBuffer));
-
-				m_pRenderer->PrepareShaderTexture(2, ColorsID);
-				m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_SSAOFrameBuffer));
-
-				m_pRenderer->PrepareShaderTexture(3, PositionssID);
-				m_pRenderer->BindRawTextureId(m_pRenderer->GetPositionTextureFromFrameBuffer(m_SSAOFrameBuffer));
-
-				pLightShader->setUniform1i("screenWidth", m_windowWidth);
-				pLightShader->setUniform1i("screenHeight", m_windowHeight);
-
-				for (int i = 0; i < m_pLightingManager->GetNumLights(); i++)
+				if ((m_pGameCamera->GetPosition() - lpLight->m_position).GetLength() < lightRadius + 0.5f) // Small change to account for differences in circle render (with slices) and circle radius
 				{
-					DynamicLight* lpLight = m_pLightingManager->GetLight(i);
-					float lightRadius = lpLight->m_radius;
-
-					if ((m_pGameCamera->GetPosition() - lpLight->m_position).GetLength() < lightRadius + 0.5f) // Small change to account for differences in circle render (with slices) and circle radius
-					{
-						m_pRenderer->SetCullMode(CM_BACK);
-					}
-					else
-					{
-						m_pRenderer->SetCullMode(CM_FRONT);
-					}
-
-					pLightShader->setUniform1f("radius", lightRadius);
-					pLightShader->setUniform1f("diffuseScale", lpLight->m_diffuseScale);
-
-					float r = lpLight->m_colour.GetRed();
-					float g = lpLight->m_colour.GetGreen();
-					float b = lpLight->m_colour.GetBlue();
-					float a = lpLight->m_colour.GetAlpha();
-					pLightShader->setUniform4f("diffuseLightColor", r, g, b, a);
-
-					m_pRenderer->PushMatrix();
-						m_pRenderer->SetRenderMode(RM_SOLID);
-						m_pRenderer->TranslateWorldMatrix(lpLight->m_position.x, lpLight->m_position.y + 0.5f, lpLight->m_position.z);
-						m_pRenderer->DrawSphere(lightRadius, 30, 30);
-					m_pRenderer->PopMatrix();
+					m_pRenderer->SetCullMode(CM_BACK);
+				}
+				else
+				{
+					m_pRenderer->SetCullMode(CM_FRONT);
 				}
 
-				m_pRenderer->EmptyTextureIndex(3);
-				m_pRenderer->EmptyTextureIndex(2);
-				m_pRenderer->EmptyTextureIndex(1);
-				m_pRenderer->EmptyTextureIndex(0);
+				pLightShader->setUniform1f("radius", lightRadius);
+				pLightShader->setUniform1f("diffuseScale", lpLight->m_diffuseScale);
 
-				m_pRenderer->EndGLSLShader(m_lightingShader);
+				float r = lpLight->m_colour.GetRed();
+				float g = lpLight->m_colour.GetGreen();
+				float b = lpLight->m_colour.GetBlue();
+				float a = lpLight->m_colour.GetAlpha();
+				pLightShader->setUniform4f("diffuseLightColor", r, g, b, a);
 
-			m_pRenderer->PopMatrix();
+				m_pRenderer->PushMatrix();
+					m_pRenderer->SetRenderMode(RM_SOLID);
+					m_pRenderer->TranslateWorldMatrix(lpLight->m_position.x, lpLight->m_position.y + 0.5f, lpLight->m_position.z);
+					m_pRenderer->DrawSphere(lightRadius, 30, 30);
+				m_pRenderer->PopMatrix();
+			}
 
-			m_pRenderer->SetFrontFaceDirection(FrontFaceDirection_CCW);
-			m_pRenderer->DisableTransparency();
-			m_pRenderer->SetCullMode(CM_BACK);
-			m_pRenderer->EnableDepthTest(DT_LESS);
+			m_pRenderer->EmptyTextureIndex(3);
+			m_pRenderer->EmptyTextureIndex(2);
+			m_pRenderer->EmptyTextureIndex(1);
+			m_pRenderer->EmptyTextureIndex(0);
 
-			m_pRenderer->StopRenderingToFrameBuffer(m_lightingFrameBuffer);
+			m_pRenderer->EndGLSLShader(m_lightingShader);
 
 		m_pRenderer->PopMatrix();
-	}
+
+		m_pRenderer->SetFrontFaceDirection(FrontFaceDirection_CCW);
+		m_pRenderer->DisableTransparency();
+		m_pRenderer->SetCullMode(CM_BACK);
+		m_pRenderer->EnableDepthTest(DT_LESS);
+
+		m_pRenderer->StopRenderingToFrameBuffer(m_lightingFrameBuffer);
+
+	m_pRenderer->PopMatrix();
 }
 
 void VoxGame::RenderSSAOTexture()
@@ -656,7 +649,7 @@ void VoxGame::RenderSSAOTexture()
 
 		m_pRenderer->SetLookAtCamera(Vector3d(0.0f, 0.0f, 250.0f), Vector3d(0.0f, 0.0f, 0.0f), Vector3d(0.0f, 1.0f, 0.0f));
 
-		// SSAO
+		// SSAO shader
 		m_pRenderer->BeginGLSLShader(m_SSAOShader);
 		glShader* pShader = m_pRenderer->GetShader(m_SSAOShader);
 

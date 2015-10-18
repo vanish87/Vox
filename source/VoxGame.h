@@ -134,7 +134,6 @@ private:
 
 	// Camera movement
 	bool m_bCameraRotate;
-
 	int m_pressedX;
 	int m_pressedY;
 	int m_currentX;
