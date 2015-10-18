@@ -84,6 +84,12 @@ void VoxGame::Create()
 	/* Create the qubicle binary file manager */
 	m_pQubicleBinaryManager = new QubicleBinaryManager(m_pRenderer);
 
+	/* Create the lighting manager */
+	m_pLightingManager = new LightingManager(m_pRenderer);
+
+	/* Create the block particle manager */
+	m_pBlockParticleManager = new BlockParticleManager(m_pRenderer);
+
 	/* Create test voxel character */
 	m_pVoxelCharacter = new VoxelCharacter(m_pRenderer, m_pQubicleBinaryManager);
 	char characterBaseFolder[128];
@@ -147,6 +153,12 @@ void VoxGame::Destroy()
 {
 	if (c_instance)
 	{
+		delete m_pLightingManager;
+		delete m_pVoxelCharacter;
+		delete m_pQubicleBinaryManager;
+		delete m_pGameCamera;
+		delete m_pRenderer;
+
 		m_pVoxWindow->Destroy();
 		m_pVoxApplication->Destroy();
 
@@ -172,6 +184,12 @@ void VoxGame::Update()
 	QueryPerformanceCounter(&m_fpsCurrentTicks);
 	m_fps = 1.0f / ((float)(m_fpsCurrentTicks.QuadPart - m_fpsPreviousTicks.QuadPart) / (float)m_fpsTicksPerSecond.QuadPart);
 	m_fpsPreviousTicks = m_fpsCurrentTicks;
+
+	// Update the lighting manager
+	m_pLightingManager->Update(m_deltaTime);
+
+	// Block particle manager
+	m_pBlockParticleManager->Update(m_deltaTime);
 
 	// Update the voxel model
 	if (m_animationUpdate)
@@ -249,10 +267,16 @@ void VoxGame::Render()
 				m_pVoxelCharacter->RenderFace();
 			m_pRenderer->PopMatrix();
 
+			// Render the block particles
+			m_pBlockParticleManager->Render();
+
 			// Render the voxel character weapon trails
 			m_pRenderer->PushMatrix();
 				m_pVoxelCharacter->RenderWeaponTrails();
 			m_pRenderer->PopMatrix();
+
+			// Debug rendering
+			m_pLightingManager->DebugRender();
 
 		m_pRenderer->PopMatrix();
 

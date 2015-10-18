@@ -2,6 +2,8 @@
 
 #include "Renderer/Renderer.h"
 #include "Renderer/camera.h"
+#include "Lighting/LightingManager.h"
+#include "Particles/BlockParticleManager.h"
 #include "models/VoxelCharacter.h"
 
 #include <windows.h>
@@ -66,10 +68,23 @@ private:
 	VoxApplication* m_pVoxApplication;
 	VoxWindow* m_pVoxWindow;
 
+	// Renderer
 	Renderer* m_pRenderer;
+	
+	// Game camera
 	Camera* m_pGameCamera;
+
+	// Qubicle binary manager
 	QubicleBinaryManager* m_pQubicleBinaryManager;
+
+	// Voxel character
 	VoxelCharacter* m_pVoxelCharacter;
+	
+	// Lighting manager
+	LightingManager* m_pLightingManager;
+
+	// Block particle manager
+	BlockParticleManager* m_pBlockParticleManager;
 
 	// Window width and height
 	int m_windowWidth;

@@ -2357,6 +2357,8 @@ bool Renderer::LoadGLSLShader(char* vertexFile, char* fragmentFile, unsigned int
 		return true;
 	}
 
+	cout << "ERROR: Could not load GLSL shaders: " << vertexFile << ", " << fragmentFile << endl << flush;
+
 	return false;
 }
 

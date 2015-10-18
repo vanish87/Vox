@@ -228,7 +228,7 @@ public:
 	void ImmediateColourAlpha(float r, float g, float b, float a);
 	void DisableImmediateMode();
 
-	// Rendering helpers
+	// Drawing helpers
 	void DrawLineCircle(float lRadius, int lPoints);
 	void DrawSphere(float lRadius, int lSlices, int lStacks);
 	void DrawBezier(Bezier3 curve, int lPoints);

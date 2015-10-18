@@ -104,7 +104,7 @@ void VoxelWeapon::LoadWeapon(const char *weaponFilename, bool useManager)
 		for(int i = 0; i < m_numAnimatedSections; i++)
 		{
 			m_pAnimatedSections[i].m_pVoxelObject = new VoxelObject();
-			m_pAnimatedSections[i].m_pVoxelObject->SetOpenGLRenderer(m_pRenderer);
+			m_pAnimatedSections[i].m_pVoxelObject->SetRenderer(m_pRenderer);
 			m_pAnimatedSections[i].m_pVoxelObject->SetQubicleBinaryManager(m_pQubicleBinaryManager);
 
 			file >> tempString >> m_pAnimatedSections[i].m_fileName;
