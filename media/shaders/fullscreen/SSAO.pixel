@@ -27,7 +27,7 @@ float readDepth(in vec2 coord)
 
 vec3 readColor(in vec2 coord)  
 {
-	return (texture2D(bgl_RenderedTexture, coord).xyz);// + texture2D(light, coord).xyz;  
+	return (texture2D(bgl_RenderedTexture, coord).xyz) + texture2D(light, coord).xyz;  
 } 
 
 float compareDepths(in float depth1, in float depth2,inout int far)  

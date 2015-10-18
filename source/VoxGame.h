@@ -51,6 +51,7 @@ public:
 
 	// Rendering
 	void Render();
+	void RenderDeferredLighting();
 	void RenderSSAOTexture();
 	void RenderDebugInformation();
 
@@ -105,11 +106,13 @@ private:
 	// Frame buffers
 	unsigned int m_SSAOFrameBuffer;
 	unsigned int m_shadowFrameBuffer;
+	unsigned int m_lightingFrameBuffer;
 
 	// Shaders
 	unsigned int m_defaultShader;
 	unsigned int m_SSAOShader;
 	unsigned int m_shadowShader;
+	unsigned int m_lightingShader;
 
 	// FPS and deltatime
 	LARGE_INTEGER m_fpsPreviousTicks;

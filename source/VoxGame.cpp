@@ -72,6 +72,7 @@ void VoxGame::Create()
 	bool frameBufferCreated = false;
 	frameBufferCreated = m_pRenderer->CreateFrameBuffer(-1, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "SSAO", &m_SSAOFrameBuffer);
 	frameBufferCreated = m_pRenderer->CreateFrameBuffer(-1, true, true, true, true, m_windowWidth, m_windowHeight, 5.0f, "Shadow", &m_shadowFrameBuffer);
+	frameBufferCreated = m_pRenderer->CreateFrameBuffer(-1, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "Deferred Lighting", &m_lightingFrameBuffer);
 
 	/* Create the shaders */
 	m_defaultShader = -1;
@@ -80,6 +81,7 @@ void VoxGame::Create()
 	m_pRenderer->LoadGLSLShader("media/shaders/default.vertex", "media/shaders/default.pixel", &m_defaultShader);
 	m_pRenderer->LoadGLSLShader("media/shaders/fullscreen/SSAO.vertex", "media/shaders/fullscreen/SSAO.pixel", &m_SSAOShader);
 	m_pRenderer->LoadGLSLShader("media/shaders/shadow.vertex", "media/shaders/shadow.pixel", &m_shadowShader);
+	m_pRenderer->LoadGLSLShader("media/shaders/fullscreen/lighting.vertex", "media/shaders/fullscreen/lighting.pixel", &m_lightingShader);
 
 	/* Create the qubicle binary file manager */
 	m_pQubicleBinaryManager = new QubicleBinaryManager(m_pRenderer);
@@ -198,6 +200,7 @@ void VoxGame::ResizeWindow(int width, int height)
 		bool frameBufferResize = false;
 		frameBufferResize = m_pRenderer->CreateFrameBuffer(m_SSAOFrameBuffer, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "SSAO", &m_SSAOFrameBuffer);
 		frameBufferResize = m_pRenderer->CreateFrameBuffer(m_shadowFrameBuffer, true, true, true, true, m_windowWidth, m_windowHeight, 5.0f, "Shadow", &m_shadowFrameBuffer);
+		frameBufferResize = m_pRenderer->CreateFrameBuffer(m_lightingFrameBuffer, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "Deferred Lighting", &m_lightingFrameBuffer);
 	}
 }
 
@@ -529,6 +532,8 @@ void VoxGame::Render()
 			//m_pLightingManager->DebugRender();
 		m_pRenderer->PopMatrix();
 
+		// Render the deferred lighting pass
+		RenderDeferredLighting();
 
 		// ---------------------------------------
 		// Render 2d
@@ -559,6 +564,114 @@ void VoxGame::Render()
 	m_pVoxWindow->Render();
 }
 
+void VoxGame::RenderDeferredLighting()
+{
+	// Render deferred lighting to light frame buffer
+	{
+		m_pRenderer->PushMatrix();
+			//m_pRenderer->SetClearColour(1.0f, 0.0f, 0.0f, 1.0f);
+			//m_pRenderer->ClearScene(true, true, true);
+
+			m_pRenderer->StartRenderingToFrameBuffer(m_lightingFrameBuffer);
+			glFrontFace(GL_CW);
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_ONE, GL_ONE);
+			m_pRenderer->DisableDepthTest();
+
+			// Set the default projection mode
+			m_pRenderer->SetProjectionMode(PM_PERSPECTIVE, m_defaultViewport);
+
+			// Set the lookat camera
+			m_pGameCamera->Look();
+
+			m_pRenderer->PushMatrix();
+				m_pRenderer->BeginGLSLShader(m_lightingShader);
+
+				glShader* pLightShader = m_pRenderer->GetShader(m_lightingShader);
+				unsigned NormalsID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "normals");
+				unsigned DepthsID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "depths");
+				unsigned ColorsID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "colors");
+				unsigned PositionssID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "positions");
+
+				glActiveTextureARB(GL_TEXTURE0_ARB);
+				glBindTexture(GL_TEXTURE_2D, m_pRenderer->GetNormalTextureFromFrameBuffer(m_SSAOFrameBuffer));
+				glUniform1iARB(NormalsID, 0);
+
+				glActiveTextureARB(GL_TEXTURE1_ARB);
+				glBindTexture(GL_TEXTURE_2D, m_pRenderer->GetDepthTextureFromFrameBuffer(m_SSAOFrameBuffer));
+				glUniform1iARB(DepthsID, 1);
+
+				glActiveTextureARB(GL_TEXTURE2_ARB);
+				glBindTexture(GL_TEXTURE_2D, m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_SSAOFrameBuffer));
+				glUniform1iARB(ColorsID, 2);
+
+				glActiveTextureARB(GL_TEXTURE3_ARB);
+				glBindTexture(GL_TEXTURE_2D, m_pRenderer->GetPositionTextureFromFrameBuffer(m_SSAOFrameBuffer));
+				glUniform1iARB(PositionssID, 3);
+
+				pLightShader->setUniform1i("screenWidth", m_windowWidth);
+				pLightShader->setUniform1i("screenHeight", m_windowHeight);
+
+				for (int i = 0; i < m_pLightingManager->GetNumLights(); i++)
+				{
+					DynamicLight* lpLight = m_pLightingManager->GetLight(i);
+					float lightRadius = lpLight->m_radius;
+
+					if ((m_pGameCamera->GetPosition() - lpLight->m_position).GetLength() < lightRadius + 0.5f) // Small change to account for differences in circle render (with slices) and circle radius
+					{
+						m_pRenderer->SetCullMode(CM_BACK);
+					}
+					else
+					{
+						m_pRenderer->SetCullMode(CM_FRONT);
+					}
+
+					pLightShader->setUniform1f("radius", lightRadius);
+					pLightShader->setUniform1f("diffuseScale", lpLight->m_diffuseScale);
+
+					float r = lpLight->m_colour.GetRed();
+					float g = lpLight->m_colour.GetGreen();
+					float b = lpLight->m_colour.GetBlue();
+					float a = lpLight->m_colour.GetAlpha();
+					pLightShader->setUniform4f("diffuseLightColor", r, g, b, a);
+
+					m_pRenderer->PushMatrix();
+						m_pRenderer->SetRenderMode(RM_SOLID);
+						m_pRenderer->TranslateWorldMatrix(lpLight->m_position.x, lpLight->m_position.y + 0.5f, lpLight->m_position.z);
+						m_pRenderer->DrawSphere(lightRadius, 30, 30);
+					m_pRenderer->PopMatrix();
+				}
+
+				glActiveTextureARB(GL_TEXTURE3_ARB);
+				glDisable(GL_TEXTURE_2D);
+				glBindTexture(GL_TEXTURE_2D, 0);
+
+				glActiveTextureARB(GL_TEXTURE2_ARB);
+				glDisable(GL_TEXTURE_2D);
+				glBindTexture(GL_TEXTURE_2D, 0);
+
+				glActiveTextureARB(GL_TEXTURE1_ARB);
+				glDisable(GL_TEXTURE_2D);
+				glBindTexture(GL_TEXTURE_2D, 0);
+
+				glActiveTextureARB(GL_TEXTURE0_ARB);
+				glDisable(GL_TEXTURE_2D);
+				glBindTexture(GL_TEXTURE_2D, 0);
+
+				m_pRenderer->EndGLSLShader(m_lightingShader);
+
+			m_pRenderer->PopMatrix();
+
+			glDisable(GL_BLEND);
+			glFrontFace(GL_CCW);
+			m_pRenderer->SetCullMode(CM_BACK);
+			m_pRenderer->EnableDepthTest(DT_LESS);
+			m_pRenderer->StopRenderingToFrameBuffer(m_lightingFrameBuffer);
+
+		m_pRenderer->PopMatrix();
+	}
+}
+
 void VoxGame::RenderSSAOTexture()
 {
 	m_pRenderer->PushMatrix();
@@ -582,8 +695,8 @@ void VoxGame::RenderSSAOTexture()
 
 		unsigned int textureId3 = glGetUniformLocationARB(pShader->GetProgramObject(), "light");
 		glActiveTextureARB(GL_TEXTURE2_ARB);
-		glDisable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_lightingFrameBuffer));
+		glUniform1iARB(textureId3, 2);
 
 		pShader->setUniform1i("screenWidth", (int)(m_windowWidth*5.0f));
 		pShader->setUniform1i("screenHeight", (int)(m_windowHeight*5.0f));
