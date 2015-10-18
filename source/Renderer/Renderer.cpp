@@ -69,6 +69,10 @@ Renderer::Renderer(int width, int height, int depthBits, int stencilBits)
 		m_stencil = true;
 	}
 
+	m_Quadratic = gluNewQuadric();
+	gluQuadricNormals(m_Quadratic, GLU_SMOOTH);
+	gluQuadricTexture(m_Quadratic, GL_TRUE);
+
 	// Initialize defaults
 	m_cullMode = CM_NOCULL;
 	m_primativeMode = PM_TRIANGLES;
@@ -152,6 +156,9 @@ Renderer::~Renderer()
 		m_shaders[i] = 0;
 	}
 	m_shaders.clear();
+
+	// Delete the quadratic drawer
+	gluDeleteQuadric(m_Quadratic);
 }
 
 void Renderer::ResizeWindow(int newWidth, int newHeight)
@@ -806,6 +813,95 @@ void Renderer::ImmediateColourAlpha(float r, float g, float b, float a)
 void Renderer::DisableImmediateMode()
 {
 	glEnd();
+}
+
+// Drawing helpers
+void Renderer::DrawLineCircle(float lRadius, int lPoints)
+{
+	glBegin(GL_LINE_LOOP);
+
+	float lAngleRatio = DegToRad(360.0f / lPoints);
+	for (float i = 0.0f; i < lPoints; i += 1.0f)
+	{
+		float angle = i * lAngleRatio;
+		glVertex3f(cos(angle) * lRadius, 0.0f, sin(angle) * lRadius);
+	}
+
+	glEnd();
+}
+
+void Renderer::DrawSphere(float lRadius, int lSlices, int lStacks)
+{
+	gluSphere(m_Quadratic, lRadius, lSlices, lStacks);
+}
+
+void Renderer::DrawBezier(Bezier3 curve, int lPoints)
+{
+	glBegin(GL_LINE_STRIP);
+
+	float ratio = 1.0f / (float)lPoints;
+	for (float i = 0.0f; i <= 1.0f; i += ratio)
+	{
+		Vector3d point = curve.GetInterpolatedPoint(i);
+
+		glVertex3f(point.x, point.y, point.z);
+	}
+
+	Vector3d point = curve.GetInterpolatedPoint(1.0f);
+	glVertex3f(point.x, point.y, point.z);
+
+	glEnd();
+}
+
+void Renderer::DrawBezier(Bezier4 curve, int lPoints)
+{
+	glBegin(GL_LINE_STRIP);
+
+	float ratio = 1.0f / (float)lPoints;
+	for (float i = 0.0f; i <= 1.0f; i += ratio)
+	{
+		Vector3d point = curve.GetInterpolatedPoint(i);
+
+		glVertex3f(point.x, point.y, point.z);
+	}
+
+	Vector3d point = curve.GetInterpolatedPoint(1.0f);
+	glVertex3f(point.x, point.y, point.z);
+
+	glEnd();
+}
+
+void Renderer::DrawCircleSector(float lRadius, float angle, int lPoints)
+{
+	glBegin(GL_LINE_LOOP);
+
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(cos(angle) * lRadius, 0.0f, sin(angle) * lRadius);
+
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(cos(-angle) * lRadius, 0.0f, sin(-angle) * lRadius);
+
+	float lAngleRatio = DegToRad(RadToDeg(angle*2.0f) / lPoints);
+	for (float i = 0.0f; i <= lPoints; i += 1.0f)
+	{
+		float newAngle = -angle + i * lAngleRatio;
+		glVertex3f(cos(newAngle) * lRadius, 0.0f, sin(newAngle) * lRadius);
+	}
+
+	glEnd();
+}
+
+void Renderer::DrawSphericalSector(float lRadius, float angle, int lSectors, int lPoints)
+{
+	float lAngleRatio = 360.0f / lSectors;
+	for (float i = 0.0f; i <= lSectors; i += 1.0f)
+	{
+		float rotateAngle = i * lAngleRatio;
+		PushMatrix();
+		RotateWorldMatrix(rotateAngle, 0.0f, 0.0f);
+		DrawCircleSector(lRadius, angle, lPoints);
+		PopMatrix();
+	}
 }
 
 // Text rendering

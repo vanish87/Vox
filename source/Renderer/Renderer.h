@@ -228,6 +228,14 @@ public:
 	void ImmediateColourAlpha(float r, float g, float b, float a);
 	void DisableImmediateMode();
 
+	// Rendering helpers
+	void DrawLineCircle(float lRadius, int lPoints);
+	void DrawSphere(float lRadius, int lSlices, int lStacks);
+	void DrawBezier(Bezier3 curve, int lPoints);
+	void DrawBezier(Bezier4 curve, int lPoints);
+	void DrawCircleSector(float lRadius, float angle, int lPoints);
+	void DrawSphericalSector(float lRadius, float angle, int lSectors, int lPoints);
+
 	// Text rendering
 	bool CreateFreeTypeFont(char *fontName, int fontSize, unsigned int *pID);
 	bool RenderFreeTypeText(unsigned int fontID, float x, float y, float z, Colour colour, float scale, char *inText, ...);
@@ -356,6 +364,9 @@ private:
 
 	// Cull mode
 	CullMode m_cullMode;
+
+	// Quadratic drawing
+	GLUquadricObj *m_Quadratic;
 
 	// Viewports
 	vector<Viewport *> m_viewports;

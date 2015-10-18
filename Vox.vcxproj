@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClCompile Include="source\freetype\freetypefont.cpp" />
     <ClCompile Include="source\glew\src\glew.c" />
+    <ClCompile Include="source\Lighting\DynamicLight.cpp" />
+    <ClCompile Include="source\Lighting\LightingManager.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\Maths\3dmaths.cpp" />
     <ClCompile Include="source\Maths\Bezier3.cpp" />
@@ -62,6 +64,8 @@
     <ClInclude Include="source\glew\include\GL\glew.h" />
     <ClInclude Include="source\glew\include\GL\glxew.h" />
     <ClInclude Include="source\glew\include\GL\wglew.h" />
+    <ClInclude Include="source\Lighting\DynamicLight.h" />
+    <ClInclude Include="source\Lighting\LightingManager.h" />
     <ClInclude Include="source\Maths\3dGeometry.h" />
     <ClInclude Include="source\Maths\3dmaths.h" />
     <ClInclude Include="source\models\BoundingBox.h" />
