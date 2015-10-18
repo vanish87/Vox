@@ -114,8 +114,6 @@ void VoxGame::Create()
 	m_pVoxelCharacter->SetRandomLookDirection(true);
 	m_pVoxelCharacter->SetWireFrameRender(false);
 	m_pVoxelCharacter->SetCharacterScale(0.08f);
-	m_pVoxelCharacter->GetRightWeapon()->StartWeaponTrails();
-	m_pVoxelCharacter->GetLeftWeapon()->StartWeaponTrails();
 
 	// Keyboard movement
 	m_bKeyboardForward = false;
@@ -169,6 +167,41 @@ void VoxGame::Destroy()
 	}
 }
 
+// Events
+void VoxGame::PollEvents()
+{
+	m_pVoxWindow->PollEvents();
+}
+
+bool VoxGame::ShouldClose()
+{
+	return (m_pVoxWindow->ShouldCloseWindow() == 1) || (m_pVoxApplication->ShouldCloseApplication() == 1);
+}
+
+// Window functionality
+void VoxGame::ResizeWindow(int width, int height)
+{
+	m_windowWidth = width;
+	m_windowHeight = height;
+
+	m_pVoxWindow->ResizeWindow(m_windowWidth, m_windowHeight);
+
+	if(m_pRenderer)
+	{
+		// Let the renderer know we have resized the window
+		m_pRenderer->ResizeWindow(m_windowWidth, m_windowHeight);
+
+		// Resize the main viewport
+		m_pRenderer->ResizeViewport(m_defaultViewport, 0, 0, m_windowWidth, m_windowHeight, 60.0f);
+
+		// Resize the frame buffers
+		bool frameBufferResize = false;
+		frameBufferResize = m_pRenderer->CreateFrameBuffer(m_SSAOFrameBuffer, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "SSAO", &m_SSAOFrameBuffer);
+		frameBufferResize = m_pRenderer->CreateFrameBuffer(m_shadowFrameBuffer, true, true, true, true, m_windowWidth, m_windowHeight, 5.0f, "Shadow", &m_shadowFrameBuffer);
+	}
+}
+
+// Updating
 void VoxGame::Update()
 {
 	// Update interpolator singleton
@@ -185,20 +218,25 @@ void VoxGame::Update()
 	m_fps = 1.0f / ((float)(m_fpsCurrentTicks.QuadPart - m_fpsPreviousTicks.QuadPart) / (float)m_fpsTicksPerSecond.QuadPart);
 	m_fpsPreviousTicks = m_fpsCurrentTicks;
 
-	// Update the lighting manager
-	m_pLightingManager->Update(m_deltaTime);
-
-	// Block particle manager
-	m_pBlockParticleManager->Update(m_deltaTime);
-
-	// Update the voxel model
+	// Animation update
 	if (m_animationUpdate)
 	{
+		// Update the lighting manager
+		m_pLightingManager->Update(m_deltaTime);
+
+		// Block particle manager
+		m_pBlockParticleManager->Update(m_deltaTime);
+
+		// Update the voxel model
 		float animationSpeeds[AnimationSections_NUMSECTIONS] = { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
 		Matrix4x4 worldMatrix;
 		m_pVoxelCharacter->Update(m_deltaTime, animationSpeeds);
 		m_pVoxelCharacter->UpdateWeaponTrails(m_deltaTime, worldMatrix);
 	}
+
+	// Update / Create weapon lights and particle effects
+	UpdateWeaponLights(m_deltaTime);
+	UpdateWeaponParticleEffects(m_deltaTime);
 
 	// Update controls
 	UpdateControls(m_deltaTime);
@@ -208,6 +246,218 @@ void VoxGame::Update()
 	m_pVoxWindow->Update(m_deltaTime);
 }
 
+void VoxGame::UpdateWeaponLights(float dt)
+{
+	for (int i = 0; i < 2; i++)
+	{
+		VoxelWeapon* pWeapon = NULL;
+		bool isWeaponLoaded = false;
+		if (i == 0)  // Right side
+		{
+			pWeapon = m_pVoxelCharacter->GetRightWeapon();
+			isWeaponLoaded = m_pVoxelCharacter->IsRightWeaponLoaded();
+		}
+		else  // Left side
+		{
+			pWeapon = m_pVoxelCharacter->GetLeftWeapon();
+			isWeaponLoaded = m_pVoxelCharacter->IsLeftWeaponLoaded();
+		}
+
+		if (pWeapon != NULL)
+		{
+			if (isWeaponLoaded)
+			{
+				for (int i = 0; i < pWeapon->GetNumLights(); i++)
+				{
+					unsigned int lightId;
+					Vector3d lightPos;
+					float lightRadius;
+					float lightDiffuseMultiplier;
+					Colour lightColour;
+					bool connectedToSegment;
+					pWeapon->GetLightParams(i, &lightId, &lightPos, &lightRadius, &lightDiffuseMultiplier, &lightColour, &connectedToSegment);
+
+					if (lightId == -1)
+					{
+						m_pLightingManager->AddLight(Vector3d(0.0f, 0.0f, 0.0f), 0.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f, 1.0f), &lightId);
+						pWeapon->SetLightingId(i, lightId);
+					}
+
+					if (connectedToSegment == false)
+					{
+						// Rotate due to characters forward vector
+						//float rotationAngle = acos(Vector3d::DotProduct(Vector3d(0.0f, 0.0f, 1.0f), m_forward));
+						//if (m_forward.x < 0.0f)
+						//{
+						//	rotationAngle = -rotationAngle;
+						//}
+						//Matrix4x4 rotationMatrix;
+						//rotationMatrix.SetRotation(0.0f, rotationAngle, 0.0f);
+						//lightPos = rotationMatrix * lightPos;
+
+						//// Translate to position
+						//lightPos += m_position;
+					}
+
+					float scale = m_pVoxelCharacter->GetCharacterScale();
+
+					m_pLightingManager->UpdateLightPosition(lightId, lightPos);
+					m_pLightingManager->UpdateLightRadius(lightId, lightRadius * scale);
+					m_pLightingManager->UpdateLightDiffuseMultiplier(lightId, lightDiffuseMultiplier);
+					m_pLightingManager->UpdateLightColour(lightId, lightColour);
+				}
+			}
+		}
+	}
+}
+
+void VoxGame::UpdateWeaponParticleEffects(float dt)
+{
+	// Create/update
+	for (int i = 0; i < 2; i++)
+	{
+		VoxelWeapon* pWeapon = NULL;
+		bool isWeaponLoaded = false;
+		if (i == 0)  // Right side
+		{
+			pWeapon = m_pVoxelCharacter->GetRightWeapon();
+			isWeaponLoaded = m_pVoxelCharacter->IsRightWeaponLoaded();
+		}
+		else  // Left side
+		{
+			pWeapon = m_pVoxelCharacter->GetLeftWeapon();
+			isWeaponLoaded = m_pVoxelCharacter->IsLeftWeaponLoaded();
+		}
+
+		if (pWeapon != NULL)
+		{
+			if (isWeaponLoaded)
+			{
+				for (int i = 0; i < pWeapon->GetNumParticleEffects(); i++)
+				{
+					unsigned int particleEffectId;
+					Vector3d ParticleEffectPos;
+					string effectName;
+					bool connectedToSegment;
+					pWeapon->GetParticleEffectParams(i, &particleEffectId, &ParticleEffectPos, &effectName, &connectedToSegment);
+
+					if (particleEffectId == -1)
+					{
+						m_pBlockParticleManager->ImportParticleEffect(effectName, ParticleEffectPos, &particleEffectId);
+						pWeapon->SetParticleEffectId(i, particleEffectId);
+					}
+
+					if (connectedToSegment == false)
+					{
+						// Rotate due to characters forward vector
+						//float rotationAngle = acos(Vector3d::DotProduct(Vector3d(0.0f, 0.0f, 1.0f), m_forward));
+						//if (m_forward.x < 0.0f)
+						//{
+						//	rotationAngle = -rotationAngle;
+						//}
+						//Matrix4x4 rotationMatrix;
+						//rotationMatrix.SetRotation(0.0f, rotationAngle, 0.0f);
+						//ParticleEffectPos = rotationMatrix * ParticleEffectPos;
+
+						//// Translate to position
+						//ParticleEffectPos += m_position;
+					}
+
+					m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, ParticleEffectPos);
+				}
+			}
+		}
+	}
+}
+
+void VoxGame::UnloadWeapon(bool left)
+{
+	VoxelWeapon* pWeapon = NULL;
+	bool isWeaponLoaded = false;
+	if (left)  // Left side
+	{
+		pWeapon = m_pVoxelCharacter->GetLeftWeapon();
+		isWeaponLoaded = m_pVoxelCharacter->IsLeftWeaponLoaded();
+	}
+	else  // Right side
+	{
+		pWeapon = m_pVoxelCharacter->GetRightWeapon();
+		isWeaponLoaded = m_pVoxelCharacter->IsRightWeaponLoaded();
+	}
+
+	if (pWeapon != NULL)
+	{
+		if (isWeaponLoaded)
+		{
+			// Lights
+			for (int i = 0; i < pWeapon->GetNumLights(); i++)
+			{
+				unsigned int lightId;
+				Vector3d lightPos;
+				float lightRadius;
+				float lightDiffuseMultiplier;
+				Colour lightColour;
+				bool connectedToSegment;
+				pWeapon->GetLightParams(i, &lightId, &lightPos, &lightRadius, &lightDiffuseMultiplier, &lightColour, &connectedToSegment);
+
+				if (lightId != -1)
+				{
+					m_pLightingManager->RemoveLight(lightId);
+					pWeapon->SetLightingId(i, -1);
+
+					if (connectedToSegment == false)
+					{
+						// Rotate due to characters forward vector
+						//float rotationAngle = acos(Vector3d::DotProduct(Vector3d(0.0f, 0.0f, 1.0f), m_forward));
+						//if (m_forward.x < 0.0f)
+						//{
+						//	rotationAngle = -rotationAngle;
+						//}
+						//Matrix4x4 rotationMatrix;
+						//rotationMatrix.SetRotation(0.0f, rotationAngle, 0.0f);
+						//lightPos = rotationMatrix * lightPos;
+
+						//// Translate to position
+						//lightPos += m_position;
+					}
+
+					float scale = m_pVoxelCharacter->GetCharacterScale();
+					unsigned int lId;
+					m_pLightingManager->AddDyingLight(lightPos, lightRadius * scale, lightDiffuseMultiplier, lightColour, 2.0f, &lId);
+				}
+			}
+
+			// Particle Effects
+			for (int i = 0; i < pWeapon->GetNumParticleEffects(); i++)
+			{
+				unsigned int particleEffectId;
+				Vector3d ParticleEffectPos;
+				string effectName;
+				bool connectedToSegment;
+				pWeapon->GetParticleEffectParams(i, &particleEffectId, &ParticleEffectPos, &effectName, &connectedToSegment);
+
+				if (particleEffectId != -1)
+				{
+					m_pBlockParticleManager->DestroyParticleEffect(particleEffectId);
+					pWeapon->SetParticleEffectId(i, -1);
+				}
+			}
+		}
+
+		pWeapon->UnloadWeapon();
+
+		if (left)  // Left side
+		{
+			m_pVoxelCharacter->UnloadLeftWeapon();
+		}
+		else  // Right side
+		{
+			m_pVoxelCharacter->UnloadRightWeapon();
+		}		
+	}
+}
+
+// Rendering
 void VoxGame::Render()
 {
 	// Begin rendering
@@ -225,7 +475,7 @@ void VoxGame::Render()
 		m_pRenderer->PushMatrix();
 			// Set the default projection mode
 			m_pRenderer->SetProjectionMode(PM_PERSPECTIVE, m_defaultViewport);
-			
+
 			// Set back culling as default
 			m_pRenderer->SetCullMode(CM_BACK);
 
@@ -233,7 +483,7 @@ void VoxGame::Render()
 			m_pGameCamera->Look();
 
 			// Multisampling MSAA
-			if(m_multiSampling)
+			if (m_multiSampling)
 			{
 				m_pRenderer->EnableMultiSampling();
 			}
@@ -276,14 +526,14 @@ void VoxGame::Render()
 			m_pRenderer->PopMatrix();
 
 			// Debug rendering
-			m_pLightingManager->DebugRender();
-
+			//m_pLightingManager->DebugRender();
 		m_pRenderer->PopMatrix();
 
+
+		// ---------------------------------------
+		// Render 2d
+		// ---------------------------------------
 		m_pRenderer->PushMatrix();
-			// ---------------------------------------
-			// Render 2d
-			// ---------------------------------------
 		m_pRenderer->PopMatrix();
 
 		// SSAO frame buffer rendering stop
@@ -293,7 +543,7 @@ void VoxGame::Render()
 		}
 
 		// Render the SSAO texture
-		if(m_renderModeIndex == 0)
+		if (m_renderModeIndex == 0)
 		{
 			RenderSSAOTexture();
 		}
@@ -304,326 +554,11 @@ void VoxGame::Render()
 	// End rendering
 	m_pRenderer->EndScene();
 
+
 	// Render the window
 	m_pVoxWindow->Render();
 }
 
-void VoxGame::PollEvents()
-{
-	m_pVoxWindow->PollEvents();
-}
-
-bool VoxGame::ShouldClose()
-{
-	return (m_pVoxWindow->ShouldCloseWindow() == 1) || (m_pVoxApplication->ShouldCloseApplication() == 1);
-}
-
-// Window functionality
-void VoxGame::ResizeWindow(int width, int height)
-{
-	m_windowWidth = width;
-	m_windowHeight = height;
-
-	m_pVoxWindow->ResizeWindow(m_windowWidth, m_windowHeight);
-
-	if(m_pRenderer)
-	{
-		// Let the renderer know we have resized the window
-		m_pRenderer->ResizeWindow(m_windowWidth, m_windowHeight);
-
-		// Resize the main viewport
-		m_pRenderer->ResizeViewport(m_defaultViewport, 0, 0, m_windowWidth, m_windowHeight, 60.0f);
-
-		// Resize the frame buffers
-		bool frameBufferResize = false;
-		frameBufferResize = m_pRenderer->CreateFrameBuffer(m_SSAOFrameBuffer, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "SSAO", &m_SSAOFrameBuffer);
-		frameBufferResize = m_pRenderer->CreateFrameBuffer(m_shadowFrameBuffer, true, true, true, true, m_windowWidth, m_windowHeight, 5.0f, "Shadow", &m_shadowFrameBuffer);
-	}
-}
-
-// Controls
-void VoxGame::UpdateControls(float dt)
-{
-	int x = m_pVoxWindow->GetCursorX();
-	int y = m_pVoxWindow->GetCursorY();
-
-	// Keyboard movements
-	if (m_bKeyboardForward)
-	{
-		m_pGameCamera->Fly(20.0f * dt);
-	}
-	if (m_bKeyboardBackward)
-	{
-		m_pGameCamera->Fly(-20.0f * dt);
-	}
-	if (m_bKeyboardStrafeLeft)
-	{
-		m_pGameCamera->Strafe(-20.0f * dt);
-	}
-	if (m_bKeyboardStrafeRight)
-	{
-		m_pGameCamera->Strafe(20.0f * dt);
-	}
-
-	// Camera movements
-	if (m_bCameraRotate)
-	{
-		MouseCameraRotate(x, y);
-	}
-}
-
-void VoxGame::KeyPressed(int key, int scancode, int mods)
-{
-	switch(key)
-	{
-		case GLFW_KEY_UP:
-		{
-			m_bKeyboardForward = true;
-			break;
-		}
-		case GLFW_KEY_DOWN:
-		{
-			m_bKeyboardBackward = true;
-			break;
-		}
-		case GLFW_KEY_LEFT:
-		{
-			m_bKeyboardStrafeLeft = true;
-			break;
-		}
-		case GLFW_KEY_RIGHT:
-		{
-			m_bKeyboardStrafeRight = true;
-			break;
-		}
-	}
-}
-
-void VoxGame::KeyReleased(int key, int scancode, int mods)
-{
-	switch(key)
-	{
-		case GLFW_KEY_UP:
-		{
-			m_bKeyboardForward = false;
-			break;
-		}
-		case GLFW_KEY_DOWN:
-		{
-			m_bKeyboardBackward = false;
-			break;
-		}
-		case GLFW_KEY_LEFT:
-		{
-			m_bKeyboardStrafeLeft = false;
-			break;
-		}
-		case GLFW_KEY_RIGHT:
-		{
-			m_bKeyboardStrafeRight = false;
-			break;
-		}
-
-		case GLFW_KEY_H:
-		{
-			m_displayHelpText = !m_displayHelpText;
-			break;
-		}
-		case GLFW_KEY_W:
-		{
-			m_modelWireframe = !m_modelWireframe;
-			m_pVoxelCharacter->SetWireFrameRender(m_modelWireframe);
-			break;
-		}
-		case GLFW_KEY_E:
-		{
-			m_modelTalking = !m_modelTalking;
-			m_pVoxelCharacter->SetTalkingAnimationEnabled(m_modelTalking);
-			break;
-		}
-		case GLFW_KEY_Q:
-		{
-			m_modelAnimationIndex++;
-			if(m_modelAnimationIndex >= m_pVoxelCharacter->GetNumAnimations())
-			{
-				m_modelAnimationIndex = 0;
-			}
-
-			m_pVoxelCharacter->PlayAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, m_pVoxelCharacter->GetAnimationName(m_modelAnimationIndex));
-			break;
-		}
-		case GLFW_KEY_Z:
-		{
-			m_pVoxelCharacter->PlayAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, m_pVoxelCharacter->GetAnimationName(m_modelAnimationIndex));
-			break;
-		}
-		case GLFW_KEY_R:
-		{
-			m_multiSampling = !m_multiSampling;
-			break;
-		}
-		case GLFW_KEY_T:
-		{
-			m_renderModeIndex++;
-			if(m_renderModeIndex >= 2)
-			{
-				m_renderModeIndex = 0;
-			}
-
-			if (m_renderModeIndex == 0)
-				m_renderModeString = "SSAO";
-			if (m_renderModeIndex == 1)
-				m_renderModeString = "Normal";
-
-			break;
-		}
-		case GLFW_KEY_Y:
-		{
-			m_animationUpdate = !m_animationUpdate;
-
-			break;
-		}
-		case GLFW_KEY_A:
-		{
-			switch(m_weaponIndex)
-			{
-				case 0:
-				{
-					m_weaponString = "Sword";
-					m_pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/Sword/Sword.weapon");
-					break;
-				}
-				case 1:
-				{
-					m_weaponString = "Sword & Shield";
-					m_pVoxelCharacter->LoadLeftWeapon("media/gamedata/weapons/Shield/Shield.weapon");
-					break;
-				}
-				case 2:
-				{
-					m_weaponString = "Staff";
-					m_pVoxelCharacter->UnloadLeftWeapon();
-					m_pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/Staff/Staff.weapon");
-					break;
-				}
-				case 3:
-				{
-					m_weaponString = "Bow";
-					m_pVoxelCharacter->UnloadRightWeapon();
-					m_pVoxelCharacter->LoadLeftWeapon("media/gamedata/weapons/Bow/Bow.weapon");
-					break;
-				}
-				case 4:
-				{
-					m_weaponString = "2HandedSword";
-					m_pVoxelCharacter->UnloadLeftWeapon();
-					m_pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/2HandedSword/2HandedSword.weapon");
-					break;
-				}
-				case 5:
-				{
-					m_weaponString = "Torch";
-					m_pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/Torch/Torch.weapon");
-					break;
-				}
-				case 6:
-				{
-					m_weaponString = "Fireball";
-					m_pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/FireballHands/FireballHandsRight.weapon");
-					m_pVoxelCharacter->LoadLeftWeapon("media/gamedata/weapons/FireballHands/FireballHandsLeft.weapon");
-					m_pVoxelCharacter->SetQubicleMatrixRender("Right_Hand", false);
-					m_pVoxelCharacter->SetQubicleMatrixRender("Left_Hand", false);
-					break;
-				}
-				case 7:
-				{
-					m_weaponString = "NONE";
-					m_pVoxelCharacter->UnloadLeftWeapon();
-					m_pVoxelCharacter->UnloadRightWeapon();
-					m_pVoxelCharacter->SetQubicleMatrixRender("Right_Hand", true);
-					m_pVoxelCharacter->SetQubicleMatrixRender("Left_Hand", true);
-					break;
-				}
-			}
-
-			m_weaponIndex++;
-			if(m_weaponIndex == 8)
-				m_weaponIndex = 0;
-
-			break;
-		}
-	}
-}
-
-void VoxGame::MouseLeftPressed()
-{
-	m_currentX = m_pVoxWindow->GetCursorX();
-	m_currentY = m_pVoxWindow->GetCursorY();
-	m_pressedX = m_currentX;
-	m_pressedY = m_currentY;
-
-	m_bCameraRotate = true;
-}
-
-void VoxGame::MouseLeftReleased()
-{
-	m_bCameraRotate = false;
-}
-
-void VoxGame::MouseRightPressed()
-{
-	m_currentX = m_pVoxWindow->GetCursorX();
-	m_currentY = m_pVoxWindow->GetCursorY();
-	m_pressedX = m_currentX;
-	m_pressedY = m_currentY;
-}
-
-void VoxGame::MouseRightReleased()
-{
-}
-
-void VoxGame::MouseMiddlePressed()
-{
-}
-
-void VoxGame::MouseMiddleReleased()
-{
-}
-
-void VoxGame::MouseScroll(double x, double y)
-{
-}
-
-// Mouse controls
-void VoxGame::MouseCameraRotate(int x, int y)
-{
-	float changeX;
-	float changeY;
-
-	// The mouse hasn't moved so just return
-	if ((m_currentX == x) && (m_currentY == y))
-	{
-		return;
-	}
-
-	// Calculate and scale down the change in position
-	changeX = (x - m_currentX) / 5.0f;
-	changeY = (y - m_currentY) / 5.0f;
-
-	// Upside down
-	if (m_pGameCamera->GetUp().y < 0.0f)
-	{
-		changeX = -changeX;
-	}
-
-	m_pGameCamera->RotateAroundPoint(changeY*0.5f, -changeX*0.5f, 3.0f);
-
-	m_currentX = x;
-	m_currentY = y;
-}
-
-
-// Rendering
 void VoxGame::RenderSSAOTexture()
 {
 	m_pRenderer->PushMatrix();

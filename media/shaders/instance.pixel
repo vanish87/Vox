@@ -30,7 +30,7 @@ void main()
 		light_color += out_light_diffuse * lambertTerm * att;
 	}
 
-	vec4 final_color = out_color * (light_color * 0.5);
+	vec4 final_color = out_color;// * (light_color * 0.5);
 	final_color.a = out_color.a;
 
     outputColor = final_color;

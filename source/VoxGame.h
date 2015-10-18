@@ -20,9 +20,8 @@ public:
 
 	void Create();
 	void Destroy();
-	void Update();
-	void Render();
 
+	// Events
 	void PollEvents();
 	bool ShouldClose();
 
@@ -44,7 +43,14 @@ public:
 	// Mouse controls
 	void MouseCameraRotate(int x, int y);
 
+	// Updating
+	void Update();
+	void UpdateWeaponLights(float dt);
+	void UpdateWeaponParticleEffects(float dt);
+	void UnloadWeapon(bool left);
+
 	// Rendering
+	void Render();
 	void RenderSSAOTexture();
 	void RenderDebugInformation();
 

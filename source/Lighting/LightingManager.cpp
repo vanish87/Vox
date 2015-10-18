@@ -209,6 +209,8 @@ void LightingManager::DebugRender()
 		float b = lpLight->m_colour.GetBlue();
 		float a = lpLight->m_colour.GetAlpha();
 
+		m_pRenderer->SetLineWidth(1.0f);
+		
 		m_pRenderer->PushMatrix();
 			m_pRenderer->SetRenderMode(RM_WIREFRAME);
 			m_pRenderer->TranslateWorldMatrix(lpLight->m_position.x, lpLight->m_position.y, lpLight->m_position.z);
