@@ -224,6 +224,7 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 					m_weaponString = "Sword & Shield";
 					UnloadWeapon(true);
 					UnloadWeapon(false);
+					m_pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/Sword/Sword.weapon");
 					m_pVoxelCharacter->LoadLeftWeapon("media/gamedata/weapons/Shield/Shield.weapon");
 					break;
 				}

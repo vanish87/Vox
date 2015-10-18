@@ -27,7 +27,12 @@ rotationXTurnSpeed 0
 rotationYTurnSpeed 0
 rotationZTurnSpeed 0
 
-numLights: 0
+numLights: 1
+lightOffset: 0.0 7 0.0
+lightRadius: 20.0
+lightDiffuseMultiplier: 1.0
+lightColour: 0.0 0.86 0.0 1.0
+connectedToSection: -1
 
 numParticleEffects: 0
 
