@@ -48,3 +48,5 @@ target_link_libraries(Vox "opengl32.lib")
 target_link_libraries(Vox "winmm.lib")
 target_link_libraries(Vox "${CMAKE_CURRENT_SOURCE_DIR}\\glfw\\libs\\d\\glfw3.lib")
 target_link_libraries(Vox "${CMAKE_CURRENT_SOURCE_DIR}\\freetype\\libs\\freetype237d.lib")
+
+set_target_properties(Vox PROPERTIES RUNTIME_OUTPUT_DIRECTORY "../../bin/")
