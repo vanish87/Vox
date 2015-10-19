@@ -13,6 +13,7 @@
 * ~~Lighting effects.~~
 * ~~Particle effects.~~
 * ~~Add weapon trails.~~
+* ~~Remove any GL calls from VoxGame - Add InitZeroTexture() functionality to renderer.~~
 * App player class and put voxel character functionalit in player class.
 * Switch over to using glm maths lib.
 * Use Cmake for build management.
@@ -20,7 +21,6 @@
 * Enable x64 build configurations.
 * Better readme file.
 * Weapon trails controlled by the animation file.
-* Remove any GL calls from VoxGame - Add InitZeroTexture() functionality to renderer.
 * Convert shaders over to be more unified.
 * Better SSAO shader.
 
