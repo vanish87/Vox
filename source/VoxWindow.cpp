@@ -1,4 +1,4 @@
-#include "../glew/include/GL/glew.h"
+#include "glew/include/GL/glew.h"
 
 #include <windows.h>
 #include <gl/gl.h>
