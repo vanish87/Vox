@@ -33,3 +33,4 @@
 * Weapon trails are not frame rate independent.
 * Fix block particle lighting params, rework shader for better lighting.
 * Fix transparency and transparent textures when using the SSAO shader.
+* Animated weapon sections get messed up when simulation is paused, via window focus, breakpoint, etc...
