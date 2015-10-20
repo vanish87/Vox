@@ -27,6 +27,8 @@ public:
 	int GetCursorX();
 	int GetCursorY();
 
+	void ToggleFullScreen(bool fullscreen);
+
 	// Events
 	void PollEvents();
 	int ShouldCloseWindow();
@@ -47,9 +49,13 @@ private:
 	/* Private members */
 	GLFWwindow* window;
 
+	// Window dimensions
 	int m_windowWidth;
 	int m_windowHeight;
+	int m_oldWindowWidth;
+	int m_oldWindowHeight;
 
+	// Cursor position
 	int m_cursorX;
 	int m_cursorY;
 };
