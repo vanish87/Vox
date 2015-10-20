@@ -17,7 +17,7 @@
 * App player class and put voxel character functionalit in player class.
 * Switch over to using glm maths lib.
 * ~~Use Cmake for build management.~~
-* Add fullscreen support and toggle.
+* ~~Add fullscreen support and toggle.~~
 * Enable cross platform compiling and support, linux.
 * Enable x64 build configurations.
 * Better readme file.
