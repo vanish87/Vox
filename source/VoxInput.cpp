@@ -90,6 +90,10 @@ void VoxGame::UpdateControls(float dt)
 	{
 		MouseCameraRotate(x, y);
 	}
+	if (m_bCameraZoom)
+	{
+		MouseCameraZoom(x, y);
+	}
 }
 
 void VoxGame::KeyPressed(int key, int scancode, int mods)
@@ -324,10 +328,13 @@ void VoxGame::MouseRightPressed()
 	m_currentY = m_pVoxWindow->GetCursorY();
 	m_pressedX = m_currentX;
 	m_pressedY = m_currentY;
+
+	m_bCameraZoom = true;
 }
 
 void VoxGame::MouseRightReleased()
 {
+	m_bCameraZoom = false;
 }
 
 void VoxGame::MouseMiddlePressed()
@@ -364,7 +371,28 @@ void VoxGame::MouseCameraRotate(int x, int y)
 		changeX = -changeX;
 	}
 
-	m_pGameCamera->RotateAroundPoint(changeY*0.5f, -changeX*0.5f, 3.0f);
+	m_pGameCamera->RotateAroundPoint(changeY*0.5f, -changeX*0.5f);
+
+	m_currentX = x;
+	m_currentY = y;
+}
+
+void VoxGame::MouseCameraZoom(int x, int y)
+{
+	float changeX;
+	float changeY;
+
+	// The mouse hasn't moved so just return
+	if ((m_currentX == x) && (m_currentY == y))
+	{
+		return;
+	}
+
+	// Calculate and scale down the change in position
+	changeX = (x - m_currentX) / 5.0f;
+	changeY = (y - m_currentY) / 5.0f;
+
+	m_pGameCamera->Zoom(changeY*0.25f);
 
 	m_currentX = x;
 	m_currentY = y;

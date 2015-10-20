@@ -42,6 +42,7 @@ public:
 
 	// Mouse controls
 	void MouseCameraRotate(int x, int y);
+	void MouseCameraZoom(int x, int y);
 
 	// Updating
 	void Update();
@@ -134,6 +135,7 @@ private:
 
 	// Camera movement
 	bool m_bCameraRotate;
+	bool m_bCameraZoom;
 	int m_pressedX;
 	int m_pressedY;
 	int m_currentX;

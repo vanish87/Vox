@@ -120,6 +120,7 @@ void VoxGame::Create()
 
 	// Camera movement
 	m_bCameraRotate = false;
+	m_bCameraZoom = false;
 
 	m_pressedX = 0;
 	m_pressedY = 0;	
@@ -702,11 +703,12 @@ void VoxGame::RenderSSAOTexture()
 void VoxGame::RenderDebugInformation()
 {
 	char lCameraBuff[256];
-	sprintf_s(lCameraBuff, 256, "Pos(%.2f, %.2f, %.2f), Facing(%.2f, %.2f, %.2f) = %.2f, Up(%.2f, %.2f, %.2f) = %.2f, Right(%.2f, %.2f, %.2f) = %.2f",
+	sprintf_s(lCameraBuff, 256, "Pos(%.2f, %.2f, %.2f), Facing(%.2f, %.2f, %.2f) = %.2f, Up(%.2f, %.2f, %.2f) = %.2f, Right(%.2f, %.2f, %.2f) = %.2f, Zoom=%.2f",
 		m_pGameCamera->GetPosition().x, m_pGameCamera->GetPosition().y, m_pGameCamera->GetPosition().z,
 		m_pGameCamera->GetFacing().x, m_pGameCamera->GetFacing().y, m_pGameCamera->GetFacing().z, m_pGameCamera->GetFacing().GetLength(),
 		m_pGameCamera->GetUp().x, m_pGameCamera->GetUp().y, m_pGameCamera->GetUp().z, m_pGameCamera->GetUp().GetLength(),
-		m_pGameCamera->GetRight().x, m_pGameCamera->GetRight().y, m_pGameCamera->GetRight().z, m_pGameCamera->GetRight().GetLength());
+		m_pGameCamera->GetRight().x, m_pGameCamera->GetRight().y, m_pGameCamera->GetRight().z, m_pGameCamera->GetRight().GetLength(),
+		m_pGameCamera->GetZoomAmount());
 	char lFPSBuff[128];
 	sprintf_s(lFPSBuff, "FPS: %.0f  Delta: %.4f", m_fps, m_deltaTime);
 	char lAnimationBuff[128];
