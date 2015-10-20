@@ -51,6 +51,8 @@ void VoxWindow::Create()
 		exit(EXIT_FAILURE);
 	}
 
+	m_minimized = false;
+
 	/* Set default cursor positions */
 	m_cursorX = 0;
 	m_cursorY = 0;
@@ -98,6 +100,7 @@ void VoxWindow::Render()
 	glfwSwapBuffers(window);
 }
 
+// Windows dimensions
 int VoxWindow::GetWindowWidth()
 {
 	return m_windowWidth;
@@ -110,10 +113,18 @@ int VoxWindow::GetWindowHeight()
 
 void VoxWindow::ResizeWindow(int width, int height)
 {
+	m_minimized = (width == 0 || height == 0);
+
 	m_windowWidth = width;
 	m_windowHeight = height;
 }
 
+bool VoxWindow::GetMinimized()
+{
+	return m_minimized;
+}
+
+// Cursor position
 int VoxWindow::GetCursorX()
 {
 	return m_cursorX;
@@ -124,16 +135,12 @@ int VoxWindow::GetCursorY()
 	return m_cursorY;
 }
 
+// Fullscreen
 void VoxWindow::ToggleFullScreen(bool fullscreen)
 {
 	if (fullscreen)
 	{
 		const GLFWvidmode* vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-
-		glfwWindowHint(GLFW_RED_BITS, vidMode->redBits);
-		glfwWindowHint(GLFW_GREEN_BITS, vidMode->greenBits);
-		glfwWindowHint(GLFW_BLUE_BITS, vidMode->blueBits);
-		glfwWindowHint(GLFW_REFRESH_RATE, vidMode->refreshRate);
 
 		m_oldWindowWidth = m_windowWidth;
 		m_oldWindowHeight = m_windowHeight;
@@ -177,6 +184,7 @@ void VoxWindow::ToggleFullScreen(bool fullscreen)
 	window = newWindow;
 }
 
+// Events
 void VoxWindow::PollEvents()
 {
 	/* Poll for and process events */
@@ -188,6 +196,7 @@ int VoxWindow::ShouldCloseWindow()
 	return glfwWindowShouldClose(window);
 }
 
+// Callbacks
 void WindowResizeCallback(GLFWwindow* window, int width, int height)
 {
 	VoxGame::GetInstance()->ResizeWindow(width, height);

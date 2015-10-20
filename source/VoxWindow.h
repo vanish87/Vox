@@ -20,13 +20,19 @@ public:
 	void Update(float dt);
 	void Render();
 
+	// Windows dimensions
 	int GetWindowWidth();
 	int GetWindowHeight();
 	void ResizeWindow(int width, int height);
 
+	// Minimized
+	bool GetMinimized();
+
+	// Cursor position
 	int GetCursorX();
 	int GetCursorY();
 
+	// Fullscreen
 	void ToggleFullScreen(bool fullscreen);
 
 	// Events
@@ -54,6 +60,8 @@ private:
 	int m_windowHeight;
 	int m_oldWindowWidth;
 	int m_oldWindowHeight;
+
+	bool m_minimized;
 
 	// Cursor position
 	int m_cursorX;

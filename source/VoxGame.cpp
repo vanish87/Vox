@@ -457,6 +457,12 @@ void VoxGame::UnloadWeapon(bool left)
 // Rendering
 void VoxGame::Render()
 {
+	if (m_pVoxWindow->GetMinimized())
+	{
+		// Don't call any render functions if minimized
+		return;
+	}
+
 	// Begin rendering
 	m_pRenderer->BeginScene(true, true, true);
 
