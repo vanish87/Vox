@@ -24,6 +24,9 @@
 * Weapon trails controlled by the animation file.
 * Convert shaders over to be more unified.
 * Better SSAO shader.
+* Shadow shader.
+* Phong lighting shader.
+* Add basic lighting to scene - OpenGL lighting.
 
 # BUGS
 * ~~End of animation frame state - level up animation goes to mummy walk?~~
