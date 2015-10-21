@@ -35,3 +35,4 @@
 * Fix transparency and transparent textures when using the SSAO shader.
 * Animated weapon sections get messed up when simulation is paused, via window focus, breakpoint, etc...
 * CRASH when switching between particle weapon effects fast, only in release mode? uninitialized variable. :[
+* GL Errors when closing application, shaders deletion.
