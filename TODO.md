@@ -14,12 +14,12 @@
 * ~~Particle effects.~~
 * ~~Add weapon trails.~~
 * ~~Remove any GL calls from VoxGame - Add InitZeroTexture() functionality to renderer.~~
-* App player class and put voxel character functionalit in player class.
-* Switch over to using glm maths lib.
 * ~~Use Cmake for build management.~~
 * ~~Add fullscreen support and toggle.~~
+* ~~Enable x64 build configurations.~~
+* App player class and put voxel character functionalit in player class.
+* Switch over to using glm maths lib.
 * Enable cross platform compiling and support, linux.
-* Enable x64 build configurations.
 * Better readme file.
 * Weapon trails controlled by the animation file.
 * Convert shaders over to be more unified.
@@ -34,3 +34,4 @@
 * Fix block particle lighting params, rework shader for better lighting.
 * Fix transparency and transparent textures when using the SSAO shader.
 * Animated weapon sections get messed up when simulation is paused, via window focus, breakpoint, etc...
+* CRASH when switching between particle weapon effects fast, only in release mode? uninitialized variable. :[
