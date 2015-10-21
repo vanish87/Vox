@@ -392,7 +392,7 @@ void VoxGame::MouseCameraZoom(int x, int y)
 	changeX = (x - m_currentX) / 5.0f;
 	changeY = (y - m_currentY) / 5.0f;
 
-	m_pGameCamera->Zoom(changeY*0.25f);
+	m_pGameCamera->Zoom(changeY*0.05f);
 
 	m_currentX = x;
 	m_currentY = y;
