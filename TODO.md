@@ -27,6 +27,8 @@
 * Shadow shader.
 * Phong lighting shader.
 * Add basic lighting to scene - OpenGL lighting.
+* Add pre-built release exe to root of git, so people can run exe without compiling - VoxGame.exe
+
 
 # BUGS
 * ~~End of animation frame state - level up animation goes to mummy walk?~~
