@@ -25,9 +25,9 @@
 * Convert shaders over to be more unified.
 * Better SSAO shader.
 * Shadow shader.
-* Phong lighting shader.
-* Add basic lighting to scene - OpenGL lighting.
-* Add pre-built release exe to root of git, so people can run exe without compiling - VoxGame.exe
+* ~~Phong lighting shader.~~
+* ~~Add basic lighting to scene - OpenGL lighting.~~
+* ~~Add pre-built release exe to root of git, so people can run exe without compiling - VoxGame.exe~~
 
 
 # BUGS
