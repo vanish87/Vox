@@ -156,6 +156,7 @@ private:
 	bool m_modelTalking;
 	int m_modelAnimationIndex;
 	bool m_multiSampling;
+	bool m_ssao;
 	int m_weaponIndex;
 	string m_weaponString;
 	bool m_animationUpdate;

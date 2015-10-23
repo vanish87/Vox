@@ -186,30 +186,31 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 			m_multiSampling = !m_multiSampling;
 			break;
 		}
+		case GLFW_KEY_Y:
+		{
+			m_ssao = !m_ssao;
+			break;
+		}		
 		case GLFW_KEY_T:
 		{
 			m_renderModeIndex++;
-			if (m_renderModeIndex >= 3)
+			if (m_renderModeIndex >= 2)
 			{
 				m_renderModeIndex = 0;
 			}
 
 			if (m_renderModeIndex == 0)
 			{
-				m_renderModeString = "SSAO";
-			}
-			else if (m_renderModeIndex == 1)
-			{
 				m_renderModeString = "Phong";
 			}
-			else if (m_renderModeIndex == 2)
+			else if (m_renderModeIndex == 1)
 			{
 				m_renderModeString = "Default";
 			}
 
 			break;
 		}
-		case GLFW_KEY_Y:
+		case GLFW_KEY_L:
 		{
 			m_animationUpdate = !m_animationUpdate;
 

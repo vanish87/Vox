@@ -134,12 +134,13 @@ void VoxGame::Create()
 
 	// Toggle flags
 	m_renderModeIndex = 0;
-	m_renderModeString = "SSAO";
+	m_renderModeString = "Phong";
 	m_displayHelpText = true;
 	m_modelWireframe = false;
 	m_modelTalking = false;
 	m_modelAnimationIndex = 0;
 	m_multiSampling = true;
+	m_ssao = true;
 	m_weaponIndex = 0;
 	m_weaponString = "NONE";
 	m_animationUpdate = true;
@@ -473,7 +474,7 @@ void VoxGame::Render()
 	m_pRenderer->BeginScene(true, true, true);
 
 		// SSAO frame buffer rendering start
-		if (m_renderModeIndex == 0)
+		if (m_ssao)
 		{
 			m_pRenderer->StartRenderingToFrameBuffer(m_SSAOFrameBuffer);
 		}
@@ -513,10 +514,10 @@ void VoxGame::Render()
 				m_pRenderer->DisableMultiSampling();
 			}
 
-			unsigned int shaderIndex = m_defaultShader;
+			unsigned int shaderIndex = m_phongShader;
 			if (m_renderModeIndex == 1)
 			{
-				shaderIndex = m_phongShader;
+				shaderIndex = m_defaultShader;
 			}
 
 			m_pRenderer->BeginGLSLShader(shaderIndex);
@@ -553,7 +554,7 @@ void VoxGame::Render()
 		m_pRenderer->PopMatrix();
 
 		// Render the deferred lighting pass
-		if (m_renderModeIndex == 0)
+		if (m_ssao)
 		{
 			RenderDeferredLighting();
 		}
@@ -565,13 +566,13 @@ void VoxGame::Render()
 		m_pRenderer->PopMatrix();
 
 		// SSAO frame buffer rendering stop
-		if (m_renderModeIndex == 0)
+		if (m_ssao)
 		{
 			m_pRenderer->StopRenderingToFrameBuffer(m_SSAOFrameBuffer);
 		}
 
 		// Render the SSAO texture
-		if (m_renderModeIndex == 0)
+		if (m_ssao)
 		{
 			RenderSSAOTexture();
 		}
@@ -760,11 +761,12 @@ void VoxGame::RenderDebugInformation()
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, (int)(m_windowWidth * 0.5f) - 75.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lAnimationBuff);
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, (int)(m_windowWidth * 0.5f) - 75.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lWeaponBuff);
 
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 195.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "F - Fullscreen [%s]", m_fullscreen ? "On" : "Off");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 215.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "F - Fullscreen [%s]", m_fullscreen ? "On" : "Off");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 195.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Y - SSAO [%s]", m_ssao ? "On" : "Off");
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 175.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "T - Render Mode [%s]", m_renderModeString.c_str());
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 155.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "R - Toggle MSAA [%s]", m_multiSampling ? "On" : "Off");
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 135.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "E - Toggle Talking [%s]", m_modelTalking ? "On" : "Off");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 115.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Y - Toggle Animation [%s]", m_animationUpdate ? "On" : "Off");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 115.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "L - Toggle Animation [%s]", m_animationUpdate ? "On" : "Off");
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 95.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "H - Toggle HelpText");
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 75.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "W - Toggle Wireframe");
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 55.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Q - Cycle Animations");
