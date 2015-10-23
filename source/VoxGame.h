@@ -104,6 +104,12 @@ private:
 	// Fonts
 	unsigned int m_defaultFont;
 
+	// Lights
+	unsigned int m_defaultLight;
+
+	// Materials
+	unsigned int m_defaultMaterial;
+
 	// Frame buffers
 	unsigned int m_SSAOFrameBuffer;
 	unsigned int m_shadowFrameBuffer;

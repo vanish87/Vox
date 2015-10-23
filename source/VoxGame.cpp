@@ -55,8 +55,11 @@ void VoxGame::Create()
 	m_pRenderer->CreateFreeTypeFont("media/fonts/arial.ttf", 12, &m_defaultFont);
 
 	/* Create lights */
+	m_pRenderer->CreateLight(Colour(0.75f, 0.75f, 0.75f, 1.0f), Colour(0.85f, 0.85f, 0.85f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f),
+		Vector3d(0.0f, 5.0f, 5.0f), Vector3d(0.0f, -1.0f, 0.0f), 0.0f, 0.0f, 0.20f, 0.001f, 0.0f, true, false, &m_defaultLight);
 
 	/* Create materials */
+	m_pRenderer->CreateMaterial(Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), 64, &m_defaultMaterial);
 
 	/* Create the frame buffers */
 	bool frameBufferCreated = false;
@@ -486,6 +489,18 @@ void VoxGame::Render()
 			// Set the lookat camera
 			m_pGameCamera->Look();
 
+			// Enable the lights
+			m_pRenderer->PushMatrix();
+				m_pRenderer->EnableLight(m_defaultLight, 0);
+			m_pRenderer->PopMatrix();
+
+			// Render the lights (DEBUG)
+			m_pRenderer->PushMatrix();
+				m_pRenderer->SetCullMode(CM_BACK);
+				m_pRenderer->SetRenderMode(RM_SOLID);
+				m_pRenderer->RenderLight(m_defaultLight);
+			m_pRenderer->PopMatrix();
+
 			// Multisampling MSAA
 			if (m_multiSampling)
 			{
@@ -530,7 +545,10 @@ void VoxGame::Render()
 		m_pRenderer->PopMatrix();
 
 		// Render the deferred lighting pass
-		RenderDeferredLighting();
+		if (m_renderModeIndex == 0)
+		{
+			RenderDeferredLighting();
+		}
 
 		// ---------------------------------------
 		// Render 2d
