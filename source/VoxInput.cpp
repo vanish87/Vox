@@ -189,7 +189,7 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 		case GLFW_KEY_T:
 		{
 			m_renderModeIndex++;
-			if (m_renderModeIndex >= 2)
+			if (m_renderModeIndex >= 3)
 			{
 				m_renderModeIndex = 0;
 			}
@@ -198,9 +198,13 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 			{
 				m_renderModeString = "SSAO";
 			}
-			if (m_renderModeIndex == 1)
+			else if (m_renderModeIndex == 1)
 			{
-				m_renderModeString = "Normal";
+				m_renderModeString = "Phong";
+			}
+			else if (m_renderModeIndex == 2)
+			{
+				m_renderModeString = "Default";
 			}
 
 			break;

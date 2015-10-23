@@ -117,6 +117,7 @@ private:
 
 	// Shaders
 	unsigned int m_defaultShader;
+	unsigned int m_phongShader;
 	unsigned int m_SSAOShader;
 	unsigned int m_shadowShader;
 	unsigned int m_lightingShader;

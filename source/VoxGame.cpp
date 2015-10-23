@@ -55,8 +55,8 @@ void VoxGame::Create()
 	m_pRenderer->CreateFreeTypeFont("media/fonts/arial.ttf", 12, &m_defaultFont);
 
 	/* Create lights */
-	m_pRenderer->CreateLight(Colour(0.75f, 0.75f, 0.75f, 1.0f), Colour(0.85f, 0.85f, 0.85f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f),
-		Vector3d(0.0f, 5.0f, 5.0f), Vector3d(0.0f, -1.0f, 0.0f), 0.0f, 0.0f, 0.20f, 0.001f, 0.0f, true, false, &m_defaultLight);
+	m_pRenderer->CreateLight(Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f),
+		Vector3d(2.0f, 1.5f, 1.0f), Vector3d(0.0f, -1.0f, 0.0f), 0.0f, 0.0f, 0.6f, 0.35f, 0.05f, true, false, &m_defaultLight);
 
 	/* Create materials */
 	m_pRenderer->CreateMaterial(Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), 64, &m_defaultMaterial);
@@ -69,9 +69,11 @@ void VoxGame::Create()
 
 	/* Create the shaders */
 	m_defaultShader = -1;
+	m_phongShader = -1;
 	m_SSAOShader = -1;
 	m_shadowShader = -1;
 	m_pRenderer->LoadGLSLShader("media/shaders/default.vertex", "media/shaders/default.pixel", &m_defaultShader);
+	m_pRenderer->LoadGLSLShader("media/shaders/phong.vertex", "media/shaders/phong.pixel", &m_phongShader);
 	m_pRenderer->LoadGLSLShader("media/shaders/fullscreen/SSAO.vertex", "media/shaders/fullscreen/SSAO.pixel", &m_SSAOShader);
 	m_pRenderer->LoadGLSLShader("media/shaders/shadow.vertex", "media/shaders/shadow.pixel", &m_shadowShader);
 	m_pRenderer->LoadGLSLShader("media/shaders/fullscreen/lighting.vertex", "media/shaders/fullscreen/lighting.pixel", &m_lightingShader);
@@ -511,7 +513,13 @@ void VoxGame::Render()
 				m_pRenderer->DisableMultiSampling();
 			}
 
-			m_pRenderer->BeginGLSLShader(m_defaultShader);
+			unsigned int shaderIndex = m_defaultShader;
+			if (m_renderModeIndex == 1)
+			{
+				shaderIndex = m_phongShader;
+			}
+
+			m_pRenderer->BeginGLSLShader(shaderIndex);
 
 			Matrix4x4 worldMatrix;
 
@@ -523,7 +531,7 @@ void VoxGame::Render()
 				m_pVoxelCharacter->Render(false, false, false, OulineColour, false);
 			m_pRenderer->PopMatrix();
 
-			m_pRenderer->EndGLSLShader(m_defaultShader);
+			m_pRenderer->EndGLSLShader(shaderIndex);
 
 			// Render the voxel character face
 			m_pRenderer->PushMatrix();
