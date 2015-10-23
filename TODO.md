@@ -17,6 +17,9 @@
 * ~~Use Cmake for build management.~~
 * ~~Add fullscreen support and toggle.~~
 * ~~Enable x64 build configurations.~~
+* ~~Phong lighting shader.~~
+* ~~Add basic lighting to scene - OpenGL lighting.~~
+* ~~Add pre-built release exe to root of git, so people can run exe without compiling - VoxGame.exe~~
 * App player class and put voxel character functionalit in player class.
 * Switch over to using glm maths lib.
 * Enable cross platform compiling and support, linux.
@@ -24,10 +27,9 @@
 * Weapon trails controlled by the animation file.
 * Convert shaders over to be more unified.
 * Better SSAO shader.
+  * Make deferred lighting and SSAO optional toggles separate.
+  * Allow for phong shading and deferred lighting together.
 * Shadow shader.
-* ~~Phong lighting shader.~~
-* ~~Add basic lighting to scene - OpenGL lighting.~~
-* ~~Add pre-built release exe to root of git, so people can run exe without compiling - VoxGame.exe~~
 
 
 # BUGS
