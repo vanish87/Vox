@@ -705,7 +705,7 @@ void VoxGame::RenderSSAOTexture()
 		pShader->setUniform1f("nearZ", 0.01f);
 		pShader->setUniform1f("farZ", 1000.0f);
 
-		pShader->setUniform1f("samplingMultiplier", 1.5f);
+		pShader->setUniform1f("samplingMultiplier", 0.5f);
 
 		m_pRenderer->SetRenderMode(RM_TEXTURED);
 			m_pRenderer->EnableImmediateMode(IM_QUADS);
