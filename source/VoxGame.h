@@ -46,12 +46,14 @@ public:
 
 	// Updating
 	void Update();
+	void UpdateLights(float dt);
 	void UpdateWeaponLights(float dt);
 	void UpdateWeaponParticleEffects(float dt);
 	void UnloadWeapon(bool left);
 
 	// Rendering
 	void Render();
+	void RenderWorld();
 	void RenderDeferredLighting();
 	void RenderSSAOTexture();
 	void RenderDebugInformation();
@@ -106,6 +108,8 @@ private:
 
 	// Lights
 	unsigned int m_defaultLight;
+	Vector3d m_defaultLightPosition;
+	Vector3d m_defaultLightView;
 
 	// Materials
 	unsigned int m_defaultMaterial;
