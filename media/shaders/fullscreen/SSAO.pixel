@@ -37,7 +37,7 @@ float compareDepths(in float depth1, in float depth2,inout int far)
     float garea = 2.0; //gauss bell width 2
 
     // Reduce left bell width to avoid self-shadowing
-    if (diff<gdisplace)
+    if(diff < gdisplace)
 	{ 
 		garea = 0.2;
     }
