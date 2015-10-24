@@ -23,13 +23,13 @@
 * ~~Better SSAO shader.~~
   * ~~Make deferred lighting and SSAO optional toggles separate.~~
   * ~~Allow for phong shading and deferred lighting together.~~
+* ~~Shadow shader.~~
 * App player class and put voxel character functionalit in player class.
 * Switch over to using glm maths lib.
 * Enable cross platform compiling and support, linux.
 * Better readme file.
 * Weapon trails controlled by the animation file.
 * Convert shaders over to be more unified.
-* Shadow shader.
 
 
 # BUGS
