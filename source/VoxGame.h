@@ -55,6 +55,7 @@ public:
 	void Render();
 	void RenderWorld();
 	void RenderDeferredLighting();
+	void RenderTransparency();
 	void RenderSSAOTexture();
 	void RenderDebugInformation();
 
@@ -126,6 +127,8 @@ private:
 	unsigned int m_SSAOShader;
 	unsigned int m_shadowShader;
 	unsigned int m_lightingShader;
+	unsigned int m_transparencyShader;
+	unsigned int m_textureShader;
 
 	// FPS and deltatime
 	LARGE_INTEGER m_fpsPreviousTicks;

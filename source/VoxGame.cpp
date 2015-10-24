@@ -76,11 +76,15 @@ void VoxGame::Create()
 	m_SSAOShader = -1;
 	m_shadowShader = -1;
 	m_lightingShader = -1;
+	m_transparencyShader = -1;
+	m_textureShader = -1;
 	m_pRenderer->LoadGLSLShader("media/shaders/default.vertex", "media/shaders/default.pixel", &m_defaultShader);
 	m_pRenderer->LoadGLSLShader("media/shaders/phong.vertex", "media/shaders/phong.pixel", &m_phongShader);
 	m_pRenderer->LoadGLSLShader("media/shaders/fullscreen/SSAO.vertex", "media/shaders/fullscreen/SSAO.pixel", &m_SSAOShader);
 	m_pRenderer->LoadGLSLShader("media/shaders/shadow.vertex", "media/shaders/shadow.pixel", &m_shadowShader);
 	m_pRenderer->LoadGLSLShader("media/shaders/fullscreen/lighting.vertex", "media/shaders/fullscreen/lighting.pixel", &m_lightingShader);
+	m_pRenderer->LoadGLSLShader("media/shaders/fullscreen/transparency.vertex", "media/shaders/fullscreen/transparency.pixel", &m_transparencyShader);
+	m_pRenderer->LoadGLSLShader("media/shaders/texture.vertex", "media/shaders/texture.pixel", &m_textureShader);
 
 	/* Create the qubicle binary file manager */
 	m_pQubicleBinaryManager = new QubicleBinaryManager(m_pRenderer);
@@ -637,34 +641,10 @@ void VoxGame::Render()
 			m_pRenderer->StopRenderingToFrameBuffer(m_SSAOFrameBuffer);
 		}
 
-
 		// ---------------------------------------
 		// Render transparency
 		// ---------------------------------------
-		m_pRenderer->PushMatrix();
-			m_pRenderer->SetProjectionMode(PM_PERSPECTIVE, m_defaultViewport);
-			m_pRenderer->SetCullMode(CM_BACK);
-
-			// Set the lookat camera
-			m_pGameCamera->Look();
-
-			if (m_ssao)
-			{
-				m_pRenderer->StartRenderingToFrameBuffer(m_transparencyFrameBuffer);
-			}
-
-			// Render the voxel character face
-			m_pRenderer->PushMatrix();
-				m_pRenderer->MultiplyWorldMatrix(worldMatrix);
-				m_pRenderer->EmptyTextureIndex(0);
-				m_pVoxelCharacter->RenderFace();
-			m_pRenderer->PopMatrix();
-
-			if (m_ssao)
-			{
-				m_pRenderer->StopRenderingToFrameBuffer(m_transparencyFrameBuffer);
-			}
-		m_pRenderer->PopMatrix();
+		RenderTransparency();
 
 		// Render the SSAO texture
 		if (m_ssao)
@@ -690,7 +670,7 @@ void VoxGame::RenderWorld()
 
 	m_pRenderer->EnableMaterial(m_defaultMaterial);
 
-	m_pRenderer->SetRenderMode(RM_SOLID);
+	m_pRenderer->SetRenderMode(RM_SHADED);
 		m_pRenderer->EnableImmediateMode(IM_QUADS);
 		m_pRenderer->ImmediateColourAlpha(0.227f, 1.0f, 0.419f, 1.0f);
 
@@ -798,6 +778,66 @@ void VoxGame::RenderDeferredLighting()
 
 		m_pRenderer->StopRenderingToFrameBuffer(m_lightingFrameBuffer);
 
+	m_pRenderer->PopMatrix();
+}
+
+void VoxGame::RenderTransparency()
+{
+	Matrix4x4 worldMatrix;
+
+	m_pRenderer->PushMatrix();
+		m_pRenderer->SetProjectionMode(PM_PERSPECTIVE, m_defaultViewport);
+		m_pRenderer->SetCullMode(CM_BACK);
+
+		// Set the lookat camera
+		m_pGameCamera->Look();
+
+		if (m_ssao)
+		{
+			m_pRenderer->StartRenderingToFrameBuffer(m_transparencyFrameBuffer);
+		}
+
+		//m_pRenderer->BeginGLSLShader(m_transparencyShader);
+
+		//glShader* pLightShader = m_pRenderer->GetShader(m_transparencyShader);
+		//unsigned NormalsID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "normals");
+		//unsigned DepthsID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "depths");
+		//unsigned ColorsID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "colors");
+		//unsigned PositionssID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "positions");
+
+		//m_pRenderer->PrepareShaderTexture(0, NormalsID);
+		//m_pRenderer->BindRawTextureId(m_pRenderer->GetNormalTextureFromFrameBuffer(m_SSAOFrameBuffer));
+
+		//m_pRenderer->PrepareShaderTexture(1, DepthsID);
+		//m_pRenderer->BindRawTextureId(m_pRenderer->GetDepthTextureFromFrameBuffer(m_SSAOFrameBuffer));
+
+		//m_pRenderer->PrepareShaderTexture(2, ColorsID);
+		//m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_SSAOFrameBuffer));
+
+		//m_pRenderer->PrepareShaderTexture(3, PositionssID);
+		//m_pRenderer->BindRawTextureId(m_pRenderer->GetPositionTextureFromFrameBuffer(m_SSAOFrameBuffer));
+
+		//pLightShader->setUniform1i("screenWidth", m_windowWidth);
+		//pLightShader->setUniform1i("screenHeight", m_windowHeight);
+
+		// Render the voxel character face
+		m_pRenderer->PushMatrix();
+			m_pRenderer->MultiplyWorldMatrix(worldMatrix);
+			m_pRenderer->EmptyTextureIndex(0);
+			m_pVoxelCharacter->RenderFace();
+		m_pRenderer->PopMatrix();
+
+		//m_pRenderer->EmptyTextureIndex(3);
+		//m_pRenderer->EmptyTextureIndex(2);
+		//m_pRenderer->EmptyTextureIndex(1);
+		//m_pRenderer->EmptyTextureIndex(0);
+
+		//m_pRenderer->EndGLSLShader(m_transparencyShader);
+
+		if (m_ssao)
+		{
+			m_pRenderer->StopRenderingToFrameBuffer(m_transparencyFrameBuffer);
+		}
 	m_pRenderer->PopMatrix();
 }
 
