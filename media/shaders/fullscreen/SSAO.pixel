@@ -32,14 +32,14 @@ vec3 readColor(in vec2 coord)
 
 float compareDepths(in float depth1, in float depth2,inout int far)  
 {  
-    float diff = (depth1 - depth2)*100.0; //depth difference (0-100)
+    float diff = (depth1 - depth2)*1000.0; //depth difference (0-1000)
     float gdisplace = 0.2; //gauss bell center
     float garea = 2.0; //gauss bell width 2
 
     // Reduce left bell width to avoid self-shadowing
     if (diff<gdisplace)
 	{ 
-		garea = 0.21;
+		garea = 0.2;
     }
 	else
 	{
