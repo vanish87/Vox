@@ -114,6 +114,7 @@ private:
 	unsigned int m_SSAOFrameBuffer;
 	unsigned int m_shadowFrameBuffer;
 	unsigned int m_lightingFrameBuffer;
+	unsigned int m_transparencyFrameBuffer;
 
 	// Shaders
 	unsigned int m_defaultShader;

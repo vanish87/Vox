@@ -56,7 +56,7 @@ void VoxGame::Create()
 
 	/* Create lights */
 	m_pRenderer->CreateLight(Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f),
-		Vector3d(2.0f, 1.5f, 1.0f), Vector3d(0.0f, -1.0f, 0.0f), 0.0f, 0.0f, 0.6f, 0.35f, 0.05f, true, false, &m_defaultLight);
+		Vector3d(2.0f, 1.5f, 1.0f), Vector3d(0.0f, -1.0f, 0.0f), 0.0f, 0.0f, 0.5f, 0.35f, 0.05f, true, false, &m_defaultLight);
 
 	/* Create materials */
 	m_pRenderer->CreateMaterial(Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), 64, &m_defaultMaterial);
@@ -66,6 +66,7 @@ void VoxGame::Create()
 	frameBufferCreated = m_pRenderer->CreateFrameBuffer(-1, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "SSAO", &m_SSAOFrameBuffer);
 	frameBufferCreated = m_pRenderer->CreateFrameBuffer(-1, true, true, true, true, m_windowWidth, m_windowHeight, 5.0f, "Shadow", &m_shadowFrameBuffer);
 	frameBufferCreated = m_pRenderer->CreateFrameBuffer(-1, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "Deferred Lighting", &m_lightingFrameBuffer);
+	frameBufferCreated = m_pRenderer->CreateFrameBuffer(-1, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "Deferred Lighting", &m_transparencyFrameBuffer);
 
 	/* Create the shaders */
 	m_defaultShader = -1;
@@ -199,6 +200,7 @@ void VoxGame::ResizeWindow(int width, int height)
 		frameBufferResize = m_pRenderer->CreateFrameBuffer(m_SSAOFrameBuffer, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "SSAO", &m_SSAOFrameBuffer);
 		frameBufferResize = m_pRenderer->CreateFrameBuffer(m_shadowFrameBuffer, true, true, true, true, m_windowWidth, m_windowHeight, 5.0f, "Shadow", &m_shadowFrameBuffer);
 		frameBufferResize = m_pRenderer->CreateFrameBuffer(m_lightingFrameBuffer, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "Deferred Lighting", &m_lightingFrameBuffer);
+		frameBufferResize = m_pRenderer->CreateFrameBuffer(m_transparencyFrameBuffer, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "Transparency", &m_transparencyFrameBuffer);
 	}
 }
 
@@ -534,13 +536,6 @@ void VoxGame::Render()
 
 			m_pRenderer->EndGLSLShader(shaderIndex);
 
-			// Render the voxel character face
-			m_pRenderer->PushMatrix();
-				m_pRenderer->MultiplyWorldMatrix(worldMatrix);
-				m_pRenderer->EmptyTextureIndex(0);
-				m_pVoxelCharacter->RenderFace();
-			m_pRenderer->PopMatrix();
-
 			// Render the block particles
 			m_pBlockParticleManager->Render();
 
@@ -570,6 +565,35 @@ void VoxGame::Render()
 		{
 			m_pRenderer->StopRenderingToFrameBuffer(m_SSAOFrameBuffer);
 		}
+
+
+		// ---------------------------------------
+		// Render transparency
+		// ---------------------------------------
+		m_pRenderer->PushMatrix();
+			m_pRenderer->SetProjectionMode(PM_PERSPECTIVE, m_defaultViewport);
+			m_pRenderer->SetCullMode(CM_BACK);
+
+			// Set the lookat camera
+			m_pGameCamera->Look();
+
+			if (m_ssao)
+			{
+				m_pRenderer->StartRenderingToFrameBuffer(m_transparencyFrameBuffer);
+			}
+
+			// Render the voxel character face
+			m_pRenderer->PushMatrix();
+				m_pRenderer->MultiplyWorldMatrix(worldMatrix);
+				m_pRenderer->EmptyTextureIndex(0);
+				m_pVoxelCharacter->RenderFace();
+			m_pRenderer->PopMatrix();
+
+			if (m_ssao)
+			{
+				m_pRenderer->StopRenderingToFrameBuffer(m_transparencyFrameBuffer);
+			}
+		m_pRenderer->PopMatrix();
 
 		// Render the SSAO texture
 		if (m_ssao)
@@ -700,6 +724,10 @@ void VoxGame::RenderSSAOTexture()
 		m_pRenderer->PrepareShaderTexture(2, textureId2);
 		m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_lightingFrameBuffer));
 
+		unsigned int textureId3 = glGetUniformLocationARB(pShader->GetProgramObject(), "bgl_TransparentTexture");
+		m_pRenderer->PrepareShaderTexture(3, textureId3);
+		m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_transparencyFrameBuffer));
+
 		pShader->setUniform1i("screenWidth", (int)(m_windowWidth*5.0f));
 		pShader->setUniform1i("screenHeight", (int)(m_windowHeight*5.0f));
 		pShader->setUniform1f("nearZ", 0.01f);
@@ -719,6 +747,7 @@ void VoxGame::RenderSSAOTexture()
 			m_pRenderer->ImmediateVertex(0.0f, (float)m_windowHeight, 1.0f);
 		m_pRenderer->DisableImmediateMode();
 
+		m_pRenderer->EmptyTextureIndex(3);
 		m_pRenderer->EmptyTextureIndex(2);
 		m_pRenderer->EmptyTextureIndex(1);
 		m_pRenderer->EmptyTextureIndex(0);

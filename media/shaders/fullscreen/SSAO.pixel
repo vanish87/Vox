@@ -1,6 +1,7 @@
 // G-Buffer data
 uniform sampler2D bgl_DepthTexture;  // Depth texture  
-uniform sampler2D bgl_RenderedTexture; // Color texture 
+uniform sampler2D bgl_RenderedTexture; // Color texture
+uniform sampler2D bgl_TransparentTexture; // Transparent texture
 uniform sampler2D light;
 
 // Util vars
@@ -28,6 +29,11 @@ float readDepth(in vec2 coord)
 vec3 readColor(in vec2 coord)  
 {
 	return (texture2D(bgl_RenderedTexture, coord).xyz) + texture2D(light, coord).xyz;  
+} 
+
+vec3 readTransparency(in vec2 coord)  
+{
+	return (texture2D(bgl_TransparentTexture, coord).xyz);
 } 
 
 float compareDepths(in float depth1, in float depth2,inout int far)  
@@ -106,5 +112,13 @@ void main(void)
     //final values, some adjusting:
     vec3 finalAO = vec3(1.0-(ao/32.0));
 
-    gl_FragColor = vec4(readColor(gl_TexCoord[0].xy)*finalAO*1.0,texture2D(bgl_RenderedTexture, gl_TexCoord[0].xy).w);
+    vec4 SSAOColor = vec4(readColor(gl_TexCoord[0].xy)*finalAO*1.0,texture2D(bgl_RenderedTexture, gl_TexCoord[0].xy).w);
+	vec4 transparencyColor = vec4(readTransparency(gl_TexCoord[0].xy), texture2D(bgl_TransparentTexture, gl_TexCoord[0].xy).w);
+
+	if(transparencyColor.w > 0)
+	{
+		SSAOColor = transparencyColor;
+	}
+
+	gl_FragColor = SSAOColor;
 }
