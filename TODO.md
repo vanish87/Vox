@@ -34,3 +34,4 @@
 * Decouple dynamic lighting from SSAO shader.
 * Add blur shader.
 * Add toon shading and different lighting shaders.
+* Split up VoxGame file into VoxRender, VoxUpdate, VoxSetup(?), etc.
