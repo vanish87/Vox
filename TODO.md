@@ -30,8 +30,8 @@
 * Better readme file.
 * Weapon trails controlled by the animation file.
 * Convert shaders over to be more unified.
-* Decouple shadow rendering from SSAO shader.
-* Decouple dynamic lighting from SSAO shader.
+* ~~Decouple shadow rendering from SSAO shader.~~
+* ~~Decouple dynamic lighting from SSAO shader.~~
 * Add blur shader.
 * Add toon shading and different lighting shaders.
 * Split up VoxGame file into VoxRender, VoxUpdate, VoxSetup(?), etc.
