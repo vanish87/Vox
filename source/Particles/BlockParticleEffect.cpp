@@ -52,9 +52,12 @@ void BlockParticleEffect::ClearEmitters()
 {
 	for(unsigned int i = 0; i < m_vpBlockParticleEmittersList.size(); i++)
 	{
-		m_pBlockParticleManager->RemoveEmitterLinkage(m_vpBlockParticleEmittersList[i]);
-		m_vpBlockParticleEmittersList[i]->m_pParent = NULL; // Remove parent link, since we have deleted this effect
-		m_vpBlockParticleEmittersList[i]->m_erase = true;
+		if(m_vpBlockParticleEmittersList[i]->m_erase == false)
+		{
+			m_pBlockParticleManager->RemoveEmitterLinkage(m_vpBlockParticleEmittersList[i]);
+			m_vpBlockParticleEmittersList[i]->m_pParent = NULL; // Remove parent link, since we have deleted this effect
+			m_vpBlockParticleEmittersList[i]->m_erase = true;
+		}
 	}
 }
 
