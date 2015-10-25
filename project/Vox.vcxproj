@@ -61,6 +61,8 @@
     <ClCompile Include="..\source\VoxApplication.cpp" />
     <ClCompile Include="..\source\VoxGame.cpp" />
     <ClCompile Include="..\source\VoxInput.cpp" />
+    <ClCompile Include="..\source\VoxRender.cpp" />
+    <ClCompile Include="..\source\VoxUpdate.cpp" />
     <ClCompile Include="..\source\VoxWindow.cpp" />
   </ItemGroup>
   <ItemGroup>

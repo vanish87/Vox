@@ -168,6 +168,12 @@
     <ClCompile Include="..\source\Particles\BlockParticleManager.cpp">
       <Filter>source\Particles</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\VoxRender.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\VoxUpdate.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\glew\include\GL\glew.h">
