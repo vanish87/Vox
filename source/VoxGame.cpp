@@ -492,6 +492,7 @@ void VoxGame::Render()
 		//glEnable(GL_NORMALIZE);
 
 		// Shadow rendering to the shadow frame buffer
+		if (m_renderModeIndex == 0)
 		{
 			m_pRenderer->PushMatrix();
 			m_pRenderer->StartRenderingToFrameBuffer(m_shadowFrameBuffer);
@@ -853,8 +854,8 @@ void VoxGame::RenderSSAOTexture()
 		m_pRenderer->PrepareShaderTexture(3, textureId3);
 		m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_transparencyFrameBuffer));
 
-		pShader->setUniform1i("screenWidth", (int)(m_windowWidth*5.0f));
-		pShader->setUniform1i("screenHeight", (int)(m_windowHeight*5.0f));
+		pShader->setUniform1i("screenWidth", (int)(m_windowWidth*1.0f));
+		pShader->setUniform1i("screenHeight", (int)(m_windowHeight*1.0f));
 		pShader->setUniform1f("nearZ", 0.01f);
 		pShader->setUniform1f("farZ", 1000.0f);
 

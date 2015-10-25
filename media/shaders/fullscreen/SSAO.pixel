@@ -11,8 +11,8 @@ uniform int screenHeight;
 uniform float nearZ;
 uniform float farZ;
 
-float pw = 1.0/float(screenWidth);
-float ph = 1.0/float(screenHeight);
+float pw = 1.0/float(screenWidth*5.0);
+float ph = 1.0/float(screenHeight*5.0);
 
 uniform float samplingMultiplier;
 
