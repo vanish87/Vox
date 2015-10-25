@@ -28,4 +28,4 @@ Visual Studio 2015 projects are included.
 Contributions are always welcome, either reporting issues and bugs or forking the repository and then issuing pull requests when you have completed some additional coding that you feel will be beneficial to the main project.
 
 # Screenshots
-![Vox](http://i.imgur.com/LOdGV0A.png)
+![Vox](http://i.imgur.com/usPCqJt.png)
