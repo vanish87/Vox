@@ -26,12 +26,12 @@
 * ~~Shadow shader.~~
 * ~~Decouple shadow rendering from SSAO shader.~~
 * ~~Decouple dynamic lighting from SSAO shader.~~
-* App player class and put voxel character functionalit in player class.
+* ~~Better readme file.~~
+* ~~Split up VoxGame file into VoxRender, VoxUpdate, VoxSetup(?), etc.~~
+* App player class and put voxel character functionality in player class.
 * Switch over to using glm maths lib.
 * Enable cross platform compiling and support, linux.
 * Solution to allow for running the exe from Visual studio, because atm the working directory needs to be ../
-* Better readme file.
 * Weapon trails controlled by the animation file.
 * Convert shaders over to be more unified.
 * Add blur shader.
-* ~~Split up VoxGame file into VoxRender, VoxUpdate, VoxSetup(?), etc.~~
