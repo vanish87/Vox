@@ -190,7 +190,17 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 		{
 			m_ssao = !m_ssao;
 			break;
-		}		
+		}
+		case GLFW_KEY_U:
+		{
+			m_shadows = !m_shadows;
+			break;
+		}
+		case GLFW_KEY_I:
+		{
+			m_dynamicLighting = !m_dynamicLighting;
+			break;
+		}
 		case GLFW_KEY_T:
 		{
 			m_renderModeIndex++;

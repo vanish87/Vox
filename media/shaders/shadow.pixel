@@ -11,8 +11,6 @@ varying float att;
 uniform bool renderShadow;
 uniform bool alwaysShadow;
 
-uniform bool enableFog;
-
 float LookupShadow(vec2 offSet)
 {
 	offSet.x *= 0.000075;

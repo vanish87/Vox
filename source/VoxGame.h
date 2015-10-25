@@ -127,7 +127,6 @@ private:
 	unsigned int m_SSAOShader;
 	unsigned int m_shadowShader;
 	unsigned int m_lightingShader;
-	unsigned int m_transparencyShader;
 	unsigned int m_textureShader;
 
 	// FPS and deltatime
@@ -165,6 +164,8 @@ private:
 	int m_modelAnimationIndex;
 	bool m_multiSampling;
 	bool m_ssao;
+	bool m_shadows;
+	bool m_dynamicLighting;
 	int m_weaponIndex;
 	string m_weaponString;
 	bool m_animationUpdate;

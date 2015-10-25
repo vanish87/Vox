@@ -17,6 +17,9 @@ float ph = 1.0/float(screenHeight*5.0);
 
 uniform float samplingMultiplier;
 
+uniform bool ssao_enabled;
+uniform bool lighting_enabled;
+
 float readDepth(in vec2 coord)
 {  
     if (coord.x < 0.0|| coord.y < 0.0)
@@ -39,7 +42,14 @@ float readTransparencyDepth(in vec2 coord)
 
 vec3 readColor(in vec2 coord)  
 {
-	return (texture2D(bgl_RenderedTexture, coord).xyz) + texture2D(light, coord).xyz;  
+	vec3 color = texture2D(bgl_RenderedTexture, coord).xyz;
+
+	if(lighting_enabled)
+	{
+		color += texture2D(light, coord).xyz;
+	}
+
+	return color;
 } 
 
 vec3 readTransparency(in vec2 coord)  
@@ -96,37 +106,39 @@ float calAO(float depth,float dw, float dh)
      
 void main(void)  
 {  
-    //initialize stuff:
+	vec3 finalAO = vec3(1.0);
 	vec2 texturecoord = gl_TexCoord[0].xy;
-    float depth = readDepth(texturecoord);
+	float depth = readDepth(texturecoord);
 	float transparencyDepth = readTransparencyDepth(texturecoord);
-    float ao = 0.0;
+	if(ssao_enabled)
+	{
+		float ao = 0.0;
 
-    for(int i=0; i<4; ++i) 
-    {  
-		//calculate color bleeding and ao:
-		ao+=calAO(depth,  pw, ph);
-		ao+=calAO(depth,  pw, -ph);
-		ao+=calAO(depth,  -pw, ph);
-		ao+=calAO(depth,  -pw, -ph);
+		for(int i=0; i<4; ++i) 
+		{  
+			// Calculate color bleeding and ao
+			ao+=calAO(depth,  pw, ph);
+			ao+=calAO(depth,  pw, -ph);
+			ao+=calAO(depth,  -pw, ph);
+			ao+=calAO(depth,  -pw, -ph);
 
-		ao+=calAO(depth,  pw*2.2, 0.0);  
-		ao+=calAO(depth,  -pw*2.2, 0.0);  
-		ao+=calAO(depth,  0.0, ph*2.2);  
-		ao+=calAO(depth,  0.0, -ph*2.2);
+			ao+=calAO(depth,  pw*2.2, 0.0);  
+			ao+=calAO(depth,  -pw*2.2, 0.0);  
+			ao+=calAO(depth,  0.0, ph*2.2);  
+			ao+=calAO(depth,  0.0, -ph*2.2);
      
-		//increase sampling area:
-		pw *= samplingMultiplier;
-		ph *= samplingMultiplier;
-    }
+			// Increase sampling area
+			pw *= samplingMultiplier;
+			ph *= samplingMultiplier;
+		}
 
+		// Final values, some adjusting
+		finalAO = vec3(1.0-(ao/32.0));
+	}
 
-    //final values, some adjusting:
-    vec3 finalAO = vec3(1.0-(ao/32.0));
+    vec4 SSAOColor = vec4(readColor(gl_TexCoord[0].xy)*finalAO*1.0, texture2D(bgl_RenderedTexture, gl_TexCoord[0].xy).w);
 
-    vec4 SSAOColor = vec4(readColor(gl_TexCoord[0].xy)*finalAO*1.0,texture2D(bgl_RenderedTexture, gl_TexCoord[0].xy).w);
 	vec4 transparencyColor = vec4(readTransparency(gl_TexCoord[0].xy), texture2D(bgl_TransparentTexture, gl_TexCoord[0].xy).w);
-
 	if(transparencyColor.w > 0 && transparencyDepth < depth)
 	{
 		SSAOColor = transparencyColor;
