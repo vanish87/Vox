@@ -2,6 +2,7 @@
 uniform sampler2D bgl_DepthTexture;  // Depth texture  
 uniform sampler2D bgl_RenderedTexture; // Color texture
 uniform sampler2D bgl_TransparentTexture; // Transparent texture
+uniform sampler2D bgl_TransparentDepthTexture; // Transparent depth texture
 uniform sampler2D light;
 
 // Util vars
@@ -25,6 +26,16 @@ float readDepth(in vec2 coord)
 
     return (1.0) / (nearZ + farZ - posZ * (farZ - nearZ));
 }   
+
+float readTransparencyDepth(in vec2 coord)
+{  
+    if (coord.x < 0.0|| coord.y < 0.0)
+		return 1.0;
+
+    float posZ = texture2D(bgl_TransparentDepthTexture, coord).x;
+
+    return (1.0) / (nearZ + farZ - posZ * (farZ - nearZ));
+}  
 
 vec3 readColor(in vec2 coord)  
 {
@@ -87,7 +98,8 @@ void main(void)
 {  
     //initialize stuff:
 	vec2 texturecoord = gl_TexCoord[0].xy;
-    float depth = readDepth(texturecoord);  
+    float depth = readDepth(texturecoord);
+	float transparencyDepth = readTransparencyDepth(texturecoord);
     float ao = 0.0;
 
     for(int i=0; i<4; ++i) 
@@ -115,7 +127,7 @@ void main(void)
     vec4 SSAOColor = vec4(readColor(gl_TexCoord[0].xy)*finalAO*1.0,texture2D(bgl_RenderedTexture, gl_TexCoord[0].xy).w);
 	vec4 transparencyColor = vec4(readTransparency(gl_TexCoord[0].xy), texture2D(bgl_TransparentTexture, gl_TexCoord[0].xy).w);
 
-	if(transparencyColor.w > 0)
+	if(transparencyColor.w > 0 && transparencyDepth < depth)
 	{
 		SSAOColor = transparencyColor;
 	}

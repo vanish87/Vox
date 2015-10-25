@@ -854,6 +854,11 @@ void VoxGame::RenderSSAOTexture()
 		m_pRenderer->PrepareShaderTexture(3, textureId3);
 		m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_transparencyFrameBuffer));
 
+		unsigned int textureId4 = glGetUniformLocationARB(pShader->GetProgramObject(), "bgl_TransparentDepthTexture");
+		m_pRenderer->PrepareShaderTexture(4, textureId4);
+		m_pRenderer->BindRawTextureId(m_pRenderer->GetDepthTextureFromFrameBuffer(m_transparencyFrameBuffer));
+		
+
 		pShader->setUniform1i("screenWidth", m_windowWidth);
 		pShader->setUniform1i("screenHeight", m_windowHeight);
 		pShader->setUniform1f("nearZ", 0.01f);
@@ -873,6 +878,7 @@ void VoxGame::RenderSSAOTexture()
 			m_pRenderer->ImmediateVertex(0.0f, (float)m_windowHeight, 1.0f);
 		m_pRenderer->DisableImmediateMode();
 
+		m_pRenderer->EmptyTextureIndex(4);
 		m_pRenderer->EmptyTextureIndex(3);
 		m_pRenderer->EmptyTextureIndex(2);
 		m_pRenderer->EmptyTextureIndex(1);
