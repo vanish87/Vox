@@ -34,5 +34,4 @@
 * Weapon trails controlled by the animation file.
 * Convert shaders over to be more unified.
 * Add blur shader.
-* Add toon shading and different lighting shaders.
-* Split up VoxGame file into VoxRender, VoxUpdate, VoxSetup(?), etc.
+* ~~Split up VoxGame file into VoxRender, VoxUpdate, VoxSetup(?), etc.~~
