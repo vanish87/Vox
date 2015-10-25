@@ -32,6 +32,8 @@
 * Convert shaders over to be more unified.
 * Decouple shadow rendering from SSAO shader.
 * Decouple dynamic lighting from SSAO shader.
+* Add blur shader.
+* Add toon shading and different lighting shaders.
 
 
 # BUGS
