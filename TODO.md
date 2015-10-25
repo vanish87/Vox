@@ -34,14 +34,3 @@
 * Decouple dynamic lighting from SSAO shader.
 * Add blur shader.
 * Add toon shading and different lighting shaders.
-
-
-# BUGS
-* ~~End of animation frame state - level up animation goes to mummy walk?~~
-* ~~Fix transparency and transparent textures when using the SSAO shader.~~
-* Transparency textures on SSAO shader is not depth sorted.
-* Weapon trails are not frame rate independent.
-* Fix block particle lighting params, rework shader for better lighting.
-* Animated weapon sections get messed up when simulation is paused, via window focus, breakpoint, etc...
-* CRASH when switching between particle weapon effects fast, only in release mode? uninitialized variable. :[
-* GL Errors when closing application, shaders deletion.
