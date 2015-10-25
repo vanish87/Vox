@@ -854,8 +854,8 @@ void VoxGame::RenderSSAOTexture()
 		m_pRenderer->PrepareShaderTexture(3, textureId3);
 		m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_transparencyFrameBuffer));
 
-		pShader->setUniform1i("screenWidth", (int)(m_windowWidth*1.0f));
-		pShader->setUniform1i("screenHeight", (int)(m_windowHeight*1.0f));
+		pShader->setUniform1i("screenWidth", m_windowWidth);
+		pShader->setUniform1i("screenHeight", m_windowHeight);
 		pShader->setUniform1f("nearZ", 0.01f);
 		pShader->setUniform1f("farZ", 1000.0f);
 
