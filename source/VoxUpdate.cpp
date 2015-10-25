@@ -6,14 +6,14 @@
 // Updating
 void VoxGame::Update()
 {
-	// Update interpolator singleton
-	Interpolator::GetInstance()->Update();
-
 	// FPS
 	QueryPerformanceCounter(&m_fpsCurrentTicks);
 	m_deltaTime = ((float)(m_fpsCurrentTicks.QuadPart - m_fpsPreviousTicks.QuadPart) / (float)m_fpsTicksPerSecond.QuadPart);
 	m_fps = 1.0f / m_deltaTime;
 	m_fpsPreviousTicks = m_fpsCurrentTicks;
+
+	// Update interpolator singleton
+	Interpolator::GetInstance()->Update(m_deltaTime);
 
 	// Pause the interpolator if animations are paused.
 	Interpolator::GetInstance()->SetPaused(m_animationUpdate == false);
