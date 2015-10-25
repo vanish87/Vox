@@ -152,8 +152,8 @@ Renderer::~Renderer()
 	// Delete the shaders
 	for (i = 0; i < m_shaders.size(); i++)
 	{
-		delete m_shaders[i];
-		m_shaders[i] = 0;
+		//delete m_shaders[i];
+		//m_shaders[i] = 0;
 	}
 	m_shaders.clear();
 
