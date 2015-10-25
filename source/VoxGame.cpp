@@ -708,20 +708,12 @@ void VoxGame::RenderDeferredLighting()
 
 			glShader* pLightShader = m_pRenderer->GetShader(m_lightingShader);
 			unsigned NormalsID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "normals");
-			unsigned DepthsID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "depths");
-			unsigned ColorsID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "colors");
 			unsigned PositionssID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "positions");
 
 			m_pRenderer->PrepareShaderTexture(0, NormalsID);
 			m_pRenderer->BindRawTextureId(m_pRenderer->GetNormalTextureFromFrameBuffer(m_SSAOFrameBuffer));
 
-			m_pRenderer->PrepareShaderTexture(1, DepthsID);
-			m_pRenderer->BindRawTextureId(m_pRenderer->GetDepthTextureFromFrameBuffer(m_SSAOFrameBuffer));
-
-			m_pRenderer->PrepareShaderTexture(2, ColorsID);
-			m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_SSAOFrameBuffer));
-
-			m_pRenderer->PrepareShaderTexture(3, PositionssID);
+			m_pRenderer->PrepareShaderTexture(1, PositionssID);
 			m_pRenderer->BindRawTextureId(m_pRenderer->GetPositionTextureFromFrameBuffer(m_SSAOFrameBuffer));
 
 			pLightShader->setUniform1i("screenWidth", m_windowWidth);
@@ -757,8 +749,6 @@ void VoxGame::RenderDeferredLighting()
 				m_pRenderer->PopMatrix();
 			}
 
-			m_pRenderer->EmptyTextureIndex(3);
-			m_pRenderer->EmptyTextureIndex(2);
 			m_pRenderer->EmptyTextureIndex(1);
 			m_pRenderer->EmptyTextureIndex(0);
 
@@ -827,7 +817,7 @@ void VoxGame::RenderTransparency()
 		//m_pRenderer->EmptyTextureIndex(1);
 		//m_pRenderer->EmptyTextureIndex(0);
 
-		//m_pRenderer->EndGLSLShader(m_transparencyShader);
+		m_pRenderer->EndGLSLShader(m_transparencyShader);
 
 		if (m_ssao)
 		{
