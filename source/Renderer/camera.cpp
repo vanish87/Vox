@@ -88,11 +88,9 @@ void Camera::RotateAroundPoint(const float xAmount, const float yAmount, const f
 	// Get the view position, based on the facing and the zoom amount
 	vec3 view = m_position + (m_facing*m_zoomAmount);
 
-	// Translate the position to the origin, relative to the view position (that is the facing zoomed)
-	m_position -= view;
+	m_position -= view;  // Translate the position to the origin, relative to the view position (that is the facing zoomed)
 	m_position = (rotation * m_position);
-	// Translate back to relative view position
-	m_position += view;
+	m_position += view;  // Translate back to relative view position
 
 	m_right = normalize(rotation * m_right);
 	m_facing = normalize(rotation * m_facing);
