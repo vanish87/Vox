@@ -1,6 +1,6 @@
 // ******************************************************************************
 //
-// Filename:	vector2d.cpp
+// Filename:	Quaternion.cpp
 // Project:		3DMaths
 // Author:		Steven Ball
 //

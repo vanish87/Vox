@@ -1,6 +1,6 @@
 // ******************************************************************************
 //
-// Filename:	vector2d.cpp
+// Filename:	Matrix3x3.cpp
 // Project:		3DMaths
 // Author:		Steven Ball
 //
