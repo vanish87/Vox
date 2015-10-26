@@ -41,10 +41,10 @@ void VoxGame::Create()
 
 	/* Create cameras */
 	m_pGameCamera = new Camera(m_pRenderer);
-	m_pGameCamera->SetPosition(Vector3d(0.0f, 1.25f, 3.0f));
-	m_pGameCamera->SetFacing(Vector3d(0.0f, 0.0f, -1.0f));
-	m_pGameCamera->SetUp(Vector3d(0.0f, 1.0f, 0.0f));
-	m_pGameCamera->SetRight(Vector3d(1.0f, 0.0f, 0.0f));
+	m_pGameCamera->SetPosition(vec3(0.0f, 1.25f, 3.0f));
+	m_pGameCamera->SetFacing(vec3(0.0f, 0.0f, -1.0f));
+	m_pGameCamera->SetUp(vec3(0.0f, 1.0f, 0.0f));
+	m_pGameCamera->SetRight(vec3(1.0f, 0.0f, 0.0f));
 
 	/* Create viewports */
 	m_pRenderer->CreateViewport(0, 0, m_windowWidth, m_windowHeight, 60.0f, &m_defaultViewport);

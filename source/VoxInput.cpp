@@ -396,7 +396,8 @@ void VoxGame::MouseCameraRotate(int x, int y)
 		changeX = -changeX;
 	}
 
-	m_pGameCamera->RotateAroundPoint(changeY*0.5f, -changeX*0.5f);
+	m_pGameCamera->RotateAroundPoint(changeY*0.5f, -changeX*0.5f, 0.0f);
+	//m_pGameCamera->Rotate(changeY*0.5f, -changeX*0.5f, 0.0f);
 
 	m_currentX = x;
 	m_currentY = y;
