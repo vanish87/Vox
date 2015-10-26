@@ -263,7 +263,7 @@ void VoxGame::UnloadWeapon(bool left)
 
 					float scale = m_pVoxelCharacter->GetCharacterScale();
 					unsigned int lId;
-					m_pLightingManager->AddDyingLight(lightPos, lightRadius * scale, lightDiffuseMultiplier, lightColour, 2.0f, &lId);
+					m_pLightingManager->AddDyingLight(vec3(lightPos.x, lightPos.y, lightPos.z), lightRadius * scale, lightDiffuseMultiplier, lightColour, 2.0f, &lId);
 				}
 			}
 

@@ -1,5 +1,8 @@
 #include "VoxGame.h"
 
+#include <glm/detail/func_geometric.hpp>
+using namespace glm;
+
 // Rendering
 void VoxGame::Render()
 {
@@ -250,7 +253,9 @@ void VoxGame::RenderDeferredLighting()
 				DynamicLight* lpLight = m_pLightingManager->GetLight(i);
 				float lightRadius = lpLight->m_radius;
 
-				if ((m_pGameCamera->GetPosition() - lpLight->m_position).GetLength() < lightRadius + 0.5f) // Small change to account for differences in circle render (with slices) and circle radius
+				vec3 cameraPos = vec3(cameraPos.x, cameraPos.y, cameraPos.z);
+				float length = distance(cameraPos, lpLight->m_position);
+				if (length < lightRadius + 0.5f) // Small change to account for differences in circle render (with slices) and circle radius
 				{
 					m_pRenderer->SetCullMode(CM_BACK);
 				}

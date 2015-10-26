@@ -87,7 +87,7 @@ void VoxGame::UpdateWeaponLights(float dt)
 
 					if (lightId == -1)
 					{
-						m_pLightingManager->AddLight(Vector3d(0.0f, 0.0f, 0.0f), 0.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f, 1.0f), &lightId);
+						m_pLightingManager->AddLight(vec3(0.0f), 0.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f, 1.0f), &lightId);
 						pWeapon->SetLightingId(i, lightId);
 					}
 
@@ -109,7 +109,7 @@ void VoxGame::UpdateWeaponLights(float dt)
 
 					float scale = m_pVoxelCharacter->GetCharacterScale();
 
-					m_pLightingManager->UpdateLightPosition(lightId, lightPos);
+					m_pLightingManager->UpdateLightPosition(lightId, vec3(lightPos.x, lightPos.y, lightPos.z));
 					m_pLightingManager->UpdateLightRadius(lightId, lightRadius * scale);
 					m_pLightingManager->UpdateLightDiffuseMultiplier(lightId, lightDiffuseMultiplier);
 					m_pLightingManager->UpdateLightColour(lightId, lightColour);
