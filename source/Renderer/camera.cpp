@@ -123,5 +123,5 @@ void Camera::Look() const
 {
 	vec3 view = m_position + m_facing;
 	gluLookAt(m_position.x, m_position.y, m_position.z, view.x, view.y, view.z, m_up.x, m_up.y, m_up.z);
-	m_pRenderer->GetFrustum(m_pRenderer->GetActiveViewPort())->SetCamera(Vector3d(m_position.x, m_position.y, m_position.z), Vector3d(view.x, view.y, view.z), Vector3d(m_up.x, m_up.y, m_up.z));
+	m_pRenderer->GetFrustum(m_pRenderer->GetActiveViewPort())->SetCamera(m_position, view, m_up);
 }

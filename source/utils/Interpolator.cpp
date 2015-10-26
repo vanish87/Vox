@@ -423,12 +423,12 @@ void Interpolator::UpdateFloatInterpolators(float delta)
 					float lX = (pInterpolator->m_easing * 0.005f) + 0.5f;
 					float lY = 1.0f - lX;
 
-					Vector3d lStart = Vector3d(0.0f, 0.0f, 0.0f);
-					Vector3d lEnd = Vector3d(1.0f, 1.0f, 0.0f);
-					Vector3d lControl = Vector3d(lX, lY, 0.0f);
+					vec3 lStart = vec3(0.0f, 0.0f, 0.0f);
+					vec3 lEnd = vec3(1.0f, 1.0f, 0.0f);
+					vec3 lControl = vec3(lX, lY, 0.0f);
 
 					Bezier3 lEaseBezier = Bezier3(lStart, lEnd, lControl);
-					Vector3d lVectorT = lEaseBezier.GetInterpolatedPoint(lTimeRatio);
+					vec3 lVectorT = lEaseBezier.GetInterpolatedPoint(lTimeRatio);
 
 					// Get our real T value that we are going to use to interpolate
 					float lRealT = lVectorT.y;
@@ -519,12 +519,12 @@ void Interpolator::UpdateIntInterpolators(float delta)
 					float lX = (pInterpolator->m_easing * 0.005f) + 0.5f;
 					float lY = 1.0f - lX;
 
-					Vector3d lStart = Vector3d(0.0f, 0.0f, 0.0f);
-					Vector3d lEnd = Vector3d(1.0f, 1.0f, 0.0f);
-					Vector3d lControl = Vector3d(lX, lY, 0.0f);
+					vec3 lStart = vec3(0.0f, 0.0f, 0.0f);
+					vec3 lEnd = vec3(1.0f, 1.0f, 0.0f);
+					vec3 lControl = vec3(lX, lY, 0.0f);
 
 					Bezier3 lEaseBezier = Bezier3(lStart, lEnd, lControl);
-					Vector3d lVectorT = lEaseBezier.GetInterpolatedPoint(lTimeRatio);
+					vec3 lVectorT = lEaseBezier.GetInterpolatedPoint(lTimeRatio);
 
 					// Get our real T value that we are going to use to interpolate
 					float lRealT = lVectorT.y;

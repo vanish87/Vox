@@ -109,8 +109,8 @@ private:
 
 	// Lights
 	unsigned int m_defaultLight;
-	Vector3d m_defaultLightPosition;
-	Vector3d m_defaultLightView;
+	vec3 m_defaultLightPosition;
+	vec3 m_defaultLightView;
 
 	// Materials
 	unsigned int m_defaultMaterial;
