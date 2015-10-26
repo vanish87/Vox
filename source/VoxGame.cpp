@@ -137,8 +137,8 @@ void VoxGame::Create()
 	m_currentY = 0;
 
 	// Toggle flags
-	m_renderModeIndex = 0;
-	m_renderModeString = "Shadow";
+	m_shaderIndex = 0;
+	m_shaderString = "Shadow";
 	m_displayHelpText = true;
 	m_modelWireframe = false;
 	m_modelTalking = false;

@@ -156,8 +156,8 @@ private:
 	int m_currentY;
 
 	// Toggle flags
-	int m_renderModeIndex;
-	string m_renderModeString;
+	int m_shaderIndex;
+	string m_shaderString;
 	bool m_displayHelpText;
 	bool m_modelWireframe;
 	bool m_modelTalking;
