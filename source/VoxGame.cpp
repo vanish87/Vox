@@ -137,6 +137,7 @@ void VoxGame::Create()
 	m_currentY = 0;
 
 	// Toggle flags
+	m_deferredRendering = true;
 	m_shaderIndex = 0;
 	m_shaderString = "Shadow";
 	m_displayHelpText = true;

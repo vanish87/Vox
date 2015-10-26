@@ -156,6 +156,7 @@ private:
 	int m_currentY;
 
 	// Toggle flags
+	bool m_deferredRendering;
 	int m_shaderIndex;
 	string m_shaderString;
 	bool m_displayHelpText;

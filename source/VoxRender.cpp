@@ -56,7 +56,7 @@ void VoxGame::Render()
 		}
 
 		// SSAO frame buffer rendering start
-		//if (m_ssao)
+		if (m_deferredRendering)
 		{
 			m_pRenderer->StartRenderingToFrameBuffer(m_SSAOFrameBuffer);
 		}
@@ -157,7 +157,7 @@ void VoxGame::Render()
 		m_pRenderer->PopMatrix();
 
 		// SSAO frame buffer rendering stop
-		//if (m_ssao)
+		if (m_deferredRendering)
 		{
 			m_pRenderer->StopRenderingToFrameBuffer(m_SSAOFrameBuffer);
 		}
@@ -168,7 +168,7 @@ void VoxGame::Render()
 		RenderTransparency();
 
 		// Render the SSAO texture
-		//if (m_ssao)
+		if (m_deferredRendering)
 		{
 			RenderSSAOTexture();
 		}
@@ -303,7 +303,10 @@ void VoxGame::RenderTransparency()
 		// Set the lookat camera
 		m_pGameCamera->Look();
 
-		m_pRenderer->StartRenderingToFrameBuffer(m_transparencyFrameBuffer);
+		if (m_deferredRendering)
+		{
+			m_pRenderer->StartRenderingToFrameBuffer(m_transparencyFrameBuffer);
+		}
 
 		// Render the voxel character face
 		m_pRenderer->PushMatrix();
@@ -312,7 +315,10 @@ void VoxGame::RenderTransparency()
 			m_pVoxelCharacter->RenderFace();
 		m_pRenderer->PopMatrix();
 
-		m_pRenderer->StopRenderingToFrameBuffer(m_transparencyFrameBuffer);
+		if (m_deferredRendering)
+		{
+			m_pRenderer->StopRenderingToFrameBuffer(m_transparencyFrameBuffer);
+		}
 	m_pRenderer->PopMatrix();
 }
 
@@ -414,12 +420,13 @@ void VoxGame::RenderDebugInformation()
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, (int)(m_windowWidth * 0.5f) - 75.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lAnimationBuff);
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, (int)(m_windowWidth * 0.5f) - 75.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lWeaponBuff);
 
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 255.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "F - Fullscreen [%s]", m_fullscreen ? "On" : "Off");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 235.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "I - Dynamic Lighting [%s]", m_dynamicLighting ? "On" : "Off");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 275.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "F - Fullscreen [%s]", m_fullscreen ? "On" : "Off");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 255.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "O - RenderMode [%s]", m_deferredRendering ? "Deffered" : "Forward");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 235.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "I - Dynamic Lighting [%s]", m_deferredRendering == false ? "N/A" : m_dynamicLighting ? "On" : "Off");
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 215.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "U - Shadows [%s]", m_shadows ? "On" : "Off");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 195.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Y - SSAO [%s]", m_ssao ? "On" : "Off");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 195.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Y - SSAO [%s]", m_deferredRendering == false ? "N/A" : m_ssao ? "On" : "Off");
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 175.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "T - Shader [%s]", m_shaderString.c_str());
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 155.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "R - Toggle MSAA [%s]", m_multiSampling ? "On" : "Off");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 155.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "R - Toggle MSAA [%s]", m_deferredRendering ? "N/A" : m_multiSampling ? "On" : "Off");
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 135.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "E - Toggle Talking [%s]", m_modelTalking ? "On" : "Off");
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 115.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "L - Toggle Animation [%s]", m_animationUpdate ? "On" : "Off");
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 95.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "H - Toggle HelpText");

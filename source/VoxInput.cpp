@@ -201,6 +201,12 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 			m_dynamicLighting = !m_dynamicLighting;
 			break;
 		}
+		case GLFW_KEY_O:
+		{
+			m_deferredRendering = !m_deferredRendering;
+
+			break;
+		}
 		case GLFW_KEY_T:
 		{
 			m_shaderIndex++;
