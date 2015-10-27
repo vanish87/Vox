@@ -621,7 +621,7 @@ void GUIWindow::DrawSelf()
 
 		float l_outlineX1 = -0.5f;
 		float l_outlineX2 = l_containerWidth + 0.5f;
-		float l_outlineY1 = -0.5f;
+		float l_outlineY1 = -0.0f;
 		float l_outlineY2 = l_containerHeight + 0.5f;
 
 		if(!m_bMinimized && m_bRenderWindowBackground)
