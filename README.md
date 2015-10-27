@@ -1,10 +1,24 @@
 # Vox
-Vox is a voxel based RPG adventure game with a heavy focus on player customization and creation.
+Vox engine is an open source voxel engine that is written in C++ and OpenGL and can be used to create easy and fast voxel based games and applications. The engine is written to be highly functional and very efficient at allowing voxel game creation and provides a simple framework for creating 3d voxel games.
 
 ## Features
+* GLSL shader support.
+* Support for deferred or forward rendering.
+* Fully dynamic and unlimited lighting system uding deferred lighting model.
+* Advanced graphics shaders included - SSAO, shadow mapping, dynamic lighting.
+* Full 3d maths and geometry library (vector, quaternion, plane, bezier).
+* Extensive camera functionality, either 3d person or 1st person.
+* In-built GUI that can be easily hooked up to gameplay functioanlity.
 * Qubicle Binary (.qb) voxel model loading.
 * Polygon model loading via ms3d and obj files.
 * Keyframe and skeleton animation support.
+* Basic 'player' functionality - movement, controls, animation.
+* Block/cube particle effect system.
+* Voxel world and terrain generation. [coming soon!]
+* Procedural content creation. [coming soon!]
+* In-built voxel editor for creation/editing of in-game assets. [coming soon!]
+* Audio and music playback. [coming soon!]
+* Gamepad and controller support. [coming soon!]
 
 ## License
 This software is provided under the **GNU General Public License**, more information is provided in the [license file](https://github.com/AlwaysGeeky/Vox/blob/master/LICENSE.md).
