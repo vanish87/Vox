@@ -2,6 +2,10 @@
 
 #include <assert.h>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include <fstream>
 using namespace std;
 
@@ -666,13 +670,13 @@ void MS3DAnimator::Update(float dt)
 				float timeDelta = curFrame.time-prevFrame.time;
 				float interpValue = ( float )(( m_timer-prevFrame.time )/timeDelta );
 
-				Quaternion q1;
-				q1.SetEuler(RadToDeg(prevFrame.parameter[0]), RadToDeg(prevFrame.parameter[1]), RadToDeg(prevFrame.parameter[2]));
-				Quaternion q2;
-				q2.SetEuler(RadToDeg(curFrame.parameter[0]), RadToDeg(curFrame.parameter[1]), RadToDeg(curFrame.parameter[2]));
-				Quaternion q3 = Quaternion::Slerp(q1, q2, interpValue);
-
-				transform = q3.GetMatrix();
+				quat q1(vec3(prevFrame.parameter[0], prevFrame.parameter[1], prevFrame.parameter[2]));
+				quat q2(vec3(curFrame.parameter[0], curFrame.parameter[1], curFrame.parameter[2]));
+				quat q3 = slerp(q1, q2, interpValue);
+				
+				mat4 trans = mat4_cast(q3);
+				float *pM = value_ptr(trans);
+				transform.SetValues(pM);
 
 				// To preserve blending, since the matrix-to-angles functionality is broken
 				rotVec[0] = prevFrame.parameter[0]+( curFrame.parameter[0]-prevFrame.parameter[0] )*interpValue;
@@ -743,14 +747,15 @@ void MS3DAnimator::UpdateBlending(float dt)
 		rotVec[0] = pJointAnimation->startBlendRot[0]+( pJointAnimation->endBlendRot[0]-pJointAnimation->startBlendRot[0] )*interpValue;
 		rotVec[1] = pJointAnimation->startBlendRot[1]+( pJointAnimation->endBlendRot[1]-pJointAnimation->startBlendRot[1] )*interpValue;
 		rotVec[2] = pJointAnimation->startBlendRot[2]+( pJointAnimation->endBlendRot[2]-pJointAnimation->startBlendRot[2] )*interpValue;
-
-		Quaternion q1;
-		q1.SetEuler(RadToDeg(pJointAnimation->startBlendRot[0]), RadToDeg(pJointAnimation->startBlendRot[1]), RadToDeg(pJointAnimation->startBlendRot[2]));
-		Quaternion q2;
-		q2.SetEuler(RadToDeg(pJointAnimation->endBlendRot[0]), RadToDeg(pJointAnimation->endBlendRot[1]), RadToDeg(pJointAnimation->endBlendRot[2]));
-		Quaternion q3 = Quaternion::Slerp(q1, q2, interpValue);
-		transform = q3.GetMatrix();
 		
+		quat q1(vec3(pJointAnimation->startBlendRot[0], pJointAnimation->startBlendRot[1], pJointAnimation->startBlendRot[2]));
+		quat q2(vec3(pJointAnimation->endBlendRot[0], pJointAnimation->endBlendRot[1], pJointAnimation->endBlendRot[2]));
+		quat q3 = slerp(q1, q2, interpValue);
+
+		mat4 trans = mat4_cast(q3);
+		float *pM = value_ptr(trans);
+		transform.SetValues(pM);
+
 		transform.SetTranslation(transVec);
 
 		Matrix4x4 relativeFinal(pJoint->relative);
