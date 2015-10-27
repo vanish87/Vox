@@ -78,7 +78,7 @@ void VoxGame::UpdateWeaponLights(float dt)
 				for (int i = 0; i < pWeapon->GetNumLights(); i++)
 				{
 					unsigned int lightId;
-					Vector3d lightPos;
+					vec3 lightPos;
 					float lightRadius;
 					float lightDiffuseMultiplier;
 					Colour lightColour;
@@ -144,14 +144,14 @@ void VoxGame::UpdateWeaponParticleEffects(float dt)
 				for (int i = 0; i < pWeapon->GetNumParticleEffects(); i++)
 				{
 					unsigned int particleEffectId;
-					Vector3d ParticleEffectPos;
+					vec3 ParticleEffectPos;
 					string effectName;
 					bool connectedToSegment;
 					pWeapon->GetParticleEffectParams(i, &particleEffectId, &ParticleEffectPos, &effectName, &connectedToSegment);
 
 					if (particleEffectId == -1)
 					{
-						m_pBlockParticleManager->ImportParticleEffect(effectName, ParticleEffectPos, &particleEffectId);
+						m_pBlockParticleManager->ImportParticleEffect(effectName, Vector3d(ParticleEffectPos.x, ParticleEffectPos.y, ParticleEffectPos.z), &particleEffectId);
 						pWeapon->SetParticleEffectId(i, particleEffectId);
 					}
 
@@ -171,7 +171,7 @@ void VoxGame::UpdateWeaponParticleEffects(float dt)
 						//ParticleEffectPos += m_position;
 					}
 
-					m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, ParticleEffectPos);
+					m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, Vector3d(ParticleEffectPos.x, ParticleEffectPos.y, ParticleEffectPos.z));
 				}
 			}
 		}

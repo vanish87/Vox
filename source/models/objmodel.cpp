@@ -498,8 +498,8 @@ void OBJModel::RenderMesh()
 				if(m_numNormals != 0)
 				{
 					// Normals from each vertex
-					Vector3d normal(m_pNormals[normalIndex].x, m_pNormals[normalIndex].y, m_pNormals[normalIndex].z);
-					normal.Normalize();
+					vec3 normal(m_pNormals[normalIndex].x, m_pNormals[normalIndex].y, m_pNormals[normalIndex].z);
+					normal = normalize(normal);
 					mpRenderer->ImmediateNormal(normal.x, normal.y, normal.z);
 				}
 				*/

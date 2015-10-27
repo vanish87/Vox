@@ -300,7 +300,7 @@ public:
 	// Mesh
 	OpenGLTriangleMesh* CreateMesh(OGLMeshType meshType);
 	void ClearMesh(OpenGLTriangleMesh* pMesh);
-	unsigned int AddVertexToMesh(Vector3d p, Vector3d n, float r, float g, float b, float a, OpenGLTriangleMesh* pMesh);
+	unsigned int AddVertexToMesh(vec3 p, vec3 n, float r, float g, float b, float a, OpenGLTriangleMesh* pMesh);
 	unsigned int AddTextureCoordinatesToMesh(float s, float t, OpenGLTriangleMesh* pMesh);
 	unsigned int AddTriangleToMesh(unsigned int vertexId1, unsigned int vertexId2, unsigned int vertexId3, OpenGLTriangleMesh* pMesh);
 	void ModifyMeshAlpha(float alpha, OpenGLTriangleMesh* pMesh);

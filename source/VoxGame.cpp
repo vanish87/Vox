@@ -233,7 +233,7 @@ void VoxGame::UnloadWeapon(bool left)
 			for (int i = 0; i < pWeapon->GetNumLights(); i++)
 			{
 				unsigned int lightId;
-				Vector3d lightPos;
+				vec3 lightPos;
 				float lightRadius;
 				float lightDiffuseMultiplier;
 				Colour lightColour;
@@ -271,7 +271,7 @@ void VoxGame::UnloadWeapon(bool left)
 			for (int i = 0; i < pWeapon->GetNumParticleEffects(); i++)
 			{
 				unsigned int particleEffectId;
-				Vector3d ParticleEffectPos;
+				vec3 ParticleEffectPos;
 				string effectName;
 				bool connectedToSegment;
 				pWeapon->GetParticleEffectParams(i, &particleEffectId, &ParticleEffectPos, &effectName, &connectedToSegment);

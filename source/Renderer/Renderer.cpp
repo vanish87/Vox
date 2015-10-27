@@ -1745,7 +1745,7 @@ void Renderer::ClearMesh(OpenGLTriangleMesh* pMesh)
 	pMesh = NULL;
 }
 
-unsigned int Renderer::AddVertexToMesh(Vector3d p, Vector3d n, float r, float g, float b, float a, OpenGLTriangleMesh* pMesh)
+unsigned int Renderer::AddVertexToMesh(vec3 p, vec3 n, float r, float g, float b, float a, OpenGLTriangleMesh* pMesh)
 {
 	OpenGLMesh_Vertex* pNewVertex = new OpenGLMesh_Vertex();
 	pNewVertex->vertexPosition[0] = p.x;

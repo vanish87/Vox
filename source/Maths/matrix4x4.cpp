@@ -229,6 +229,11 @@ const Vector3d Matrix4x4::GetTranslationVector() const
 	return Vector3d(m[12], m[13], m[14]);
 }
 
+const vec3 Matrix4x4::GetTranslationVec3() const
+{
+	return vec3(m[12], m[13], m[14]);
+}
+
 const void Matrix4x4::GetEuler(float *x, float *y, float *z) const
 {
 	// Assuming the angles are in radians.
@@ -488,6 +493,33 @@ Vector3d &Matrix4x4::Multiply(const Matrix4x4 &m1, const Vector3d &v, Vector3d &
 	}
 
 	result = Vector3d(r[0], r[1], r[2]);
+
+	return(result);
+}
+
+vec3 &Matrix4x4::Multiply(const Matrix4x4 &m1, const vec3 &v, vec3 &result) {
+	int index, alpha;
+
+	float vect[4], r[4];
+
+	double	sum;
+
+
+	vect[0] = v.x;
+	vect[1] = v.y;
+	vect[2] = v.z;
+	vect[3] = 1;
+
+	for (index = 0; index < 4; index++) {
+		sum = 0;
+
+		for (alpha = 0; alpha < 4; alpha++)
+			sum += m1.m[index + alpha * 4] * vect[alpha];
+
+		r[index] = (float)sum;
+	}
+
+	result = vec3(r[0], r[1], r[2]);
 
 	return(result);
 }

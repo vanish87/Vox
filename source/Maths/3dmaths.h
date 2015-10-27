@@ -16,6 +16,9 @@
 
 #pragma once
 
+#include <glm/vec3.hpp>
+using namespace glm;
+
 #include <iostream>
 using namespace std;
 
@@ -219,6 +222,7 @@ public:
 	const Vector3d GetUpVector() const;
 	const Vector3d GetForwardVector() const;
 	const Vector3d GetTranslationVector() const;
+	const vec3 GetTranslationVec3() const;
 	const void GetEuler(float *x, float *y, float *z) const;
 
 	// Operations
@@ -241,6 +245,7 @@ public:
 	static Matrix4x4 &Scale(const Matrix4x4 &m1, const float &scale, Matrix4x4 &result);
 	static Matrix4x4 &Multiply(const Matrix4x4 &m1, const Matrix4x4 &m2, Matrix4x4 &result);
 	static Vector3d &Multiply(const Matrix4x4 &m1, const Vector3d &v, Vector3d &result);
+	static vec3 &Multiply(const Matrix4x4 &m1, const vec3 &v, vec3 &result);
 	static bool equal(const Matrix4x4 &m1, const Matrix4x4 &m2);
 
 	// Operators
@@ -254,6 +259,7 @@ public:
 	Matrix4x4& operator/=(const float &sca) { Scale(*this, (1/sca), *this); return *this; }
 	Matrix4x4 operator*(const Matrix4x4 &m) { Matrix4x4 result; return Multiply(*this, m, result); }
 	Vector3d operator*(const Vector3d &v) { Vector3d result; return Multiply(*this, v, result); }
+	vec3 operator*(const vec3 &v) { vec3 result; return Multiply(*this, v, result); }
 	bool operator==(const Matrix4x4 &m) const { return equal(*this, m); };
 	bool operator!=(const Matrix4x4 &m) const { return !equal(*this, m); };
 
