@@ -94,7 +94,7 @@ void VoxGame::UpdateWeaponLights(float dt)
 					if (connectedToSegment == false)
 					{
 						// Rotate due to characters forward vector
-						//float rotationAngle = acos(Vector3d::DotProduct(Vector3d(0.0f, 0.0f, 1.0f), m_forward));
+						//float rotationAngle = acos(dot(Vector3d(0.0f, 0.0f, 1.0f), m_forward));
 						//if (m_forward.x < 0.0f)
 						//{
 						//	rotationAngle = -rotationAngle;
@@ -151,14 +151,14 @@ void VoxGame::UpdateWeaponParticleEffects(float dt)
 
 					if (particleEffectId == -1)
 					{
-						m_pBlockParticleManager->ImportParticleEffect(effectName, Vector3d(ParticleEffectPos.x, ParticleEffectPos.y, ParticleEffectPos.z), &particleEffectId);
+						m_pBlockParticleManager->ImportParticleEffect(effectName, vec3(ParticleEffectPos.x, ParticleEffectPos.y, ParticleEffectPos.z), &particleEffectId);
 						pWeapon->SetParticleEffectId(i, particleEffectId);
 					}
 
 					if (connectedToSegment == false)
 					{
 						// Rotate due to characters forward vector
-						//float rotationAngle = acos(Vector3d::DotProduct(Vector3d(0.0f, 0.0f, 1.0f), m_forward));
+						//float rotationAngle = acos(dot(Vector3d(0.0f, 0.0f, 1.0f), m_forward));
 						//if (m_forward.x < 0.0f)
 						//{
 						//	rotationAngle = -rotationAngle;
@@ -171,7 +171,7 @@ void VoxGame::UpdateWeaponParticleEffects(float dt)
 						//ParticleEffectPos += m_position;
 					}
 
-					m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, Vector3d(ParticleEffectPos.x, ParticleEffectPos.y, ParticleEffectPos.z));
+					m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, vec3(ParticleEffectPos.x, ParticleEffectPos.y, ParticleEffectPos.z));
 				}
 			}
 		}

@@ -254,7 +254,7 @@ void BlockParticleEmitter::Update(float dt)
 		if(m_orbitReverse)
 			rot_angle = -rot_angle;
 
-		m_position = m_startingPosition + Vector3d(cos(rot_angle) * m_orbitRadius, 0.0f, sin(rot_angle) * m_orbitRadius);
+		m_position = m_startingPosition + vec3(cos(rot_angle) * m_orbitRadius, 0.0f, sin(rot_angle) * m_orbitRadius);
 	}
 }
 
