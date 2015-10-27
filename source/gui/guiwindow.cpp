@@ -612,17 +612,17 @@ void GUIWindow::DrawSelf()
 	{
 		int l_containerWidth = m_dimensions.m_width;
 		int l_containerHeight = m_dimensions.m_height;
-		int l_depth = static_cast<int>(m_depth);
+		float l_depth = m_depth;
 
-		int l_containerX1 = 0;
-		int l_containerX2 = l_containerWidth;
-		int l_containerY1 = 0;
-		int l_containerY2 = l_containerHeight;	
+		float l_containerX1 = 0.5f;
+		float l_containerX2 = (float)l_containerWidth;
+		float l_containerY1 = 0.5f;
+		float l_containerY2 = (float)l_containerHeight;
 
-		int l_outlineX1 = 0;
-		int l_outlineX2 = l_containerWidth + 1;
-		int l_outlineY1 = 0;
-		int l_outlineY2 = l_containerHeight + 1; // We don't draw the outline on the top
+		float l_outlineX1 = -0.5f;
+		float l_outlineX2 = l_containerWidth + 0.5f;
+		float l_outlineY1 = -0.5f;
+		float l_outlineY2 = l_containerHeight + 0.5f;
 
 		if(!m_bMinimized && m_bRenderWindowBackground)
 		{
@@ -647,7 +647,7 @@ void GUIWindow::DrawSelf()
 					m_pRenderer->ImmediateVertex(l_outlineX1, l_outlineY1, l_depth);
 					m_pRenderer->ImmediateVertex(l_outlineX2, l_outlineY1, l_depth);
 					m_pRenderer->ImmediateVertex(l_outlineX2, l_outlineY2, l_depth);
-					m_pRenderer->ImmediateVertex(l_outlineX1, l_outlineY2, l_depth);		
+					m_pRenderer->ImmediateVertex(l_outlineX1, l_outlineY2, l_depth);
 				m_pRenderer->DisableImmediateMode();
 			m_pRenderer->PopMatrix();
 		}

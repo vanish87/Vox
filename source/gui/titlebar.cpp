@@ -254,17 +254,17 @@ void TitleBar::DrawSelf()
 	{
 		int l_containerWidth = m_dimensions.m_width;
 		int l_containerHeight = m_dimensions.m_height;
-		int l_depth = static_cast<int>(GetDepth());
+		float l_depth = (GetDepth());
 
-		int l_containerX1 = 0;
-		int l_containerX2 = l_containerWidth;
-		int l_containerY1 = 0;
-		int l_containerY2 = l_containerHeight;	
+		float l_containerX1 = 0.5f;
+		float l_containerX2 = (float)l_containerWidth;
+		float l_containerY1 = 0.5f;
+		float l_containerY2 = (float)l_containerHeight;
 
-		int l_outlineX1 = 0;
-		int l_outlineX2 = l_containerWidth + 1;
-		int l_outlineY1 = 0;
-		int l_outlineY2 = l_containerHeight + 1;
+		float l_outlineX1 = -0.5f;
+		float l_outlineX2 = l_containerWidth + 0.5f;
+		float l_outlineY1 = -0.0f;
+		float l_outlineY2 = l_containerHeight + 0.5f;
 
 		// Draw the background
 		m_pRenderer->PushMatrix();
