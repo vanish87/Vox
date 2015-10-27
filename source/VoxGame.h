@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Renderer/Renderer.h"
+#include "gui/openglgui.h"
 #include "Renderer/camera.h"
 #include "Lighting/LightingManager.h"
 #include "Particles/BlockParticleManager.h"
@@ -18,8 +19,13 @@ public:
 	/* Public methods */
 	static VoxGame* GetInstance();
 
+	// Creation
 	void Create();
+	void CreateGUI();
+
+	// Destruction
 	void Destroy();
+	void DestroyGUI();
 
 	// Events
 	void PollEvents();
@@ -57,6 +63,7 @@ public:
 	void RenderDeferredLighting();
 	void RenderTransparency();
 	void RenderSSAOTexture();
+	void RenderGUI();
 	void RenderDebugInformation();
 
 protected:
@@ -82,6 +89,9 @@ private:
 	// Renderer
 	Renderer* m_pRenderer;
 	
+	// GUI
+	OpenGLGUI* m_pGUI;
+
 	// Game camera
 	Camera* m_pGameCamera;
 
@@ -154,6 +164,9 @@ private:
 	int m_pressedY;
 	int m_currentX;
 	int m_currentY;
+
+	// GUI Components
+	GUIWindow* m_pMainWindow;
 
 	// Toggle flags
 	bool m_deferredRendering;

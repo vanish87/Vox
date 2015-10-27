@@ -445,7 +445,6 @@
     <None Include="..\..\source\glm\gtx\vector_angle.inl" />
     <None Include="..\..\source\glm\gtx\vector_query.inl" />
     <None Include="..\..\source\glm\gtx\wrap.inl" />
-    <None Include="..\..\source\gui\MSSCCPRJ.SCC" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4496164E-D363-42DC-84E8-64D61B812689}</ProjectGuid>

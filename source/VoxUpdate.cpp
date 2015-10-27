@@ -41,6 +41,12 @@ void VoxGame::Update()
 	// Update controls
 	UpdateControls(m_deltaTime);
 
+	// Update the GUI
+	int x = m_pVoxWindow->GetCursorX();
+	int y = m_pVoxWindow->GetCursorY();
+	m_pGUI->Update(m_deltaTime);
+	m_pGUI->ImportMouseMotion(x, m_windowHeight - y);
+
 	// Update lights
 	UpdateLights(m_deltaTime);
 

@@ -179,6 +179,9 @@ void VoxGame::Render()
 		// Render debug information and text
 		RenderDebugInformation();
 
+		// Render the GUI
+		RenderGUI();
+
 	// End rendering
 	m_pRenderer->EndScene();
 
@@ -388,6 +391,22 @@ void VoxGame::RenderSSAOTexture()
 		m_pRenderer->EmptyTextureIndex(0);
 
 		m_pRenderer->EndGLSLShader(m_SSAOShader);
+	m_pRenderer->PopMatrix();
+}
+
+void VoxGame::RenderGUI()
+{
+	m_pRenderer->EmptyTextureIndex(0);
+
+	// Render the GUI
+	m_pRenderer->PushMatrix();
+		m_pRenderer->SetProjectionMode(PM_2D, m_defaultViewport);
+
+		m_pRenderer->SetCullMode(CM_BACK);
+
+		m_pRenderer->SetLookAtCamera(vec3(0.0f, 0.0f, 250.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+
+		m_pGUI->Render();
 	m_pRenderer->PopMatrix();
 }
 

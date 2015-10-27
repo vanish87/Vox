@@ -13,6 +13,7 @@ VoxGame* VoxGame::GetInstance()
 	return c_instance;
 }
 
+// Creation
 void VoxGame::Create()
 {
 	m_pRenderer = NULL;
@@ -38,6 +39,9 @@ void VoxGame::Create()
 	m_windowWidth = 800;
 	m_windowHeight = 800;
 	m_pRenderer = new Renderer(m_windowWidth, m_windowHeight, 32, 8);
+
+	/* Create the GUI */
+	m_pGUI = new OpenGLGUI(m_pRenderer);
 
 	/* Create cameras */
 	m_pGameCamera = new Camera(m_pRenderer);
@@ -130,7 +134,6 @@ void VoxGame::Create()
 	// Camera movement
 	m_bCameraRotate = false;
 	m_bCameraZoom = false;
-
 	m_pressedX = 0;
 	m_pressedY = 0;	
 	m_currentX = 0;
@@ -152,8 +155,27 @@ void VoxGame::Create()
 	m_weaponString = "NONE";
 	m_animationUpdate = true;
 	m_fullscreen = false;
+
+	CreateGUI();
 }
 
+void VoxGame::CreateGUI()
+{
+	m_pMainWindow = new GUIWindow(m_pRenderer, m_defaultFont, "Main");
+	m_pMainWindow->AllowMoving(true);
+	m_pMainWindow->AllowClosing(false);
+	m_pMainWindow->AllowMinimizing(true);
+	m_pMainWindow->AllowScrolling(true);
+	m_pMainWindow->SetRenderTitleBar(true);
+	m_pMainWindow->SetRenderWindowBackground(true);
+	m_pMainWindow->SetOutlineRender(true);
+	m_pMainWindow->SetDimensions(30, 50, 250, 140);
+	m_pMainWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
+
+	m_pGUI->AddWindow(m_pMainWindow);
+}
+
+// Destruction
 void VoxGame::Destroy()
 {
 	if (c_instance)
@@ -162,6 +184,8 @@ void VoxGame::Destroy()
 		delete m_pVoxelCharacter;
 		delete m_pQubicleBinaryManager;
 		delete m_pGameCamera;
+		DestroyGUI();
+		delete m_pGUI;
 		delete m_pRenderer;
 
 		m_pVoxWindow->Destroy();
@@ -172,6 +196,11 @@ void VoxGame::Destroy()
 
 		delete c_instance;
 	}
+}
+
+void VoxGame::DestroyGUI()
+{
+	delete m_pMainWindow;
 }
 
 // Events
@@ -207,6 +236,9 @@ void VoxGame::ResizeWindow(int width, int height)
 		frameBufferResize = m_pRenderer->CreateFrameBuffer(m_shadowFrameBuffer, true, true, true, true, m_windowWidth, m_windowHeight, 5.0f, "Shadow", &m_shadowFrameBuffer);
 		frameBufferResize = m_pRenderer->CreateFrameBuffer(m_lightingFrameBuffer, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "Deferred Lighting", &m_lightingFrameBuffer);
 		frameBufferResize = m_pRenderer->CreateFrameBuffer(m_transparencyFrameBuffer, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "Transparency", &m_transparencyFrameBuffer);
+
+		// Give the new windows dimensions to the GUI components also
+		m_pMainWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 	}
 }
 

@@ -334,21 +334,30 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 
 void VoxGame::MouseLeftPressed()
 {
-	m_currentX = m_pVoxWindow->GetCursorX();
-	m_currentY = m_pVoxWindow->GetCursorY();
-	m_pressedX = m_currentX;
-	m_pressedY = m_currentY;
+	m_pGUI->MousePressed(MOUSE_BUTTON1);
 
-	m_bCameraRotate = true;
+	if (!m_pGUI->IsMouseInteractingWithGUIComponent(false))
+	{
+		m_currentX = m_pVoxWindow->GetCursorX();
+		m_currentY = m_pVoxWindow->GetCursorY();
+		m_pressedX = m_currentX;
+		m_pressedY = m_currentY;
+
+		m_bCameraRotate = true;
+	}
 }
 
 void VoxGame::MouseLeftReleased()
 {
+	m_pGUI->MouseReleased(MOUSE_BUTTON1);
+
 	m_bCameraRotate = false;
 }
 
 void VoxGame::MouseRightPressed()
 {
+	m_pGUI->MousePressed(MOUSE_BUTTON1);
+
 	m_currentX = m_pVoxWindow->GetCursorX();
 	m_currentY = m_pVoxWindow->GetCursorY();
 	m_pressedX = m_currentX;
@@ -359,15 +368,19 @@ void VoxGame::MouseRightPressed()
 
 void VoxGame::MouseRightReleased()
 {
+	m_pGUI->MouseReleased(MOUSE_BUTTON2);
+
 	m_bCameraZoom = false;
 }
 
 void VoxGame::MouseMiddlePressed()
 {
+	m_pGUI->MousePressed(MOUSE_BUTTON3);
 }
 
 void VoxGame::MouseMiddleReleased()
 {
+	m_pGUI->MouseReleased(MOUSE_BUTTON3);
 }
 
 void VoxGame::MouseScroll(double x, double y)

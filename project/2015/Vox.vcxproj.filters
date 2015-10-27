@@ -1324,8 +1324,5 @@
     <None Include="..\..\source\glm\gtc\bitfield.inl">
       <Filter>source\glm\gtc</Filter>
     </None>
-    <None Include="..\..\source\gui\MSSCCPRJ.SCC">
-      <Filter>source\gui</Filter>
-    </None>
   </ItemGroup>
 </Project>
