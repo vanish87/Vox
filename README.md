@@ -4,7 +4,7 @@ Vox engine is an open source voxel engine that is written in C++ and OpenGL and 
 ## Features
 * GLSL shader support.
 * Support for deferred or forward rendering.
-* Fully dynamic and unlimited lighting system uding deferred lighting model.
+* Fully dynamic and unlimited lighting system using deferred lighting model.
 * Advanced graphics shaders included - SSAO, shadow mapping, dynamic lighting.
 * Full 3d maths and geometry library (vector, quaternion, plane, bezier).
 * Extensive camera functionality, either 3d person or 1st person.
