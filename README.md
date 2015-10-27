@@ -48,5 +48,6 @@ Contributions are always welcome, either reporting issues/bugs or forking the re
 
 # Screenshots
 ![Vox](http://i.imgur.com/usPCqJt.png)
+![Vox](http://i.imgur.com/mZ85dWP.png)
 
 # Videos
