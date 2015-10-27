@@ -270,61 +270,6 @@ public:
 };
 
 
-class Quaternion {
-public:
-	// Constructors
-	Quaternion();
-	Quaternion(float x, float y, float z, float w);
-	Quaternion(float xyzw[]);
-
-	// Setup quaternion
-	void SetEuler(float x, float y, float z);
-	void SetAxis(Vector3d v, float angle);
-
-	// Properties
-	const float GetLength() const;
-	const Quaternion GetUnit() const;
-	const Quaternion GetConjugate() const;
-	void GetEuler(float &x, float &y, float &z) const;
-	void GetAxis(Vector3d &v, float &angle) const;
-	const Matrix4x4 GetMatrix() const;
-
-	// Operations
-	void LoadIdentity();
-	void Normalize();
-	void Conjugate();
-
-	// Spherical Linear Interpolation
-	static Quaternion Slerp(Quaternion &q1, Quaternion &q2, float time);
-	Quaternion Slerp(Quaternion &q, float time);
-
-	// Arithmetic
-	static Quaternion &Add(const Quaternion &q1, const Quaternion &q2, Quaternion &result);
-	static Quaternion &Subtract(const Quaternion &q1, const Quaternion &q2, Quaternion &result);
-	static Quaternion &Scale(const Quaternion &q1, const float &scale, Quaternion &result);
-	static Quaternion &Multiply(const Quaternion&q1, const Quaternion &q2, Quaternion &result);
-	static Vector3d &Multiply(const Quaternion &q1, const Vector3d &v, Vector3d &result);
-	static bool equal(const Quaternion &q1, const Quaternion &q2);
-
-	// Operators
-	Quaternion operator+(const Quaternion &q) const { Quaternion result; return Add(*this, q, result); }
-	Quaternion& operator+=(const Quaternion &q) { Add(*this, q, *this); return *this; }
-	Quaternion operator-(const Quaternion &q) const { Quaternion result; return Subtract(*this, q, result); }
-	Quaternion& operator-=(const Quaternion &q) { Subtract(*this, q, *this); return *this; }
-	Quaternion operator*(const float &sca) const { Quaternion result; return Scale(*this, sca, result); }
-	Quaternion& operator*=(const float &sca) { Scale(*this, sca, *this); return *this; }
-	Quaternion operator/(const float &sca) const { Quaternion result; return Scale(*this, (1/sca), result); }
-	Quaternion& operator/=(const float &sca) { Scale(*this, (1/sca), *this); return *this; }
-	Quaternion operator*(const Quaternion &q) { Quaternion result; return Multiply(*this, q, result); }
-	Vector3d operator*(const Vector3d &v) { Vector3d result; return Multiply(*this, v, result); }
-	bool operator==(const Quaternion &q) const { return equal(*this, q); };
-	bool operator!=(const Quaternion &q) const { return !equal(*this, q); };
-
-public:
-	float x, y, z, w;
-};
-
-
 // 3D Maths Helper functions
 //-----------------------------
 

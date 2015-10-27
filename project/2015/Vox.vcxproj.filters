@@ -81,9 +81,6 @@
     <ClCompile Include="..\..\source\Maths\Plane3D.cpp">
       <Filter>source\Maths</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\Maths\quaternion.cpp">
-      <Filter>source\Maths</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\Maths\vector2d.cpp">
       <Filter>source\Maths</Filter>
     </ClCompile>

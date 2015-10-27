@@ -33,7 +33,6 @@
     <ClCompile Include="..\..\source\Maths\matrix3x3.cpp" />
     <ClCompile Include="..\..\source\Maths\matrix4x4.cpp" />
     <ClCompile Include="..\..\source\Maths\Plane3D.cpp" />
-    <ClCompile Include="..\..\source\Maths\quaternion.cpp" />
     <ClCompile Include="..\..\source\Maths\vector2d.cpp" />
     <ClCompile Include="..\..\source\Maths\vector3d.cpp" />
     <ClCompile Include="..\..\source\models\BoundingBox.cpp" />
