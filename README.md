@@ -39,7 +39,7 @@ Visual Studio projects are included inside the ```\project``` sub-folder.
 // Todo //
 
 ## Running
-The Vox executable needs to be run from the root directory so that it has access at the top level to the ```\media``` folder that contains all the game content files. If you want to run the game's executable from within the Visual Studio projects then you will need to set the working directy in the Debugging options to ```'..\'``` since the visual studio project files reside in a sub directory above the root.
+The Vox executable needs to be run from the root directory so that it has access at the top level to the ```\media``` folder that contains all the game content files. If you want to run the game's executable from within the Visual Studio projects then you will need to set the working directy in the Debugging options to ```'..\..\'``` since the visual studio projects files reside in sub-directories above the root.
 
 Alternatively you can run the pre-built executable ```VoxGame.exe``` that is containted within this github repo. Please note however that there is no guarantee that this exe will contain the latest code from the repo.
 
