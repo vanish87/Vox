@@ -641,6 +641,18 @@ void Renderer::PopTextureMatrix()
 	glMatrixMode(GL_MODELVIEW);
 }
 
+// Scissor testing
+void Renderer::EnableScissorTest(int x, int y, int width, int height)
+{
+	glEnable(GL_SCISSOR_TEST);
+	glScissor(x, y, width, height);
+}
+
+void Renderer::DisableScissorTest()
+{
+	glDisable(GL_SCISSOR_TEST);
+}
+
 // Camera functionality
 void Renderer::SetLookAtCamera(vec3 pos, vec3 target, vec3 up)
 {

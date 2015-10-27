@@ -208,6 +208,10 @@ public:
 	void PushTextureMatrix();
 	void PopTextureMatrix();
 
+	// Scissor testing
+	void EnableScissorTest(int x, int y, int width, int height);
+	void DisableScissorTest();
+
 	// Camera functionality
 	void SetLookAtCamera(vec3 pos, vec3 target, vec3 up);
 
