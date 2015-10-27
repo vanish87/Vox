@@ -176,6 +176,8 @@ void VoxGame::Render()
 			RenderSSAOTexture();
 		}
 
+		m_pRenderer->DisableMultiSampling();
+
 		// Render debug information and text
 		RenderDebugInformation();
 
