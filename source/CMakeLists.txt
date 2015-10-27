@@ -39,20 +39,20 @@ add_executable(Vox
 			   ${MODELS_SRCS}
 			   ${PARTICLES_SRCS}
 			   ${RENDERER_SRCS})
-			   
+
+include_directories(".")			   
 include_directories("glfw\\include")
 include_directories("glew\\include")
 include_directories("freetype\\include")
 
 target_link_libraries(Vox "opengl32.lib")
 target_link_libraries(Vox "winmm.lib")
-target_link_libraries(Vox "${CMAKE_CURRENT_SOURCE_DIR}\\glfw\\libs\\d\\glfw3.lib")
-target_link_libraries(Vox "${CMAKE_CURRENT_SOURCE_DIR}\\freetype\\libs\\freetype237d.lib")
 
-#set_target_properties(Vox PROPERTIES RUNTIME_OUTPUT_DIRECTORY "../../bin/")
+target_link_libraries(Vox "${CMAKE_CURRENT_SOURCE_DIR}\\glfw\\libs\\2015\\d\\glfw3.lib")
+target_link_libraries(Vox "${CMAKE_CURRENT_SOURCE_DIR}\\freetype\\libs\\2015\\freetype261d.lib")
+
 if ( MSVC )
     set_target_properties(Vox PROPERTIES RUNTIME_OUTPUT_DIRECTORY "../../")
     set_target_properties(Vox PROPERTIES RUNTIME_OUTPUT_DIRECTORY_DEBUG "../../")
     set_target_properties(Vox PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE "../../")
-    # etc for the other available configuration types (MinSizeRel, RelWithDebInfo)
 endif ( MSVC )
