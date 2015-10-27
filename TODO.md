@@ -31,8 +31,11 @@
 * App player class and put voxel character functionality in player class.
 * Switch over to using glm maths lib.
 * Enable cross platform compiling and support, linux.
+* Rebuild vs2013 libs using non-dll version of linking
+* Create vs2012 libs and VS2012 project files
+* Fix up cmake for the different visual studio versions and also for the different lib linking.
 * Solution to allow for running the exe from Visual studio, because atm the working directory needs to be ../
 * Weapon trails controlled by the animation file.
 * Convert shaders over to be more unified.
 * Add blur shader.
-* Implement MSAA (or other AA) in glsl shader*
+* Implement MSAA (or other AA) in glsl shader
