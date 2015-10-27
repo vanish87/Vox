@@ -72,19 +72,10 @@
     <ClCompile Include="..\..\source\Maths\Line3D.cpp">
       <Filter>source\Maths</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\Maths\matrix3x3.cpp">
-      <Filter>source\Maths</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\Maths\matrix4x4.cpp">
       <Filter>source\Maths</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\Maths\Plane3D.cpp">
-      <Filter>source\Maths</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\Maths\vector2d.cpp">
-      <Filter>source\Maths</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\Maths\vector3d.cpp">
       <Filter>source\Maths</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\Renderer\frustum.cpp">

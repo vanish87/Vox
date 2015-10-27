@@ -30,11 +30,8 @@
     <ClCompile Include="..\..\source\Maths\Bezier3.cpp" />
     <ClCompile Include="..\..\source\Maths\Bezier4.cpp" />
     <ClCompile Include="..\..\source\Maths\Line3D.cpp" />
-    <ClCompile Include="..\..\source\Maths\matrix3x3.cpp" />
     <ClCompile Include="..\..\source\Maths\matrix4x4.cpp" />
     <ClCompile Include="..\..\source\Maths\Plane3D.cpp" />
-    <ClCompile Include="..\..\source\Maths\vector2d.cpp" />
-    <ClCompile Include="..\..\source\Maths\vector3d.cpp" />
     <ClCompile Include="..\..\source\models\BoundingBox.cpp" />
     <ClCompile Include="..\..\source\models\MS3DAnimator.cpp" />
     <ClCompile Include="..\..\source\models\MS3DModel.cpp" />

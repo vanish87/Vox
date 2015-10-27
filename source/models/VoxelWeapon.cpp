@@ -1428,7 +1428,7 @@ void VoxelWeapon::Render(bool renderOutline, bool refelction, bool silhouette, C
 				if(refelction == false)
 				{
 					Matrix4x4 pMat = m_pAnimatedSections[i].m_pVoxelObject->GetModelMatrix(0);
-					m_pAnimatedSections[i].m_animatedSectionPosition = pMat.GetTranslationVec3();
+					m_pAnimatedSections[i].m_animatedSectionPosition = pMat.GetTranslationVector();
 				}
 			m_pRenderer->PopMatrix();
 		}
