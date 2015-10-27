@@ -35,3 +35,4 @@
 * Weapon trails controlled by the animation file.
 * Convert shaders over to be more unified.
 * Add blur shader.
+* Implement MSAA (or other AA) in glsl shader*
