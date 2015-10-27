@@ -205,7 +205,9 @@ public:
 	void SetRotation(const float x, const float y, const float z);
 	void SetTranslation(float trans[3]);
 	void SetTranslation(Vector3d trans);
+	void SetTranslation(vec3 trans);
 	void SetScale(Vector3d scale);
+	void SetScale(vec3 scale);
 
 	void AddTranslation(float *translation);
 	void AddRotationRadians(float *angles);

@@ -107,10 +107,10 @@ void BlockParticle::CalculateWorldTransformMatrix()
 		}
 	}
 
-	m_worldMatrix.SetTranslation(Vector3d(pos.x, pos.y, pos.z));
+	m_worldMatrix.SetTranslation(vec3(pos.x, pos.y, pos.z));
 
 	Matrix4x4 scaleMat;
-	scaleMat.SetScale(Vector3d(m_currentScale, m_currentScale, m_currentScale));
+	scaleMat.SetScale(vec3(m_currentScale, m_currentScale, m_currentScale));
 
 	m_worldMatrix = scaleMat * m_worldMatrix;
 }

@@ -636,7 +636,7 @@ void VoxelWeapon::UpdateWeaponTrails(float dt, Matrix4x4 originMatrix, float sca
 					float amountX = 0.75f;
 					float amountY = 0.75f;
 					float amountZ = 0.5f;
-					rotationMatrix.SetTranslation(Vector3d(amountX, amountY, -amountZ));
+					rotationMatrix.SetTranslation(vec3(amountX, amountY, -amountZ));
 					rotationMatrix.SetRotation(0.0f, DegToRad(m_cameraYRotation), 0.0f);
 					startPosition = rotationMatrix * startPosition;
 					endPosition = rotationMatrix * endPosition;
@@ -1102,7 +1102,7 @@ void VoxelWeapon::Update(float dt)
 			float amountX = 0.75f;
 			float amountY = 0.75f;
 			float amountZ = 0.5f;
-			rotationMatrix.SetTranslation(Vector3d(amountX, amountY, -amountZ));
+			rotationMatrix.SetTranslation(vec3(amountX, amountY, -amountZ));
 			rotationMatrix.SetRotation(0.0f, DegToRad(m_cameraYRotation), 0.0f);
 			lightPosition = rotationMatrix * lightPosition;
 		}
@@ -1240,7 +1240,7 @@ void VoxelWeapon::Update(float dt)
 			float amountX = 0.75f;
 			float amountY = 0.75f;
 			float amountZ = 0.5f;
-			rotationMatrix.SetTranslation(Vector3d(amountX, amountY, -amountZ));
+			rotationMatrix.SetTranslation(vec3(amountX, amountY, -amountZ));
 			rotationMatrix.SetRotation(0.0f, DegToRad(m_cameraYRotation), 0.0f);
 			particleEffectPosition = rotationMatrix * particleEffectPosition;
 		}

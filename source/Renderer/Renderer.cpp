@@ -562,7 +562,7 @@ void Renderer::TranslateWorldMatrix(float x, float y, float z)
 	glTranslatef(x, y, z);
 
 	Matrix4x4 translate;
-	translate.SetTranslation(Vector3d(x, y, z));
+	translate.SetTranslation(vec3(x, y, z));
 	m_model = translate * m_model;
 }
 
@@ -588,7 +588,7 @@ void Renderer::ScaleWorldMatrix(float x, float y, float z)
 	glScalef(x, y, z);
 
 	Matrix4x4 scale;
-	scale.SetScale(Vector3d(x, y, z));
+	scale.SetScale(vec3(x, y, z));
 	m_model = scale * m_model;
 }
 

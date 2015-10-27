@@ -94,7 +94,7 @@ void VoxGame::UpdateWeaponLights(float dt)
 					if (connectedToSegment == false)
 					{
 						// Rotate due to characters forward vector
-						//float rotationAngle = acos(dot(Vector3d(0.0f, 0.0f, 1.0f), m_forward));
+						//float rotationAngle = acos(dot(vec3(0.0f, 0.0f, 1.0f), m_forward));
 						//if (m_forward.x < 0.0f)
 						//{
 						//	rotationAngle = -rotationAngle;
@@ -158,7 +158,7 @@ void VoxGame::UpdateWeaponParticleEffects(float dt)
 					if (connectedToSegment == false)
 					{
 						// Rotate due to characters forward vector
-						//float rotationAngle = acos(dot(Vector3d(0.0f, 0.0f, 1.0f), m_forward));
+						//float rotationAngle = acos(dot(vec3(0.0f, 0.0f, 1.0f), m_forward));
 						//if (m_forward.x < 0.0f)
 						//{
 						//	rotationAngle = -rotationAngle;

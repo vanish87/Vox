@@ -112,7 +112,22 @@ void Matrix4x4::SetTranslation(Vector3d trans) {
 	m[14] = trans.z;
 }
 
+void Matrix4x4::SetTranslation(vec3 trans) {
+	//LoadIdentity();
+
+	m[12] = trans.x;
+	m[13] = trans.y;
+	m[14] = trans.z;
+}
+
 void Matrix4x4::SetScale(Vector3d scale)
+{
+	m[0] = scale.x;
+	m[5] = scale.y;
+	m[10] = scale.z;
+}
+
+void Matrix4x4::SetScale(vec3 scale)
 {
 	m[0] = scale.x;
 	m[5] = scale.y;

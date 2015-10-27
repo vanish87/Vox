@@ -136,7 +136,7 @@ void MS3DAnimator::CalculateBoundingBox()
 		}
 
 		Matrix4x4& final = pJointAnimations[mpModel->pVertices[i].boneID].final;
-		Vector3d newVertex( mpModel->pVertices[i].location[0], mpModel->pVertices[i].location[1], mpModel->pVertices[i].location[2]);
+		vec3 newVertex( mpModel->pVertices[i].location[0], mpModel->pVertices[i].location[1], mpModel->pVertices[i].location[2]);
 
 		newVertex = final * newVertex;
 
@@ -830,11 +830,11 @@ void MS3DAnimator::RenderMesh()
 						glTexCoord2f( pTri->s[k], pTri->t[k] );
 
 						// Normal
-						Vector3d newNormal( pTri->vertexNormals[k][0], pTri->vertexNormals[k][1], pTri->vertexNormals[k][2]);
+						vec3 newNormal( pTri->vertexNormals[k][0], pTri->vertexNormals[k][1], pTri->vertexNormals[k][2]);
 
 						newNormal = final * newNormal;
 
-						newNormal = newNormal.GetUnit();
+						newNormal = normalize(newNormal);
 
 						float tempNormal[3];
 						tempNormal[0] = newNormal.x;
@@ -843,7 +843,7 @@ void MS3DAnimator::RenderMesh()
 						glNormal3fv( tempNormal );
 
 						// Vertex
-						Vector3d newVertex( mpModel->pVertices[index].location[0], mpModel->pVertices[index].location[1], mpModel->pVertices[index].location[2]);
+						vec3 newVertex( mpModel->pVertices[index].location[0], mpModel->pVertices[index].location[1], mpModel->pVertices[index].location[2]);
 
 						newVertex = final * newVertex;
 
@@ -892,11 +892,11 @@ void MS3DAnimator::RenderNormals()
 						Matrix4x4& final = mpModel->pJoints[mpModel->pVertices[index].boneID].absolute;
 
 						// Normal
-						Vector3d newNormal( pTri->vertexNormals[k][0], pTri->vertexNormals[k][1], pTri->vertexNormals[k][2]);
+						vec3 newNormal( pTri->vertexNormals[k][0], pTri->vertexNormals[k][1], pTri->vertexNormals[k][2]);
 
 						newNormal = final * newNormal;
 
-						newNormal = newNormal.GetUnit();
+						newNormal = normalize(newNormal);
 						newNormal *= 0.3f; // Scale normal down
 
 						float tempNormal[3];
@@ -905,7 +905,7 @@ void MS3DAnimator::RenderNormals()
 						tempNormal[2] = newNormal.z;
 
 						// Vertex
-						Vector3d newVertex( mpModel->pVertices[index].location[0], mpModel->pVertices[index].location[1], mpModel->pVertices[index].location[2]);
+						vec3 newVertex( mpModel->pVertices[index].location[0], mpModel->pVertices[index].location[1], mpModel->pVertices[index].location[2]);
 
 						newVertex = final * newVertex;
 
@@ -934,7 +934,7 @@ void MS3DAnimator::RenderBones()
 	{
 		glBegin( GL_LINES );
 		{
-			Vector3d newVertex;
+			vec3 newVertex;
 
 			newVertex = pJointAnimations[i].final * newVertex;
 
@@ -947,7 +947,7 @@ void MS3DAnimator::RenderBones()
 			if ( mpModel->pJoints[i].parent != -1 )
 			{
 				Matrix4x4& final = pJointAnimations[mpModel->pJoints[i].parent].final;
-				Vector3d newPVertex;
+				vec3 newPVertex;
 
 				newPVertex =  final * newPVertex;
 
