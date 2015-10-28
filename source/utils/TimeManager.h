@@ -40,16 +40,8 @@ public:
 	void RemoveCountdownTimer(CountdownTimer* countdownTimer);
 	void RemoveCountdownTimers();
 
-	int GetTicks() const;
-	int GetMilliseconds() const;
-	int GetSeconds() const;
-	int GetMinutes() const;
-	int GetHours() const;
-	double GetDeltaTime() const;
-
-	float GetFPS() const;
-
-	void UpdateTimer();	// Update the timer
+	// Update
+	void Update(float dt);
 
 protected:
 	/* Protected methods */
@@ -68,16 +60,6 @@ protected:
 
 private:
 	/* Private members */
-	int m_startTickCount;		// The tick count from when the timer was started
-	int m_ticks;				// The current elapsed tick count since timer was started
-	double m_deltaTime;			// The current delta time, updated every time the timer is updated (Every frame!)
-
-	LARGE_INTEGER m_FPS_TicksPerSecond;
-	LARGE_INTEGER m_FPS_CurrentTicks;
-	LARGE_INTEGER m_FPS_PreviousTicks;
-
-	float m_FPS;
-
 	// A dynamic array of our countdown timers
 	CountdownTimerList m_vpCountdownTimers;
 

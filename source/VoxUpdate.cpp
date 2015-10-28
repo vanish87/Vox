@@ -1,6 +1,7 @@
 #include "VoxGame.h"
 
 #include "utils/Interpolator.h"
+#include "utils/TimeManager.h"
 
 
 // Updating
@@ -17,6 +18,9 @@ void VoxGame::Update()
 
 	// Pause the interpolator if animations are paused.
 	Interpolator::GetInstance()->SetPaused(m_animationUpdate == false);
+
+	// Update the time manager (countdowntimers);
+	TimeManager::GetInstance()->Update(m_deltaTime);
 
 	// Animation update
 	if (m_animationUpdate)
