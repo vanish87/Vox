@@ -49,6 +49,9 @@
     <Filter Include="source\glm\gtx">
       <UniqueIdentifier>{5ac711ae-1e29-4947-8199-491b37fd6239}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\Player">
+      <UniqueIdentifier>{207eed30-86ff-415d-b5ef-ad60fb9a8a7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\glew\src\glew.c">
@@ -191,6 +194,15 @@
     </ClCompile>
     <ClCompile Include="..\..\source\glm\detail\glm.cpp">
       <Filter>source\glm\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Player\Player.cpp">
+      <Filter>source\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\utils\CountdownTimer.cpp">
+      <Filter>source\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\utils\TimeManager.cpp">
+      <Filter>source\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -742,6 +754,15 @@
     </ClInclude>
     <ClInclude Include="..\..\source\glm\gtc\color_space.hpp">
       <Filter>source\glm\gtc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Player\Player.h">
+      <Filter>source\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\utils\CountdownTimer.h">
+      <Filter>source\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\utils\TimeManager.h">
+      <Filter>source\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

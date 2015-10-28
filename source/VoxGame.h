@@ -5,7 +5,7 @@
 #include "Renderer/camera.h"
 #include "Lighting/LightingManager.h"
 #include "Particles/BlockParticleManager.h"
-#include "models/VoxelCharacter.h"
+#include "Player/Player.h"
 
 #include <windows.h>
 
@@ -53,10 +53,7 @@ public:
 	// Updating
 	void Update();
 	void UpdateLights(float dt);
-	void UpdateWeaponLights(float dt);
-	void UpdateWeaponParticleEffects(float dt);
 	void UpdateGUI(float dt);
-	void UnloadWeapon(bool left);
 
 	// Rendering
 	void Render();
@@ -98,10 +95,10 @@ private:
 
 	// Qubicle binary manager
 	QubicleBinaryManager* m_pQubicleBinaryManager;
-
-	// Voxel character
-	VoxelCharacter* m_pVoxelCharacter;
 	
+	// Player
+	Player* m_pPlayer;
+
 	// Lighting manager
 	LightingManager* m_pLightingManager;
 

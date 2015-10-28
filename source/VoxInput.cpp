@@ -153,26 +153,20 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 			m_displayHelpText = !m_displayHelpText;
 			break;
 		}
-		case GLFW_KEY_W:
-		{
-			m_modelWireframe = !m_modelWireframe;
-			m_pVoxelCharacter->SetWireFrameRender(m_modelWireframe);
-			break;
-		}
 		case GLFW_KEY_Q:
 		{
 			m_modelAnimationIndex++;
-			if (m_modelAnimationIndex >= m_pVoxelCharacter->GetNumAnimations())
+			if (m_modelAnimationIndex >= m_pPlayer->GetVoxelCharacter()->GetNumAnimations())
 			{
 				m_modelAnimationIndex = 0;
 			}
 
-			m_pVoxelCharacter->PlayAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, m_pVoxelCharacter->GetAnimationName(m_modelAnimationIndex));
+			m_pPlayer->GetVoxelCharacter()->PlayAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, m_pPlayer->GetVoxelCharacter()->GetAnimationName(m_modelAnimationIndex));
 			break;
 		}
 		case GLFW_KEY_Z:
 		{
-			m_pVoxelCharacter->PlayAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, m_pVoxelCharacter->GetAnimationName(m_modelAnimationIndex));
+			m_pPlayer->GetVoxelCharacter()->PlayAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, m_pPlayer->GetVoxelCharacter()->GetAnimationName(m_modelAnimationIndex));
 			break;
 		}
 		case GLFW_KEY_R:
@@ -241,75 +235,62 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 		}
 		case GLFW_KEY_A:
 		{
+			m_pPlayer->UnloadWeapon(true);
+			m_pPlayer->UnloadWeapon(false);
+
 			switch (m_weaponIndex)
 			{
 				case 0:
 				{
 					m_weaponString = "Sword";
-					UnloadWeapon(true);
-					UnloadWeapon(false);
-					m_pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/Sword/Sword.weapon");
+					m_pPlayer->GetVoxelCharacter()->LoadRightWeapon("media/gamedata/weapons/Sword/Sword.weapon");
 					break;
 				}
 				case 1:
 				{
 					m_weaponString = "Sword & Shield";
-					UnloadWeapon(true);
-					UnloadWeapon(false);
-					m_pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/Sword/Sword.weapon");
-					m_pVoxelCharacter->LoadLeftWeapon("media/gamedata/weapons/Shield/Shield.weapon");
+					m_pPlayer->GetVoxelCharacter()->LoadRightWeapon("media/gamedata/weapons/Sword/Sword.weapon");
+					m_pPlayer->GetVoxelCharacter()->LoadLeftWeapon("media/gamedata/weapons/Shield/Shield.weapon");
 					break;
 				}
 				case 2:
 				{
 					m_weaponString = "Staff";
-					UnloadWeapon(true);
-					UnloadWeapon(false);
-					m_pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/Staff/Staff.weapon");
+					m_pPlayer->GetVoxelCharacter()->LoadRightWeapon("media/gamedata/weapons/Staff/Staff.weapon");
 					break;
 				}
 				case 3:
 				{
 					m_weaponString = "Bow";
-					UnloadWeapon(true);
-					UnloadWeapon(false);
-					m_pVoxelCharacter->LoadLeftWeapon("media/gamedata/weapons/Bow/Bow.weapon");
+					m_pPlayer->GetVoxelCharacter()->LoadLeftWeapon("media/gamedata/weapons/Bow/Bow.weapon");
 					break;
 				}
 				case 4:
 				{
 					m_weaponString = "2HandedSword";
-					UnloadWeapon(true);
-					UnloadWeapon(false);
-					m_pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/2HandedSword/2HandedSword.weapon");
+					m_pPlayer->GetVoxelCharacter()->LoadRightWeapon("media/gamedata/weapons/2HandedSword/2HandedSword.weapon");
 					break;
 				}
 				case 5:
 				{
 					m_weaponString = "Torch";
-					UnloadWeapon(true);
-					UnloadWeapon(false);
-					m_pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/Torch/Torch.weapon");
+					m_pPlayer->GetVoxelCharacter()->LoadRightWeapon("media/gamedata/weapons/Torch/Torch.weapon");
 					break;
 				}
 				case 6:
 				{
 					m_weaponString = "Fireball";
-					UnloadWeapon(true);
-					UnloadWeapon(false);
-					m_pVoxelCharacter->LoadRightWeapon("media/gamedata/weapons/FireballHands/FireballHandsRight.weapon");
-					m_pVoxelCharacter->LoadLeftWeapon("media/gamedata/weapons/FireballHands/FireballHandsLeft.weapon");
-					m_pVoxelCharacter->SetQubicleMatrixRender("Right_Hand", false);
-					m_pVoxelCharacter->SetQubicleMatrixRender("Left_Hand", false);
+					m_pPlayer->GetVoxelCharacter()->LoadRightWeapon("media/gamedata/weapons/FireballHands/FireballHandsRight.weapon");
+					m_pPlayer->GetVoxelCharacter()->LoadLeftWeapon("media/gamedata/weapons/FireballHands/FireballHandsLeft.weapon");
+					m_pPlayer->GetVoxelCharacter()->SetQubicleMatrixRender("Right_Hand", false);
+					m_pPlayer->GetVoxelCharacter()->SetQubicleMatrixRender("Left_Hand", false);
 					break;
 				}
 				case 7:
 				{
 					m_weaponString = "NONE";
-					UnloadWeapon(true);
-					UnloadWeapon(false);
-					m_pVoxelCharacter->SetQubicleMatrixRender("Right_Hand", true);
-					m_pVoxelCharacter->SetQubicleMatrixRender("Left_Hand", true);
+					m_pPlayer->GetVoxelCharacter()->SetQubicleMatrixRender("Right_Hand", true);
+					m_pPlayer->GetVoxelCharacter()->SetQubicleMatrixRender("Left_Hand", true);
 					break;
 				}
 			}
@@ -318,8 +299,8 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 			if (m_weaponIndex == 8)
 				m_weaponIndex = 0;
 
-			m_pVoxelCharacter->GetRightWeapon()->StartWeaponTrails();
-			m_pVoxelCharacter->GetLeftWeapon()->StartWeaponTrails();
+			m_pPlayer->GetVoxelCharacter()->GetRightWeapon()->StartWeaponTrails();
+			m_pPlayer->GetVoxelCharacter()->GetLeftWeapon()->StartWeaponTrails();
 
 			break;
 		}

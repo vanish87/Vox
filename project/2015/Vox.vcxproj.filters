@@ -52,6 +52,9 @@
     <Filter Include="source\gui">
       <UniqueIdentifier>{401b08ed-4a0b-4be8-92ff-122248617bb0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\Player">
+      <UniqueIdentifier>{77b3938d-e993-4e99-ab44-47c68c6d0de4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\glew\src\glew.c">
@@ -311,6 +314,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\utils\CountdownTimer.cpp">
       <Filter>source\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Player\Player.cpp">
+      <Filter>source\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -991,6 +997,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\utils\CountdownTimer.h">
       <Filter>source\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Player\Player.h">
+      <Filter>source\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

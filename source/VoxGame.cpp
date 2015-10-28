@@ -19,7 +19,7 @@ void VoxGame::Create()
 	m_pRenderer = NULL;
 	m_pGameCamera = NULL;
 	m_pQubicleBinaryManager = NULL;
-	m_pVoxelCharacter = NULL;
+	m_pPlayer = NULL;
 
 	m_pVoxApplication = new VoxApplication();
 	m_pVoxWindow = new VoxWindow();
@@ -95,30 +95,11 @@ void VoxGame::Create()
 	/* Create the block particle manager */
 	m_pBlockParticleManager = new BlockParticleManager(m_pRenderer);
 
-	/* Create test voxel character */
-	m_pVoxelCharacter = new VoxelCharacter(m_pRenderer, m_pQubicleBinaryManager);
-	char characterBaseFolder[128];
-	char qbFilename[128];
-	char ms3dFilename[128];
-	char animListFilename[128];
-	char facesFilename[128];
-	char characterFilename[128];
-	string modelName = "Steve";
-	string typeName = "Human";
-	sprintf_s(characterBaseFolder, 128, "media/gamedata/models");
-	sprintf_s(qbFilename, 128, "media/gamedata/models/%s/%s.qb", typeName.c_str(), modelName.c_str());
-	sprintf_s(ms3dFilename, 128, "media/gamedata/models/%s/%s.ms3d", typeName.c_str(), typeName.c_str());
-	sprintf_s(animListFilename, 128, "media/gamedata/models/%s/%s.animlist", typeName.c_str(), typeName.c_str());
-	sprintf_s(facesFilename, 128, "media/gamedata/models/%s/%s.faces", typeName.c_str(), modelName.c_str());
-	sprintf_s(characterFilename, 128, "media/gamedata/models/%s/%s.character", typeName.c_str(), modelName.c_str());
-	m_pVoxelCharacter->LoadVoxelCharacter(typeName.c_str(), qbFilename, ms3dFilename, animListFilename, facesFilename, characterFilename, characterBaseFolder);
-	m_pVoxelCharacter->SetBreathingAnimationEnabled(true);
-	m_pVoxelCharacter->SetWinkAnimationEnabled(true);
-	m_pVoxelCharacter->SetTalkingAnimationEnabled(false);
-	m_pVoxelCharacter->SetRandomMouthSelection(true);
-	m_pVoxelCharacter->SetRandomLookDirection(true);
-	m_pVoxelCharacter->SetWireFrameRender(false);
-	m_pVoxelCharacter->SetCharacterScale(0.08f);
+	/* Create the player */
+	m_pPlayer = new Player(m_pRenderer, m_pQubicleBinaryManager, m_pLightingManager, m_pBlockParticleManager);
+
+	/* Create the GUI components */
+	CreateGUI();
 
 	// Keyboard movement
 	m_bKeyboardForward = false;
@@ -154,9 +135,6 @@ void VoxGame::Create()
 	m_weaponString = "NONE";
 	m_animationUpdate = true;
 	m_fullscreen = false;
-
-	/* Create the GUI components */
-	CreateGUI();
 }
 
 void VoxGame::CreateGUI()
@@ -206,7 +184,7 @@ void VoxGame::Destroy()
 	if (c_instance)
 	{
 		delete m_pLightingManager;
-		delete m_pVoxelCharacter;
+		delete m_pPlayer;
 		delete m_pQubicleBinaryManager;
 		delete m_pGameCamera;
 		DestroyGUI();
@@ -270,92 +248,5 @@ void VoxGame::ResizeWindow(int width, int height)
 
 		// Give the new windows dimensions to the GUI components also
 		m_pMainWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
-	}
-}
-
-void VoxGame::UnloadWeapon(bool left)
-{
-	VoxelWeapon* pWeapon = NULL;
-	bool isWeaponLoaded = false;
-	if (left)  // Left side
-	{
-		pWeapon = m_pVoxelCharacter->GetLeftWeapon();
-		isWeaponLoaded = m_pVoxelCharacter->IsLeftWeaponLoaded();
-	}
-	else  // Right side
-	{
-		pWeapon = m_pVoxelCharacter->GetRightWeapon();
-		isWeaponLoaded = m_pVoxelCharacter->IsRightWeaponLoaded();
-	}
-
-	if (pWeapon != NULL)
-	{
-		if (isWeaponLoaded)
-		{
-			// Lights
-			for (int i = 0; i < pWeapon->GetNumLights(); i++)
-			{
-				unsigned int lightId;
-				vec3 lightPos;
-				float lightRadius;
-				float lightDiffuseMultiplier;
-				Colour lightColour;
-				bool connectedToSegment;
-				pWeapon->GetLightParams(i, &lightId, &lightPos, &lightRadius, &lightDiffuseMultiplier, &lightColour, &connectedToSegment);
-
-				if (lightId != -1)
-				{
-					m_pLightingManager->RemoveLight(lightId);
-					pWeapon->SetLightingId(i, -1);
-
-					if (connectedToSegment == false)
-					{
-						// Rotate due to characters forward vector
-						//float rotationAngle = acos(dot(vec3(0.0f, 0.0f, 1.0f), m_forward));
-						//if (m_forward.x < 0.0f)
-						//{
-						//	rotationAngle = -rotationAngle;
-						//}
-						//Matrix4x4 rotationMatrix;
-						//rotationMatrix.SetRotation(0.0f, rotationAngle, 0.0f);
-						//lightPos = rotationMatrix * lightPos;
-
-						//// Translate to position
-						//lightPos += m_position;
-					}
-
-					float scale = m_pVoxelCharacter->GetCharacterScale();
-					unsigned int lId;
-					m_pLightingManager->AddDyingLight(vec3(lightPos.x, lightPos.y, lightPos.z), lightRadius * scale, lightDiffuseMultiplier, lightColour, 2.0f, &lId);
-				}
-			}
-
-			// Particle Effects
-			for (int i = 0; i < pWeapon->GetNumParticleEffects(); i++)
-			{
-				unsigned int particleEffectId;
-				vec3 ParticleEffectPos;
-				string effectName;
-				bool connectedToSegment;
-				pWeapon->GetParticleEffectParams(i, &particleEffectId, &ParticleEffectPos, &effectName, &connectedToSegment);
-
-				if (particleEffectId != -1)
-				{
-					m_pBlockParticleManager->DestroyParticleEffect(particleEffectId);
-					pWeapon->SetParticleEffectId(i, -1);
-				}
-			}
-		}
-
-		pWeapon->UnloadWeapon();
-
-		if (left)  // Left side
-		{
-			m_pVoxelCharacter->UnloadLeftWeapon();
-		}
-		else  // Right side
-		{
-			m_pVoxelCharacter->UnloadRightWeapon();
-		}		
 	}
 }

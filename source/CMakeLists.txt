@@ -20,6 +20,7 @@ add_subdirectory(particles)
 add_subdirectory(renderer)
 add_subdirectory(gui)
 add_subdirectory(glm)
+add_subdirectory(player)
 
 source_group("source" FILES ${SRCS})
 source_group("source\\utils" FILES ${UTIL_SRCS})
@@ -36,6 +37,7 @@ source_group("source\\glm" FILES ${GLM_SRCS})
 source_group("source\\glm\\detail" FILES ${GLM_DETAIL_SRCS})
 source_group("source\\glm\\gtc" FILES ${GLM_GTC_SRCS})
 source_group("source\\glm\\gtx" FILES ${GLM_GTX_SRCS})
+source_group("source\\player" FILES ${PLAYER_SRCS})
 
 add_executable(Vox
 			   ${SRCS}
@@ -52,7 +54,8 @@ add_executable(Vox
 			   ${GLM_SRCS}
 			   ${GLM_DETAIL_SRCS}
 			   ${GLM_GTC_SRCS}
-			   ${GLM_GTX_SRCS})
+			   ${GLM_GTX_SRCS}
+			   ${PLAYER_SRCS})
 
 include_directories(".")			   
 include_directories("glfw\\include")
