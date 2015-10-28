@@ -28,7 +28,7 @@
 * ~~Decouple dynamic lighting from SSAO shader.~~
 * ~~Better readme file.~~
 * ~~Split up VoxGame file into VoxRender, VoxUpdate, VoxSetup(?), etc.~~
-* App player class and put voxel character functionality in player class.
+* ~~App player class and put voxel character functionality in player class.~~
 * Add ability to switch voxel character model.
 * Switch over to using glm maths lib.
 * Enable cross platform compiling and support, linux, mac
