@@ -58,30 +58,3 @@ void VoxGame::UpdateLights(float dt)
 {
 	m_pRenderer->EditLightPosition(m_defaultLight, m_defaultLightPosition);
 }
-
-void VoxGame::UpdateGUI(float dt)
-{
-	m_shadows = m_pShadowsCheckBox->GetToggled();
-	m_ssao = m_pSSAOCheckBox->GetToggled();
-	m_dynamicLighting = m_pDynamicLightingCheckBox->GetToggled();
-	m_modelWireframe = m_pWireframeCheckBox->GetToggled();
-	m_multiSampling = m_pMSAACheckBox->GetToggled();
-	m_deferredRendering = m_pDeferredCheckBox->GetToggled();
-	m_animationUpdate = m_pUpdateCheckBox->GetToggled();
-
-	if (m_deferredRendering)
-	{
-		m_pSSAOCheckBox->SetDisabled(false);
-		m_pDynamicLightingCheckBox->SetDisabled(false);
-		m_pMSAACheckBox->SetDisabled(true);
-	}
-	else
-	{
-		m_pSSAOCheckBox->SetDisabled(true);
-		m_pDynamicLightingCheckBox->SetDisabled(true);
-		m_pMSAACheckBox->SetDisabled(false);
-	}
-
-	m_pPlayer->SetWireFrameRender(m_modelWireframe);
-	m_pBlockParticleManager->SetWireFrameRender(m_modelWireframe);
-}

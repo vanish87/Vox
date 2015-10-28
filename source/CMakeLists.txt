@@ -8,7 +8,8 @@ set(SRCS
 	"VoxWindow.cpp"
 	"VoxInput.cpp"
 	"VoxRender.cpp"
-	"VoxUpdate.cpp")
+	"VoxUpdate.cpp"
+	"VoxGUI.cpp")
 
 add_subdirectory(utils)
 add_subdirectory(freetype)

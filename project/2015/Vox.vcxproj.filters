@@ -318,6 +318,9 @@
     <ClCompile Include="..\..\source\Player\Player.cpp">
       <Filter>source\Player</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\VoxGUI.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\glew\include\GL\glew.h">

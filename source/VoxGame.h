@@ -70,6 +70,10 @@ protected:
 	VoxGame(const VoxGame&) {};
 	VoxGame &operator=(const VoxGame&) {};
 
+	// GUI callbacks
+	static void _ToggleFullScreenPressed(void *apData);
+	void ToggleFullScreenPressed();	
+
 private:
 	/* Private methods */
 
@@ -172,6 +176,7 @@ private:
 	CheckBox* m_pMSAACheckBox;
 	CheckBox* m_pDeferredCheckBox;
 	CheckBox* m_pUpdateCheckBox;
+	Button* m_pFullscreenButton;
 
 	// Toggle flags
 	bool m_deferredRendering;
