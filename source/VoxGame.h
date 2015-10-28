@@ -171,6 +171,7 @@ private:
 	CheckBox* m_pWireframeCheckBox;
 	CheckBox* m_pMSAACheckBox;
 	CheckBox* m_pDeferredCheckBox;
+	CheckBox* m_pUpdateCheckBox;
 
 	// Toggle flags
 	bool m_deferredRendering;

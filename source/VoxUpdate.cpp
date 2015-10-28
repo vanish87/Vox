@@ -67,6 +67,7 @@ void VoxGame::UpdateGUI(float dt)
 	m_modelWireframe = m_pWireframeCheckBox->GetToggled();
 	m_multiSampling = m_pMSAACheckBox->GetToggled();
 	m_deferredRendering = m_pDeferredCheckBox->GetToggled();
+	m_animationUpdate = m_pUpdateCheckBox->GetToggled();
 
 	if (m_deferredRendering)
 	{

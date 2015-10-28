@@ -167,6 +167,9 @@ void VoxGame::CreateGUI()
 	m_pDeferredCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Deferred");
 	m_pDeferredCheckBox->SetDimensions(10, 100, 14, 14);
 	m_pDeferredCheckBox->SetToggled(true);
+	m_pUpdateCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Update");
+	m_pUpdateCheckBox->SetDimensions(10, 120, 14, 14);
+	m_pUpdateCheckBox->SetToggled(true);
 
 	m_pMainWindow->AddComponent(m_pShadowsCheckBox);
 	m_pMainWindow->AddComponent(m_pSSAOCheckBox);
@@ -174,6 +177,7 @@ void VoxGame::CreateGUI()
 	m_pMainWindow->AddComponent(m_pWireframeCheckBox);
 	m_pMainWindow->AddComponent(m_pMSAACheckBox);
 	m_pMainWindow->AddComponent(m_pDeferredCheckBox);
+	m_pMainWindow->AddComponent(m_pUpdateCheckBox);
 
 	m_pGUI->AddWindow(m_pMainWindow);
 }
@@ -210,6 +214,7 @@ void VoxGame::DestroyGUI()
 	delete m_pWireframeCheckBox;
 	delete m_pMSAACheckBox;
 	delete m_pDeferredCheckBox;
+	delete m_pUpdateCheckBox;
 }
 
 // Events
