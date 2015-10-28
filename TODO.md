@@ -32,7 +32,7 @@
 * Add ability to switch voxel character model.
 * Switch over to using glm maths lib.
 * Enable cross platform compiling and support, linux, mac
-* Rebuild vs2013 libs using non-dll version of linking
+* ~~Rebuild vs2013 libs using non-dll version of linking~~
 * Create vs2012 libs and VS2012 project files
 * ~~Fix up cmake for the different visual studio versions and also for the different lib linking.~~
 * Solution to allow for running the exe from Visual studio, because atm the working directory needs to be ../
