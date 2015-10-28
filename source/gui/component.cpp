@@ -576,12 +576,12 @@ void Component::DrawDebug()
 {
 	int l_containerWidth = m_dimensions.m_width;
 	int l_containerHeight = m_dimensions.m_height;
-	int l_depth = static_cast<int>(m_depth) + 2;
+	float l_depth = m_depth + 2.0f;
 
-	int l_outlineX1 = 0;
-	int l_outlineX2 = l_containerWidth + 1;
-	int l_outlineY1 = 0;
-	int l_outlineY2 = l_containerHeight + 1;
+	float l_outlineX1 = 0.5f;
+	float l_outlineX2 = l_containerWidth + 0.5f;
+	float l_outlineY1 = 0.5f;
+	float l_outlineY2 = l_containerHeight + 0.5f;
 
 	// Draw the outline
 	m_pRenderer->PushMatrix();

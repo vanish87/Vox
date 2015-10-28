@@ -1044,17 +1044,17 @@ void MultiLineTextBox::DrawSelf()
 
 	int l_containerWidth = m_dimensions.m_width;
 	int l_containerHeight = m_dimensions.m_height;
-	int l_depth = static_cast<int>(GetDepth() + 1);
+	float l_depth = GetDepth() + 1.0f;
 
-	int l_containerX1 = 0;
-	int l_containerX2 = l_containerWidth;
-	int l_containerY1 = 0;
-	int l_containerY2 = l_containerHeight;	
+	float l_containerX1 = 0.5f;
+	float l_containerX2 = (float)l_containerWidth;
+	float l_containerY1 = 0.5f;
+	float l_containerY2 = (float)l_containerHeight;
 
-	int l_outlineX1 = 0;
-	int l_outlineX2 = l_containerWidth + 1;
-	int l_outlineY1 = 0;
-	int l_outlineY2 = l_containerHeight + 1;
+	float l_outlineX1 = -0.5f;
+	float l_outlineX2 = l_containerWidth + 0.5f;
+	float l_outlineY1 = 0.0f;
+	float l_outlineY2 = l_containerHeight + 0.5f;
 
 	int l_TextSpacer = 2;
 	int l_TextHeight = m_pRenderer->GetFreeTypeTextHeight(m_GUIFont, "%s", "a");
@@ -1112,10 +1112,10 @@ void MultiLineTextBox::DrawSelf()
 			m_pRenderer->SetRenderMode(RM_SOLID);
 			m_pRenderer->EnableImmediateMode(IM_QUADS);
 			m_pRenderer->ImmediateColourAlpha(m_pipeColour.GetRed(), m_pipeColour.GetGreen(), m_pipeColour.GetBlue(), 1.0f);
-			m_pRenderer->ImmediateVertex(l_pipeX1, l_pipeY1, l_depth);
-			m_pRenderer->ImmediateVertex(l_pipeX2, l_pipeY1, l_depth);
-			m_pRenderer->ImmediateVertex(l_pipeX2, l_pipeY2, l_depth);
-			m_pRenderer->ImmediateVertex(l_pipeX1, l_pipeY2, l_depth);
+			m_pRenderer->ImmediateVertex(l_pipeX1, l_pipeY1, (int)l_depth);
+			m_pRenderer->ImmediateVertex(l_pipeX2, l_pipeY1, (int)l_depth);
+			m_pRenderer->ImmediateVertex(l_pipeX2, l_pipeY2, (int)l_depth);
+			m_pRenderer->ImmediateVertex(l_pipeX1, l_pipeY2, (int)l_depth);
 			m_pRenderer->DisableImmediateMode();
 		m_pRenderer->PopMatrix();
 	}
@@ -1154,10 +1154,10 @@ void MultiLineTextBox::DrawSelf()
 			m_pRenderer->SetRenderMode(RM_SOLID);
 			m_pRenderer->EnableImmediateMode(IM_QUADS);
 			m_pRenderer->ImmediateColourAlpha(0.52f, 0.53f, 0.91f, 1.0f);
-			m_pRenderer->ImmediateVertex(l_HighlightX1, l_HighlightY1, l_depth);
-			m_pRenderer->ImmediateVertex(l_HighlightX2, l_HighlightY1, l_depth);
-			m_pRenderer->ImmediateVertex(l_HighlightX2, l_HighlightY2, l_depth);
-			m_pRenderer->ImmediateVertex(l_HighlightX1, l_HighlightY2, l_depth);
+			m_pRenderer->ImmediateVertex(l_HighlightX1, l_HighlightY1, (int)l_depth);
+			m_pRenderer->ImmediateVertex(l_HighlightX2, l_HighlightY1, (int)l_depth);
+			m_pRenderer->ImmediateVertex(l_HighlightX2, l_HighlightY2, (int)l_depth);
+			m_pRenderer->ImmediateVertex(l_HighlightX1, l_HighlightY2, (int)l_depth);
 			m_pRenderer->DisableImmediateMode();
 		m_pRenderer->PopMatrix();
 	}

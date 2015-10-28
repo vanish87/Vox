@@ -138,12 +138,12 @@ void OptionController::DrawSelf()
 	{
 		int l_containerWidth = m_dimensions.m_width;
 		int l_containerHeight = m_dimensions.m_height;
-		int l_depth = static_cast<int>(GetDepth());
+		float l_depth = GetDepth();
 
-		int l_outlineX1 = 0;
-		int l_outlineX2 = l_containerWidth + 1;
-		int l_outlineY1 = 0;
-		int l_outlineY2 = l_containerHeight + 1;
+		float l_outlineX1 = 0.5f;
+		float l_outlineX2 = l_containerWidth + 0.5f;
+		float l_outlineY1 = 0.5f;
+		float l_outlineY2 = l_containerHeight + 0.5f;
 
 		int l_LabelheightAdjust = m_pRenderer->GetFreeTypeTextHeight(m_label.GetFontID(), "%s", m_label.GetText().c_str()) / 2;
 		int l_labelWidth = m_pRenderer->GetFreeTypeTextWidth(m_label.GetFontID(), "%s", m_label.GetText().c_str());

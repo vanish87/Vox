@@ -226,12 +226,12 @@ void Container::DrawSelf()
 {
 	int l_containerWidth = m_dimensions.m_width;
 	int l_containerHeight = m_dimensions.m_height;
-	int l_depth = static_cast<int>(m_depth);
+	float l_depth = m_depth;
 
-	int l_outlineX1 = 0;
-	int l_outlineX2 = l_containerWidth;
-	int l_outlineY1 = 0;
-	int l_outlineY2 = l_containerHeight;
+	float l_outlineX1 = 0.0f;
+	float l_outlineX2 = (float)l_containerWidth;
+	float l_outlineY1 = 0.0f;
+	float l_outlineY2 = (float)l_containerHeight;
 
 	m_pRenderer->PushMatrix();
 		m_pRenderer->SetLineWidth(1.0f);
