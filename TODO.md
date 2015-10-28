@@ -41,3 +41,4 @@
 * Add blur shader.
 * Implement MSAA (or other AA) in glsl shader.
 * Add audio and music playback.
+* Convert shadow rendering calls to use renderer - remove GL from gamecode.
