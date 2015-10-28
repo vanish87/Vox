@@ -145,7 +145,6 @@ void VoxGame::Create()
 	m_shaderString = "Shadow";
 	m_displayHelpText = true;
 	m_modelWireframe = false;
-	m_modelTalking = false;
 	m_modelAnimationIndex = 0;
 	m_multiSampling = true;
 	m_ssao = true;
@@ -156,6 +155,7 @@ void VoxGame::Create()
 	m_animationUpdate = true;
 	m_fullscreen = false;
 
+	/* Create the GUI components */
 	CreateGUI();
 }
 
@@ -171,6 +171,31 @@ void VoxGame::CreateGUI()
 	m_pMainWindow->SetOutlineRender(true);
 	m_pMainWindow->SetDimensions(30, 50, 250, 140);
 	m_pMainWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
+
+	m_pWireframeCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Wireframe");
+	m_pWireframeCheckBox->SetDimensions(10, 10, 14, 14);
+	m_pShadowsCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Shadows");
+	m_pShadowsCheckBox->SetDimensions(10, 28, 14, 14);
+	m_pShadowsCheckBox->SetToggled(true);
+	m_pMSAACheckBox = new CheckBox(m_pRenderer, m_defaultFont, "MSAA");
+	m_pMSAACheckBox->SetDimensions(10, 46, 14, 14);
+	m_pMSAACheckBox->SetToggled(true);
+	m_pDynamicLightingCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Lighting");
+	m_pDynamicLightingCheckBox->SetDimensions(10, 64, 14, 14);
+	m_pDynamicLightingCheckBox->SetToggled(true);
+	m_pSSAOCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "SSAO");
+	m_pSSAOCheckBox->SetDimensions(10, 82, 14, 14);
+	m_pSSAOCheckBox->SetToggled(true);
+	m_pDeferredCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Deferred");
+	m_pDeferredCheckBox->SetDimensions(10, 100, 14, 14);
+	m_pDeferredCheckBox->SetToggled(true);
+
+	m_pMainWindow->AddComponent(m_pShadowsCheckBox);
+	m_pMainWindow->AddComponent(m_pSSAOCheckBox);
+	m_pMainWindow->AddComponent(m_pDynamicLightingCheckBox);
+	m_pMainWindow->AddComponent(m_pWireframeCheckBox);
+	m_pMainWindow->AddComponent(m_pMSAACheckBox);
+	m_pMainWindow->AddComponent(m_pDeferredCheckBox);
 
 	m_pGUI->AddWindow(m_pMainWindow);
 }
@@ -201,6 +226,12 @@ void VoxGame::Destroy()
 void VoxGame::DestroyGUI()
 {
 	delete m_pMainWindow;
+	delete m_pShadowsCheckBox;
+	delete m_pSSAOCheckBox;
+	delete m_pDynamicLightingCheckBox;
+	delete m_pWireframeCheckBox;
+	delete m_pMSAACheckBox;
+	delete m_pDeferredCheckBox;
 }
 
 // Events

@@ -159,12 +159,6 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 			m_pVoxelCharacter->SetWireFrameRender(m_modelWireframe);
 			break;
 		}
-		case GLFW_KEY_E:
-		{
-			m_modelTalking = !m_modelTalking;
-			m_pVoxelCharacter->SetTalkingAnimationEnabled(m_modelTalking);
-			break;
-		}
 		case GLFW_KEY_Q:
 		{
 			m_modelAnimationIndex++;

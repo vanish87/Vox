@@ -82,13 +82,6 @@ void VoxGame::Render()
 				m_pRenderer->EnableLight(m_defaultLight, 0);
 			m_pRenderer->PopMatrix();
 
-			// Render the lights (DEBUG)
-			m_pRenderer->PushMatrix();
-				m_pRenderer->SetCullMode(CM_BACK);
-				m_pRenderer->SetRenderMode(RM_SOLID);
-				m_pRenderer->RenderLight(m_defaultLight);
-			m_pRenderer->PopMatrix();
-
 			// Multisampling MSAA
 			if (m_multiSampling)
 			{
@@ -98,6 +91,13 @@ void VoxGame::Render()
 			{
 				m_pRenderer->DisableMultiSampling();
 			}
+
+			// Render the lights (DEBUG)
+			m_pRenderer->PushMatrix();
+				m_pRenderer->SetCullMode(CM_BACK);
+				m_pRenderer->SetRenderMode(RM_SOLID);
+				m_pRenderer->RenderLight(m_defaultLight);
+			m_pRenderer->PopMatrix();
 
 			// Get the selected shader index
 			unsigned int shaderIndex = m_shadowShader;
@@ -176,6 +176,7 @@ void VoxGame::Render()
 			RenderSSAOTexture();
 		}
 
+		// Disable multisampling for 2d gui and text
 		m_pRenderer->DisableMultiSampling();
 
 		// Render debug information and text
@@ -197,9 +198,8 @@ void VoxGame::RenderWorld()
 	float floorY = 0.0f;
 	float floorLength = 5.0f;
 
-	m_pRenderer->EnableMaterial(m_defaultMaterial);
-
 	m_pRenderer->SetRenderMode(RM_SHADED);
+	m_pRenderer->EnableMaterial(m_defaultMaterial);
 	m_pRenderer->EnableImmediateMode(IM_QUADS);
 		m_pRenderer->ImmediateColourAlpha(0.227f, 1.0f, 0.419f, 1.0f);
 
@@ -446,14 +446,13 @@ void VoxGame::RenderDebugInformation()
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, (int)(m_windowWidth * 0.5f) - 75.0f, 35.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lAnimationBuff);
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, (int)(m_windowWidth * 0.5f) - 75.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lWeaponBuff);
 
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 275.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "F - Fullscreen [%s]", m_fullscreen ? "On" : "Off");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 255.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "O - RenderMode [%s]", m_deferredRendering ? "Deffered" : "Forward");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 235.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "I - Dynamic Lighting [%s]", m_deferredRendering == false ? "N/A" : m_dynamicLighting ? "On" : "Off");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 215.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "U - Shadows [%s]", m_shadows ? "On" : "Off");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 195.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Y - SSAO [%s]", m_deferredRendering == false ? "N/A" : m_ssao ? "On" : "Off");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 175.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "T - Shader [%s]", m_shaderString.c_str());
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 155.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "R - Toggle MSAA [%s]", m_deferredRendering ? "N/A" : m_multiSampling ? "On" : "Off");
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 135.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "E - Toggle Talking [%s]", m_modelTalking ? "On" : "Off");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 255.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "F - Fullscreen [%s]", m_fullscreen ? "On" : "Off");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 235.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "O - RenderMode [%s]", m_deferredRendering ? "Deffered" : "Forward");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 215.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "I - Dynamic Lighting [%s]", m_deferredRendering == false ? "N/A" : m_dynamicLighting ? "On" : "Off");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 195.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "U - Shadows [%s]", m_shadows ? "On" : "Off");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 175.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "Y - SSAO [%s]", m_deferredRendering == false ? "N/A" : m_ssao ? "On" : "Off");
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 155.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "T - Shader [%s]", m_shaderString.c_str());
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 135.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "R - Toggle MSAA [%s]", m_deferredRendering ? "N/A" : m_multiSampling ? "On" : "Off");
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 115.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "L - Toggle Animation [%s]", m_animationUpdate ? "On" : "Off");
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 95.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "H - Toggle HelpText");
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - 150.0f, 75.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "W - Toggle Wireframe");

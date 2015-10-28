@@ -55,6 +55,7 @@ public:
 	void UpdateLights(float dt);
 	void UpdateWeaponLights(float dt);
 	void UpdateWeaponParticleEffects(float dt);
+	void UpdateGUI(float dt);
 	void UnloadWeapon(bool left);
 
 	// Rendering
@@ -167,6 +168,12 @@ private:
 
 	// GUI Components
 	GUIWindow* m_pMainWindow;
+	CheckBox* m_pShadowsCheckBox;
+	CheckBox* m_pSSAOCheckBox;
+	CheckBox* m_pDynamicLightingCheckBox;
+	CheckBox* m_pWireframeCheckBox;
+	CheckBox* m_pMSAACheckBox;
+	CheckBox* m_pDeferredCheckBox;
 
 	// Toggle flags
 	bool m_deferredRendering;
@@ -174,7 +181,6 @@ private:
 	string m_shaderString;
 	bool m_displayHelpText;
 	bool m_modelWireframe;
-	bool m_modelTalking;
 	int m_modelAnimationIndex;
 	bool m_multiSampling;
 	bool m_ssao;
