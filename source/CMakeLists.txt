@@ -6,7 +6,9 @@ set(SRCS
 	"VoxApplication.cpp"
 	"VoxWindow.h"
 	"VoxWindow.cpp"
-	"VoxInput.cpp")
+	"VoxInput.cpp"
+	"VoxRender.cpp"
+	"VoxUpdate.cpp")
 
 add_subdirectory(utils)
 add_subdirectory(freetype)
@@ -16,6 +18,8 @@ add_subdirectory(maths)
 add_subdirectory(models)
 add_subdirectory(particles)
 add_subdirectory(renderer)
+add_subdirectory(gui)
+add_subdirectory(glm)
 
 source_group("source" FILES ${SRCS})
 source_group("source\\utils" FILES ${UTIL_SRCS})
@@ -27,6 +31,11 @@ source_group("source\\maths" FILES ${MATHS_SRCS})
 source_group("source\\models" FILES ${MODELS_SRCS})
 source_group("source\\particles" FILES ${PARTICLES_SRCS})
 source_group("source\\renderer" FILES ${RENDERER_SRCS})
+source_group("source\\gui" FILES ${GUI_SRCS})
+source_group("source\\glm" FILES ${GLM_SRCS})
+source_group("source\\glm\\detail" FILES ${GLM_DETAIL_SRCS})
+source_group("source\\glm\\gtc" FILES ${GLM_GTC_SRCS})
+source_group("source\\glm\\gtx" FILES ${GLM_GTX_SRCS})
 
 add_executable(Vox
 			   ${SRCS}
@@ -38,7 +47,12 @@ add_executable(Vox
 			   ${MATHS_SRCS}
 			   ${MODELS_SRCS}
 			   ${PARTICLES_SRCS}
-			   ${RENDERER_SRCS})
+			   ${RENDERER_SRCS}
+			   ${GUI_SRCS}
+			   ${GLM_SRCS}
+			   ${GLM_DETAIL_SRCS}
+			   ${GLM_GTC_SRCS}
+			   ${GLM_GTX_SRCS})
 
 include_directories(".")			   
 include_directories("glfw\\include")
@@ -49,16 +63,25 @@ target_link_libraries(Vox "opengl32.lib")
 target_link_libraries(Vox "winmm.lib")
 
 if(MSVC12)
-	target_link_libraries(Vox "${CMAKE_CURRENT_SOURCE_DIR}\\glfw\\libs\\2013\\d\\glfw3.lib")
-	target_link_libraries(Vox "${CMAKE_CURRENT_SOURCE_DIR}\\freetype\\libs\\2013\\freetype237d.lib")
+	target_link_libraries(Vox debug "${CMAKE_CURRENT_SOURCE_DIR}\\glfw\\libs\\2013\\d\\glfw3.lib")
+	target_link_libraries(Vox debug "${CMAKE_CURRENT_SOURCE_DIR}\\freetype\\libs\\2013\\freetype237d.lib")
+	target_link_libraries(Vox optimized "${CMAKE_CURRENT_SOURCE_DIR}\\glfw\\libs\\2013\\r\\glfw3.lib")
+	target_link_libraries(Vox optimized "${CMAKE_CURRENT_SOURCE_DIR}\\freetype\\libs\\2013\\freetype237.lib")
 endif(MSVC12)
 if(MSVC14)
-	target_link_libraries(Vox "${CMAKE_CURRENT_SOURCE_DIR}\\glfw\\libs\\2015\\d\\glfw3.lib")
-	target_link_libraries(Vox "${CMAKE_CURRENT_SOURCE_DIR}\\freetype\\libs\\2015\\freetype261d.lib")
+	target_link_libraries(Vox debug "${CMAKE_CURRENT_SOURCE_DIR}\\glfw\\libs\\2015\\d\\glfw3.lib")
+	target_link_libraries(Vox debug "${CMAKE_CURRENT_SOURCE_DIR}\\freetype\\libs\\2015\\freetype261d.lib")
+	target_link_libraries(Vox optimized "${CMAKE_CURRENT_SOURCE_DIR}\\glfw\\libs\\2015\\r\\glfw3.lib")
+	target_link_libraries(Vox optimized "${CMAKE_CURRENT_SOURCE_DIR}\\freetype\\libs\\2015\\freetype261.lib")
 endif(MSVC14)
 
-if ( MSVC )
+if(MSVC)
     set_target_properties(Vox PROPERTIES RUNTIME_OUTPUT_DIRECTORY "../../")
     set_target_properties(Vox PROPERTIES RUNTIME_OUTPUT_DIRECTORY_DEBUG "../../")
     set_target_properties(Vox PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE "../../")
-endif ( MSVC )
+	
+	SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
+	SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
+endif(MSVC)
+
+set(CMAKE_CONFIGURATION_TYPES Debug Release)

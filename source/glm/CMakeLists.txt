@@ -1,44 +1,16 @@
-set(NAME glm_dummy)
+file(GLOB GLM_SRCS *.hpp)
+set(GLM_SRCS ${GLM_SRCS} PARENT_SCOPE)
 
-file(GLOB ROOT_SOURCE *.cpp)
-file(GLOB ROOT_INLINE *.inl)
-file(GLOB ROOT_HEADER *.hpp)
-file(GLOB ROOT_TEXT ../*.txt)
-file(GLOB ROOT_MD ../*.md)
-file(GLOB ROOT_NAT ../util/glm.natvis)
+file(GLOB GLM_DETAIL_SRCS detail/*.hpp detail/*.cpp detail/*.inl)
+set(GLM_DETAIL_SRCS ${GLM_DETAIL_SRCS} PARENT_SCOPE)
 
-file(GLOB_RECURSE CORE_SOURCE ./detail/*.cpp)
-file(GLOB_RECURSE CORE_INLINE ./detail/*.inl)
-file(GLOB_RECURSE CORE_HEADER ./detail/*.hpp)
+file(GLOB GLM_GTC_SRCS gtc/*.hpp gtc/*.cpp gtc/*.inl)
+set(GLM_GTC_SRCS ${GLM_GTC_SRCS} PARENT_SCOPE)
 
-file(GLOB_RECURSE GTC_SOURCE ./gtc/*.cpp)
-file(GLOB_RECURSE GTC_INLINE ./gtc/*.inl)
-file(GLOB_RECURSE GTC_HEADER ./gtc/*.hpp)
+file(GLOB GLM_GTX_SRCS gtx/*.hpp gtx/*.cpp gtx/*.inl)
+set(GLM_GTX_SRCS ${GLM_GTX_SRCS} PARENT_SCOPE)
 
-file(GLOB_RECURSE GTX_SOURCE ./gtx/*.cpp)
-file(GLOB_RECURSE GTX_INLINE ./gtx/*.inl)
-file(GLOB_RECURSE GTX_HEADER ./gtx/*.hpp)
-
-source_group("Text Files" FILES ${ROOT_TEXT} ${ROOT_MD})
-source_group("Core Files" FILES ${CORE_SOURCE})
-source_group("Core Files" FILES ${CORE_INLINE})
-source_group("Core Files" FILES ${CORE_HEADER})
-source_group("GTC Files" FILES ${GTC_SOURCE})
-source_group("GTC Files" FILES ${GTC_INLINE})
-source_group("GTC Files" FILES ${GTC_HEADER})
-source_group("GTX Files" FILES ${GTX_SOURCE})
-source_group("GTX Files" FILES ${GTX_INLINE})
-source_group("GTX Files" FILES ${GTX_HEADER})
-
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
-
-if(GLM_TEST_ENABLE)
-	add_executable(${NAME} ${ROOT_TEXT} ${ROOT_MD} ${ROOT_NAT}
-		${ROOT_SOURCE}    ${ROOT_INLINE}    ${ROOT_HEADER}
-		${CORE_SOURCE}    ${CORE_INLINE}    ${CORE_HEADER}
-		${GTC_SOURCE}     ${GTC_INLINE}     ${GTC_HEADER}
-		${GTX_SOURCE}     ${GTX_INLINE}     ${GTX_HEADER})
-endif(GLM_TEST_ENABLE)
-
-#add_library(glm STATIC glm.cpp)
-#add_library(glm_shared SHARED glm.cpp)
+source_group("glm" FILES ${GLM_SRCS})
+source_group("glm\\detail" FILES ${GLM_DETAIL_SRCS})
+source_group("glm\\gtc" FILES ${GLM_GTC_SRCS})
+source_group("glm\\gtx" FILES ${GLM_GTX_SRCS})
