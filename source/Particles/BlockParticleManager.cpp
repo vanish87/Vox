@@ -79,6 +79,8 @@ BlockParticleManager::BlockParticleManager(Renderer* pRenderer)
 
 	m_particleEffectCounter = 0;
 
+	m_renderWireFrame = false;
+
 	m_vertexArray = -1;
 	m_positionBuffer = -1;
 	m_normalBuffer = -1;
@@ -704,6 +706,12 @@ bool needs_erasing_blockparticle(BlockParticle* aB)
 	return needsErase;
 }
 
+// Rendering modes
+void BlockParticleManager::SetWireFrameRender(bool wireframe)
+{
+	m_renderWireFrame = wireframe;
+}
+
 // Update
 void BlockParticleManager::Update(float dt)
 {
@@ -894,8 +902,18 @@ void BlockParticleManager::Render()
 	//glUniform1f(in_light_linear_a, linearA*0.5f);
 	//glUniform1f(in_light_quad_a, quadA*0.5f);
 
-	m_pRenderer->SetCullMode(CM_BACK);
-	m_pRenderer->SetRenderMode(RM_SOLID);
+	if (m_renderWireFrame)
+	{
+		m_pRenderer->SetLineWidth(1.0f);
+		m_pRenderer->SetRenderMode(RM_WIREFRAME);
+		m_pRenderer->SetCullMode(CM_NOCULL);
+	}
+	else
+	{
+		m_pRenderer->SetCullMode(CM_BACK);
+		m_pRenderer->SetRenderMode(RM_SOLID);
+	}
+
 	m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
 
 	glDrawElementsInstanced(GL_QUADS, 24, GL_UNSIGNED_INT, indices, numBlockParticlesRender);

@@ -76,6 +76,9 @@ public:
 	void ExplodeQubicleBinary(QubicleBinary* pQubicleBinary, float scale, int particleSpawnChance);
 	void ExplodeQubicleMatrix(QubicleMatrix* pMatrix, float scale, int particleSpawnChance, bool allSameColour, float sameR, float sameG, float sameB, float sameA);
 
+	// Rendering modes
+	void SetWireFrameRender(bool wireframe);
+
 	// Update
 	void Update(float dt);
 
@@ -101,20 +104,29 @@ private:
 	/* Private members */
 	Renderer* m_pRenderer;
 
+	// Particle effect counter
 	int m_particleEffectCounter;
 
+	// Render modes
+	bool m_renderWireFrame;
+
+	// Array buffers
 	GLuint m_vertexArray;
 	GLuint m_positionBuffer;
 	GLuint m_normalBuffer;
 	GLuint m_colourBuffer;
 	GLuint m_matrixBuffer;
 
+	// Shader
 	unsigned int m_instanceShader;
 
+	// Block particles list
 	BlockParticlesList m_vpBlockParticlesList;
 
+	// Block particle emitters list
 	BlockParticlesEmitterList m_vpBlockParticleEmittersList;
 	BlockParticlesEmitterList m_vpBlockParticleEmittersAddList;
 
+	// Block particle effects list
 	BlockParticleEffectList m_vpBlockParticleEffectsList;
 };

@@ -209,4 +209,5 @@ void VoxGame::UpdateGUI(float dt)
 	}
 
 	m_pVoxelCharacter->SetWireFrameRender(m_modelWireframe);
+	m_pBlockParticleManager->SetWireFrameRender(m_modelWireframe);
 }
