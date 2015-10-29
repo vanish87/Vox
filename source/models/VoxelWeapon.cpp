@@ -1560,8 +1560,8 @@ void VoxelWeapon::RenderWeaponTrails()
 						float alpha1 = (float)trailCounter / (float)m_pWeaponTrails[i].m_numTrailPoints;
 						float alpha2 = (float)(trailCounter-1) / (float)m_pWeaponTrails[i].m_numTrailPoints;
 
-						alpha1 += 0.2f;
-						alpha2 += 0.2f;
+						alpha1 += 0.35f;
+						alpha2 += 0.35f;
 						m_pRenderer->ImmediateColourAlpha(m_pWeaponTrails[i].m_trailColour.GetRed(), m_pWeaponTrails[i].m_trailColour.GetGreen(), m_pWeaponTrails[i].m_trailColour.GetBlue(), alpha2);						
 						m_pRenderer->ImmediateVertex(m_pWeaponTrails[i].m_pTrailPoints[indexToUse1].m_startPoint.x, m_pWeaponTrails[i].m_pTrailPoints[indexToUse1].m_startPoint.y, m_pWeaponTrails[i].m_pTrailPoints[indexToUse1].m_startPoint.z);
 

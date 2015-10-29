@@ -127,9 +127,6 @@ void VoxGame::Render()
 
 			m_pRenderer->EndGLSLShader(shaderIndex);
 
-			// Render the player's weapon trails
-			m_pPlayer->RenderWeaponTrails();
-
 			// Debug rendering
 			//m_pLightingManager->DebugRender();
 		m_pRenderer->PopMatrix();
@@ -302,6 +299,9 @@ void VoxGame::RenderTransparency()
 		{
 			m_pRenderer->StartRenderingToFrameBuffer(m_transparencyFrameBuffer);
 		}
+
+		// Render the player's weapon trails
+		m_pPlayer->RenderWeaponTrails();
 
 		// Render the player's face
 		m_pPlayer->RenderFace();
