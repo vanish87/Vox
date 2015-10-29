@@ -174,7 +174,7 @@ void VoxGame::MouseLeftReleased()
 
 void VoxGame::MouseRightPressed()
 {
-	m_pGUI->MousePressed(MOUSE_BUTTON1);
+	m_pGUI->MousePressed(MOUSE_BUTTON2);
 
 	m_currentX = m_pVoxWindow->GetCursorX();
 	m_currentY = m_pVoxWindow->GetCursorY();

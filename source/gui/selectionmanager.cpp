@@ -255,6 +255,12 @@ void SelectionManager::MouseMotion(int x, int y)
 
 void SelectionManager::MousePressed(int button)
 {
+	if (button != MOUSE_BUTTON1)
+	{
+		// Only allow GUI interactions with the left mouse button
+		return;
+	}
+
 	if(!m_bPressed)
 	{
 		m_firstClickedComponent = m_foundComponent;
@@ -294,6 +300,12 @@ void SelectionManager::MousePressed(int button)
 
 void SelectionManager::MouseReleased(int button)
 {
+	if (button != MOUSE_BUTTON1)
+	{
+		// Only allow GUI interactions with the left mouse button
+		return;
+	}
+
 	if(m_foundComponent != 0)
 	{
 		// Mouse button is released
