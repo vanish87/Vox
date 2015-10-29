@@ -1536,7 +1536,7 @@ void VoxelCharacter::Update(float dt, float animationSpeed[AnimationSections_NUM
 	}
 
 	// Face looking
-	if(distance(m_faceLookingDirection, m_faceTargetDirection) <= 0.01f)
+	if(glm::distance(m_faceLookingDirection, m_faceTargetDirection) <= 0.01f)
 	{
 		if(m_bRandomLookDirectionEnabled)
 		{
