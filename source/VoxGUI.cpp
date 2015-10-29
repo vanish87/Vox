@@ -283,5 +283,8 @@ void VoxGame::CharacterPullDownChanged()
 		{
 			m_pPlayer->LoadCharacter("TreeElemental");
 		}
+
+		WeaponPullDownChanged();
+		AnimationPullDownChanged();
 	}
 }
