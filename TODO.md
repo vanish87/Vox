@@ -33,9 +33,9 @@
 * ~~Rebuild vs2013 libs using non-dll version of linking~~
 * ~~Fix up cmake for the different visual studio versions and also for the different lib linking.~~
 * ~~Weapon trails controlled by the animation file.~~
+* ~~Create vs2012 libs and VS2012 project files~~
 * Switch over to using glm maths lib.
 * Enable cross platform compiling and support, linux, mac
-* Create vs2012 libs and VS2012 project files
 * Solution to allow for running the exe from Visual studio, because atm the working directory needs to be ../
 * Convert shaders over to be more unified.
 * Add blur shader.
