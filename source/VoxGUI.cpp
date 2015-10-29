@@ -32,13 +32,18 @@ void VoxGame::CreateGUI()
 	m_pDeferredCheckBox->SetToggled(true);
 
 	m_pUpdateCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Update");
-	m_pUpdateCheckBox->SetDimensions(150, 40, 14, 14);
+	m_pUpdateCheckBox->SetDimensions(130, 40, 14, 14);
 	m_pUpdateCheckBox->SetToggled(true);
 
 	m_pFullscreenButton = new Button(m_pRenderer, m_defaultFont, "FullScreen");
-	m_pFullscreenButton->SetDimensions(150, 10, 80, 20);
+	m_pFullscreenButton->SetDimensions(110, 10, 80, 20);
 	m_pFullscreenButton->SetCallBackFunction(_ToggleFullScreenPressed);
 	m_pFullscreenButton->SetCallBackData(this);
+
+	m_pPlayAnimationButton = new Button(m_pRenderer, m_defaultFont, "Play Animation");
+	m_pPlayAnimationButton->SetDimensions(230, 45, 85, 20);
+	m_pPlayAnimationButton->SetCallBackFunction(_PlayAnimationPressed);
+	m_pPlayAnimationButton->SetCallBackData(this);
 
 	m_pAnimationsPulldown = new PulldownMenu(m_pRenderer, m_defaultFont, "Animation");
 	m_pAnimationsPulldown->SetDimensions(150, 70, 140, 14);
@@ -87,6 +92,7 @@ void VoxGame::CreateGUI()
 	m_pMainWindow->AddComponent(m_pDeferredCheckBox);
 	m_pMainWindow->AddComponent(m_pUpdateCheckBox);
 	m_pMainWindow->AddComponent(m_pFullscreenButton);
+	m_pMainWindow->AddComponent(m_pPlayAnimationButton);
 	m_pMainWindow->AddComponent(m_pAnimationsPulldown);
 	m_pMainWindow->AddComponent(m_pWeaponsPulldown);
 	m_pMainWindow->AddComponent(m_pCharacterPulldown);
@@ -107,6 +113,7 @@ void VoxGame::DestroyGUI()
 	delete m_pDeferredCheckBox;
 	delete m_pUpdateCheckBox;
 	delete m_pFullscreenButton;
+	delete m_pPlayAnimationButton;
 	delete m_pAnimationsPulldown;
 	delete m_pWeaponsPulldown;
 	delete m_pCharacterPulldown;
@@ -167,6 +174,17 @@ void VoxGame::ToggleFullScreenPressed()
 
 	m_pVoxWindow->ToggleFullScreen(m_fullscreen);
 	m_pBlockParticleManager->SetupGLBuffers();
+}
+
+void VoxGame::_PlayAnimationPressed(void *apData)
+{
+	VoxGame* lpVoxGame = (VoxGame*)apData;
+	lpVoxGame->PlayAnimationPressed();
+}
+
+void VoxGame::PlayAnimationPressed()
+{
+	AnimationPullDownChanged();
 }
 
 void VoxGame::_AnimationPullDownChanged(void *apData)

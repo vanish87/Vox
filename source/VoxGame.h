@@ -78,6 +78,9 @@ protected:
 	static void _ToggleFullScreenPressed(void *apData);
 	void ToggleFullScreenPressed();	
 
+	static void _PlayAnimationPressed(void *apData);
+	void PlayAnimationPressed();
+
 	static void _AnimationPullDownChanged(void *apData);
 	void AnimationPullDownChanged();
 	
@@ -190,6 +193,7 @@ private:
 	CheckBox* m_pDeferredCheckBox;
 	CheckBox* m_pUpdateCheckBox;
 	Button* m_pFullscreenButton;
+	Button* m_pPlayAnimationButton;
 	PulldownMenu* m_pAnimationsPulldown;
 	PulldownMenu* m_pWeaponsPulldown;
 	PulldownMenu* m_pCharacterPulldown;
