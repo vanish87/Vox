@@ -1,15 +1,15 @@
 set(SRCS
     "main.cpp"
-	"VoxGame.h"
-	"VoxGame.cpp"
-	"VoxApplication.h"
-	"VoxApplication.cpp"
-	"VoxWindow.h"
-	"VoxWindow.cpp"
-	"VoxInput.cpp"
-	"VoxRender.cpp"
-	"VoxUpdate.cpp"
-	"VoxGUI.cpp")
+    "VoxGame.h"
+    "VoxGame.cpp"
+    "VoxApplication.h"
+    "VoxApplication.cpp"
+    "VoxWindow.h"
+    "VoxWindow.cpp"
+    "VoxInput.cpp"
+    "VoxRender.cpp"
+    "VoxUpdate.cpp"
+    "VoxGUI.cpp")
 
 add_subdirectory(utils)
 add_subdirectory(freetype)
@@ -41,22 +41,22 @@ source_group("source\\glm\\gtx" FILES ${GLM_GTX_SRCS})
 source_group("source\\player" FILES ${PLAYER_SRCS})
 
 add_executable(Vox
-			   ${SRCS}
-			   ${UTIL_SRCS}
-			   ${FREETYPE_SRCS}
-			   ${GLEW_SRCS}
-			   ${GLEW_HEADERS}
-			   ${LIGHTING_SRCS}
-			   ${MATHS_SRCS}
-			   ${MODELS_SRCS}
-			   ${PARTICLES_SRCS}
-			   ${RENDERER_SRCS}
-			   ${GUI_SRCS}
-			   ${GLM_SRCS}
-			   ${GLM_DETAIL_SRCS}
-			   ${GLM_GTC_SRCS}
-			   ${GLM_GTX_SRCS}
-			   ${PLAYER_SRCS})
+               ${SRCS}
+               ${UTIL_SRCS}
+               ${FREETYPE_SRCS}
+               ${GLEW_SRCS}
+               ${GLEW_HEADERS}
+               ${LIGHTING_SRCS}
+               ${MATHS_SRCS}
+               ${MODELS_SRCS}
+               ${PARTICLES_SRCS}
+               ${RENDERER_SRCS}
+               ${GUI_SRCS}
+               ${GLM_SRCS}
+               ${GLM_DETAIL_SRCS}
+               ${GLM_GTC_SRCS}
+               ${GLM_GTX_SRCS}
+               ${PLAYER_SRCS})
 
 include_directories(".")			   
 include_directories("glfw\\include")
