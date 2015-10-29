@@ -456,6 +456,11 @@ void VoxelWeapon::StopWeaponTrails()
 	m_weaponTrailsStarted = false;
 }
 
+bool VoxelWeapon::IsWeaponTrailsActive()
+{
+	return m_weaponTrailsStarted;
+}
+
 // Lighting
 int VoxelWeapon::GetNumLights()
 {

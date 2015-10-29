@@ -1499,6 +1499,7 @@ void VoxelCharacter::Update(float dt, float animationSpeed[AnimationSections_NUM
 		}
 	}
 
+	// Update paperdoll animator
 	if(m_pCharacterAnimatorPaperdoll != NULL)
 	{
 		if(m_updateAnimator)
@@ -1564,6 +1565,29 @@ void VoxelCharacter::Update(float dt, float animationSpeed[AnimationSections_NUM
 		if(m_rightWeaponLoaded)
 		{
 			m_pRightWeapon->Update(dt);
+		}
+	}
+
+	// Update the weapon trails, based on the animation frames
+	if (m_pCharacterAnimator[0] != NULL)
+	{
+		bool leftWeaponTrailActive = m_pCharacterAnimator[0]->GetLeftWeaponTrailActive();
+		bool rightWeaponTrailActive = m_pCharacterAnimator[0]->GetRightWeaponTrailActive();
+		if (m_pLeftWeapon->IsWeaponTrailsActive() == false && leftWeaponTrailActive == true)
+		{
+			m_pLeftWeapon->StartWeaponTrails();
+		}
+		else if (m_pLeftWeapon->IsWeaponTrailsActive() == true && leftWeaponTrailActive == false)
+		{
+			m_pLeftWeapon->StopWeaponTrails();
+		}
+		if (m_pRightWeapon->IsWeaponTrailsActive() == false && rightWeaponTrailActive == true)
+		{
+			m_pRightWeapon->StartWeaponTrails();
+		}
+		else if (m_pRightWeapon->IsWeaponTrailsActive() == true && rightWeaponTrailActive == false)
+		{
+			m_pRightWeapon->StopWeaponTrails();
 		}
 	}
 }

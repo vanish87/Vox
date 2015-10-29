@@ -254,9 +254,6 @@ void VoxGame::WeaponPullDownChanged()
 			m_pPlayer->GetVoxelCharacter()->SetQubicleMatrixRender("Left_Hand", false);
 		}
 	}
-
-	m_pPlayer->GetVoxelCharacter()->GetRightWeapon()->StartWeaponTrails();
-	m_pPlayer->GetVoxelCharacter()->GetLeftWeapon()->StartWeaponTrails();
 }
 
 void VoxGame::_CharacterPullDownChanged(void *apData)

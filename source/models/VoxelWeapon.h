@@ -174,6 +174,7 @@ public:
 	// Weapon trails
 	void StartWeaponTrails();
 	void StopWeaponTrails();
+	bool IsWeaponTrailsActive();
 
 	// Lighting
 	int GetNumLights();

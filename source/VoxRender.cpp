@@ -292,11 +292,11 @@ void VoxGame::RenderTransparency()
 			m_pRenderer->StartRenderingToFrameBuffer(m_transparencyFrameBuffer);
 		}
 
-		// Render the player's weapon trails
-		m_pPlayer->RenderWeaponTrails();
-
 		// Render the player's face
 		m_pPlayer->RenderFace();
+
+		// Render the player's weapon trails
+		m_pPlayer->RenderWeaponTrails();
 
 		if (m_deferredRendering)
 		{

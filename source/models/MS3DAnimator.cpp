@@ -32,6 +32,11 @@ MS3DAnimator::MS3DAnimator(Renderer *lpRenderer, MS3DModel* pModel)
 	mCurrentAnimationStartTime = 0.0;
 	mCurrentAnimationEndTime = 0.0;
 
+	mCurrentAnimationRightWeaponTrailStartTime = 0.0;
+	mCurrentAnimationRightWeaponTrailEndTime = 0.0;
+	mCurrentAnimationLeftWeaponTrailStartTime = 0.0;
+	mCurrentAnimationLeftWeaponTrailEndTime = 0.0;
+
 	m_timer = 0;
 	mblooping = false;
 
@@ -114,10 +119,26 @@ bool MS3DAnimator::LoadAnimations(const char *animationFileName)
 
 			// Blend frame
 			file >> tempString  >> pAnimations[i].blendFrame;
-			
+
+			// Start right weapon trail
+			file >> tempString >> pAnimations[i].startRightWeaponTrailFrame;
+
+			// End right weapon trail
+			file >> tempString >> pAnimations[i].endRightWeaponTrailFrame;
+
+			// Start left weapon trail
+			file >> tempString >> pAnimations[i].startLeftWeaponTrailFrame;
+
+			// End left weapon trail
+			file >> tempString >> pAnimations[i].endLeftWeaponTrailFrame;
+
 			// Work out the start time and end time
 			pAnimations[i].startTime = pAnimations[i].startFrame * 1000.0/mpModel->mAnimationFPS;
 			pAnimations[i].endTime = pAnimations[i].endFrame * 1000.0/mpModel->mAnimationFPS;
+			pAnimations[i].startRightWeaponTrailTime = pAnimations[i].startRightWeaponTrailFrame * 1000.0 / mpModel->mAnimationFPS;
+			pAnimations[i].endRightWeaponTrailTime = pAnimations[i].endRightWeaponTrailFrame * 1000.0 / mpModel->mAnimationFPS;
+			pAnimations[i].startLeftWeaponTrailTime = pAnimations[i].startLeftWeaponTrailFrame * 1000.0 / mpModel->mAnimationFPS;
+			pAnimations[i].endLeftWeaponTrailTime = pAnimations[i].endLeftWeaponTrailFrame * 1000.0 / mpModel->mAnimationFPS;
 		}
 
 		// Close the file
@@ -211,6 +232,12 @@ void MS3DAnimator::PlayAnimation(int lAnimationIndex)
 	mCurrentAnimationStartTime = pAnimations[lAnimationIndex].startTime;
 	mCurrentAnimationEndTime = pAnimations[lAnimationIndex].endTime;
 	mblooping = pAnimations[lAnimationIndex].looping;
+
+	// Set the weapon trail start and end params
+	mCurrentAnimationRightWeaponTrailStartTime = pAnimations[lAnimationIndex].startRightWeaponTrailTime;
+	mCurrentAnimationRightWeaponTrailEndTime = pAnimations[lAnimationIndex].endRightWeaponTrailTime;
+	mCurrentAnimationLeftWeaponTrailStartTime = pAnimations[lAnimationIndex].startLeftWeaponTrailTime;
+	mCurrentAnimationLeftWeaponTrailEndTime = pAnimations[lAnimationIndex].endLeftWeaponTrailTime;
 
 	// Reset the timer to the start of the animation
 	Restart();
@@ -522,6 +549,16 @@ void MS3DAnimator::GetCurrentBlendRotation(int jointIndex, float* x, float* y, f
 	*x = pJointAnimation->currentBlendRot[0];
 	*y = pJointAnimation->currentBlendRot[1];
 	*z = pJointAnimation->currentBlendRot[2];
+}
+
+bool MS3DAnimator::GetRightWeaponTrailActive()
+{
+	return (m_timer > mCurrentAnimationRightWeaponTrailStartTime) && (m_timer < mCurrentAnimationRightWeaponTrailEndTime);
+}
+
+bool MS3DAnimator::GetLeftWeaponTrailActive()
+{
+	return (m_timer > mCurrentAnimationLeftWeaponTrailStartTime) && (m_timer < mCurrentAnimationLeftWeaponTrailEndTime);
 }
 
 void MS3DAnimator::Restart()
