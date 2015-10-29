@@ -64,6 +64,9 @@ public:
 	void RenderGUI();
 	void RenderDebugInformation();
 
+	// GUI
+	void UpdateAnimationsPulldown();
+
 protected:
 	/* Protected methods */
 	VoxGame() {};
@@ -73,6 +76,12 @@ protected:
 	// GUI callbacks
 	static void _ToggleFullScreenPressed(void *apData);
 	void ToggleFullScreenPressed();	
+
+	static void _AnimationPullDownChanged(void *apData);
+	void AnimationPullDownChanged();
+	
+	static void _WeaponPullDownChanged(void *apData);
+	void WeaponPullDownChanged();
 
 private:
 	/* Private methods */
@@ -177,20 +186,17 @@ private:
 	CheckBox* m_pDeferredCheckBox;
 	CheckBox* m_pUpdateCheckBox;
 	Button* m_pFullscreenButton;
+	PulldownMenu* m_pAnimationsPulldown;
+	PulldownMenu* m_pWeaponsPulldown;
 
 	// Toggle flags
 	bool m_deferredRendering;
-	int m_shaderIndex;
-	string m_shaderString;
-	bool m_displayHelpText;
 	bool m_modelWireframe;
 	int m_modelAnimationIndex;
 	bool m_multiSampling;
 	bool m_ssao;
 	bool m_shadows;
 	bool m_dynamicLighting;
-	int m_weaponIndex;
-	string m_weaponString;
 	bool m_animationUpdate;
 	bool m_fullscreen;
 

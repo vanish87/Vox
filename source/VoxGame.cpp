@@ -122,17 +122,12 @@ void VoxGame::Create()
 
 	// Toggle flags
 	m_deferredRendering = true;
-	m_shaderIndex = 0;
-	m_shaderString = "Shadow";
-	m_displayHelpText = true;
 	m_modelWireframe = false;
 	m_modelAnimationIndex = 0;
 	m_multiSampling = true;
 	m_ssao = true;
 	m_shadows = true;
 	m_dynamicLighting = true;
-	m_weaponIndex = 0;
-	m_weaponString = "NONE";
 	m_animationUpdate = true;
 	m_fullscreen = false;
 }
