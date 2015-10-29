@@ -27,8 +27,8 @@ VoxWindow::VoxWindow()
 	m_cursorY = 0;
 
 	/* Default windows dimensions */
-	m_windowWidth = 800;
-	m_windowHeight = 800;
+	m_windowWidth = 900;
+	m_windowHeight = 900;
 	m_oldWindowWidth = m_windowWidth;
 	m_oldWindowHeight = m_windowHeight;
 }
@@ -104,7 +104,10 @@ void VoxWindow::InitializeWindowContext(GLFWwindow* window)
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(0); // Disable v-sync
 
-						 /* Show the window */
+	/* Force resize */
+	WindowResizeCallback(window, m_windowWidth, m_windowHeight);
+
+	/* Show the window */
 	glfwShowWindow(window);
 }
 
@@ -167,9 +170,6 @@ void VoxWindow::ToggleFullScreen(bool fullscreen)
 
 	/* Initialize this new window object */
 	InitializeWindowContext(newWindow);
-
-	/* Force resize */
-	WindowResizeCallback(newWindow, m_windowWidth, m_windowHeight);
 
 	// Destroy the existing window pointer and assign new one, since we are context switching
 	glfwDestroyWindow(window);

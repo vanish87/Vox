@@ -83,6 +83,9 @@ protected:
 	static void _WeaponPullDownChanged(void *apData);
 	void WeaponPullDownChanged();
 
+	static void _CharacterPullDownChanged(void *apData);
+	void CharacterPullDownChanged();
+
 private:
 	/* Private methods */
 
@@ -188,6 +191,7 @@ private:
 	Button* m_pFullscreenButton;
 	PulldownMenu* m_pAnimationsPulldown;
 	PulldownMenu* m_pWeaponsPulldown;
+	PulldownMenu* m_pCharacterPulldown;
 
 	// Toggle flags
 	bool m_deferredRendering;

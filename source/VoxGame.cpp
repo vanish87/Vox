@@ -36,8 +36,8 @@ void VoxGame::Create()
 	m_fps = 0.0f;
 
 	/* Create the renderer */
-	m_windowWidth = 800;
-	m_windowHeight = 800;
+	m_windowWidth = m_pVoxWindow->GetWindowWidth();
+	m_windowHeight = m_pVoxWindow->GetWindowHeight();
 	m_pRenderer = new Renderer(m_windowWidth, m_windowHeight, 32, 8);
 
 	/* Create the GUI */

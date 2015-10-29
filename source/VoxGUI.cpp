@@ -10,7 +10,7 @@ void VoxGame::CreateGUI()
 	m_pMainWindow->SetRenderTitleBar(true);
 	m_pMainWindow->SetRenderWindowBackground(true);
 	m_pMainWindow->SetOutlineRender(true);
-	m_pMainWindow->SetDimensions(30, 50, 320, 140);
+	m_pMainWindow->SetDimensions(15, 35, 320, 140);
 	m_pMainWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 
 	m_pWireframeCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Wireframe");
@@ -31,24 +31,25 @@ void VoxGame::CreateGUI()
 	m_pDeferredCheckBox->SetDimensions(10, 100, 14, 14);
 	m_pDeferredCheckBox->SetToggled(true);
 	m_pUpdateCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Update");
-	m_pUpdateCheckBox->SetDimensions(150, 120, 14, 14);
+
+	m_pUpdateCheckBox->SetDimensions(150, 35, 14, 14);
 	m_pUpdateCheckBox->SetToggled(true);
 
 	m_pFullscreenButton = new Button(m_pRenderer, m_defaultFont, "FullScreen");
-	m_pFullscreenButton->SetDimensions(150, 90, 80, 20);
+	m_pFullscreenButton->SetDimensions(150, 10, 80, 20);
 	m_pFullscreenButton->SetCallBackFunction(_ToggleFullScreenPressed);
 	m_pFullscreenButton->SetCallBackData(this);
 
 	m_pAnimationsPulldown = new PulldownMenu(m_pRenderer, m_defaultFont, "Animation");
-	m_pAnimationsPulldown->SetDimensions(150, 60, 140, 14);
+	m_pAnimationsPulldown->SetDimensions(150, 70, 140, 14);
 	m_pAnimationsPulldown->SetMaxNumItemsDisplayed(5);
-	m_pAnimationsPulldown->SetDepth(4.0f);
+	m_pAnimationsPulldown->SetDepth(2.0f);
 	m_pAnimationsPulldown->SetRenderHeader(true);
 	m_pAnimationsPulldown->SetMenuItemChangedCallBackFunction(_AnimationPullDownChanged);
 	m_pAnimationsPulldown->SetMenuItemChangedCallBackData(this);
 
 	m_pWeaponsPulldown = new PulldownMenu(m_pRenderer, m_defaultFont, "Weapons");
-	m_pWeaponsPulldown->SetDimensions(150, 40, 140, 14);
+	m_pWeaponsPulldown->SetDimensions(150, 90, 140, 14);
 	m_pWeaponsPulldown->SetMaxNumItemsDisplayed(5);
 	m_pWeaponsPulldown->SetDepth(3.0f);
 	m_pWeaponsPulldown->SetRenderHeader(true);
@@ -63,6 +64,21 @@ void VoxGame::CreateGUI()
 	m_pWeaponsPulldown->AddPulldownItem("Torch");
 	m_pWeaponsPulldown->AddPulldownItem("Magic");
 
+	m_pCharacterPulldown = new PulldownMenu(m_pRenderer, m_defaultFont, "Character");
+	m_pCharacterPulldown->SetDimensions(150, 110, 140, 14);
+	m_pCharacterPulldown->SetMaxNumItemsDisplayed(5);
+	m_pCharacterPulldown->SetDepth(4.0f);
+	m_pCharacterPulldown->SetRenderHeader(true);
+	m_pCharacterPulldown->SetMenuItemChangedCallBackFunction(_CharacterPullDownChanged);
+	m_pCharacterPulldown->SetMenuItemChangedCallBackData(this);
+	m_pCharacterPulldown->AddPulldownItem("Steve");
+	m_pCharacterPulldown->AddPulldownItem("Mage");
+	m_pCharacterPulldown->AddPulldownItem("Warrior");
+	m_pCharacterPulldown->AddPulldownItem("Necromancer");
+	m_pCharacterPulldown->AddPulldownItem("Priest");
+	m_pCharacterPulldown->AddPulldownItem("Paladin");
+	m_pCharacterPulldown->AddPulldownItem("TreeElemental");
+
 	m_pMainWindow->AddComponent(m_pShadowsCheckBox);
 	m_pMainWindow->AddComponent(m_pSSAOCheckBox);
 	m_pMainWindow->AddComponent(m_pDynamicLightingCheckBox);
@@ -73,6 +89,7 @@ void VoxGame::CreateGUI()
 	m_pMainWindow->AddComponent(m_pFullscreenButton);
 	m_pMainWindow->AddComponent(m_pAnimationsPulldown);
 	m_pMainWindow->AddComponent(m_pWeaponsPulldown);
+	m_pMainWindow->AddComponent(m_pCharacterPulldown);
 
 	m_pGUI->AddWindow(m_pMainWindow);
 
@@ -92,6 +109,7 @@ void VoxGame::DestroyGUI()
 	delete m_pFullscreenButton;
 	delete m_pAnimationsPulldown;
 	delete m_pWeaponsPulldown;
+	delete m_pCharacterPulldown;
 }
 
 void VoxGame::UpdateGUI(float dt)
@@ -221,4 +239,49 @@ void VoxGame::WeaponPullDownChanged()
 
 	m_pPlayer->GetVoxelCharacter()->GetRightWeapon()->StartWeaponTrails();
 	m_pPlayer->GetVoxelCharacter()->GetLeftWeapon()->StartWeaponTrails();
+}
+
+void VoxGame::_CharacterPullDownChanged(void *apData)
+{
+	VoxGame* lpVoxGame = (VoxGame*)apData;
+	lpVoxGame->CharacterPullDownChanged();
+}
+
+void VoxGame::CharacterPullDownChanged()
+{
+	MenuItem* pMenuItem = m_pCharacterPulldown->GetSelectedMenuItem();
+	if (pMenuItem != NULL)
+	{
+		m_pPlayer->UnloadWeapon(false);
+		m_pPlayer->UnloadWeapon(true);
+
+		if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Steve") == 0)
+		{
+			m_pPlayer->LoadCharacter("Steve");
+		}
+		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Mage") == 0)
+		{
+			m_pPlayer->LoadCharacter("Mage");
+		}
+		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Warrior") == 0)
+		{
+			m_pPlayer->LoadCharacter("Warrior");
+		}
+		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Necromancer") == 0)
+		{
+			m_pPlayer->LoadCharacter("Necromancer");
+		}
+		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Priest") == 0)
+		{
+			m_pPlayer->LoadCharacter("Priest");
+		}
+		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Paladin") == 0)
+		{
+			m_pPlayer->LoadCharacter("Paladin");
+		}
+		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "TreeElemental") == 0)
+		{
+			m_pPlayer->LoadCharacter("TreeElemental");
+		}
+	}
 }

@@ -30,6 +30,8 @@ public:
 
 	VoxelCharacter* GetVoxelCharacter();
 
+	void LoadCharacter(string characterName);
+
 	// Unloading
 	void UnloadWeapon(bool left);
 

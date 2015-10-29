@@ -25,28 +25,9 @@ Player::Player(Renderer* pRenderer, QubicleBinaryManager* pQubicleBinaryManager,
 
 	/* Create voxel character */
 	m_pVoxelCharacter = new VoxelCharacter(m_pRenderer, m_pQubicleBinaryManager);
-	char characterBaseFolder[128];
-	char qbFilename[128];
-	char ms3dFilename[128];
-	char animListFilename[128];
-	char facesFilename[128];
-	char characterFilename[128];
-	string modelName = "Steve";
-	string typeName = "Human";
-	sprintf_s(characterBaseFolder, 128, "media/gamedata/models");
-	sprintf_s(qbFilename, 128, "media/gamedata/models/%s/%s.qb", typeName.c_str(), modelName.c_str());
-	sprintf_s(ms3dFilename, 128, "media/gamedata/models/%s/%s.ms3d", typeName.c_str(), typeName.c_str());
-	sprintf_s(animListFilename, 128, "media/gamedata/models/%s/%s.animlist", typeName.c_str(), typeName.c_str());
-	sprintf_s(facesFilename, 128, "media/gamedata/models/%s/%s.faces", typeName.c_str(), modelName.c_str());
-	sprintf_s(characterFilename, 128, "media/gamedata/models/%s/%s.character", typeName.c_str(), modelName.c_str());
-	m_pVoxelCharacter->LoadVoxelCharacter(typeName.c_str(), qbFilename, ms3dFilename, animListFilename, facesFilename, characterFilename, characterBaseFolder);
-	m_pVoxelCharacter->SetBreathingAnimationEnabled(true);
-	m_pVoxelCharacter->SetWinkAnimationEnabled(true);
-	m_pVoxelCharacter->SetTalkingAnimationEnabled(false);
-	m_pVoxelCharacter->SetRandomMouthSelection(true);
-	m_pVoxelCharacter->SetRandomLookDirection(true);
-	m_pVoxelCharacter->SetWireFrameRender(false);
-	m_pVoxelCharacter->SetCharacterScale(0.08f);
+
+	/* Load default character mode */
+	LoadCharacter("Steve");
 }
 
 Player::~Player()
@@ -56,6 +37,36 @@ Player::~Player()
 VoxelCharacter* Player::GetVoxelCharacter()
 {
 	return m_pVoxelCharacter;
+}
+
+void Player::LoadCharacter(string characterName)
+{
+	m_pVoxelCharacter->UnloadCharacter();
+	m_pVoxelCharacter->Reset();
+
+	char characterBaseFolder[128];
+	char qbFilename[128];
+	char ms3dFilename[128];
+	char animListFilename[128];
+	char facesFilename[128];
+	char characterFilename[128];
+	string modelName = characterName;
+	string typeName = "Human";
+	sprintf_s(characterBaseFolder, 128, "media/gamedata/models");
+	sprintf_s(qbFilename, 128, "media/gamedata/models/%s/%s.qb", typeName.c_str(), modelName.c_str());
+	sprintf_s(ms3dFilename, 128, "media/gamedata/models/%s/%s.ms3d", typeName.c_str(), typeName.c_str());
+	sprintf_s(animListFilename, 128, "media/gamedata/models/%s/%s.animlist", typeName.c_str(), typeName.c_str());
+	sprintf_s(facesFilename, 128, "media/gamedata/models/%s/%s.faces", typeName.c_str(), modelName.c_str());
+	sprintf_s(characterFilename, 128, "media/gamedata/models/%s/%s.character", typeName.c_str(), modelName.c_str());
+	m_pVoxelCharacter->LoadVoxelCharacter(typeName.c_str(), qbFilename, ms3dFilename, animListFilename, facesFilename, characterFilename, characterBaseFolder);
+
+	m_pVoxelCharacter->SetBreathingAnimationEnabled(true);
+	m_pVoxelCharacter->SetWinkAnimationEnabled(true);
+	m_pVoxelCharacter->SetTalkingAnimationEnabled(false);
+	m_pVoxelCharacter->SetRandomMouthSelection(true);
+	m_pVoxelCharacter->SetRandomLookDirection(true);
+	m_pVoxelCharacter->SetWireFrameRender(false);
+	m_pVoxelCharacter->SetCharacterScale(0.08f);
 }
 
 // Unloading
