@@ -4,6 +4,12 @@
 
 
 // Rendering
+void VoxGame::PreRender()
+{
+	// Update matrices for game objects
+	m_pPlayer->CalculateWorldTransformMatrix();
+}
+
 void VoxGame::Render()
 {
 	if (m_pVoxWindow->GetMinimized())

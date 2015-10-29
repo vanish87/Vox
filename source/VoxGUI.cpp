@@ -30,9 +30,9 @@ void VoxGame::CreateGUI()
 	m_pDeferredCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Deferred");
 	m_pDeferredCheckBox->SetDimensions(10, 100, 14, 14);
 	m_pDeferredCheckBox->SetToggled(true);
-	m_pUpdateCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Update");
 
-	m_pUpdateCheckBox->SetDimensions(150, 35, 14, 14);
+	m_pUpdateCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Update");
+	m_pUpdateCheckBox->SetDimensions(150, 40, 14, 14);
 	m_pUpdateCheckBox->SetToggled(true);
 
 	m_pFullscreenButton = new Button(m_pRenderer, m_defaultFont, "FullScreen");

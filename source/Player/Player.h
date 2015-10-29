@@ -28,8 +28,10 @@ public:
 	Player(Renderer* pRenderer, QubicleBinaryManager* pQubicleBinaryManager, LightingManager* pLightingManager, BlockParticleManager* pBlockParticleManager);
 	~Player();
 
+	// Get voxel character pointer
 	VoxelCharacter* GetVoxelCharacter();
 
+	// Loading
 	void LoadCharacter(string characterName);
 
 	// Unloading
@@ -37,6 +39,9 @@ public:
 
 	// Rendering modes
 	void SetWireFrameRender(bool wireframe);
+
+	// Rendering Helpers
+	void CalculateWorldTransformMatrix();
 
 	// Updating
 	void Update(float dt);
@@ -66,6 +71,14 @@ private:
 	QubicleBinaryManager* m_pQubicleBinaryManager;
 	LightingManager* m_pLightingManager;
 	BlockParticleManager* m_pBlockParticleManager;
+
+	// Position
+	vec3 m_position;
+
+	// Local axis
+	vec3 m_forward;
+	vec3 m_right;
+	vec3 m_up;
 
 	// Players world matrix
 	Matrix4x4 m_worldMatrix;

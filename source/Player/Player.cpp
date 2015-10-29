@@ -23,6 +23,10 @@ Player::Player(Renderer* pRenderer, QubicleBinaryManager* pQubicleBinaryManager,
 	m_pLightingManager = pLightingManager;
 	m_pBlockParticleManager = pBlockParticleManager;
 
+	m_forward = vec3(0.0f, 0.0f, 1.0f);
+	m_right = vec3(1.0f, 0.0f, 0.0f);
+	m_up = vec3(0.0f, 1.0f, 0.0f);
+
 	/* Create voxel character */
 	m_pVoxelCharacter = new VoxelCharacter(m_pRenderer, m_pQubicleBinaryManager);
 
@@ -34,11 +38,13 @@ Player::~Player()
 {
 }
 
+// Get voxel character pointer
 VoxelCharacter* Player::GetVoxelCharacter()
 {
 	return m_pVoxelCharacter;
 }
 
+// Loading
 void Player::LoadCharacter(string characterName)
 {
 	m_pVoxelCharacter->UnloadCharacter();
@@ -108,17 +114,17 @@ void Player::UnloadWeapon(bool left)
 					if (connectedToSegment == false)
 					{
 						// Rotate due to characters forward vector
-						//float rotationAngle = acos(dot(vec3(0.0f, 0.0f, 1.0f), m_forward));
-						//if (m_forward.x < 0.0f)
-						//{
-						//	rotationAngle = -rotationAngle;
-						//}
-						//Matrix4x4 rotationMatrix;
-						//rotationMatrix.SetRotation(0.0f, rotationAngle, 0.0f);
-						//lightPos = rotationMatrix * lightPos;
+						float rotationAngle = acos(dot(vec3(0.0f, 0.0f, 1.0f), m_forward));
+						if (m_forward.x < 0.0f)
+						{
+							rotationAngle = -rotationAngle;
+						}
+						Matrix4x4 rotationMatrix;
+						rotationMatrix.SetRotation(0.0f, rotationAngle, 0.0f);
+						lightPos = rotationMatrix * lightPos;
 
-						//// Translate to position
-						//lightPos += m_position;
+						// Translate to position
+						lightPos += m_position;
 					}
 
 					float scale = m_pVoxelCharacter->GetCharacterScale();
@@ -163,14 +169,30 @@ void Player::SetWireFrameRender(bool wireframe)
 	m_pVoxelCharacter->SetWireFrameRender(wireframe);
 }
 
+// Rendering Helpers
+void Player::CalculateWorldTransformMatrix()
+{
+	m_right = normalize(cross(m_up, m_forward));
+	m_forward = normalize(cross(m_right, m_up));
+
+	float lMatrix[16] =
+	{
+		m_right.x, m_right.y, m_right.z, 0.0f,
+		m_up.x, m_up.y, m_up.z, 0.0f,
+		m_forward.x, m_forward.y, m_forward.z, 0.0f,
+		m_position.x, m_position.y, m_position.z, 1.0f
+	};
+
+	m_worldMatrix.SetValues(lMatrix);
+}
+
 // Updating
 void Player::Update(float dt)
 {
 	// Update the voxel model
 	float animationSpeeds[AnimationSections_NUMSECTIONS] = { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
-	Matrix4x4 worldMatrix;
 	m_pVoxelCharacter->Update(dt, animationSpeeds);
-	m_pVoxelCharacter->UpdateWeaponTrails(dt, worldMatrix);
+	m_pVoxelCharacter->UpdateWeaponTrails(dt, m_worldMatrix);
 
 	// Update / Create weapon lights and particle effects
 	UpdateWeaponLights(dt);
@@ -217,17 +239,17 @@ void Player::UpdateWeaponLights(float dt)
 					if (connectedToSegment == false)
 					{
 						// Rotate due to characters forward vector
-						//float rotationAngle = acos(dot(vec3(0.0f, 0.0f, 1.0f), m_forward));
-						//if (m_forward.x < 0.0f)
-						//{
-						//	rotationAngle = -rotationAngle;
-						//}
-						//Matrix4x4 rotationMatrix;
-						//rotationMatrix.SetRotation(0.0f, rotationAngle, 0.0f);
-						//lightPos = rotationMatrix * lightPos;
+						float rotationAngle = acos(dot(vec3(0.0f, 0.0f, 1.0f), m_forward));
+						if (m_forward.x < 0.0f)
+						{
+							rotationAngle = -rotationAngle;
+						}
+						Matrix4x4 rotationMatrix;
+						rotationMatrix.SetRotation(0.0f, rotationAngle, 0.0f);
+						lightPos = rotationMatrix * lightPos;
 
-						//// Translate to position
-						//lightPos += m_position;
+						// Translate to position
+						lightPos += m_position;
 					}
 
 					float scale = m_pVoxelCharacter->GetCharacterScale();
@@ -281,17 +303,17 @@ void Player::UpdateWeaponParticleEffects(float dt)
 					if (connectedToSegment == false)
 					{
 						// Rotate due to characters forward vector
-						//float rotationAngle = acos(dot(vec3(0.0f, 0.0f, 1.0f), m_forward));
-						//if (m_forward.x < 0.0f)
-						//{
-						//	rotationAngle = -rotationAngle;
-						//}
-						//Matrix4x4 rotationMatrix;
-						//rotationMatrix.SetRotation(0.0f, rotationAngle, 0.0f);
-						//ParticleEffectPos = rotationMatrix * ParticleEffectPos;
+						float rotationAngle = acos(dot(vec3(0.0f, 0.0f, 1.0f), m_forward));
+						if (m_forward.x < 0.0f)
+						{
+							rotationAngle = -rotationAngle;
+						}
+						Matrix4x4 rotationMatrix;
+						rotationMatrix.SetRotation(0.0f, rotationAngle, 0.0f);
+						ParticleEffectPos = rotationMatrix * ParticleEffectPos;
 
-						//// Translate to position
-						//ParticleEffectPos += m_position;
+						// Translate to position
+						ParticleEffectPos += m_position;
 					}
 
 					m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, vec3(ParticleEffectPos.x, ParticleEffectPos.y, ParticleEffectPos.z));

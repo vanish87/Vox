@@ -56,6 +56,7 @@ public:
 	void UpdateGUI(float dt);
 
 	// Rendering
+	void PreRender();
 	void Render();
 	void RenderWorld();
 	void RenderDeferredLighting();
