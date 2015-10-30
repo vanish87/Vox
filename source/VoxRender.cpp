@@ -23,39 +23,10 @@ void VoxGame::Render()
 	// Begin rendering
 	m_pRenderer->BeginScene(true, true, true);
 
-		//glEnable(GL_COLOR_MATERIAL);
-		//glEnable(GL_NORMALIZE);
-
 		// Shadow rendering to the shadow frame buffer
 		if (m_shadows)
 		{
-			m_pRenderer->PushMatrix();
-				m_pRenderer->StartRenderingToFrameBuffer(m_shadowFrameBuffer);
-				glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-
-				glMatrixMode(GL_PROJECTION);
-				glLoadIdentity();
-				glOrtho(-5.0f, 5.0f, -5.0f, 5.0f, 0.01f, 1000.0f);
-				glMatrixMode(GL_MODELVIEW);
-				glLoadIdentity();
-				gluLookAt(m_defaultLightPosition.x, m_defaultLightPosition.y, m_defaultLightPosition.z, m_defaultLightView.x, m_defaultLightView.y, m_defaultLightView.z, 0.0f, 1.0f, 0.0f);
-
-				m_pRenderer->PushMatrix();
-					m_pRenderer->SetCullMode(CM_FRONT);
-
-					// Render the player
-					m_pPlayer->Render();
-
-					// Render the block particles
-					m_pBlockParticleManager->Render();
-
-					m_pRenderer->SetTextureMatrix();
-					m_pRenderer->SetCullMode(CM_BACK);
-				m_pRenderer->PopMatrix();
-
-				glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-				m_pRenderer->StopRenderingToFrameBuffer(m_shadowFrameBuffer);
-			m_pRenderer->PopMatrix();
+			RenderShadows();
 		}
 
 		// SSAO frame buffer rendering start
@@ -206,6 +177,33 @@ void VoxGame::RenderWorld()
 		m_pRenderer->ImmediateVertex(floorLength, floorY, -floorLength);
 		m_pRenderer->ImmediateNormal(0.0f, 1.0f, 0.0f);
 	m_pRenderer->DisableImmediateMode();
+}
+
+void VoxGame::RenderShadows()
+{
+	m_pRenderer->PushMatrix();
+		m_pRenderer->StartRenderingToFrameBuffer(m_shadowFrameBuffer);
+		m_pRenderer->SetColourMask(false, false, false, false);
+
+		m_pRenderer->SetupOrthographicProjection(-5.0f, 5.0f, -5.0f, 5.0f, 0.01f, 1000.0f);
+		m_pRenderer->SetLookAtCamera(vec3(m_defaultLightPosition.x, m_defaultLightPosition.y, m_defaultLightPosition.z), vec3(m_defaultLightView.x, m_defaultLightView.y, m_defaultLightView.z), vec3(0.0f, 1.0f, 0.0f));
+
+		m_pRenderer->PushMatrix();
+			m_pRenderer->SetCullMode(CM_FRONT);
+
+			// Render the player
+			m_pPlayer->Render();
+
+			// Render the block particles
+			m_pBlockParticleManager->Render();
+
+			m_pRenderer->SetTextureMatrix();
+			m_pRenderer->SetCullMode(CM_BACK);
+		m_pRenderer->PopMatrix();
+
+		m_pRenderer->SetColourMask(true, true, true, true);
+		m_pRenderer->StopRenderingToFrameBuffer(m_shadowFrameBuffer);
+	m_pRenderer->PopMatrix();
 }
 
 void VoxGame::RenderDeferredLighting()
@@ -451,7 +449,7 @@ void VoxGame::RenderFirstPassFullScreen()
 		m_pRenderer->BeginGLSLShader(m_blurHorizontalShader);
 		glShader* pShader = m_pRenderer->GetShader(m_blurHorizontalShader);
 
-		float blurSize = 0.0015f;
+		float blurSize = 0.00015f;
 
 		unsigned int textureId0 = glGetUniformLocationARB(pShader->GetProgramObject(), "texture");
 		m_pRenderer->PrepareShaderTexture(0, textureId0);
@@ -488,7 +486,7 @@ void VoxGame::RenderSecondPassFullScreen()
 		m_pRenderer->BeginGLSLShader(m_blurVerticalShader);
 		glShader* pShader = m_pRenderer->GetShader(m_blurVerticalShader);
 
-		float blurSize = 0.0015f;
+		float blurSize = 0.00015f;
 
 		unsigned int textureId0 = glGetUniformLocationARB(pShader->GetProgramObject(), "texture");
 		m_pRenderer->PrepareShaderTexture(0, textureId0);

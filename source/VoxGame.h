@@ -57,6 +57,7 @@ public:
 	void PreRender();
 	void Render();
 	void RenderWorld();
+	void RenderShadows();
 	void RenderDeferredLighting();
 	void RenderTransparency();
 	void RenderSSAOTexture();
