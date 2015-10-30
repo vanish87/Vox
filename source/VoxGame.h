@@ -60,6 +60,7 @@ public:
 	void RenderDeferredLighting();
 	void RenderTransparency();
 	void RenderSSAOTexture();
+	void RenderFXAATexture();
 	void RenderFirstPassFullScreen();
 	void RenderSecondPassFullScreen();
 	void RenderGUI();
@@ -148,6 +149,7 @@ private:
 	unsigned int m_shadowFrameBuffer;
 	unsigned int m_lightingFrameBuffer;
 	unsigned int m_transparencyFrameBuffer;
+	unsigned int m_FXAAFrameBuffer;
 	unsigned int m_firstPassFullscreenBuffer;
 	unsigned int m_secondPassFullscreenBuffer;
 
@@ -158,6 +160,7 @@ private:
 	unsigned int m_shadowShader;
 	unsigned int m_lightingShader;
 	unsigned int m_textureShader;
+	unsigned int m_fxaaShader;
 	unsigned int m_blurVerticalShader;
 	unsigned int m_blurHorizontalShader;
 

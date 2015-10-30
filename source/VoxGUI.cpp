@@ -140,14 +140,12 @@ void VoxGame::UpdateGUI(float dt)
 		m_pSSAOCheckBox->SetDisabled(false);
 		m_pDynamicLightingCheckBox->SetDisabled(false);
 		m_pBlurCheckBox->SetDisabled(false);
-		m_pMSAACheckBox->SetDisabled(true);
 	}
 	else
 	{
 		m_pSSAOCheckBox->SetDisabled(true);
 		m_pDynamicLightingCheckBox->SetDisabled(true);
 		m_pBlurCheckBox->SetDisabled(true);
-		m_pMSAACheckBox->SetDisabled(false);
 	}
 
 	m_pPlayer->SetWireFrameRender(m_modelWireframe);
