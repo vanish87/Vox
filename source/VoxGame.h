@@ -60,6 +60,8 @@ public:
 	void RenderDeferredLighting();
 	void RenderTransparency();
 	void RenderSSAOTexture();
+	void RenderFirstPassFullScreen();
+	void RenderSecondPassFullScreen();
 	void RenderGUI();
 	void RenderDebugInformation();
 
@@ -146,6 +148,8 @@ private:
 	unsigned int m_shadowFrameBuffer;
 	unsigned int m_lightingFrameBuffer;
 	unsigned int m_transparencyFrameBuffer;
+	unsigned int m_firstPassFullscreenBuffer;
+	unsigned int m_secondPassFullscreenBuffer;
 
 	// Shaders
 	unsigned int m_defaultShader;
@@ -154,6 +158,8 @@ private:
 	unsigned int m_shadowShader;
 	unsigned int m_lightingShader;
 	unsigned int m_textureShader;
+	unsigned int m_blurVerticalShader;
+	unsigned int m_blurHorizontalShader;
 
 	// FPS and deltatime
 	LARGE_INTEGER m_fpsPreviousTicks;
@@ -190,6 +196,7 @@ private:
 	CheckBox* m_pMSAACheckBox;
 	CheckBox* m_pDeferredCheckBox;
 	CheckBox* m_pUpdateCheckBox;
+	CheckBox* m_pBlurCheckBox;
 	Button* m_pFullscreenButton;
 	Button* m_pPlayAnimationButton;
 	PulldownMenu* m_pAnimationsPulldown;
@@ -202,6 +209,7 @@ private:
 	int m_modelAnimationIndex;
 	bool m_multiSampling;
 	bool m_ssao;
+	bool m_blur;
 	bool m_shadows;
 	bool m_dynamicLighting;
 	bool m_animationUpdate;

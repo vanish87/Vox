@@ -27,8 +27,11 @@ void VoxGame::CreateGUI()
 	m_pSSAOCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "SSAO");
 	m_pSSAOCheckBox->SetDimensions(10, 82, 14, 14);
 	m_pSSAOCheckBox->SetToggled(true);
+	m_pBlurCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Blur");
+	m_pBlurCheckBox->SetDimensions(10, 100, 14, 14);
+	m_pBlurCheckBox->SetToggled(true);
 	m_pDeferredCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Deferred");
-	m_pDeferredCheckBox->SetDimensions(10, 100, 14, 14);
+	m_pDeferredCheckBox->SetDimensions(10, 118, 14, 14);
 	m_pDeferredCheckBox->SetToggled(true);
 
 	m_pUpdateCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Update");
@@ -86,6 +89,7 @@ void VoxGame::CreateGUI()
 
 	m_pMainWindow->AddComponent(m_pShadowsCheckBox);
 	m_pMainWindow->AddComponent(m_pSSAOCheckBox);
+	m_pMainWindow->AddComponent(m_pBlurCheckBox);
 	m_pMainWindow->AddComponent(m_pDynamicLightingCheckBox);
 	m_pMainWindow->AddComponent(m_pWireframeCheckBox);
 	m_pMainWindow->AddComponent(m_pMSAACheckBox);
@@ -107,6 +111,7 @@ void VoxGame::DestroyGUI()
 	delete m_pMainWindow;
 	delete m_pShadowsCheckBox;
 	delete m_pSSAOCheckBox;
+	delete m_pBlurCheckBox;
 	delete m_pDynamicLightingCheckBox;
 	delete m_pWireframeCheckBox;
 	delete m_pMSAACheckBox;
@@ -123,6 +128,7 @@ void VoxGame::UpdateGUI(float dt)
 {
 	m_shadows = m_pShadowsCheckBox->GetToggled();
 	m_ssao = m_pSSAOCheckBox->GetToggled();
+	m_blur = m_pBlurCheckBox->GetToggled();
 	m_dynamicLighting = m_pDynamicLightingCheckBox->GetToggled();
 	m_modelWireframe = m_pWireframeCheckBox->GetToggled();
 	m_multiSampling = m_pMSAACheckBox->GetToggled();
@@ -133,12 +139,14 @@ void VoxGame::UpdateGUI(float dt)
 	{
 		m_pSSAOCheckBox->SetDisabled(false);
 		m_pDynamicLightingCheckBox->SetDisabled(false);
+		m_pBlurCheckBox->SetDisabled(false);
 		m_pMSAACheckBox->SetDisabled(true);
 	}
 	else
 	{
 		m_pSSAOCheckBox->SetDisabled(true);
 		m_pDynamicLightingCheckBox->SetDisabled(true);
+		m_pBlurCheckBox->SetDisabled(true);
 		m_pMSAACheckBox->SetDisabled(false);
 	}
 
