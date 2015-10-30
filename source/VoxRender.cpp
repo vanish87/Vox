@@ -395,10 +395,9 @@ void VoxGame::RenderFirstPassFullScreen()
 
 		float blurSize = 0.0015f;
 
-		unsigned int textureId = glGetUniformLocationARB(pShader->GetProgramObject(), "texture");
-		glActiveTextureARB(GL_TEXTURE0_ARB);
+		unsigned int textureId0 = glGetUniformLocationARB(pShader->GetProgramObject(), "texture");
+		m_pRenderer->PrepareShaderTexture(0, textureId0);
 		m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_firstPassFullscreenBuffer));
-		glUniform1iARB(textureId, 0);
 
 		pShader->setUniform1f("blurSize", blurSize);
 
@@ -413,6 +412,8 @@ void VoxGame::RenderFirstPassFullScreen()
 			m_pRenderer->ImmediateTextureCoordinate(0.0f, 1.0f);
 			m_pRenderer->ImmediateVertex(0.0f, (float)m_windowHeight, 1.0f);
 		m_pRenderer->DisableImmediateMode();
+
+		m_pRenderer->EmptyTextureIndex(0);
 
 		m_pRenderer->EndGLSLShader(m_blurHorizontalShader);
 		m_pRenderer->StopRenderingToFrameBuffer(m_secondPassFullscreenBuffer);
@@ -430,10 +431,9 @@ void VoxGame::RenderSecondPassFullScreen()
 
 		float blurSize = 0.0015f;
 
-		unsigned int textureId = glGetUniformLocationARB(pShader->GetProgramObject(), "texture");
-		glActiveTextureARB(GL_TEXTURE0_ARB);
+		unsigned int textureId0 = glGetUniformLocationARB(pShader->GetProgramObject(), "texture");
+		m_pRenderer->PrepareShaderTexture(0, textureId0);
 		m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_secondPassFullscreenBuffer));
-		glUniform1iARB(textureId, 0);
 
 		pShader->setUniform1f("blurSize", blurSize);
 
@@ -449,8 +449,9 @@ void VoxGame::RenderSecondPassFullScreen()
 			m_pRenderer->ImmediateVertex(0.0f, (float)m_windowHeight, 1.0f);
 		m_pRenderer->DisableImmediateMode();
 
-		m_pRenderer->EndGLSLShader(m_blurVerticalShader);
+		m_pRenderer->EmptyTextureIndex(0);
 
+		m_pRenderer->EndGLSLShader(m_blurVerticalShader);
 	m_pRenderer->PopMatrix();
 }
 
