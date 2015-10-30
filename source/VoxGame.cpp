@@ -132,7 +132,7 @@ void VoxGame::Create()
 	m_modelAnimationIndex = 0;
 	m_multiSampling = true;
 	m_ssao = true;
-	m_blur = true;
+	m_blur = false;
 	m_shadows = true;
 	m_dynamicLighting = true;
 	m_animationUpdate = true;

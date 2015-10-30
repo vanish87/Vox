@@ -29,7 +29,7 @@ void VoxGame::CreateGUI()
 	m_pSSAOCheckBox->SetToggled(true);
 	m_pBlurCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Blur");
 	m_pBlurCheckBox->SetDimensions(10, 100, 14, 14);
-	m_pBlurCheckBox->SetToggled(true);
+	m_pBlurCheckBox->SetToggled(false);
 	m_pDeferredCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Deferred");
 	m_pDeferredCheckBox->SetDimensions(10, 118, 14, 14);
 	m_pDeferredCheckBox->SetToggled(true);
