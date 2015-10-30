@@ -228,6 +228,7 @@ void VoxGame::RenderDeferredLighting()
 			glShader* pLightShader = m_pRenderer->GetShader(m_lightingShader);
 			unsigned NormalsID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "normals");
 			unsigned PositionssID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "positions");
+			unsigned DepthsID = glGetUniformLocationARB(pLightShader->GetProgramObject(), "depths");
 
 			m_pRenderer->PrepareShaderTexture(0, NormalsID);
 			m_pRenderer->BindRawTextureId(m_pRenderer->GetNormalTextureFromFrameBuffer(m_SSAOFrameBuffer));
@@ -235,15 +236,20 @@ void VoxGame::RenderDeferredLighting()
 			m_pRenderer->PrepareShaderTexture(1, PositionssID);
 			m_pRenderer->BindRawTextureId(m_pRenderer->GetPositionTextureFromFrameBuffer(m_SSAOFrameBuffer));
 
+			m_pRenderer->PrepareShaderTexture(2, DepthsID);
+			m_pRenderer->BindRawTextureId(m_pRenderer->GetDepthTextureFromFrameBuffer(m_SSAOFrameBuffer));
+
 			pLightShader->setUniform1i("screenWidth", m_windowWidth);
 			pLightShader->setUniform1i("screenHeight", m_windowHeight);
+			pLightShader->setUniform1f("nearZ", 0.01f);
+			pLightShader->setUniform1f("farZ", 1000.0f);
 
 			for (int i = 0; i < m_pLightingManager->GetNumLights(); i++)
 			{
 				DynamicLight* lpLight = m_pLightingManager->GetLight(i);
 				float lightRadius = lpLight->m_radius;
 
-				vec3 cameraPos = vec3(cameraPos.x, cameraPos.y, cameraPos.z);
+				vec3 cameraPos = vec3(m_pGameCamera->GetPosition().x, m_pGameCamera->GetPosition().y, m_pGameCamera->GetPosition().z);
 				float length = glm::distance(cameraPos, lpLight->m_position);
 				if (length < lightRadius + 0.5f) // Small change to account for differences in circle render (with slices) and circle radius
 				{
@@ -270,6 +276,7 @@ void VoxGame::RenderDeferredLighting()
 				m_pRenderer->PopMatrix();
 			}
 
+			m_pRenderer->EmptyTextureIndex(2);
 			m_pRenderer->EmptyTextureIndex(1);
 			m_pRenderer->EmptyTextureIndex(0);
 
@@ -449,7 +456,7 @@ void VoxGame::RenderFirstPassFullScreen()
 		m_pRenderer->BeginGLSLShader(m_blurHorizontalShader);
 		glShader* pShader = m_pRenderer->GetShader(m_blurHorizontalShader);
 
-		float blurSize = 0.00015f;
+		float blurSize = 0.0015f;
 
 		unsigned int textureId0 = glGetUniformLocationARB(pShader->GetProgramObject(), "texture");
 		m_pRenderer->PrepareShaderTexture(0, textureId0);
@@ -486,7 +493,7 @@ void VoxGame::RenderSecondPassFullScreen()
 		m_pRenderer->BeginGLSLShader(m_blurVerticalShader);
 		glShader* pShader = m_pRenderer->GetShader(m_blurVerticalShader);
 
-		float blurSize = 0.00015f;
+		float blurSize = 0.0015f;
 
 		unsigned int textureId0 = glGetUniformLocationARB(pShader->GetProgramObject(), "texture");
 		m_pRenderer->PrepareShaderTexture(0, textureId0);
