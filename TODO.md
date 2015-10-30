@@ -35,11 +35,11 @@
 * ~~Weapon trails controlled by the animation file.~~
 * ~~Create vs2012 libs and VS2012 project files~~
 * ~~Add blur shader.~~
+* ~~Implement MSAA (or other AA) in glsl shader.~~
 * Switch over to using glm maths lib.
 * Enable cross platform compiling and support, linux, mac
 * Solution to allow for running the exe from Visual studio, because atm the working directory needs to be ../
 * Convert shaders over to be more unified.
-* Implement MSAA (or other AA) in glsl shader.
 * Add audio and music playback.
 * Convert shadow rendering calls to use renderer - remove GL from gamecode.
 * Add LUA bindings.
