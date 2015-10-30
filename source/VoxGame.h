@@ -7,8 +7,6 @@
 #include "Particles/BlockParticleManager.h"
 #include "Player/Player.h"
 
-#include <windows.h>
-
 #include "VoxApplication.h"
 #include "VoxWindow.h"
 

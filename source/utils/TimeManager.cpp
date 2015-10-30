@@ -18,9 +18,7 @@
 
 #include "TimeManager.h"
 
-#include <windows.h>
 #include <stdio.h>
-#include <Mmsystem.h>
 
 #pragma comment (lib, "Winmm.lib")
 
