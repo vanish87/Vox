@@ -757,6 +757,13 @@ void VoxelWeapon::Update(float dt)
 		return;
 	}
 
+	if (dt > 0.1f)
+	{
+		// Temp fix for when dt is large due to a freeze or temp halt, would cause animated sections to get out-of-sync.
+		// due to allowing values to go over min/max and then 're-adjust', but since dt was large they would go WAY over min/max
+		return;
+	}
+
 	// Update animated sections
 	for(int i = 0; i < m_numAnimatedSections; i++)
 	{
