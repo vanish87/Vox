@@ -37,9 +37,9 @@
 * ~~Add blur shader.~~
 * ~~Implement MSAA (or other AA) in glsl shader.~~
 * ~~Convert shadow rendering calls to use renderer - remove GL from gamecode.~~
+* ~~Add LUA bindings.~~
 * Switch over to using glm maths lib.
 * Enable cross platform compiling and support, linux, mac
 * Solution to allow for running the exe from Visual studio, because atm the working directory needs to be ../
 * Convert shaders over to be more unified.
 * Add audio and music playback.
-* Add LUA bindings.
