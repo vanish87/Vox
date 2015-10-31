@@ -297,38 +297,7 @@ void VoxGame::CharacterPullDownChanged()
 		m_pPlayer->UnloadWeapon(false);
 		m_pPlayer->UnloadWeapon(true);
 
-		if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Steve") == 0)
-		{
-			m_pPlayer->LoadCharacter("Steve");
-		}
-		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Mage") == 0)
-		{
-			m_pPlayer->LoadCharacter("Mage");
-		}
-		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Warrior") == 0)
-		{
-			m_pPlayer->LoadCharacter("Warrior");
-		}
-		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Necromancer") == 0)
-		{
-			m_pPlayer->LoadCharacter("Necromancer");
-		}
-		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Priest") == 0)
-		{
-			m_pPlayer->LoadCharacter("Priest");
-		}
-		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Paladin") == 0)
-		{
-			m_pPlayer->LoadCharacter("Paladin");
-		}
-		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Druid") == 0)
-		{
-			m_pPlayer->LoadCharacter("Druid");
-		}
-		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "TreeElemental") == 0)
-		{
-			m_pPlayer->LoadCharacter("TreeElemental");
-		}
+		m_pPlayer->LoadCharacter(pMenuItem->GetLabel().GetText().c_str());
 
 		WeaponPullDownChanged();
 		AnimationPullDownChanged();
