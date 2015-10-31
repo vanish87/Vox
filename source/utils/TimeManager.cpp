@@ -20,8 +20,6 @@
 
 #include <stdio.h>
 
-#pragma comment (lib, "Winmm.lib")
-
 
 // Initialize the singleton instance
 TimeManager *TimeManager::c_instance = 0;
