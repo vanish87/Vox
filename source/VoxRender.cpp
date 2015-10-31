@@ -45,6 +45,9 @@ void VoxGame::Render()
 			// Set back culling as default
 			m_pRenderer->SetCullMode(CM_BACK);
 
+			// Set default depth test
+			m_pRenderer->EnableDepthTest(DT_LESS);
+
 			// Set the lookat camera
 			m_pGameCamera->Look();
 
