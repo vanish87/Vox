@@ -67,8 +67,12 @@ void VoxGame::CreateGUI()
 	m_pWeaponsPulldown->AddPulldownItem("Sword");
 	m_pWeaponsPulldown->AddPulldownItem("Sword & Shield");
 	m_pWeaponsPulldown->AddPulldownItem("2 Handed Sword");
+	m_pWeaponsPulldown->AddPulldownItem("Hammer");
 	m_pWeaponsPulldown->AddPulldownItem("Bow");
 	m_pWeaponsPulldown->AddPulldownItem("Staff");
+	m_pWeaponsPulldown->AddPulldownItem("DruidStaff");
+	m_pWeaponsPulldown->AddPulldownItem("PriestStaff");
+	m_pWeaponsPulldown->AddPulldownItem("NecroStaff");
 	m_pWeaponsPulldown->AddPulldownItem("Torch");
 	m_pWeaponsPulldown->AddPulldownItem("Magic");
 
@@ -85,6 +89,7 @@ void VoxGame::CreateGUI()
 	m_pCharacterPulldown->AddPulldownItem("Necromancer");
 	m_pCharacterPulldown->AddPulldownItem("Priest");
 	m_pCharacterPulldown->AddPulldownItem("Paladin");
+	m_pCharacterPulldown->AddPulldownItem("Druid");
 	m_pCharacterPulldown->AddPulldownItem("TreeElemental");
 
 	m_pMainWindow->AddComponent(m_pShadowsCheckBox);
@@ -240,6 +245,10 @@ void VoxGame::WeaponPullDownChanged()
 		{
 			m_pPlayer->GetVoxelCharacter()->LoadRightWeapon("media/gamedata/weapons/2HandedSword/2HandedSword.weapon");
 		}
+		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Hammer") == 0)
+		{
+			m_pPlayer->GetVoxelCharacter()->LoadRightWeapon("media/gamedata/weapons/Hammer/Hammer.weapon");
+		}
 		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Bow") == 0)
 		{
 			m_pPlayer->GetVoxelCharacter()->LoadLeftWeapon("media/gamedata/weapons/Bow/Bow.weapon");
@@ -247,6 +256,18 @@ void VoxGame::WeaponPullDownChanged()
 		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Staff") == 0)
 		{
 			m_pPlayer->GetVoxelCharacter()->LoadRightWeapon("media/gamedata/weapons/Staff/Staff.weapon");
+		}
+		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "DruidStaff") == 0)
+		{
+			m_pPlayer->GetVoxelCharacter()->LoadRightWeapon("media/gamedata/weapons/DruidStaff/DruidStaff.weapon");
+		}
+		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "PriestStaff") == 0)
+		{
+			m_pPlayer->GetVoxelCharacter()->LoadRightWeapon("media/gamedata/weapons/PriestStaff/PriestStaff.weapon");
+		}
+		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "NecroStaff") == 0)
+		{
+			m_pPlayer->GetVoxelCharacter()->LoadRightWeapon("media/gamedata/weapons/NecroStaff/NecroStaff.weapon");
 		}
 		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Torch") == 0)
 		{
@@ -299,6 +320,10 @@ void VoxGame::CharacterPullDownChanged()
 		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Paladin") == 0)
 		{
 			m_pPlayer->LoadCharacter("Paladin");
+		}
+		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Druid") == 0)
+		{
+			m_pPlayer->LoadCharacter("Druid");
 		}
 		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "TreeElemental") == 0)
 		{
