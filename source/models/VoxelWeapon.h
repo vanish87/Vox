@@ -132,7 +132,6 @@ public:
 	vec3 m_endOffsetPoint;
 	int m_trailNextAddIndex;
 	float m_nextTrailTimer;
-	float m_nextTrailTime;
 	Colour m_trailColour;
 	Matrix4x4 m_origin;
 	float m_parentScale;

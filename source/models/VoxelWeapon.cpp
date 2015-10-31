@@ -271,7 +271,6 @@ void VoxelWeapon::LoadWeapon(const char *weaponFilename, bool useManager)
 			m_pWeaponTrails[i].m_parentScale = 1.0f;
 			m_pWeaponTrails[i].m_trailNextAddIndex = 0;
 			m_pWeaponTrails[i].m_nextTrailTimer = 0.0f;
-			m_pWeaponTrails[i].m_nextTrailTime = 0.00001f;
 			for(int point = 0; point < m_pWeaponTrails[i].m_numTrailPoints; point++)
 			{
 				m_pWeaponTrails[i].m_pTrailPoints[point].m_pointActive = false;
@@ -442,8 +441,7 @@ void VoxelWeapon::StartWeaponTrails()
 	for(int i = 0; i < m_numWeaponTrails; i++)
 	{
 		m_pWeaponTrails[i].m_trailNextAddIndex = 0;
-		m_pWeaponTrails[i].m_nextTrailTime = 0.00001f;
-		m_pWeaponTrails[i].m_nextTrailTimer = m_pWeaponTrails[i].m_nextTrailTime;
+		m_pWeaponTrails[i].m_nextTrailTimer = 0.00001f;
 		for(int point = 0; point < m_pWeaponTrails[i].m_numTrailPoints; point++)
 		{
 			m_pWeaponTrails[i].m_pTrailPoints[point].m_pointActive = false;
@@ -735,7 +733,7 @@ void VoxelWeapon::UpdateWeaponTrails(float dt, Matrix4x4 originMatrix, float sca
 
 		if(m_pWeaponTrails[i].m_nextTrailTimer <= 0.0f)
 		{
-			m_pWeaponTrails[i].m_nextTrailTimer = m_pWeaponTrails[i].m_nextTrailTime;
+			m_pWeaponTrails[i].m_nextTrailTimer = 0.00001f;
 
 			m_pWeaponTrails[i].m_trailNextAddIndex++;
 			if(m_pWeaponTrails[i].m_trailNextAddIndex == m_pWeaponTrails[i].m_numTrailPoints)
