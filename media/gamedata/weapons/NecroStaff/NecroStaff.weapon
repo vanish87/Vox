@@ -27,16 +27,10 @@ rotationXTurnSpeed 0
 rotationYTurnSpeed 0
 rotationZTurnSpeed 0
 
-numLights: 2
-lightOffset: 1.0 15.0 2.0
-lightRadius: 4.0
-lightDiffuseMultiplier: 2.0
-lightColour: 1.0 0.0 0.0 1.0
-connectedToSection: -1
-
-lightOffset: -2.0 15.0 2.0
-lightRadius: 4.0
-lightDiffuseMultiplier: 2.0
+numLights: 1
+lightOffset: 0.0 15.0 5.0
+lightRadius: 25.0
+lightDiffuseMultiplier: 1.0
 lightColour: 1.0 0.0 0.0 1.0
 connectedToSection: -1
 
