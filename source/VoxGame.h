@@ -201,6 +201,7 @@ private:
 	CheckBox* m_pDeferredCheckBox;
 	CheckBox* m_pUpdateCheckBox;
 	CheckBox* m_pBlurCheckBox;
+	CheckBox* m_pDebugRenderCheckBox;
 	Button* m_pFullscreenButton;
 	Button* m_pPlayAnimationButton;
 	PulldownMenu* m_pAnimationsPulldown;
@@ -218,6 +219,7 @@ private:
 	bool m_dynamicLighting;
 	bool m_animationUpdate;
 	bool m_fullscreen;
+	bool m_debugRender;
 
 	// Singleton instance
 	static VoxGame *c_instance;

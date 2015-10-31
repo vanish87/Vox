@@ -140,6 +140,7 @@ void VoxGame::Create()
 	m_dynamicLighting = true;
 	m_animationUpdate = true;
 	m_fullscreen = false;
+	m_debugRender = false;
 }
 
 // Destruction

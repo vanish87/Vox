@@ -38,6 +38,10 @@ void VoxGame::CreateGUI()
 	m_pUpdateCheckBox->SetDimensions(130, 40, 14, 14);
 	m_pUpdateCheckBox->SetToggled(true);
 
+	m_pDebugRenderCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "DebugRender");
+	m_pDebugRenderCheckBox->SetDimensions(210, 10, 14, 14);
+	m_pDebugRenderCheckBox->SetToggled(false);
+
 	m_pFullscreenButton = new Button(m_pRenderer, m_defaultFont, "FullScreen");
 	m_pFullscreenButton->SetDimensions(110, 10, 80, 20);
 	m_pFullscreenButton->SetCallBackFunction(_ToggleFullScreenPressed);
@@ -100,6 +104,7 @@ void VoxGame::CreateGUI()
 	m_pMainWindow->AddComponent(m_pMSAACheckBox);
 	m_pMainWindow->AddComponent(m_pDeferredCheckBox);
 	m_pMainWindow->AddComponent(m_pUpdateCheckBox);
+	m_pMainWindow->AddComponent(m_pDebugRenderCheckBox);
 	m_pMainWindow->AddComponent(m_pFullscreenButton);
 	m_pMainWindow->AddComponent(m_pPlayAnimationButton);
 	m_pMainWindow->AddComponent(m_pAnimationsPulldown);
@@ -122,6 +127,7 @@ void VoxGame::DestroyGUI()
 	delete m_pMSAACheckBox;
 	delete m_pDeferredCheckBox;
 	delete m_pUpdateCheckBox;
+	delete m_pDebugRenderCheckBox;
 	delete m_pFullscreenButton;
 	delete m_pPlayAnimationButton;
 	delete m_pAnimationsPulldown;
@@ -139,6 +145,7 @@ void VoxGame::UpdateGUI(float dt)
 	m_multiSampling = m_pMSAACheckBox->GetToggled();
 	m_deferredRendering = m_pDeferredCheckBox->GetToggled();
 	m_animationUpdate = m_pUpdateCheckBox->GetToggled();
+	m_debugRender = m_pDebugRenderCheckBox->GetToggled();
 
 	if (m_deferredRendering)
 	{

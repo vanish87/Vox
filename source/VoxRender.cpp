@@ -94,7 +94,10 @@ void VoxGame::Render()
 			m_pRenderer->EndGLSLShader(m_shadowShader);
 
 			// Debug rendering
-			//m_pLightingManager->DebugRender();
+			if(m_debugRender)
+			{
+				m_pLightingManager->DebugRender();
+			}
 		m_pRenderer->PopMatrix();
 
 		// Render the deferred lighting pass
