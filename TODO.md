@@ -43,3 +43,4 @@
 * Solution to allow for running the exe from Visual studio, because atm the working directory needs to be ../
 * Convert shaders over to be more unified.
 * Add audio and music playback.
+* Add gamepad support.
