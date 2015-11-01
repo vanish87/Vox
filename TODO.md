@@ -44,3 +44,4 @@
 * Convert shaders over to be more unified.
 * Add audio and music playback.
 * Add gamepad support.
+* Make weapons trails time based, rather than "numpoints" based, better weapon trail alpha rendering.
