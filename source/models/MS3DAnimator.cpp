@@ -359,6 +359,14 @@ float MS3DAnimator::GetAnimationTimer()
 	return (float)m_timer;
 }
 
+int MS3DAnimator::GetNumKeyframes()
+{
+	Joint *pJoint = &(mpModel->pJoints[0]);
+	int numFrames = pJoint->numTranslationKeyframes;
+
+	return numFrames;
+}
+
 void MS3DAnimator::StartBlendAnimation(int startIndex, int endIndex, float blendTime)
 {
 	m_bBlending = true;

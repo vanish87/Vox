@@ -74,6 +74,7 @@ public:
 	int GetCurrentFrame();
 
 	float GetAnimationTimer();
+	int GetNumKeyframes();
 
 	// Blending
 	void StartBlendAnimation(int startIndex, int endIndex, float blendTime);
