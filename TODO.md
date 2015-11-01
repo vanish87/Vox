@@ -45,3 +45,4 @@
 * Convert shaders over to be more unified.
 * Add audio and music playback.
 * Add gamepad support.
+* Allow camera rotations around world coordinates, so 'upside down' doesnt happen.
