@@ -356,7 +356,7 @@ int MS3DAnimator::GetCurrentFrame()
 
 float MS3DAnimator::GetAnimationTimer()
 {
-	return m_timer;
+	return (float)m_timer;
 }
 
 void MS3DAnimator::StartBlendAnimation(int startIndex, int endIndex, float blendTime)
