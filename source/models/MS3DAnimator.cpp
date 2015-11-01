@@ -354,6 +354,11 @@ int MS3DAnimator::GetCurrentFrame()
 	return frame;
 }
 
+float MS3DAnimator::GetAnimationTimer()
+{
+	return m_timer;
+}
+
 void MS3DAnimator::StartBlendAnimation(int startIndex, int endIndex, float blendTime)
 {
 	m_bBlending = true;
@@ -585,6 +590,7 @@ Matrix4x4 MS3DAnimator::GetBoneMatrix(int index)
 	return final;
 }
 
+// Update
 void MS3DAnimator::Update(float dt)
 {
 	if(m_bBlending)
@@ -820,6 +826,7 @@ void MS3DAnimator::UpdateBlending(float dt)
 	}
 }
 
+// Rendering
 void MS3DAnimator::Render(bool lMesh, bool lNormals, bool lBones, bool lBoundingBox)
 {
 	if(lMesh)
