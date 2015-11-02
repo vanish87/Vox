@@ -18,7 +18,7 @@ void VoxGame::CreateGUI()
 	m_pShadowsCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Shadows");
 	m_pShadowsCheckBox->SetDimensions(10, 28, 14, 14);
 	m_pShadowsCheckBox->SetToggled(true);
-	m_pMSAACheckBox = new CheckBox(m_pRenderer, m_defaultFont, "MSAA");
+	m_pMSAACheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Anti-Aliasing");
 	m_pMSAACheckBox->SetDimensions(10, 46, 14, 14);
 	m_pMSAACheckBox->SetToggled(true);
 	m_pDynamicLightingCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Lighting");
