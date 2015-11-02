@@ -41,9 +41,10 @@
 * ~~Make weapons trails time based, rather than "numpoints" based, better weapon trail alpha rendering.~~
 * ~~Switch over to using glm maths lib.~~
 * ~~Solution to allow for running the exe from Visual studio, because atm the working directory needs to be ../~~
+* ~~Textures on GUI.~~
+* ~~Frontend manager for textures and common GUI objects.~~
 * Enable cross platform compiling and support, linux, mac
 * Convert shaders over to be more unified.
 * Add audio and music playback.
 * Add gamepad support.
 * Allow camera rotations around world coordinates, so 'upside down' doesnt happen.
-* Textures on GUI.
