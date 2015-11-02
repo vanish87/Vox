@@ -96,6 +96,9 @@ void VoxGame::Create()
 	m_pRenderer->LoadGLSLShader("media/shaders/fullscreen/blur_vertical.vertex", "media/shaders/fullscreen/blur_vertical.pixel", &m_blurVerticalShader);
 	m_pRenderer->LoadGLSLShader("media/shaders/fullscreen/blur_horizontal.vertex", "media/shaders/fullscreen/blur_horizontal.pixel", &m_blurHorizontalShader);
 
+	/* Create the chunk manager*/
+	m_pChunkManager = new ChunkManager(m_pRenderer);
+
 	/* Create the qubicle binary file manager */
 	m_pQubicleBinaryManager = new QubicleBinaryManager(m_pRenderer);
 
@@ -108,8 +111,12 @@ void VoxGame::Create()
 	/* Create the player */
 	m_pPlayer = new Player(m_pRenderer, m_pQubicleBinaryManager, m_pLightingManager, m_pBlockParticleManager);
 
+	/* Create the frontend manager */
+	m_pFrontendManager = new FrontendManager(m_pRenderer);
+
 	/* Create the GUI components */
 	CreateGUI();
+	SkinGUI();
 
 	// Keyboard movement
 	m_bKeyboardForward = false;
@@ -153,6 +160,7 @@ void VoxGame::Destroy()
 		delete m_pPlayer;
 		delete m_pQubicleBinaryManager;
 		delete m_pChunkManager;
+		delete m_pFrontendManager;
 		delete m_pGameCamera;
 		DestroyGUI();
 		delete m_pGUI;

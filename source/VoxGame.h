@@ -7,6 +7,7 @@
 #include "Particles/BlockParticleManager.h"
 #include "Player/Player.h"
 #include "blocks/ChunkManager.h"
+#include "frontend/FrontendManager.h"
 
 #include "VoxApplication.h"
 #include "VoxWindow.h"
@@ -21,6 +22,7 @@ public:
 	// Creation
 	void Create();
 	void CreateGUI();
+	void SkinGUI();
 
 	// Destruction
 	void Destroy();
@@ -130,6 +132,9 @@ private:
 
 	// Block particle manager
 	BlockParticleManager* m_pBlockParticleManager;
+
+	// Frontend manager
+	FrontendManager* m_pFrontendManager;
 
 	// Window width and height
 	int m_windowWidth;

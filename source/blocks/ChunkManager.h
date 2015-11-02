@@ -15,6 +15,8 @@
 
 #pragma once
 
+#include "../Renderer/Renderer.h"
+
 #include "Chunk.h"
 
 
@@ -22,7 +24,7 @@ class ChunkManager
 {
 public:
 	/* Public methods */
-	ChunkManager();
+	ChunkManager(Renderer* pRenderer);
 	~ChunkManager();
 
 	// Updating
@@ -45,4 +47,5 @@ protected:
 
 private:
 	/* Private members */
+	Renderer* m_pRenderer;
 };

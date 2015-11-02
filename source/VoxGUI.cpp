@@ -33,11 +33,9 @@ void VoxGame::CreateGUI()
 	m_pDeferredCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Deferred");
 	m_pDeferredCheckBox->SetDimensions(10, 118, 14, 14);
 	m_pDeferredCheckBox->SetToggled(true);
-
 	m_pUpdateCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Update");
 	m_pUpdateCheckBox->SetDimensions(130, 40, 14, 14);
 	m_pUpdateCheckBox->SetToggled(true);
-
 	m_pDebugRenderCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "DebugRender");
 	m_pDebugRenderCheckBox->SetDimensions(210, 10, 14, 14);
 	m_pDebugRenderCheckBox->SetToggled(false);
@@ -114,6 +112,82 @@ void VoxGame::CreateGUI()
 	m_pGUI->AddWindow(m_pMainWindow);
 
 	UpdateAnimationsPulldown();
+}
+
+void VoxGame::SkinGUI()
+{
+	m_pShadowsCheckBox->SetDefaultIcon(m_pFrontendManager->GetCheckboxIcon());
+	m_pShadowsCheckBox->SetHoverIcon(m_pFrontendManager->GetCheckboxIconHover());
+	m_pShadowsCheckBox->SetSelectedIcon(m_pFrontendManager->GetCheckboxIconPressed());
+	m_pShadowsCheckBox->SetDisabledIcon(m_pFrontendManager->GetCheckboxIconDisabled());
+	m_pShadowsCheckBox->SetToggledIcon(m_pFrontendManager->GetCheckboxIconToggled());
+	m_pShadowsCheckBox->SetToggledHoverIcon(m_pFrontendManager->GetCheckboxIconToggledHover());
+	m_pShadowsCheckBox->SetToggledSelectedIcon(m_pFrontendManager->GetCheckboxIconToggledPressed());
+	m_pShadowsCheckBox->SetToggledDisabledIcon(m_pFrontendManager->GetCheckboxIconToggledDisabled());
+	m_pMSAACheckBox->SetDefaultIcon(m_pFrontendManager->GetCheckboxIcon());
+	m_pMSAACheckBox->SetHoverIcon(m_pFrontendManager->GetCheckboxIconHover());
+	m_pMSAACheckBox->SetSelectedIcon(m_pFrontendManager->GetCheckboxIconPressed());
+	m_pMSAACheckBox->SetDisabledIcon(m_pFrontendManager->GetCheckboxIconDisabled());
+	m_pMSAACheckBox->SetToggledIcon(m_pFrontendManager->GetCheckboxIconToggled());
+	m_pMSAACheckBox->SetToggledHoverIcon(m_pFrontendManager->GetCheckboxIconToggledHover());
+	m_pMSAACheckBox->SetToggledSelectedIcon(m_pFrontendManager->GetCheckboxIconToggledPressed());
+	m_pMSAACheckBox->SetToggledDisabledIcon(m_pFrontendManager->GetCheckboxIconToggledDisabled());
+	m_pDynamicLightingCheckBox->SetDefaultIcon(m_pFrontendManager->GetCheckboxIcon());
+	m_pDynamicLightingCheckBox->SetHoverIcon(m_pFrontendManager->GetCheckboxIconHover());
+	m_pDynamicLightingCheckBox->SetSelectedIcon(m_pFrontendManager->GetCheckboxIconPressed());
+	m_pDynamicLightingCheckBox->SetDisabledIcon(m_pFrontendManager->GetCheckboxIconDisabled());
+	m_pDynamicLightingCheckBox->SetToggledIcon(m_pFrontendManager->GetCheckboxIconToggled());
+	m_pDynamicLightingCheckBox->SetToggledHoverIcon(m_pFrontendManager->GetCheckboxIconToggledHover());
+	m_pDynamicLightingCheckBox->SetToggledSelectedIcon(m_pFrontendManager->GetCheckboxIconToggledPressed());
+	m_pDynamicLightingCheckBox->SetToggledDisabledIcon(m_pFrontendManager->GetCheckboxIconToggledDisabled());
+	m_pSSAOCheckBox->SetDefaultIcon(m_pFrontendManager->GetCheckboxIcon());
+	m_pSSAOCheckBox->SetHoverIcon(m_pFrontendManager->GetCheckboxIconHover());
+	m_pSSAOCheckBox->SetSelectedIcon(m_pFrontendManager->GetCheckboxIconPressed());
+	m_pSSAOCheckBox->SetDisabledIcon(m_pFrontendManager->GetCheckboxIconDisabled());
+	m_pSSAOCheckBox->SetToggledIcon(m_pFrontendManager->GetCheckboxIconToggled());
+	m_pSSAOCheckBox->SetToggledHoverIcon(m_pFrontendManager->GetCheckboxIconToggledHover());
+	m_pSSAOCheckBox->SetToggledSelectedIcon(m_pFrontendManager->GetCheckboxIconToggledPressed());
+	m_pSSAOCheckBox->SetToggledDisabledIcon(m_pFrontendManager->GetCheckboxIconToggledDisabled());
+	m_pBlurCheckBox->SetDefaultIcon(m_pFrontendManager->GetCheckboxIcon());
+	m_pBlurCheckBox->SetHoverIcon(m_pFrontendManager->GetCheckboxIconHover());
+	m_pBlurCheckBox->SetSelectedIcon(m_pFrontendManager->GetCheckboxIconPressed());
+	m_pBlurCheckBox->SetDisabledIcon(m_pFrontendManager->GetCheckboxIconDisabled());
+	m_pBlurCheckBox->SetToggledIcon(m_pFrontendManager->GetCheckboxIconToggled());
+	m_pBlurCheckBox->SetToggledHoverIcon(m_pFrontendManager->GetCheckboxIconToggledHover());
+	m_pBlurCheckBox->SetToggledSelectedIcon(m_pFrontendManager->GetCheckboxIconToggledPressed());
+	m_pBlurCheckBox->SetToggledDisabledIcon(m_pFrontendManager->GetCheckboxIconToggledDisabled());
+	m_pDeferredCheckBox->SetDefaultIcon(m_pFrontendManager->GetCheckboxIcon());
+	m_pDeferredCheckBox->SetHoverIcon(m_pFrontendManager->GetCheckboxIconHover());
+	m_pDeferredCheckBox->SetSelectedIcon(m_pFrontendManager->GetCheckboxIconPressed());
+	m_pDeferredCheckBox->SetDisabledIcon(m_pFrontendManager->GetCheckboxIconDisabled());
+	m_pDeferredCheckBox->SetToggledIcon(m_pFrontendManager->GetCheckboxIconToggled());
+	m_pDeferredCheckBox->SetToggledHoverIcon(m_pFrontendManager->GetCheckboxIconToggledHover());
+	m_pDeferredCheckBox->SetToggledSelectedIcon(m_pFrontendManager->GetCheckboxIconToggledPressed());
+	m_pDeferredCheckBox->SetToggledDisabledIcon(m_pFrontendManager->GetCheckboxIconToggledDisabled());
+	m_pWireframeCheckBox->SetDefaultIcon(m_pFrontendManager->GetCheckboxIcon());
+	m_pWireframeCheckBox->SetHoverIcon(m_pFrontendManager->GetCheckboxIconHover());
+	m_pWireframeCheckBox->SetSelectedIcon(m_pFrontendManager->GetCheckboxIconPressed());
+	m_pWireframeCheckBox->SetDisabledIcon(m_pFrontendManager->GetCheckboxIconDisabled());
+	m_pWireframeCheckBox->SetToggledIcon(m_pFrontendManager->GetCheckboxIconToggled());
+	m_pWireframeCheckBox->SetToggledHoverIcon(m_pFrontendManager->GetCheckboxIconToggledHover());
+	m_pWireframeCheckBox->SetToggledSelectedIcon(m_pFrontendManager->GetCheckboxIconToggledPressed());
+	m_pWireframeCheckBox->SetToggledDisabledIcon(m_pFrontendManager->GetCheckboxIconToggledDisabled());
+	m_pUpdateCheckBox->SetDefaultIcon(m_pFrontendManager->GetCheckboxIcon());
+	m_pUpdateCheckBox->SetHoverIcon(m_pFrontendManager->GetCheckboxIconHover());
+	m_pUpdateCheckBox->SetSelectedIcon(m_pFrontendManager->GetCheckboxIconPressed());
+	m_pUpdateCheckBox->SetDisabledIcon(m_pFrontendManager->GetCheckboxIconDisabled());
+	m_pUpdateCheckBox->SetToggledIcon(m_pFrontendManager->GetCheckboxIconToggled());
+	m_pUpdateCheckBox->SetToggledHoverIcon(m_pFrontendManager->GetCheckboxIconToggledHover());
+	m_pUpdateCheckBox->SetToggledSelectedIcon(m_pFrontendManager->GetCheckboxIconToggledPressed());
+	m_pUpdateCheckBox->SetToggledDisabledIcon(m_pFrontendManager->GetCheckboxIconToggledDisabled());
+	m_pDebugRenderCheckBox->SetDefaultIcon(m_pFrontendManager->GetCheckboxIcon());
+	m_pDebugRenderCheckBox->SetHoverIcon(m_pFrontendManager->GetCheckboxIconHover());
+	m_pDebugRenderCheckBox->SetSelectedIcon(m_pFrontendManager->GetCheckboxIconPressed());
+	m_pDebugRenderCheckBox->SetDisabledIcon(m_pFrontendManager->GetCheckboxIconDisabled());
+	m_pDebugRenderCheckBox->SetToggledIcon(m_pFrontendManager->GetCheckboxIconToggled());
+	m_pDebugRenderCheckBox->SetToggledHoverIcon(m_pFrontendManager->GetCheckboxIconToggledHover());
+	m_pDebugRenderCheckBox->SetToggledSelectedIcon(m_pFrontendManager->GetCheckboxIconToggledPressed());
+	m_pDebugRenderCheckBox->SetToggledDisabledIcon(m_pFrontendManager->GetCheckboxIconToggledDisabled());
 }
 
 void VoxGame::DestroyGUI()

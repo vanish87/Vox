@@ -16,9 +16,9 @@
 #include "ChunkManager.h"
 
 
-ChunkManager::ChunkManager()
+ChunkManager::ChunkManager(Renderer* pRenderer)
 {
-
+	m_pRenderer = pRenderer;
 }
 
 ChunkManager::~ChunkManager()
