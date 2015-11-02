@@ -20,6 +20,7 @@ void VoxGame::Create()
 	m_pGameCamera = NULL;
 	m_pQubicleBinaryManager = NULL;
 	m_pPlayer = NULL;
+	m_pChunkManager = NULL;
 
 	m_pVoxApplication = new VoxApplication();
 	m_pVoxWindow = new VoxWindow();
@@ -151,6 +152,7 @@ void VoxGame::Destroy()
 		delete m_pLightingManager;
 		delete m_pPlayer;
 		delete m_pQubicleBinaryManager;
+		delete m_pChunkManager;
 		delete m_pGameCamera;
 		DestroyGUI();
 		delete m_pGUI;

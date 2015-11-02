@@ -1,6 +1,6 @@
 // ******************************************************************************
 //
-// Filename:	ChunkManager.h
+// Filename:	Chunk.h
 // Project:		Game
 // Author:		Steven Ball
 //
@@ -15,15 +15,13 @@
 
 #pragma once
 
-#include "Chunk.h"
 
-
-class ChunkManager
+class Chunk
 {
 public:
 	/* Public methods */
-	ChunkManager();
-	~ChunkManager();
+	Chunk();
+	~Chunk();
 
 	// Updating
 	void Update(float dt);

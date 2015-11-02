@@ -85,6 +85,9 @@ void VoxGame::Render()
 			// Render world
 			RenderWorld();
 
+			// Render the chunks
+			m_pChunkManager->Render();
+
 			// Render the player
 			m_pPlayer->Render();
 
@@ -196,6 +199,9 @@ void VoxGame::RenderShadows()
 
 		m_pRenderer->PushMatrix();
 			m_pRenderer->SetCullMode(CM_FRONT);
+
+			// Render the chunks
+			m_pChunkManager->Render();
 
 			// Render the player
 			m_pPlayer->Render();

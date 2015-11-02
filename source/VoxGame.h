@@ -6,6 +6,7 @@
 #include "Lighting/LightingManager.h"
 #include "Particles/BlockParticleManager.h"
 #include "Player/Player.h"
+#include "blocks/ChunkManager.h"
 
 #include "VoxApplication.h"
 #include "VoxWindow.h"
@@ -120,6 +121,9 @@ private:
 	
 	// Player
 	Player* m_pPlayer;
+
+	// Chunk manager
+	ChunkManager* m_pChunkManager;
 
 	// Lighting manager
 	LightingManager* m_pLightingManager;

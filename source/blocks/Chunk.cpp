@@ -13,26 +13,26 @@
 //
 // ******************************************************************************
 
-#include "ChunkManager.h"
+#include "Chunk.h"
 
 
-ChunkManager::ChunkManager()
+Chunk::Chunk()
 {
 
 }
 
-ChunkManager::~ChunkManager()
+Chunk::~Chunk()
 {
 }
 
 // Updating
-void ChunkManager::Update(float dt)
+void Chunk::Update(float dt)
 {
 
 }
 
 // Rendering
-void ChunkManager::Render()
+void Chunk::Render()
 {
 
 }

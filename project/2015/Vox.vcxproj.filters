@@ -435,6 +435,9 @@
     <ClCompile Include="..\..\source\blocks\ChunkManager.cpp">
       <Filter>source\blocks</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\blocks\Chunk.cpp">
+      <Filter>source\blocks</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\glew\include\GL\glew.h">
@@ -1266,6 +1269,9 @@
       <Filter>source\lua</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\blocks\ChunkManager.h">
+      <Filter>source\blocks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\blocks\Chunk.h">
       <Filter>source\blocks</Filter>
     </ClInclude>
   </ItemGroup>

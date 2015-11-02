@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+	<ClCompile Include="..\..\source\blocks\Chunk.cpp" />
     <ClCompile Include="..\..\source\blocks\ChunkManager.cpp" />
     <ClCompile Include="..\..\source\freetype\freetypefont.cpp" />
     <ClCompile Include="..\..\source\glew\src\glew.c" />
@@ -143,6 +144,7 @@
     <ClCompile Include="..\..\source\VoxWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+	<ClCompile Include="..\..\source\blocks\Chunk.h" />
     <ClInclude Include="..\..\source\blocks\ChunkManager.h" />
     <ClInclude Include="..\..\source\freetype\freetypefont.h" />
     <ClInclude Include="..\..\source\glew\include\GL\glew.h" />
