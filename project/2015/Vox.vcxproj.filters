@@ -64,6 +64,9 @@
     <Filter Include="source\lua">
       <UniqueIdentifier>{be51f68a-b2f4-4685-894b-27912a514148}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\blocks">
+      <UniqueIdentifier>{c29d2a5c-f3db-474d-802b-aea1c407098a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\glew\src\glew.c">
@@ -428,6 +431,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\lua\lparser.c">
       <Filter>source\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\blocks\ChunkManager.cpp">
+      <Filter>source\blocks</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1258,6 +1264,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\lua\lparser.h">
       <Filter>source\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\blocks\ChunkManager.h">
+      <Filter>source\blocks</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

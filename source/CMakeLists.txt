@@ -22,6 +22,9 @@ add_subdirectory(renderer)
 add_subdirectory(gui)
 add_subdirectory(glm)
 add_subdirectory(player)
+add_subdirectory(blocks)
+add_subdirectory(lua)
+add_subdirectory(selene)
 
 source_group("source" FILES ${SRCS})
 source_group("source\\utils" FILES ${UTIL_SRCS})
@@ -39,6 +42,10 @@ source_group("source\\glm\\detail" FILES ${GLM_DETAIL_SRCS})
 source_group("source\\glm\\gtc" FILES ${GLM_GTC_SRCS})
 source_group("source\\glm\\gtx" FILES ${GLM_GTX_SRCS})
 source_group("source\\player" FILES ${PLAYER_SRCS})
+source_group("source\\blocks" FILES ${BLOCKS_SRCS})
+source_group("source\\lua" FILES ${LUA_SRCS})
+source_group("source\\selene" FILES ${SELENE_HEADERS})
+source_group("source\\selene\\selene" FILES ${SELENE_SRCS})
 
 add_executable(Vox
                ${SRCS}
@@ -56,12 +63,18 @@ add_executable(Vox
                ${GLM_DETAIL_SRCS}
                ${GLM_GTC_SRCS}
                ${GLM_GTX_SRCS}
-               ${PLAYER_SRCS})
+               ${PLAYER_SRCS}
+			   ${BLOCKS_SRCS}
+			   ${LUA_SRCS}
+			   ${SELENE_HEADERS}
+			   ${SELENE_SRCS})
 
 include_directories(".")			   
 include_directories("glfw\\include")
 include_directories("glew\\include")
 include_directories("freetype\\include")
+include_directories("lua")
+include_directories("selene")
 
 target_link_libraries(Vox "opengl32.lib")
 target_link_libraries(Vox "winmm.lib")
