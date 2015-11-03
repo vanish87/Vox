@@ -49,3 +49,7 @@
 * Convert shaders over to be more unified.
 * Add audio and music playback.
 * Add gamepad support.
+* Add scenery manager.
+* Create basic front-end
+* Add in character creator.
+* Add voxel editor.
