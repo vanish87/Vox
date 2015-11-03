@@ -45,7 +45,7 @@ looping: 0
 startFrame: 53
 endFrame: 65
 blendFrame: 53
-startRightWeaponTrail: 56
+startRightWeaponTrail: 58
 endRightWeaponTrail: 62
 startLeftWeaponTrail: 0
 endLeftWeaponTrail: 0
