@@ -20,6 +20,7 @@ public:
 	const vec3 GetFacing()const { return vec3(m_facing.x, m_facing.y, m_facing.z); }
 	const vec3 GetUp() const { return m_up; }
 	const vec3 GetRight() const { return m_right; }
+	const vec3 GetView() const { return (m_position + (m_facing*m_zoomAmount)); }
 	const float GetZoomAmount() const { return m_zoomAmount; }
 
 	// Camera movement
@@ -29,6 +30,7 @@ public:
 	void Strafe(const float speed);
 	void Rotate(const float xAmount, const float yAmount, const float zAmount);
 	void RotateAroundPoint(const float xAmount, const float yAmount, const float zAmount);
+	void RotateAroundPointY(const float yAmount);
 	void Zoom(const float amount);
 
 	// Viewing
