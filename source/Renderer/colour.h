@@ -4,7 +4,7 @@
 // Author:    Steven Ball
 //
 // Purpose:
-//   A simple 4 float colour class
+//   A simple 4 float colour class.
 //
 // Revision History:
 //   Initial Revision - 26/03/06
