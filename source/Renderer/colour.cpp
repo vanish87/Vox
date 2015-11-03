@@ -1,3 +1,14 @@
+// ******************************************************************************
+// Filename:  Colour.cpp
+// Project:   Vox
+// Author:    Steven Ball
+//
+// Revision History:
+//   Initial Revision - 26/03/06
+//
+// Copyright (c) 2005-2015, Steven Ball
+// ******************************************************************************
+
 #include "colour.h"
 
 #include <cmath>
@@ -50,8 +61,8 @@ void Colour::RGBToHSV(float r, float g, float b, float *h, float *s, float *v)
 
 void Colour::HSVToRGB(float h, float s, float v, float *r, float *g, float *b)
 {
-    float      hh, p, q, t, ff;
-    long        i;
+    float hh, p, q, t, ff;
+    long i;
 
     if(s <= 0.0f) {       // < is bogus, just shuts up warnings
         if(h == _NAN) {   // h == NAN
