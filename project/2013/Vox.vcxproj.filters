@@ -441,9 +441,11 @@
     <ClCompile Include="..\..\source\lua\lzio.c">
       <Filter>source\lua</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\blocks\Chunk.h" />
     <ClCompile Include="..\..\source\frontend\FrontendManager.cpp">
       <Filter>source\frontend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\blocks\Chunk.h">
+      <Filter>source\blocks</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
