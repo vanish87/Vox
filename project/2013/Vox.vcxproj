@@ -19,9 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-	<ClCompile Include="..\..\source\blocks\Chunk.cpp" />
+    <ClCompile Include="..\..\source\blocks\Chunk.cpp" />
     <ClCompile Include="..\..\source\blocks\ChunkManager.cpp" />
     <ClCompile Include="..\..\source\freetype\freetypefont.cpp" />
+    <ClCompile Include="..\..\source\frontend\FrontendManager.cpp" />
     <ClCompile Include="..\..\source\glew\src\glew.c" />
     <ClCompile Include="..\..\source\glm\detail\dummy.cpp" />
     <ClCompile Include="..\..\source\glm\detail\glm.cpp" />
@@ -144,9 +145,10 @@
     <ClCompile Include="..\..\source\VoxWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
-	<ClCompile Include="..\..\source\blocks\Chunk.h" />
+    <ClCompile Include="..\..\source\blocks\Chunk.h" />
     <ClInclude Include="..\..\source\blocks\ChunkManager.h" />
     <ClInclude Include="..\..\source\freetype\freetypefont.h" />
+    <ClInclude Include="..\..\source\frontend\FrontendManager.h" />
     <ClInclude Include="..\..\source\glew\include\GL\glew.h" />
     <ClInclude Include="..\..\source\glew\include\GL\glxew.h" />
     <ClInclude Include="..\..\source\glew\include\GL\wglew.h" />
