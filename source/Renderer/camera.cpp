@@ -1,3 +1,14 @@
+// ******************************************************************************
+// Filename:  Camera.cpp
+// Project:   Vox
+// Author:    Steven Ball
+//
+// Revision History:
+//   Initial Revision - 03/11/15
+//
+// Copyright (c) 2005-2015, Steven Ball
+// ******************************************************************************
+
 #include <cmath>
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
