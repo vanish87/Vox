@@ -1,16 +1,16 @@
 // ******************************************************************************
-//
 // Filename:	Renderer.h
 // Project:		Game
 // Author:		Steven Ball
 //
 // Purpose:
+//   The OpenGL renderer that is an encapsulation of all the rendering
+//   functionality of the engine. A wrapper around most common OpenGL calls.
 //
 // Revision History:
 //   Initial Revision - 12/10/15
 //
 // Copyright (c) 2005-2015, Steven Ball
-//
 // ******************************************************************************
 
 #pragma once

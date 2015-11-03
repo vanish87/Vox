@@ -1,7 +1,16 @@
-// Juice Engine by Steven Ball
-// Texture - An OpenGL texture object
-// Created : 08/06/06
-// Edited  : 08/06/06
+// ******************************************************************************
+// Filename:  Texture.h
+// Project:   Vox
+// Author:    Steven Ball
+//
+// Purpose:
+//   An OpenGL texture object.
+//
+// Revision History:
+//   Initial Revision - 08/06/06
+//
+// Copyright (c) 2005-2015, Steven Ball
+// ******************************************************************************
 
 #pragma once
 

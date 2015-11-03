@@ -1,16 +1,16 @@
 // ******************************************************************************
-//
 // Filename:	Player.h
 // Project:		Vox
 // Author:		Steven Ball
 //
 // Purpose:
-//
+//   The player class contains all the functioanlity of a player, an entity that
+//   is controlled and can act within the world and game.
+// 
 // Revision History:
 //   Initial Revision - 27/10/15
 //
 // Copyright (c) 2005-2015, Steven Ball
-//
 // ******************************************************************************
 
 #pragma once

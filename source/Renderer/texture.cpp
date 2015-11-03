@@ -1,3 +1,14 @@
+// ******************************************************************************
+// Filename:  Texture.cpp
+// Project:   Vox
+// Author:    Steven Ball
+//
+// Revision History:
+//   Initial Revision - 08/06/06
+//
+// Copyright (c) 2005-2015, Steven Ball
+// ******************************************************************************
+
 #include "texture.h"
 #include "tga.h"
 

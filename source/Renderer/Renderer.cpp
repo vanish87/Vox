@@ -1,16 +1,12 @@
 // ******************************************************************************
-//
 // Filename:	Renderer.cpp
 // Project:		Vox
 // Author:		Steven Ball
-//
-// Purpose:
 //
 // Revision History:
 //   Initial Revision - 12/10/15
 //
 // Copyright (c) 2005-2015, Steven Ball
-//
 // ******************************************************************************
 
 #include "../glew/include/GL/glew.h"
