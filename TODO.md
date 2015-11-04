@@ -53,3 +53,5 @@
 * Create basic front-end
 * Add in character creator.
 * Add voxel editor.
+* Add full GUI skin textures and control to change 'theme' on GUI.
+* Add texture support for voxel blocks.
