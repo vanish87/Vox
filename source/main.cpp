@@ -16,6 +16,7 @@
 
 int main(void)
 {
+	/* Create and initialize VoxGame object */
 	VoxGame* m_pVoxGame = VoxGame::GetInstance();
 	m_pVoxGame->Create();
 
