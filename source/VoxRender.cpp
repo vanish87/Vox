@@ -156,7 +156,7 @@ void VoxGame::Render()
 	m_pRenderer->EndScene();
 
 
-	// Render the window
+	// Pass render call to the window class, allow to swap buffers
 	m_pVoxWindow->Render();
 }
 
