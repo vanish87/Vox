@@ -1,3 +1,17 @@
+// ******************************************************************************
+// Filename:	main.cpp
+// Project:		Vox
+// Author:		Steven Ball
+//
+// Purpose:
+//   The main entry point for the application.
+// 
+// Revision History:
+//   Initial Revision - 27/10/15
+//
+// Copyright (c) 2005-2015, Steven Ball
+// ******************************************************************************
+
 #include "VoxGame.h"
 
 int main(void)

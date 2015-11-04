@@ -1,3 +1,17 @@
+// ******************************************************************************
+// Filename:	VoxGame.h
+// Project:		Vox
+// Author:		Steven Ball
+//
+// Purpose:
+//   Vox game class.
+// 
+// Revision History:
+//   Initial Revision - 27/10/15
+//
+// Copyright (c) 2005-2015, Steven Ball
+// ******************************************************************************
+
 #pragma once
 
 #include "Renderer/Renderer.h"

@@ -1,6 +1,18 @@
+// ******************************************************************************
+// Filename:	VoxGame.cpp
+// Project:		Vox
+// Author:		Steven Ball
+// 
+// Revision History:
+//   Initial Revision - 27/10/15
+//
+// Copyright (c) 2005-2015, Steven Ball
+// ******************************************************************************
+
 #include "glew/include/GL/glew.h"
 
 #include "VoxGame.h"
+
 
 // Initialize the singleton instance
 VoxGame *VoxGame::c_instance = 0;
