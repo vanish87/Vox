@@ -109,7 +109,42 @@ void VoxGame::CreateGUI()
 	m_pMainWindow->AddComponent(m_pWeaponsPulldown);
 	m_pMainWindow->AddComponent(m_pCharacterPulldown);
 
+	m_pGameWindow = new GUIWindow(m_pRenderer, m_defaultFont, "Game");
+	m_pGameWindow->AllowMoving(true);
+	m_pGameWindow->AllowClosing(false);
+	m_pGameWindow->AllowMinimizing(true);
+	m_pGameWindow->AllowScrolling(true);
+	m_pGameWindow->SetRenderTitleBar(true);
+	m_pGameWindow->SetRenderWindowBackground(true);
+	m_pGameWindow->SetOutlineRender(true);
+	m_pGameWindow->SetDimensions(350, 35, 240, 140);
+	m_pGameWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
+
+	m_pGameOptionBox = new OptionBox(m_pRenderer, m_defaultFont, "Game");
+	m_pGameOptionBox->SetDimensions(10, 50, 14, 14);
+	m_pGameOptionBox->SetCallBackFunction(_GameModeChanged);
+	m_pGameOptionBox->SetCallBackData(this);
+	m_pFrontEndOptionBox = new OptionBox(m_pRenderer, m_defaultFont, "Frontend");
+	m_pFrontEndOptionBox->SetDimensions(10, 30, 14, 14);
+	m_pFrontEndOptionBox->SetCallBackFunction(_GameModeChanged);
+	m_pFrontEndOptionBox->SetCallBackData(this);
+	m_pDebugOptionBox = new OptionBox(m_pRenderer, m_defaultFont, "Debug");
+	m_pDebugOptionBox->SetDimensions(10, 10, 14, 14);
+	m_pDebugOptionBox->SetCallBackFunction(_GameModeChanged);
+	m_pDebugOptionBox->SetCallBackData(this);
+	m_pModeOptionController = new OptionController(m_pRenderer, m_defaultFont, "Mode");
+	m_pModeOptionController->SetDisplayLabel(true);
+	m_pModeOptionController->SetDisplayBorder(true);
+	m_pModeOptionController->SetDimensions(10, 55, 85, 70);
+	m_pModeOptionController->Add(m_pGameOptionBox);
+	m_pModeOptionController->Add(m_pDebugOptionBox);
+	m_pModeOptionController->Add(m_pFrontEndOptionBox);
+	m_pDebugOptionBox->SetToggled(true);
+
+	m_pGameWindow->AddComponent(m_pModeOptionController);
+
 	m_pGUI->AddWindow(m_pMainWindow);
+	m_pGUI->AddWindow(m_pGameWindow);
 
 	UpdateAnimationsPulldown();
 }
@@ -207,6 +242,11 @@ void VoxGame::DestroyGUI()
 	delete m_pAnimationsPulldown;
 	delete m_pWeaponsPulldown;
 	delete m_pCharacterPulldown;
+	delete m_pGameWindow;
+	delete m_pGameOptionBox;
+	delete m_pDebugOptionBox;
+	delete m_pFrontEndOptionBox;
+	delete m_pModeOptionController;
 }
 
 void VoxGame::UpdateGUI(float dt)
@@ -382,5 +422,29 @@ void VoxGame::CharacterPullDownChanged()
 
 		WeaponPullDownChanged();
 		AnimationPullDownChanged();
+	}
+}
+
+void VoxGame::_GameModeChanged(void *apData)
+{
+	VoxGame* lpVoxGame = (VoxGame*)apData;
+	lpVoxGame->GameModeChanged();
+}
+
+void VoxGame::GameModeChanged()
+{
+	GameMode gameMode = GetGameMode();
+
+	if (m_pGameOptionBox->GetToggled() && gameMode != GameMode_Game)
+	{
+		SetGameMode(GameMode_Game);
+	}
+	else if (m_pFrontEndOptionBox->GetToggled() && gameMode != GameMode_FrontEnd)
+	{
+		SetGameMode(GameMode_FrontEnd);
+	}
+	else if (m_pDebugOptionBox->GetToggled() && gameMode != GameMode_Debug)
+	{
+		SetGameMode(GameMode_Debug);
 	}
 }

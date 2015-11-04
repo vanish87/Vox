@@ -26,6 +26,13 @@
 #include "VoxApplication.h"
 #include "VoxWindow.h"
 
+enum GameMode
+{
+	GameMode_Debug = 0,
+	GameMode_Loading,
+	GameMode_FrontEnd,
+	GameMode_Game,
+};
 
 class VoxGame
 {
@@ -51,6 +58,9 @@ public:
 
 	// Controls
 	void UpdateControls(float dt);
+	void UpdateKeyboardControls(float dt);
+	void UpdateMouseControls(float dt);
+	void UpdateGamePadControls(float dt);
 	void KeyPressed(int key, int scancode, int mods);
 	void KeyReleased(int key, int scancode, int mods);
 	void MouseLeftPressed();
@@ -64,6 +74,13 @@ public:
 	// Mouse controls
 	void MouseCameraRotate(int x, int y);
 	void MouseCameraZoom(int x, int y);
+
+	// Game functions
+	void SetupDataForGame();
+	void SetupDataForFrontEnd();
+	void StartGameFromFrontEnd();
+	void SetGameMode(GameMode mode);
+	GameMode GetGameMode();
 
 	// Updating
 	void Update();
@@ -109,6 +126,9 @@ protected:
 	static void _CharacterPullDownChanged(void *apData);
 	void CharacterPullDownChanged();
 
+	static void _GameModeChanged(void *apData);
+	void GameModeChanged();
+
 private:
 	/* Private methods */
 
@@ -149,6 +169,9 @@ private:
 
 	// Frontend manager
 	FrontendManager* m_pFrontendManager;
+
+	// Game mode
+	GameMode m_gameMode;
 
 	// Window width and height
 	int m_windowWidth;
@@ -230,6 +253,11 @@ private:
 	PulldownMenu* m_pAnimationsPulldown;
 	PulldownMenu* m_pWeaponsPulldown;
 	PulldownMenu* m_pCharacterPulldown;
+	GUIWindow* m_pGameWindow;
+	OptionBox* m_pGameOptionBox;
+	OptionBox* m_pDebugOptionBox;
+	OptionBox* m_pFrontEndOptionBox;
+	OptionController* m_pModeOptionController;
 
 	// Toggle flags
 	bool m_deferredRendering;

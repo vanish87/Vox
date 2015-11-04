@@ -64,42 +64,70 @@ void MouseScrollCallback(GLFWwindow* window, double x, double y)
 // Controls
 void VoxGame::UpdateControls(float dt)
 {
+	UpdateKeyboardControls(dt);
+	UpdateMouseControls(dt);
+	UpdateGamePadControls(dt);
+}
+
+void VoxGame::UpdateKeyboardControls(float dt)
+{
+	GameMode gameMode = GetGameMode();
+
+	if (gameMode == GameMode_Debug)
+	{
+		// Keyboard camera movements
+		if (m_bKeyboardForward)
+		{
+			m_pGameCamera->Fly(20.0f * dt);
+		}
+		if (m_bKeyboardBackward)
+		{
+			m_pGameCamera->Fly(-20.0f * dt);
+		}
+		if (m_bKeyboardStrafeLeft)
+		{
+			m_pGameCamera->Strafe(-20.0f * dt);
+		}
+		if (m_bKeyboardStrafeRight)
+		{
+			m_pGameCamera->Strafe(20.0f * dt);
+		}
+	}
+
+	if (gameMode == GameMode_Game)
+	{
+		// Player movements
+		if (m_bKeyboardSpace)
+		{
+			m_pPlayer->Jump();
+		}
+	}
+}
+
+void VoxGame::UpdateMouseControls(float dt)
+{
 	int x = m_pVoxWindow->GetCursorX();
 	int y = m_pVoxWindow->GetCursorY();
 
-	// Keyboard movements
-	if (m_bKeyboardForward)
-	{
-		m_pGameCamera->Fly(20.0f * dt);
-	}
-	if (m_bKeyboardBackward)
-	{
-		m_pGameCamera->Fly(-20.0f * dt);
-	}
-	if (m_bKeyboardStrafeLeft)
-	{
-		m_pGameCamera->Strafe(-20.0f * dt);
-	}
-	if (m_bKeyboardStrafeRight)
-	{
-		m_pGameCamera->Strafe(20.0f * dt);
-	}
+	GameMode gameMode = GetGameMode();
 
-	// Camera movements
-	if (m_bCameraRotate)
+	if (gameMode == GameMode_Debug)
 	{
-		MouseCameraRotate(x, y);
+		// Mouse camera movements
+		if (m_bCameraRotate)
+		{
+			MouseCameraRotate(x, y);
+		}
+		if (m_bCameraZoom)
+		{
+			MouseCameraZoom(x, y);
+		}
 	}
-	if (m_bCameraZoom)
-	{
-		MouseCameraZoom(x, y);
-	}
+}
 
-	// Player movements
-	if(m_bKeyboardSpace)
-	{
-		m_pPlayer->Jump();
-	}
+void VoxGame::UpdateGamePadControls(float dt)
+{
+
 }
 
 void VoxGame::KeyPressed(int key, int scancode, int mods)

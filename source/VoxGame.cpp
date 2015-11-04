@@ -161,6 +161,10 @@ void VoxGame::Create()
 	m_animationUpdate = true;
 	m_fullscreen = false;
 	m_debugRender = false;
+
+	// Game mode
+	m_gameMode = GameMode_Debug;
+	SetGameMode(m_gameMode);
 }
 
 // Destruction
@@ -227,5 +231,55 @@ void VoxGame::ResizeWindow(int width, int height)
 
 		// Give the new windows dimensions to the GUI components also
 		m_pMainWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
+		m_pGameWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 	}
+}
+
+// Game functions
+void VoxGame::SetupDataForGame()
+{
+
+}
+
+void VoxGame::SetupDataForFrontEnd()
+{
+
+}
+
+void VoxGame::StartGameFromFrontEnd()
+{
+
+}
+
+void VoxGame::SetGameMode(GameMode mode)
+{
+	GameMode previousgameMode = m_gameMode;
+	m_gameMode = mode;
+
+	if (m_gameMode == GameMode_Debug)
+	{
+	}
+
+	if (m_gameMode == GameMode_FrontEnd)
+	{
+		if (previousgameMode == GameMode_Game || previousgameMode == GameMode_Loading)
+		{
+			// Setup the gamedata since we have just loaded fresh into the frontend.
+			SetupDataForFrontEnd();
+		}
+	}
+
+	if (m_gameMode == GameMode_Game)
+	{
+		if (previousgameMode == GameMode_FrontEnd || previousgameMode == GameMode_Loading)
+		{
+			// Setup the gamedata since we have just loaded fresh into a game.
+			SetupDataForGame();
+		}
+	}
+}
+
+GameMode VoxGame::GetGameMode()
+{
+	return m_gameMode;
 }
