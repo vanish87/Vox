@@ -94,32 +94,46 @@ void VoxGame::UpdateControls(float dt)
 	{
 		MouseCameraZoom(x, y);
 	}
+
+	// Player movements
+	if(m_bKeyboardSpace)
+	{
+		m_pPlayer->Jump();
+	}
 }
 
 void VoxGame::KeyPressed(int key, int scancode, int mods)
 {
 	switch (key)
 	{
-	case GLFW_KEY_UP:
-	{
-		m_bKeyboardForward = true;
-		break;
-	}
-	case GLFW_KEY_DOWN:
-	{
-		m_bKeyboardBackward = true;
-		break;
-	}
-	case GLFW_KEY_LEFT:
-	{
-		m_bKeyboardStrafeLeft = true;
-		break;
-	}
-	case GLFW_KEY_RIGHT:
-	{
-		m_bKeyboardStrafeRight = true;
-		break;
-	}
+		// Keyboard movement
+		case GLFW_KEY_UP:
+		{
+			m_bKeyboardForward = true;
+			break;
+		}
+		case GLFW_KEY_DOWN:
+		{
+			m_bKeyboardBackward = true;
+			break;
+		}
+		case GLFW_KEY_LEFT:
+		{
+			m_bKeyboardStrafeLeft = true;
+			break;
+		}
+		case GLFW_KEY_RIGHT:
+		{
+			m_bKeyboardStrafeRight = true;
+			break;
+		}
+
+		// Player movement
+		case GLFW_KEY_SPACE:
+		{
+			m_bKeyboardSpace = true;
+			break;
+		}
 	}
 }
 
@@ -127,6 +141,7 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 {
 	switch (key)
 	{
+		// Keyboard movement
 		case GLFW_KEY_UP:
 		{
 			m_bKeyboardForward = false;
@@ -145,6 +160,13 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 		case GLFW_KEY_RIGHT:
 		{
 			m_bKeyboardStrafeRight = false;
+			break;
+		}
+
+		// Player movement
+		case GLFW_KEY_SPACE:
+		{
+			m_bKeyboardSpace = false;
 			break;
 		}
 	}
