@@ -53,7 +53,9 @@ VoxelCharacter* Player::GetVoxelCharacter()
 // Accessors / Setters
 vec3 Player::GetCenter()
 {
-	return m_position;
+	vec3 center = m_position + m_up * m_radius;
+
+	return center;
 }
 
 vec3 Player::GetForwardVector()
@@ -69,6 +71,16 @@ vec3 Player::GetRightVector()
 vec3 Player::GetUpVector()
 {
 	return m_up;
+}
+
+float Player::GetRadius()
+{
+	return m_radius;
+}
+
+void Player::UpdateRadius()
+{
+	m_radius = m_pVoxelCharacter->GetCharacterScale() / 0.14f;
 }
 
 // Loading
@@ -100,6 +112,8 @@ void Player::LoadCharacter(string characterName)
 	m_pVoxelCharacter->SetRandomLookDirection(true);
 	m_pVoxelCharacter->SetWireFrameRender(false);
 	m_pVoxelCharacter->SetCharacterScale(0.08f);
+
+	UpdateRadius();
 }
 
 // Unloading
@@ -237,6 +251,8 @@ void Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeFo
 	}
 
 	m_targetForward = m_forward;
+	m_targetForward.y = 0.0f;
+	m_targetForward = normalize(m_targetForward);
 
 	vec3 movement = direction;
 	vec3 movementAmount = direction*speed;
@@ -561,5 +577,51 @@ void Player::RenderFace()
 		m_pRenderer->MultiplyWorldMatrix(m_worldMatrix);
 		m_pRenderer->EmptyTextureIndex(0);
 		m_pVoxelCharacter->RenderFace();
+	m_pRenderer->PopMatrix();
+}
+
+void Player::RenderDebug()
+{
+	m_pRenderer->PushMatrix();
+		m_pRenderer->TranslateWorldMatrix(GetCenter().x, GetCenter().y, GetCenter().z);
+
+		// Radius
+		m_pRenderer->PushMatrix();
+			m_pRenderer->SetLineWidth(1.0f);
+			m_pRenderer->SetRenderMode(RM_WIREFRAME);
+			m_pRenderer->ImmediateColourAlpha(1.0f, 1.0f, 1.0f, 1.0f);
+
+			m_pRenderer->RotateWorldMatrix(90.0f, 0.0f, 0.0f);
+			m_pRenderer->DrawSphere(m_radius, 20, 20);
+		m_pRenderer->PopMatrix();
+
+		// Forwards
+		m_pRenderer->PushMatrix();
+			m_pRenderer->ScaleWorldMatrix(m_pVoxelCharacter->GetCharacterScale(), m_pVoxelCharacter->GetCharacterScale(), m_pVoxelCharacter->GetCharacterScale());
+
+			m_pRenderer->SetRenderMode(RM_SOLID);
+			m_pRenderer->SetLineWidth(3.0f);
+			m_pRenderer->EnableImmediateMode(IM_LINES);
+				// Target forwards
+				m_pRenderer->ImmediateColourAlpha(0.0f, 1.0f, 1.0f, 1.0f);
+				m_pRenderer->ImmediateVertex(0.0f, 0.0f, 0.0f);
+				m_pRenderer->ImmediateVertex(m_targetForward.x*15.0f, m_targetForward.y*15.0f, m_targetForward.z*15.0f);
+
+				// Right
+				m_pRenderer->ImmediateColourAlpha(1.0f, 0.0f, 0.0f, 1.0f);
+				m_pRenderer->ImmediateVertex(0.0f, 0.0f, 0.0f);
+				m_pRenderer->ImmediateVertex(m_right.x*15.0f, m_right.y*15.0f, m_right.z*15.0f);
+
+				// Up
+				m_pRenderer->ImmediateColourAlpha(0.0f, 1.0f, 0.0f, 1.0f);
+				m_pRenderer->ImmediateVertex(0.0f, 0.0f, 0.0f);
+				m_pRenderer->ImmediateVertex(m_up.x*15.0f, m_up.y*15.0f, m_up.z*15.0f);	
+
+				// Forwards
+				m_pRenderer->ImmediateColourAlpha(0.0f, 0.0f, 1.0f, 1.0f);
+				m_pRenderer->ImmediateVertex(0.0f, 0.0f, 0.0f);
+				m_pRenderer->ImmediateVertex(m_forward.x*15.0f, m_forward.y*15.0f, m_forward.z*15.0f);	
+			m_pRenderer->DisableImmediateMode();
+		m_pRenderer->PopMatrix();
 	m_pRenderer->PopMatrix();
 }

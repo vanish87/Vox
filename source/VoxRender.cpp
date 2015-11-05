@@ -100,6 +100,8 @@ void VoxGame::Render()
 			if(m_debugRender)
 			{
 				m_pLightingManager->DebugRender();
+
+				m_pPlayer->RenderDebug();
 			}
 		m_pRenderer->PopMatrix();
 

@@ -36,6 +36,8 @@ public:
 	vec3 GetForwardVector();
 	vec3 GetRightVector();
 	vec3 GetUpVector();
+	float GetRadius();
+	void UpdateRadius();
 
 	// Loading
 	void LoadCharacter(string characterName);
@@ -72,6 +74,7 @@ public:
 	void Render();
 	void RenderWeaponTrails();
 	void RenderFace();
+	void RenderDebug();
 
 protected:
 	/* Protected methods */
@@ -111,6 +114,9 @@ private:
 
 	// Idle flag
 	bool m_bIsIdle;
+
+	// Player radius
+	float m_radius;
 
 	// Local axis
 	vec3 m_forward;
