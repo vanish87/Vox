@@ -114,12 +114,6 @@
     <ClCompile Include="..\..\source\Renderer\tga.cpp">
       <Filter>source\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\Renderer\bmp_class.cpp">
-      <Filter>source\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\Renderer\bmp.cpp">
-      <Filter>source\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\models\BoundingBox.cpp">
       <Filter>source\models</Filter>
     </ClCompile>
@@ -495,9 +489,6 @@
       <Filter>source\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\Renderer\tga.h">
-      <Filter>source\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\Renderer\bmp_class.h">
       <Filter>source\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\models\BoundingBox.h">

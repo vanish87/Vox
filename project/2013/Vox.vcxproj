@@ -123,8 +123,6 @@
     <ClCompile Include="..\..\source\Particles\BlockParticleEmitter.cpp" />
     <ClCompile Include="..\..\source\Particles\BlockParticleManager.cpp" />
     <ClCompile Include="..\..\source\Player\Player.cpp" />
-    <ClCompile Include="..\..\source\Renderer\bmp.cpp" />
-    <ClCompile Include="..\..\source\Renderer\bmp_class.cpp" />
     <ClCompile Include="..\..\source\Renderer\camera.cpp" />
     <ClCompile Include="..\..\source\Renderer\colour.cpp" />
     <ClCompile Include="..\..\source\Renderer\frustum.cpp" />
@@ -381,7 +379,6 @@
     <ClInclude Include="..\..\source\Particles\BlockParticleEmitter.h" />
     <ClInclude Include="..\..\source\Particles\BlockParticleManager.h" />
     <ClInclude Include="..\..\source\Player\Player.h" />
-    <ClInclude Include="..\..\source\Renderer\bmp_class.h" />
     <ClInclude Include="..\..\source\Renderer\camera.h" />
     <ClInclude Include="..\..\source\Renderer\colour.h" />
     <ClInclude Include="..\..\source\Renderer\framebuffer.h" />

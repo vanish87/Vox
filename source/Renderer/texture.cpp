@@ -79,7 +79,6 @@ bool Texture::Load(string fileName, int *width, int *height, int *width_power2, 
 
 		// JPG
 		//loaded = LoadFileJPG(fileName.c_str(), &texdata, width, height) == 1;
-
 		//m_filetype = TextureFileType_JPG;
 		//lbNeedScaling = false;
 		//lNumchannels = 3;
@@ -88,19 +87,19 @@ bool Texture::Load(string fileName, int *width, int *height, int *width_power2, 
 	{
 		// TGA
 		loaded = LoadFileTGA(fileName.c_str(), &texdata, width, height, true) == 1;
-
 		m_filetype = TextureFileType_TGA;
 		lbNeedScaling = false;  // Was initially true but not really sure if this is needed or not...
 		lNumchannels = 4;
 	}
 	else if(strstr(fileName.c_str(), ".bmp"))
 	{
+		// TODO : Add back in BMP support
+
 		// BMP
-		loaded = LoadFileBMP(fileName.c_str(), &texdata, width, height) == 1;
-		
-		m_filetype = TextureFileType_BMP;
-		lbNeedScaling = false;
-		lNumchannels = 3;
+		//loaded = LoadFileBMP(fileName.c_str(), &texdata, width, height) == 1;
+		//m_filetype = TextureFileType_BMP;
+		//lbNeedScaling = false;
+		//lNumchannels = 3;
 	}
 
 	if(loaded == false)
