@@ -1,4 +1,6 @@
 #include "VoxGame.h"
+#include "utils/FileUtils.h"
+
 
 void VoxGame::CreateGUI()
 {
@@ -117,7 +119,7 @@ void VoxGame::CreateGUI()
 	m_pGameWindow->SetRenderTitleBar(true);
 	m_pGameWindow->SetRenderWindowBackground(true);
 	m_pGameWindow->SetOutlineRender(true);
-	m_pGameWindow->SetDimensions(350, 35, 240, 140);
+	m_pGameWindow->SetDimensions(350, 35, 270, 140);
 	m_pGameWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 
 	m_pGameOptionBox = new OptionBox(m_pRenderer, m_defaultFont, "Game");
@@ -141,12 +143,22 @@ void VoxGame::CreateGUI()
 	m_pModeOptionController->Add(m_pFrontEndOptionBox);
 	m_pDebugOptionBox->SetToggled(true);
 
+	m_pGUIThemePulldown = new PulldownMenu(m_pRenderer, m_defaultFont, "Theme");
+	m_pGUIThemePulldown->SetDimensions(150, 110, 80, 14);
+	m_pGUIThemePulldown->SetMaxNumItemsDisplayed(5);
+	m_pGUIThemePulldown->SetDepth(2.0f);
+	m_pGUIThemePulldown->SetRenderHeader(true);
+	m_pGUIThemePulldown->SetMenuItemChangedCallBackFunction(_GUIThemePullDownChanged);
+	m_pGUIThemePulldown->SetMenuItemChangedCallBackData(this);
+
 	m_pGameWindow->AddComponent(m_pModeOptionController);
+	m_pGameWindow->AddComponent(m_pGUIThemePulldown);
 
 	m_pGUI->AddWindow(m_pMainWindow);
 	m_pGUI->AddWindow(m_pGameWindow);
 
 	UpdateAnimationsPulldown();
+	UpdateGUIThemePulldown();
 }
 
 void VoxGame::SkinGUI()
@@ -223,6 +235,31 @@ void VoxGame::SkinGUI()
 	m_pDebugRenderCheckBox->SetToggledHoverIcon(m_pFrontendManager->GetCheckboxIconToggledHover());
 	m_pDebugRenderCheckBox->SetToggledSelectedIcon(m_pFrontendManager->GetCheckboxIconToggledPressed());
 	m_pDebugRenderCheckBox->SetToggledDisabledIcon(m_pFrontendManager->GetCheckboxIconToggledDisabled());
+
+	m_pGameOptionBox->SetDefaultIcon(m_pFrontendManager->GetOptionboxIcon());
+	m_pGameOptionBox->SetHoverIcon(m_pFrontendManager->GetOptionboxIconHover());
+	m_pGameOptionBox->SetSelectedIcon(m_pFrontendManager->GetOptionboxIconPressed());
+	m_pGameOptionBox->SetDisabledIcon(m_pFrontendManager->GetOptionboxIconDisabled());
+	m_pGameOptionBox->SetToggledIcon(m_pFrontendManager->GetOptionboxIconToggled());
+	m_pGameOptionBox->SetToggledHoverIcon(m_pFrontendManager->GetOptionboxIconToggledHover());
+	m_pGameOptionBox->SetToggledSelectedIcon(m_pFrontendManager->GetOptionboxIconToggledPressed());
+	m_pGameOptionBox->SetToggledDisabledIcon(m_pFrontendManager->GetOptionboxIconToggledDisabled());
+	m_pDebugOptionBox->SetDefaultIcon(m_pFrontendManager->GetOptionboxIcon());
+	m_pDebugOptionBox->SetHoverIcon(m_pFrontendManager->GetOptionboxIconHover());
+	m_pDebugOptionBox->SetSelectedIcon(m_pFrontendManager->GetOptionboxIconPressed());
+	m_pDebugOptionBox->SetDisabledIcon(m_pFrontendManager->GetOptionboxIconDisabled());
+	m_pDebugOptionBox->SetToggledIcon(m_pFrontendManager->GetOptionboxIconToggled());
+	m_pDebugOptionBox->SetToggledHoverIcon(m_pFrontendManager->GetOptionboxIconToggledHover());
+	m_pDebugOptionBox->SetToggledSelectedIcon(m_pFrontendManager->GetOptionboxIconToggledPressed());
+	m_pDebugOptionBox->SetToggledDisabledIcon(m_pFrontendManager->GetOptionboxIconToggledDisabled());
+	m_pFrontEndOptionBox->SetDefaultIcon(m_pFrontendManager->GetOptionboxIcon());
+	m_pFrontEndOptionBox->SetHoverIcon(m_pFrontendManager->GetOptionboxIconHover());
+	m_pFrontEndOptionBox->SetSelectedIcon(m_pFrontendManager->GetOptionboxIconPressed());
+	m_pFrontEndOptionBox->SetDisabledIcon(m_pFrontendManager->GetOptionboxIconDisabled());
+	m_pFrontEndOptionBox->SetToggledIcon(m_pFrontendManager->GetOptionboxIconToggled());
+	m_pFrontEndOptionBox->SetToggledHoverIcon(m_pFrontendManager->GetOptionboxIconToggledHover());
+	m_pFrontEndOptionBox->SetToggledSelectedIcon(m_pFrontendManager->GetOptionboxIconToggledPressed());
+	m_pFrontEndOptionBox->SetToggledDisabledIcon(m_pFrontendManager->GetOptionboxIconToggledDisabled());
 }
 
 void VoxGame::DestroyGUI()
@@ -247,6 +284,7 @@ void VoxGame::DestroyGUI()
 	delete m_pDebugOptionBox;
 	delete m_pFrontEndOptionBox;
 	delete m_pModeOptionController;
+	delete m_pGUIThemePulldown;
 }
 
 void VoxGame::UpdateGUI(float dt)
@@ -291,6 +329,31 @@ void VoxGame::UpdateAnimationsPulldown()
 
 	m_pMainWindow->AddComponent(m_pAnimationsPulldown);
 	m_pAnimationsPulldown->AddEventListeners();
+}
+
+void VoxGame::UpdateGUIThemePulldown()
+{
+	m_pGUIThemePulldown->RemoveAllPullDownMenuItems();
+	m_pGUIThemePulldown->ResetPullDownMenu();
+	m_pGameWindow->RemoveComponent(m_pGUIThemePulldown);
+
+	char importDirectory[128];
+	sprintf_s(importDirectory, "media/textures/gui/*.*");
+
+	vector<string> listFiles;
+	listFiles = listFilesInDirectory(importDirectory);
+	for (unsigned int i = 0; i < listFiles.size(); i++)
+	{
+		if (strcmp(listFiles[i].c_str(), ".") == 0 || strcmp(listFiles[i].c_str(), "..") == 0)
+		{
+			continue;
+		}
+
+		m_pGUIThemePulldown->AddPulldownItem(listFiles[i].c_str());
+	}
+
+	m_pGameWindow->AddComponent(m_pGUIThemePulldown);
+	m_pGUIThemePulldown->AddEventListeners();
 }
 
 // GUI callbacks
@@ -446,5 +509,21 @@ void VoxGame::GameModeChanged()
 	else if (m_pDebugOptionBox->GetToggled() && gameMode != GameMode_Debug)
 	{
 		SetGameMode(GameMode_Debug);
+	}
+}
+
+void VoxGame::_GUIThemePullDownChanged(void *apData)
+{
+	VoxGame* lpVoxGame = (VoxGame*)apData;
+	lpVoxGame->GUIThemePullDownChanged();
+}
+
+void VoxGame::GUIThemePullDownChanged()
+{
+	MenuItem* pMenuItem = m_pGUIThemePulldown->GetSelectedMenuItem();
+	if (pMenuItem != NULL)
+	{
+		m_pFrontendManager->LoadCommonGraphics(pMenuItem->GetLabel().GetText().c_str());
+		SkinGUI();
 	}
 }

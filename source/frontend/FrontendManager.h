@@ -38,6 +38,16 @@ public:
 	Icon* GetCheckboxIconToggledPressed() { return m_pCheckboxIconToggledPressed; };
 	Icon* GetCheckboxIconToggledDisabled() { return m_pCheckboxIconToggledDisabled; };
 
+	// Optionbox
+	Icon* GetOptionboxIcon() { return m_pOptionboxIcon; };
+	Icon* GetOptionboxIconHover() { return m_pOptionboxIconHover; };
+	Icon* GetOptionboxIconPressed() { return m_pOptionboxIconPressed; };
+	Icon* GetOptionboxIconDisabled() { return m_pOptionboxIconDisabled; };
+	Icon* GetOptionboxIconToggled() { return m_pOptionboxIconToggled; };
+	Icon* GetOptionboxIconToggledHover() { return m_pOptionboxIconToggledHover; };
+	Icon* GetOptionboxIconToggledPressed() { return m_pOptionboxIconToggledPressed; };
+	Icon* GetOptionboxIconToggledDisabled() { return m_pOptionboxIconToggledDisabled; };
+
 	// Updating
 	void Update(float dt);
 	
@@ -69,4 +79,14 @@ private:
 	Icon* m_pCheckboxIconToggledHover;
 	Icon* m_pCheckboxIconToggledPressed;
 	Icon* m_pCheckboxIconToggledDisabled;
+
+	// Optionbox
+	Icon* m_pOptionboxIcon;
+	Icon* m_pOptionboxIconHover;
+	Icon* m_pOptionboxIconPressed;
+	Icon* m_pOptionboxIconDisabled;
+	Icon* m_pOptionboxIconToggled;
+	Icon* m_pOptionboxIconToggledHover;
+	Icon* m_pOptionboxIconToggledPressed;
+	Icon* m_pOptionboxIconToggledDisabled;
 };

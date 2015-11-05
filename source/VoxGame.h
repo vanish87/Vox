@@ -103,6 +103,7 @@ public:
 
 	// GUI
 	void UpdateAnimationsPulldown();
+	void UpdateGUIThemePulldown();
 
 protected:
 	/* Protected methods */
@@ -128,6 +129,9 @@ protected:
 
 	static void _GameModeChanged(void *apData);
 	void GameModeChanged();
+
+	static void _GUIThemePullDownChanged(void *apData);
+	void GUIThemePullDownChanged();
 
 private:
 	/* Private methods */
@@ -268,6 +272,7 @@ private:
 	OptionBox* m_pDebugOptionBox;
 	OptionBox* m_pFrontEndOptionBox;
 	OptionController* m_pModeOptionController;
+	PulldownMenu* m_pGUIThemePulldown;
 
 	// Toggle flags
 	bool m_deferredRendering;
