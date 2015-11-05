@@ -145,7 +145,7 @@ void VoxGame::UpdateKeyboardControls(float dt)
 			vec3 cameraRight = m_pGameCamera->GetRight();
 			vec3 playerUp = m_pPlayer->GetUpVector();
 			vec3 moveDirection = normalize(cross(cameraRight, playerUp));
-			m_movementDirection -= moveDirection + -playerUp*0.2f;
+			m_movementDirection -= moveDirection;
 		}
 
 		if (m_bKeyboardBackward)
@@ -159,7 +159,7 @@ void VoxGame::UpdateKeyboardControls(float dt)
 			vec3 cameraRight = m_pGameCamera->GetRight();
 			vec3 playerUp = m_pPlayer->GetUpVector();
 			vec3 moveDirection = normalize(cross(cameraRight, playerUp));
-			m_movementDirection += moveDirection + playerUp*0.2f;;
+			m_movementDirection += moveDirection;
 		}
 
 		if (m_bKeyboardStrafeLeft)
@@ -174,7 +174,7 @@ void VoxGame::UpdateKeyboardControls(float dt)
 			vec3 playerUp = m_pPlayer->GetUpVector();
 			vec3 playerRight = normalize(cross(playerUp, cameraRight));
 			vec3 moveDirection = normalize(cross(playerUp, playerRight));
-			m_movementDirection += moveDirection + playerUp*0.2f;;
+			m_movementDirection += moveDirection;
 		}
 
 		if (m_bKeyboardStrafeRight)
@@ -189,7 +189,7 @@ void VoxGame::UpdateKeyboardControls(float dt)
 			vec3 playerUp = m_pPlayer->GetUpVector();
 			vec3 playerRight = normalize(cross(playerUp, cameraRight));
 			vec3 moveDirection = normalize(cross(playerUp, playerRight));
-			m_movementDirection -= moveDirection + -playerUp*0.2f;;
+			m_movementDirection -= moveDirection;
 		}
 
 		if (length(m_movementDirection) > 0.001f && m_movementSpeed > m_movementStopThreshold)
@@ -372,10 +372,19 @@ void VoxGame::MouseCameraRotate(int x, int y)
 	{
 		changeX = -changeX;
 	}
+	
+	// Limit the rotation, so we can't go 'over' or 'under' the player with out rotations
+	vec3 cameraFacing = m_pGameCamera->GetFacing();
+	float dotResult = acos(dot(cameraFacing, vec3(0.0f, 1.0f, 0.0f)));
+	float rotationDegrees = RadToDeg(dotResult) - 90.0f;
+	float limitAngle = 75.0f;
+	if ((rotationDegrees > limitAngle && changeY < 0.0f) || (rotationDegrees < -limitAngle && changeY > 0.0f))
+	{
+		changeY = 0.0f;
+	}
 
 	m_pGameCamera->RotateAroundPoint(changeY*0.75f, 0.0f, 0.0f);
 	m_pGameCamera->RotateAroundPointY(-changeX*0.75f);
-	//m_pGameCamera->Rotate(changeY*0.5f, -changeX*0.5f, 0.0f);
 
 	m_currentX = x;
 	m_currentY = y;
