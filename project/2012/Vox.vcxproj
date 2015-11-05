@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-	<ClCompile Include="..\..\source\blocks\Chunk.cpp" />
+    <ClCompile Include="..\..\source\blocks\Chunk.cpp" />
     <ClCompile Include="..\..\source\blocks\ChunkManager.cpp" />
     <ClCompile Include="..\..\source\freetype\freetypefont.cpp" />
     <ClCompile Include="..\..\source\glew\src\glew.c" />
@@ -133,6 +133,7 @@
     <ClCompile Include="..\..\source\Renderer\texture.cpp" />
     <ClCompile Include="..\..\source\Renderer\tga.cpp" />
     <ClCompile Include="..\..\source\utils\CountdownTimer.cpp" />
+    <ClCompile Include="..\..\source\utils\FileUtils.cpp" />
     <ClCompile Include="..\..\source\utils\Interpolator.cpp" />
     <ClCompile Include="..\..\source\utils\TimeManager.cpp" />
     <ClCompile Include="..\..\source\VoxApplication.cpp" />
@@ -144,7 +145,7 @@
     <ClCompile Include="..\..\source\VoxWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
-	<ClCompile Include="..\..\source\blocks\Chunk.h" />
+    <ClCompile Include="..\..\source\blocks\Chunk.h" />
     <ClInclude Include="..\..\source\blocks\ChunkManager.h" />
     <ClInclude Include="..\..\source\freetype\freetypefont.h" />
     <ClInclude Include="..\..\source\glew\include\GL\glew.h" />
@@ -416,6 +417,7 @@
     <ClInclude Include="..\..\source\selene\selene\Tuple.h" />
     <ClInclude Include="..\..\source\selene\selene\util.h" />
     <ClInclude Include="..\..\source\utils\CountdownTimer.h" />
+    <ClInclude Include="..\..\source\utils\FileUtils.h" />
     <ClInclude Include="..\..\source\utils\Interpolator.h" />
     <ClInclude Include="..\..\source\utils\Random.h" />
     <ClInclude Include="..\..\source\utils\TimeManager.h" />
@@ -545,27 +547,27 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">

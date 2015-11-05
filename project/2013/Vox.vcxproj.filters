@@ -447,6 +447,9 @@
     <ClCompile Include="..\..\source\blocks\Chunk.h">
       <Filter>source\blocks</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\utils\FileUtils.cpp">
+      <Filter>source\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\glew\include\GL\glew.h">
@@ -1282,6 +1285,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\frontend\FrontendManager.h">
       <Filter>source\frontend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\utils\FileUtils.h">
+      <Filter>source\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
