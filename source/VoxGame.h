@@ -237,6 +237,16 @@ private:
 	int m_currentX;
 	int m_currentY;
 
+	// Player movement
+	bool m_keyboardMovement;
+	bool m_gamepadMovement;
+	vec3 m_movementDirection;
+	float m_movementSpeed;
+	float m_movementDragTime;
+	float m_movementIncreaseTime;
+	float m_maxMovementSpeed;
+	float m_movementStopThreshold;
+
 	// GUI Components
 	GUIWindow* m_pMainWindow;
 	CheckBox* m_pShadowsCheckBox;

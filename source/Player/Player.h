@@ -31,6 +31,12 @@ public:
 	// Get voxel character pointer
 	VoxelCharacter* GetVoxelCharacter();
 
+	// Accessors / Setters
+	vec3 GetCenter();
+	vec3 GetForwardVector();
+	vec3 GetRightVector();
+	vec3 GetUpVector();
+
 	// Loading
 	void LoadCharacter(string characterName);
 

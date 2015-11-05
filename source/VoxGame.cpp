@@ -149,6 +149,15 @@ void VoxGame::Create()
 	m_currentX = 0;
 	m_currentY = 0;
 
+	// Player movement
+	m_keyboardMovement = false;
+	m_gamepadMovement = false;
+	m_movementSpeed = 0.0f;
+	m_movementDragTime = 0.45f;
+	m_movementIncreaseTime = 0.25f;
+	m_maxMovementSpeed = 10.0f;
+	m_movementStopThreshold = 0.05f;
+
 	// Toggle flags
 	m_deferredRendering = true;
 	m_modelWireframe = false;

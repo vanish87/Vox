@@ -50,6 +50,27 @@ VoxelCharacter* Player::GetVoxelCharacter()
 	return m_pVoxelCharacter;
 }
 
+// Accessors / Setters
+vec3 Player::GetCenter()
+{
+	return m_position;
+}
+
+vec3 Player::GetForwardVector()
+{
+	return m_forward;
+}
+
+vec3 Player::GetRightVector()
+{
+	return m_right;
+}
+
+vec3 Player::GetUpVector()
+{
+	return m_up;
+}
+
 // Loading
 void Player::LoadCharacter(string characterName)
 {
@@ -217,15 +238,29 @@ void Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeFo
 
 	m_targetForward = m_forward;
 
+	vec3 movement = direction;
+	vec3 movementAmount = direction*speed;
+	vec3 pNormal;
+	int numberDivision = 1;
+	while (length(movementAmount) >= 1.0f)
+	{
+		numberDivision++;
+		movementAmount = direction*(speed / numberDivision);
+	}
+	for (int i = 0; i < numberDivision; i++)
+	{
+		float speedToUse = (speed / numberDivision) + ((speed / numberDivision) * i);
+		vec3 posToCheck = GetCenter() + movement*speedToUse;
+		if (CheckCollisions(posToCheck, m_previousPosition, &pNormal, &movement))
+		{
+		}
+
+		m_position += (movement * speedToUse)*0.95f;
+	}
+
 	m_movementVelocity += (direction * speed) * 0.85f;
 
-	vec3 movement = direction;
-
-	vec3 pNormal;
-	bool stepUp = false;
-
-	vec3 movementAmount = direction*speed;
-
+	// Change to run animation
 	if (m_pVoxelCharacter->HasAnimationFinished(AnimationSections_FullBody))
 	{
 		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "Run", 0.01f);
@@ -274,6 +309,7 @@ void Player::Jump()
 
 	m_velocity += m_up * 12.5f;
 
+	// Change to jump animation
 	m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "Jump", 0.05f);
 }
 
@@ -334,20 +370,17 @@ void Player::UpdatePhysics(float dt)
 	{
 		vec3 velocityToUse = m_velocity + m_movementVelocity;
 		vec3 velAmount = velocityToUse*dt;
+		vec3 pNormal;
 		int numberDivision = 1;
 		while (length(velAmount) >= 1.0f)
 		{
 			numberDivision++;
 			velAmount = velocityToUse*(dt / numberDivision);
 		}
-
-		vec3 pNormal;
-		bool collision = false;
-		bool stepUp = false;
 		for (int i = 0; i < numberDivision; i++)
 		{
 			float dtToUse = (dt / numberDivision) + ((dt / numberDivision) * i);
-			vec3 posToCheck = m_position + velocityToUse*dtToUse;
+			vec3 posToCheck = GetCenter() + velocityToUse*dtToUse;
 			if (CheckCollisions(posToCheck, m_previousPosition, &pNormal, &velAmount))
 			{
 				// Reset velocity, we don't have any bounce
@@ -361,10 +394,10 @@ void Player::UpdatePhysics(float dt)
 			}
 		}
 
-		m_movementVelocity -= (m_movementVelocity * (7.5f * dt));
-
 		// Integrate position
 		m_position += velocityToUse * dt;
+
+		m_movementVelocity -= (m_movementVelocity * (7.5f * dt));
 	}
 
 	// Store previous position

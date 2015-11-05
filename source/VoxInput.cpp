@@ -101,6 +101,102 @@ void VoxGame::UpdateKeyboardControls(float dt)
 		{
 			m_pPlayer->Jump();
 		}
+
+
+		bool resetMovementVector = false;
+		bool l_moving = true;
+		float speedDescreaseFactor = 1.0f;
+		if (m_bKeyboardForward == false && m_bKeyboardBackward == false && m_bKeyboardStrafeLeft == false && m_bKeyboardStrafeRight == false)
+		{
+			l_moving = false;
+
+			// Reduce the movement speed (drag)
+			m_movementSpeed -= m_maxMovementSpeed / (m_movementDragTime / dt);
+
+			if (m_movementSpeed <= 0.0f)
+			{
+				m_movementSpeed = 0.0f;
+				m_keyboardMovement = false;
+				m_pPlayer->StopMoving();
+			}
+		}
+		else
+		{
+			m_keyboardMovement = true;
+
+			// Increase the movement speed since we are pressing a movement key
+			m_movementSpeed += m_maxMovementSpeed / (m_movementIncreaseTime / dt);
+
+			// Don't allow faster than max movement
+			if (m_movementSpeed > m_maxMovementSpeed)
+			{
+				m_movementSpeed = m_maxMovementSpeed;
+			}
+		}
+
+		if (m_bKeyboardForward)
+		{
+			if (resetMovementVector == false)
+			{
+				m_movementDirection = vec3(0.0f, 0.0f, 0.0f);
+				resetMovementVector = true;
+			}
+
+			vec3 cameraRight = m_pGameCamera->GetRight();
+			vec3 playerUp = m_pPlayer->GetUpVector();
+			vec3 moveDirection = normalize(cross(cameraRight, playerUp));
+			m_movementDirection -= moveDirection + -playerUp*0.2f;
+		}
+
+		if (m_bKeyboardBackward)
+		{
+			if (resetMovementVector == false)
+			{
+				m_movementDirection = vec3(0.0f, 0.0f, 0.0f);
+				resetMovementVector = true;
+			}
+
+			vec3 cameraRight = m_pGameCamera->GetRight();
+			vec3 playerUp = m_pPlayer->GetUpVector();
+			vec3 moveDirection = normalize(cross(cameraRight, playerUp));
+			m_movementDirection += moveDirection + playerUp*0.2f;;
+		}
+
+		if (m_bKeyboardStrafeLeft)
+		{
+			if (resetMovementVector == false)
+			{
+				m_movementDirection = vec3(0.0f, 0.0f, 0.0f);
+				resetMovementVector = true;
+			}
+
+			vec3 cameraRight = m_pGameCamera->GetRight();
+			vec3 playerUp = m_pPlayer->GetUpVector();
+			vec3 playerRight = normalize(cross(playerUp, cameraRight));
+			vec3 moveDirection = normalize(cross(playerUp, playerRight));
+			m_movementDirection += moveDirection + playerUp*0.2f;;
+		}
+
+		if (m_bKeyboardStrafeRight)
+		{
+			if (resetMovementVector == false)
+			{
+				m_movementDirection = vec3(0.0f, 0.0f, 0.0f);
+				resetMovementVector = true;
+			}
+
+			vec3 cameraRight = m_pGameCamera->GetRight();
+			vec3 playerUp = m_pPlayer->GetUpVector();
+			vec3 playerRight = normalize(cross(playerUp, cameraRight));
+			vec3 moveDirection = normalize(cross(playerUp, playerRight));
+			m_movementDirection -= moveDirection + -playerUp*0.2f;;
+		}
+
+		if (length(m_movementDirection) > 0.001f && m_movementSpeed > m_movementStopThreshold)
+		{
+			m_movementDirection = normalize(m_movementDirection);
+			m_pPlayer->MoveAbsolute(m_movementDirection, m_movementSpeed*speedDescreaseFactor * dt, true);
+		}
 	}
 }
 
@@ -134,29 +230,29 @@ void VoxGame::KeyPressed(int key, int scancode, int mods)
 {
 	switch (key)
 	{
-		// Keyboard movement
-		case GLFW_KEY_UP:
+		// Player movement
+		case GLFW_KEY_W:
 		{
 			m_bKeyboardForward = true;
 			break;
 		}
-		case GLFW_KEY_DOWN:
+		case GLFW_KEY_S:
 		{
 			m_bKeyboardBackward = true;
 			break;
 		}
-		case GLFW_KEY_LEFT:
+		case GLFW_KEY_A:
 		{
+			m_bKeyboardLeft = true;
 			m_bKeyboardStrafeLeft = true;
 			break;
 		}
-		case GLFW_KEY_RIGHT:
+		case GLFW_KEY_D:
 		{
+			m_bKeyboardRight = true;
 			m_bKeyboardStrafeRight = true;
 			break;
 		}
-
-		// Player movement
 		case GLFW_KEY_SPACE:
 		{
 			m_bKeyboardSpace = true;
@@ -169,29 +265,29 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 {
 	switch (key)
 	{
-		// Keyboard movement
-		case GLFW_KEY_UP:
+		// Player movement
+		case GLFW_KEY_W:
 		{
 			m_bKeyboardForward = false;
 			break;
 		}
-		case GLFW_KEY_DOWN:
+		case GLFW_KEY_S:
 		{
 			m_bKeyboardBackward = false;
 			break;
 		}
-		case GLFW_KEY_LEFT:
+		case GLFW_KEY_A:
 		{
+			m_bKeyboardLeft = false;
 			m_bKeyboardStrafeLeft = false;
 			break;
 		}
-		case GLFW_KEY_RIGHT:
+		case GLFW_KEY_D:
 		{
+			m_bKeyboardRight = false;
 			m_bKeyboardStrafeRight = false;
 			break;
 		}
-
-		// Player movement
 		case GLFW_KEY_SPACE:
 		{
 			m_bKeyboardSpace = false;
