@@ -55,3 +55,5 @@
 * Add in character creator.
 * Add voxel editor.
 * Add texture support for voxel blocks.
+* Add different camera modes, option toggle on GUI.
+* Add player camera controls.
