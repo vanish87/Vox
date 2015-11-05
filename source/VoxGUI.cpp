@@ -61,7 +61,7 @@ void VoxGame::CreateGUI()
 	m_pAnimationsPulldown->SetMenuItemChangedCallBackData(this);
 
 	m_pWeaponsPulldown = new PulldownMenu(m_pRenderer, m_defaultFont, "Weapons");
-	m_pWeaponsPulldown->SetDimensions(150, 90, 140, 14);
+	m_pWeaponsPulldown->SetDimensions(150, 93, 140, 14);
 	m_pWeaponsPulldown->SetMaxNumItemsDisplayed(5);
 	m_pWeaponsPulldown->SetDepth(3.0f);
 	m_pWeaponsPulldown->SetRenderHeader(true);
@@ -81,7 +81,7 @@ void VoxGame::CreateGUI()
 	m_pWeaponsPulldown->AddPulldownItem("Magic");
 
 	m_pCharacterPulldown = new PulldownMenu(m_pRenderer, m_defaultFont, "Character");
-	m_pCharacterPulldown->SetDimensions(150, 110, 140, 14);
+	m_pCharacterPulldown->SetDimensions(150, 115, 140, 14);
 	m_pCharacterPulldown->SetMaxNumItemsDisplayed(5);
 	m_pCharacterPulldown->SetDepth(4.0f);
 	m_pCharacterPulldown->SetRenderHeader(true);
