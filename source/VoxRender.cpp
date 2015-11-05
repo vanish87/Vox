@@ -195,7 +195,7 @@ void VoxGame::RenderShadows()
 		m_pRenderer->SetColourMask(false, false, false, false);
 
 		m_pRenderer->SetupOrthographicProjection(-5.0f, 5.0f, -5.0f, 5.0f, 0.01f, 1000.0f);
-		m_pRenderer->SetLookAtCamera(vec3(m_defaultLightPosition.x, m_defaultLightPosition.y, m_defaultLightPosition.z), vec3(m_defaultLightView.x, m_defaultLightView.y, m_defaultLightView.z), vec3(0.0f, 1.0f, 0.0f));
+		m_pRenderer->SetLookAtCamera(vec3(m_defaultLightPosition.x, m_defaultLightPosition.y, m_defaultLightPosition.z), m_pPlayer->GetCenter(), vec3(0.0f, 1.0f, 0.0f));
 
 		m_pRenderer->PushMatrix();
 			m_pRenderer->SetCullMode(CM_FRONT);
