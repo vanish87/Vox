@@ -73,7 +73,7 @@ void VoxGame::Create()
 	m_defaultLightPosition = vec3(3.0f, 3.0f, 3.0f);
 	m_defaultLightView = vec3(0.0f, 0.0f, 0.0f);
 	m_pRenderer->CreateLight(Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f),
-							 m_defaultLightPosition, m_defaultLightView - m_defaultLightPosition, 0.0f, 0.0f, 0.15f, 0.25f, 0.025f, true, false, &m_defaultLight);
+							 m_defaultLightPosition, m_defaultLightView - m_defaultLightPosition, 0.0f, 0.0f, 2.0f, 0.0f, 0.0f, true, false, &m_defaultLight);
 
 	/* Create materials */
 	m_pRenderer->CreateMaterial(Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), 64, &m_defaultMaterial);
