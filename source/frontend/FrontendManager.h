@@ -1,16 +1,16 @@
 // ******************************************************************************
-//
 // Filename:	FrontendManager.h
 // Project:		Game
 // Author:		Steven Ball
 //
 // Purpose:
+//   A manager class to contain all the common functionality for front-end pages
+//   and GUI graphics.
 //
 // Revision History:
 //   Initial Revision - 01/11/15
 //
 // Copyright (c) 2005-2015, Steven Ball
-//
 // ******************************************************************************
 
 #pragma once
