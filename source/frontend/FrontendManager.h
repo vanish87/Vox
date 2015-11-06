@@ -18,6 +18,12 @@
 #include "../Renderer/Renderer.h"
 #include "../gui/icon.h"
 
+enum ButtonSize
+{
+	ButtonSize_85x25 = 0,
+
+	ButtonSize_NUM,
+};
 
 class FrontendManager
 {
@@ -47,6 +53,12 @@ public:
 	Icon* GetOptionboxIconToggledHover() { return m_pOptionboxIconToggledHover; };
 	Icon* GetOptionboxIconToggledPressed() { return m_pOptionboxIconToggledPressed; };
 	Icon* GetOptionboxIconToggledDisabled() { return m_pOptionboxIconToggledDisabled; };
+
+	// Button
+	Icon* GetButtonIcon(ButtonSize size) { return m_pButtonIcon[size]; };
+	Icon* GetButtonIconHover(ButtonSize size) { return m_pButtonIconHover[size]; };
+	Icon* GetButtonIconPressed(ButtonSize size) { return m_pButtonIconPressed[size]; };
+	Icon* GetButtonIconDisabled(ButtonSize size) { return m_pButtonIconDisabled[size]; };
 
 	// Updating
 	void Update(float dt);
@@ -89,4 +101,10 @@ private:
 	Icon* m_pOptionboxIconToggledHover;
 	Icon* m_pOptionboxIconToggledPressed;
 	Icon* m_pOptionboxIconToggledDisabled;
+
+	// Buttons
+	Icon** m_pButtonIcon;
+	Icon** m_pButtonIconHover;
+	Icon** m_pButtonIconPressed;
+	Icon** m_pButtonIconDisabled;
 };

@@ -36,19 +36,21 @@ void VoxGame::CreateGUI()
 	m_pDeferredCheckBox->SetDimensions(10, 118, 14, 14);
 	m_pDeferredCheckBox->SetToggled(true);
 	m_pUpdateCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Update");
-	m_pUpdateCheckBox->SetDimensions(130, 40, 14, 14);
+	m_pUpdateCheckBox->SetDimensions(110, 30, 14, 14);
 	m_pUpdateCheckBox->SetToggled(true);
 	m_pDebugRenderCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "DebugRender");
-	m_pDebugRenderCheckBox->SetDimensions(210, 10, 14, 14);
+	m_pDebugRenderCheckBox->SetDimensions(110, 10, 14, 14);
 	m_pDebugRenderCheckBox->SetToggled(false);
 
 	m_pFullscreenButton = new Button(m_pRenderer, m_defaultFont, "FullScreen");
-	m_pFullscreenButton->SetDimensions(110, 10, 80, 20);
+	m_pFullscreenButton->SetDimensions(230, 10, 85, 25);
+	m_pFullscreenButton->SetLabelColour(Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pFullscreenButton->SetCallBackFunction(_ToggleFullScreenPressed);
 	m_pFullscreenButton->SetCallBackData(this);
 
-	m_pPlayAnimationButton = new Button(m_pRenderer, m_defaultFont, "Play Animation");
-	m_pPlayAnimationButton->SetDimensions(230, 45, 85, 20);
+	m_pPlayAnimationButton = new Button(m_pRenderer, m_defaultFont, "Play Anim");
+	m_pPlayAnimationButton->SetDimensions(230, 40, 85, 25);
+	m_pPlayAnimationButton->SetLabelColour(Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pPlayAnimationButton->SetCallBackFunction(_PlayAnimationPressed);
 	m_pPlayAnimationButton->SetCallBackData(this);
 
@@ -235,6 +237,15 @@ void VoxGame::SkinGUI()
 	m_pDebugRenderCheckBox->SetToggledHoverIcon(m_pFrontendManager->GetCheckboxIconToggledHover());
 	m_pDebugRenderCheckBox->SetToggledSelectedIcon(m_pFrontendManager->GetCheckboxIconToggledPressed());
 	m_pDebugRenderCheckBox->SetToggledDisabledIcon(m_pFrontendManager->GetCheckboxIconToggledDisabled());
+	
+	m_pFullscreenButton->SetDefaultIcon(m_pFrontendManager->GetButtonIcon(ButtonSize_85x25));
+	m_pFullscreenButton->SetHoverIcon(m_pFrontendManager->GetButtonIconHover(ButtonSize_85x25));
+	m_pFullscreenButton->SetSelectedIcon(m_pFrontendManager->GetButtonIconPressed(ButtonSize_85x25));
+	m_pFullscreenButton->SetDisabledIcon(m_pFrontendManager->GetButtonIconDisabled(ButtonSize_85x25));
+	m_pPlayAnimationButton->SetDefaultIcon(m_pFrontendManager->GetButtonIcon(ButtonSize_85x25));
+	m_pPlayAnimationButton->SetHoverIcon(m_pFrontendManager->GetButtonIconHover(ButtonSize_85x25));
+	m_pPlayAnimationButton->SetSelectedIcon(m_pFrontendManager->GetButtonIconPressed(ButtonSize_85x25));
+	m_pPlayAnimationButton->SetDisabledIcon(m_pFrontendManager->GetButtonIconDisabled(ButtonSize_85x25));
 
 	m_pGameOptionBox->SetDefaultIcon(m_pFrontendManager->GetOptionboxIcon());
 	m_pGameOptionBox->SetHoverIcon(m_pFrontendManager->GetOptionboxIconHover());

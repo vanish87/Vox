@@ -52,6 +52,28 @@ FrontendManager::FrontendManager(Renderer* pRenderer)
 	m_pOptionboxIconToggledDisabled = new Icon(m_pRenderer, "", 16, 16);
 	m_pOptionboxIconToggledDisabled->SetDepth(2.0f);
 
+	// Buttons
+	m_pButtonIcon = new Icon*[ButtonSize_NUM];
+	m_pButtonIconHover = new Icon*[ButtonSize_NUM];
+	m_pButtonIconPressed = new Icon*[ButtonSize_NUM];
+	m_pButtonIconDisabled = new Icon*[ButtonSize_NUM];
+
+	for (int i = 0; i < ButtonSize_NUM; i++)
+	{
+		int width = 0;
+		int height = 0;
+		if (ButtonSize(i) == ButtonSize_85x25) { width = 85; height = 25; }
+
+		m_pButtonIcon[ButtonSize(i)] = new Icon(m_pRenderer, "", width, height);
+		m_pButtonIcon[ButtonSize(i)]->SetDepth(2.0f);
+		m_pButtonIconHover[ButtonSize(i)] = new Icon(m_pRenderer, "", width, height);
+		m_pButtonIconHover[ButtonSize(i)]->SetDepth(2.0f);
+		m_pButtonIconPressed[ButtonSize(i)] = new Icon(m_pRenderer, "", width, height);
+		m_pButtonIconPressed[ButtonSize(i)]->SetDepth(2.0f);
+		m_pButtonIconDisabled[ButtonSize(i)] = new Icon(m_pRenderer, "", width, height);
+		m_pButtonIconDisabled[ButtonSize(i)]->SetDepth(2.0f);
+	}
+
 	LoadCommonGraphics("default");
 }
 
@@ -94,6 +116,22 @@ void FrontendManager::LoadCommonGraphics(string themeName)
 	m_pOptionboxIconToggledPressed->SetIcon(iconName);
 	iconName = "media/textures/gui/" + themeName + "/Common/optionbox/optionToggledDisabled.tga";
 	m_pOptionboxIconToggledDisabled->SetIcon(iconName);
+
+	// Buttons
+	for (int i = 0; i < ButtonSize_NUM; i++)
+	{
+		string sizeFolder = "";
+		if (ButtonSize(i) == ButtonSize_85x25) { sizeFolder = "85x25";  }
+
+		iconName = "media/textures/gui/" + themeName + "/Common/buttons/" + sizeFolder + "/buttonDefault.tga";
+		m_pButtonIcon[ButtonSize(i)]->SetIcon(iconName);
+		iconName = "media/textures/gui/" + themeName + "/Common/buttons/" + sizeFolder + "/buttonHover.tga";
+		m_pButtonIconHover[ButtonSize(i)]->SetIcon(iconName);
+		iconName = "media/textures/gui/" + themeName + "/Common/buttons/" + sizeFolder + "/buttonPressed.tga";
+		m_pButtonIconPressed[ButtonSize(i)]->SetIcon(iconName);
+		iconName = "media/textures/gui/" + themeName + "/Common/buttons/" + sizeFolder + "/buttonDisabled.tga";
+		m_pButtonIconDisabled[ButtonSize(i)]->SetIcon(iconName);
+	}
 }
 
 FrontendManager::~FrontendManager()
@@ -117,6 +155,15 @@ FrontendManager::~FrontendManager()
 	delete m_pOptionboxIconToggledHover;
 	delete m_pOptionboxIconToggledPressed;
 	delete m_pOptionboxIconToggledDisabled;
+
+	// Buttons
+	for (int i = 0; i < ButtonSize_NUM; i++)
+	{
+		delete m_pButtonIcon;
+		delete m_pButtonIconHover;
+		delete m_pButtonIconPressed;
+		delete m_pButtonIconDisabled;
+	}
 }
 
 // Updating
