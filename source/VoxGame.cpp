@@ -171,8 +171,8 @@ void VoxGame::Create()
 	m_debugRender = false;
 
 	// Camera mode
-	m_cameraMode = CameraMode_Debug;
-	m_cameraModeBeforePause = CameraMode_Debug;
+	m_cameraMode = CameraMode_AutoCamera;
+	m_cameraModeBeforePause = CameraMode_AutoCamera;
 
 	// Game mode
 	m_gameMode = GameMode_Debug;

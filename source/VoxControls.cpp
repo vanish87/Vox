@@ -31,6 +31,14 @@ void VoxGame::UpdateKeyboardControls(float dt)
 		{
 			m_pGameCamera->Strafe(20.0f * dt);
 		}
+		if (m_bKeyboardUp)
+		{
+			m_pGameCamera->Levitate(20.0f * dt);
+		}
+		if (m_bKeyboardDown)
+		{
+			m_pGameCamera->Levitate(-20.0f * dt);
+		}
 	}
 
 	if (gameMode == GameMode_Game)

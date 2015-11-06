@@ -88,6 +88,16 @@ void VoxGame::KeyPressed(int key, int scancode, int mods)
 			m_bKeyboardStrafeRight = true;
 			break;
 		}
+		case GLFW_KEY_F:
+		{
+			m_bKeyboardUp = true;
+			break;
+		}
+		case GLFW_KEY_V:
+		{
+			m_bKeyboardDown = true;
+			break;
+		}
 		case GLFW_KEY_SPACE:
 		{
 			m_bKeyboardSpace = true;
@@ -121,6 +131,16 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 		{
 			m_bKeyboardRight = false;
 			m_bKeyboardStrafeRight = false;
+			break;
+		}
+		case GLFW_KEY_F:
+		{
+			m_bKeyboardUp = false;
+			break;
+		}
+		case GLFW_KEY_V:
+		{
+			m_bKeyboardDown = false;
 			break;
 		}
 		case GLFW_KEY_SPACE:

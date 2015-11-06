@@ -263,6 +263,16 @@ private:
 	int m_currentX;
 	int m_currentY;
 
+	// Auto camera mode
+	vec3 m_targetCameraPosition_AutoModeCached;
+	vec3 m_targetCameraRight_AutoModeCached;
+	vec3 m_targetCameraUp_AutoModeCached;
+	vec3 m_targetCameraFacing_AutoModeCached;
+	vec3 m_targetCameraPosition_AutoMode;
+	vec3 m_targetCameraRight_AutoMode;
+	vec3 m_targetCameraUp_AutoMode;
+	vec3 m_targetCameraFacing_AutoMode;
+
 	// Player movement
 	bool m_keyboardMovement;
 	bool m_gamepadMovement;
