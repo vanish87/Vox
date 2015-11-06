@@ -48,6 +48,7 @@
 * ~~Add limits to rotation so we dont go over and under the max/min up-axis.~~
 * Enable cross platform compiling and support, linux, mac
 * Convert shaders over to be more unified.
+* Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
 * Add gamepad support.
 * Add scenery manager.
