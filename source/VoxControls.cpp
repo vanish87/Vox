@@ -153,10 +153,6 @@ void VoxGame::UpdateMouseControls(float dt)
 		{
 			MouseCameraRotate(x, y);
 		}
-		if (m_bCameraZoom)
-		{
-			MouseCameraZoom(x, y);
-		}
 	}
 }
 

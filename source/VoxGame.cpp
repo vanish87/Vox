@@ -143,7 +143,6 @@ void VoxGame::Create()
 
 	// Camera movement
 	m_bCameraRotate = false;
-	m_bCameraZoom = false;
 	m_pressedX = 0;
 	m_pressedY = 0;	
 	m_currentX = 0;
