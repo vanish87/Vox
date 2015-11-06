@@ -37,6 +37,8 @@ public:
 
 	void SetLabel(const string &label);
 
+	virtual void RemoveIcon(RenderRectangle *pRemoveIcon);
+	virtual void SetDefaultIcons(Renderer* pRenderer);
 	void SetDefaultIcon(RenderRectangle *icon);
 	void SetSelectedIcon(RenderRectangle *icon);
 	void SetHoverIcon(RenderRectangle *icon);

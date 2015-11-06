@@ -126,7 +126,7 @@ void VoxGame::Create()
 	/* Create the frontend manager */
 	m_pFrontendManager = new FrontendManager(m_pRenderer);
 
-	/* Create the GUI components */
+	/* Create and skin the GUI components */
 	CreateGUI();
 	SkinGUI();
 

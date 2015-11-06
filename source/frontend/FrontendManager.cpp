@@ -77,6 +77,39 @@ FrontendManager::FrontendManager(Renderer* pRenderer)
 	LoadCommonGraphics("default");
 }
 
+FrontendManager::~FrontendManager()
+{
+	// Checkbox
+	delete m_pCheckboxIcon;
+	delete m_pCheckboxIconHover;
+	delete m_pCheckboxIconPressed;
+	delete m_pCheckboxIconDisabled;
+	delete m_pCheckboxIconToggled;
+	delete m_pCheckboxIconToggledHover;
+	delete m_pCheckboxIconToggledPressed;
+	delete m_pCheckboxIconToggledDisabled;
+
+	// Optionbox
+	delete m_pOptionboxIcon;
+	delete m_pOptionboxIconHover;
+	delete m_pOptionboxIconPressed;
+	delete m_pOptionboxIconDisabled;
+	delete m_pOptionboxIconToggled;
+	delete m_pOptionboxIconToggledHover;
+	delete m_pOptionboxIconToggledPressed;
+	delete m_pOptionboxIconToggledDisabled;
+
+	// Buttons
+	for (int i = 0; i < ButtonSize_NUM; i++)
+	{
+		delete m_pButtonIcon;
+		delete m_pButtonIconHover;
+		delete m_pButtonIconPressed;
+		delete m_pButtonIconDisabled;
+	}
+}
+
+// Load the icon graphics based on a theme
 void FrontendManager::LoadCommonGraphics(string themeName)
 {
 	string iconName;
@@ -134,36 +167,37 @@ void FrontendManager::LoadCommonGraphics(string themeName)
 	}
 }
 
-FrontendManager::~FrontendManager()
+// Setup icons for components
+void FrontendManager::SetCheckboxIcons(CheckBox* pCheckBox)
 {
-	// Checkbox
-	delete m_pCheckboxIcon;
-	delete m_pCheckboxIconHover;
-	delete m_pCheckboxIconPressed;
-	delete m_pCheckboxIconDisabled;
-	delete m_pCheckboxIconToggled;
-	delete m_pCheckboxIconToggledHover;
-	delete m_pCheckboxIconToggledPressed;
-	delete m_pCheckboxIconToggledDisabled;
+	pCheckBox->SetDefaultIcon(GetCheckboxIcon());
+	pCheckBox->SetHoverIcon(GetCheckboxIconHover());
+	pCheckBox->SetSelectedIcon(GetCheckboxIconPressed());
+	pCheckBox->SetDisabledIcon(GetCheckboxIconDisabled());
+	pCheckBox->SetToggledIcon(GetCheckboxIconToggled());
+	pCheckBox->SetToggledHoverIcon(GetCheckboxIconToggledHover());
+	pCheckBox->SetToggledSelectedIcon(GetCheckboxIconToggledPressed());
+	pCheckBox->SetToggledDisabledIcon(GetCheckboxIconToggledDisabled());
+}
 
-	// Optionbox
-	delete m_pOptionboxIcon;
-	delete m_pOptionboxIconHover;
-	delete m_pOptionboxIconPressed;
-	delete m_pOptionboxIconDisabled;
-	delete m_pOptionboxIconToggled;
-	delete m_pOptionboxIconToggledHover;
-	delete m_pOptionboxIconToggledPressed;
-	delete m_pOptionboxIconToggledDisabled;
+void FrontendManager::SetOptionboxIcons(OptionBox* pOptionBox)
+{
+	pOptionBox->SetDefaultIcon(GetOptionboxIcon());
+	pOptionBox->SetHoverIcon(GetOptionboxIconHover());
+	pOptionBox->SetSelectedIcon(GetOptionboxIconPressed());
+	pOptionBox->SetDisabledIcon(GetOptionboxIconDisabled());
+	pOptionBox->SetToggledIcon(GetOptionboxIconToggled());
+	pOptionBox->SetToggledHoverIcon(GetOptionboxIconToggledHover());
+	pOptionBox->SetToggledSelectedIcon(GetOptionboxIconToggledPressed());
+	pOptionBox->SetToggledDisabledIcon(GetOptionboxIconToggledDisabled());
+}
 
-	// Buttons
-	for (int i = 0; i < ButtonSize_NUM; i++)
-	{
-		delete m_pButtonIcon;
-		delete m_pButtonIconHover;
-		delete m_pButtonIconPressed;
-		delete m_pButtonIconDisabled;
-	}
+void FrontendManager::SetButtonIcons(Button* pButton, ButtonSize size)
+{
+	pButton->SetDefaultIcon(GetButtonIcon(ButtonSize_85x25));
+	pButton->SetHoverIcon(GetButtonIconHover(ButtonSize_85x25));
+	pButton->SetSelectedIcon(GetButtonIconPressed(ButtonSize_85x25));
+	pButton->SetDisabledIcon(GetButtonIconDisabled(ButtonSize_85x25));
 }
 
 // Updating

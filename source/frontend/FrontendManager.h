@@ -17,6 +17,10 @@
 
 #include "../Renderer/Renderer.h"
 #include "../gui/icon.h"
+#include "../gui/checkbox.h"
+#include "../gui/optionbox.h"
+#include "../gui/button.h"
+
 
 enum ButtonSize
 {
@@ -32,7 +36,13 @@ public:
 	FrontendManager(Renderer* pRenderer);
 	~FrontendManager();
 
+	// Load the icon graphics based on a theme
 	void LoadCommonGraphics(string themeName);
+
+	// Setup icons for components
+	void SetCheckboxIcons(CheckBox* pCheckBox);
+	void SetOptionboxIcons(OptionBox* pOptionBox);
+	void SetButtonIcons(Button* pButton, ButtonSize size);
 
 	// Checkbox
 	Icon* GetCheckboxIcon() { return m_pCheckboxIcon; };

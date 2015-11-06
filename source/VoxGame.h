@@ -44,6 +44,7 @@ public:
 	void Create();
 	void CreateGUI();
 	void SkinGUI();
+	void UnSkinGUI();
 
 	// Destruction
 	void Destroy();
