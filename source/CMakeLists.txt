@@ -7,6 +7,8 @@ set(SRCS
     "VoxWindow.h"
     "VoxWindow.cpp"
     "VoxInput.cpp"
+	"VoxControls.cpp"
+	"VoxCamera.cpp"
     "VoxRender.cpp"
     "VoxUpdate.cpp"
     "VoxGUI.cpp")

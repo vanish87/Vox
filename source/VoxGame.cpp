@@ -171,6 +171,10 @@ void VoxGame::Create()
 	m_fullscreen = false;
 	m_debugRender = false;
 
+	// Camera mode
+	m_cameraMode = CameraMode_Debug;
+	m_cameraModeBeforePause = CameraMode_Debug;
+
 	// Game mode
 	m_gameMode = GameMode_Debug;
 	SetGameMode(m_gameMode);
@@ -187,7 +191,7 @@ void VoxGame::Destroy()
 		delete m_pChunkManager;
 		delete m_pFrontendManager;
 		delete m_pGameCamera;
-		DestroyGUI();
+		DestroyGUI();  // Destroy the GUI components before we delete the GUI manager object.
 		delete m_pGUI;
 		delete m_pRenderer;
 

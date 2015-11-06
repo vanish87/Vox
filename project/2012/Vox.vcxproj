@@ -135,6 +135,8 @@
     <ClCompile Include="..\..\source\utils\Interpolator.cpp" />
     <ClCompile Include="..\..\source\utils\TimeManager.cpp" />
     <ClCompile Include="..\..\source\VoxApplication.cpp" />
+    <ClCompile Include="..\..\source\VoxCamera.cpp" />
+    <ClCompile Include="..\..\source\VoxControls.cpp" />
     <ClCompile Include="..\..\source\VoxGame.cpp" />
     <ClCompile Include="..\..\source\VoxGUI.cpp" />
     <ClCompile Include="..\..\source\VoxInput.cpp" />

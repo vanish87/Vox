@@ -34,6 +34,14 @@ enum GameMode
 	GameMode_Game,
 };
 
+enum CameraMode
+{
+	CameraMode_Debug = 0,
+	CameraMode_FollowPlayer,
+	CameraMode_AutoCamera,
+	CameraMode_FirstPerson,
+};
+
 class VoxGame
 {
 public:
@@ -62,6 +70,15 @@ public:
 	void UpdateKeyboardControls(float dt);
 	void UpdateMouseControls(float dt);
 	void UpdateGamePadControls(float dt);
+
+	// Camera controls
+	void UpdateCamera(float dt);
+	void UpdateCameraFollowPlayer(float dt);
+	void UpdateCameraAutoCamera(float dt);
+	void UpdateCameraFirstPerson(float dt);
+	void UpdateCameraClipping(float dt);
+
+	// Input
 	void KeyPressed(int key, int scancode, int mods);
 	void KeyReleased(int key, int scancode, int mods);
 	void MouseLeftPressed();
@@ -82,6 +99,8 @@ public:
 	void StartGameFromFrontEnd();
 	void SetGameMode(GameMode mode);
 	GameMode GetGameMode();
+	void SetCameraMode(CameraMode mode);
+	CameraMode GetCameraMode();
 
 	// Updating
 	void Update();
@@ -177,6 +196,10 @@ private:
 
 	// Game mode
 	GameMode m_gameMode;
+
+	// Camera mode
+	CameraMode m_cameraMode;
+	CameraMode m_cameraModeBeforePause;
 
 	// Window width and height
 	int m_windowWidth;

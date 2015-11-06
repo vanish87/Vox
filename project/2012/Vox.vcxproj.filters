@@ -438,6 +438,12 @@
     <ClCompile Include="..\..\source\blocks\Chunk.cpp">
       <Filter>source\blocks</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\VoxCamera.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\VoxControls.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\glew\include\GL\glew.h">

@@ -41,6 +41,12 @@ void VoxGame::Update()
 	// Update controls
 	UpdateControls(m_deltaTime);
 
+	// Update the camera
+	if (m_gameMode == GameMode_Game)
+	{
+		UpdateCamera(m_deltaTime);
+	}
+
 	// Update the GUI
 	int x = m_pVoxWindow->GetCursorX();
 	int y = m_pVoxWindow->GetCursorY();
