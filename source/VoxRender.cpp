@@ -165,7 +165,7 @@ void VoxGame::Render()
 void VoxGame::RenderWorld()
 {
 	float floorY = 0.0f;
-	float floorLength = 5.0f;
+	float floorLength = 15.0f;
 
 	m_pRenderer->SetRenderMode(RM_SHADED);
 	m_pRenderer->EnableMaterial(m_defaultMaterial);

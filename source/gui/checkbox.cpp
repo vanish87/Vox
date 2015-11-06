@@ -21,7 +21,11 @@
 
 
 CheckBox::CheckBox(Renderer* pRenderer, unsigned int GUIFont, const std::string &label)
-  : AbstractButton(pRenderer, GUIFont, label)
+  : AbstractButton(pRenderer, GUIFont, label),
+	m_pToggledIcon(0),
+	m_pToggledSelectedIcon(0),
+	m_pToggledHoverIcon(0),
+	m_pToggledDisabledIcon(0)
 {
 	SetDefaultIcons(pRenderer);
 
@@ -38,7 +42,11 @@ CheckBox::CheckBox(Renderer* pRenderer, unsigned int GUIFont, const std::string 
 }
 
 CheckBox::CheckBox(Renderer* pRenderer, unsigned int GUIFont, unsigned int OutlineGUIFont, const std::string &label, Colour fontColour, Colour outlineColour)
-  : AbstractButton(pRenderer, GUIFont, label)
+  : AbstractButton(pRenderer, GUIFont, label),
+	m_pToggledIcon(0),
+	m_pToggledSelectedIcon(0),
+	m_pToggledHoverIcon(0),
+	m_pToggledDisabledIcon(0)
 {
 	SetDefaultIcons(pRenderer);
 
