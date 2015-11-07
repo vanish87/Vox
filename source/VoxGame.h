@@ -251,7 +251,7 @@ private:
 #else
 	struct timeval m_fpsPreviousTicks;
 	struct timeval m_fpsCurrentTicks;
-	LARGE_INTEGER m_fpsTicksPerSecond;
+	struct timeval m_fpsTicksPerSecond;
 #endif //_WIN32
 	float m_deltaTime;
 	float m_fps;
