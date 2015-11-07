@@ -42,9 +42,15 @@ void VoxGame::Create()
 	m_pVoxWindow->Create();
 
 	/* Setup the FPS and deltatime counters */
+#ifdef _WIN32
 	QueryPerformanceCounter(&m_fpsPreviousTicks);
 	QueryPerformanceCounter(&m_fpsCurrentTicks);
 	QueryPerformanceFrequency(&m_fpsTicksPerSecond);
+#elif
+	gettimeofday(&m_fpsPreviousTicks, NULL);
+	gettimeofday(&m_fpsCurrentTicks, NULL);
+	clock_getres(&m_fpsTicksPerSecond, NULL);
+#endif //_WIN32
 	m_deltaTime = 0.0f;
 	m_fps = 0.0f;
 

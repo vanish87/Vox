@@ -244,9 +244,15 @@ private:
 	unsigned int m_blurHorizontalShader;
 
 	// FPS and deltatime
+#ifdef _WIN32
 	LARGE_INTEGER m_fpsPreviousTicks;
-	LARGE_INTEGER m_fpsTicksPerSecond;
 	LARGE_INTEGER m_fpsCurrentTicks;
+	LARGE_INTEGER m_fpsTicksPerSecond;
+#elif
+	struct timeval m_fpsPreviousTicks;
+	struct timeval m_fpsCurrentTicks;
+	LARGE_INTEGER m_fpsTicksPerSecond;
+#endif //_WIN32
 	float m_deltaTime;
 	float m_fps;
 
