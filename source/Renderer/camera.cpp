@@ -88,6 +88,15 @@ void Camera::Rotate(const float xAmount, const float yAmount, const float zAmoun
 	m_facing = normalize(rotation * m_facing);
 }
 
+void Camera::RotateY(const float yAmount)
+{
+	quat rotation = angleAxis(DegToRad(yAmount), vec3(0.0f, 1.0f, 0.0f));
+
+	m_right = normalize(rotation * m_right);
+	m_up = normalize(rotation * m_up);
+	m_facing = normalize(rotation * m_facing);
+}
+
 void Camera::RotateAroundPoint(const float xAmount, const float yAmount, const float zAmount)
 {
 	quat xRotation = angleAxis(DegToRad(xAmount), m_right);

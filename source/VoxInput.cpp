@@ -241,6 +241,11 @@ void VoxGame::MouseCameraRotate(int x, int y)
 		changeX = -changeX;
 	}
 	
+	if (m_cameraMode == CameraMode_FirstPerson)
+	{
+		changeY = -changeY;
+	}
+
 	// Limit the rotation, so we can't go 'over' or 'under' the player with out rotations
 	vec3 cameraFacing = m_pGameCamera->GetFacing();
 	float dotResult = acos(dot(cameraFacing, vec3(0.0f, 1.0f, 0.0f)));
@@ -251,8 +256,16 @@ void VoxGame::MouseCameraRotate(int x, int y)
 		changeY = 0.0f;
 	}
 
-	m_pGameCamera->RotateAroundPoint(changeY*0.75f, 0.0f, 0.0f);
-	m_pGameCamera->RotateAroundPointY(-changeX*0.75f);
+	if (m_cameraMode == CameraMode_FirstPerson)
+	{
+		m_pGameCamera->Rotate(changeY*0.75f, 0.0f, 0.0f);
+		m_pGameCamera->RotateY(-changeX*0.75f);
+	}
+	else
+	{
+		m_pGameCamera->RotateAroundPoint(changeY*0.75f, 0.0f, 0.0f);
+		m_pGameCamera->RotateAroundPointY(-changeX*0.75f);
+	}
 
 	m_currentX = x;
 	m_currentY = y;

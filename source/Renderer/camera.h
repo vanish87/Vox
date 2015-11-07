@@ -46,6 +46,7 @@ public:
 	void Levitate(const float speed);
 	void Strafe(const float speed);
 	void Rotate(const float xAmount, const float yAmount, const float zAmount);
+	void RotateY(const float yAmount);
 	void RotateAroundPoint(const float xAmount, const float yAmount, const float zAmount);
 	void RotateAroundPointY(const float yAmount);
 	void Zoom(const float amount);

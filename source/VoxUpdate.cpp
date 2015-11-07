@@ -47,6 +47,7 @@ void VoxGame::Update()
 		UpdateCamera(m_deltaTime);
 	}
 	UpdateCameraZoom(m_deltaTime);
+	UpdateCameraClipping(m_deltaTime);
 
 	// Update the GUI
 	int x = m_pVoxWindow->GetCursorX();

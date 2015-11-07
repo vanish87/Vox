@@ -89,7 +89,10 @@ void VoxGame::Render()
 			m_pChunkManager->Render();
 
 			// Render the player
-			m_pPlayer->Render();
+			if (m_cameraMode != CameraMode_FirstPerson)
+			{
+				m_pPlayer->Render();
+			}
 
 			// Render the block particles
 			m_pBlockParticleManager->Render();

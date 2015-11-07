@@ -141,8 +141,10 @@ void VoxGame::UpdateKeyboardControls(float dt)
 
 		if (length(m_movementDirection) > 0.001f && m_movementSpeed > m_movementStopThreshold)
 		{
+			bool shouldChangePlayerFacing = (m_cameraMode != CameraMode_FirstPerson);
+
 			m_movementDirection = normalize(m_movementDirection);
-			m_pPlayer->MoveAbsolute(m_movementDirection, m_movementSpeed * speedDescreaseFactor * dt, true);
+			m_pPlayer->MoveAbsolute(m_movementDirection, m_movementSpeed * speedDescreaseFactor * dt, shouldChangePlayerFacing);
 		}
 	}
 }
@@ -154,7 +156,15 @@ void VoxGame::UpdateMouseControls(float dt)
 
 	GameMode gameMode = GetGameMode();
 
-	if (gameMode == GameMode_Debug)
+	if (m_cameraMode == CameraMode_MouseRotate)
+	{
+		MouseCameraRotate(x, y);
+	}
+	else if (m_cameraMode == CameraMode_FirstPerson)
+	{
+		MouseCameraRotate(x, y);
+	}
+	else if (gameMode == GameMode_Debug || m_cameraMode == CameraMode_Debug)
 	{
 		// Mouse camera movements
 		if (m_bCameraRotate)

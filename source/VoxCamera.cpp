@@ -19,19 +19,18 @@ void VoxGame::UpdateCamera(float dt)
 
 void VoxGame::UpdateCameraMouseRotate(float dt)
 {
-
 }
 
 void VoxGame::UpdateCameraAutoCamera(float dt)
 {
-	vec3 ratios = normalize(vec3(2.0f, 1.0f, 0.0f));
+	vec3 ratios = normalize(vec3(2.5f, 1.0f, 0.0f));
 	float catchupSpeed = 5.0f;
 
 	if (m_keyboardMovement)
 	{
-		if (m_bKeyboardForward)
+		if (m_bKeyboardForward && m_bKeyboardBackward == false)
 		{
-			vec3 behindPlayer = m_pPlayer->GetCenter();
+			vec3 behindPlayer = m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET;
 			behindPlayer += m_pPlayer->GetRightVector() * 0.0f;
 			behindPlayer += m_pPlayer->GetForwardVector() * -m_cameraDistance*ratios.x;
 			behindPlayer += m_pPlayer->GetUpVector() * m_cameraDistance*ratios.y;
@@ -43,9 +42,9 @@ void VoxGame::UpdateCameraAutoCamera(float dt)
 
 			m_targetCameraUp_AutoModeCached = normalize(cross(m_targetCameraFacing_AutoModeCached, m_pPlayer->GetRightVector()));
 		}
-		else if (m_bKeyboardStrafeRight)
+		else if (m_bKeyboardRight && m_bKeyboardLeft == false)
 		{
-			vec3 behindPlayer = m_pPlayer->GetCenter();
+			vec3 behindPlayer = m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET;
 			behindPlayer += m_pPlayer->GetRightVector() * -m_cameraDistance*ratios.x;
 			behindPlayer += m_pPlayer->GetForwardVector() * 0.0f;
 			behindPlayer += m_pPlayer->GetUpVector() * m_cameraDistance*ratios.y;
@@ -57,9 +56,9 @@ void VoxGame::UpdateCameraAutoCamera(float dt)
 
 			m_targetCameraUp_AutoModeCached = normalize(m_pPlayer->GetUpVector());;
 		}
-		else if (m_bKeyboardStrafeLeft)
+		else if (m_bKeyboardLeft && m_bKeyboardRight == false)
 		{
-			vec3 behindPlayer = m_pPlayer->GetCenter();
+			vec3 behindPlayer = m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET;
 			behindPlayer += m_pPlayer->GetRightVector() * m_cameraDistance*ratios.x;
 			behindPlayer += m_pPlayer->GetForwardVector() * 0.0f;
 			behindPlayer += m_pPlayer->GetUpVector() * m_cameraDistance*ratios.y;
@@ -71,9 +70,9 @@ void VoxGame::UpdateCameraAutoCamera(float dt)
 
 			m_targetCameraUp_AutoModeCached = normalize(m_pPlayer->GetUpVector());;
 		}
-		else if (m_bKeyboardBackward)
+		else if (m_bKeyboardBackward && m_bKeyboardForward == false)
 		{
-			vec3 behindPlayer = m_pPlayer->GetCenter();
+			vec3 behindPlayer = m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET;
 			behindPlayer += m_pPlayer->GetRightVector() * 0.0f;
 			behindPlayer += m_pPlayer->GetForwardVector() * m_cameraDistance*ratios.x;
 			behindPlayer += m_pPlayer->GetUpVector() * m_cameraDistance*ratios.y;
@@ -88,7 +87,7 @@ void VoxGame::UpdateCameraAutoCamera(float dt)
 	}
 	else
 	{
-		vec3 behindPlayer = m_pPlayer->GetCenter();
+		vec3 behindPlayer = m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET;
 		behindPlayer += m_pPlayer->GetRightVector() * 0.0f;
 		behindPlayer += m_pPlayer->GetForwardVector() * -m_cameraDistance*ratios.x;
 		behindPlayer += m_pPlayer->GetUpVector() * m_cameraDistance*ratios.y;
@@ -130,7 +129,7 @@ void VoxGame::UpdateCameraAutoCamera(float dt)
 
 void VoxGame::UpdateCameraFirstPerson(float dt)
 {
-
+	m_pGameCamera->SetPosition(m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET);
 }
 
 void VoxGame::UpdateCameraClipping(float dt)

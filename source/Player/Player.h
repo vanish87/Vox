@@ -84,6 +84,7 @@ private:
 
 public:
 	/* Public members */
+	static const vec3 PLAYER_CENTER_OFFSET;
 
 protected:
 	/* Protected members */
