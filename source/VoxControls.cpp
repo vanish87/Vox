@@ -107,7 +107,7 @@ void VoxGame::UpdateKeyboardControls(float dt)
 			vec3 moveDirection = normalize(cross(cameraRight, playerUp));
 			if (m_bKeyboardStrafeRight || m_bKeyboardStrafeLeft)
 			{
-				moveDirection *= 0.5f;
+				moveDirection *= 0.35f;
 			}
 			m_movementDirection += moveDirection;
 		}
