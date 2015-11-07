@@ -136,25 +136,52 @@ void VoxGame::CreateGUI()
 	m_pDebugOptionBox->SetDimensions(10, 10, 14, 14);
 	m_pDebugOptionBox->SetCallBackFunction(_GameModeChanged);
 	m_pDebugOptionBox->SetCallBackData(this);
-	m_pModeOptionController = new OptionController(m_pRenderer, m_defaultFont, "Mode");
-	m_pModeOptionController->SetDisplayLabel(true);
-	m_pModeOptionController->SetDisplayBorder(true);
-	m_pModeOptionController->SetDimensions(10, 55, 85, 70);
-	m_pModeOptionController->Add(m_pGameOptionBox);
-	m_pModeOptionController->Add(m_pDebugOptionBox);
-	m_pModeOptionController->Add(m_pFrontEndOptionBox);
+	m_pGameModeOptionController = new OptionController(m_pRenderer, m_defaultFont, "Mode");
+	m_pGameModeOptionController->SetDisplayLabel(true);
+	m_pGameModeOptionController->SetDisplayBorder(true);
+	m_pGameModeOptionController->SetDimensions(10, 55, 85, 70);
+	m_pGameModeOptionController->Add(m_pGameOptionBox);
+	m_pGameModeOptionController->Add(m_pDebugOptionBox);
+	m_pGameModeOptionController->Add(m_pFrontEndOptionBox);
 	m_pDebugOptionBox->SetToggled(true);
 
 	m_pGUIThemePulldown = new PulldownMenu(m_pRenderer, m_defaultFont, "Theme");
-	m_pGUIThemePulldown->SetDimensions(150, 110, 80, 14);
+	m_pGUIThemePulldown->SetDimensions(50, 30, 80, 14);
 	m_pGUIThemePulldown->SetMaxNumItemsDisplayed(5);
 	m_pGUIThemePulldown->SetDepth(2.0f);
 	m_pGUIThemePulldown->SetRenderHeader(true);
 	m_pGUIThemePulldown->SetMenuItemChangedCallBackFunction(_GUIThemePullDownChanged);
 	m_pGUIThemePulldown->SetMenuItemChangedCallBackData(this);
 
-	m_pGameWindow->AddComponent(m_pModeOptionController);
+	m_pDebugCameraOptionBox = new OptionBox(m_pRenderer, m_defaultFont, "Debug");
+	m_pDebugCameraOptionBox->SetDimensions(10, 70, 14, 14);
+	m_pDebugCameraOptionBox->SetCallBackFunction(_CameraModeChanged);
+	m_pDebugCameraOptionBox->SetCallBackData(this);
+	m_pMouseRotateCameraOptionBox = new OptionBox(m_pRenderer, m_defaultFont, "Mouse");
+	m_pMouseRotateCameraOptionBox->SetDimensions(10, 50, 14, 14);
+	m_pMouseRotateCameraOptionBox->SetCallBackFunction(_CameraModeChanged);
+	m_pMouseRotateCameraOptionBox->SetCallBackData(this);
+	m_pAutoCameraOptionBox = new OptionBox(m_pRenderer, m_defaultFont, "Auto");
+	m_pAutoCameraOptionBox->SetDimensions(10, 30, 14, 14);
+	m_pAutoCameraOptionBox->SetCallBackFunction(_CameraModeChanged);
+	m_pAutoCameraOptionBox->SetCallBackData(this);
+	m_pFirstPersonCameraOptionBox = new OptionBox(m_pRenderer, m_defaultFont, "First Person");
+	m_pFirstPersonCameraOptionBox->SetDimensions(10, 10, 14, 14);
+	m_pFirstPersonCameraOptionBox->SetCallBackFunction(_CameraModeChanged);
+	m_pFirstPersonCameraOptionBox->SetCallBackData(this);
+	m_pCameraModeOptionController = new OptionController(m_pRenderer, m_defaultFont, "Camera");
+	m_pCameraModeOptionController->SetDisplayLabel(true);
+	m_pCameraModeOptionController->SetDisplayBorder(true);
+	m_pCameraModeOptionController->SetDimensions(160, 35, 105, 90);
+	m_pCameraModeOptionController->Add(m_pDebugCameraOptionBox);
+	m_pCameraModeOptionController->Add(m_pMouseRotateCameraOptionBox);
+	m_pCameraModeOptionController->Add(m_pAutoCameraOptionBox);
+	m_pCameraModeOptionController->Add(m_pFirstPersonCameraOptionBox);
+	m_pAutoCameraOptionBox->SetToggled(true);
+
+	m_pGameWindow->AddComponent(m_pGameModeOptionController);
 	m_pGameWindow->AddComponent(m_pGUIThemePulldown);
+	m_pGameWindow->AddComponent(m_pCameraModeOptionController);
 
 	m_pGUI->AddWindow(m_pMainWindow);
 	m_pGUI->AddWindow(m_pGameWindow);
@@ -184,6 +211,11 @@ void VoxGame::SkinGUI()
 	m_pFrontendManager->SetOptionboxIcons(m_pDebugOptionBox);
 	m_pFrontendManager->SetOptionboxIcons(m_pFrontEndOptionBox);
 
+	m_pFrontendManager->SetOptionboxIcons(m_pDebugCameraOptionBox);
+	m_pFrontendManager->SetOptionboxIcons(m_pMouseRotateCameraOptionBox);
+	m_pFrontendManager->SetOptionboxIcons(m_pAutoCameraOptionBox);
+	m_pFrontendManager->SetOptionboxIcons(m_pFirstPersonCameraOptionBox);
+
 	m_pFrontendManager->SetButtonIcons(m_pFullscreenButton, ButtonSize_85x25);
 	m_pFrontendManager->SetButtonIcons(m_pPlayAnimationButton, ButtonSize_85x25);
 }
@@ -203,6 +235,11 @@ void VoxGame::UnSkinGUI()
 	m_pGameOptionBox->SetDefaultIcons(m_pRenderer);
 	m_pDebugOptionBox->SetDefaultIcons(m_pRenderer);
 	m_pFrontEndOptionBox->SetDefaultIcons(m_pRenderer);
+
+	m_pDebugCameraOptionBox->SetDefaultIcons(m_pRenderer);
+	m_pMouseRotateCameraOptionBox->SetDefaultIcons(m_pRenderer);
+	m_pAutoCameraOptionBox->SetDefaultIcons(m_pRenderer);
+	m_pFirstPersonCameraOptionBox->SetDefaultIcons(m_pRenderer);
 
 	m_pFullscreenButton->SetDefaultIcons(m_pRenderer);
 	m_pPlayAnimationButton->SetDefaultIcons(m_pRenderer);
@@ -229,8 +266,13 @@ void VoxGame::DestroyGUI()
 	delete m_pGameOptionBox;
 	delete m_pDebugOptionBox;
 	delete m_pFrontEndOptionBox;
-	delete m_pModeOptionController;
+	delete m_pGameModeOptionController;
 	delete m_pGUIThemePulldown;
+	delete m_pDebugCameraOptionBox;
+	delete m_pMouseRotateCameraOptionBox;
+	delete m_pAutoCameraOptionBox;
+	delete m_pFirstPersonCameraOptionBox;
+	delete m_pCameraModeOptionController;
 }
 
 void VoxGame::UpdateGUI(float dt)
@@ -458,6 +500,32 @@ void VoxGame::GameModeChanged()
 	else if (m_pDebugOptionBox->GetToggled() && gameMode != GameMode_Debug)
 	{
 		SetGameMode(GameMode_Debug);
+	}
+}
+
+void VoxGame::_CameraModeChanged(void *apData)
+{
+	VoxGame* lpVoxGame = (VoxGame*)apData;
+	lpVoxGame->CameraModeChanged();
+}
+
+void VoxGame::CameraModeChanged()
+{
+	if (m_pDebugCameraOptionBox->GetToggled())
+	{
+		m_cameraMode = CameraMode_Debug;
+	}
+	else if (m_pMouseRotateCameraOptionBox->GetToggled())
+	{
+		m_cameraMode = CameraMode_MouseRotate;
+	}
+	else if (m_pAutoCameraOptionBox->GetToggled())
+	{
+		m_cameraMode = CameraMode_AutoCamera;
+	}
+	else if (m_pFirstPersonCameraOptionBox->GetToggled())
+	{
+		m_cameraMode = CameraMode_FirstPerson;
 	}
 }
 

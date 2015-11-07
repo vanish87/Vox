@@ -3,9 +3,9 @@
 // Camera controls
 void VoxGame::UpdateCamera(float dt)
 {
-	if (m_cameraMode == CameraMode_FollowPlayer)
+	if (m_cameraMode == CameraMode_MouseRotate)
 	{
-		UpdateCameraFollowPlayer(dt);
+		UpdateCameraMouseRotate(dt);
 	}
 	else if (m_cameraMode == CameraMode_AutoCamera)
 	{
@@ -17,7 +17,7 @@ void VoxGame::UpdateCamera(float dt)
 	}
 }
 
-void VoxGame::UpdateCameraFollowPlayer(float dt)
+void VoxGame::UpdateCameraMouseRotate(float dt)
 {
 
 }

@@ -37,7 +37,7 @@ enum GameMode
 enum CameraMode
 {
 	CameraMode_Debug = 0,
-	CameraMode_FollowPlayer,
+	CameraMode_MouseRotate,
 	CameraMode_AutoCamera,
 	CameraMode_FirstPerson,
 };
@@ -73,7 +73,7 @@ public:
 
 	// Camera controls
 	void UpdateCamera(float dt);
-	void UpdateCameraFollowPlayer(float dt);
+	void UpdateCameraMouseRotate(float dt);
 	void UpdateCameraAutoCamera(float dt);
 	void UpdateCameraFirstPerson(float dt);
 	void UpdateCameraClipping(float dt);
@@ -148,6 +148,9 @@ protected:
 
 	static void _GameModeChanged(void *apData);
 	void GameModeChanged();
+
+	static void _CameraModeChanged(void *apData);
+	void CameraModeChanged();
 
 	static void _GUIThemePullDownChanged(void *apData);
 	void GUIThemePullDownChanged();
@@ -301,8 +304,13 @@ private:
 	OptionBox* m_pGameOptionBox;
 	OptionBox* m_pDebugOptionBox;
 	OptionBox* m_pFrontEndOptionBox;
-	OptionController* m_pModeOptionController;
+	OptionController* m_pGameModeOptionController;
 	PulldownMenu* m_pGUIThemePulldown;
+	OptionBox* m_pDebugCameraOptionBox;
+	OptionBox* m_pMouseRotateCameraOptionBox;
+	OptionBox* m_pAutoCameraOptionBox;
+	OptionBox* m_pFirstPersonCameraOptionBox;
+	OptionController* m_pCameraModeOptionController;
 
 	// Toggle flags
 	bool m_deferredRendering;

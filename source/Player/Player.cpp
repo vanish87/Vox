@@ -323,7 +323,7 @@ void Player::Jump()
 	m_bCanJump = false;
 	m_jumpTimer = 0.3f;
 
-	m_velocity += m_up * 12.5f;
+	m_velocity += m_up * 14.0f;
 
 	// Change to jump animation
 	m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "Jump", 0.05f);
