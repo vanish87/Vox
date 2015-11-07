@@ -40,8 +40,8 @@ Camera::Camera(Renderer* pRenderer)
 	SetUp(vec3(0.0f, 1.0f, 0.0f));
 	SetRight(vec3(1.0f, 0.0f, 0.0f));
 
-	m_zoomAmount = 3.0f;
-	m_minZoomAmount = 0.1f;
+	m_zoomAmount = 5.0f;
+	m_minZoomAmount = 0.0f;
 	m_maxZoomAmount = 100.0f;
 }
 

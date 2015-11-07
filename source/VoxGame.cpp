@@ -58,7 +58,7 @@ void VoxGame::Create()
 
 	/* Create cameras */
 	m_pGameCamera = new Camera(m_pRenderer);
-	m_pGameCamera->SetPosition(vec3(0.0f, 1.25f, 3.0f));
+	m_pGameCamera->SetPosition(vec3(0.0f, 1.25f, 5.0f));
 	m_pGameCamera->SetFacing(vec3(0.0f, 0.0f, -1.0f));
 	m_pGameCamera->SetUp(vec3(0.0f, 1.0f, 0.0f));
 	m_pGameCamera->SetRight(vec3(1.0f, 0.0f, 0.0f));
@@ -147,6 +147,8 @@ void VoxGame::Create()
 	m_pressedY = 0;	
 	m_currentX = 0;
 	m_currentY = 0;
+	m_cameraDistance = 5.0f;
+	m_maxCameraDistance = m_cameraDistance;
 
 	// Player movement
 	m_keyboardMovement = false;

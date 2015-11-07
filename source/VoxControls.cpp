@@ -142,7 +142,7 @@ void VoxGame::UpdateKeyboardControls(float dt)
 		if (length(m_movementDirection) > 0.001f && m_movementSpeed > m_movementStopThreshold)
 		{
 			m_movementDirection = normalize(m_movementDirection);
-			m_pPlayer->MoveAbsolute(m_movementDirection, m_movementSpeed*speedDescreaseFactor * dt, true);
+			m_pPlayer->MoveAbsolute(m_movementDirection, m_movementSpeed * speedDescreaseFactor * dt, true);
 		}
 	}
 }

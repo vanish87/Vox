@@ -492,6 +492,7 @@ void VoxGame::GameModeChanged()
 	if (m_pGameOptionBox->GetToggled() && gameMode != GameMode_Game)
 	{
 		SetGameMode(GameMode_Game);
+		m_maxCameraDistance = 12.5f;
 	}
 	else if (m_pFrontEndOptionBox->GetToggled() && gameMode != GameMode_FrontEnd)
 	{

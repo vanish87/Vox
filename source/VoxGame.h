@@ -77,6 +77,7 @@ public:
 	void UpdateCameraAutoCamera(float dt);
 	void UpdateCameraFirstPerson(float dt);
 	void UpdateCameraClipping(float dt);
+	void UpdateCameraZoom(float dt);
 
 	// Input
 	void KeyPressed(int key, int scancode, int mods);
@@ -265,6 +266,8 @@ private:
 	int m_pressedY;
 	int m_currentX;
 	int m_currentY;
+	float m_cameraDistance;
+	float m_maxCameraDistance;
 
 	// Auto camera mode
 	vec3 m_targetCameraPosition_AutoModeCached;

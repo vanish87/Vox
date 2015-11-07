@@ -205,9 +205,16 @@ void VoxGame::MouseScroll(double x, double y)
 {
 	if (!m_pGUI->IsMouseInteractingWithGUIComponent(true))
 	{
-		if (m_gameMode == GameMode_Debug)
+		m_maxCameraDistance += (float)(-y*0.5f);
+
+		if (m_maxCameraDistance < 0.0f)
 		{
-			m_pGameCamera->Zoom((float)(-y*0.5f));
+			m_maxCameraDistance = 0.0f;
+		}
+
+		if (m_maxCameraDistance >= 15.0f)
+		{
+			m_maxCameraDistance = 15.0f;
 		}
 	}
 }
