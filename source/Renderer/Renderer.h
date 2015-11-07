@@ -25,8 +25,8 @@ using namespace glm;
 #ifdef _WIN32
 #include <windows.h>
 #endif //_WIN32
-#include <gl/gl.h>
-#include <gl/glu.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
 
 #pragma comment (lib, "opengl32")
 #pragma comment (lib, "glu32")
