@@ -58,3 +58,7 @@
 * Add character creator and customization from front-end.
 * Add voxel editor.
 * Add texture support for voxel blocks.
+
+* Proper first person mode camera
+* When in auto-camera mode, slowly orient to behind the player, after a time.
+* Implement mouse rotation camera mode for when in game mode.
