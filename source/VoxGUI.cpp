@@ -178,6 +178,9 @@ void VoxGame::CreateGUI()
 	m_pCameraModeOptionController->Add(m_pAutoCameraOptionBox);
 	m_pCameraModeOptionController->Add(m_pFirstPersonCameraOptionBox);
 	m_pDebugCameraOptionBox->SetToggled(true);
+	m_pMouseRotateCameraOptionBox->SetDisabled(true);
+	m_pAutoCameraOptionBox->SetDisabled(true);
+	m_pFirstPersonCameraOptionBox->SetDisabled(true);
 
 	m_pGameWindow->AddComponent(m_pGameModeOptionController);
 	m_pGameWindow->AddComponent(m_pGUIThemePulldown);
@@ -492,15 +495,31 @@ void VoxGame::GameModeChanged()
 	if (m_pGameOptionBox->GetToggled() && gameMode != GameMode_Game)
 	{
 		SetGameMode(GameMode_Game);
+
+		m_pMouseRotateCameraOptionBox->SetDisabled(false);
+		m_pAutoCameraOptionBox->SetDisabled(false);
+		m_pFirstPersonCameraOptionBox->SetDisabled(false);
+
 		m_maxCameraDistance = 12.5f;
 	}
 	else if (m_pFrontEndOptionBox->GetToggled() && gameMode != GameMode_FrontEnd)
 	{
 		SetGameMode(GameMode_FrontEnd);
+
+		m_pMouseRotateCameraOptionBox->SetDisabled(true);
+		m_pAutoCameraOptionBox->SetDisabled(true);
+		m_pFirstPersonCameraOptionBox->SetDisabled(true);
 	}
 	else if (m_pDebugOptionBox->GetToggled() && gameMode != GameMode_Debug)
 	{
 		SetGameMode(GameMode_Debug);
+
+		m_cameraMode = CameraMode_Debug;
+		m_pDebugCameraOptionBox->SetToggled(true);
+
+		m_pMouseRotateCameraOptionBox->SetDisabled(true);
+		m_pAutoCameraOptionBox->SetDisabled(true);
+		m_pFirstPersonCameraOptionBox->SetDisabled(true);
 	}
 }
 

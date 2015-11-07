@@ -89,7 +89,11 @@ void VoxGame::Render()
 			m_pChunkManager->Render();
 
 			// Render the player
-			if (m_cameraMode != CameraMode_FirstPerson)
+			if (m_cameraMode == CameraMode_FirstPerson)
+			{
+				m_pPlayer->RenderFirstPerson();
+			}
+			else
 			{
 				m_pPlayer->Render();
 			}
@@ -326,7 +330,10 @@ void VoxGame::RenderTransparency()
 		}
 
 		// Render the player's face
-		m_pPlayer->RenderFace();
+		if (m_cameraMode != CameraMode_FirstPerson)
+		{
+			m_pPlayer->RenderFace();
+		}
 
 		// Render the player's weapon trails
 		m_pPlayer->RenderWeaponTrails();

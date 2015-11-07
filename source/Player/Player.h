@@ -72,6 +72,7 @@ public:
 
 	// Rendering
 	void Render();
+	void RenderFirstPerson();
 	void RenderWeaponTrails();
 	void RenderFace();
 	void RenderDebug();

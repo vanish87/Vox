@@ -12,7 +12,7 @@ void VoxGame::UpdateKeyboardControls(float dt)
 {
 	GameMode gameMode = GetGameMode();
 
-	if (gameMode == GameMode_Debug)
+	if (gameMode == GameMode_Debug || m_cameraMode == CameraMode_Debug)
 	{
 		// Keyboard camera movements
 		if (m_bKeyboardForward)
@@ -40,8 +40,7 @@ void VoxGame::UpdateKeyboardControls(float dt)
 			m_pGameCamera->Levitate(-20.0f * dt);
 		}
 	}
-
-	if (gameMode == GameMode_Game)
+	else if (gameMode == GameMode_Game)
 	{
 		// Player movements
 		if (m_bKeyboardSpace)
@@ -168,17 +167,30 @@ void VoxGame::UpdateMouseControls(float dt)
 
 	GameMode gameMode = GetGameMode();
 
-	if (m_cameraMode == CameraMode_MouseRotate)
+	if (gameMode == GameMode_Game)
 	{
-		MouseCameraRotate(x, y);
+		if (m_cameraMode == CameraMode_Debug)
+		{
+			if (m_bCameraRotate)
+			{
+				MouseCameraRotate(x, y);
+			}
+		}
+		else if (m_cameraMode == CameraMode_MouseRotate)
+		{
+			MouseCameraRotate(x, y);
+		}
+		if (m_cameraMode == CameraMode_AutoCamera)
+		{
+			/* Do nothing, camera rotation is not controlled by player. */
+		}
+		else if (m_cameraMode == CameraMode_FirstPerson)
+		{
+			MouseCameraRotate(x, y);
+		}
 	}
-	else if (m_cameraMode == CameraMode_FirstPerson)
+	else if (gameMode == GameMode_Debug)
 	{
-		MouseCameraRotate(x, y);
-	}
-	else if (gameMode == GameMode_Debug || m_cameraMode == CameraMode_Debug)
-	{
-		// Mouse camera movements
 		if (m_bCameraRotate)
 		{
 			MouseCameraRotate(x, y);

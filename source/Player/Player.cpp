@@ -565,6 +565,11 @@ void Player::Render()
 	m_pRenderer->PopMatrix();
 }
 
+void Player::RenderFirstPerson()
+{
+
+}
+
 void Player::RenderWeaponTrails()
 {
 	m_pRenderer->PushMatrix();
