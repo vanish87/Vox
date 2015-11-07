@@ -46,7 +46,7 @@ void VoxGame::Create()
 	QueryPerformanceCounter(&m_fpsPreviousTicks);
 	QueryPerformanceCounter(&m_fpsCurrentTicks);
 	QueryPerformanceFrequency(&m_fpsTicksPerSecond);
-#elif
+#else
 	gettimeofday(&m_fpsPreviousTicks, NULL);
 	gettimeofday(&m_fpsCurrentTicks, NULL);
 	clock_getres(&m_fpsTicksPerSecond, NULL);

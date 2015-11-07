@@ -248,7 +248,7 @@ private:
 	LARGE_INTEGER m_fpsPreviousTicks;
 	LARGE_INTEGER m_fpsCurrentTicks;
 	LARGE_INTEGER m_fpsTicksPerSecond;
-#elif
+#else
 	struct timeval m_fpsPreviousTicks;
 	struct timeval m_fpsCurrentTicks;
 	LARGE_INTEGER m_fpsTicksPerSecond;

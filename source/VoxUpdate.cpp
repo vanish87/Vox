@@ -11,7 +11,7 @@ void VoxGame::Update()
 #ifdef _WIN32
 	QueryPerformanceCounter(&m_fpsCurrentTicks);
 	m_deltaTime = ((float)(m_fpsCurrentTicks.QuadPart - m_fpsPreviousTicks.QuadPart) / (float)m_fpsTicksPerSecond.QuadPart);
-#elif
+#else
 	gettimeofday(&m_fpsCurrentTicks, NULL);
 	m_deltaTime = (t2.tv_usec - t1.tv_usec) / 1000.0;
 #endif //_WIN32
