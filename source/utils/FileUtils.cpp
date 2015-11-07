@@ -11,8 +11,9 @@
 
 #include "FileUtils.h"
 
+#ifdef _WIN32
 #include <windows.h>
-
+#endif //_WIN32
 
 string wchar_t2string(const wchar_t *wchar)
 {

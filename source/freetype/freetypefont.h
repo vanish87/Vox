@@ -16,7 +16,9 @@
 
 #pragma once
 
+#ifdef _WIN32
 #include <windows.h>
+#endif //_WIN32
 #include <GL/gl.h>
 #include <GL/glu.h>
 
