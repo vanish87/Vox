@@ -177,7 +177,7 @@ void VoxGame::CreateGUI()
 	m_pCameraModeOptionController->Add(m_pMouseRotateCameraOptionBox);
 	m_pCameraModeOptionController->Add(m_pAutoCameraOptionBox);
 	m_pCameraModeOptionController->Add(m_pFirstPersonCameraOptionBox);
-	m_pAutoCameraOptionBox->SetToggled(true);
+	m_pDebugCameraOptionBox->SetToggled(true);
 
 	m_pGameWindow->AddComponent(m_pGameModeOptionController);
 	m_pGameWindow->AddComponent(m_pGUIThemePulldown);
@@ -522,6 +522,10 @@ void VoxGame::CameraModeChanged()
 	}
 	else if (m_pAutoCameraOptionBox->GetToggled())
 	{
+		if (m_cameraMode != CameraMode_AutoCamera)
+		{
+			SetupCameraAutoCamera();
+		}
 		m_cameraMode = CameraMode_AutoCamera;
 	}
 	else if (m_pFirstPersonCameraOptionBox->GetToggled())

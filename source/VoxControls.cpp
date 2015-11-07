@@ -106,6 +106,10 @@ void VoxGame::UpdateKeyboardControls(float dt)
 			vec3 cameraRight = m_pGameCamera->GetRight();
 			vec3 playerUp = m_pPlayer->GetUpVector();
 			vec3 moveDirection = normalize(cross(cameraRight, playerUp));
+			if (m_bKeyboardStrafeRight || m_bKeyboardStrafeLeft)
+			{
+				moveDirection *= 0.5f;
+			}
 			m_movementDirection += moveDirection;
 		}
 
@@ -121,6 +125,10 @@ void VoxGame::UpdateKeyboardControls(float dt)
 			vec3 playerUp = m_pPlayer->GetUpVector();
 			vec3 playerRight = normalize(cross(playerUp, cameraRight));
 			vec3 moveDirection = normalize(cross(playerUp, playerRight));
+			if (m_bKeyboardForward)
+			{
+				moveDirection *= 0.25f;
+			}
 			m_movementDirection += moveDirection;
 		}
 
@@ -136,6 +144,10 @@ void VoxGame::UpdateKeyboardControls(float dt)
 			vec3 playerUp = m_pPlayer->GetUpVector();
 			vec3 playerRight = normalize(cross(playerUp, cameraRight));
 			vec3 moveDirection = normalize(cross(playerUp, playerRight));
+			if (m_bKeyboardForward)
+			{
+				moveDirection *= 0.25f;
+			}
 			m_movementDirection -= moveDirection;
 		}
 

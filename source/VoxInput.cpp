@@ -207,14 +207,23 @@ void VoxGame::MouseScroll(double x, double y)
 	{
 		m_maxCameraDistance += (float)(-y*0.5f);
 
-		if (m_maxCameraDistance < 0.0f)
+		float minAmount = 0.0f;
+		float maxAmount = 15.0f;
+
+		if (m_gameMode == GameMode_Game && m_cameraMode == CameraMode_AutoCamera)
 		{
-			m_maxCameraDistance = 0.0f;
+			minAmount = 3.0f;
+			maxAmount = 15.0f;
 		}
 
-		if (m_maxCameraDistance >= 15.0f)
+		if (m_maxCameraDistance <= minAmount)
 		{
-			m_maxCameraDistance = 15.0f;
+			m_maxCameraDistance = minAmount;
+		}
+
+		if (m_maxCameraDistance >= maxAmount)
+		{
+			m_maxCameraDistance = maxAmount;
 		}
 	}
 }

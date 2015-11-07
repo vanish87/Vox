@@ -74,6 +74,7 @@ public:
 	// Camera controls
 	void UpdateCamera(float dt);
 	void UpdateCameraMouseRotate(float dt);
+	void SetupCameraAutoCamera();
 	void UpdateCameraAutoCamera(float dt);
 	void UpdateCameraFirstPerson(float dt);
 	void UpdateCameraClipping(float dt);
@@ -276,6 +277,10 @@ private:
 	vec3 m_targetCameraPosition_AutoMode;
 	vec3 m_targetCameraUp_AutoMode;
 	vec3 m_targetCameraFacing_AutoMode;
+	vec3 m_targetCameraBehindPlayerPosition;
+	float m_targetCameraBehindPlayerRightAmount;
+	float m_targetCameraBehindPlayerForwardAmount;
+	float m_targetCameraBehindPlayerUpAmount;
 
 	// Player movement
 	bool m_keyboardMovement;

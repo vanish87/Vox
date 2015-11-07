@@ -21,86 +21,72 @@ void VoxGame::UpdateCameraMouseRotate(float dt)
 {
 }
 
+void VoxGame::SetupCameraAutoCamera()
+{
+	vec3 ratios = normalize(vec3(2.5f, 1.0f, 0.0f));
+
+	m_targetCameraBehindPlayerRightAmount = 0.0f;
+	m_targetCameraBehindPlayerForwardAmount = -1.0f;
+	m_targetCameraBehindPlayerUpAmount = 1.0f;
+}
+
 void VoxGame::UpdateCameraAutoCamera(float dt)
 {
 	vec3 ratios = normalize(vec3(2.5f, 1.0f, 0.0f));
-	float catchupSpeed = 5.0f;
+	float catchupSpeed = 25.0f * (1.0f - (m_cameraDistance / 20.0f));
+	bool autoOrientBehind = false;
 
 	if (m_keyboardMovement)
 	{
 		if (m_bKeyboardForward && m_bKeyboardBackward == false)
 		{
-			vec3 behindPlayer = m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET;
-			behindPlayer += m_pPlayer->GetRightVector() * 0.0f;
-			behindPlayer += m_pPlayer->GetForwardVector() * -m_cameraDistance*ratios.x;
-			behindPlayer += m_pPlayer->GetUpVector() * m_cameraDistance*ratios.y;
-
-			m_targetCameraPosition_AutoModeCached = behindPlayer;
-
-			m_targetCameraFacing_AutoModeCached = m_pPlayer->GetCenter() - m_targetCameraPosition_AutoModeCached;
-			m_targetCameraFacing_AutoModeCached = normalize(m_targetCameraFacing_AutoModeCached);
-
-			m_targetCameraUp_AutoModeCached = normalize(cross(m_targetCameraFacing_AutoModeCached, m_pPlayer->GetRightVector()));
+			m_targetCameraBehindPlayerRightAmount = 0.0f;
+			m_targetCameraBehindPlayerForwardAmount = -1.0f;
+			m_targetCameraBehindPlayerUpAmount = 1.0f;
 		}
 		else if (m_bKeyboardRight && m_bKeyboardLeft == false)
 		{
-			vec3 behindPlayer = m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET;
-			behindPlayer += m_pPlayer->GetRightVector() * -m_cameraDistance*ratios.x;
-			behindPlayer += m_pPlayer->GetForwardVector() * 0.0f;
-			behindPlayer += m_pPlayer->GetUpVector() * m_cameraDistance*ratios.y;
-
-			m_targetCameraPosition_AutoModeCached = behindPlayer;
-
-			m_targetCameraFacing_AutoModeCached = m_pPlayer->GetCenter() - m_targetCameraPosition_AutoModeCached;
-			m_targetCameraFacing_AutoModeCached = normalize(m_targetCameraFacing_AutoModeCached);
-
-			m_targetCameraUp_AutoModeCached = normalize(m_pPlayer->GetUpVector());;
+			m_targetCameraBehindPlayerRightAmount = -1.0f;
+			m_targetCameraBehindPlayerForwardAmount = 0.0f;
+			m_targetCameraBehindPlayerUpAmount = 1.0f;
 		}
 		else if (m_bKeyboardLeft && m_bKeyboardRight == false)
 		{
-			vec3 behindPlayer = m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET;
-			behindPlayer += m_pPlayer->GetRightVector() * m_cameraDistance*ratios.x;
-			behindPlayer += m_pPlayer->GetForwardVector() * 0.0f;
-			behindPlayer += m_pPlayer->GetUpVector() * m_cameraDistance*ratios.y;
-
-			m_targetCameraPosition_AutoModeCached = behindPlayer;
-
-			m_targetCameraFacing_AutoModeCached = m_pPlayer->GetCenter() - m_targetCameraPosition_AutoModeCached;
-			m_targetCameraFacing_AutoModeCached = normalize(m_targetCameraFacing_AutoModeCached);
-
-			m_targetCameraUp_AutoModeCached = normalize(m_pPlayer->GetUpVector());;
+			m_targetCameraBehindPlayerRightAmount = 1.0f;
+			m_targetCameraBehindPlayerForwardAmount = 0.0f;
+			m_targetCameraBehindPlayerUpAmount = 1.0f;
 		}
 		else if (m_bKeyboardBackward && m_bKeyboardForward == false)
 		{
-			vec3 behindPlayer = m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET;
-			behindPlayer += m_pPlayer->GetRightVector() * 0.0f;
-			behindPlayer += m_pPlayer->GetForwardVector() * m_cameraDistance*ratios.x;
-			behindPlayer += m_pPlayer->GetUpVector() * m_cameraDistance*ratios.y;
-
-			m_targetCameraPosition_AutoModeCached = behindPlayer;
-
-			m_targetCameraFacing_AutoModeCached = m_pPlayer->GetCenter() - m_targetCameraPosition_AutoModeCached;
-			m_targetCameraFacing_AutoModeCached = normalize(m_targetCameraFacing_AutoModeCached);
-
-			m_targetCameraUp_AutoModeCached = normalize(cross(m_targetCameraFacing_AutoModeCached, -m_pPlayer->GetRightVector()));
+			m_targetCameraBehindPlayerRightAmount = 0.0f;
+			m_targetCameraBehindPlayerForwardAmount = 1.0f;
+			m_targetCameraBehindPlayerUpAmount = 1.0f;
 		}
 	}
 	else
 	{
-		vec3 behindPlayer = m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET;
-		behindPlayer += m_pPlayer->GetRightVector() * 0.0f;
-		behindPlayer += m_pPlayer->GetForwardVector() * -m_cameraDistance*ratios.x;
-		behindPlayer += m_pPlayer->GetUpVector() * m_cameraDistance*ratios.y;
+		if (autoOrientBehind)
+		{
+			m_targetCameraBehindPlayerRightAmount = 0.0f;
+			m_targetCameraBehindPlayerForwardAmount = -1.0f;
+			m_targetCameraBehindPlayerUpAmount = 1.0f;
 
-		m_targetCameraPosition_AutoModeCached = behindPlayer;
-
-		m_targetCameraFacing_AutoModeCached = m_pPlayer->GetCenter() - m_targetCameraPosition_AutoModeCached;
-		m_targetCameraFacing_AutoModeCached = normalize(m_targetCameraFacing_AutoModeCached);
-
-		m_targetCameraUp_AutoModeCached = normalize(cross(m_targetCameraFacing_AutoModeCached, m_pPlayer->GetRightVector()));
-
-		catchupSpeed = 2.0f;
+			catchupSpeed = 2.0f;
+		}
 	}
+
+	m_targetCameraBehindPlayerPosition = m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET;
+	m_targetCameraBehindPlayerPosition += m_pPlayer->GetRightVector() * m_targetCameraBehindPlayerRightAmount*(m_cameraDistance*ratios.x);
+	m_targetCameraBehindPlayerPosition += m_pPlayer->GetForwardVector() * m_targetCameraBehindPlayerForwardAmount*(m_cameraDistance*ratios.x);
+	m_targetCameraBehindPlayerPosition += m_pPlayer->GetUpVector() * m_targetCameraBehindPlayerUpAmount*(m_cameraDistance*ratios.y);
+
+	m_targetCameraPosition_AutoModeCached = m_targetCameraBehindPlayerPosition;
+	m_targetCameraFacing_AutoModeCached = m_pPlayer->GetCenter();
+	m_targetCameraFacing_AutoModeCached += m_pPlayer->GetForwardVector() * 0.25f;
+	m_targetCameraFacing_AutoModeCached += m_pPlayer->GetUpVector() * 1.0f;
+	m_targetCameraFacing_AutoModeCached -= m_targetCameraPosition_AutoModeCached;
+	m_targetCameraFacing_AutoModeCached = normalize(m_targetCameraFacing_AutoModeCached);
+	m_targetCameraUp_AutoModeCached = normalize(m_pPlayer->GetUpVector());
 
 	// Update the target vectors based on the cached and calculated values
 	{
@@ -112,9 +98,9 @@ void VoxGame::UpdateCameraAutoCamera(float dt)
 		vec3 toUp = newUp - m_targetCameraUp_AutoMode;
 		vec3 toFacing = newFacing - m_targetCameraFacing_AutoMode;
 
-		m_targetCameraPosition_AutoMode += toPos * 10.0f * dt;
-		m_targetCameraUp_AutoMode += toUp * 10.0f * dt;
-		m_targetCameraFacing_AutoMode += toFacing * 10.0f * dt;
+		m_targetCameraPosition_AutoMode += toPos * (catchupSpeed*2.0f) * dt;
+		m_targetCameraUp_AutoMode += toUp * (catchupSpeed*2.0f) * dt;
+		m_targetCameraFacing_AutoMode += toFacing * (catchupSpeed*2.0f) * dt;
 	}
 
 	vec3 posDiff = m_targetCameraPosition_AutoMode - m_pGameCamera->GetPosition();
