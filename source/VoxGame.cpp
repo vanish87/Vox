@@ -53,7 +53,7 @@ void VoxGame::Create()
 #else
 	gettimeofday(&m_fpsPreviousTicks, NULL);
 	gettimeofday(&m_fpsCurrentTicks, NULL);
-	clock_getres(&m_fpsTicksPerSecond, NULL);
+	clock_getres(CLOCK_MONOTONIC, &m_fpsTicksPerSecond);
 #endif //_WIN32
 	m_deltaTime = 0.0f;
 	m_fps = 0.0f;
