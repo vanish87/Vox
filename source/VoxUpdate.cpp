@@ -17,7 +17,7 @@ void VoxGame::Update()
 	m_deltaTime = ((float)(m_fpsCurrentTicks.QuadPart - m_fpsPreviousTicks.QuadPart) / (float)m_fpsTicksPerSecond.QuadPart);
 #else
 	gettimeofday(&m_fpsCurrentTicks, NULL);
-	m_deltaTime = (t2.tv_usec - t1.tv_usec) / 1000.0;
+	m_deltaTime = (m_fpsCurrentTicks.tv_usec - m_fpsPreviousTicks.tv_usec) / 1000.0;
 #endif //_WIN32
 	m_fps = 1.0f / m_deltaTime;
 	m_fpsPreviousTicks = m_fpsCurrentTicks;
