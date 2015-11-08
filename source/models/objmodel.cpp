@@ -1,4 +1,5 @@
 #include "OBJModel.h"
+#include "../utils/FileUtils.h"
 
 #pragma warning(disable: 4473)  // 'fscanf_s' : not enough arguments passed for format string
 
