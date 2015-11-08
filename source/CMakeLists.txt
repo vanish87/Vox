@@ -78,8 +78,12 @@ include_directories("freetype\\include")
 include_directories("lua")
 include_directories("selene")
 
+if(MSVC)
 target_link_libraries(Vox "opengl32.lib")
 target_link_libraries(Vox "winmm.lib")
+else()
+target_link_libraries(Vox "libGL.so")
+endif(MSVC)
 
 if(MSVC11)
 	if(CMAKE_SIZEOF_VOID_P EQUAL 8)
