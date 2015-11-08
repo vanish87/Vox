@@ -14,6 +14,7 @@
 
 #include <float.h>  // Required for _isnan(...)
 #include <cmath>
+#include <cstring>
 
 #include "3dmaths.h"
 #include <glm/glm.hpp>
