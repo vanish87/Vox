@@ -11,6 +11,7 @@
 
 #include "texture.h"
 #include "tga.h"
+#include <string.h>
 
 #ifndef GL_CLAMP_TO_EDGE
 #define GL_CLAMP_TO_EDGE 0x812F

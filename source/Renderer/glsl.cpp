@@ -14,7 +14,7 @@ Last update: 2006/11/12 (Geometry Shader Support)
 #include <fstream>
 #include <algorithm>
 #include <math.h>
-#include <cstring.h>
+#include <string.h>
 
 using namespace std;
 //using namespace cwc;
