@@ -59,8 +59,9 @@ vector<string> listFilesInDirectory(string directoryName)
 	FindClose(hFind);
 
 	return listFileNames;
-#elif __linux__ 
-	return NULL;
+#elif __linux__
+	vector<string> vStrings;
+	return vStrings;
 #endif //_WIN32
 }
 

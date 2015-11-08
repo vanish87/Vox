@@ -1048,7 +1048,11 @@ void VoxelCharacter::PlayFacialExpression(const char *lFacialExpressionName)
 		int lExpressionIndex = -1;
 		for(int i = 0; i < m_numFacialExpressions; i++)
 		{
-			if(_strcmpi(lFacialExpressionName, m_pFacialExpressions[i].m_facialExpressionName.c_str()) == 0)
+#ifdef _WIN32
+			if (_strcmpi(lFacialExpressionName, m_pFacialExpressions[i].m_facialExpressionName.c_str()) == 0)
+#else
+			if (strcasecmp(lFacialExpressionName, m_pFacialExpressions[i].m_facialExpressionName.c_str()) == 0)
+#endif //_WIN32
 			{
 				lExpressionIndex = i;
 
