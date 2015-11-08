@@ -42,6 +42,7 @@ wchar_t *string2wchar_t(const string &str)
 
 vector<string> listFilesInDirectory(string directoryName)
 {
+#ifdef _WIN32
 	WIN32_FIND_DATA FindFileData;
 	wchar_t * FileName = string2wchar_t(directoryName);
 	HANDLE hFind = FindFirstFile(FileName, &FindFileData);
@@ -58,16 +59,21 @@ vector<string> listFilesInDirectory(string directoryName)
 	FindClose(hFind);
 
 	return listFileNames;
+#elif __linux__ 
+	return NULL;
+#endif //_WIN32
 }
 
 bool dirExists(const std::string& dirName_in)
 {
+#ifdef _WIN32
 	DWORD ftyp = GetFileAttributesA(dirName_in.c_str());
 	if (ftyp == INVALID_FILE_ATTRIBUTES)
 		return false;  //something is wrong with your path!
 
 	if (ftyp & FILE_ATTRIBUTE_DIRECTORY)
 		return true;   // this is a directory!
+#endif //_WIN32
 
 	return false;    // this is not a directory!
 }
