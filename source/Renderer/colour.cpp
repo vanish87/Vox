@@ -12,13 +12,13 @@
 #include "colour.h"
 
 #include <cmath>
+#include <cfloat>
 
 #pragma warning(disable: 4056)  // Overflow in floating-point constant arithmetic
 
-#ifdef _MSC_VER
 #define _INFINITY (FLT_MAX+FLT_MAX)
 #define _NAN (_INFINITY-_INFINITY)
-#endif
+
 
 void Colour::RGBToHSV(float r, float g, float b, float *h, float *s, float *v)
 {

@@ -964,7 +964,7 @@ bool Renderer::RenderFreeTypeText(unsigned int fontID, float x, float y, float z
 
 	// Loop through variable argument list and add them to the string
 	va_start(ap, inText);
-		vsprintf_s(outText, inText, ap);
+		vsprintf(outText, inText, ap);
 	va_end(ap);
 
 	glColor4fv(colour.GetRGBA());
@@ -995,7 +995,7 @@ int Renderer::GetFreeTypeTextWidth(unsigned int fontID, char *inText, ...)
 
 	// Loop through variable argument list and add them to the string
 	va_start(ap, inText);
-		vsprintf_s(outText, inText, ap);
+		vsprintf(outText, inText, ap);
 	va_end(ap);
 
 	return m_freetypeFonts[fontID]->GetTextWidth(outText);
