@@ -17,9 +17,11 @@
 #include <string>
 #include <vector>
 #include <iostream>
-
 using namespace std;
 
+#ifdef __linux__
+#define fopen_s(pFile,filename,mode) ((*(pFile))=fopen((filename),(mode)))==NULL
+#endif
 
 string wchar_t2string(const wchar_t *wchar);
 wchar_t *string2wchar_t(const string &str);
