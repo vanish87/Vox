@@ -332,7 +332,7 @@ void VoxGame::UpdateGUIThemePulldown()
 	m_pGUIThemePulldown->AddPulldownItem("None");
 
 	char importDirectory[128];
-	sprintf_s(importDirectory, "media/textures/gui/*.*");
+	snprintf(importDirectory, 128, "media/textures/gui/*.*");
 
 	vector<string> listFiles;
 	listFiles = listFilesInDirectory(importDirectory);

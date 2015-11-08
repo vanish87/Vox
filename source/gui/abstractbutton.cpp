@@ -48,11 +48,6 @@ AbstractButton::AbstractButton(Renderer* pRenderer, unsigned int GUIFont, const 
 
 	m_labelOffsetX = 0;
 	m_labelOffsetY = 0;
-
-	m_enterSound = false;
-	m_exitSound = false;
-	m_pressedSound = false;
-	m_clickedSound = false;
 }
 
 AbstractButton::~AbstractButton()
@@ -294,30 +289,6 @@ void AbstractButton::SetDisabledIcon(RenderRectangle *icon)
 
 	// Re-add this icon to the component list
 	Add(m_pDisabledIcon);
-}
-
-void AbstractButton::SetEnterAudio(const char* filename)
-{
-	m_enterSound = true;
-	sprintf_s(m_enterSoundFilename, 64, "%s", filename);
-}
-
-void AbstractButton::SetExitAudio(const char* filename)
-{
-	m_exitSound = true;
-	sprintf_s(m_exitSoundFilename, 64, "%s", filename);
-}
-
-void AbstractButton::SetPressedAudio(const char* filename)
-{
-	m_pressedSound = true;
-	sprintf_s(m_pressedSoundFilename, 64, "%s", filename);
-}
-
-void AbstractButton::SetClickedAudio(const char* filename)
-{
-	m_clickedSound = true;
-	sprintf_s(m_clickedSoundFilename, 64, "%s", filename);
 }
 
 Label AbstractButton::GetLabel() const

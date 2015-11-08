@@ -3,6 +3,10 @@
 #include "utils/Interpolator.h"
 #include "utils/TimeManager.h"
 
+#ifdef __linux__ 
+#include <sys/time.h>
+#endif //__linux__ 
+
 
 // Updating
 void VoxGame::Update()

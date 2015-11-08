@@ -44,11 +44,6 @@ public:
 	void SetHoverIcon(RenderRectangle *icon);
 	void SetDisabledIcon(RenderRectangle *icon);
 
-	void SetEnterAudio(const char* filename);
-	void SetExitAudio(const char* filename);
-	void SetPressedAudio(const char* filename);
-	void SetClickedAudio(const char* filename);
-
 	Label GetLabel() const;
 
 	void SetDisplayLabel(bool display);
@@ -93,16 +88,6 @@ protected:
 	RenderRectangle	*m_pSelectedIcon;
 	RenderRectangle	*m_pHoverIcon;
 	RenderRectangle	*m_pDisabledIcon;
-
-	bool m_enterSound;
-	bool m_exitSound;
-	bool m_pressedSound;
-	bool m_clickedSound;
-
-	char m_enterSoundFilename[64];
-	char m_exitSoundFilename[64];
-	char m_pressedSoundFilename[64];
-	char m_clickedSoundFilename[64];
 
 	Label m_label;
 
