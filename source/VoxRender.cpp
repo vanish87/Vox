@@ -81,7 +81,7 @@ void VoxGame::Render()
 			m_pRenderer->BindRawTextureId(m_pRenderer->GetDepthTextureFromFrameBuffer(m_shadowFrameBuffer));
 			glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "renderShadow"), m_shadows);
 			glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "alwaysShadow"), false);
-			
+
 			// Render world
 			RenderWorld();
 
@@ -99,7 +99,7 @@ void VoxGame::Render()
 			}
 
 			// Render the block particles
-			m_pBlockParticleManager->Render();
+			//m_pBlockParticleManager->Render();
 
 			m_pRenderer->EndGLSLShader(m_shadowShader);
 
@@ -216,7 +216,7 @@ void VoxGame::RenderShadows()
 			m_pPlayer->Render();
 
 			// Render the block particles
-			m_pBlockParticleManager->Render();
+			//m_pBlockParticleManager->Render();
 
 			m_pRenderer->SetTextureMatrix();
 			m_pRenderer->SetCullMode(CM_BACK);
