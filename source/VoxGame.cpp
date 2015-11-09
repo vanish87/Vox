@@ -54,7 +54,7 @@ void VoxGame::Create()
     struct timeval tm;
     gettimeofday(&tm, NULL);
     m_fpsCurrentTicks = (double)tm.tv_sec + (double)tm.tv_usec / 1000000.0;
-    m_deltaTime = (m_fpsCurrentTicks - m_fpsPreviousTicks);
+    m_fpsPreviousTicks = (double)tm.tv_sec + (double)tm.tv_usec / 1000000.0;
 #endif //_WIN32
 	m_deltaTime = 0.0f;
 	m_fps = 0.0f;
