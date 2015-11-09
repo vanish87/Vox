@@ -48,7 +48,7 @@
 * ~~Add limits to rotation so we dont go over and under the max/min up-axis.~~
 * ~~Add different camera modes, option toggle on GUI.~~
 * ~~Add player camera controls.~~
-* Enable cross platform compiling and support, linux, mac
+* ~~Enable cross platform compiling and support, linux, mac~~
 * Convert shaders over to be more unified.
 * Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
