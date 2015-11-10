@@ -211,22 +211,20 @@ bool Player::CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pN
 	vec3 movementCache = *pMovement;
 
 	bool worldCollision = false;
+	float radius = GetRadius();
 
-	if (m_bCanJump == true || m_jumpTimer <= 0.0f)
+	if (positionCheck.y - radius <= 0.0f)
 	{
-		if (m_position.y <= 0.0f)
-		{
-			*pNormal = vec3(0.0f, 1.0f, 0.0f);
+		*pNormal = vec3(0.0f, 1.0f, 0.0f);
 
-			float dotResult = dot(*pNormal, *pMovement);
-			*pNormal *= dotResult;
+		float dotResult = dot(*pNormal, *pMovement);
+		*pNormal *= dotResult;
 
-			*pMovement -= *pNormal;
+		*pMovement -= *pNormal;
+		
+		m_movementVelocity = vec3(0.0f, 0.0f, 0.0f);
 
-			m_movementVelocity = vec3(0.0f, 0.0f, 0.0f);
-
-			worldCollision = true;
-		}
+		worldCollision = true;
 	}
 
 	if (worldCollision)
@@ -247,8 +245,7 @@ void Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeFo
 
 	if (shouldChangeForward)
 	{
-		m_forward = (length(m_movementVelocity) > 0.01f) ? m_movementVelocity : direction;
-		m_forward = normalize(m_forward);
+		m_forward = normalize(direction);
 	}
 
 	m_targetForward = m_forward;
@@ -400,21 +397,24 @@ void Player::UpdatePhysics(float dt)
 			vec3 posToCheck = GetCenter() + velocityToUse*dtToUse;
 			if (CheckCollisions(posToCheck, m_previousPosition, &pNormal, &velAmount))
 			{
-				// Reset velocity, we don't have any bounce
-				m_velocity = vec3(0.0f, 0.0f, 0.0f);
-				velocityToUse = vec3(0.0f, 0.0f, 0.0f);
-
-				if (m_bCanJump == false)
+				if (velocityToUse.y <= 0.0f)
 				{
-					m_bCanJump = true;
+					// Reset velocity, we don't have any bounce
+					m_velocity = vec3(0.0f, 0.0f, 0.0f);
+					velocityToUse = vec3(0.0f, 0.0f, 0.0f);
+
+					if (m_bCanJump == false)
+					{
+						m_bCanJump = true;
+					}
 				}
 			}
 		}
 
+		m_movementVelocity -= (m_movementVelocity * (7.5f * dt));
+
 		// Integrate position
 		m_position += velocityToUse * dt;
-
-		m_movementVelocity -= (m_movementVelocity * (7.5f * dt));
 	}
 
 	// Store previous position
