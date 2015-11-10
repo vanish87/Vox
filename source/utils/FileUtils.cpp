@@ -13,14 +13,14 @@
 
 #ifdef _WIN32
 #include <windows.h>
-#endif //_WIN32
-
+#elif __linux__
 #include <sys/types.h>
 #include <dirent.h>
 #include <errno.h>
 #include <vector>
 #include <string>
 #include <iostream>
+#endif
 
 
 string wchar_t2string(const wchar_t *wchar)
