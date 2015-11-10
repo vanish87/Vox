@@ -1080,7 +1080,6 @@ void BlockParticleManager::RenderBlockParticle(BlockParticle* pBlockParticle)
 		m_pRenderer->MultiplyWorldMatrix(worldMatrix);
 
 		m_pRenderer->PushMatrix();
-			m_pRenderer->SetRenderMode(RM_SOLID);
 			m_pRenderer->SetPrimativeMode(PM_QUADS);
 			//m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
 			m_pRenderer->RenderFromArray(VT_POSITION_NORMAL_COLOUR, m_blockMaterialID, NULL, 24, 24, 0, &m_vertexBuffer, NULL, NULL);
