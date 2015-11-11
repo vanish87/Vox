@@ -3,9 +3,16 @@
 // Controls
 void VoxGame::UpdateControls(float dt)
 {
-	UpdateKeyboardControls(dt);
-	UpdateMouseControls(dt);
-	UpdateGamePadControls(dt);
+	if (m_gamepadMovement == false)
+	{
+		UpdateKeyboardControls(dt);
+		UpdateMouseControls(dt);
+	}
+
+	if (m_keyboardMovement == false)
+	{
+		UpdateGamePadControls(dt);
+	}
 }
 
 void VoxGame::UpdateKeyboardControls(float dt)
@@ -42,20 +49,16 @@ void VoxGame::UpdateKeyboardControls(float dt)
 	}
 	else if (gameMode == GameMode_Game)
 	{
-		// Player movements
+		// Jumping
 		if (m_bKeyboardSpace)
 		{
 			m_pPlayer->Jump();
 		}
 
-
+		// Player movements
 		bool resetMovementVector = false;
-		bool l_moving = true;
-		float speedDescreaseFactor = 1.0f;
 		if (m_bKeyboardForward == false && m_bKeyboardBackward == false && m_bKeyboardStrafeLeft == false && m_bKeyboardStrafeRight == false)
 		{
-			l_moving = false;
-
 			// Reduce the movement speed (drag)
 			m_movementSpeed -= m_maxMovementSpeed / (m_movementDragTime / dt);
 
@@ -105,10 +108,6 @@ void VoxGame::UpdateKeyboardControls(float dt)
 			vec3 cameraRight = m_pGameCamera->GetRight();
 			vec3 playerUp = m_pPlayer->GetUpVector();
 			vec3 moveDirection = normalize(cross(cameraRight, playerUp));
-			if (m_bKeyboardStrafeRight || m_bKeyboardStrafeLeft)
-			{
-				moveDirection *= 0.35f;
-			}
 			m_movementDirection += moveDirection;
 		}
 
@@ -121,13 +120,7 @@ void VoxGame::UpdateKeyboardControls(float dt)
 			}
 
 			vec3 cameraRight = m_pGameCamera->GetRight();
-			vec3 playerUp = m_pPlayer->GetUpVector();
-			vec3 playerRight = normalize(cross(playerUp, cameraRight));
-			vec3 moveDirection = normalize(cross(playerUp, playerRight));
-			if (m_bKeyboardForward)
-			{
-				moveDirection *= 0.25f;
-			}
+			vec3 moveDirection = -cameraRight;
 			m_movementDirection += moveDirection;
 		}
 
@@ -140,13 +133,7 @@ void VoxGame::UpdateKeyboardControls(float dt)
 			}
 
 			vec3 cameraRight = m_pGameCamera->GetRight();
-			vec3 playerUp = m_pPlayer->GetUpVector();
-			vec3 playerRight = normalize(cross(playerUp, cameraRight));
-			vec3 moveDirection = normalize(cross(playerUp, playerRight));
-			if (m_bKeyboardForward)
-			{
-				moveDirection *= 0.25f;
-			}
+			vec3 moveDirection = -cameraRight;
 			m_movementDirection -= moveDirection;
 		}
 
@@ -155,30 +142,27 @@ void VoxGame::UpdateKeyboardControls(float dt)
 			bool shouldChangePlayerFacing = (m_cameraMode != CameraMode_FirstPerson);
 
 			m_movementDirection = normalize(m_movementDirection);
-			m_pPlayer->MoveAbsolute(m_movementDirection, m_movementSpeed * speedDescreaseFactor * dt, shouldChangePlayerFacing);
+			m_pPlayer->MoveAbsolute(m_movementDirection, m_movementSpeed * dt, shouldChangePlayerFacing);
 		}
 	}
 }
 
 void VoxGame::UpdateMouseControls(float dt)
 {
-	int x = m_pVoxWindow->GetCursorX();
-	int y = m_pVoxWindow->GetCursorY();
-
 	GameMode gameMode = GetGameMode();
-
-	if (gameMode == GameMode_Game)
+	if (gameMode == GameMode_Debug || m_cameraMode == CameraMode_Debug)
 	{
-		if (m_cameraMode == CameraMode_Debug)
+		if (m_bCameraRotate)
 		{
-			if (m_bCameraRotate)
-			{
-				MouseCameraRotate(x, y);
-			}
+			MouseCameraRotate();
 		}
-		else if (m_cameraMode == CameraMode_MouseRotate)
+	}
+	else if (gameMode == GameMode_Game)
+	{
+		if (m_cameraMode == CameraMode_MouseRotate)
 		{
-			MouseCameraRotate(x, y);
+			// TODO : write camera rotation for mouse movement.
+			//MouseCameraRotate();
 		}
 		if (m_cameraMode == CameraMode_AutoCamera)
 		{
@@ -186,19 +170,95 @@ void VoxGame::UpdateMouseControls(float dt)
 		}
 		else if (m_cameraMode == CameraMode_FirstPerson)
 		{
-			MouseCameraRotate(x, y);
-		}
-	}
-	else if (gameMode == GameMode_Debug)
-	{
-		if (m_bCameraRotate)
-		{
-			MouseCameraRotate(x, y);
+			MouseCameraRotate();
 		}
 	}
 }
 
 void VoxGame::UpdateGamePadControls(float dt)
 {
+	JoystickCameraZoom(dt);
 
+	m_bJoystickJump = m_pVoxWindow->GetJoystickButton(0, 0);
+
+	GameMode gameMode = GetGameMode();
+	if (gameMode == GameMode_Debug || m_cameraMode == CameraMode_Debug)
+	{
+		JoystickCameraMove(dt);
+		JoystickCameraRotate(dt);
+	}
+	else if (gameMode == GameMode_Game)
+	{
+		if (m_cameraMode == CameraMode_MouseRotate)
+		{
+		}
+		if (m_cameraMode == CameraMode_AutoCamera)
+		{
+			/* Do nothing, camera rotation is not controlled by player. */
+		}
+		else if (m_cameraMode == CameraMode_FirstPerson)
+		{
+			JoystickCameraRotate(dt);
+		}
+
+		// Jumping
+		if (m_bJoystickJump)
+		{
+			m_pPlayer->Jump();
+		}
+
+		// Player movements
+		float axisX = m_pVoxWindow->GetJoystickAxisValue(0, 0);
+		float axisY = m_pVoxWindow->GetJoystickAxisValue(0, 1);
+
+		// Dead zones
+		if (fabs(axisX) < m_pVoxWindow->GetJoystickAnalogDeadZone())
+		{
+			axisX = 0.0f;
+		}
+		if (fabs(axisY) < m_pVoxWindow->GetJoystickAnalogDeadZone())
+		{
+			axisY = 0.0f;
+		}
+
+		if (fabs(axisX) <= 0.0f && fabs(axisY) <= 0.0f)
+		{
+			// Reduce the movement speed (drag)
+			m_movementSpeed -= m_maxMovementSpeed / (m_movementDragTime / dt);
+
+			if (m_movementSpeed <= 0.0f)
+			{
+				m_movementSpeed = 0.0f;
+				m_gamepadMovement = false;
+				m_pPlayer->StopMoving();
+			}
+		}
+		else
+		{
+			m_gamepadMovement = true;
+
+			// Increase the movement speed since we are pressing a movement key
+			m_movementSpeed += m_maxMovementSpeed / (m_movementIncreaseTime / dt);
+
+			// Don't allow faster than max movement
+			if (m_movementSpeed > m_maxMovementSpeed)
+			{
+				m_movementSpeed = m_maxMovementSpeed;
+			}
+		}
+
+		vec3 cameraRight = m_pGameCamera->GetRight();
+		vec3 playerUp = m_pPlayer->GetUpVector();
+		vec3 moveDirection = normalize(cross(cameraRight, playerUp));
+		m_movementDirection += moveDirection * axisY;
+		m_movementDirection += cameraRight * axisX;
+
+		if (length(m_movementDirection) > 0.001f && m_movementSpeed > m_movementStopThreshold)
+		{
+			bool shouldChangePlayerFacing = (m_cameraMode != CameraMode_FirstPerson);
+
+			m_movementDirection = normalize(m_movementDirection);
+ 			m_pPlayer->MoveAbsolute(m_movementDirection, m_movementSpeed * dt, shouldChangePlayerFacing);
+		}
+	}
 }

@@ -21,6 +21,15 @@ using namespace std;
 
 #include <GLFW/glfw3.h>
 
+typedef struct Joystick
+{
+	bool m_present;
+	char* m_name;
+	float* m_axes;
+	unsigned char* m_buttons;
+	int m_axisCount;
+	int m_buttonCount;
+} Joystick;
 
 class VoxWindow
 {
@@ -47,6 +56,12 @@ public:
 	// Cursor position
 	int GetCursorX();
 	int GetCursorY();
+
+	// Joysticks
+	void UpdateJoySticks();
+	float GetJoystickAxisValue(int joyStickNum, int axisIndex);
+	bool GetJoystickButton(int joyStickNum, int axisIndex);
+	float GetJoystickAnalogDeadZone();
 
 	// Fullscreen
 	void ToggleFullScreen(bool fullscreen);
@@ -77,9 +92,15 @@ private:
 	int m_oldWindowWidth;
 	int m_oldWindowHeight;
 
+	// Minimized flag
 	bool m_minimized;
 
 	// Cursor position
 	int m_cursorX;
 	int m_cursorY;
+
+	// Joysticks
+	Joystick m_joysticks[GLFW_JOYSTICK_LAST - GLFW_JOYSTICK_1 + 1];
+	int m_joystickCount;
+	float m_joystickAnalogDeadZone;
 };

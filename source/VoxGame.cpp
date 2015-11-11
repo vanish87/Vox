@@ -154,6 +154,9 @@ void VoxGame::Create()
 	m_bKeyboardDown = false;
 	m_bKeyboardSpace = false;
 
+	// Joystick flags
+	m_bJoystickJump = false;
+
 	// Camera movement
 	m_bCameraRotate = false;
 	m_pressedX = 0;
@@ -261,6 +264,11 @@ void VoxGame::ResizeWindow(int width, int height)
 		m_pMainWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 		m_pGameWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 	}
+}
+
+void VoxGame::UpdateJoySticks()
+{
+	m_pVoxWindow->UpdateJoySticks();
 }
 
 // Game functions

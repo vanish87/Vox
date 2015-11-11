@@ -207,30 +207,38 @@ void VoxGame::MouseScroll(double x, double y)
 	{
 		m_maxCameraDistance += (float)(-y*0.5f);
 
-		float minAmount = 0.0f;
-		float maxAmount = 15.0f;
+		WrapCameraZoomValue();
+	}
+}
 
-		if (m_gameMode == GameMode_Game && m_cameraMode == CameraMode_AutoCamera)
-		{
-			minAmount = 3.0f;
-			maxAmount = 15.0f;
-		}
+void VoxGame::WrapCameraZoomValue()
+{
+	float minAmount = 0.5f;
+	float maxAmount = 15.0f;
 
-		if (m_maxCameraDistance <= minAmount)
-		{
-			m_maxCameraDistance = minAmount;
-		}
+	if (m_gameMode == GameMode_Game && m_cameraMode == CameraMode_AutoCamera)
+	{
+		minAmount = 3.0f;
+		maxAmount = 15.0f;
+	}
 
-		if (m_maxCameraDistance >= maxAmount)
-		{
-			m_maxCameraDistance = maxAmount;
-		}
+	if (m_maxCameraDistance <= minAmount)
+	{
+		m_maxCameraDistance = minAmount;
+	}
+
+	if (m_maxCameraDistance >= maxAmount)
+	{
+		m_maxCameraDistance = maxAmount;
 	}
 }
 
 // Mouse controls
-void VoxGame::MouseCameraRotate(int x, int y)
+void VoxGame::MouseCameraRotate()
 {
+	int x = m_pVoxWindow->GetCursorX();
+	int y = m_pVoxWindow->GetCursorY();
+
 	float changeX;
 	float changeY;
 
@@ -250,6 +258,7 @@ void VoxGame::MouseCameraRotate(int x, int y)
 		changeX = -changeX;
 	}
 	
+	// First person mode
 	if (m_cameraMode == CameraMode_FirstPerson)
 	{
 		changeY = -changeY;
@@ -278,4 +287,95 @@ void VoxGame::MouseCameraRotate(int x, int y)
 
 	m_currentX = x;
 	m_currentY = y;
+}
+
+// Joystick controls
+void VoxGame::JoystickCameraMove(float dt)
+{
+	float axisX = m_pVoxWindow->GetJoystickAxisValue(0, 0);
+	float axisY = m_pVoxWindow->GetJoystickAxisValue(0, 1);
+
+	// Dead zones
+	if (fabs(axisX) < m_pVoxWindow->GetJoystickAnalogDeadZone())
+	{
+		axisX = 0.0f;
+	}
+	if (fabs(axisY) < m_pVoxWindow->GetJoystickAnalogDeadZone())
+	{
+		axisY = 0.0f;
+	}
+
+	float changeX = axisX * 10.0f * dt;
+	float changeY = axisY * 10.0f * dt;
+
+	m_pGameCamera->Fly(-changeY);
+	m_pGameCamera->Strafe(changeX);
+}
+
+void VoxGame::JoystickCameraRotate(float dt)
+{
+	float axisX = m_pVoxWindow->GetJoystickAxisValue(0, 4);
+	float axisY = m_pVoxWindow->GetJoystickAxisValue(0, 3);
+
+	// Dead zones
+	if (fabs(axisX) < m_pVoxWindow->GetJoystickAnalogDeadZone())
+	{
+		axisX = 0.0f;
+	}
+	if (fabs(axisY) < m_pVoxWindow->GetJoystickAnalogDeadZone())
+	{
+		axisY = 0.0f;
+	}
+
+	float changeX = axisX * 200.0f * dt;
+	float changeY = axisY * 200.0f * dt;
+
+	// Upside down
+	if (m_pGameCamera->GetUp().y < 0.0f)
+	{
+		changeX = -changeX;
+	}
+
+	// First person mode
+	if (m_cameraMode == CameraMode_FirstPerson)
+	{
+		changeY = -changeY;
+	}
+
+	// Limit the rotation, so we can't go 'over' or 'under' the player with out rotations
+	vec3 cameraFacing = m_pGameCamera->GetFacing();
+	float dotResult = acos(dot(cameraFacing, vec3(0.0f, 1.0f, 0.0f)));
+	float rotationDegrees = RadToDeg(dotResult) - 90.0f;
+	float limitAngle = 75.0f;
+	if ((rotationDegrees > limitAngle && changeY < 0.0f) || (rotationDegrees < -limitAngle && changeY > 0.0f))
+	{
+		changeY = 0.0f;
+	}
+
+	if (m_cameraMode == CameraMode_FirstPerson)
+	{
+		m_pGameCamera->Rotate(changeY, 0.0f, 0.0f);
+		m_pGameCamera->RotateY(-changeX);
+	}
+	else
+	{
+		m_pGameCamera->RotateAroundPoint(changeY, 0.0f, 0.0f);
+		m_pGameCamera->RotateAroundPointY(-changeX);
+	}
+}
+
+void VoxGame::JoystickCameraZoom(float dt)
+{
+	float axisY = m_pVoxWindow->GetJoystickAxisValue(0, 2);
+
+	if (fabs(axisY) < m_pVoxWindow->GetJoystickAnalogDeadZone())
+	{
+		axisY = 0.0f;
+	}
+
+	float changeY = axisY * 20.0f * dt;
+
+	m_maxCameraDistance += (float)(-changeY);
+
+	WrapCameraZoomValue();
 }

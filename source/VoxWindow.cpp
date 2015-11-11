@@ -17,6 +17,14 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#ifdef _MSC_VER
+#define strdup(x) _strdup(x)
+#endif
+
 #pragma comment (lib, "opengl32")
 #pragma comment (lib, "glu32")
 
@@ -38,6 +46,10 @@ VoxWindow::VoxWindow()
 	/* Set default cursor positions */
 	m_cursorX = 0;
 	m_cursorY = 0;
+
+	/* Default joystick params */
+	m_joystickCount = 0;
+	m_joystickAnalogDeadZone = 0.20f;
 
 	/* Default windows dimensions */
 	m_windowWidth = 900;
@@ -157,6 +169,86 @@ int VoxWindow::GetCursorX()
 int VoxWindow::GetCursorY()
 {
 	return m_cursorY;
+}
+
+// Joysticks
+void VoxWindow::UpdateJoySticks()
+{
+	for (int i = 0; i < sizeof(m_joysticks) / sizeof(Joystick); i++)
+	{
+		Joystick* j = m_joysticks + i;
+
+		if (glfwJoystickPresent(GLFW_JOYSTICK_1 + i))
+		{
+			const float* axes;
+			const unsigned char* buttons;
+			int axis_count, button_count;
+
+			free(j->m_name);
+			j->m_name = strdup(glfwGetJoystickName(GLFW_JOYSTICK_1 + i));
+
+			axes = glfwGetJoystickAxes(GLFW_JOYSTICK_1 + i, &axis_count);
+			if (axis_count != j->m_axisCount)
+			{
+				j->m_axisCount = axis_count;
+				j->m_axes = (float*)realloc(j->m_axes, j->m_axisCount * sizeof(float));
+			}
+
+			memcpy(j->m_axes, axes, axis_count * sizeof(float));
+
+			buttons = glfwGetJoystickButtons(GLFW_JOYSTICK_1 + i, &button_count);
+			if (button_count != j->m_buttonCount)
+			{
+				j->m_buttonCount = button_count;
+				j->m_buttons = (unsigned char*)realloc(j->m_buttons, j->m_buttonCount);
+			}
+
+			memcpy(j->m_buttons, buttons, button_count * sizeof(unsigned char));
+
+			if (!j->m_present)
+			{
+				printf("\nFound joystick %i named \'%s\' with %i axes, %i buttons\n",
+					i + 1, j->m_name, j->m_axisCount, j->m_buttonCount);
+
+				m_joystickCount++;
+			}
+
+			j->m_present = GL_TRUE;
+		}
+		else
+		{
+			if (j->m_present)
+			{
+				printf("\nLost joystick %i named \'%s\'\n", i + 1, j->m_name);
+
+				free(j->m_name);
+				free(j->m_axes);
+				free(j->m_buttons);
+				memset(j, 0, sizeof(Joystick));
+
+				m_joystickCount--;
+			}
+		}
+	}
+}
+
+float VoxWindow::GetJoystickAxisValue(int joyStickNum, int axisIndex)
+{
+	Joystick* j = m_joysticks + joyStickNum;
+
+	return j->m_axes[axisIndex];
+}
+
+bool VoxWindow::GetJoystickButton(int joyStickNum, int axisIndex)
+{
+	Joystick* j = m_joysticks + joyStickNum;
+
+	return (j->m_buttons[axisIndex] != 0);
+}
+
+float VoxWindow::GetJoystickAnalogDeadZone()
+{
+	return m_joystickAnalogDeadZone;
 }
 
 // Fullscreen

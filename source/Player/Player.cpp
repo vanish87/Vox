@@ -238,11 +238,6 @@ bool Player::CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pN
 // Movement
 void Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeForward)
 {
-	if (dot(direction, m_movementVelocity) > -0.9f)
-	{
-		direction = normalize(direction + (m_movementVelocity*0.4f));
-	}
-
 	if (shouldChangeForward)
 	{
 		m_forward = normalize(direction);

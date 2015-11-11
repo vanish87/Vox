@@ -26,6 +26,9 @@ int main(void)
 		/* Poll input events*/
 		m_pVoxGame->PollEvents();
 
+		/* Update joysticks */
+		m_pVoxGame->UpdateJoySticks();
+
 		/* Update */
 		m_pVoxGame->Update();
 

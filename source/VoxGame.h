@@ -64,6 +64,7 @@ public:
 
 	// Window functionality
 	void ResizeWindow(int width, int height);
+	void UpdateJoySticks();
 
 	// Controls
 	void UpdateControls(float dt);
@@ -90,9 +91,15 @@ public:
 	void MouseMiddlePressed();
 	void MouseMiddleReleased();
 	void MouseScroll(double x, double y);
+	void WrapCameraZoomValue();
 
 	// Mouse controls
-	void MouseCameraRotate(int x, int y);
+	void MouseCameraRotate();
+
+	// Joystick controls
+	void JoystickCameraMove(float dt);
+	void JoystickCameraRotate(float dt);
+	void JoystickCameraZoom(float dt);
 
 	// Game functions
 	void SetupDataForGame();
@@ -265,6 +272,9 @@ private:
 	bool m_bKeyboardUp;
 	bool m_bKeyboardDown;
 	bool m_bKeyboardSpace;
+
+	// Joystick flags
+	bool m_bJoystickJump;
 
 	// Camera movement
 	bool m_bCameraRotate;
