@@ -51,10 +51,12 @@
 * ~~Enable cross platform compiling and support, linux, mac~~
 * ~~Convert all data, media, folders to lowercase to fix Linux issues.~~
 * ~~When in auto-camera mode, slowly orient to behind the player, after a time.~~
+* ~~Add gamepad support.~~
+* Fix up auto-camera mode for gamepad and remove hacks for storing the up, right, forward target camera vectors.
+  * Store a camera-to-player vector in the player class and use this for camera offsets in auto-mode.
 * Convert shaders over to be more unified.
 * Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
-* Add gamepad support.
 * Add scenery manager.
 * Create basic front-end
 * Add character creator and customization from front-end.
