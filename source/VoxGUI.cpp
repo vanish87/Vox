@@ -588,10 +588,6 @@ void VoxGame::CameraModeChanged()
 	}
 	else if (m_pAutoCameraOptionBox->GetToggled())
 	{
-		if (m_cameraMode != CameraMode_AutoCamera)
-		{
-			SetupCameraAutoCamera();
-		}
 		m_cameraMode = CameraMode_AutoCamera;
 	}
 	else if (m_pFirstPersonCameraOptionBox->GetToggled())

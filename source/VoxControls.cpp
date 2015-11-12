@@ -142,6 +142,7 @@ void VoxGame::UpdateKeyboardControls(float dt)
 			bool shouldChangePlayerFacing = (m_cameraMode != CameraMode_FirstPerson);
 
 			m_movementDirection = normalize(m_movementDirection);
+			m_pGameCamera->SetPosition(m_pGameCamera->GetPosition() + m_movementDirection * m_movementSpeed * dt);
 			m_pPlayer->MoveAbsolute(m_movementDirection, m_movementSpeed * dt, shouldChangePlayerFacing);
 		}
 	}
