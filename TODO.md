@@ -52,9 +52,9 @@
 * ~~Convert all data, media, folders to lowercase to fix Linux issues.~~
 * ~~When in auto-camera mode, slowly orient to behind the player, after a time.~~
 * ~~Add gamepad support.~~
-* Fix up auto-camera mode for gamepad and remove hacks for storing the up, right, forward target camera vectors.
-  * Store a camera-to-player vector in the player class and use this for camera offsets in auto-mode.
-  * Only use the x, z components when working out the offset camera position, plus the players up from the facing.
+* ~~Fix up auto-camera mode for gamepad and remove hacks for storing the up, right, forward target camera vectors.~~
+  * ~~Store a camera-to-player vector in the player class and use this for camera offsets in auto-mode.~~
+  * ~~Only use the x, z components when working out the offset camera position, plus the players up from the facing.~~
 * Convert shaders over to be more unified.
 * Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
