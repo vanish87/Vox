@@ -57,6 +57,7 @@
   * ~~Only use the x, z components when working out the offset camera position, plus the players up from the facing.~~
 * ~~Proper first person mode camera.~~
 * ~~Implement mouse rotation camera mode for when in game mode.~~
+* ~~Turn cursor on/off and fix cursor in position when doing mouse rotations in game mode.~~
 * Convert shaders over to be more unified.
 * Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
@@ -65,6 +66,5 @@
 * Add character creator and customization from front-end.
 * Add voxel editor.
 * Add texture support for voxel blocks.
-* Turn cursor on/off and fix cursor in position when doing mouse rotations in game mode.
 * Player alpha when camera zooms in.
 * Camera clipping mode.
