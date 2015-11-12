@@ -33,6 +33,8 @@ public:
 	static SelectionManager* GetInstance();
 	void Destroy();
 
+	void ResetCurrentComponent();
+
 	void AddComponent(Component* component);
 	void RemoveComponent(Component* component);
 

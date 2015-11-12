@@ -354,6 +354,12 @@ void VoxGame::UpdateGUI(float dt)
 	m_pBlockParticleManager->SetInstancedRendering(m_instanceRender);
 }
 
+// GUI
+void VoxGame::GUITurnOffCursor()
+{
+	m_pGUI->ResetSelectionManager();
+}
+
 void VoxGame::UpdateAnimationsPulldown()
 {
 	m_pAnimationsPulldown->RemoveAllPullDownMenuItems();
@@ -579,10 +585,20 @@ void VoxGame::CameraModeChanged()
 	if (m_pDebugCameraOptionBox->GetToggled())
 	{
 		m_cameraMode = CameraMode_Debug;
+
+		if (m_pVoxWindow->IsCursorOn() == false)
+		{
+			m_pVoxWindow->TurnCursorOn(true);
+		}
 	}
 	else if (m_pMouseRotateCameraOptionBox->GetToggled())
 	{
 		m_cameraMode = CameraMode_MouseRotate;
+
+		if (m_pVoxWindow->IsCursorOn() == true)
+		{
+			m_pVoxWindow->TurnCursorOff();
+		}
 	}
 	else if (m_pAutoCameraOptionBox->GetToggled())
 	{
@@ -591,6 +607,11 @@ void VoxGame::CameraModeChanged()
 	else if (m_pFirstPersonCameraOptionBox->GetToggled())
 	{
 		m_cameraMode = CameraMode_FirstPerson;
+
+		if (m_pVoxWindow->IsCursorOn() == true)
+		{
+			m_pVoxWindow->TurnCursorOff();
+		}
 	}
 }
 

@@ -21,6 +21,9 @@ using namespace std;
 
 #include <GLFW/glfw3.h>
 
+class VoxGame;
+
+
 typedef struct Joystick
 {
 	bool m_present;
@@ -35,7 +38,7 @@ class VoxWindow
 {
 public:
 	/* Public methods */
-	VoxWindow();
+	VoxWindow(VoxGame* pVoxGame);
 	~VoxWindow();
 
 	void Create();
@@ -53,9 +56,14 @@ public:
 	// Minimized
 	bool GetMinimized();
 
-	// Cursor position
+	// Cursor 
 	int GetCursorX();
 	int GetCursorY();
+	void SetCursorPosition(int x, int y);
+	void TurnCursorOff();
+	void TurnCursorOn(bool resetCursorPosition);
+	bool IsCursorOn();
+	void WrapCursorAroundScreen(int *x, int *y);
 
 	// Joysticks
 	void UpdateJoySticks();
@@ -84,7 +92,8 @@ protected:
 
 private:
 	/* Private members */
-	GLFWwindow* window;
+	VoxGame* m_pVoxGame;
+	GLFWwindow* m_pWindow;
 
 	// Window dimensions
 	int m_windowWidth;
@@ -98,6 +107,8 @@ private:
 	// Cursor position
 	int m_cursorX;
 	int m_cursorY;
+	int m_cursorOldX;
+	int m_cursorOldY;
 
 	// Joysticks
 	Joystick m_joysticks[GLFW_JOYSTICK_LAST - GLFW_JOYSTICK_1 + 1];

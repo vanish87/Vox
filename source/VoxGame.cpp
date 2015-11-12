@@ -38,8 +38,8 @@ void VoxGame::Create()
 	m_pPlayer = NULL;
 	m_pChunkManager = NULL;
 
-	m_pVoxApplication = new VoxApplication();
-	m_pVoxWindow = new VoxWindow();
+	m_pVoxApplication = new VoxApplication(this);
+	m_pVoxWindow = new VoxWindow(this);
 
 	// Create application and window
 	m_pVoxApplication->Create();

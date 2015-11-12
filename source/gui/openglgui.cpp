@@ -261,6 +261,11 @@ void OpenGLGUI::Render()
 	}
 }
 
+void OpenGLGUI::ResetSelectionManager()
+{
+	SelectionManager::GetInstance()->ResetCurrentComponent();
+}
+
 void OpenGLGUI::Update(float deltaTime)
 {
 	// Update the selection manager

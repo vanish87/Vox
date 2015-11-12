@@ -128,6 +128,7 @@ public:
 	void RenderDebugInformation();
 
 	// GUI
+	void GUITurnOffCursor();
 	void UpdateAnimationsPulldown();
 	void UpdateGUIThemePulldown();
 

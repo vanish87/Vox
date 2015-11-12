@@ -78,6 +78,8 @@ public:
 
 	void Render();
 
+	void ResetSelectionManager();
+
 	void Update(float deltaTime);
 
 	void ImportMouseMotion(int x, int y);

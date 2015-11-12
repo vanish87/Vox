@@ -148,12 +148,21 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 			m_bKeyboardSpace = false;
 			break;
 		}
+		case GLFW_KEY_ESCAPE:
+		{
+			m_pDebugCameraOptionBox->SetToggled(true);
+			CameraModeChanged();
+			break;
+		}
 	}
 }
 
 void VoxGame::MouseLeftPressed()
 {
-	m_pGUI->MousePressed(MOUSE_BUTTON1);
+	if (m_pVoxWindow->IsCursorOn())
+	{
+		m_pGUI->MousePressed(MOUSE_BUTTON1);
+	}
 
 	if (!m_pGUI->IsMouseInteractingWithGUIComponent(false))
 	{
@@ -163,19 +172,38 @@ void VoxGame::MouseLeftPressed()
 		m_pressedY = m_currentY;
 
 		m_bCameraRotate = true;
+
+		if (m_pVoxWindow->IsCursorOn() == true)
+		{
+			m_pVoxWindow->TurnCursorOff();
+		}
 	}
 }
 
 void VoxGame::MouseLeftReleased()
 {
-	m_pGUI->MouseReleased(MOUSE_BUTTON1);
+	if (m_pVoxWindow->IsCursorOn())
+	{
+		m_pGUI->MouseReleased(MOUSE_BUTTON1);
+	}
 
-	m_bCameraRotate = false;
+	if (!m_pGUI->IsMouseInteractingWithGUIComponent(false))
+	{
+		m_bCameraRotate = false;
+
+		if (m_pVoxWindow->IsCursorOn() == false)
+		{
+			m_pVoxWindow->TurnCursorOn(true);
+		}
+	}
 }
 
 void VoxGame::MouseRightPressed()
 {
-	m_pGUI->MousePressed(MOUSE_BUTTON2);
+	if (m_pVoxWindow->IsCursorOn())
+	{
+		m_pGUI->MousePressed(MOUSE_BUTTON2);
+	}
 
 	if (!m_pGUI->IsMouseInteractingWithGUIComponent(false))
 	{
@@ -188,26 +216,38 @@ void VoxGame::MouseRightPressed()
 
 void VoxGame::MouseRightReleased()
 {
-	m_pGUI->MouseReleased(MOUSE_BUTTON2);
+	if (m_pVoxWindow->IsCursorOn())
+	{
+		m_pGUI->MouseReleased(MOUSE_BUTTON2);
+	}
 }
 
 void VoxGame::MouseMiddlePressed()
 {
-	m_pGUI->MousePressed(MOUSE_BUTTON3);
+	if (m_pVoxWindow->IsCursorOn())
+	{
+		m_pGUI->MousePressed(MOUSE_BUTTON3);
+	}
 }
 
 void VoxGame::MouseMiddleReleased()
 {
-	m_pGUI->MouseReleased(MOUSE_BUTTON3);
+	if (m_pVoxWindow->IsCursorOn())
+	{
+		m_pGUI->MouseReleased(MOUSE_BUTTON3);
+	}
 }
 
 void VoxGame::MouseScroll(double x, double y)
 {
-	if (!m_pGUI->IsMouseInteractingWithGUIComponent(true))
+	if (m_pVoxWindow->IsCursorOn() == false || !m_pGUI->IsMouseInteractingWithGUIComponent(false))
 	{
-		m_maxCameraDistance += (float)(-y*0.5f);
+		if (m_cameraMode != CameraMode_FirstPerson)
+		{
+			m_maxCameraDistance += (float)(-y*0.5f);
 
-		WrapCameraZoomValue();
+			WrapCameraZoomValue();
+		}
 	}
 }
 
@@ -285,6 +325,8 @@ void VoxGame::MouseCameraRotate()
 		m_pGameCamera->RotateAroundPointY(-changeX*0.75f);
 	}
 
+	m_pVoxWindow->WrapCursorAroundScreen(&x, &y);
+	
 	m_currentX = x;
 	m_currentY = y;
 }
@@ -337,7 +379,7 @@ void VoxGame::JoystickCameraRotate(float dt)
 	}
 
 	// First person mode
-	if (m_cameraMode == CameraMode_FirstPerson)
+	if (m_cameraMode == CameraMode_MouseRotate)
 	{
 		changeY = -changeY;
 	}

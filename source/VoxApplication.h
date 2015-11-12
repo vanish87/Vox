@@ -14,12 +14,14 @@
 
 #pragma once
 
+class VoxGame;
+
 
 class VoxApplication
 {
 public:
 	/* Public methods */
-	VoxApplication();
+	VoxApplication(VoxGame* pVoxGame);
 	~VoxApplication();
 
 	void Create();
@@ -42,4 +44,5 @@ protected:
 
 private:
 	/* Private members */
+	VoxGame* m_pVoxGame;
 };

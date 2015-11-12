@@ -38,14 +38,18 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 void MouseScrollCallback(GLFWwindow* window, double x, double y);
 
 
-VoxWindow::VoxWindow()
+VoxWindow::VoxWindow(VoxGame* pVoxGame)
 {
+	m_pVoxGame = pVoxGame;
+
 	/* Minimized flag */
 	m_minimized = false;
 
 	/* Set default cursor positions */
 	m_cursorX = 0;
 	m_cursorY = 0;
+	m_cursorOldX = 0;
+	m_cursorOldY = 0;
 
 	/* Default joystick params */
 	m_joystickCount = 0;
@@ -77,15 +81,15 @@ void VoxWindow::Create()
 	glGetIntegerv(GL_SAMPLES_ARB, &samples);
 
 	/* Create a windowed mode window and it's OpenGL context */
-	window = glfwCreateWindow(m_windowWidth, m_windowHeight, "Vox", NULL, NULL);
-	if (!window)
+	m_pWindow = glfwCreateWindow(m_windowWidth, m_windowHeight, "Vox", NULL, NULL);
+	if (!m_pWindow)
 	{
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
 
 	/* Initialize this window object */
-	InitializeWindowContext(window);
+	InitializeWindowContext(m_pWindow);
 }
 
 void VoxWindow::Destroy()
@@ -98,7 +102,7 @@ void VoxWindow::Update(float dt)
 	// Updae the cursor positions
 	double x;
 	double y;
-	glfwGetCursorPos(window, &x, &y);
+	glfwGetCursorPos(m_pWindow, &x, &y);
 
 	m_cursorX = (int)floor(x);
 	m_cursorY = (int)floor(y);
@@ -107,7 +111,7 @@ void VoxWindow::Update(float dt)
 void VoxWindow::Render()
 {
 	/* Swap front and back buffers */
-	glfwSwapBuffers(window);
+	glfwSwapBuffers(m_pWindow);
 }
 
 void VoxWindow::InitializeWindowContext(GLFWwindow* window)
@@ -169,6 +173,66 @@ int VoxWindow::GetCursorX()
 int VoxWindow::GetCursorY()
 {
 	return m_cursorY;
+}
+
+void VoxWindow::SetCursorPosition(int x, int y)
+{
+	glfwSetCursorPos(m_pWindow, x, y);
+}
+
+void VoxWindow::TurnCursorOff()
+{
+	glfwSetInputMode(m_pWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	m_cursorOldX = m_cursorX;
+	m_cursorOldY = m_cursorY;
+
+	// Signal to the GUI that we have turned off the cursor, reset buttons states, cursor pos, etc
+ 	m_pVoxGame->GUITurnOffCursor();
+}
+
+void VoxWindow::TurnCursorOn(bool resetCursorPosition)
+{
+	glfwSetInputMode(m_pWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
+	if (resetCursorPosition)
+	{
+		SetCursorPosition(m_cursorOldX, m_cursorOldY);
+	}
+}
+
+bool VoxWindow::IsCursorOn()
+{
+	return glfwGetInputMode(m_pWindow, GLFW_CURSOR) == GLFW_CURSOR_NORMAL;
+}
+
+void VoxWindow::WrapCursorAroundScreen(int *x, int *y)
+{
+	bool wrapped = false;
+	if (*x <= 1)
+	{
+		*x += m_windowWidth - 1;
+		wrapped = true;
+	}
+	else if (*x >= m_windowWidth - 1)
+	{
+		*x -= m_windowWidth - 1;
+		wrapped = true;
+	}
+	if (*y <= 1)
+	{
+		*y += m_windowHeight - 1;
+		wrapped = true;
+	}
+	else if (*y >= m_windowHeight - 1)
+	{
+		*y -= m_windowHeight - 1;
+		wrapped = true;
+	}
+
+	if(wrapped)
+	{
+		SetCursorPosition(*x, *y);
+	}
 }
 
 // Joysticks
@@ -271,14 +335,14 @@ void VoxWindow::ToggleFullScreen(bool fullscreen)
 	}
 
 	// Create new window
-	GLFWwindow* newWindow = glfwCreateWindow(m_windowWidth, m_windowHeight, "Vox", fullscreen ? glfwGetPrimaryMonitor() : NULL, window);
+	GLFWwindow* newWindow = glfwCreateWindow(m_windowWidth, m_windowHeight, "Vox", fullscreen ? glfwGetPrimaryMonitor() : NULL, m_pWindow);
 
 	/* Initialize this new window object */
 	InitializeWindowContext(newWindow);
 
 	// Destroy the existing window pointer and assign new one, since we are context switching
-	glfwDestroyWindow(window);
-	window = newWindow;
+	glfwDestroyWindow(m_pWindow);
+	m_pWindow = newWindow;
 }
 
 // Events
@@ -290,7 +354,7 @@ void VoxWindow::PollEvents()
 
 int VoxWindow::ShouldCloseWindow()
 {
-	return glfwWindowShouldClose(window);
+	return glfwWindowShouldClose(m_pWindow);
 }
 
 // Callbacks

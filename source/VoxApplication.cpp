@@ -10,10 +10,12 @@
 // ******************************************************************************
 
 #include "VoxApplication.h"
+#include "VoxGame.h"
 
 
-VoxApplication::VoxApplication()
+VoxApplication::VoxApplication(VoxGame* pVoxGame)
 {
+	m_pVoxGame = pVoxGame;
 }
 
 VoxApplication::~VoxApplication()

@@ -44,6 +44,15 @@ void SelectionManager::Destroy()
 	}
 }
 
+void SelectionManager::ResetCurrentComponent()
+{
+	if(m_foundComponent != 0)
+	{
+		MouseEvent exitEvent(m_foundComponent, MOUSE_EXITED, m_mouseX, m_mouseY, 0);
+		m_foundComponent->ProcessMouseEvent(exitEvent);
+	}
+}
+
 SelectionManager::SelectionManager()
   : m_foundComponent(0),
     m_hoverOverComponent(0),
