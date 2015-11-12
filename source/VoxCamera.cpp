@@ -17,15 +17,29 @@ void VoxGame::UpdateCamera(float dt)
 	}
 }
 
+void VoxGame::InitializeCameraRotation()
+{
+	m_currentX = m_pVoxWindow->GetCursorX();
+	m_currentY = m_pVoxWindow->GetCursorY();
+
+	vec3 ratios = normalize(vec3(2.5f, 1.0f, 0.0f));
+
+	m_targetCameraBehindPlayerPosition = m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET;
+	m_targetCameraBehindPlayerPosition += m_pPlayer->GetForwardVector() * -(m_cameraDistance*ratios.x);
+	m_targetCameraBehindPlayerPosition += m_pPlayer->GetUpVector() * (m_cameraDistance*ratios.y);
+
+	m_pGameCamera->SetPosition(m_targetCameraBehindPlayerPosition);
+}
+
 void VoxGame::UpdateCameraAutoCamera(float dt, bool updateCameraPosition)
 {
 	if (updateCameraPosition)
 	{
 		vec3 ratios = normalize(vec3(2.5f, 1.0f, 0.0f));
 		float catchupSpeed = 50.0f * (1.0f - (m_cameraDistance / 20.0f));
-
 		vec3 cameraFacing = m_pGameCamera->GetFacing();
 		cameraFacing.y = 0.0f;
+
 		m_targetCameraBehindPlayerPosition = m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET;
 		m_targetCameraBehindPlayerPosition += cameraFacing * -(m_cameraDistance*ratios.x);
 		m_targetCameraBehindPlayerPosition += m_pPlayer->GetUpVector() * (m_cameraDistance*ratios.y);

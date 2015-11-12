@@ -74,6 +74,7 @@ public:
 
 	// Camera controls
 	void UpdateCamera(float dt);
+	void InitializeCameraRotation();
 	void UpdateCameraAutoCamera(float dt, bool updateCameraPosition);
 	void UpdateCameraFirstPerson(float dt);
 	void UpdateCameraClipping(float dt);

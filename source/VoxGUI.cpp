@@ -594,6 +594,7 @@ void VoxGame::CameraModeChanged()
 	else if (m_pMouseRotateCameraOptionBox->GetToggled())
 	{
 		m_cameraMode = CameraMode_MouseRotate;
+		InitializeCameraRotation();
 
 		if (m_pVoxWindow->IsCursorOn() == true)
 		{
