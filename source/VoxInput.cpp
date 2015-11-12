@@ -164,7 +164,7 @@ void VoxGame::MouseLeftPressed()
 		m_pGUI->MousePressed(MOUSE_BUTTON1);
 	}
 
-	if (!m_pGUI->IsMouseInteractingWithGUIComponent(false))
+	if (m_pVoxWindow->IsCursorOn() == false || !m_pGUI->IsMouseInteractingWithGUIComponent(false))
 	{
 		m_currentX = m_pVoxWindow->GetCursorX();
 		m_currentY = m_pVoxWindow->GetCursorY();
@@ -176,6 +176,11 @@ void VoxGame::MouseLeftPressed()
 		if (m_pVoxWindow->IsCursorOn() == true)
 		{
 			m_pVoxWindow->TurnCursorOff();
+		}
+
+		if (m_gameMode == GameMode_Game)
+		{
+			m_bAttackPressed = true;
 		}
 	}
 }
@@ -196,6 +201,12 @@ void VoxGame::MouseLeftReleased()
 			m_pVoxWindow->TurnCursorOn(true);
 		}
 	}
+
+	if (m_gameMode == GameMode_Game)
+	{
+		m_bAttackPressed = false;
+		m_bCanDoAttack = true;
+	}
 }
 
 void VoxGame::MouseRightPressed()
@@ -205,7 +216,7 @@ void VoxGame::MouseRightPressed()
 		m_pGUI->MousePressed(MOUSE_BUTTON2);
 	}
 
-	if (!m_pGUI->IsMouseInteractingWithGUIComponent(false))
+	if (m_pVoxWindow->IsCursorOn() == false || !m_pGUI->IsMouseInteractingWithGUIComponent(false))
 	{
 		m_currentX = m_pVoxWindow->GetCursorX();
 		m_currentY = m_pVoxWindow->GetCursorY();

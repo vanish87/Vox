@@ -58,6 +58,13 @@ void VoxGame::UpdateKeyboardControls(float dt)
 			m_pPlayer->Jump();
 		}
 
+		// Attacking
+		if (m_bAttackPressed && m_bCanDoAttack)
+		{
+			m_pPlayer->Attack();
+			m_bCanDoAttack = false;
+		}
+
 		// Player movements
 		bool resetMovementVector = false;
 		if (m_bKeyboardForward == false && m_bKeyboardBackward == false && m_bKeyboardStrafeLeft == false && m_bKeyboardStrafeRight == false)
@@ -183,6 +190,11 @@ void VoxGame::UpdateGamePadControls(float dt)
 	JoystickCameraZoom(dt);
 
 	m_bJoystickJump = m_pVoxWindow->GetJoystickButton(0, 0);
+	if (m_bAttackPressed)
+	{
+		m_bCanDoJoystickAttack = m_pVoxWindow->GetJoystickAxisValue(0, 2) >= -0.75f;
+	}
+	m_bAttackPressed = m_pVoxWindow->GetJoystickAxisValue(0, 2) <= -0.75f;
 
 	GameMode gameMode = GetGameMode();
 	if (gameMode == GameMode_Debug || m_cameraMode == CameraMode_Debug)
@@ -209,6 +221,13 @@ void VoxGame::UpdateGamePadControls(float dt)
 		if (m_bJoystickJump)
 		{
 			m_pPlayer->Jump();
+		}
+
+		// Attacking
+		if (m_bAttackPressed && m_bCanDoJoystickAttack)
+		{
+			m_pPlayer->Attack();
+			m_bCanDoJoystickAttack = false;
 		}
 
 		// Player movements

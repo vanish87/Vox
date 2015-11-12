@@ -275,6 +275,11 @@ private:
 	// Joystick flags
 	bool m_bJoystickJump;
 
+	// Combat flags
+	bool m_bAttackPressed;
+	bool m_bCanDoAttack;
+	bool m_bCanDoJoystickAttack;
+
 	// Camera movement
 	bool m_bCameraRotate;
 	int m_pressedX;

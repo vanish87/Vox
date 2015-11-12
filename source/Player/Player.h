@@ -58,6 +58,9 @@ public:
 	void Jump();
 	bool CanJump();
 
+	// Combat
+	void Attack();
+
 	// Rendering modes
 	void SetWireFrameRender(bool wireframe);
 

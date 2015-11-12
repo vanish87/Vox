@@ -161,7 +161,7 @@ void VoxGame::CreateGUI()
 	m_pDebugCameraOptionBox->SetDimensions(10, 70, 14, 14);
 	m_pDebugCameraOptionBox->SetCallBackFunction(_CameraModeChanged);
 	m_pDebugCameraOptionBox->SetCallBackData(this);
-	m_pMouseRotateCameraOptionBox = new OptionBox(m_pRenderer, m_defaultFont, "Free Rotate");
+	m_pMouseRotateCameraOptionBox = new OptionBox(m_pRenderer, m_defaultFont, "Player Rotate");
 	m_pMouseRotateCameraOptionBox->SetDimensions(10, 50, 14, 14);
 	m_pMouseRotateCameraOptionBox->SetCallBackFunction(_CameraModeChanged);
 	m_pMouseRotateCameraOptionBox->SetCallBackData(this);

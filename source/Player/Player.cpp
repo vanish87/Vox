@@ -10,8 +10,10 @@
 // ******************************************************************************
 
 #include "Player.h"
+#include "../utils/Random.h"
 
 const vec3 Player::PLAYER_CENTER_OFFSET = vec3(0.0f, 1.525f, 0.0f);
+
 
 Player::Player(Renderer* pRenderer, QubicleBinaryManager* pQubicleBinaryManager, LightingManager* pLightingManager, BlockParticleManager* pBlockParticleManager)
 {
@@ -331,6 +333,27 @@ void Player::Jump()
 bool Player::CanJump()
 {
 	return m_bCanJump;
+}
+
+// Combat
+void Player::Attack()
+{
+	int randomAttack = GetRandomNumber(1, 3);
+	if (randomAttack == 1)
+	{
+		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "SwordAttack1", 0.01f);
+		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "SwordAttack1", 0.01f);
+	}
+	else if (randomAttack == 2)
+	{
+		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "SwordAttack2", 0.01f);
+		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "SwordAttack2", 0.01f);
+	}
+	else if (randomAttack == 3)
+	{
+		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "SwordAttack3", 0.01f);
+		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "SwordAttack3", 0.01f);
+	}
 }
 
 // Rendering modes

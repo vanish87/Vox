@@ -157,6 +157,11 @@ void VoxGame::Create()
 	// Joystick flags
 	m_bJoystickJump = false;
 
+	// Combat flags
+	m_bAttackPressed = false;
+	m_bCanDoAttack = true;
+	m_bCanDoJoystickAttack = true;
+
 	// Camera movement
 	m_bCameraRotate = false;
 	m_pressedX = 0;
