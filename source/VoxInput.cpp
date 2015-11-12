@@ -171,16 +171,19 @@ void VoxGame::MouseLeftPressed()
 		m_pressedX = m_currentX;
 		m_pressedY = m_currentY;
 
-		m_bCameraRotate = true;
+		if (m_gameMode == GameMode_Debug || m_cameraMode == CameraMode_Debug)
+		{
+			m_bCameraRotate = true;
+		}
+		else if (m_gameMode == GameMode_Game)
+		{
+			m_bAttackPressed = true;
+		}
 
+		// Turn cursor off
 		if (m_pVoxWindow->IsCursorOn() == true)
 		{
 			m_pVoxWindow->TurnCursorOff();
-		}
-
-		if (m_gameMode == GameMode_Game)
-		{
-			m_bAttackPressed = true;
 		}
 	}
 }
@@ -194,15 +197,18 @@ void VoxGame::MouseLeftReleased()
 
 	if (!m_pGUI->IsMouseInteractingWithGUIComponent(false))
 	{
-		m_bCameraRotate = false;
-
+		// Turn cursor on
 		if (m_pVoxWindow->IsCursorOn() == false)
 		{
 			m_pVoxWindow->TurnCursorOn(true);
 		}
 	}
 
-	if (m_gameMode == GameMode_Game)
+	if (m_gameMode == GameMode_Debug || m_cameraMode == CameraMode_Debug)
+	{
+		m_bCameraRotate = false;
+	}
+	else if (m_gameMode == GameMode_Game)
 	{
 		m_bAttackPressed = false;
 		m_bCanDoAttack = true;
