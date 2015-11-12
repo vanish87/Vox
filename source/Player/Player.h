@@ -38,6 +38,7 @@ public:
 	vec3 GetUpVector();
 	float GetRadius();
 	void UpdateRadius();
+	void SetForwardVector(vec3 forward);
 
 	// Loading
 	void LoadCharacter(string characterName);

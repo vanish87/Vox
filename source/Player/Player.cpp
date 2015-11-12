@@ -84,6 +84,16 @@ void Player::UpdateRadius()
 	m_radius = m_pVoxelCharacter->GetCharacterScale() / 0.14f;
 }
 
+void Player::SetForwardVector(vec3 forward)
+{
+	m_forward = normalize(forward);
+	m_right = normalize(cross(m_forward, m_up));
+
+	m_targetForward = m_forward;
+	m_targetForward.y = 0.0f;
+	m_targetForward = normalize(m_targetForward);
+}
+
 // Loading
 void Player::LoadCharacter(string characterName)
 {

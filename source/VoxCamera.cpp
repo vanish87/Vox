@@ -61,6 +61,7 @@ void VoxGame::UpdateCameraAutoCamera(float dt, bool updateCameraPosition)
 void VoxGame::UpdateCameraFirstPerson(float dt)
 {
 	m_pGameCamera->SetPosition(m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET);
+	m_pPlayer->SetForwardVector(m_pGameCamera->GetFacing());
 }
 
 void VoxGame::UpdateCameraClipping(float dt)
