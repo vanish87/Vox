@@ -546,8 +546,6 @@ void VoxGame::GameModeChanged()
 		m_pMouseRotateCameraOptionBox->SetDisabled(false);
 		m_pAutoCameraOptionBox->SetDisabled(false);
 		m_pFirstPersonCameraOptionBox->SetDisabled(false);
-
-		m_maxCameraDistance = 12.5f;
 	}
 	else if (m_pFrontEndOptionBox->GetToggled() && gameMode != GameMode_FrontEnd)
 	{
