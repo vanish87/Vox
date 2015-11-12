@@ -216,9 +216,9 @@ void VoxGame::WrapCameraZoomValue()
 	float minAmount = 0.5f;
 	float maxAmount = 15.0f;
 
-	if (m_gameMode == GameMode_Game && m_cameraMode == CameraMode_AutoCamera)
+	if (m_gameMode == GameMode_Game && (m_cameraMode == CameraMode_AutoCamera || m_cameraMode == CameraMode_MouseRotate))
 	{
-		minAmount = 3.0f;
+		minAmount = 1.0f;
 		maxAmount = 15.0f;
 	}
 
@@ -327,8 +327,8 @@ void VoxGame::JoystickCameraRotate(float dt)
 		axisY = 0.0f;
 	}
 
-	float changeX = axisX * 200.0f * dt;
-	float changeY = axisY * 200.0f * dt;
+	float changeX = axisX * 150.0f * dt;
+	float changeY = axisY * 150.0f * dt;
 
 	// Upside down
 	if (m_pGameCamera->GetUp().y < 0.0f)
@@ -366,14 +366,20 @@ void VoxGame::JoystickCameraRotate(float dt)
 
 void VoxGame::JoystickCameraZoom(float dt)
 {
-	float axisY = m_pVoxWindow->GetJoystickAxisValue(0, 2);
+	bool zoomOut = m_pVoxWindow->GetJoystickButton(0, 4);
+	bool zoomIn = m_pVoxWindow->GetJoystickButton(0, 5);
 
-	if (fabs(axisY) < m_pVoxWindow->GetJoystickAnalogDeadZone())
+	float zoomAmount = 0.0f;
+	if (zoomIn)
 	{
-		axisY = 0.0f;
+		zoomAmount = 10.0f;
+	}
+	if (zoomOut)
+	{
+		zoomAmount = -10.0f;
 	}
 
-	float changeY = axisY * 20.0f * dt;
+	float changeY = zoomAmount * dt;
 
 	m_maxCameraDistance += (float)(-changeY);
 

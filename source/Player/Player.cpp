@@ -222,8 +222,6 @@ bool Player::CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pN
 
 		*pMovement -= *pNormal;
 		
-		m_movementVelocity = vec3(0.0f, 0.0f, 0.0f);
-
 		worldCollision = true;
 	}
 
@@ -264,10 +262,8 @@ void Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeFo
 		{
 		}
 
-		m_position += (movement * speedToUse)*0.95f;
+		m_position += (movement * speedToUse);
 	}
-
-	m_movementVelocity += (direction * speed) * 0.85f;
 
 	// Change to run animation
 	if (m_pVoxelCharacter->HasAnimationFinished(AnimationSections_FullBody))
@@ -377,7 +373,7 @@ void Player::UpdatePhysics(float dt)
 
 	// Check collision
 	{
-		vec3 velocityToUse = m_velocity + m_movementVelocity;
+		vec3 velocityToUse = m_velocity;
 		vec3 velAmount = velocityToUse*dt;
 		vec3 pNormal;
 		int numberDivision = 1;
@@ -405,8 +401,6 @@ void Player::UpdatePhysics(float dt)
 				}
 			}
 		}
-
-		m_movementVelocity -= (m_movementVelocity * (7.5f * dt));
 
 		// Integrate position
 		m_position += velocityToUse * dt;

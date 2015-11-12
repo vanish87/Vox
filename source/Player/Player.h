@@ -101,7 +101,6 @@ private:
 	vec3 m_position;
 	vec3 m_velocity;
 	vec3 m_force;
-	vec3 m_movementVelocity;
 
 	// Store previous position each frame after we have worked out the new position
 	// Used for collision and other movement calculations

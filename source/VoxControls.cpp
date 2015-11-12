@@ -162,8 +162,7 @@ void VoxGame::UpdateMouseControls(float dt)
 	{
 		if (m_cameraMode == CameraMode_MouseRotate)
 		{
-			// TODO : write camera rotation for mouse movement.
-			//MouseCameraRotate();
+			MouseCameraRotate();
 		}
 		if (m_cameraMode == CameraMode_AutoCamera)
 		{
@@ -192,6 +191,7 @@ void VoxGame::UpdateGamePadControls(float dt)
 	{
 		if (m_cameraMode == CameraMode_MouseRotate)
 		{
+			JoystickCameraRotate(dt);
 		}
 		if (m_cameraMode == CameraMode_AutoCamera)
 		{
@@ -259,6 +259,7 @@ void VoxGame::UpdateGamePadControls(float dt)
 			bool shouldChangePlayerFacing = (m_cameraMode != CameraMode_FirstPerson);
 
 			m_movementDirection = normalize(m_movementDirection);
+			m_pGameCamera->SetPosition(m_pGameCamera->GetPosition() + m_movementDirection * m_movementSpeed * dt);
  			m_pPlayer->MoveAbsolute(m_movementDirection, m_movementSpeed * dt, shouldChangePlayerFacing);
 		}
 	}

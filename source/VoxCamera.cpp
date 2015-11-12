@@ -5,11 +5,11 @@ void VoxGame::UpdateCamera(float dt)
 {
 	if (m_cameraMode == CameraMode_MouseRotate)
 	{
-		UpdateCameraMouseRotate(dt);
+		UpdateCameraAutoCamera(dt, false);
 	}
 	else if (m_cameraMode == CameraMode_AutoCamera)
 	{
-		UpdateCameraAutoCamera(dt);
+		UpdateCameraAutoCamera(dt, true);
 	}
 	else if (m_cameraMode == CameraMode_FirstPerson)
 	{
@@ -17,36 +17,36 @@ void VoxGame::UpdateCamera(float dt)
 	}
 }
 
-void VoxGame::UpdateCameraMouseRotate(float dt)
+void VoxGame::UpdateCameraAutoCamera(float dt, bool updateCameraPosition)
 {
-}
-
-void VoxGame::UpdateCameraAutoCamera(float dt)
-{
-	vec3 ratios = normalize(vec3(2.5f, 1.0f, 0.0f));
-	float catchupSpeed = 25.0f * (1.0f - (m_cameraDistance / 20.0f));
-
-	m_targetCameraBehindPlayerPosition = m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET;
-	vec3 cameraFacing = m_pGameCamera->GetFacing();
-	cameraFacing.y = 0.0f;
-	m_targetCameraBehindPlayerPosition += cameraFacing * -(m_cameraDistance*ratios.x);
-	m_targetCameraBehindPlayerPosition += m_pPlayer->GetUpVector() * (m_cameraDistance*ratios.y);
-
-	m_targetCameraPosition_AutoModeCached = m_targetCameraBehindPlayerPosition;
-
-	// Update the target vectors based on the cached and calculated values
+	if (updateCameraPosition)
 	{
-		vec3 newPos = m_targetCameraPosition_AutoModeCached;
-		vec3 toPos = newPos - m_targetCameraPosition_AutoMode;
-		m_targetCameraPosition_AutoMode += toPos * (catchupSpeed*2.0f) * dt;
+		vec3 ratios = normalize(vec3(2.5f, 1.0f, 0.0f));
+		float catchupSpeed = 50.0f * (1.0f - (m_cameraDistance / 20.0f));
+
+		vec3 cameraFacing = m_pGameCamera->GetFacing();
+		cameraFacing.y = 0.0f;
+		m_targetCameraBehindPlayerPosition = m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET;
+		m_targetCameraBehindPlayerPosition += cameraFacing * -(m_cameraDistance*ratios.x);
+		m_targetCameraBehindPlayerPosition += m_pPlayer->GetUpVector() * (m_cameraDistance*ratios.y);
+
+		m_targetCameraPosition_AutoModeCached = m_targetCameraBehindPlayerPosition;
+
+		// Update the target vectors based on the cached and calculated values
+		{
+			vec3 newPos = m_targetCameraPosition_AutoModeCached;
+			vec3 toPos = newPos - m_targetCameraPosition_AutoMode;
+			m_targetCameraPosition_AutoMode += toPos * (catchupSpeed*2.0f) * dt;
+		}
+
+		// Position
+		vec3 posDiff = m_targetCameraPosition_AutoMode - m_pGameCamera->GetPosition();
+		m_pGameCamera->SetPosition(m_pGameCamera->GetPosition() + ((posDiff * catchupSpeed) * dt));
 	}
 
-	// Position
-	vec3 posDiff = m_targetCameraPosition_AutoMode - m_pGameCamera->GetPosition();
-	m_pGameCamera->SetPosition(m_pGameCamera->GetPosition() + ((posDiff * catchupSpeed) * dt));
-
 	// Forward
-	vec3 cameraForward = normalize(m_pPlayer->GetCenter() - m_pGameCamera->GetPosition());
+	vec3 cameraLookAt = m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET;
+	vec3 cameraForward = normalize(cameraLookAt - m_pGameCamera->GetPosition());
 	m_pGameCamera->SetFacing(cameraForward);
 	
 	// Right
