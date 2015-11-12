@@ -11,7 +11,10 @@ void VoxGame::UpdateControls(float dt)
 
 	if (m_keyboardMovement == false)
 	{
-		UpdateGamePadControls(dt);
+		if (m_pVoxWindow->IsJoyStickConnected(0))
+		{
+			UpdateGamePadControls(dt);
+		}
 	}
 }
 

@@ -67,6 +67,7 @@ public:
 
 	// Joysticks
 	void UpdateJoySticks();
+	bool IsJoyStickConnected(int joyStickNum);
 	float GetJoystickAxisValue(int joyStickNum, int axisIndex);
 	bool GetJoystickButton(int joyStickNum, int axisIndex);
 	float GetJoystickAnalogDeadZone();

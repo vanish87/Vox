@@ -299,18 +299,39 @@ void VoxWindow::UpdateJoySticks()
 	}
 }
 
+bool VoxWindow::IsJoyStickConnected(int joyStickNum)
+{
+	Joystick* j = m_joysticks + joyStickNum;
+
+	return j->m_present;
+}
+
 float VoxWindow::GetJoystickAxisValue(int joyStickNum, int axisIndex)
 {
 	Joystick* j = m_joysticks + joyStickNum;
 
-	return j->m_axes[axisIndex];
+	if (j->m_present)
+	{
+		return j->m_axes[axisIndex];
+	}
+	else 
+	{
+		return 0.0f;
+	}
 }
 
 bool VoxWindow::GetJoystickButton(int joyStickNum, int axisIndex)
 {
 	Joystick* j = m_joysticks + joyStickNum;
 
-	return (j->m_buttons[axisIndex] != 0);
+	if(j->m_present)
+	{
+		return (j->m_buttons[axisIndex] != 0);
+	}
+	else
+	{
+		return false;
+	}
 }
 
 float VoxWindow::GetJoystickAnalogDeadZone()
