@@ -80,6 +80,9 @@ void VoxWindow::Create()
 	glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
 	glGetIntegerv(GL_SAMPLES_ARB, &samples);
 
+	/* Initialize the joysticks object */
+	memset(m_joysticks, 0, sizeof(m_joysticks));
+
 	/* Create a windowed mode window and it's OpenGL context */
 	m_pWindow = glfwCreateWindow(m_windowWidth, m_windowHeight, "Vox", NULL, NULL);
 	if (!m_pWindow)
