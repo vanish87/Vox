@@ -409,7 +409,7 @@ void VoxGame::JoystickCameraRotate(float dt)
 	}
 
 	// First person mode
-	if (m_cameraMode == CameraMode_MouseRotate)
+	if (m_cameraMode == CameraMode_FirstPerson)
 	{
 		changeY = -changeY;
 	}

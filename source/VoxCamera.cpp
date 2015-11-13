@@ -36,8 +36,27 @@ void VoxGame::UpdateCameraAutoCamera(float dt, bool updateCameraPosition)
 {
 	if (updateCameraPosition)
 	{
+		float movementModifierNormal = 10.0f;
+		float movementModifierMoving = 0.125f;
+		float movementModifierChangeAmount = 2.0f;
+		if (m_keyboardMovement || m_gamepadMovement)
+		{
+			m_autoCameraMovingModifier = movementModifierMoving;
+		}
+		else
+		{
+			if (m_autoCameraMovingModifier < movementModifierNormal)
+			{
+				m_autoCameraMovingModifier += movementModifierChangeAmount * dt;
+			}
+			else
+			{
+				m_autoCameraMovingModifier = movementModifierNormal;
+			}
+		}
+
 		vec3 ratios = normalize(vec3(2.5f, 1.0f, 0.0f));
-		float catchupSpeed = 5.0f * (1.0f - (m_cameraDistance / 20.0f));
+		float catchupSpeed = 5.0f * (1.0f - (m_cameraDistance / 20.0f)) * m_autoCameraMovingModifier;
 		vec3 cameraFacing = m_pGameCamera->GetFacing();
 		cameraFacing.y = 0.0f;
 
@@ -75,7 +94,7 @@ void VoxGame::UpdateCameraAutoCamera(float dt, bool updateCameraPosition)
 			{
 				rotationDegrees = -rotationDegrees;
 			}
-			float changeAmount = rotationDegrees * 1.0f;
+			float changeAmount = rotationDegrees * 1.0f * m_autoCameraMovingModifier;
 			m_pGameCamera->RotateAroundPointY(changeAmount * dt);
 		}
 	}

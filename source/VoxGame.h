@@ -296,6 +296,7 @@ private:
 	vec3 m_targetCameraPosition_AutoModeCached;
 	vec3 m_targetCameraPosition_AutoMode;
 	vec3 m_targetCameraBehindPlayerPosition;
+	float m_autoCameraMovingModifier;
 
 	// Player movement
 	bool m_keyboardMovement;

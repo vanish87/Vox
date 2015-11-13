@@ -170,6 +170,7 @@ void VoxGame::Create()
 	m_currentY = 0;
 	m_cameraDistance = 5.0f;
 	m_maxCameraDistance = m_cameraDistance;
+	m_autoCameraMovingModifier = 1.0f;
 
 	// Player movement
 	m_keyboardMovement = false;
