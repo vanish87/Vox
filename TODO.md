@@ -58,6 +58,7 @@
 * ~~Proper first person mode camera.~~
 * ~~Implement mouse rotation camera mode for when in game mode.~~
 * ~~Turn cursor on/off and fix cursor in position when doing mouse rotations in game mode.~~
+* ~~Make camera auto-mode rotate to behind the player after a short delay.~~
 * Convert shaders over to be more unified.
 * Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
@@ -68,4 +69,3 @@
 * Add texture support for voxel blocks.
 * Player alpha when camera zooms in.
 * Camera clipping mode.
-* Make camera auto-mode rotate to behind the player after a short delay.
