@@ -187,7 +187,7 @@ void VoxWindow::TurnCursorOff()
 {
 	if (IsCursorOn() == true)
 	{
-		glfwSetInputMode(m_pWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+		glfwSetInputMode(m_pWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		m_cursorOldX = m_cursorX;
 		m_cursorOldY = m_cursorY;
 
@@ -212,36 +212,6 @@ void VoxWindow::TurnCursorOn(bool resetCursorPosition)
 bool VoxWindow::IsCursorOn()
 {
 	return glfwGetInputMode(m_pWindow, GLFW_CURSOR) == GLFW_CURSOR_NORMAL;
-}
-
-void VoxWindow::WrapCursorAroundScreen(int *x, int *y)
-{
-	bool wrapped = false;
-	if (*x <= 1)
-	{
-		*x += m_windowWidth - 1;
-		wrapped = true;
-	}
-	else if (*x >= m_windowWidth - 1)
-	{
-		*x -= m_windowWidth - 1;
-		wrapped = true;
-	}
-	if (*y <= 1)
-	{
-		*y += m_windowHeight - 1;
-		wrapped = true;
-	}
-	else if (*y >= m_windowHeight - 1)
-	{
-		*y -= m_windowHeight - 1;
-		wrapped = true;
-	}
-
-	if(wrapped)
-	{
-		SetCursorPosition(*x, *y);
-	}
 }
 
 // Joysticks

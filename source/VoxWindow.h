@@ -63,7 +63,6 @@ public:
 	void TurnCursorOff();
 	void TurnCursorOn(bool resetCursorPosition);
 	bool IsCursorOn();
-	void WrapCursorAroundScreen(int *x, int *y);
 
 	// Joysticks
 	void UpdateJoySticks();

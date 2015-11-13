@@ -354,8 +354,6 @@ void VoxGame::MouseCameraRotate()
 		m_pGameCamera->RotateAroundPoint(changeY*0.75f, 0.0f, 0.0f);
 		m_pGameCamera->RotateAroundPointY(-changeX*0.75f);
 	}
-
-	m_pVoxWindow->WrapCursorAroundScreen(&x, &y);
 	
 	m_currentX = x;
 	m_currentY = y;
