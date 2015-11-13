@@ -185,21 +185,27 @@ void VoxWindow::SetCursorPosition(int x, int y)
 
 void VoxWindow::TurnCursorOff()
 {
-	glfwSetInputMode(m_pWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-	m_cursorOldX = m_cursorX;
-	m_cursorOldY = m_cursorY;
+	if (IsCursorOn() == true)
+	{
+		glfwSetInputMode(m_pWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+		m_cursorOldX = m_cursorX;
+		m_cursorOldY = m_cursorY;
 
-	// Signal to the GUI that we have turned off the cursor, reset buttons states, cursor pos, etc
- 	m_pVoxGame->GUITurnOffCursor();
+		// Signal to the GUI that we have turned off the cursor, reset buttons states, cursor pos, etc
+		m_pVoxGame->GUITurnOffCursor();
+	}
 }
 
 void VoxWindow::TurnCursorOn(bool resetCursorPosition)
 {
-	glfwSetInputMode(m_pWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-
-	if (resetCursorPosition)
+	if (IsCursorOn() == false)
 	{
-		SetCursorPosition(m_cursorOldX, m_cursorOldY);
+		glfwSetInputMode(m_pWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
+		if (resetCursorPosition)
+		{
+			SetCursorPosition(m_cursorOldX, m_cursorOldY);
+		}
 	}
 }
 

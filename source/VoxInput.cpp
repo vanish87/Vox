@@ -148,6 +148,19 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 			m_bKeyboardSpace = false;
 			break;
 		}
+		case GLFW_KEY_P:
+		{
+			if (m_pMainWindow->IsVisible() == false)
+			{
+				ShowGUI();
+			}
+			else
+			{
+				HideGUI();
+			}
+
+			break;
+		}
 		case GLFW_KEY_ESCAPE:
 		{
 			m_pDebugCameraOptionBox->SetToggled(true);
@@ -173,17 +186,17 @@ void VoxGame::MouseLeftPressed()
 
 		if (m_gameMode == GameMode_Debug || m_cameraMode == CameraMode_Debug)
 		{
+			// Turn cursor off
+			if (m_pVoxWindow->IsCursorOn() == true)
+			{
+				m_pVoxWindow->TurnCursorOff();
+			}
+
 			m_bCameraRotate = true;
 		}
 		else if (m_gameMode == GameMode_Game)
 		{
 			m_bAttackPressed = true;
-		}
-
-		// Turn cursor off
-		if (m_pVoxWindow->IsCursorOn() == true)
-		{
-			m_pVoxWindow->TurnCursorOff();
 		}
 	}
 }
@@ -195,17 +208,17 @@ void VoxGame::MouseLeftReleased()
 		m_pGUI->MouseReleased(MOUSE_BUTTON1);
 	}
 
-	if (!m_pGUI->IsMouseInteractingWithGUIComponent(false))
-	{
-		// Turn cursor on
-		if (m_pVoxWindow->IsCursorOn() == false)
-		{
-			m_pVoxWindow->TurnCursorOn(true);
-		}
-	}
-
 	if (m_gameMode == GameMode_Debug || m_cameraMode == CameraMode_Debug)
 	{
+		if (!m_pGUI->IsMouseInteractingWithGUIComponent(false))
+		{
+			// Turn cursor on
+			if (m_pVoxWindow->IsCursorOn() == false)
+			{
+				m_pVoxWindow->TurnCursorOn(true);
+			}
+		}
+
 		m_bCameraRotate = false;
 	}
 	else if (m_gameMode == GameMode_Game)

@@ -586,7 +586,14 @@ void VoxGame::RenderDebugInformation()
 		m_pGameCamera->GetView().x, m_pGameCamera->GetView().y, m_pGameCamera->GetView().z,
 		m_pGameCamera->GetZoomAmount());
 	char lFPSBuff[128];
-	snprintf(lFPSBuff, 128, "FPS: %.0f  Delta: %.4f", m_fps, m_deltaTime);
+	if (m_debugRender)
+	{
+		snprintf(lFPSBuff, 128, "FPS: %.0f  Delta: %.4f", m_fps, m_deltaTime);
+	}
+	else
+	{
+		snprintf(lFPSBuff, 128, "FPS: %.0f", m_fps);
+	}
 
 	int l_nTextHeight = m_pRenderer->GetFreeTypeTextHeight(m_defaultFont, "a");
 
@@ -596,9 +603,12 @@ void VoxGame::RenderDebugInformation()
 		m_pRenderer->SetRenderMode(RM_SOLID);
 		m_pRenderer->SetProjectionMode(PM_2D, m_defaultViewport);
 		m_pRenderer->SetLookAtCamera(vec3(0.0f, 0.0f, 250.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+		if (m_debugRender)
+		{
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - l_nTextHeight - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lCameraBuff);
+		}
 
 		m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lFPSBuff);
 
-		m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - l_nTextHeight - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lCameraBuff);
 	m_pRenderer->PopMatrix();
 }

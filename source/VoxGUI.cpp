@@ -360,6 +360,30 @@ void VoxGame::GUITurnOffCursor()
 	m_pGUI->ResetSelectionManager();
 }
 
+void VoxGame::ShowGUI()
+{
+	if (m_pMainWindow->IsVisible() == false)
+	{
+		m_pMainWindow->Show();
+	}
+	if (m_pGameWindow->IsVisible() == false)
+	{
+		m_pGameWindow->Show();
+	}
+}
+
+void VoxGame::HideGUI()
+{
+	if (m_pMainWindow->IsVisible() == true)
+	{
+		m_pMainWindow->Hide();
+	}
+	if (m_pGameWindow->IsVisible() == true)
+	{
+		m_pGameWindow->Hide();
+	}
+}
+
 void VoxGame::UpdateAnimationsPulldown()
 {
 	m_pAnimationsPulldown->RemoveAllPullDownMenuItems();
@@ -586,33 +610,26 @@ void VoxGame::CameraModeChanged()
 	{
 		m_cameraMode = CameraMode_Debug;
 
-		if (m_pVoxWindow->IsCursorOn() == false)
-		{
-			m_pVoxWindow->TurnCursorOn(true);
-		}
+		m_pVoxWindow->TurnCursorOn(true);
 	}
 	else if (m_pMouseRotateCameraOptionBox->GetToggled())
 	{
 		m_cameraMode = CameraMode_MouseRotate;
 		InitializeCameraRotation();
 
-		if (m_pVoxWindow->IsCursorOn() == true)
-		{
-			m_pVoxWindow->TurnCursorOff();
-		}
+		m_pVoxWindow->TurnCursorOff();
 	}
 	else if (m_pAutoCameraOptionBox->GetToggled())
 	{
 		m_cameraMode = CameraMode_AutoCamera;
+
+		m_pVoxWindow->TurnCursorOff();
 	}
 	else if (m_pFirstPersonCameraOptionBox->GetToggled())
 	{
 		m_cameraMode = CameraMode_FirstPerson;
 
-		if (m_pVoxWindow->IsCursorOn() == true)
-		{
-			m_pVoxWindow->TurnCursorOff();
-		}
+		m_pVoxWindow->TurnCursorOff();
 	}
 }
 

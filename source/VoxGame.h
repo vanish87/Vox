@@ -130,6 +130,8 @@ public:
 
 	// GUI
 	void GUITurnOffCursor();
+	void ShowGUI();
+	void HideGUI();
 	void UpdateAnimationsPulldown();
 	void UpdateGUIThemePulldown();
 
