@@ -68,3 +68,4 @@
 * Add texture support for voxel blocks.
 * Player alpha when camera zooms in.
 * Camera clipping mode.
+* Make camera auto-mode rotate to behind the player after a short delay.
