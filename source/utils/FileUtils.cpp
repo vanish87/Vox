@@ -68,19 +68,23 @@ vector<string> listFilesInDirectory(string directoryName)
 
 	return listFileNames;
 #elif __linux__
-    directoryName = directoryName.substr(0, directoryName.length() - 3);
+	directoryName = directoryName.substr(0, directoryName.length() - 3);
 	vector<string> listFileNames;
-    DIR *dp;
-    struct dirent *dirp;
-    if((dp  = opendir(directoryName.c_str())) == NULL) {
-        cout << "Error(" << errno << ") opening " << directoryName << endl;
-        return listFileNames;
-    }
+	DIR *dp;
+	struct dirent *dirp;
+	if((dp  = opendir(directoryName.c_str())) == NULL)
+	{
+		cout << "Error(" << errno << ") opening " << directoryName << endl;
+		return listFileNames;
+	}
 
-    while ((dirp = readdir(dp)) != NULL) {
-        listFileNames.push_back(string(dirp->d_name));
-    }
-    closedir(dp);
+	while ((dirp = readdir(dp)) != NULL)
+	{
+		listFileNames.push_back(string(dirp->d_name));
+	}
+	
+	closedir(dp);
+	
 	return listFileNames;
 #endif //_WIN32
 }
