@@ -16,10 +16,10 @@ void VoxGame::Update()
 	QueryPerformanceCounter(&m_fpsCurrentTicks);
 	m_deltaTime = ((float)(m_fpsCurrentTicks.QuadPart - m_fpsPreviousTicks.QuadPart) / (float)m_fpsTicksPerSecond.QuadPart);
 #else
-    struct timeval tm;
-    gettimeofday(&tm, NULL);
-    m_fpsCurrentTicks = (double)tm.tv_sec + (double)tm.tv_usec / 1000000.0;
-    m_deltaTime = (m_fpsCurrentTicks - m_fpsPreviousTicks);
+	struct timeval tm;
+	gettimeofday(&tm, NULL);
+	m_fpsCurrentTicks = (double)tm.tv_sec + (double)tm.tv_usec / 1000000.0;
+	m_deltaTime = (m_fpsCurrentTicks - m_fpsPreviousTicks);
 #endif //_WIN32
 	m_fps = 1.0f / m_deltaTime;
 	m_fpsPreviousTicks = m_fpsCurrentTicks;
