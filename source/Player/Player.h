@@ -59,7 +59,10 @@ public:
 	bool CanJump();
 
 	// Combat
-	void Attack();
+	void PressAttack();
+	void ReleaseAttack();
+	bool CanAttackLeft();
+	bool CanAttackRight();
 
 	// Rendering modes
 	void SetWireFrameRender(bool wireframe);
@@ -69,6 +72,7 @@ public:
 
 	// Updating
 	void Update(float dt);
+	void UpdateAnimations(float dt);
 	void UpdatePhysics(float dt);
 	void UpdateTimers(float dt);
 	void UpdateWeaponLights(float dt);
@@ -120,6 +124,11 @@ private:
 	// Idle flag
 	bool m_bIsIdle;
 
+	// Combat
+	bool m_bCanAttackLeft;
+	bool m_bCanAttackRight;
+	bool m_bCanInteruptCombatAnim;
+
 	// Player radius
 	float m_radius;
 
@@ -130,6 +139,9 @@ private:
 
 	// Target forward / looking vector
 	vec3 m_targetForward;
+
+	// Animation params
+	bool m_animationFinished[AnimationSections_NUMSECTIONS];
 
 	// Players world matrix
 	Matrix4x4 m_worldMatrix;

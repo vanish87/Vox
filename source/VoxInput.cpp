@@ -196,7 +196,7 @@ void VoxGame::MouseLeftPressed()
 		}
 		else if (m_gameMode == GameMode_Game)
 		{
-			m_bAttackPressed = true;
+			m_bAttackPressed_Mouse = true;
 		}
 	}
 }
@@ -223,8 +223,9 @@ void VoxGame::MouseLeftReleased()
 	}
 	else if (m_gameMode == GameMode_Game)
 	{
-		m_bAttackPressed = false;
-		m_bCanDoAttack = true;
+		m_bAttackReleased_Mouse = true;
+		m_bAttackPressed_Mouse = false;
+		m_bCanDoAttack_Mouse = true;
 	}
 }
 

@@ -1306,6 +1306,16 @@ void VoxelCharacter::PlayAnimation(AnimationSections section, bool waitForComple
 				if(syncWithSection == section || syncComplete)
 				{
 					m_pCharacterAnimator[i]->PlayAnimation(lAnimationName);
+
+					// Stop weapon trails
+					if (m_pRightWeapon != NULL)
+					{
+						m_pRightWeapon->StopWeaponTrails();
+					}
+					if (m_pLeftWeapon != NULL)
+					{
+						m_pLeftWeapon->StopWeaponTrails();
+					}
 				}
 			}
 		}
@@ -1313,16 +1323,22 @@ void VoxelCharacter::PlayAnimation(AnimationSections section, bool waitForComple
 	else
 	{
 		m_pCharacterAnimator[section]->PlayAnimation(lAnimationName);
-	}
 
-	// Stop weapon trails
-	if (m_pRightWeapon != NULL)
-	{
-		m_pRightWeapon->StartWeaponTrails();
-	}
-	if (m_pLeftWeapon != NULL)
-	{
-		m_pLeftWeapon->StopWeaponTrails();
+		// Stop weapon trails
+		if (section == AnimationSections_Right_Arm_Hand)
+		{
+			if (m_pRightWeapon != NULL)
+			{
+				m_pRightWeapon->StopWeaponTrails();
+			}
+		}
+		if (section == AnimationSections_Left_Arm_Hand)
+		{
+			if (m_pLeftWeapon != NULL)
+			{
+				m_pLeftWeapon->StopWeaponTrails();
+			}
+		}
 	}
 }
 
@@ -1354,6 +1370,16 @@ void VoxelCharacter::SetBlendAnimation(AnimationSections section, bool waitForCo
 				if(syncWithSection == section || syncComplete)
 				{
 					m_pCharacterAnimator[i]->StartBlendAnimation(lStartAnimationName, lEndAnimationName, blendTime);
+
+					// Stop weapon trails
+					if (m_pRightWeapon != NULL)
+					{
+						m_pRightWeapon->StopWeaponTrails();
+					}
+					if (m_pLeftWeapon != NULL)
+					{
+						m_pLeftWeapon->StopWeaponTrails();
+					}
 				}
 			}			
 		}
@@ -1361,16 +1387,22 @@ void VoxelCharacter::SetBlendAnimation(AnimationSections section, bool waitForCo
 	else
 	{
 		m_pCharacterAnimator[section]->StartBlendAnimation(lStartAnimationName, lEndAnimationName, blendTime);
-	}
 
-	// Stop weapon trails
-	if (m_pRightWeapon != NULL)
-	{
-		m_pRightWeapon->StartWeaponTrails();
-	}
-	if (m_pLeftWeapon != NULL)
-	{
-		m_pLeftWeapon->StopWeaponTrails();
+		// Stop weapon trails
+		if (section == AnimationSections_Right_Arm_Hand)
+		{
+			if (m_pRightWeapon != NULL)
+			{
+				m_pRightWeapon->StopWeaponTrails();
+			}
+		}
+		if (section == AnimationSections_Left_Arm_Hand)
+		{
+			if (m_pLeftWeapon != NULL)
+			{
+				m_pLeftWeapon->StopWeaponTrails();
+			}
+		}
 	}
 }
 
@@ -1392,6 +1424,16 @@ void VoxelCharacter::BlendIntoAnimation(AnimationSections section, bool waitForC
 				if(syncWithSection == section || syncComplete)
 				{
 					m_pCharacterAnimator[i]->BlendIntoAnimation(lAnimationName, blendTime);
+
+					// Stop weapon trails
+					if (m_pRightWeapon != NULL)
+					{
+						m_pRightWeapon->StopWeaponTrails();
+					}
+					if (m_pLeftWeapon != NULL)
+					{
+						m_pLeftWeapon->StopWeaponTrails();
+					}
 				}
 			}
 		}
@@ -1403,18 +1445,24 @@ void VoxelCharacter::BlendIntoAnimation(AnimationSections section, bool waitForC
 			if(syncWithSection == section || (m_pCharacterAnimator[syncWithSection]->HasAnimationFinished() || m_pCharacterAnimator[syncWithSection]->HasAnimationLooped()))
 			{
 				m_pCharacterAnimator[section]->BlendIntoAnimation(lAnimationName, blendTime);
+
+				// Stop weapon trails
+				if (section == AnimationSections_Right_Arm_Hand)
+				{
+					if (m_pRightWeapon != NULL)
+					{
+						m_pRightWeapon->StopWeaponTrails();
+					}
+				}
+				if (section == AnimationSections_Left_Arm_Hand)
+				{
+					if (m_pLeftWeapon != NULL)
+					{
+						m_pLeftWeapon->StopWeaponTrails();
+					}
+				}
 			}
 		}
-	}
-
-	// Stop weapon trails
-	if (m_pRightWeapon != NULL)
-	{
-		m_pRightWeapon->StartWeaponTrails();
-	}
-	if (m_pLeftWeapon != NULL)
-	{
-		m_pLeftWeapon->StopWeaponTrails();
 	}
 }
 
@@ -1614,10 +1662,9 @@ void VoxelCharacter::Update(float dt, float animationSpeed[AnimationSections_NUM
 	}
 
 	// Update the weapon trails, based on the animation frames
-	if (m_pCharacterAnimator[0] != NULL)
+	if (m_pCharacterAnimator[AnimationSections_Left_Arm_Hand] != NULL)
 	{
-		bool leftWeaponTrailActive = m_pCharacterAnimator[0]->GetLeftWeaponTrailActive();
-		bool rightWeaponTrailActive = m_pCharacterAnimator[0]->GetRightWeaponTrailActive();
+		bool leftWeaponTrailActive = m_pCharacterAnimator[AnimationSections_Left_Arm_Hand]->GetLeftWeaponTrailActive();
 		if (m_pLeftWeapon->IsWeaponTrailsActive() == false && leftWeaponTrailActive == true)
 		{
 			m_pLeftWeapon->StartWeaponTrails();
@@ -1626,6 +1673,10 @@ void VoxelCharacter::Update(float dt, float animationSpeed[AnimationSections_NUM
 		{
 			m_pLeftWeapon->StopWeaponTrails();
 		}
+	}
+	if (m_pCharacterAnimator[AnimationSections_Right_Arm_Hand] != NULL)
+	{
+		bool rightWeaponTrailActive = m_pCharacterAnimator[AnimationSections_Right_Arm_Hand]->GetRightWeaponTrailActive();
 		if (m_pRightWeapon->IsWeaponTrailsActive() == false && rightWeaponTrailActive == true)
 		{
 			m_pRightWeapon->StartWeaponTrails();

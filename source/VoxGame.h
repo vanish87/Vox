@@ -279,9 +279,12 @@ private:
 	bool m_bJoystickJump;
 
 	// Combat flags
-	bool m_bAttackPressed;
-	bool m_bCanDoAttack;
-	bool m_bCanDoJoystickAttack;
+	bool m_bAttackPressed_Mouse;
+	bool m_bAttackReleased_Mouse;
+	bool m_bCanDoAttack_Mouse;
+	bool m_bAttackPressed_Joystick;
+	bool m_bAttackReleased_Joystick;
+	bool m_bCanDoAttack_Joystick;
 
 	// Camera movement
 	bool m_bCameraRotate;

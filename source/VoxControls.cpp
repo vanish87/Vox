@@ -59,10 +59,15 @@ void VoxGame::UpdateKeyboardControls(float dt)
 		}
 
 		// Attacking
-		if (m_bAttackPressed && m_bCanDoAttack)
+		if (m_bAttackPressed_Mouse && m_bCanDoAttack_Mouse)
 		{
-			m_pPlayer->Attack();
-			m_bCanDoAttack = false;
+			m_pPlayer->PressAttack();
+			m_bCanDoAttack_Mouse = false;
+		}
+		if (m_bAttackReleased_Mouse)
+		{
+			m_pPlayer->ReleaseAttack();
+			m_bAttackReleased_Mouse = false;
 		}
 
 		// Player movements
@@ -190,11 +195,12 @@ void VoxGame::UpdateGamePadControls(float dt)
 	JoystickCameraZoom(dt);
 
 	m_bJoystickJump = m_pVoxWindow->GetJoystickButton(0, 0);
-	if (m_bAttackPressed)
+	if (m_bAttackPressed_Joystick)
 	{
-		m_bCanDoJoystickAttack = m_pVoxWindow->GetJoystickAxisValue(0, 2) >= -0.75f;
+		m_bCanDoAttack_Joystick = m_pVoxWindow->GetJoystickAxisValue(0, 2) >= -0.75f;
+		m_bAttackReleased_Joystick = m_pVoxWindow->GetJoystickAxisValue(0, 2) >= -0.75f;
 	}
-	m_bAttackPressed = m_pVoxWindow->GetJoystickAxisValue(0, 2) <= -0.75f;
+	m_bAttackPressed_Joystick = m_pVoxWindow->GetJoystickAxisValue(0, 2) <= -0.75f;
 
 	GameMode gameMode = GetGameMode();
 	if (gameMode == GameMode_Debug || m_cameraMode == CameraMode_Debug)
@@ -224,10 +230,15 @@ void VoxGame::UpdateGamePadControls(float dt)
 		}
 
 		// Attacking
-		if (m_bAttackPressed && m_bCanDoJoystickAttack)
+		if (m_bAttackPressed_Joystick && m_bCanDoAttack_Joystick)
 		{
-			m_pPlayer->Attack();
-			m_bCanDoJoystickAttack = false;
+			m_pPlayer->PressAttack();
+			m_bCanDoAttack_Joystick = false;
+		}
+		if (m_bAttackReleased_Joystick)
+		{
+			m_pPlayer->ReleaseAttack();
+			m_bAttackReleased_Joystick = false;
 		}
 
 		// Player movements

@@ -36,6 +36,15 @@ Player::Player(Renderer* pRenderer, QubicleBinaryManager* pQubicleBinaryManager,
 
 	m_bIsIdle = true;
 
+	m_bCanAttackLeft = true;
+	m_bCanAttackRight = true;
+	m_bCanInteruptCombatAnim = true;
+
+	for (int i = 0; i < AnimationSections_NUMSECTIONS; i++)
+	{
+		m_animationFinished[i] = false;
+	}
+
 	// Create voxel character
 	m_pVoxelCharacter = new VoxelCharacter(m_pRenderer, m_pQubicleBinaryManager);
 	 
@@ -278,10 +287,7 @@ void Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeFo
 	}
 
 	// Change to run animation
-	if (m_pVoxelCharacter->HasAnimationFinished(AnimationSections_FullBody))
-	{
-		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "Run", 0.01f);
-	}
+	m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, true, AnimationSections_FullBody, "Run", 0.01f);
 
 	m_bIsIdle = false;
 }
@@ -305,7 +311,14 @@ void Player::StopMoving()
 	{
 		m_bIsIdle = true;
 
-		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BindPose", 0.15f);
+		if (CanAttackLeft() && CanAttackRight())
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BindPose", 0.15f);
+		}
+		if (m_bCanInteruptCombatAnim)
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, false, AnimationSections_Legs_Feet, "BindPose", 0.15f);
+		}
 	}
 }
 
@@ -327,7 +340,14 @@ void Player::Jump()
 	m_velocity += m_up * 14.0f;
 
 	// Change to jump animation
-	m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "Jump", 0.05f);
+	if (CanAttackLeft() && CanAttackRight())
+	{
+		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "Jump", 0.15f);
+	}
+	if (m_bCanInteruptCombatAnim)
+	{
+		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, false, AnimationSections_Legs_Feet, "Jump", 0.15f);
+	}
 }
 
 bool Player::CanJump()
@@ -336,24 +356,53 @@ bool Player::CanJump()
 }
 
 // Combat
-void Player::Attack()
+void Player::PressAttack()
 {
-	int randomAttack = GetRandomNumber(1, 3);
-	if (randomAttack == 1)
+	if (CanAttackRight())
 	{
-		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "SwordAttack1", 0.01f);
-		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "SwordAttack1", 0.01f);
+		int randomAttack = GetRandomNumber(1, 3);
+		if (randomAttack == 1)
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, true, AnimationSections_FullBody, "SwordAttack1", 0.01f);
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Head_Body, false, AnimationSections_Head_Body, "SwordAttack1", 0.01f);
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "SwordAttack1", 0.01f);
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "SwordAttack1", 0.01f);
+
+			m_bCanInteruptCombatAnim = true;
+		}
+		else if (randomAttack == 2)
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, true, AnimationSections_FullBody, "SwordAttack2", 0.01f);
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Head_Body, false, AnimationSections_Head_Body, "SwordAttack2", 0.01f);
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "SwordAttack2", 0.01f);
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "SwordAttack1", 0.01f);
+
+			m_bCanInteruptCombatAnim = true;
+		}
+		else if (randomAttack == 3)
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "SwordAttack3", 0.01f);
+
+			m_bCanInteruptCombatAnim = false;
+		}
+
+		m_bCanAttackRight = false;
 	}
-	else if (randomAttack == 2)
-	{
-		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "SwordAttack2", 0.01f);
-		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "SwordAttack2", 0.01f);
-	}
-	else if (randomAttack == 3)
-	{
-		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "SwordAttack3", 0.01f);
-		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "SwordAttack3", 0.01f);
-	}
+}
+
+void Player::ReleaseAttack()
+{
+
+}
+
+bool Player::CanAttackLeft()
+{
+	return m_bCanAttackLeft;
+}
+
+bool Player::CanAttackRight()
+{
+	return m_bCanAttackRight;
 }
 
 // Rendering modes
@@ -387,6 +436,9 @@ void Player::Update(float dt)
 	m_pVoxelCharacter->Update(dt, animationSpeeds);
 	m_pVoxelCharacter->SetWeaponTrailsOriginMatrix(dt, m_worldMatrix);
 
+	// Update animations
+	UpdateAnimations(dt);
+
 	// Update / Create weapon lights and particle effects
 	UpdateWeaponLights(dt);
 	UpdateWeaponParticleEffects(dt);
@@ -396,6 +448,30 @@ void Player::Update(float dt)
 
 	// Physics update
 	UpdatePhysics(dt);
+}
+
+void Player::UpdateAnimations(float dt)
+{
+	if (m_pVoxelCharacter != NULL)
+	{
+		for (int i = 0; i < AnimationSections_NUMSECTIONS; i++)
+		{
+			m_animationFinished[i] = m_pVoxelCharacter->HasAnimationFinished((AnimationSections)i);
+		}
+	}
+
+	if (m_bCanInteruptCombatAnim == false && m_animationFinished[AnimationSections_FullBody] == true)
+	{
+		m_bCanInteruptCombatAnim = true;
+	}
+	if (m_bCanAttackLeft == false && m_animationFinished[AnimationSections_Left_Arm_Hand] == true)
+	{
+		m_bCanAttackLeft = true;
+	}
+	if (m_bCanAttackRight == false && m_animationFinished[AnimationSections_Right_Arm_Hand] == true)
+	{
+		m_bCanAttackRight = true;
+	}
 }
 
 void Player::UpdatePhysics(float dt)
