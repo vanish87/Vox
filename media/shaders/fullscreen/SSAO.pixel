@@ -1,4 +1,4 @@
-#version 150
+#version 120
 
 // G-Buffer data
 uniform sampler2D bgl_DepthTexture;  // Depth texture  
