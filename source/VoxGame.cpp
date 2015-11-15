@@ -9,6 +9,8 @@
 // Copyright (c) 2005-2015, Steven Ball
 // ******************************************************************************
 
+#pragma warning(disable: 4800)  // Forcing value to bool 'true' or 'false' 
+
 #include "glew/include/GL/glew.h"
 
 #include "VoxGame.h"
