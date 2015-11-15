@@ -50,6 +50,7 @@ public:
 
 	// Creation
 	void Create();
+	void LoadSettings();
 	void CreateGUI();
 	void SkinGUI();
 	void UnSkinGUI();

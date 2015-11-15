@@ -20,6 +20,9 @@ int main(void)
 	VoxGame* m_pVoxGame = VoxGame::GetInstance();
 	m_pVoxGame->Create();
 
+	/* Load the settings */
+	m_pVoxGame->LoadSettings();
+
 	/* Loop until the user closes the window or application */
 	while (!m_pVoxGame->ShouldClose())
 	{

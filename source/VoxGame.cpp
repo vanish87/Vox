@@ -13,6 +13,12 @@
 
 #include "VoxGame.h"
 
+#include <fstream>
+#include <ostream>
+#include <iostream>
+#include <string>
+using namespace std;
+
 #ifdef __linux__
 #include <sys/time.h>
 #endif //__linux__
@@ -205,6 +211,47 @@ void VoxGame::Create()
 	// Game mode
 	m_gameMode = GameMode_Debug;
 	SetGameMode(m_gameMode);
+}
+
+void VoxGame::LoadSettings()
+{
+	ifstream file;
+	string settingsFilename = "media/config/settings.ini";
+
+	// Open the settings file
+	file.open(settingsFilename, ios::in);
+	if (file.is_open())
+	{
+		string tempString;
+
+		int deferred = 0;
+		file >> tempString >> deferred;
+		m_pDeferredCheckBox->SetToggled((bool)deferred);
+
+		int shadows = 0;
+		file >> tempString >> shadows;
+		m_pShadowsCheckBox->SetToggled((bool)shadows);
+
+		int ssao = 0;
+		file >> tempString >> ssao;
+		m_pSSAOCheckBox->SetToggled((bool)ssao);
+
+		int lighting = 0;
+		file >> tempString >> lighting;
+		m_pDynamicLightingCheckBox->SetToggled((bool)lighting);
+
+		int msaa = 0;
+		file >> tempString >> msaa;
+		m_pMSAACheckBox->SetToggled((bool)msaa);
+
+		int instance = 0;
+		file >> tempString >> instance;
+		m_pInstanceRenderCheckBox->SetToggled((bool)instance);
+
+		int wireframeRendering = 0;
+		file >> tempString >> wireframeRendering;
+		m_pWireframeCheckBox->SetToggled((bool)wireframeRendering);
+	}
 }
 
 // Destruction

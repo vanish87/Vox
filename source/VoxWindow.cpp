@@ -56,8 +56,8 @@ VoxWindow::VoxWindow(VoxGame* pVoxGame)
 	m_joystickAnalogDeadZone = 0.20f;
 
 	/* Default windows dimensions */
-	m_windowWidth = 900;
-	m_windowHeight = 900;
+	m_windowWidth = 800;
+	m_windowHeight = 800;
 	m_oldWindowWidth = m_windowWidth;
 	m_oldWindowHeight = m_windowHeight;
 }
