@@ -22,6 +22,7 @@ using namespace std;
 #include <GLFW/glfw3.h>
 
 class VoxGame;
+class VoxSettings;
 
 
 typedef struct Joystick
@@ -38,7 +39,7 @@ class VoxWindow
 {
 public:
 	/* Public methods */
-	VoxWindow(VoxGame* pVoxGame);
+	VoxWindow(VoxGame* pVoxGame, VoxSettings* pVoxSettings);
 	~VoxWindow();
 
 	void Create();
@@ -93,6 +94,9 @@ protected:
 private:
 	/* Private members */
 	VoxGame* m_pVoxGame;
+	VoxSettings* m_pVoxSettings;
+
+	// The window object pointer
 	GLFWwindow* m_pWindow;
 
 	// Window dimensions

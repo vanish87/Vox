@@ -25,6 +25,8 @@
 
 #include "VoxApplication.h"
 #include "VoxWindow.h"
+#include "VoxSettings.h"
+
 
 enum GameMode
 {
@@ -42,6 +44,7 @@ enum CameraMode
 	CameraMode_FirstPerson,
 };
 
+
 class VoxGame
 {
 public:
@@ -49,11 +52,7 @@ public:
 	static VoxGame* GetInstance();
 
 	// Creation
-	void Create();
-	void LoadSettings();
-	void CreateGUI();
-	void SkinGUI();
-	void UnSkinGUI();
+	void Create(VoxSettings* pVoxSettings);
 
 	// Destruction
 	void Destroy();
@@ -130,6 +129,10 @@ public:
 	void RenderDebugInformation();
 
 	// GUI
+	void CreateGUI();
+	void SetupGUI();
+	void SkinGUI();
+	void UnSkinGUI();
 	void GUITurnOffCursor();
 	void ShowGUI();
 	void HideGUI();
@@ -180,6 +183,7 @@ private:
 	/* Private members */
 	VoxApplication* m_pVoxApplication;
 	VoxWindow* m_pVoxWindow;
+	VoxSettings* m_pVoxSettings;
 
 	// Renderer
 	Renderer* m_pRenderer;

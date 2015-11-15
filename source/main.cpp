@@ -16,34 +16,35 @@
 
 int main(void)
 {
-	/* Create and initialize VoxGame object */
-	VoxGame* m_pVoxGame = VoxGame::GetInstance();
-	m_pVoxGame->Create();
-
 	/* Load the settings */
-	m_pVoxGame->LoadSettings();
+	VoxSettings* m_pVoxSettings = new VoxSettings();
+	m_pVoxSettings->LoadSettings();
+
+	/* Initialize and create the VoxGame object */
+	VoxGame* pVoxGame = VoxGame::GetInstance();
+	pVoxGame->Create(m_pVoxSettings);
 
 	/* Loop until the user closes the window or application */
-	while (!m_pVoxGame->ShouldClose())
+	while (!pVoxGame->ShouldClose())
 	{
 		/* Poll input events*/
-		m_pVoxGame->PollEvents();
+		pVoxGame->PollEvents();
 
 		/* Update joysticks */
-		m_pVoxGame->UpdateJoySticks();
+		pVoxGame->UpdateJoySticks();
 
 		/* Update */
-		m_pVoxGame->Update();
+		pVoxGame->Update();
 
 		/* PreRender */
-		m_pVoxGame->PreRender();
+		pVoxGame->PreRender();
 
 		/* Render */
-		m_pVoxGame->Render();
+		pVoxGame->Render();
 	}
 
 	/* Cleanup */
-	m_pVoxGame->Destroy();
+	pVoxGame->Destroy();
 
 	/* Exit */
 	exit(EXIT_SUCCESS);

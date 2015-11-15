@@ -15,21 +15,17 @@
 #pragma once
 
 class VoxGame;
-class VoxSettings;
 
 
-class VoxApplication
+class VoxSettings
 {
 public:
 	/* Public methods */
-	VoxApplication(VoxGame* pVoxGame, VoxSettings* pVoxSettings);
-	~VoxApplication();
+	VoxSettings();
+	~VoxSettings();
 
-	void Create();
-	void Destroy();
-	void Update(float dt);
-
-	int ShouldCloseApplication();
+	// Load settings
+	void LoadSettings();
 
 protected:
 	/* Protected methods */
@@ -40,11 +36,22 @@ private:
 public:
 	/* Public members */
 
+	// Graphics
+	int m_windowWidth;
+	int m_windowHeight;
+	bool m_deferredRendering;
+	bool m_shadows;
+	bool m_blur;
+	bool m_ssao;
+	bool m_dynamicLighting;
+	bool m_msaa;
+	bool m_instancedParticles;
+	bool m_wireframeRendering;
+	bool m_debugRendering;
+
 protected:
 	/* Protected members */
 
 private:
 	/* Private members */
-	VoxGame* m_pVoxGame;
-	VoxSettings* m_pVoxSettings;
 };

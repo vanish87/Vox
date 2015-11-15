@@ -11,11 +11,13 @@
 
 #include "VoxApplication.h"
 #include "VoxGame.h"
+#include "VoxSettings.h"
 
 
-VoxApplication::VoxApplication(VoxGame* pVoxGame)
+VoxApplication::VoxApplication(VoxGame* pVoxGame, VoxSettings* pVoxSettings)
 {
 	m_pVoxGame = pVoxGame;
+	m_pVoxSettings = pVoxSettings;
 }
 
 VoxApplication::~VoxApplication()

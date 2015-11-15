@@ -70,6 +70,9 @@
     <Filter Include="source\frontend">
       <UniqueIdentifier>{33b007cf-4bbb-446b-975f-4fc6f4fe765b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\ini">
+      <UniqueIdentifier>{2ae3be82-3a9c-43b8-8e76-a726ac35bbf8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\glew\src\glew.c">
@@ -448,6 +451,15 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\VoxControls.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ini\ini.c">
+      <Filter>source\ini</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ini\INIReader.cpp">
+      <Filter>source\ini</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\VoxSettings.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1285,6 +1297,15 @@
     </ClInclude>
     <ClInclude Include="..\..\source\utils\FileUtils.h">
       <Filter>source\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\ini\ini.h">
+      <Filter>source\ini</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\ini\INIReader.h">
+      <Filter>source\ini</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\VoxSettings.h">
+      <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

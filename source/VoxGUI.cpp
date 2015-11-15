@@ -194,6 +194,19 @@ void VoxGame::CreateGUI()
 	m_pGUIThemePulldown->SetSelectedItem("Default");
 }
 
+void VoxGame::SetupGUI()
+{
+	m_pDeferredCheckBox->SetToggled(m_pVoxSettings->m_deferredRendering);
+	m_pShadowsCheckBox->SetToggled(m_pVoxSettings->m_shadows);
+	m_pSSAOCheckBox->SetToggled(m_pVoxSettings->m_ssao);
+	m_pBlurCheckBox->SetToggled(m_pVoxSettings->m_blur);
+	m_pDynamicLightingCheckBox->SetToggled(m_pVoxSettings->m_dynamicLighting);
+	m_pMSAACheckBox->SetToggled(m_pVoxSettings->m_msaa);
+	m_pInstanceRenderCheckBox->SetToggled(m_pVoxSettings->m_instancedParticles);
+	m_pWireframeCheckBox->SetToggled(m_pVoxSettings->m_wireframeRendering);
+	m_pDebugRenderCheckBox->SetToggled(m_pVoxSettings->m_debugRendering);
+}
+
 void VoxGame::SkinGUI()
 {
 	m_pFrontendManager->SetCheckboxIcons(m_pShadowsCheckBox);
@@ -356,7 +369,6 @@ void VoxGame::UpdateGUI(float dt)
 	m_pBlockParticleManager->SetInstancedRendering(m_instanceRender);
 }
 
-// GUI
 void VoxGame::GUITurnOffCursor()
 {
 	m_pGUI->ResetSelectionManager();

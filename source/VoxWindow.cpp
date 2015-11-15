@@ -30,6 +30,7 @@
 
 #include "VoxWindow.h"
 #include "VoxGame.h"
+#include "VoxSettings.h"
 
 // Callback functionality
 void WindowResizeCallback(GLFWwindow* window, int width, int height);
@@ -38,9 +39,10 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 void MouseScrollCallback(GLFWwindow* window, double x, double y);
 
 
-VoxWindow::VoxWindow(VoxGame* pVoxGame)
+VoxWindow::VoxWindow(VoxGame* pVoxGame, VoxSettings* pVoxSettings)
 {
 	m_pVoxGame = pVoxGame;
+	m_pVoxSettings = pVoxSettings;
 
 	/* Minimized flag */
 	m_minimized = false;
@@ -56,8 +58,8 @@ VoxWindow::VoxWindow(VoxGame* pVoxGame)
 	m_joystickAnalogDeadZone = 0.20f;
 
 	/* Default windows dimensions */
-	m_windowWidth = 800;
-	m_windowHeight = 800;
+	m_windowWidth = m_pVoxSettings->m_windowWidth;
+	m_windowHeight = m_pVoxSettings->m_windowHeight;
 	m_oldWindowWidth = m_windowWidth;
 	m_oldWindowHeight = m_windowHeight;
 }
