@@ -69,3 +69,4 @@
 * Add texture support for voxel blocks.
 * Player alpha when camera zooms in.
 * Camera clipping mode.
+* Settings file loading at startup, change options and rendering based on settings.
