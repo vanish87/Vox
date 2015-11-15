@@ -18,11 +18,11 @@ Vox engine is an open source voxel engine that is written in C++ and OpenGL and 
 * Voxel scenery and world items.
 * Block/cube particle effect system.
 * Modding and scripting support via LUA.
+* Gamepad and controller support.
 * Voxel world and terrain generation. *[coming soon!]*
 * Procedural content creation. *[coming soon!]*
 * In-built voxel editor for creation/editing of in-game assets. *[coming soon!]*
 * Audio and music playback. *[coming soon!]*
-* Gamepad and controller support. *[coming soon!]*
 
 ## Setup
 Setting up and compiling the project is a fairly simple process. Cmake can be used to build the project files for each environment and for different platforms, depending on what you are developing on. Just run Cmake on the root level of the project.
