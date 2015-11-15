@@ -29,7 +29,20 @@
 
 
 ScrollBar::ScrollBar(Renderer* pRenderer)
-  : Container(pRenderer)
+  : Container(pRenderer),
+	m_pLeftArrowDefault(0),
+    m_pLeftArrowHover(0),
+	m_pLeftArrowPressed(0),
+	m_pLeftArrowDisabled(0),
+	m_pRightArrowDefault(0),
+	m_pRightArrowHover(0),
+	m_pRightArrowPressed(0),
+	m_pRightArrowDisabled(0),
+	m_pScrollbarDefault(0),
+	m_pScrollbarHover(0),
+	m_pScrollbarPressed(0),
+	m_pScrollbarDisabled(0),
+	m_pBackbar(0)
 {
 	SetDefaultIcons(pRenderer);
 
@@ -85,7 +98,20 @@ ScrollBar::ScrollBar(Renderer* pRenderer, const std::string &leftDefaultTexture,
 					 const std::string &rightDefaultTexture, const std::string &rightPressedTexture, const std::string &rightHoverTexture, const std::string &rightDisabledTexture,
 					 const std::string &scrollDefaultTexture, const std::string &scrollPressedTexture, const std::string &scrollHoverTexture, const std::string &scrollDisabledTexture,
 					 const std::string &BackbarTexture)
-  : Container(pRenderer)
+  : Container(pRenderer),
+	m_pLeftArrowDefault(0),
+	m_pLeftArrowHover(0),
+	m_pLeftArrowPressed(0),
+	m_pLeftArrowDisabled(0),
+	m_pRightArrowDefault(0),
+	m_pRightArrowHover(0),
+	m_pRightArrowPressed(0),
+	m_pRightArrowDisabled(0),
+	m_pScrollbarDefault(0),
+	m_pScrollbarHover(0),
+	m_pScrollbarPressed(0),
+	m_pScrollbarDisabled(0),
+	m_pBackbar(0)
 {
 	m_pLeftArrowDefault = new Icon(pRenderer, leftDefaultTexture);
 	m_pLeftArrowHover = new Icon(pRenderer, leftHoverTexture);

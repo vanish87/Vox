@@ -28,7 +28,20 @@ PulldownMenu::PulldownMenu(Renderer* pRenderer, unsigned int GUIFont, const std:
 	mScrollBar(pRenderer),
 	m_bSelected(false),
 	m_bHover(false),
-	m_bDisabled(false)
+	m_bDisabled(false),
+	mGUIFont(GUIFont),
+    m_pPulldownIcon(0),
+	m_pPulldownSelectedIcon(0),
+	m_pPulldownHoverIcon(0),
+	m_pPulldownDisabledIcon(0),
+	m_pMenuBackgroundDefault(0),
+	m_pMenuBackgroundHover(0),
+	m_pMenuBackgroundSelected(0),
+	m_pMenuBackgroundDisabled(0),
+	m_pTitleBackgroundDefault(0),
+	m_pTitleBackgroundHover(0),
+	m_pTitleBackgroundSelected(0),
+    m_pTitleBackgroundDisabled(0)
 {
 	SetDefaultIcons(pRenderer);
 
@@ -77,7 +90,20 @@ PulldownMenu::PulldownMenu(Renderer* pRenderer, unsigned int GUIFont, unsigned i
 	mScrollBar(pRenderer),
 	m_bSelected(false),
 	m_bHover(false),
-	m_bDisabled(false)
+	m_bDisabled(false),
+	mGUIFont(GUIFont),
+	m_pPulldownIcon(0),
+	m_pPulldownSelectedIcon(0),
+	m_pPulldownHoverIcon(0),
+	m_pPulldownDisabledIcon(0),
+	m_pMenuBackgroundDefault(0),
+	m_pMenuBackgroundHover(0),
+	m_pMenuBackgroundSelected(0),
+	m_pMenuBackgroundDisabled(0),
+	m_pTitleBackgroundDefault(0),
+	m_pTitleBackgroundHover(0),
+	m_pTitleBackgroundSelected(0),
+	m_pTitleBackgroundDisabled(0)
 {
 	SetDefaultIcons(pRenderer);
 
@@ -138,7 +164,20 @@ PulldownMenu::PulldownMenu(Renderer* pRenderer, unsigned int GUIFont, const std:
 	mScrollBar(pRenderer),
 	m_bSelected(false),
 	m_bHover(false),
-	m_bDisabled(false)
+	m_bDisabled(false),
+	mGUIFont(GUIFont),
+	m_pPulldownIcon(0),
+	m_pPulldownSelectedIcon(0),
+	m_pPulldownHoverIcon(0),
+	m_pPulldownDisabledIcon(0),
+	m_pMenuBackgroundDefault(0),
+	m_pMenuBackgroundHover(0),
+	m_pMenuBackgroundSelected(0),
+	m_pMenuBackgroundDisabled(0),
+	m_pTitleBackgroundDefault(0),
+	m_pTitleBackgroundHover(0),
+	m_pTitleBackgroundSelected(0),
+	m_pTitleBackgroundDisabled(0)
 {
 	m_pPulldownIcon = new Icon(pRenderer, defaultPulldownTexture);
 	m_pPulldownSelectedIcon = new Icon(pRenderer, selectedPulldownTexture);
