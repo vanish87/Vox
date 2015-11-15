@@ -49,6 +49,8 @@ public:
 	void AddEventListeners();
 	void RemoveEventListeners();
 
+	void RemoveIcon(RenderRectangle *pRemoveIcon);
+	void SetDefaultIcons(Renderer* pRenderer);
 	void SetLeftArrowDefaultIcon(RenderRectangle *icon);
 	void SetLeftArrowHoverIcon(RenderRectangle *icon);
 	void SetLeftArrowSelectedIcon(RenderRectangle *icon);

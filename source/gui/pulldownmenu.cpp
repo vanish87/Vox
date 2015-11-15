@@ -412,10 +412,10 @@ void PulldownMenu::SetDefaultIcons(Renderer* pRenderer)
 	m_pPulldownDisabledIcon->SetDimensions(d.m_width - d.m_height, 0, d.m_height, d.m_height);
 
 	// Also set the dimensions of the title background icons
-	m_pTitleBackgroundDefault->SetDimensions(0, 0, d.m_width, d.m_height);
-	m_pTitleBackgroundHover->SetDimensions(0, 0, d.m_width, d.m_height);
-	m_pTitleBackgroundSelected->SetDimensions(0, 0, d.m_width, d.m_height);
-	m_pTitleBackgroundDisabled->SetDimensions(0, 0, d.m_width, d.m_height);
+	m_pTitleBackgroundDefault->SetDimensions(0, 0, d.m_width - d.m_height, d.m_height);
+	m_pTitleBackgroundHover->SetDimensions(0, 0, d.m_width - d.m_height, d.m_height);
+	m_pTitleBackgroundSelected->SetDimensions(0, 0, d.m_width - d.m_height, d.m_height);
+	m_pTitleBackgroundDisabled->SetDimensions(0, 0, d.m_width - d.m_height, d.m_height);
 
 	// Also set the dimensions of the title label
 	mMenuTitle.SetLocation(3, 3 /*mPulldownMenu.GetMenuItemSpacer(), mPulldownMenu.GetMenuItemSpacer()*/);
@@ -423,6 +423,16 @@ void PulldownMenu::SetDefaultIcons(Renderer* pRenderer)
 	// Also set the dimensions of the header label
 	int lHeaderWidth = m_pRenderer->GetFreeTypeTextWidth(mGUIFont, "%s", mMenuName.GetText().c_str());
 	mMenuName.SetLocation(-5 - lHeaderWidth, 3);
+
+	Dimensions d_Scrollbar = mScrollBar.GetDimensions();
+	m_pMenuBackgroundDefault->SetDimensions(0, -d_Scrollbar.m_height, d.m_width - d.m_height, d_Scrollbar.m_height);
+	m_pMenuBackgroundDisabled->SetDimensions(0, -d_Scrollbar.m_height, d.m_width - d.m_height, d_Scrollbar.m_height);
+
+	mPulldownMenu.SetDepth(GetDepth()+1.0f);
+	mMenuTitle.SetDepth(GetDepth() + 1.0f);
+
+	// Also set the default icons of the scrollbar
+	mScrollBar.SetDefaultIcons(pRenderer);
 }
 
 void PulldownMenu::SetPulldownIconDefault(RenderRectangle *icon)
