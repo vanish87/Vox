@@ -398,6 +398,9 @@ void ScrollBar::SetLeftArrowDefaultIcon(RenderRectangle *icon)
 
 	// Re-add this icon to the component list
 	Add(m_pLeftArrowDefault);
+
+	Dimensions dimensions = GetDimensions();
+	SetDimensions(dimensions.m_x, dimensions.m_y, dimensions.m_width, dimensions.m_height);
 }
 
 void ScrollBar::SetLeftArrowHoverIcon(RenderRectangle *icon)
@@ -428,6 +431,9 @@ void ScrollBar::SetLeftArrowHoverIcon(RenderRectangle *icon)
 
 	// Re-add this icon to the component list
 	Add(m_pLeftArrowHover);
+
+	Dimensions dimensions = GetDimensions();
+	SetDimensions(dimensions.m_x, dimensions.m_y, dimensions.m_width, dimensions.m_height);
 }
 
 void ScrollBar::SetLeftArrowSelectedIcon(RenderRectangle *icon)
@@ -458,6 +464,9 @@ void ScrollBar::SetLeftArrowSelectedIcon(RenderRectangle *icon)
 
 	// Re-add this icon to the component list
 	Add(m_pLeftArrowPressed);
+
+	Dimensions dimensions = GetDimensions();
+	SetDimensions(dimensions.m_x, dimensions.m_y, dimensions.m_width, dimensions.m_height);
 }
 
 void ScrollBar::SetLeftArrowDisabledIcon(RenderRectangle *icon)
@@ -488,6 +497,9 @@ void ScrollBar::SetLeftArrowDisabledIcon(RenderRectangle *icon)
 
 	// Re-add this icon to the component list
 	Add(m_pLeftArrowDisabled);
+
+	Dimensions dimensions = GetDimensions();
+	SetDimensions(dimensions.m_x, dimensions.m_y, dimensions.m_width, dimensions.m_height);
 }
 
 void ScrollBar::SetRightArrowDefaultIcon(RenderRectangle *icon)
@@ -518,6 +530,9 @@ void ScrollBar::SetRightArrowDefaultIcon(RenderRectangle *icon)
 
 	// Re-add this icon to the component list
 	Add(m_pRightArrowDefault);
+
+	Dimensions dimensions = GetDimensions();
+	SetDimensions(dimensions.m_x, dimensions.m_y, dimensions.m_width, dimensions.m_height);
 }
 
 void ScrollBar::SetRightArrowHoverIcon(RenderRectangle *icon)
@@ -548,6 +563,9 @@ void ScrollBar::SetRightArrowHoverIcon(RenderRectangle *icon)
 
 	// Re-add this icon to the component list
 	Add(m_pRightArrowHover);
+
+	Dimensions dimensions = GetDimensions();
+	SetDimensions(dimensions.m_x, dimensions.m_y, dimensions.m_width, dimensions.m_height);
 }
 
 void ScrollBar::SetRightArrowSelectedIcon(RenderRectangle *icon)
@@ -578,6 +596,9 @@ void ScrollBar::SetRightArrowSelectedIcon(RenderRectangle *icon)
 
 	// Re-add this icon to the component list
 	Add(m_pRightArrowPressed);
+
+	Dimensions dimensions = GetDimensions();
+	SetDimensions(dimensions.m_x, dimensions.m_y, dimensions.m_width, dimensions.m_height);
 }
 
 void ScrollBar::SetRightArrowDisabledIcon(RenderRectangle *icon)
@@ -608,6 +629,9 @@ void ScrollBar::SetRightArrowDisabledIcon(RenderRectangle *icon)
 
 	// Re-add this icon to the component list
 	Add(m_pRightArrowDisabled);
+
+	Dimensions dimensions = GetDimensions();
+	SetDimensions(dimensions.m_x, dimensions.m_y, dimensions.m_width, dimensions.m_height);
 }
 
 void ScrollBar::SetScrollbarDefaultIcon(RenderRectangle *icon)
@@ -638,6 +662,9 @@ void ScrollBar::SetScrollbarDefaultIcon(RenderRectangle *icon)
 
 	// Re-add this icon to the component list
 	Add(m_pScrollbarDefault);
+
+	Dimensions dimensions = GetDimensions();
+	SetDimensions(dimensions.m_x, dimensions.m_y, dimensions.m_width, dimensions.m_height);
 }
 
 void ScrollBar::SetScrollbarHoverIcon(RenderRectangle *icon)

@@ -216,6 +216,11 @@ void VoxGame::SkinGUI()
 	m_pFrontendManager->SetOptionboxIcons(m_pAutoCameraOptionBox);
 	m_pFrontendManager->SetOptionboxIcons(m_pFirstPersonCameraOptionBox);
 
+	m_pFrontendManager->SetPulldownMenuIcons(m_pAnimationsPulldown);
+	m_pFrontendManager->SetPulldownMenuIcons(m_pWeaponsPulldown);
+	m_pFrontendManager->SetPulldownMenuIcons(m_pCharacterPulldown);
+	m_pFrontendManager->SetPulldownMenuIcons(m_pGUIThemePulldown);
+
 	m_pFrontendManager->SetButtonIcons(m_pFullscreenButton, ButtonSize_85x25);
 	m_pFrontendManager->SetButtonIcons(m_pPlayAnimationButton, ButtonSize_85x25);
 }
@@ -236,6 +241,11 @@ void VoxGame::UnSkinGUI()
 	m_pGameOptionBox->SetDefaultIcons(m_pRenderer);
 	m_pDebugOptionBox->SetDefaultIcons(m_pRenderer);
 	m_pFrontEndOptionBox->SetDefaultIcons(m_pRenderer);
+
+	m_pAnimationsPulldown->SetDefaultIcons(m_pRenderer);
+	m_pWeaponsPulldown->SetDefaultIcons(m_pRenderer);
+	m_pCharacterPulldown->SetDefaultIcons(m_pRenderer);
+	m_pGUIThemePulldown->SetDefaultIcons(m_pRenderer);
 
 	m_pDebugCameraOptionBox->SetDefaultIcons(m_pRenderer);
 	m_pMouseRotateCameraOptionBox->SetDefaultIcons(m_pRenderer);

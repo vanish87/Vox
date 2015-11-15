@@ -30,156 +30,10 @@ PulldownMenu::PulldownMenu(Renderer* pRenderer, unsigned int GUIFont, const std:
 	m_bHover(false),
 	m_bDisabled(false)
 {
-	m_pPulldownIcon = new DirectDrawRectangle(pRenderer);
-	m_pPulldownHoverIcon = new DirectDrawRectangle(pRenderer);
-	m_pPulldownSelectedIcon = new DirectDrawRectangle(pRenderer);
-	m_pPulldownDisabledIcon = new DirectDrawRectangle(pRenderer);
-
-	m_pMenuBackgroundDefault = new DirectDrawRectangle(pRenderer);
-	m_pMenuBackgroundHover = new DirectDrawRectangle(pRenderer);
-	m_pMenuBackgroundSelected = new DirectDrawRectangle(pRenderer);
-	m_pMenuBackgroundDisabled = new DirectDrawRectangle(pRenderer);
-
-	m_pTitleBackgroundDefault = new DirectDrawRectangle(pRenderer);
-	m_pTitleBackgroundHover = new DirectDrawRectangle(pRenderer);
-	m_pTitleBackgroundSelected = new DirectDrawRectangle(pRenderer);
-	m_pTitleBackgroundDisabled = new DirectDrawRectangle(pRenderer);
-
-	DirectDrawRectangle *lpDirectDrawRect = (DirectDrawRectangle *)m_pPulldownIcon;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.52f, 0.53f, 0.91f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.52f, 0.53f, 0.91f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.52f, 0.53f, 0.91f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.52f, 0.53f, 0.91f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pPulldownHoverIcon;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pPulldownSelectedIcon;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pPulldownDisabledIcon;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pMenuBackgroundDefault;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pMenuBackgroundHover;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pMenuBackgroundSelected;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(1.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(1.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(1.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(1.0f, 0.0f, 0.0f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pMenuBackgroundDisabled;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pTitleBackgroundDefault;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pTitleBackgroundHover;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pTitleBackgroundSelected;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pTitleBackgroundDisabled;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(0.25f, 0.25f, 0.25f, 1.0f));
+	SetDefaultIcons(pRenderer);
 
 	mScrollBar.SetScrollDirection(EScrollBarDirection_Vertical);
 	mScrollBar.SetScrollPosition(0.75f);
-
-	Add(m_pPulldownIcon);
-	Add(m_pPulldownSelectedIcon);
-	Add(m_pPulldownHoverIcon);
-	Add(m_pPulldownDisabledIcon);
-	Add(m_pMenuBackgroundDefault);
-	Add(m_pMenuBackgroundHover);
-	Add(m_pMenuBackgroundSelected);
-	Add(m_pMenuBackgroundDisabled);
-	Add(m_pTitleBackgroundDefault);
-	Add(m_pTitleBackgroundHover);
-	Add(m_pTitleBackgroundSelected);
-	Add(m_pTitleBackgroundDisabled);
 
 	mPulldownMenu.SetPullDownMenuParent(this);
 
@@ -225,156 +79,10 @@ PulldownMenu::PulldownMenu(Renderer* pRenderer, unsigned int GUIFont, unsigned i
 	m_bHover(false),
 	m_bDisabled(false)
 {
-	m_pPulldownIcon = new DirectDrawRectangle(pRenderer);
-	m_pPulldownHoverIcon = new DirectDrawRectangle(pRenderer);
-	m_pPulldownSelectedIcon = new DirectDrawRectangle(pRenderer);
-	m_pPulldownDisabledIcon = new DirectDrawRectangle(pRenderer);
-
-	m_pMenuBackgroundDefault = new DirectDrawRectangle(pRenderer);
-	m_pMenuBackgroundHover = new DirectDrawRectangle(pRenderer);
-	m_pMenuBackgroundSelected = new DirectDrawRectangle(pRenderer);
-	m_pMenuBackgroundDisabled = new DirectDrawRectangle(pRenderer);
-
-	m_pTitleBackgroundDefault = new DirectDrawRectangle(pRenderer);
-	m_pTitleBackgroundHover = new DirectDrawRectangle(pRenderer);
-	m_pTitleBackgroundSelected = new DirectDrawRectangle(pRenderer);
-	m_pTitleBackgroundDisabled = new DirectDrawRectangle(pRenderer);
-
-	DirectDrawRectangle *lpDirectDrawRect = (DirectDrawRectangle *)m_pPulldownIcon;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.52f, 0.53f, 0.91f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.52f, 0.53f, 0.91f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.52f, 0.53f, 0.91f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.52f, 0.53f, 0.91f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pPulldownHoverIcon;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pPulldownSelectedIcon;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pPulldownDisabledIcon;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pMenuBackgroundDefault;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pMenuBackgroundHover;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pMenuBackgroundSelected;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(1.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(1.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(1.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(1.0f, 0.0f, 0.0f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pMenuBackgroundDisabled;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pTitleBackgroundDefault;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pTitleBackgroundHover;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pTitleBackgroundSelected;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
-
-	lpDirectDrawRect = (DirectDrawRectangle *)m_pTitleBackgroundDisabled;
-	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.75f, 0.75f, 0.75f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourTop(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.25f, 0.25f, 0.25f, 1.0f));
-	lpDirectDrawRect->SetOutlineColourRight(Colour(0.25f, 0.25f, 0.25f, 1.0f));
+	SetDefaultIcons(pRenderer);
 
 	mScrollBar.SetScrollDirection(EScrollBarDirection_Vertical);
 	mScrollBar.SetScrollPosition(0.75f);
-
-	Add(m_pPulldownIcon);
-	Add(m_pPulldownSelectedIcon);
-	Add(m_pPulldownHoverIcon);
-	Add(m_pPulldownDisabledIcon);
-	Add(m_pMenuBackgroundDefault);
-	Add(m_pMenuBackgroundHover);
-	Add(m_pMenuBackgroundSelected);
-	Add(m_pMenuBackgroundDisabled);
-	Add(m_pTitleBackgroundDefault);
-	Add(m_pTitleBackgroundHover);
-	Add(m_pTitleBackgroundSelected);
-	Add(m_pTitleBackgroundDisabled);
 
 	mPulldownMenu.SetPullDownMenuParent(this);
 
@@ -521,6 +229,202 @@ PulldownMenu::~PulldownMenu()
 	delete m_pTitleBackgroundDisabled;
 }
 
+void PulldownMenu::RemoveIcon(RenderRectangle *pRemoveIcon)
+{
+	if (pRemoveIcon)
+	{
+		Remove(pRemoveIcon);
+		delete pRemoveIcon;
+		pRemoveIcon = NULL;
+	}
+}
+
+void PulldownMenu::SetDefaultIcons(Renderer* pRenderer)
+{
+	RemoveIcon(m_pPulldownIcon);
+	RemoveIcon(m_pPulldownHoverIcon);
+	RemoveIcon(m_pPulldownSelectedIcon);
+	RemoveIcon(m_pPulldownDisabledIcon);
+
+	RemoveIcon(m_pMenuBackgroundDefault);
+	RemoveIcon(m_pMenuBackgroundHover);
+	RemoveIcon(m_pMenuBackgroundSelected);
+	RemoveIcon(m_pMenuBackgroundDisabled);
+
+	RemoveIcon(m_pTitleBackgroundDefault);
+	RemoveIcon(m_pTitleBackgroundHover);
+	RemoveIcon(m_pTitleBackgroundSelected);
+	RemoveIcon(m_pTitleBackgroundDisabled);
+
+	m_pPulldownIcon = new DirectDrawRectangle(pRenderer);
+	m_pPulldownHoverIcon = new DirectDrawRectangle(pRenderer);
+	m_pPulldownSelectedIcon = new DirectDrawRectangle(pRenderer);
+	m_pPulldownDisabledIcon = new DirectDrawRectangle(pRenderer);
+
+	m_pMenuBackgroundDefault = new DirectDrawRectangle(pRenderer);
+	m_pMenuBackgroundHover = new DirectDrawRectangle(pRenderer);
+	m_pMenuBackgroundSelected = new DirectDrawRectangle(pRenderer);
+	m_pMenuBackgroundDisabled = new DirectDrawRectangle(pRenderer);
+
+	m_pTitleBackgroundDefault = new DirectDrawRectangle(pRenderer);
+	m_pTitleBackgroundHover = new DirectDrawRectangle(pRenderer);
+	m_pTitleBackgroundSelected = new DirectDrawRectangle(pRenderer);
+	m_pTitleBackgroundDisabled = new DirectDrawRectangle(pRenderer);
+
+	DirectDrawRectangle *lpDirectDrawRect = (DirectDrawRectangle *)m_pPulldownIcon;
+	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.52f, 0.53f, 0.91f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.52f, 0.53f, 0.91f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.52f, 0.53f, 0.91f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.52f, 0.53f, 0.91f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourTop(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourRight(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+
+	lpDirectDrawRect = (DirectDrawRectangle *)m_pPulldownHoverIcon;
+	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourTop(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourRight(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+
+	lpDirectDrawRect = (DirectDrawRectangle *)m_pPulldownSelectedIcon;
+	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourTop(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourBottom(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+
+	lpDirectDrawRect = (DirectDrawRectangle *)m_pPulldownDisabledIcon;
+	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.75f, 0.75f, 0.75f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.75f, 0.75f, 0.75f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.75f, 0.75f, 0.75f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.75f, 0.75f, 0.75f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourTop(Colour(0.25f, 0.25f, 0.25f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.25f, 0.25f, 0.25f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.25f, 0.25f, 0.25f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourRight(Colour(0.25f, 0.25f, 0.25f, 1.0f));
+
+	lpDirectDrawRect = (DirectDrawRectangle *)m_pMenuBackgroundDefault;
+	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourTop(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourRight(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+
+	lpDirectDrawRect = (DirectDrawRectangle *)m_pMenuBackgroundHover;
+	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourTop(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourRight(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+
+	lpDirectDrawRect = (DirectDrawRectangle *)m_pMenuBackgroundSelected;
+	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourTop(Colour(1.0f, 0.0f, 0.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourBottom(Colour(1.0f, 0.0f, 0.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourLeft(Colour(1.0f, 0.0f, 0.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourRight(Colour(1.0f, 0.0f, 0.0f, 1.0f));
+
+	lpDirectDrawRect = (DirectDrawRectangle *)m_pMenuBackgroundDisabled;
+	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.75f, 0.75f, 0.75f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.75f, 0.75f, 0.75f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.75f, 0.75f, 0.75f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.75f, 0.75f, 0.75f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourTop(Colour(0.25f, 0.25f, 0.25f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.25f, 0.25f, 0.25f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.25f, 0.25f, 0.25f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourRight(Colour(0.25f, 0.25f, 0.25f, 1.0f));
+
+	lpDirectDrawRect = (DirectDrawRectangle *)m_pTitleBackgroundDefault;
+	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourTop(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourRight(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+
+	lpDirectDrawRect = (DirectDrawRectangle *)m_pTitleBackgroundHover;
+	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourTop(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourLeft(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourRight(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+
+	lpDirectDrawRect = (DirectDrawRectangle *)m_pTitleBackgroundSelected;
+	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.25f, 0.25f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.25f, 0.25f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourTop(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourBottom(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourRight(Colour(1.0f, 1.0f, 1.0f, 1.0f));
+
+	lpDirectDrawRect = (DirectDrawRectangle *)m_pTitleBackgroundDisabled;
+	lpDirectDrawRect->SetBackgroundColourTopLeft(Colour(0.75f, 0.75f, 0.75f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourTopRight(Colour(0.75f, 0.75f, 0.75f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomLeft(Colour(0.75f, 0.75f, 0.75f, 1.0f));
+	lpDirectDrawRect->SetBackgroundColourBottomRight(Colour(0.75f, 0.75f, 0.75f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourTop(Colour(0.25f, 0.25f, 0.25f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourBottom(Colour(0.25f, 0.25f, 0.25f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourLeft(Colour(0.25f, 0.25f, 0.25f, 1.0f));
+	lpDirectDrawRect->SetOutlineColourRight(Colour(0.25f, 0.25f, 0.25f, 1.0f));
+
+	Add(m_pPulldownIcon);
+	Add(m_pPulldownSelectedIcon);
+	Add(m_pPulldownHoverIcon);
+	Add(m_pPulldownDisabledIcon);
+	Add(m_pMenuBackgroundDefault);
+	Add(m_pMenuBackgroundHover);
+	Add(m_pMenuBackgroundSelected);
+	Add(m_pMenuBackgroundDisabled);
+	Add(m_pTitleBackgroundDefault);
+	Add(m_pTitleBackgroundHover);
+	Add(m_pTitleBackgroundSelected);
+	Add(m_pTitleBackgroundDisabled);
+
+	// Set the dimensions of the icons
+	Dimensions d = GetDimensions();
+	m_pPulldownIcon->SetDimensions(d.m_width - d.m_height, 0, d.m_height, d.m_height);
+	m_pPulldownSelectedIcon->SetDimensions(d.m_width - d.m_height, 0, d.m_height, d.m_height);
+	m_pPulldownHoverIcon->SetDimensions(d.m_width - d.m_height, 0, d.m_height, d.m_height);
+	m_pPulldownDisabledIcon->SetDimensions(d.m_width - d.m_height, 0, d.m_height, d.m_height);
+
+	// Also set the dimensions of the title background icons
+	m_pTitleBackgroundDefault->SetDimensions(0, 0, d.m_width, d.m_height);
+	m_pTitleBackgroundHover->SetDimensions(0, 0, d.m_width, d.m_height);
+	m_pTitleBackgroundSelected->SetDimensions(0, 0, d.m_width, d.m_height);
+	m_pTitleBackgroundDisabled->SetDimensions(0, 0, d.m_width, d.m_height);
+
+	// Also set the dimensions of the title label
+	mMenuTitle.SetLocation(3, 3 /*mPulldownMenu.GetMenuItemSpacer(), mPulldownMenu.GetMenuItemSpacer()*/);
+
+	// Also set the dimensions of the header label
+	int lHeaderWidth = m_pRenderer->GetFreeTypeTextWidth(mGUIFont, "%s", mMenuName.GetText().c_str());
+	mMenuName.SetLocation(-5 - lHeaderWidth, 3);
+}
+
 void PulldownMenu::SetPulldownIconDefault(RenderRectangle *icon)
 {
 	MultiTextureIcon* lpMulti = dynamic_cast<MultiTextureIcon*>(icon);
@@ -555,6 +459,10 @@ void PulldownMenu::SetPulldownIconDefault(RenderRectangle *icon)
 
 	// Re-add this icon to the component list
 	Add(m_pPulldownIcon);
+
+	Dimensions dimensions = GetDimensions();
+	int lWidth = mPulldownMenu.GetDimensions().m_width;
+	m_pPulldownIcon->SetDimensions(lWidth, 0, dimensions.m_height, dimensions.m_height);
 }
 
 void PulldownMenu::SetPulldownIconHover(RenderRectangle *icon)
@@ -591,6 +499,10 @@ void PulldownMenu::SetPulldownIconHover(RenderRectangle *icon)
 
 	// Re-add this icon to the component list
 	Add(m_pPulldownHoverIcon);
+
+	Dimensions dimensions = GetDimensions();
+	int lWidth = mPulldownMenu.GetDimensions().m_width;
+	m_pPulldownHoverIcon->SetDimensions(lWidth, 0, dimensions.m_height, dimensions.m_height);
 }
 
 void PulldownMenu::SetPulldownIconPressed(RenderRectangle *icon)
@@ -627,6 +539,10 @@ void PulldownMenu::SetPulldownIconPressed(RenderRectangle *icon)
 
 	// Re-add this icon to the component list
 	Add(m_pPulldownSelectedIcon);
+
+	Dimensions dimensions = GetDimensions();
+	int lWidth = mPulldownMenu.GetDimensions().m_width;
+	m_pPulldownSelectedIcon->SetDimensions(lWidth, 0, dimensions.m_height, dimensions.m_height);
 }
 
 void PulldownMenu::SetPulldownIconDisabled(RenderRectangle *icon)
@@ -663,6 +579,10 @@ void PulldownMenu::SetPulldownIconDisabled(RenderRectangle *icon)
 
 	// Re-add this icon to the component list
 	Add(m_pPulldownDisabledIcon);
+
+	Dimensions dimensions = GetDimensions();
+	int lWidth = mPulldownMenu.GetDimensions().m_width;
+	m_pPulldownDisabledIcon->SetDimensions(lWidth, 0, dimensions.m_height, dimensions.m_height);
 }
 
 unsigned int PulldownMenu::GetGUIFont()

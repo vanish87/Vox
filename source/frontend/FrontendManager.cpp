@@ -52,12 +52,41 @@ FrontendManager::FrontendManager(Renderer* pRenderer)
 	m_pOptionboxIconToggledDisabled = new Icon(m_pRenderer, "", 16, 16);
 	m_pOptionboxIconToggledDisabled->SetDepth(2.0f);
 
+	// Scrollbar
+	m_pScrollbarArrowDownIcon = new Icon(m_pRenderer, "", 18, 18);
+	m_pScrollbarArrowDownIcon->SetDepth(2.0f);
+	m_pScrollbarArrowDownIconHover = new Icon(m_pRenderer, "", 18, 18);
+	m_pScrollbarArrowDownIconHover->SetDepth(2.0f);
+	m_pScrollbarArrowDownIconPressed = new Icon(m_pRenderer, "", 18, 18);
+	m_pScrollbarArrowDownIconPressed->SetDepth(2.0f);
+	m_pScrollbarArrowDownIconDisabled = new Icon(m_pRenderer, "", 18, 18);
+	m_pScrollbarArrowDownIconDisabled->SetDepth(2.0f);
+	m_pScrollbarArrowUpIcon = new Icon(m_pRenderer, "", 18, 18);
+	m_pScrollbarArrowUpIcon->SetDepth(2.0f);
+	m_pScrollbarArrowUpIconHover = new Icon(m_pRenderer, "", 18, 18);
+	m_pScrollbarArrowUpIconHover->SetDepth(2.0f);
+	m_pScrollbarArrowUpIconPressed = new Icon(m_pRenderer, "", 18, 18);
+	m_pScrollbarArrowUpIconPressed->SetDepth(2.0f);
+	m_pScrollbarArrowUpIconDisabled = new Icon(m_pRenderer, "", 18, 18);
+	m_pScrollbarArrowUpIconDisabled->SetDepth(2.0f);
+	m_pScrollbarBackgroundIcon = new Icon(m_pRenderer, "", 18, 18);
+	m_pScrollbarBackgroundIcon->SetDepth(2.0f);
+	m_pScrollbarBackgroundIconDisabled = new Icon(m_pRenderer, "", 18, 18);
+	m_pScrollbarBackgroundIconDisabled->SetDepth(2.0f);
+	m_pScrollbarIcon = new Icon(m_pRenderer, "", 18, 18);
+	m_pScrollbarIcon->SetDepth(4.0f);
+	m_pScrollbarIconHover = new Icon(m_pRenderer, "", 18, 18);
+	m_pScrollbarIconHover->SetDepth(4.0f);
+	m_pScrollbarIconPressed = new Icon(m_pRenderer, "", 18, 18);
+	m_pScrollbarIconPressed->SetDepth(4.0f);
+	m_pScrollbarIconDisabled = new Icon(m_pRenderer, "", 18, 18);
+	m_pScrollbarIconDisabled->SetDepth(4.0f);
+
 	// Buttons
 	m_pButtonIcon = new Icon*[ButtonSize_NUM];
 	m_pButtonIconHover = new Icon*[ButtonSize_NUM];
 	m_pButtonIconPressed = new Icon*[ButtonSize_NUM];
 	m_pButtonIconDisabled = new Icon*[ButtonSize_NUM];
-
 	for (int i = 0; i < ButtonSize_NUM; i++)
 	{
 		int width = 0;
@@ -98,6 +127,22 @@ FrontendManager::~FrontendManager()
 	delete m_pOptionboxIconToggledHover;
 	delete m_pOptionboxIconToggledPressed;
 	delete m_pOptionboxIconToggledDisabled;
+
+	// Scrollbar
+	delete m_pScrollbarArrowDownIcon;
+	delete m_pScrollbarArrowDownIconHover;
+	delete m_pScrollbarArrowDownIconPressed;
+	delete m_pScrollbarArrowDownIconDisabled;
+	delete m_pScrollbarArrowUpIcon;
+	delete m_pScrollbarArrowUpIconHover;
+	delete m_pScrollbarArrowUpIconPressed;
+	delete m_pScrollbarArrowUpIconDisabled;
+	delete m_pScrollbarBackgroundIcon;
+	delete m_pScrollbarBackgroundIconDisabled;
+	delete m_pScrollbarIcon;
+	delete m_pScrollbarIconHover;
+	delete m_pScrollbarIconPressed;
+	delete m_pScrollbarIconDisabled;
 
 	// Buttons
 	for (int i = 0; i < ButtonSize_NUM; i++)
@@ -150,6 +195,36 @@ void FrontendManager::LoadCommonGraphics(string themeName)
 	iconName = "media/textures/gui/" + themeName + "/common/optionbox/optionToggledDisabled.tga";
 	m_pOptionboxIconToggledDisabled->SetIcon(iconName);
 
+	// Scrollbar
+	iconName = "media/textures/gui/" + themeName + "/common/scrollbar/arrowDownDefault.tga";
+	m_pScrollbarArrowDownIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/scrollbar/arrowDownHover.tga";
+	m_pScrollbarArrowDownIconHover->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/scrollbar/arrowDownPressed.tga";
+	m_pScrollbarArrowDownIconPressed->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/scrollbar/arrowDownDisabled.tga";
+	m_pScrollbarArrowDownIconDisabled->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/scrollbar/arrowUpDefault.tga";
+	m_pScrollbarArrowUpIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/scrollbar/arrowUpHover.tga";
+	m_pScrollbarArrowUpIconHover->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/scrollbar/arrowUpPressed.tga";
+	m_pScrollbarArrowUpIconPressed->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/scrollbar/arrowUpDisabled.tga";
+	m_pScrollbarArrowUpIconDisabled->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/scrollbar/backgroundDefault.tga";
+	m_pScrollbarBackgroundIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/scrollbar/backgroundDisabled.tga";
+	m_pScrollbarBackgroundIconDisabled->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/scrollbar/scrollbarDefault.tga";
+	m_pScrollbarIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/scrollbar/scrollbarHover.tga";
+	m_pScrollbarIconHover->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/scrollbar/scrollbarPressed.tga";
+	m_pScrollbarIconPressed->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/scrollbar/scrollbarDisabled.tga";
+	m_pScrollbarIconDisabled->SetIcon(iconName);
+
 	// Buttons
 	for (int i = 0; i < ButtonSize_NUM; i++)
 	{
@@ -190,6 +265,32 @@ void FrontendManager::SetOptionboxIcons(OptionBox* pOptionBox)
 	pOptionBox->SetToggledHoverIcon(GetOptionboxIconToggledHover());
 	pOptionBox->SetToggledSelectedIcon(GetOptionboxIconToggledPressed());
 	pOptionBox->SetToggledDisabledIcon(GetOptionboxIconToggledDisabled());
+}
+
+void FrontendManager::SetScrollbarIcons(ScrollBar* pScrollbar)
+{
+	pScrollbar->SetRightArrowDefaultIcon(GetScrollbarArrowDownIcon());
+	pScrollbar->SetRightArrowHoverIcon(GetScrollbarArrowDownHoverIcon());
+	pScrollbar->SetRightArrowSelectedIcon(GetScrollbarArrowDownPressedIcon());
+	pScrollbar->SetRightArrowDisabledIcon(GetScrollbarArrowDownDisabledIcon());
+	pScrollbar->SetLeftArrowDefaultIcon(GetScrollbarArrowUpIcon());
+	pScrollbar->SetLeftArrowHoverIcon(GetScrollbarArrowUpHoverIcon());
+	pScrollbar->SetLeftArrowSelectedIcon(GetScrollbarArrowUpPressedIcon());
+	pScrollbar->SetLeftArrowDisabledIcon(GetScrollbarArrowUpDisabledIcon());
+	pScrollbar->SetBackbarIcon(GetScrollbarBackgroundIcon());
+	pScrollbar->SetScrollbarDefaultIcon(GetScrollbarIcon());
+	pScrollbar->SetScrollbarHoverIcon(GetScrollbarHoverIcon());
+	pScrollbar->SetScrollbarSelectedIcon(GetScrollbarPressedIcon());
+	pScrollbar->SetScrollbarDisabledIcon(GetScrollbarDisabledIcon());
+}
+
+void FrontendManager::SetPulldownMenuIcons(PulldownMenu* pPulldownMenu)
+{
+	SetScrollbarIcons(pPulldownMenu->GetPulldownScrollBar());
+	pPulldownMenu->SetPulldownIconDefault(GetScrollbarArrowDownIcon());
+	pPulldownMenu->SetPulldownIconHover(GetScrollbarArrowDownHoverIcon());
+	pPulldownMenu->SetPulldownIconPressed(GetScrollbarArrowDownPressedIcon());
+	pPulldownMenu->SetPulldownIconDisabled(GetScrollbarArrowDownDisabledIcon());
 }
 
 void FrontendManager::SetButtonIcons(Button* pButton, ButtonSize size)

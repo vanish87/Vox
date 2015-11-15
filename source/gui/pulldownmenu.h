@@ -42,6 +42,8 @@ public:
 
 	~PulldownMenu();
 
+	void RemoveIcon(RenderRectangle *pRemoveIcon);
+	void SetDefaultIcons(Renderer* pRenderer);
 	void SetPulldownIconDefault(RenderRectangle *icon);
 	void SetPulldownIconHover(RenderRectangle *icon);
 	void SetPulldownIconPressed(RenderRectangle *icon);

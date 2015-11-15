@@ -19,6 +19,8 @@
 #include "../gui/icon.h"
 #include "../gui/checkbox.h"
 #include "../gui/optionbox.h"
+#include "../gui/scrollbar.h"
+#include "../gui/pulldownmenu.h"
 #include "../gui/button.h"
 
 
@@ -42,6 +44,8 @@ public:
 	// Setup icons for components
 	void SetCheckboxIcons(CheckBox* pCheckBox);
 	void SetOptionboxIcons(OptionBox* pOptionBox);
+	void SetScrollbarIcons(ScrollBar* pScrollbar);
+	void SetPulldownMenuIcons(PulldownMenu* pPulldownMenu);
 	void SetButtonIcons(Button* pButton, ButtonSize size);
 
 	// Checkbox
@@ -63,6 +67,22 @@ public:
 	Icon* GetOptionboxIconToggledHover() { return m_pOptionboxIconToggledHover; };
 	Icon* GetOptionboxIconToggledPressed() { return m_pOptionboxIconToggledPressed; };
 	Icon* GetOptionboxIconToggledDisabled() { return m_pOptionboxIconToggledDisabled; };
+
+	// Scrollbar
+	Icon* GetScrollbarArrowDownIcon() { return m_pScrollbarArrowDownIcon; };
+	Icon* GetScrollbarArrowDownHoverIcon() { return m_pScrollbarArrowDownIconHover; };
+	Icon* GetScrollbarArrowDownPressedIcon() { return m_pScrollbarArrowDownIconPressed; };
+	Icon* GetScrollbarArrowDownDisabledIcon() { return m_pScrollbarArrowDownIconDisabled; };
+	Icon* GetScrollbarArrowUpIcon() { return m_pScrollbarArrowUpIcon; };
+	Icon* GetScrollbarArrowUpHoverIcon() { return m_pScrollbarArrowUpIconHover; };
+	Icon* GetScrollbarArrowUpPressedIcon() { return m_pScrollbarArrowUpIconPressed; };
+	Icon* GetScrollbarArrowUpDisabledIcon() { return m_pScrollbarArrowUpIconDisabled; };
+	Icon* GetScrollbarBackgroundIcon() { return m_pScrollbarBackgroundIcon; };
+	Icon* GetScrollbarBackgroundIconDisabled() { return m_pScrollbarBackgroundIconDisabled; };
+	Icon* GetScrollbarIcon() { return m_pScrollbarIcon; };
+	Icon* GetScrollbarHoverIcon() { return m_pScrollbarIconHover; };
+	Icon* GetScrollbarPressedIcon() { return m_pScrollbarIconPressed; };
+	Icon* GetScrollbarDisabledIcon() { return m_pScrollbarIconDisabled; };
 
 	// Button
 	Icon* GetButtonIcon(ButtonSize size) { return m_pButtonIcon[size]; };
@@ -111,6 +131,22 @@ private:
 	Icon* m_pOptionboxIconToggledHover;
 	Icon* m_pOptionboxIconToggledPressed;
 	Icon* m_pOptionboxIconToggledDisabled;
+
+	// Scrollbar
+	Icon* m_pScrollbarArrowDownIcon;
+	Icon* m_pScrollbarArrowDownIconHover;
+	Icon* m_pScrollbarArrowDownIconPressed;
+	Icon* m_pScrollbarArrowDownIconDisabled;
+	Icon* m_pScrollbarArrowUpIcon;
+	Icon* m_pScrollbarArrowUpIconHover;
+	Icon* m_pScrollbarArrowUpIconPressed;
+	Icon* m_pScrollbarArrowUpIconDisabled;
+	Icon* m_pScrollbarBackgroundIcon;
+	Icon* m_pScrollbarBackgroundIconDisabled;
+	Icon* m_pScrollbarIcon;
+	Icon* m_pScrollbarIconHover;
+	Icon* m_pScrollbarIconPressed;
+	Icon* m_pScrollbarIconDisabled;
 
 	// Buttons
 	Icon** m_pButtonIcon;
