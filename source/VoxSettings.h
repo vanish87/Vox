@@ -39,6 +39,8 @@ public:
 	// Graphics
 	int m_windowWidth;
 	int m_windowHeight;
+	bool m_vsync;
+	bool m_fullscreen;
 	bool m_deferredRendering;
 	bool m_shadows;
 	bool m_blur;

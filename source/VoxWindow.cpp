@@ -95,6 +95,11 @@ void VoxWindow::Create()
 
 	/* Initialize this window object */
 	InitializeWindowContext(m_pWindow);
+
+	if (m_pVoxSettings->m_fullscreen)
+	{
+		ToggleFullScreen(true);
+	}
 }
 
 void VoxWindow::Destroy()
@@ -136,7 +141,7 @@ void VoxWindow::InitializeWindowContext(GLFWwindow* window)
 
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
-	glfwSwapInterval(0); // Disable v-sync
+	glfwSwapInterval(m_pVoxSettings->m_vsync);
 
 	/* Force resize */
 	WindowResizeCallback(window, m_windowWidth, m_windowHeight);

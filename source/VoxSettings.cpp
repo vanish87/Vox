@@ -44,6 +44,8 @@ void VoxSettings::LoadSettings()
 	// Graphics
 	m_windowWidth = reader.GetInteger("Graphics", "WindowWidth", 800);
 	m_windowHeight = reader.GetInteger("Graphics", "WindowHeight", 800);
+	m_vsync = reader.GetBoolean("Graphics", "VSync", false);
+	m_fullscreen = reader.GetBoolean("Graphics", "FullScreen", false);
 	m_deferredRendering = reader.GetBoolean("Graphics", "DeferredRendering", false);
 	m_shadows = reader.GetBoolean("Graphics", "Shadows", false);
 	m_blur = reader.GetBoolean("Graphics", "Blur", false);
