@@ -1055,10 +1055,7 @@ void PulldownMenu::MouseReleasedOutside(const MouseEvent& lEvent)
 	int lMenuY = mPulldownMenu.GetPullDownMenuParent()->GetLocation().m_y - lFullMenuDisplayHeight;
 	int lMenuWidth = mPulldownMenu.GetBiggestWidth()+ (mPulldownMenu.GetMenuItemSpacer() * 2);
 
-	if(lEvent.GetX() > lMenuX && lEvent.GetX() <= lMenuX+lMenuWidth && lEvent.GetY() > lMenuY && lEvent.GetY() <= lMenuY+lFullMenuDisplayHeight)
-	{
-		mPulldownMenu.CloseMenu();
-	}
+	mPulldownMenu.CloseMenu();
 }
 
 void PulldownMenu::MouseClicked(const MouseEvent& lEvent)
