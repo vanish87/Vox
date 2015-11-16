@@ -279,6 +279,14 @@ void VoxGame::MouseScroll(double x, double y)
 
 			WrapCameraZoomValue();
 		}
+		else
+		{
+			if (y < 0.0f)
+			{
+				m_cameraDistance = 2.0f;
+				m_maxCameraDistance = 2.0f;
+			}
+		}
 	}
 }
 
@@ -287,10 +295,18 @@ void VoxGame::WrapCameraZoomValue()
 	float minAmount = 0.5f;
 	float maxAmount = 15.0f;
 
+	// Camera rotation modes
 	if (m_gameMode == GameMode_Game && (m_cameraMode == CameraMode_AutoCamera || m_cameraMode == CameraMode_MouseRotate))
 	{
 		minAmount = 1.0f;
 		maxAmount = 15.0f;
+	}
+
+	// First person mode
+	if (m_gameMode == GameMode_Game && m_cameraMode == CameraMode_FirstPerson)
+	{
+		minAmount = 1.25f;
+		maxAmount = 1.75f;
 	}
 
 	if (m_maxCameraDistance <= minAmount)

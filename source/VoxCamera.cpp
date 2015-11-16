@@ -15,6 +15,45 @@ void VoxGame::UpdateCamera(float dt)
 	{
 		UpdateCameraFirstPerson(dt);
 	}
+
+	if (m_gameMode == GameMode_Game && m_cameraMode != CameraMode_Debug)
+	{
+		UpdateCameraModeSwitching();
+	}
+}
+
+void VoxGame::UpdateCameraModeSwitching()
+{
+	if (m_cameraDistance < 1.5f)
+	{
+		if (m_cameraMode != CameraMode_FirstPerson)
+		{
+			m_previousCameraMode = m_cameraMode;
+			SetCameraMode(CameraMode_FirstPerson);
+			m_pFirstPersonCameraOptionBox->SetToggled(true);
+			m_pGameCamera->SetZoomAmount(1.5f);
+		}
+	}
+	else
+	{
+		if (m_cameraMode == CameraMode_FirstPerson)
+		{
+			if (m_previousCameraMode == CameraMode_MouseRotate)
+			{
+				m_pMouseRotateCameraOptionBox->SetToggled(true);
+			}
+			else if (m_previousCameraMode == CameraMode_AutoCamera)
+			{
+				m_pAutoCameraOptionBox->SetToggled(true);
+			}
+
+			m_cameraDistance = 1.5f;
+			m_maxCameraDistance = 1.5f;
+
+			SetCameraMode(m_previousCameraMode);
+			InitializeCameraRotation();
+		}
+	}
 }
 
 void VoxGame::InitializeCameraRotation()
@@ -126,17 +165,20 @@ void VoxGame::UpdateCameraClipping(float dt)
 void VoxGame::UpdateCameraZoom(float dt)
 {
 	// Make sure we gradually move inwards/outwards
-	float camDiff = fabs(m_cameraDistance - m_maxCameraDistance);
-	float changeAmount = 0.0f;
-	if (m_cameraDistance < m_maxCameraDistance)
+	if (m_cameraMode != CameraMode_FirstPerson)
 	{
-		changeAmount = camDiff * dt;
-	}
-	else if (m_cameraDistance >= m_maxCameraDistance)
-	{
-		changeAmount = -camDiff * dt;
-	}
+		float camDiff = fabs(m_cameraDistance - m_maxCameraDistance);
+		float changeAmount = 0.0f;
+		if (m_cameraDistance < m_maxCameraDistance)
+		{
+			changeAmount = camDiff * dt;
+		}
+		else if (m_cameraDistance >= m_maxCameraDistance)
+		{
+			changeAmount = -camDiff * dt;
+		}
 
-	m_cameraDistance += changeAmount;
-	m_pGameCamera->Zoom(changeAmount);
+		m_cameraDistance += changeAmount;
+		m_pGameCamera->Zoom(changeAmount);
+	}
 }

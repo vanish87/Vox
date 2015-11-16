@@ -202,7 +202,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 
 	// Camera mode
 	m_cameraMode = CameraMode_Debug;
-	m_cameraModeBeforePause = CameraMode_Debug;
+	m_previousCameraMode = CameraMode_Debug;
 
 	// Game mode
 	m_gameMode = GameMode_Debug;
@@ -329,4 +329,14 @@ void VoxGame::SetGameMode(GameMode mode)
 GameMode VoxGame::GetGameMode()
 {
 	return m_gameMode;
+}
+
+void VoxGame::SetCameraMode(CameraMode mode)
+{
+	m_cameraMode = mode;
+}
+
+CameraMode VoxGame::GetCameraMode()
+{
+	return m_cameraMode;
 }

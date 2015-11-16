@@ -74,6 +74,7 @@ public:
 
 	// Camera controls
 	void UpdateCamera(float dt);
+	void UpdateCameraModeSwitching();
 	void InitializeCameraRotation();
 	void UpdateCameraAutoCamera(float dt, bool updateCameraPosition);
 	void UpdateCameraFirstPerson(float dt);
@@ -218,7 +219,7 @@ private:
 
 	// Camera mode
 	CameraMode m_cameraMode;
-	CameraMode m_cameraModeBeforePause;
+	CameraMode m_previousCameraMode;
 
 	// Window width and height
 	int m_windowWidth;

@@ -59,7 +59,10 @@ void VoxGame::Update()
 	}
 	UpdateCameraZoom(m_deltaTime);
 	UpdateCameraClipping(m_deltaTime);
-	UpdatePlayerAlpha(m_deltaTime);
+	if (m_gameMode == GameMode_Game && m_cameraMode != CameraMode_Debug)
+	{
+		UpdatePlayerAlpha(m_deltaTime);
+	}
 
 	// Update the GUI
 	int x = m_pVoxWindow->GetCursorX();
@@ -81,7 +84,7 @@ void VoxGame::Update()
 
 void VoxGame::UpdatePlayerAlpha(float dt)
 {
-	float alpha = (m_cameraDistance + 1.0f) / 7.5f;
+	float alpha = (m_cameraDistance + 1.0f) / 6.0f;
 	m_pPlayer->SetPlayerAlpha(alpha);
 }
 
