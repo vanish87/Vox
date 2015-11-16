@@ -160,27 +160,30 @@ void VoxGame::UpdateCameraFirstPerson(float dt)
 
 void VoxGame::UpdateCameraClipping(float dt)
 {
-	// Check if the camera position that we want to be is intersecting the world geometry
-	// Maintain a camera position of where we want to be and then update to where we
-	// actually are after the clipping has occured.
-
 	vec3 cameraPosition = m_targetCameraPositionBeforeClipping;
 
-	int numIterations = 0;
-	bool collides = true;
-	while (collides == true && numIterations < 100)
+	if (m_gameMode == GameMode_Game && m_cameraMode != CameraMode_Debug)
 	{
-		if(cameraPosition.y < 0.0f)
+		int numIterations = 0;
+		int maxNumIterations = 100;
+		bool collides = true;
+		vec3 toPlayer = ((m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET) - m_pGameCamera->GetFakePosition());
+		float distance = length(toPlayer);
+		float incrementAmount = distance / maxNumIterations;
+		while (collides == true && numIterations < maxNumIterations)
 		{
-			cameraPosition += m_pGameCamera->GetFacing() * 0.1f;
-			collides = true;
-		}
-		else
-		{
-			collides = false;
-		}
+			if (cameraPosition.y < 0.0f)
+			{
+				cameraPosition += m_pGameCamera->GetFacing() * incrementAmount;
+				collides = true;
+			}
+			else
+			{
+				collides = false;
+			}
 
-		numIterations++;
+			numIterations++;
+		}
 	}
 
 	m_cameraPositionAfterClipping = cameraPosition;

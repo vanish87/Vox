@@ -52,14 +52,20 @@ void VoxGame::Update()
 	// Update controls
 	UpdateControls(m_deltaTime);
 
-	// Update the camera
+	// Update the camera based on movements
 	if (m_gameMode == GameMode_Game)
 	{
 		UpdateCamera(m_deltaTime);
 	}
+
+	// Update the dynamic camera zoom
 	UpdateCameraZoom(m_deltaTime);
+
+	// Update the camera clipping
 	m_targetCameraPositionBeforeClipping = m_pGameCamera->GetFakePosition();
 	UpdateCameraClipping(m_deltaTime);
+
+	// Update the player's alpha and transparency based on camera distance to player
 	if (m_gameMode == GameMode_Game && m_cameraMode != CameraMode_Debug)
 	{
 		UpdatePlayerAlpha(m_deltaTime);
@@ -85,7 +91,9 @@ void VoxGame::Update()
 
 void VoxGame::UpdatePlayerAlpha(float dt)
 {
-	float alpha = (m_cameraDistance + 1.0f) / 6.0f;
+	vec3 toPlayer = ((m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET) - m_pGameCamera->GetPosition());
+	float distance = length(toPlayer);
+	float alpha = (distance) / 7.5f;
 	m_pPlayer->SetPlayerAlpha(alpha);
 }
 
