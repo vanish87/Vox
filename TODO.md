@@ -66,7 +66,10 @@
 * Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
 * Add scenery manager.
-* Create basic front-end
+* Create basic front-end.
+* Saving and loading chunks.
+* Terrain generation via chunks.
+* Player movement on voxel world and terrain.
 * Add character creator and customization from front-end.
 * Add pause menu when ESC is pressed, and add popup in center of screen.
 * Add exit/quit popup when the game is closed or quit using various exit methods.
