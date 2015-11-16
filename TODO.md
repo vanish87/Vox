@@ -62,6 +62,7 @@
 * ~~Settings file loading at startup, change options and rendering based on settings.~~
 * ~~Player alpha when camera zooms in.~~
 * ~~Add proper ini reader functionality - add other startup params to ini, resolution, fullscreen etc.~~
+* ~~Camera clipping mode.~~
 * Convert shaders over to be more unified.
 * Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
@@ -75,5 +76,4 @@
 * Add exit/quit popup when the game is closed or quit using various exit methods.
 * Add voxel editor.
 * Add texture support for voxel blocks.
-* Camera clipping mode.
 * Create Vox EXE launcher.
