@@ -303,9 +303,9 @@ private:
 	float m_maxCameraDistance;
 
 	// Auto camera mode
-	vec3 m_targetCameraPosition_AutoModeCached;
-	vec3 m_targetCameraPosition_AutoMode;
-	vec3 m_targetCameraBehindPlayerPosition;
+	vec3 m_cameraPosition_AutoModeCached;
+	vec3 m_cameraPosition_AutoMode;
+	vec3 m_cameraBehindPlayerPosition;
 	float m_autoCameraMovingModifier;
 
 	// Camera clipping
