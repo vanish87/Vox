@@ -48,7 +48,7 @@ void VoxGame::Update()
 
 	// Update the chunk manager
 	m_pChunkManager->Update(m_deltaTime);
-
+	
 	// Update controls
 	UpdateControls(m_deltaTime);
 
@@ -58,6 +58,7 @@ void VoxGame::Update()
 		UpdateCamera(m_deltaTime);
 	}
 	UpdateCameraZoom(m_deltaTime);
+	m_targetCameraPositionBeforeClipping = m_pGameCamera->GetFakePosition();
 	UpdateCameraClipping(m_deltaTime);
 	if (m_gameMode == GameMode_Game && m_cameraMode != CameraMode_Debug)
 	{

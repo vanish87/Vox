@@ -27,27 +27,27 @@ void VoxGame::UpdateKeyboardControls(float dt)
 		// Keyboard camera movements
 		if (m_bKeyboardForward)
 		{
-			m_pGameCamera->Fly(20.0f * dt);
+			m_pGameCamera->Fly(20.0f * dt, true);
 		}
 		if (m_bKeyboardBackward)
 		{
-			m_pGameCamera->Fly(-20.0f * dt);
+			m_pGameCamera->Fly(-20.0f * dt, true);
 		}
 		if (m_bKeyboardStrafeLeft)
 		{
-			m_pGameCamera->Strafe(-20.0f * dt);
+			m_pGameCamera->Strafe(-20.0f * dt, true);
 		}
 		if (m_bKeyboardStrafeRight)
 		{
-			m_pGameCamera->Strafe(20.0f * dt);
+			m_pGameCamera->Strafe(20.0f * dt, true);
 		}
 		if (m_bKeyboardUp)
 		{
-			m_pGameCamera->Levitate(20.0f * dt);
+			m_pGameCamera->Levitate(20.0f * dt, true);
 		}
 		if (m_bKeyboardDown)
 		{
-			m_pGameCamera->Levitate(-20.0f * dt);
+			m_pGameCamera->Levitate(-20.0f * dt, true);
 		}
 	}
 	else if (gameMode == GameMode_Game)
@@ -157,7 +157,7 @@ void VoxGame::UpdateKeyboardControls(float dt)
 			bool shouldChangePlayerFacing = (m_cameraMode != CameraMode_FirstPerson);
 
 			m_movementDirection = normalize(m_movementDirection);
-			m_pGameCamera->SetPosition(m_pGameCamera->GetPosition() + m_movementDirection * m_movementSpeed * dt);
+			m_pGameCamera->SetFakePosition(m_pGameCamera->GetFakePosition() + m_movementDirection * m_movementSpeed * dt);
 			m_pPlayer->MoveAbsolute(m_movementDirection, m_movementSpeed * dt, shouldChangePlayerFacing);
 		}
 	}
@@ -292,7 +292,7 @@ void VoxGame::UpdateGamePadControls(float dt)
 			bool shouldChangePlayerFacing = (m_cameraMode != CameraMode_FirstPerson);
 
 			m_movementDirection = normalize(m_movementDirection);
-			m_pGameCamera->SetPosition(m_pGameCamera->GetPosition() + m_movementDirection * m_movementSpeed * dt);
+			m_pGameCamera->SetFakePosition(m_pGameCamera->GetFakePosition() + m_movementDirection * m_movementSpeed * dt);
  			m_pPlayer->MoveAbsolute(m_movementDirection, m_movementSpeed * dt, shouldChangePlayerFacing);
 		}
 	}

@@ -309,6 +309,8 @@ private:
 	float m_autoCameraMovingModifier;
 
 	// Camera clipping
+	vec3 m_targetCameraPositionBeforeClipping;
+	vec3 m_cameraPositionAfterClipping;
 
 	// Player movement
 	bool m_keyboardMovement;

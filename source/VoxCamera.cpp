@@ -68,7 +68,7 @@ void VoxGame::InitializeCameraRotation()
 	m_cameraBehindPlayerPosition += m_pPlayer->GetUpVector() * (m_cameraDistance*ratios.y);
 
 	// Only set the position, since the player will be controlling the rotation of the camera
-	m_pGameCamera->SetPosition(m_cameraBehindPlayerPosition);
+	m_pGameCamera->SetFakePosition(m_cameraBehindPlayerPosition);
 }
 
 void VoxGame::UpdateCameraAutoCamera(float dt, bool updateCameraPosition)
@@ -113,9 +113,9 @@ void VoxGame::UpdateCameraAutoCamera(float dt, bool updateCameraPosition)
 		}
 
 		// Position
-		vec3 posDiff = m_cameraPosition_AutoMode - m_pGameCamera->GetPosition();
-		vec3 newPos = vec3(m_pGameCamera->GetPosition().x, m_pGameCamera->GetPosition().y + ((posDiff.y * catchupSpeed) * dt), m_pGameCamera->GetPosition().z);
-		m_pGameCamera->SetPosition(newPos);
+		vec3 posDiff = m_cameraPosition_AutoMode - m_pGameCamera->GetFakePosition();
+		vec3 newPos = vec3(m_pGameCamera->GetFakePosition().x, m_pGameCamera->GetFakePosition().y + ((posDiff.y * catchupSpeed) * dt), m_pGameCamera->GetFakePosition().z);
+
 
 		vec3 cameraLookAt = m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET;
 		vec3 targetFacing = normalize(cameraLookAt - m_cameraPosition_AutoMode);
@@ -134,13 +134,13 @@ void VoxGame::UpdateCameraAutoCamera(float dt, bool updateCameraPosition)
 				rotationDegrees = -rotationDegrees;
 			}
 			float changeAmount = rotationDegrees * 1.0f * m_autoCameraMovingModifier;
-			m_pGameCamera->RotateAroundPointY(changeAmount * dt);
+			m_pGameCamera->RotateAroundPointY(changeAmount * dt, true);
 		}
 	}
 
 	// Forward
 	vec3 cameraLookAt = m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET;
-	vec3 cameraForward = normalize(cameraLookAt - m_pGameCamera->GetPosition());
+	vec3 cameraForward = normalize(cameraLookAt - m_pGameCamera->GetFakePosition());
 	m_pGameCamera->SetFacing(cameraForward);
 	
 	// Right
@@ -154,7 +154,7 @@ void VoxGame::UpdateCameraAutoCamera(float dt, bool updateCameraPosition)
 
 void VoxGame::UpdateCameraFirstPerson(float dt)
 {
-	m_pGameCamera->SetPosition(m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET);
+	m_pGameCamera->SetFakePosition(m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET);
 	m_pPlayer->SetForwardVector(m_pGameCamera->GetFacing());
 }
 
@@ -164,11 +164,27 @@ void VoxGame::UpdateCameraClipping(float dt)
 	// Maintain a camera position of where we want to be and then update to where we
 	// actually are after the clipping has occured.
 
-	vec3 cameraPosition = m_pGameCamera->GetPosition();
-	if (cameraPosition.y < 0.0f)
+	vec3 cameraPosition = m_targetCameraPositionBeforeClipping;
+
+	int numIterations = 0;
+	bool collides = true;
+	while (collides == true && numIterations < 100)
 	{
-		// Clipping world
+		if(cameraPosition.y < 0.0f)
+		{
+			cameraPosition += m_pGameCamera->GetFacing() * 0.1f;
+			collides = true;
+		}
+		else
+		{
+			collides = false;
+		}
+
+		numIterations++;
 	}
+
+	m_cameraPositionAfterClipping = cameraPosition;
+	m_pGameCamera->SetPosition(m_cameraPositionAfterClipping);
 }
 
 void VoxGame::UpdateCameraZoom(float dt)
@@ -188,6 +204,6 @@ void VoxGame::UpdateCameraZoom(float dt)
 		}
 
 		m_cameraDistance += changeAmount;
-		m_pGameCamera->Zoom(changeAmount);
+		m_pGameCamera->Zoom(changeAmount, true);
 	}
 }

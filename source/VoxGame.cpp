@@ -71,6 +71,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	/* Create cameras */
 	m_pGameCamera = new Camera(m_pRenderer);
 	m_pGameCamera->SetPosition(vec3(0.0f, 1.25f, 5.0f));
+	m_pGameCamera->SetFakePosition(vec3(0.0f, 1.25f, 5.0f));
 	m_pGameCamera->SetFacing(vec3(0.0f, 0.0f, -1.0f));
 	m_pGameCamera->SetUp(vec3(0.0f, 1.0f, 0.0f));
 	m_pGameCamera->SetRight(vec3(1.0f, 0.0f, 0.0f));

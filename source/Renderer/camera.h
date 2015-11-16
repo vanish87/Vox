@@ -29,11 +29,13 @@ public:
 
 	// Set/Get
 	void SetPosition(const vec3 &position) { m_position = position; }
+	void SetFakePosition(const vec3 &fakePosition) { m_fakePosition = fakePosition; }
 	void SetFacing(const vec3 &facing) { m_facing = facing; }
 	void SetUp(const vec3 &up) { m_up = up; }
 	void SetRight(const vec3 &right) { m_right = right; }
 	const void SetZoomAmount(float amount) { m_zoomAmount = amount; }
 	const vec3 GetPosition() const { return m_position; }
+	const vec3 GetFakePosition() const { return m_fakePosition; }
 	const vec3 GetFacing()const { return vec3(m_facing.x, m_facing.y, m_facing.z); }
 	const vec3 GetUp() const { return m_up; }
 	const vec3 GetRight() const { return m_right; }
@@ -41,15 +43,15 @@ public:
 	const float GetZoomAmount() const { return m_zoomAmount; }
 
 	// Camera movement
-	void Fly(const float speed);
-	void Move(const float speed);
-	void Levitate(const float speed);
-	void Strafe(const float speed);
+	void Fly(const float speed, bool useFakePosition = false);
+	void Move(const float speed, bool useFakePosition = false);
+	void Levitate(const float speed, bool useFakePosition = false);
+	void Strafe(const float speed, bool useFakePosition = false);
 	void Rotate(const float xAmount, const float yAmount, const float zAmount);
 	void RotateY(const float yAmount);
-	void RotateAroundPoint(const float xAmount, const float yAmount, const float zAmount);
-	void RotateAroundPointY(const float yAmount);
-	void Zoom(const float amount);
+	void RotateAroundPoint(const float xAmount, const float yAmount, const float zAmount, bool useFakePosition = false);
+	void RotateAroundPointY(const float yAmount, bool useFakePosition = false);
+	void Zoom(const float amount, bool useFakePosition = false);
 
 	// Viewing
 	void Look() const;
@@ -59,6 +61,9 @@ private:
 
 	// The camera's world position
 	vec3 m_position;
+
+	// 
+	vec3 m_fakePosition;
 
 	// Local up vector
 	vec3 m_up;

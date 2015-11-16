@@ -368,10 +368,10 @@ void VoxGame::MouseCameraRotate()
 	}
 	else
 	{
-		m_pGameCamera->RotateAroundPoint(changeY*0.75f, 0.0f, 0.0f);
-		m_pGameCamera->RotateAroundPointY(-changeX*0.75f);
+		m_pGameCamera->RotateAroundPoint(changeY*0.75f, 0.0f, 0.0f, true);
+		m_pGameCamera->RotateAroundPointY(-changeX*0.75f, true);
 	}
-	
+
 	m_currentX = x;
 	m_currentY = y;
 }
@@ -446,8 +446,8 @@ void VoxGame::JoystickCameraRotate(float dt)
 	}
 	else
 	{
-		m_pGameCamera->RotateAroundPoint(changeY, 0.0f, 0.0f);
-		m_pGameCamera->RotateAroundPointY(-changeX);
+		m_pGameCamera->RotateAroundPoint(changeY, 0.0f, 0.0f, true);
+		m_pGameCamera->RotateAroundPointY(-changeX, true);
 	}
 }
 
