@@ -24,11 +24,15 @@ public:
 	/* Public methods */
 	VoxApplication(VoxGame* pVoxGame, VoxSettings* pVoxSettings);
 	~VoxApplication();
-
+	
+	// Creation
 	void Create();
 	void Destroy();
+
+	// Update
 	void Update(float dt);
 
+	// Events
 	int ShouldCloseApplication();
 
 protected:

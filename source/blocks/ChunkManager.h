@@ -4,6 +4,9 @@
 // Author:		Steven Ball
 //
 // Purpose:
+//   ChunkManager handles all the chunk operations and management of the
+//   individual chunks, deciding which chunks to load, unload, create, update
+//   and also the rendering of the chunks.
 //
 // Revision History:
 //   Initial Revision - 01/11/15

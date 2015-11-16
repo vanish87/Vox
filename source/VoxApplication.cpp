@@ -24,6 +24,7 @@ VoxApplication::~VoxApplication()
 {
 }
 
+// Creation
 void VoxApplication::Create()
 {
 }
@@ -32,10 +33,12 @@ void VoxApplication::Destroy()
 {
 }
 
+// Update
 void VoxApplication::Update(float dt)
 {
 }
 
+// Events
 int VoxApplication::ShouldCloseApplication()
 {
 	return 0;
