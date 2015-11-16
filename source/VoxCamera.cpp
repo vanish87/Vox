@@ -160,6 +160,15 @@ void VoxGame::UpdateCameraFirstPerson(float dt)
 
 void VoxGame::UpdateCameraClipping(float dt)
 {
+	// Check if the camera position that we want to be is intersecting the world geometry
+	// Maintain a camera position of where we want to be and then update to where we
+	// actually are after the clipping has occured.
+
+	vec3 cameraPosition = m_pGameCamera->GetPosition();
+	if (cameraPosition.y < 0.0f)
+	{
+		// Clipping world
+	}
 }
 
 void VoxGame::UpdateCameraZoom(float dt)

@@ -308,6 +308,8 @@ private:
 	vec3 m_targetCameraBehindPlayerPosition;
 	float m_autoCameraMovingModifier;
 
+	// Camera clipping
+
 	// Player movement
 	bool m_keyboardMovement;
 	bool m_gamepadMovement;
