@@ -111,6 +111,7 @@ public:
 
 	// Updating
 	void Update();
+	void UpdatePlayerAlpha(float dt);
 	void UpdateLights(float dt);
 	void UpdateGUI(float dt);
 

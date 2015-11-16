@@ -59,6 +59,7 @@ void VoxGame::Update()
 	}
 	UpdateCameraZoom(m_deltaTime);
 	UpdateCameraClipping(m_deltaTime);
+	UpdatePlayerAlpha(m_deltaTime);
 
 	// Update the GUI
 	int x = m_pVoxWindow->GetCursorX();
@@ -68,7 +69,6 @@ void VoxGame::Update()
 	{
 		m_pGUI->ImportMouseMotion(x, m_windowHeight - y);
 	}
-
 	UpdateGUI(m_deltaTime);
 
 	// Update lights
@@ -77,6 +77,12 @@ void VoxGame::Update()
 	// Update the application and window
 	m_pVoxApplication->Update(m_deltaTime);
 	m_pVoxWindow->Update(m_deltaTime);
+}
+
+void VoxGame::UpdatePlayerAlpha(float dt)
+{
+	float alpha = (m_cameraDistance + 1.0f) / 7.5f;
+	m_pPlayer->SetPlayerAlpha(alpha);
 }
 
 void VoxGame::UpdateLights(float dt)

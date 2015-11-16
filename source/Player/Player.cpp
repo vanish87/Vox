@@ -411,6 +411,11 @@ void Player::SetWireFrameRender(bool wireframe)
 	m_pVoxelCharacter->SetWireFrameRender(wireframe);
 }
 
+void Player::SetPlayerAlpha(float alpha)
+{
+	m_pVoxelCharacter->SetMeshAlpha(alpha);
+}
+
 // Rendering Helpers
 void Player::CalculateWorldTransformMatrix()
 {

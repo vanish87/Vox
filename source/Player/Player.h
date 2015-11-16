@@ -66,6 +66,7 @@ public:
 
 	// Rendering modes
 	void SetWireFrameRender(bool wireframe);
+	void SetPlayerAlpha(float alpha);
 
 	// Rendering Helpers
 	void CalculateWorldTransformMatrix();
