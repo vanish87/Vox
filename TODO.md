@@ -70,5 +70,5 @@
 * Add texture support for voxel blocks.
 * ~~Player alpha when camera zooms in.~~
 * Camera clipping mode.
-* Add proper ini reader functionality - add other startup params to ini, resolution, fullscreen etc.
+* ~~Add proper ini reader functionality - add other startup params to ini, resolution, fullscreen etc.~~
 * Create Vox EXE launcher.
