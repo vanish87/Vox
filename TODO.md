@@ -76,4 +76,4 @@
 * Add exit/quit popup when the game is closed or quit using various exit methods.
 * Add voxel editor.
 * Add texture support for voxel blocks.
-* Create Vox EXE launcher.
+* Create Vox EXE launcher. (C# app)
