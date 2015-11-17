@@ -68,6 +68,7 @@
 * Add audio and music playback.
 * Add scenery manager.
 * Create basic front-end.
+* Create front end scene and character line up
 * Saving and loading chunks.
 * Terrain generation via chunks.
 * Player movement on voxel world and terrain.
