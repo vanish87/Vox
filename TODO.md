@@ -74,6 +74,7 @@
 * Player movement on voxel world and terrain.
 * Add character creator and customization from front-end.
 * Add pause menu when ESC is pressed, and add popup in center of screen.
+* Add options menu window to pause menu.
 * Add exit/quit popup when the game is closed or quit using various exit methods.
 * Add voxel editor.
 * Add texture support for voxel blocks.
