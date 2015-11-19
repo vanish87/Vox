@@ -35,7 +35,6 @@ QubicleBinary::QubicleBinary(Renderer* pRenderer)
 	float l_width = 0.5f;
 
 	m_meshAlpha = 1.0f;
-	m_shouldForceTransparency = false;
 
 	m_meshSingleColourR = 1.0f;
 	m_meshSingleColourG = 1.0f;
@@ -251,7 +250,7 @@ bool QubicleBinary::Import(const char* fileName)
 
 		fclose(pQBfile);
 
-		CreateMesh();
+		CreateMesh(true);
 
 		m_loaded = true;
 
@@ -444,10 +443,6 @@ void QubicleBinary::SetMeshSingleColour(float r, float g, float b)
 	}
 }
 
-void QubicleBinary::SetForceTransparency(bool force)
-{
-	m_shouldForceTransparency = force;
-}
 
 bool IsMergedXNegative(int *merged, int x, int y, int z, int width, int height) { return (merged[x + y*width + z*width*height] & MergedSide_X_Negative) == MergedSide_X_Negative; }
 bool IsMergedXPositive(int *merged, int x, int y, int z, int width, int height) { return (merged[x + y*width + z*width*height] & MergedSide_X_Positive) == MergedSide_X_Positive; }
@@ -456,7 +451,7 @@ bool IsMergedYPositive(int *merged, int x, int y, int z, int width, int height) 
 bool IsMergedZNegative(int *merged, int x, int y, int z, int width, int height) { return (merged[x + y*width + z*width*height] & MergedSide_Z_Negative) == MergedSide_Z_Negative; }
 bool IsMergedZPositive(int *merged, int x, int y, int z, int width, int height) { return (merged[x + y*width + z*width*height] & MergedSide_Z_Positive) == MergedSide_Z_Positive; }
 
-void QubicleBinary::CreateMesh()
+void QubicleBinary::CreateMesh(bool lDoFaceMerging)
 {
 	for(unsigned int matrixIndex = 0; matrixIndex < m_vpMatrices.size(); matrixIndex++)
 	{
@@ -522,8 +517,11 @@ void QubicleBinary::CreateMesh()
 						{
 							int endX = pMatrix->m_matrixSizeX;
 							int endY = pMatrix->m_matrixSizeY;
-
-							UpdateMergedSide(l_merged, matrixIndex, x, y, z, pMatrix->m_matrixSizeX, pMatrix->m_matrixSizeY, &p1, &p2, &p3, &p4, x, y, endX, endY, true, true, false, false);
+							
+							if (lDoFaceMerging)
+							{
+								UpdateMergedSide(l_merged, matrixIndex, x, y, z, pMatrix->m_matrixSizeX, pMatrix->m_matrixSizeY, &p1, &p2, &p3, &p4, x, y, endX, endY, true, true, false, false);
+							}
 
 							n1 = vec3(0.0f, 0.0f, 1.0f);
 							v1 = m_pRenderer->AddVertexToMesh(p1, n1, r, g, b, a, pMatrix->m_pMesh);
@@ -554,7 +552,10 @@ void QubicleBinary::CreateMesh()
 							int endX = pMatrix->m_matrixSizeX;
 							int endY = pMatrix->m_matrixSizeY;
 
-							UpdateMergedSide(l_merged, matrixIndex, x, y, z, pMatrix->m_matrixSizeX, pMatrix->m_matrixSizeY, &p6, &p5, &p8, &p7, x, y, endX, endY, false, true, false, false);
+							if (lDoFaceMerging)
+							{
+								UpdateMergedSide(l_merged, matrixIndex, x, y, z, pMatrix->m_matrixSizeX, pMatrix->m_matrixSizeY, &p6, &p5, &p8, &p7, x, y, endX, endY, false, true, false, false);
+							}
 
 							n1 = vec3(0.0f, 0.0f, -1.0f);
 							v1 = m_pRenderer->AddVertexToMesh(p5, n1, r, g, b, a, pMatrix->m_pMesh);
@@ -585,7 +586,10 @@ void QubicleBinary::CreateMesh()
 							int endX = pMatrix->m_matrixSizeZ;
 							int endY = pMatrix->m_matrixSizeY;
 
-							UpdateMergedSide(l_merged, matrixIndex, x, y, z, pMatrix->m_matrixSizeX, pMatrix->m_matrixSizeY, &p5, &p2, &p3, &p8, z, y, endX, endY, true, false, true, false);
+							if (lDoFaceMerging)
+							{
+								UpdateMergedSide(l_merged, matrixIndex, x, y, z, pMatrix->m_matrixSizeX, pMatrix->m_matrixSizeY, &p5, &p2, &p3, &p8, z, y, endX, endY, true, false, true, false);
+							}
 
 							n1 = vec3(1.0f, 0.0f, 0.0f);
 							v1 = m_pRenderer->AddVertexToMesh(p2, n1, r, g, b, a, pMatrix->m_pMesh);
@@ -616,7 +620,10 @@ void QubicleBinary::CreateMesh()
 							int endX = pMatrix->m_matrixSizeZ;
 							int endY = pMatrix->m_matrixSizeY;
 
-							UpdateMergedSide(l_merged, matrixIndex, x, y, z, pMatrix->m_matrixSizeX, pMatrix->m_matrixSizeY, &p6, &p1, &p4, &p7, z, y, endX, endY, false, false, true, false);
+							if (lDoFaceMerging)
+							{
+								UpdateMergedSide(l_merged, matrixIndex, x, y, z, pMatrix->m_matrixSizeX, pMatrix->m_matrixSizeY, &p6, &p1, &p4, &p7, z, y, endX, endY, false, false, true, false);
+							}
 
 							n1 = vec3(-1.0f, 0.0f, 0.0f);
 							v1 = m_pRenderer->AddVertexToMesh(p6, n1, r, g, b, a, pMatrix->m_pMesh);
@@ -647,7 +654,10 @@ void QubicleBinary::CreateMesh()
 							int endX = pMatrix->m_matrixSizeX;
 							int endY = pMatrix->m_matrixSizeZ;
 
-							UpdateMergedSide(l_merged, matrixIndex, x, y, z, pMatrix->m_matrixSizeX, pMatrix->m_matrixSizeY, &p7, &p8, &p3, &p4, x, z, endX, endY, true, false, false, true);
+							if (lDoFaceMerging)
+							{
+								UpdateMergedSide(l_merged, matrixIndex, x, y, z, pMatrix->m_matrixSizeX, pMatrix->m_matrixSizeY, &p7, &p8, &p3, &p4, x, z, endX, endY, true, false, false, true);
+							}
 
 							n1 = vec3(0.0f, 1.0f, 0.0f);
 							v1 = m_pRenderer->AddVertexToMesh(p4, n1, r, g, b, a, pMatrix->m_pMesh);
@@ -678,7 +688,10 @@ void QubicleBinary::CreateMesh()
 							int endX = pMatrix->m_matrixSizeX;
 							int endY = pMatrix->m_matrixSizeZ;
 
-							UpdateMergedSide(l_merged, matrixIndex, x, y, z, pMatrix->m_matrixSizeX, pMatrix->m_matrixSizeY, &p6, &p5, &p2, &p1, x, z, endX, endY, false, false, false, true);
+							if (lDoFaceMerging)
+							{
+								UpdateMergedSide(l_merged, matrixIndex, x, y, z, pMatrix->m_matrixSizeX, pMatrix->m_matrixSizeY, &p6, &p5, &p2, &p1, x, z, endX, endY, false, false, false, true);
+							}
 
 							n1 = vec3(0.0f, -1.0f, 0.0f);
 							v1 = m_pRenderer->AddVertexToMesh(p6, n1, r, g, b, a, pMatrix->m_pMesh);
@@ -1304,7 +1317,7 @@ void QubicleBinary::Render(bool renderOutline, bool refelction, bool silhouette,
 						m_pRenderer->MultiplyWorldMatrix(worldMatrix);
 					}
 
-					if(m_meshAlpha < 1.0f || m_shouldForceTransparency)
+					if(m_meshAlpha < 1.0f)
 					{
 						m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
 					}
@@ -1540,7 +1553,7 @@ void QubicleBinary::RenderWithAnimator(MS3DAnimator** pSkeleton, VoxelCharacter*
 						m_pRenderer->MultiplyWorldMatrix(worldMatrix);
 					}
 
-					if(m_meshAlpha < 1.0f || m_shouldForceTransparency)
+					if(m_meshAlpha < 1.0f)
 					{
 						m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
 					}
@@ -1767,7 +1780,7 @@ void QubicleBinary::RenderSingleMatrix(MS3DAnimator** pSkeleton, VoxelCharacter*
 					m_pRenderer->MultiplyWorldMatrix(worldMatrix);
 				}
 
-				if(m_meshAlpha < 1.0f || m_shouldForceTransparency)
+				if(m_meshAlpha < 1.0f)
 				{
 					m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
 				}

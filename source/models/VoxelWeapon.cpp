@@ -563,14 +563,6 @@ void VoxelWeapon::SetMeshSingleColour(float r, float g, float b)
 	}
 }
 
-void VoxelWeapon::SetForceTransparency(bool force)
-{
-	for(int i = 0; i < m_numAnimatedSections; i++)
-	{
-		m_pAnimatedSections[i].m_pVoxelObject->SetForceTransparency(force);
-	}
-}
-
 // Updating
 void VoxelWeapon::SetWeaponTrailsParams(Matrix4x4 originMatrix, float scale)
 {

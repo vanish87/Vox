@@ -802,30 +802,6 @@ void VoxelCharacter::SetMeshSingleColour(float r, float g, float b)
 	}
 }
 
-void VoxelCharacter::SetForceTransparency(bool force)
-{
-	if(m_pVoxelModel)
-	{
-		m_pVoxelModel->SetForceTransparency(force);
-	}
-
-	if(m_pLeftWeapon)
-	{
-		if(m_leftWeaponLoaded)
-		{
-			m_pLeftWeapon->SetForceTransparency(force);
-		}
-	}
-
-	if(m_pRightWeapon)
-	{
-		if(m_rightWeaponLoaded)
-		{
-			m_pRightWeapon->SetForceTransparency(force);
-		}
-	}
-}
-
 void VoxelCharacter::SetBreathingAnimationEnabled(bool enable)
 {
 	m_bBreathingAnimationEnabled = enable;

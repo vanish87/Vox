@@ -143,14 +143,6 @@ void VoxelObject::SetMeshSingleColour(float r, float g, float b)
 	}
 }
 
-void VoxelObject::SetForceTransparency(bool force)
-{
-	if(m_pVoxelModel != NULL)
-	{
-		m_pVoxelModel->SetForceTransparency(force);
-	}
-}
-
 void VoxelObject::Update(float dt)
 {
 	if(m_loaded == false)

@@ -139,9 +139,8 @@ public:
 
 	void SetMeshAlpha(float alpha);
 	void SetMeshSingleColour(float r, float g, float b);
-	void SetForceTransparency(bool force);
 
-	void CreateMesh();
+	void CreateMesh(bool lDoFaceMerging);
 	void UpdateMergedSide(int *merged, int matrixIndex, int blockx, int blocky, int blockz, int width, int height, vec3 *p1, vec3 *p2, vec3 *p3, vec3 *p4, int startX, int startY, int maxX, int maxY, bool positive, bool zFace, bool xFace, bool yFace);
 
 	int GetNumMatrices();
@@ -219,7 +218,6 @@ private:
 
 	// Alpha
 	float m_meshAlpha;
-	bool m_shouldForceTransparency;
 
 	// Single colour
 	bool m_singleMeshColour;

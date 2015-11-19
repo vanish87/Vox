@@ -44,7 +44,6 @@ public:
 	void SetWireFrameRender(bool wireframe);
 	void SetMeshAlpha(float alpha);
 	void SetMeshSingleColour(float r, float g, float b);
-	void SetForceTransparency(bool force);
 
 	void Update(float dt);
 	void Render(bool renderOutline, bool reflection, bool silhouette, Colour OutlineColour);
