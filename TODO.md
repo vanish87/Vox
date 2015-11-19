@@ -81,3 +81,4 @@
 * Add voxel editor.
 * Add texture support for voxel blocks.
 * Create Vox EXE launcher. (C# app)
+* Add ability to create and render the Voxel objects/characters without merging, 2 vertex arrays, or rebuild?
