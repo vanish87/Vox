@@ -73,6 +73,8 @@
 * Terrain generation via chunks.
 * Player movement on voxel world and terrain.
 * Add character creator and customization from front-end.
+* Add console and logger to the in-game gui for output and logging information.
+* Add debug log information for model loading and rendering - num verts, tris, faces, etc.
 * Add pause menu when ESC is pressed, and add popup in center of screen.
 * Add options menu window to pause menu.
 * Add exit/quit popup when the game is closed or quit using various exit methods.
