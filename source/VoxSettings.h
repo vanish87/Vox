@@ -50,6 +50,7 @@ public:
 	bool m_instancedParticles;
 	bool m_wireframeRendering;
 	bool m_debugRendering;
+	bool m_faceMerging;
 
 protected:
 	/* Protected members */

@@ -149,6 +149,9 @@ void VoxGame::CreateGUI()
 	m_pGUIThemePulldown->SetMenuItemChangedCallBackFunction(_GUIThemePullDownChanged);
 	m_pGUIThemePulldown->SetMenuItemChangedCallBackData(this);
 
+	m_pFaceMergingCheckbox = new CheckBox(m_pRenderer, m_defaultFont, "Face Merging");
+	m_pFaceMergingCheckbox->SetDimensions(10, 10, 14, 14);
+
 	m_pDebugCameraOptionBox = new OptionBox(m_pRenderer, m_defaultFont, "Debug");
 	m_pDebugCameraOptionBox->SetDimensions(10, 70, 14, 14);
 	m_pDebugCameraOptionBox->SetCallBackFunction(_CameraModeChanged);
@@ -181,6 +184,7 @@ void VoxGame::CreateGUI()
 	m_pGameWindow->AddComponent(m_pGameModeOptionController);
 	m_pGameWindow->AddComponent(m_pGUIThemePulldown);
 	m_pGameWindow->AddComponent(m_pCameraModeOptionController);
+	m_pGameWindow->AddComponent(m_pFaceMergingCheckbox);
 
 	m_pGUI->AddWindow(m_pMainWindow);
 	m_pGUI->AddWindow(m_pGameWindow);
@@ -205,6 +209,7 @@ void VoxGame::SetupGUI()
 	m_pInstanceRenderCheckBox->SetToggled(m_pVoxSettings->m_instancedParticles);
 	m_pWireframeCheckBox->SetToggled(m_pVoxSettings->m_wireframeRendering);
 	m_pDebugRenderCheckBox->SetToggled(m_pVoxSettings->m_debugRendering);
+	m_pFaceMergingCheckbox->SetToggled(m_pVoxSettings->m_faceMerging);
 }
 
 void VoxGame::SkinGUI()
@@ -216,6 +221,7 @@ void VoxGame::SkinGUI()
 	m_pFrontendManager->SetCheckboxIcons(m_pBlurCheckBox);
 	m_pFrontendManager->SetCheckboxIcons(m_pDeferredCheckBox);
 	m_pFrontendManager->SetCheckboxIcons(m_pWireframeCheckBox);
+	m_pFrontendManager->SetCheckboxIcons(m_pFaceMergingCheckbox);
 	m_pFrontendManager->SetCheckboxIcons(m_pUpdateCheckBox);
 	m_pFrontendManager->SetCheckboxIcons(m_pDebugRenderCheckBox);
 	m_pFrontendManager->SetCheckboxIcons(m_pInstanceRenderCheckBox);
@@ -247,6 +253,7 @@ void VoxGame::UnSkinGUI()
 	m_pBlurCheckBox->SetDefaultIcons(m_pRenderer);
 	m_pDeferredCheckBox->SetDefaultIcons(m_pRenderer);
 	m_pWireframeCheckBox->SetDefaultIcons(m_pRenderer);
+	m_pFaceMergingCheckbox->SetDefaultIcons(m_pRenderer);
 	m_pUpdateCheckBox->SetDefaultIcons(m_pRenderer);
 	m_pDebugRenderCheckBox->SetDefaultIcons(m_pRenderer);
 	m_pInstanceRenderCheckBox->SetDefaultIcons(m_pRenderer);
@@ -293,6 +300,7 @@ void VoxGame::DestroyGUI()
 	delete m_pFrontEndOptionBox;
 	delete m_pGameModeOptionController;
 	delete m_pGUIThemePulldown;
+	delete m_pFaceMergingCheckbox;
 	delete m_pDebugCameraOptionBox;
 	delete m_pMouseRotateCameraOptionBox;
 	delete m_pAutoCameraOptionBox;

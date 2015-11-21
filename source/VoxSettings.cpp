@@ -55,4 +55,5 @@ void VoxSettings::LoadSettings()
 	m_instancedParticles = reader.GetBoolean("Graphics", "InstancedParticles", false);
 	m_wireframeRendering = reader.GetBoolean("Graphics", "WireframeRendering", false);
 	m_debugRendering = reader.GetBoolean("Graphics", "DebugRendering", false);
+	m_faceMerging = reader.GetBoolean("Graphics", "FaceMerging", false);
 }

@@ -350,6 +350,7 @@ private:
 	OptionBox* m_pAutoCameraOptionBox;
 	OptionBox* m_pFirstPersonCameraOptionBox;
 	OptionController* m_pCameraModeOptionController;
+	CheckBox* m_pFaceMergingCheckbox;
 
 	// Toggle flags
 	bool m_deferredRendering;
