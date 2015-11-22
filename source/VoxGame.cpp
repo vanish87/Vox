@@ -197,7 +197,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_shadows = true;
 	m_dynamicLighting = true;
 	m_animationUpdate = true;
-	m_fullscreen = false;
+	m_fullscreen = m_pVoxSettings->m_fullscreen;
 	m_debugRender = false;
 	m_instanceRender = true;
 
