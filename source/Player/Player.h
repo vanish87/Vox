@@ -70,6 +70,7 @@ public:
 
 	// Rendering Helpers
 	void CalculateWorldTransformMatrix();
+	void RebuildVoxelCharacter(bool faceMerge);
 
 	// Updating
 	void Update(float dt);

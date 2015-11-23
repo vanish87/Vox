@@ -141,6 +141,7 @@ public:
 	void SetMeshSingleColour(float r, float g, float b);
 
 	void CreateMesh(bool lDoFaceMerging);
+	void RebuildMesh(bool lDoFaceMerging);
 	void UpdateMergedSide(int *merged, int matrixIndex, int blockx, int blocky, int blockz, int width, int height, vec3 *p1, vec3 *p2, vec3 *p3, vec3 *p4, int startX, int startY, int maxX, int maxY, bool positive, bool zFace, bool xFace, bool yFace);
 
 	int GetNumMatrices();

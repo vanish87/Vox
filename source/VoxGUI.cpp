@@ -151,6 +151,8 @@ void VoxGame::CreateGUI()
 
 	m_pFaceMergingCheckbox = new CheckBox(m_pRenderer, m_defaultFont, "Face Merging");
 	m_pFaceMergingCheckbox->SetDimensions(10, 10, 14, 14);
+	m_pFaceMergingCheckbox->SetCallBackFunction(_FaceMergeCheckboxChanged);
+	m_pFaceMergingCheckbox->SetCallBackData(this);
 
 	m_pDebugCameraOptionBox = new OptionBox(m_pRenderer, m_defaultFont, "Debug");
 	m_pDebugCameraOptionBox->SetDimensions(10, 70, 14, 14);
@@ -677,4 +679,17 @@ void VoxGame::GUIThemePullDownChanged()
 			SkinGUI();
 		}
 	}
+}
+
+void VoxGame::_FaceMergeCheckboxChanged(void *apData)
+{
+	VoxGame* lpVoxGame = (VoxGame*)apData;
+	lpVoxGame->FaceMergeCheckboxChanged();
+}
+
+void VoxGame::FaceMergeCheckboxChanged()
+{
+	bool faceMerging = m_pFaceMergingCheckbox->GetToggled();
+
+	m_pPlayer->RebuildVoxelCharacter(faceMerging);
 }

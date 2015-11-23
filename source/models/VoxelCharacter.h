@@ -61,6 +61,8 @@ public:
 	void SaveVoxelCharacter(const char *qbFilename, const char *facesFilename, const char* characterFilename);
 	void UnloadCharacter();
 
+	void RebuildVoxelModel(bool faceMerge);
+
 	// Faces
 	bool LoadFaces(const char* characterType, const char *facesFileName, const char *charactersBaseFolder);
 	bool SaveFaces(const char *facesFileName);

@@ -718,6 +718,17 @@ void QubicleBinary::CreateMesh(bool lDoFaceMerging)
 	}
 }
 
+void QubicleBinary::RebuildMesh(bool lDoFaceMerging)
+{
+	for (unsigned int i = 0; i < m_vpMatrices.size(); i++)
+	{
+		m_pRenderer->ClearMesh(m_vpMatrices[i]->m_pMesh);
+		m_vpMatrices[i]->m_pMesh = NULL;
+	}
+
+	CreateMesh(lDoFaceMerging);
+}
+
 void QubicleBinary::UpdateMergedSide(int *merged, int matrixIndex, int blockx, int blocky, int blockz, int width, int height, vec3 *p1, vec3 *p2, vec3 *p3, vec3 *p4, int startX, int startY, int maxX, int maxY, bool positive, bool zFace, bool xFace, bool yFace)
 {
 	QubicleMatrix* pMatrix = m_vpMatrices[matrixIndex];

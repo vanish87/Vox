@@ -241,6 +241,11 @@ void VoxelCharacter::UnloadCharacter()
 	m_loaded = false;
 }
 
+void VoxelCharacter::RebuildVoxelModel(bool faceMerge)
+{
+	m_pVoxelModel->RebuildMesh(faceMerge);
+}
+
 bool VoxelCharacter::LoadFaces(const char* characterType, const char *facesFileName, const char *charactersBaseFolder)
 {
 	ifstream file;

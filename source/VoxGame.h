@@ -172,6 +172,9 @@ protected:
 	static void _GUIThemePullDownChanged(void *apData);
 	void GUIThemePullDownChanged();
 
+	static void _FaceMergeCheckboxChanged(void *apData);
+	void FaceMergeCheckboxChanged();
+
 private:
 	/* Private methods */
 

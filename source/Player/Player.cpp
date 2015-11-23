@@ -433,6 +433,11 @@ void Player::CalculateWorldTransformMatrix()
 	m_worldMatrix.SetValues(lMatrix);
 }
 
+void Player::RebuildVoxelCharacter(bool faceMerge)
+{
+	m_pVoxelCharacter->RebuildVoxelModel(faceMerge);
+}
+
 // Updating
 void Player::Update(float dt)
 {
