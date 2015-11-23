@@ -63,6 +63,7 @@
 * ~~Player alpha when camera zooms in.~~
 * ~~Add proper ini reader functionality - add other startup params to ini, resolution, fullscreen etc.~~
 * ~~Camera clipping mode.~~
+* ~~Add ability to create and render the Voxel objects/characters without merging, 2 vertex arrays, or rebuild?~~
 * Convert shaders over to be more unified.
 * Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
@@ -84,5 +85,4 @@
 * Add voxel editor.
 * Add texture support for voxel blocks.
 * Create Vox EXE launcher. (C# app)
-* Add ability to create and render the Voxel objects/characters without merging, 2 vertex arrays, or rebuild?
 * Fix pulldown menu dragging and pressing outside to close menu functionality.
