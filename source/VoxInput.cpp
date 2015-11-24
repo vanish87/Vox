@@ -12,6 +12,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		case GLFW_PRESS:
 		{
 			VoxGame::GetInstance()->KeyPressed(key, scancode, mods);
+			VoxGame::GetInstance()->CharacterEntered(key, scancode, mods);
 			break;
 		}
 		case GLFW_RELEASE:
@@ -21,6 +22,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		}
 		case GLFW_REPEAT:
 		{
+			VoxGame::GetInstance()->CharacterEntered(key, scancode, mods);
 			break;
 		}
 	}
@@ -63,6 +65,13 @@ void MouseScrollCallback(GLFWwindow* window, double x, double y)
 // Input
 void VoxGame::KeyPressed(int key, int scancode, int mods)
 {
+	m_pGUI->KeyPressed(key, mods);
+
+	if (m_pGUI->IsKeyboardInteractingWithGUIComponent())
+	{
+		return;  // For textbox entry
+	}
+
 	switch (key)
 	{
 		// Player movement
@@ -108,6 +117,8 @@ void VoxGame::KeyPressed(int key, int scancode, int mods)
 
 void VoxGame::KeyReleased(int key, int scancode, int mods)
 {
+	m_pGUI->KeyReleased(key, mods);
+
 	switch (key)
 	{
 		// Player movement
@@ -148,6 +159,15 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 			m_bKeyboardSpace = false;
 			break;
 		}
+
+		// NOTE : We need to return here if we are interacting with a GUI component since
+		// this will interfere with key release commands that trigger single events, rather than
+		// turn off flags, it's ok to turn off flags above, since otherwise they never get switched off
+		// when we interact with the GUI having previously turned a keypress flag on.
+		if (m_pGUI->IsKeyboardInteractingWithGUIComponent())
+		{
+			return;  // For textbox entry
+		}
 		case GLFW_KEY_P:
 		{
 			if (m_pMainWindow->IsVisible() == false)
@@ -168,6 +188,11 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 			break;
 		}
 	}
+}
+
+void VoxGame::CharacterEntered(int key, int scancode, int mods)
+{
+	m_pGUI->CharacterEntered(key);
 }
 
 void VoxGame::MouseLeftPressed()

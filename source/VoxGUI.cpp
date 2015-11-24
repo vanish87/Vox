@@ -188,8 +188,42 @@ void VoxGame::CreateGUI()
 	m_pGameWindow->AddComponent(m_pCameraModeOptionController);
 	m_pGameWindow->AddComponent(m_pFaceMergingCheckbox);
 
+	// Console window
+	m_pConsoleWindow = new GUIWindow(m_pRenderer, m_defaultFont, "Console");
+	m_pConsoleWindow->AllowMoving(true);
+	m_pConsoleWindow->AllowClosing(false);
+	m_pConsoleWindow->AllowMinimizing(true);
+	m_pConsoleWindow->AllowScrolling(true);
+	m_pConsoleWindow->SetRenderTitleBar(true);
+	m_pConsoleWindow->SetRenderWindowBackground(true);
+	m_pConsoleWindow->SetOutlineRender(true);
+	m_pConsoleWindow->SetDimensions(635, 35, 270, 140);
+	m_pConsoleWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
+
+	m_pConsoleTextbox = new TextBox(m_pRenderer, m_defaultFont, "", "");
+	m_pConsoleTextbox->SetDimensions(0, 0, 270, 18);
+	m_pConsoleTextbox->SetDontLoseFocus(false);
+	m_pConsoleTextbox->SetCallBackFunction_OnReturnPressed(_ConsoleReturnPressed);
+	m_pConsoleTextbox->SetCallBackData_OnReturnPressed(this);
+	m_pConsoleTextbox->SetPipeColour(Colour(0.0f, 0.0f, 0.0f));
+	m_pConsoleTextbox->SetDontLoseFocus(true);
+
+	m_pConsoleScrollbar = new ScrollBar(m_pRenderer);
+	m_pConsoleScrollbar->SetScrollDirection(EScrollBarDirection_Vertical);
+	m_pConsoleScrollbar->SetScrollSize(1.0f);
+	m_pConsoleScrollbar->SetScrollPosition(1.0f);
+	m_pConsoleScrollbar->SetScissorEnabled(true);
+	m_pConsoleScrollbar->SetScrollArea(25, 0, 275, 130);
+	m_pConsoleScrollbar->SetDepth(2.0f);
+	m_pConsoleScrollbar->SetDimensions(256, 18, 14, 122);
+	m_pConsoleScrollbar->SetScissorEnabled(true);
+
+	m_pConsoleWindow->AddComponent(m_pConsoleTextbox);
+	m_pConsoleWindow->AddComponent(m_pConsoleScrollbar);
+
 	m_pGUI->AddWindow(m_pMainWindow);
 	m_pGUI->AddWindow(m_pGameWindow);
+	m_pGUI->AddWindow(m_pConsoleWindow);
 
 	UpdateAnimationsPulldown();
 	UpdateGUIThemePulldown();
@@ -242,6 +276,8 @@ void VoxGame::SkinGUI()
 	m_pFrontendManager->SetPulldownMenuIcons(m_pCharacterPulldown);
 	m_pFrontendManager->SetPulldownMenuIcons(m_pGUIThemePulldown);
 
+	m_pFrontendManager->SetScrollbarIcons(m_pConsoleScrollbar);
+
 	m_pFrontendManager->SetButtonIcons(m_pFullscreenButton, ButtonSize_85x25);
 	m_pFrontendManager->SetButtonIcons(m_pPlayAnimationButton, ButtonSize_85x25);
 }
@@ -276,6 +312,8 @@ void VoxGame::UnSkinGUI()
 
 	m_pFullscreenButton->SetDefaultIcons(m_pRenderer);
 	m_pPlayAnimationButton->SetDefaultIcons(m_pRenderer);
+
+	m_pConsoleScrollbar->SetDefaultIcons(m_pRenderer);
 }
 
 void VoxGame::DestroyGUI()
@@ -308,6 +346,9 @@ void VoxGame::DestroyGUI()
 	delete m_pAutoCameraOptionBox;
 	delete m_pFirstPersonCameraOptionBox;
 	delete m_pCameraModeOptionController;
+	delete m_pConsoleWindow;
+	delete m_pConsoleTextbox;
+	delete m_pConsoleScrollbar;
 }
 
 void VoxGame::UpdateGUI(float dt)
@@ -394,6 +435,10 @@ void VoxGame::ShowGUI()
 	{
 		m_pGameWindow->Show();
 	}
+	if (m_pConsoleWindow->IsVisible() == false)
+	{
+		m_pConsoleWindow->Show();
+	}
 }
 
 void VoxGame::HideGUI()
@@ -405,6 +450,10 @@ void VoxGame::HideGUI()
 	if (m_pGameWindow->IsVisible() == true)
 	{
 		m_pGameWindow->Hide();
+	}
+	if (m_pConsoleWindow->IsVisible() == true)
+	{
+		m_pConsoleWindow->Hide();
 	}
 }
 
@@ -692,4 +741,20 @@ void VoxGame::FaceMergeCheckboxChanged()
 	bool faceMerging = m_pFaceMergingCheckbox->GetToggled();
 
 	m_pPlayer->RebuildVoxelCharacter(faceMerging);
+}
+
+void VoxGame::_ConsoleReturnPressed(void *apData)
+{
+	VoxGame* lpVoxGame = (VoxGame*)apData;
+	lpVoxGame->ConsoleReturnPressed();
+}
+
+void VoxGame::ConsoleReturnPressed()
+{
+	if (m_pConsoleTextbox->GetText() == "")
+	{
+		return;
+	}
+
+	m_pConsoleTextbox->SetText("");
 }

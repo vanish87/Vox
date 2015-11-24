@@ -275,6 +275,7 @@ void VoxGame::ResizeWindow(int width, int height)
 		// Give the new windows dimensions to the GUI components also
 		m_pMainWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 		m_pGameWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
+		m_pConsoleWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 	}
 }
 

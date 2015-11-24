@@ -84,6 +84,7 @@ public:
 	// Input
 	void KeyPressed(int key, int scancode, int mods);
 	void KeyReleased(int key, int scancode, int mods);
+	void CharacterEntered(int key, int scancode, int mods);
 	void MouseLeftPressed();
 	void MouseLeftReleased();
 	void MouseRightPressed();
@@ -175,6 +176,9 @@ protected:
 	static void _FaceMergeCheckboxChanged(void *apData);
 	void FaceMergeCheckboxChanged();
 
+	static void _ConsoleReturnPressed(void *apData);
+	void ConsoleReturnPressed();
+	
 private:
 	/* Private methods */
 
@@ -354,6 +358,9 @@ private:
 	OptionBox* m_pFirstPersonCameraOptionBox;
 	OptionController* m_pCameraModeOptionController;
 	CheckBox* m_pFaceMergingCheckbox;
+	GUIWindow* m_pConsoleWindow;
+	TextBox* m_pConsoleTextbox;
+	ScrollBar* m_pConsoleScrollbar;
 
 	// Toggle flags
 	bool m_deferredRendering;
