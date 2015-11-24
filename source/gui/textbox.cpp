@@ -18,6 +18,8 @@
 #include "focusmanager.h"
 #include "../utils/TimeManager.h"
 
+#include <GLFW/glfw3.h>
+
 
 TextBox::TextBox(Renderer* pRenderer, unsigned int GUIFont, const std::string &defaultText, const std::string &name)
   : Container(pRenderer),
@@ -249,7 +251,7 @@ EComponentType TextBox::GetComponentType() const
 
 void TextBox::KeyPressed(const KeyEvent& lEvent)
 {
-	if(lEvent.GetKeyCode() == 0x08)
+	if(lEvent.GetKeyCode() == GLFW_KEY_BACKSPACE)
 	{
 		int l_NumHighlightChars = m_HighlightEndIndex - m_HighlightStartIndex;
 
@@ -276,7 +278,7 @@ void TextBox::KeyPressed(const KeyEvent& lEvent)
 		m_pPipeDisplayCountDown->ResetCountdown();
 	}
 
-	if(lEvent.GetKeyCode() == 0x2E)
+	if(lEvent.GetKeyCode() == GLFW_KEY_DELETE)
 	{
 		int l_NumHighlightChars = m_HighlightEndIndex - m_HighlightStartIndex;
 
@@ -303,7 +305,7 @@ void TextBox::KeyPressed(const KeyEvent& lEvent)
 		m_pPipeDisplayCountDown->ResetCountdown();
 	}
 
-	if(lEvent.GetKeyCode() == 0x24)
+	if(lEvent.GetKeyCode() == GLFW_KEY_HOME)
 	{
 		// Set pipe to start
 		m_PipeCharacterIndex = 0;
@@ -323,7 +325,7 @@ void TextBox::KeyPressed(const KeyEvent& lEvent)
 		m_pPipeDisplayCountDown->ResetCountdown();
 	}
 
-	if(lEvent.GetKeyCode() == 0x23)
+	if(lEvent.GetKeyCode() == GLFW_KEY_END)
 	{
 		// Set pipe to end
 		int l_stringSize = (int)m_text.GetText().size();
@@ -344,7 +346,7 @@ void TextBox::KeyPressed(const KeyEvent& lEvent)
 		m_pPipeDisplayCountDown->ResetCountdown();
 	}
 
-	if(lEvent.GetKeyCode() == 0x0D)
+	if(lEvent.GetKeyCode() == GLFW_KEY_ENTER)
 	{
 		if(m_bDontLoseFocus == false)
 		{
@@ -361,7 +363,7 @@ void TextBox::KeyPressed(const KeyEvent& lEvent)
 		OnReturnPressed();
 	}
 
-	if(lEvent.GetKeyCode() == 0x25)
+	if(lEvent.GetKeyCode() == GLFW_KEY_LEFT)
 	{
 		if(m_PipeCharacterIndex > 0)
 		{
@@ -397,7 +399,7 @@ void TextBox::KeyPressed(const KeyEvent& lEvent)
 		m_pPipeDisplayCountDown->ResetCountdown();
 	}
 
-	if(lEvent.GetKeyCode() == 0x27)
+	if(lEvent.GetKeyCode() == GLFW_KEY_RIGHT)
 	{
 		int l_stringSize = (int)m_text.GetText().size();
 		if(m_PipeCharacterIndex < l_stringSize)
@@ -434,7 +436,7 @@ void TextBox::KeyPressed(const KeyEvent& lEvent)
 		m_pPipeDisplayCountDown->ResetCountdown();
 	}
 
-	if(lEvent.GetKeyCode() == 0x10 || lEvent.GetKeyCode() == 0xA0 || lEvent.GetKeyCode() == 0xA1)
+	if(lEvent.GetKeyCode() == GLFW_KEY_LEFT_SHIFT || lEvent.GetKeyCode() == GLFW_KEY_RIGHT_SHIFT)
 	{
 		m_bShiftHeld = true;
 	}
@@ -442,7 +444,7 @@ void TextBox::KeyPressed(const KeyEvent& lEvent)
 
 void TextBox::KeyReleased(const KeyEvent& lEvent)
 {
-	if(lEvent.GetKeyCode() == 0x10 || lEvent.GetKeyCode() == 0xA0 || lEvent.GetKeyCode() == 0xA1)
+	if(lEvent.GetKeyCode() == GLFW_KEY_LEFT_SHIFT || lEvent.GetKeyCode() == GLFW_KEY_RIGHT_SHIFT)
 	{
 		m_bShiftHeld = false;
 	}
