@@ -255,7 +255,7 @@ bool QubicleBinary::Import(const char* fileName)
 
 		m_loaded = true;
 
-		VoxGame::GetInstance()->AddConsoleLabel("\'" + string(fileName) + "\' voxel model loaded.");
+		VoxGame::GetInstance()->AddConsoleLabel("\'" + string(fileName) + "\' loaded.");
 
 		return true;
 	}
