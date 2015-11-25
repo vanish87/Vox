@@ -197,11 +197,11 @@ void VoxGame::CreateGUI()
 	m_pConsoleWindow->SetRenderTitleBar(true);
 	m_pConsoleWindow->SetRenderWindowBackground(true);
 	m_pConsoleWindow->SetOutlineRender(true);
-	m_pConsoleWindow->SetDimensions(635, 35, 270, 140);
+	m_pConsoleWindow->SetDimensions(635, 35, 500, 140);
 	m_pConsoleWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 
 	m_pConsoleTextbox = new TextBox(m_pRenderer, m_defaultFont, "", "");
-	m_pConsoleTextbox->SetDimensions(0, 0, 270, 18);
+	m_pConsoleTextbox->SetDimensions(0, 0, 500, 18);
 	m_pConsoleTextbox->SetDontLoseFocus(false);
 	m_pConsoleTextbox->SetCallBackFunction_OnReturnPressed(_ConsoleReturnPressed);
 	m_pConsoleTextbox->SetCallBackData_OnReturnPressed(this);
@@ -213,9 +213,9 @@ void VoxGame::CreateGUI()
 	m_pConsoleScrollbar->SetScrollSize(1.0f);
 	m_pConsoleScrollbar->SetScrollPosition(1.0f);
 	m_pConsoleScrollbar->SetScissorEnabled(true);
-	m_pConsoleScrollbar->SetScrollArea(-254, 0, 260, 122);
+	m_pConsoleScrollbar->SetScrollArea(-484, 0, 490, 122);
 	m_pConsoleScrollbar->SetDepth(2.0f);
-	m_pConsoleScrollbar->SetDimensions(256, 18, 14, 122);
+	m_pConsoleScrollbar->SetDimensions(486, 18, 14, 122);
 	m_pConsoleScrollbar->SetScissorEnabled(true);
 
 	m_pConsoleWindow->AddComponent(m_pConsoleTextbox);
@@ -528,7 +528,7 @@ void VoxGame::AddConsoleLabel(string message)
 	float lCurrentTextX = 0.0f;
 	int newLineIndex = 1;
 
-	int indexToUse = (int)m_vpConsoleLabels.size();
+	int indexToUse = (int)m_vpConsoleLabels.size() + (int)m_vpConsoleLabels_Add.size();
 
 	while (lChatString[lCharIndex] != 0)
 	{
