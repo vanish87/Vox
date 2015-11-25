@@ -64,6 +64,10 @@
 * ~~Add proper ini reader functionality - add other startup params to ini, resolution, fullscreen etc.~~
 * ~~Camera clipping mode.~~
 * ~~Add ability to create and render the Voxel objects/characters without merging, 2 vertex arrays, or rebuild?~~
+* ~~Add console and logger to the in-game gui for output and logging information.~~
+  * ~~Log when loading/saving model files.~~
+  * Log on errors.
+  * Allow input commands.
 * Convert shaders over to be more unified.
 * Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
@@ -74,10 +78,6 @@
 * Terrain generation via chunks.
 * Player movement on voxel world and terrain.
 * Add character creator and customization from front-end.
-* Add console and logger to the in-game gui for output and logging information.
-  * Log when loading/saving model files.
-  * Log on errors.
-  * Allow inout commands.
 * Add debug log information for model loading and rendering - num verts, tris, faces, etc.
 * Add pause menu when ESC is pressed, and add popup in center of screen.
 * Add options menu window to pause menu.
@@ -85,4 +85,3 @@
 * Add voxel editor.
 * Add texture support for voxel blocks.
 * Create Vox EXE launcher. (C# app)
-* Fix pulldown menu dragging and pressing outside to close menu functionality.
