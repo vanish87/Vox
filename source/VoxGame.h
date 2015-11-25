@@ -84,7 +84,7 @@ public:
 	// Input
 	void KeyPressed(int key, int scancode, int mods);
 	void KeyReleased(int key, int scancode, int mods);
-	void CharacterEntered(int key, int scancode, int mods);
+	void CharacterEntered(int keyCode);
 	void MouseLeftPressed();
 	void MouseLeftReleased();
 	void MouseRightPressed();

@@ -12,7 +12,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		case GLFW_PRESS:
 		{
 			VoxGame::GetInstance()->KeyPressed(key, scancode, mods);
-			VoxGame::GetInstance()->CharacterEntered(key, scancode, mods);
+			
 			break;
 		}
 		case GLFW_RELEASE:
@@ -22,10 +22,14 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		}
 		case GLFW_REPEAT:
 		{
-			VoxGame::GetInstance()->CharacterEntered(key, scancode, mods);
 			break;
 		}
 	}
+}
+
+void CharacterCallback(GLFWwindow* window, unsigned int keyCode)
+{
+	VoxGame::GetInstance()->CharacterEntered(keyCode);
 }
 
 void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
@@ -190,9 +194,9 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 	}
 }
 
-void VoxGame::CharacterEntered(int key, int scancode, int mods)
+void VoxGame::CharacterEntered(int keyCode)
 {
-	m_pGUI->CharacterEntered(key);
+	m_pGUI->CharacterEntered(keyCode);
 }
 
 void VoxGame::MouseLeftPressed()

@@ -35,6 +35,7 @@
 // Callback functionality
 void WindowResizeCallback(GLFWwindow* window, int width, int height);
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+void CharacterCallback(GLFWwindow* window, unsigned int keyCode);
 void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 void MouseScrollCallback(GLFWwindow* window, double x, double y);
 
@@ -131,6 +132,7 @@ void VoxWindow::InitializeWindowContext(GLFWwindow* window)
 
 	/* Input callbacks */
 	glfwSetKeyCallback(window, KeyCallback);
+	glfwSetCharCallback(window, CharacterCallback);
 	glfwSetMouseButtonCallback(window, MouseButtonCallback);
 	glfwSetScrollCallback(window, MouseScrollCallback);
 
