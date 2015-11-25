@@ -333,6 +333,7 @@ private:
 	float m_movementStopThreshold;
 
 	// GUI Components
+	bool m_GUICreated;
 	GUIWindow* m_pMainWindow;
 	CheckBox* m_pShadowsCheckBox;
 	CheckBox* m_pSSAOCheckBox;
@@ -366,6 +367,7 @@ private:
 	ScrollBar* m_pConsoleScrollbar;
 	vector<Label*> m_vpConsoleLabels;
 	vector<Label*> m_vpConsoleLabels_Add;
+	vector<string> m_vStringCache;
 
 	// Toggle flags
 	bool m_deferredRendering;

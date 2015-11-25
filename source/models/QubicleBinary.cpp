@@ -16,6 +16,7 @@
 #include "QubicleBinary.h"
 #include "VoxelCharacter.h"
 #include "../utils/FileUtils.h"
+#include "../VoxGame.h"
 
 const float QubicleBinary::BLOCK_RENDER_SIZE = 0.5f;
 
@@ -253,6 +254,8 @@ bool QubicleBinary::Import(const char* fileName)
 		CreateMesh(true);
 
 		m_loaded = true;
+
+		VoxGame::GetInstance()->AddConsoleLabel("\'" + string(fileName) + "\' voxel model loaded.");
 
 		return true;
 	}

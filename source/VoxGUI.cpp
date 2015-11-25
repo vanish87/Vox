@@ -232,6 +232,8 @@ void VoxGame::CreateGUI()
 	m_pWeaponsPulldown->SetSelectedItem("None");
 	m_pAnimationsPulldown->SetSelectedItem("BindPose");
 	m_pGUIThemePulldown->SetSelectedItem("Default");
+
+	m_GUICreated = true;
 }
 
 void VoxGame::SetupGUI()
@@ -506,6 +508,13 @@ void VoxGame::UpdateGUIThemePulldown()
 
 void VoxGame::AddConsoleLabel(string message)
 {
+	if (m_GUICreated == false)
+	{
+		m_vStringCache.push_back(message);
+
+		return;
+	}
+
 	char lChatString[8192];
 	sprintf_s(lChatString, 8192, "%s", message.c_str());
 
@@ -584,6 +593,19 @@ void VoxGame::ClearConsoleLabels()
 
 void VoxGame::UpdateConsoleLabels()
 {
+	if (m_GUICreated == false)
+	{
+		return;
+	}
+	else
+	{
+		for (int i = 0; i < (int)m_vStringCache.size(); i++)
+		{
+			AddConsoleLabel(m_vStringCache[i]);
+		}
+		m_vStringCache.clear();
+	}
+
 	// Add to GUI
 	for (int i = 0; i < (int)m_vpConsoleLabels_Add.size(); i++)
 	{
