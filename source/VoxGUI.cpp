@@ -213,7 +213,7 @@ void VoxGame::CreateGUI()
 	m_pConsoleScrollbar->SetScrollSize(1.0f);
 	m_pConsoleScrollbar->SetScrollPosition(1.0f);
 	m_pConsoleScrollbar->SetScissorEnabled(true);
-	m_pConsoleScrollbar->SetScrollArea(25, 0, 275, 130);
+	m_pConsoleScrollbar->SetScrollArea(-256, 0, 270, 122);
 	m_pConsoleScrollbar->SetDepth(2.0f);
 	m_pConsoleScrollbar->SetDimensions(256, 18, 14, 122);
 	m_pConsoleScrollbar->SetScissorEnabled(true);
@@ -348,6 +348,7 @@ void VoxGame::DestroyGUI()
 	delete m_pCameraModeOptionController;
 	delete m_pConsoleWindow;
 	delete m_pConsoleTextbox;
+	ClearConsoleLabels();
 	delete m_pConsoleScrollbar;
 }
 
@@ -418,6 +419,9 @@ void VoxGame::UpdateGUI(float dt)
 	m_pPlayer->SetWireFrameRender(m_modelWireframe);
 	m_pBlockParticleManager->SetWireFrameRender(m_modelWireframe);
 	m_pBlockParticleManager->SetInstancedRendering(m_instanceRender);
+
+	// Update console
+	UpdateConsoleLabels();
 }
 
 void VoxGame::GUITurnOffCursor()
@@ -498,6 +502,122 @@ void VoxGame::UpdateGUIThemePulldown()
 
 	m_pGameWindow->AddComponent(m_pGUIThemePulldown);
 	m_pGUIThemePulldown->AddEventListeners();
+}
+
+void VoxGame::AddConsoleLabel(string message)
+{
+	char lChatString[8192];
+	sprintf_s(lChatString, 8192, "%s", message.c_str());
+
+	string chatString = lChatString;
+
+	int lCharIndex = 0;
+	int lStartLineIndex = 0;
+	int lPreviousSpaceIndex = 0;
+
+	// Our position
+	float lCurrentTextX = 0.0f;
+	int newLineIndex = 1;
+
+	int indexToUse = (int)m_vpConsoleLabels.size();
+
+	while (lChatString[lCharIndex] != 0)
+	{
+		char lpChar = lChatString[lCharIndex];
+		char lpNextChar = lChatString[lCharIndex + 1];
+
+		// Check for spaces
+		if (lpChar == ' ')
+		{
+			string lString(chatString.substr(lStartLineIndex, lCharIndex - lStartLineIndex));
+			int lTextLineWidth = m_pRenderer->GetFreeTypeTextWidth(m_defaultFont, "%s", lString.c_str());
+
+			// If the current X position, plus our new text length is greater than the width, then we know we will go out of bounds
+			if (lCurrentTextX + lTextLineWidth > m_pConsoleScrollbar->GetScrollArea().m_width)
+			{
+				string lString(chatString.substr(lStartLineIndex, lPreviousSpaceIndex - lStartLineIndex));
+
+				Label* pNewLabel = new Label(m_pRenderer, m_defaultFont, lString.c_str(), Colour(1.0f, 1.0f, 1.0f));
+				int xPos = m_pConsoleScrollbar->GetScrollArea().m_x;
+				int yPos = m_pConsoleScrollbar->GetScrollArea().m_y + m_pConsoleScrollbar->GetScrollArea().m_height - (indexToUse + newLineIndex) * 14;
+				pNewLabel->SetLocation(xPos, yPos);
+
+				m_vpConsoleLabels_Add.push_back(pNewLabel);
+
+				// Skip over the new line, else we will detect it on the next loop
+				lStartLineIndex = lPreviousSpaceIndex + 1;
+				newLineIndex++;
+			}
+
+			lPreviousSpaceIndex = lCharIndex;
+		}
+
+		// Check for the end of the string
+		if (lpNextChar == 0)
+		{
+			string lString(chatString.substr(lStartLineIndex, lCharIndex + 1 - lStartLineIndex));
+			int lTextLineWidth = m_pRenderer->GetFreeTypeTextWidth(m_defaultFont, "%s", lString.c_str());
+
+			Label* pNewLabel = new Label(m_pRenderer, m_defaultFont, lString.c_str(), Colour(1.0f, 1.0f, 1.0f));
+			int xPos = m_pConsoleScrollbar->GetScrollArea().m_x;
+			int yPos = m_pConsoleScrollbar->GetScrollArea().m_y + m_pConsoleScrollbar->GetScrollArea().m_height - (indexToUse + newLineIndex) * 14;
+			pNewLabel->SetLocation(xPos, yPos);
+
+			m_vpConsoleLabels_Add.push_back(pNewLabel);
+		}
+
+		lCharIndex++;
+	}
+}
+
+void VoxGame::ClearConsoleLabels()
+{
+	m_pConsoleScrollbar->ClearScrollAreaItems();
+
+	for (int i = 0; i < (int)m_vpConsoleLabels.size(); i++)
+	{
+		delete m_vpConsoleLabels[i];
+		m_vpConsoleLabels[i] = 0;
+	}
+	m_vpConsoleLabels.clear();
+}
+
+void VoxGame::UpdateConsoleLabels()
+{
+	// Add to GUI
+	for (int i = 0; i < (int)m_vpConsoleLabels_Add.size(); i++)
+	{
+		m_vpConsoleLabels.push_back(m_vpConsoleLabels_Add[i]);
+		m_pConsoleScrollbar->AddScrollAreaItem(m_vpConsoleLabels_Add[i]);
+		m_pConsoleScrollbar->SetScrollPosition(0.0f);
+	}
+	m_vpConsoleLabels_Add.clear();
+
+	// Update scrollbar and scroll items
+	int visibleSize = m_pConsoleScrollbar->GetScrollArea().m_height;
+	int neededHeight = (int)m_vpConsoleLabels.size() * 14 + 5;
+	int heightDiff = neededHeight - visibleSize;
+	if (heightDiff > 0)
+	{
+		m_pConsoleScrollbar->SetScrollSize((float)visibleSize / (float)neededHeight);
+		m_pConsoleScrollbar->SetDisabled(false);
+
+		float scrollRatio = m_pConsoleScrollbar->GetScrollRatio();
+		int offsetButtonY = (int)(heightDiff * scrollRatio);
+
+		for (unsigned int i = 0; i < m_vpConsoleLabels.size(); i++)
+		{
+			int xPos = m_pConsoleScrollbar->GetScrollArea().m_x;
+			int yPos = visibleSize - 14 - (i * 14);
+
+			m_vpConsoleLabels[i]->SetLocation(xPos, yPos + offsetButtonY);
+		}
+	}
+	else
+	{
+		m_pConsoleScrollbar->SetScrollSize(0.0f);
+		m_pConsoleScrollbar->SetDisabled(true);
+	}
 }
 
 // GUI callbacks
@@ -755,6 +875,12 @@ void VoxGame::ConsoleReturnPressed()
 	{
 		return;
 	}
+
+	char lChatString[8192];
+	sprintf_s(lChatString, 8192, "%s", m_pConsoleTextbox->GetText().c_str());
+	string chatMessage = lChatString;
+
+	AddConsoleLabel(chatMessage);
 
 	m_pConsoleTextbox->SetText("");
 }

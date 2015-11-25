@@ -141,6 +141,9 @@ public:
 	void HideGUI();
 	void UpdateAnimationsPulldown();
 	void UpdateGUIThemePulldown();
+	void AddConsoleLabel(string message);
+	void ClearConsoleLabels();
+	void UpdateConsoleLabels();
 
 protected:
 	/* Protected methods */
@@ -361,6 +364,8 @@ private:
 	GUIWindow* m_pConsoleWindow;
 	TextBox* m_pConsoleTextbox;
 	ScrollBar* m_pConsoleScrollbar;
+	vector<Label*> m_vpConsoleLabels;
+	vector<Label*> m_vpConsoleLabels_Add;
 
 	// Toggle flags
 	bool m_deferredRendering;

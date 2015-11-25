@@ -163,27 +163,21 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 			m_bKeyboardSpace = false;
 			break;
 		}
-
-		// NOTE : We need to return here if we are interacting with a GUI component since
-		// this will interfere with key release commands that trigger single events, rather than
-		// turn off flags, it's ok to turn off flags above, since otherwise they never get switched off
-		// when we interact with the GUI having previously turned a keypress flag on.
-		if (m_pGUI->IsKeyboardInteractingWithGUIComponent())
-		{
-			return;  // For textbox entry
-		}
 		case GLFW_KEY_P:
 		{
-			if (m_pMainWindow->IsVisible() == false)
+			if (m_pGUI->IsKeyboardInteractingWithGUIComponent() == false)
 			{
-				ShowGUI();
-			}
-			else
-			{
-				HideGUI();
-			}
+				if (m_pMainWindow->IsVisible() == false)
+				{
+					ShowGUI();
+				}
+				else
+				{
+					HideGUI();
+				}
 
-			break;
+				break;
+			}
 		}
 		case GLFW_KEY_ESCAPE:
 		{
