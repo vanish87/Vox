@@ -213,7 +213,7 @@ void VoxGame::CreateGUI()
 	m_pConsoleScrollbar->SetScrollSize(1.0f);
 	m_pConsoleScrollbar->SetScrollPosition(1.0f);
 	m_pConsoleScrollbar->SetScissorEnabled(true);
-	m_pConsoleScrollbar->SetScrollArea(-256, 0, 270, 122);
+	m_pConsoleScrollbar->SetScrollArea(-254, 0, 260, 122);
 	m_pConsoleScrollbar->SetDepth(2.0f);
 	m_pConsoleScrollbar->SetDimensions(256, 18, 14, 122);
 	m_pConsoleScrollbar->SetScissorEnabled(true);
