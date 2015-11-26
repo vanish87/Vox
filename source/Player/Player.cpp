@@ -675,7 +675,13 @@ void Player::Render()
 
 void Player::RenderFirstPerson()
 {
+	m_pVoxelCharacter->SetMeshAlpha(1.0f);
 
+	Colour OulineColour(1.0f, 1.0f, 0.0f, 1.0f);
+	m_pRenderer->PushMatrix();
+		m_pRenderer->MultiplyWorldMatrix(m_worldMatrix);
+		m_pVoxelCharacter->RenderWeapons(false, false, false, OulineColour);
+	m_pRenderer->PopMatrix();
 }
 
 void Player::RenderWeaponTrails()
