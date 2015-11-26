@@ -80,6 +80,15 @@ bool VoxelWeapon::IsLoaded()
 	return m_loaded;
 }
 
+// Rebuild
+void VoxelWeapon::RebuildVoxelModel(bool faceMerge)
+{
+	for (int i = 0; i < m_numAnimatedSections; i++)
+	{
+		m_pAnimatedSections[i].m_pVoxelObject->RebuildVoxelModel(faceMerge);
+	}
+}
+
 void VoxelWeapon::LoadWeapon(const char *weaponFilename, bool useManager)
 {
 	ifstream file;

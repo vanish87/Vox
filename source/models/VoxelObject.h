@@ -32,6 +32,9 @@ public:
 
 	void Reset();
 
+	// Rebuild
+	void RebuildVoxelModel(bool faceMerge);
+
 	QubicleBinary* GetQubicleModel();
 	Matrix4x4 GetModelMatrix(int qubicleMatrixIndex);
 

@@ -129,7 +129,7 @@ public:
 	int GetMatrixIndexForName(const char* matrixName);
 	void GetMatrixPosition(int index, int* aX, int* aY, int* aZ);
 
-	bool Import(const char* fileName);
+	bool Import(const char* fileName, bool faceMerging);
 	bool Export(const char* fileName);
 
 	void GetColour(int matrixIndex, int x, int y, int z, float* r, float* g, float* b, float* a);

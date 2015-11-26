@@ -46,6 +46,12 @@ void VoxelObject::Reset()
 	m_loaded = false;
 }
 
+// Rebuild
+void VoxelObject::RebuildVoxelModel(bool faceMerge)
+{
+	m_pVoxelModel->RebuildMesh(faceMerge);
+}
+
 QubicleBinary* VoxelObject::GetQubicleModel()
 {
 	return m_pVoxelModel;
@@ -96,7 +102,7 @@ void VoxelObject::LoadObject(const char *qbFilename, bool useManager)
 		else
 		{
 			m_pVoxelModel = new QubicleBinary(m_pRenderer);
-			m_pVoxelModel->Import(qbFilename);
+			m_pVoxelModel->Import(qbFilename, true);
 		}
 	}
 

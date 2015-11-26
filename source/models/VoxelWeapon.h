@@ -152,6 +152,9 @@ public:
 
 	bool IsLoaded();
 
+	// Rebuild
+	void RebuildVoxelModel(bool faceMerge);
+
 	void LoadWeapon(const char *weaponFilename, bool useManager = true);
 	void SaveWeapon(const char *weaponFilename);
 	void UnloadWeapon();

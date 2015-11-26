@@ -45,7 +45,7 @@ QubicleBinary* QubicleBinaryManager::GetQubicleBinaryFile(const char* fileName, 
 			if(refreshModel)
 			{
 				m_vpQubicleBinaryList[i]->Reset();
-				m_vpQubicleBinaryList[i]->Import(fileName);
+				m_vpQubicleBinaryList[i]->Import(fileName, true);
 			}
 
 			return m_vpQubicleBinaryList[i];
@@ -58,7 +58,7 @@ QubicleBinary* QubicleBinaryManager::GetQubicleBinaryFile(const char* fileName, 
 QubicleBinary* QubicleBinaryManager::AddQubicleBinaryFile(const char* fileName)
 {
 	QubicleBinary* pNewQubicleBinary = new QubicleBinary(m_pRenderer);
-	pNewQubicleBinary->Import(fileName);
+	pNewQubicleBinary->Import(fileName, true);
 
 	m_vpQubicleBinaryList.push_back(pNewQubicleBinary);
 

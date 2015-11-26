@@ -132,7 +132,7 @@ void QubicleBinary::GetMatrixPosition(int index, int* aX, int* aY, int* aZ)
 	*aZ = m_vpMatrices[index]->m_matrixPosZ;
 }
 
-bool QubicleBinary::Import(const char* fileName)
+bool QubicleBinary::Import(const char* fileName, bool faceMerging)
 {
 	m_fileName = fileName;
 
@@ -251,7 +251,7 @@ bool QubicleBinary::Import(const char* fileName)
 
 		fclose(pQBfile);
 
-		CreateMesh(true);
+		CreateMesh(faceMerging);
 
 		m_loaded = true;
 

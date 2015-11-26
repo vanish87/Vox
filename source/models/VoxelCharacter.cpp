@@ -151,7 +151,7 @@ void VoxelCharacter::LoadVoxelCharacter(const char* characterType, const char *q
 	else
 	{
 		m_pVoxelModel = new QubicleBinary(m_pRenderer);
-		m_pVoxelModel->Import(qbFilename);
+		m_pVoxelModel->Import(qbFilename, true);
 	}
 
 	// MS3d model
@@ -241,11 +241,22 @@ void VoxelCharacter::UnloadCharacter()
 	m_loaded = false;
 }
 
+// Rebuild
 void VoxelCharacter::RebuildVoxelModel(bool faceMerge)
 {
 	m_pVoxelModel->RebuildMesh(faceMerge);
+
+	if (m_pRightWeapon != NULL)
+	{
+		m_pRightWeapon->RebuildVoxelModel(faceMerge);
+	}
+	if (m_pLeftWeapon != NULL)
+	{
+		m_pLeftWeapon->RebuildVoxelModel(faceMerge);
+	}
 }
 
+// Faces
 bool VoxelCharacter::LoadFaces(const char* characterType, const char *facesFileName, const char *charactersBaseFolder)
 {
 	ifstream file;
@@ -422,6 +433,7 @@ void VoxelCharacter::ModifyEyesTextures(const char *charactersBaseFolder, const 
 	m_faceMouthTexture = m_pFacialExpressions[m_currentFacialExpression].m_mouthTexture;
 }
 
+// Character file
 void VoxelCharacter::LoadCharacterFile(const char* characterFilename)
 {
 	ifstream file;
