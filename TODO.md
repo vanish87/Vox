@@ -68,12 +68,14 @@
   * ~~Log when loading/saving model files.~~
   * Log on errors.
   * Allow input commands.
+  * Also output logs to cout.
 * Convert shaders over to be more unified.
 * Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
 * Add scenery manager.
 * Create basic front-end.
-* Create front end scene and character line up
+* Create front end scene and character line up.
+* Character creation and customization.
 * Saving and loading chunks.
 * Terrain generation via chunks.
 * Player movement on voxel world and terrain.
