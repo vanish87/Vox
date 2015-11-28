@@ -29,8 +29,8 @@ rotationZTurnSpeed 0
 
 numLights: 1
 lightOffset: 0.0 7 0.0
-lightRadius: 20.0
-lightDiffuseMultiplier: 1.0
+lightRadius: 60.0
+lightDiffuseMultiplier: 0.75
 lightColour: 1.0 0.56 0.0 1.0
 connectedToSection: -1
 
