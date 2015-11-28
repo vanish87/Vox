@@ -342,11 +342,11 @@ void Player::Jump()
 	// Change to jump animation
 	if (CanAttackLeft() && CanAttackRight())
 	{
-		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "Jump", 0.15f);
+		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "Jump", 0.01f);
 	}
 	if (m_bCanInteruptCombatAnim)
 	{
-		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, false, AnimationSections_Legs_Feet, "Jump", 0.15f);
+		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, false, AnimationSections_Legs_Feet, "Jump", 0.01f);
 	}
 }
 
