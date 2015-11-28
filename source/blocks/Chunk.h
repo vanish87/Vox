@@ -18,19 +18,58 @@
 
 #pragma once
 
+#include "../Renderer/Renderer.h"
+
 
 class Chunk
 {
 public:
 	/* Public methods */
-	Chunk();
+	Chunk(Renderer* pRenderer);
 	~Chunk();
+
+	// Initialize
+	void Initialize();
+
+	// Saving and loading
+	void SaveChunk();
+	void LoadChunk();
+
+	// Position
+	void SetPosition(vec3 pos);
+	vec3 GetPosition();
+
+	// Grid
+	void SetGrid(int x, int y, int z);
+	int GetGridX();
+	int GetGridY();
+	int GetGridZ();
+
+	// Active
+	bool GetActive(int x, int y, int z);
+
+	// Block colour
+	void SetColour(int x, int y, int z, float r, float g, float b, float a);
+	void GetColour(int x, int y, int z, float* r, float* g, float* b, float* a);
+	void SetColour(int x, int y, int z, unsigned int colour);
+	unsigned int GetColour(int x, int y, int z);
+
+	// Flags
+	bool IsEmpty();
+	bool IsSurrounded();
+
+	// Create mesh
+	void CreateMesh();
+
+	// Rebuild
+	void RebuildMesh();
 
 	// Updating
 	void Update(float dt);
 	
 	// Rendering
 	void Render();
+	void RenderDebug();
 
 protected:
 	/* Protected methods */
@@ -40,10 +79,34 @@ private:
 
 public:
 	/* Public members */
+	static const int CHUNK_SIZE = 16;
+	static const int CHUNK_SIZE_SQUARED = CHUNK_SIZE * CHUNK_SIZE;
+	static const int CHUNK_SIZE_CUBED = CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE;
+	static const float BLOCK_RENDER_SIZE;
+	static const float CHUNK_RADIUS;
 
 protected:
 	/* Protected members */
 
 private:
 	/* Private members */
+	Renderer* m_pRenderer;
+
+	// Grid co-ordinates
+	int m_gridX;
+	int m_gridY;
+	int m_gridZ;
+
+	// Chunk position
+	vec3 m_position;
+
+	// Flags for empty chunk and completely surrounded
+	bool m_emptyChunk;
+	bool m_surroundedChunk;
+
+	// The blocks data
+	unsigned int *m_colour;
+
+	// Render mesh
+	OpenGLTriangleMesh* m_pMesh;
 };

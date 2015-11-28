@@ -20,6 +20,32 @@
 
 #include "Chunk.h"
 
+#include <map>
+using namespace std;
+
+
+struct ChunkCoordKeys {
+	int x;
+	int y;
+	int z;
+};
+
+inline bool const operator==(const ChunkCoordKeys& l, const ChunkCoordKeys& r) {
+	return l.x == r.x && l.y == r.y && l.z == r.z;
+};
+
+inline bool const operator<(const ChunkCoordKeys& l, const ChunkCoordKeys& r) {
+	if (l.x < r.x)  return true;
+	if (l.x > r.x)  return false;
+
+	if (l.y < r.y)  return true;
+	if (l.y > r.y)  return false;
+
+	if (l.z < r.z)  return true;
+	if (l.z > r.z)  return false;
+
+	return false;
+};
 
 class ChunkManager
 {
@@ -28,11 +54,20 @@ public:
 	ChunkManager(Renderer* pRenderer);
 	~ChunkManager();
 
+	// Chunk rendering material
+	unsigned int GetChunkMaterialID();
+
+	// Getting chunk and positional information
+	void GetGridFromPosition(vec3 position, int* gridX, int* gridY, int* gridZ);
+	Chunk* GetChunkFromPosition(float posX, float posY, float posZ);
+	Chunk* GetChunk(int aX, int aY, int aZ);
+
 	// Updating
 	void Update(float dt);
 	
 	// Rendering
 	void Render();
+	void RenderDebug();
 
 protected:
 	/* Protected methods */
@@ -49,4 +84,10 @@ protected:
 private:
 	/* Private members */
 	Renderer* m_pRenderer;
+
+	// Chunk Material
+	unsigned int m_chunkMaterialID;
+
+	// Chunks storage
+	map<ChunkCoordKeys, Chunk*> m_chunksMap;
 };
