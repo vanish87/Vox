@@ -19,6 +19,10 @@ ChunkManager::ChunkManager(Renderer* pRenderer)
 	// Chunk material
 	m_chunkMaterialID = -1;
 	m_pRenderer->CreateMaterial(Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), 256, &m_chunkMaterialID);
+
+	// Create initial chunk
+	CreateNewChunk(0, 0, 0);
+	CreateNewChunk(0, 0, 1);
 }
 
 ChunkManager::~ChunkManager()
@@ -29,6 +33,37 @@ ChunkManager::~ChunkManager()
 unsigned int ChunkManager::GetChunkMaterialID()
 {
 	return m_chunkMaterialID;
+}
+
+// Chunk Creation
+void ChunkManager::CreateNewChunk(int x, int y, int z)
+{
+	ChunkCoordKeys coordKeys;
+	coordKeys.x = x;
+	coordKeys.y = y;
+	coordKeys.z = z;
+
+	// Create a new chunk at this grid position
+	Chunk* pNewChunk = new Chunk(m_pRenderer);
+
+	float xPos = x * (Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f);
+	float yPos = y * (Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f);
+	float zPos = z * (Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f);
+
+	pNewChunk->SetPosition(vec3(xPos, yPos, zPos));
+	pNewChunk->SetGrid(coordKeys.x, coordKeys.y, coordKeys.z);
+
+	pNewChunk->RebuildMesh();
+
+	m_chunksMap[coordKeys] = pNewChunk;
+}
+
+void ChunkManager::UnloadChunk(Chunk* pChunk)
+{
+	ChunkCoordKeys coordKeys;
+	coordKeys.x = pChunk->GetGridX();
+	coordKeys.y = pChunk->GetGridY();
+	coordKeys.z = pChunk->GetGridZ();
 }
 
 // Getting chunk and positional information
@@ -88,10 +123,28 @@ void ChunkManager::Update(float dt)
 // Rendering
 void ChunkManager::Render()
 {
+	typedef map<ChunkCoordKeys, Chunk*>::iterator it_type;
+	for (it_type iterator = m_chunksMap.begin(); iterator != m_chunksMap.end(); iterator++)
+	{
+		Chunk* pChunk = iterator->second;
 
+		if (pChunk != NULL)
+		{
+			pChunk->Render();
+		}
+	}
 }
 
 void ChunkManager::RenderDebug()
 {
+	typedef map<ChunkCoordKeys, Chunk*>::iterator it_type;
+	for (it_type iterator = m_chunksMap.begin(); iterator != m_chunksMap.end(); iterator++)
+	{
+		Chunk* pChunk = iterator->second;
 
+		if (pChunk != NULL)
+		{
+			pChunk->RenderDebug();
+		}
+	}
 }

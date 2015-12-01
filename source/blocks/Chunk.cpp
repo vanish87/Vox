@@ -206,9 +206,9 @@ void Chunk::Render()
 
 void Chunk::RenderDebug()
 {
-	float l_length = (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE) - 0.1f;
-	float l_height = (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE) - 0.1f;
-	float l_width = (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE) - 0.1f;
+	float l_length = (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE) - 0.05f;
+	float l_height = (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE) - 0.05f;
+	float l_width = (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE) - 0.05f;
 
 	m_pRenderer->SetRenderMode(RM_WIREFRAME);
 	m_pRenderer->SetCullMode(CM_NOCULL);

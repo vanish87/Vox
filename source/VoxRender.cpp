@@ -125,6 +125,8 @@ void VoxGame::Render()
 				m_pBlockParticleManager->RenderDebug();
 
 				m_pPlayer->RenderDebug();
+
+				m_pChunkManager->RenderDebug();
 			}
 		m_pRenderer->PopMatrix();
 

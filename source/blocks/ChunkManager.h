@@ -57,6 +57,10 @@ public:
 	// Chunk rendering material
 	unsigned int GetChunkMaterialID();
 
+	// Chunk Creation
+	void CreateNewChunk(int x, int y, int z);
+	void UnloadChunk(Chunk* pChunk);
+
 	// Getting chunk and positional information
 	void GetGridFromPosition(vec3 position, int* gridX, int* gridY, int* gridZ);
 	Chunk* GetChunkFromPosition(float posX, float posY, float posZ);
