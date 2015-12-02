@@ -22,7 +22,6 @@ ChunkManager::ChunkManager(Renderer* pRenderer)
 
 	// Create initial chunk
 	CreateNewChunk(0, 0, 0);
-	CreateNewChunk(0, 0, 1);
 }
 
 ChunkManager::~ChunkManager()
@@ -55,7 +54,61 @@ void ChunkManager::CreateNewChunk(int x, int y, int z)
 
 	pNewChunk->RebuildMesh();
 
+	UpdateChunkNeighbours(pNewChunk, x, y, z);
+
 	m_chunksMap[coordKeys] = pNewChunk;
+}
+
+void ChunkManager::UpdateChunkNeighbours(Chunk* pChunk, int x, int y, int z)
+{
+	Chunk* pChunkXMinus = GetChunk(x - 1, y, z);
+	Chunk* pChunkXPlus = GetChunk(x + 1, y, z);
+	Chunk* pChunkYMinus = GetChunk(x, y - 1, z);
+	Chunk* pChunkYPlus = GetChunk(x, y + 1, z);
+	Chunk* pChunkZMinus = GetChunk(x, y, z - 1);
+	Chunk* pChunkZPlus = GetChunk(x, y, z + 1);
+	if (pChunkXMinus)
+	{
+		pChunk->SetNumNeighbours(pChunk->GetNumNeighbours() + 1);
+		pChunk->SetxMinus(pChunkXMinus);
+		pChunkXMinus->SetNumNeighbours(pChunkXMinus->GetNumNeighbours() + 1);
+		pChunkXMinus->SetxPlus(pChunk);
+	}
+	if (pChunkXPlus)
+	{
+		pChunk->SetNumNeighbours(pChunk->GetNumNeighbours() + 1);
+		pChunk->SetxPlus(pChunkXPlus);
+		pChunkXPlus->SetNumNeighbours(pChunkXPlus->GetNumNeighbours() + 1);
+		pChunkXPlus->SetxMinus(pChunk);
+	}
+	if (pChunkYMinus)
+	{
+		pChunk->SetNumNeighbours(pChunk->GetNumNeighbours() + 1);
+		pChunk->SetxMinus(pChunkYMinus);
+		pChunkYMinus->SetNumNeighbours(pChunkYMinus->GetNumNeighbours() + 1);
+		pChunkYMinus->SetxPlus(pChunk);
+	}
+	if (pChunkYPlus)
+	{
+		pChunk->SetNumNeighbours(pChunk->GetNumNeighbours() + 1);
+		pChunk->SetxPlus(pChunkYPlus);
+		pChunkYPlus->SetNumNeighbours(pChunkYPlus->GetNumNeighbours() + 1);
+		pChunkYPlus->SetxMinus(pChunk);
+	}
+	if (pChunkZMinus)
+	{
+		pChunk->SetNumNeighbours(pChunk->GetNumNeighbours() + 1);
+		pChunk->SetxMinus(pChunkZMinus);
+		pChunkZMinus->SetNumNeighbours(pChunkZMinus->GetNumNeighbours() + 1);
+		pChunkZMinus->SetxPlus(pChunk);
+	}
+	if (pChunkZPlus)
+	{
+		pChunk->SetNumNeighbours(pChunk->GetNumNeighbours() + 1);
+		pChunk->SetxPlus(pChunkZPlus);
+		pChunkZPlus->SetNumNeighbours(pChunkZPlus->GetNumNeighbours() + 1);
+		pChunkZPlus->SetxMinus(pChunk);
+	}
 }
 
 void ChunkManager::UnloadChunk(Chunk* pChunk)
@@ -117,7 +170,101 @@ Chunk* ChunkManager::GetChunk(int aX, int aY, int aZ)
 // Updating
 void ChunkManager::Update(float dt)
 {
+	ChunkCoordKeysList addChunkList;
 
+	typedef map<ChunkCoordKeys, Chunk*>::iterator it_type;
+	for (it_type iterator = m_chunksMap.begin(); iterator != m_chunksMap.end(); iterator++)
+	{
+		Chunk* pChunk = iterator->second;
+
+		if (pChunk != NULL)
+		{
+			pChunk->Update(dt);
+
+			// Check neighbours
+			if (pChunk->GetNumNeighbours() < 6)
+			{
+				int gridX = pChunk->GetGridX();
+				int gridY = pChunk->GetGridY();
+				int gridZ = pChunk->GetGridZ();
+
+				if (pChunk->GetxMinus() == NULL)
+				{
+					ChunkCoordKeys coordKey;
+					coordKey.x = gridX - 1;
+					coordKey.y = gridY;
+					coordKey.z = gridZ;
+					addChunkList.push_back(coordKey);
+				}
+				if (pChunk->GetxPlus() == NULL)
+				{
+					ChunkCoordKeys coordKey;
+					coordKey.x = gridX + 1;
+					coordKey.y = gridY;
+					coordKey.z = gridZ;
+					addChunkList.push_back(coordKey);
+				}
+				if (pChunk->GetyMinus() == NULL)
+				{
+					ChunkCoordKeys coordKey;
+					coordKey.x = gridX;
+					coordKey.y = gridY - 1;
+					coordKey.z = gridZ;
+					addChunkList.push_back(coordKey);
+				}
+				if (pChunk->GetyPlus() == NULL)
+				{
+					ChunkCoordKeys coordKey;
+					coordKey.x = gridX;
+					coordKey.y = gridY + 1;
+					coordKey.z = gridZ;
+					addChunkList.push_back(coordKey);
+				}
+				if (pChunk->GetzMinus() == NULL)
+				{
+					ChunkCoordKeys coordKey;
+					coordKey.x = gridX;
+					coordKey.y = gridY;
+					coordKey.z = gridZ - 1;
+					addChunkList.push_back(coordKey);
+				}
+				if (pChunk->GetzPlus() == NULL)
+				{
+					ChunkCoordKeys coordKey;
+					coordKey.x = gridX;
+					coordKey.y = gridY;
+					coordKey.z = gridZ + 1;
+					addChunkList.push_back(coordKey);
+				}
+			}
+		}
+	}
+
+	for (unsigned int i = 0; i < (int)addChunkList.size(); i++)
+	{
+		ChunkCoordKeys coordKey = addChunkList[i];
+		Chunk* pChunk = GetChunk(coordKey.x, coordKey.y, coordKey.z);
+
+		if (pChunk == NULL)
+		{
+			float xPos = coordKey.x * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+			float yPos = coordKey.y * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+			float zPos = coordKey.z * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+
+			vec3 distanceVec = vec3(xPos, yPos, zPos);
+			float lengthValue = length(distanceVec);
+
+			if (lengthValue <= 32.0f)
+			{
+				CreateNewChunk(coordKey.x, coordKey.y, coordKey.z);
+			}
+		}
+		else
+		{
+			UpdateChunkNeighbours(pChunk, coordKey.x, coordKey.y, coordKey.z);
+		}
+	}
+	addChunkList.clear();
 }
 
 // Rendering

@@ -39,6 +39,22 @@ public:
 	void SetPosition(vec3 pos);
 	vec3 GetPosition();
 
+	// Neighbours
+	int GetNumNeighbours();
+	void SetNumNeighbours(int neighbours);
+	Chunk* GetxMinus();
+	Chunk* GetxPlus();
+	Chunk* GetyMinus();
+	Chunk* GetyPlus();
+	Chunk* GetzMinus();
+	Chunk* GetzPlus();
+	void SetxMinus(Chunk* pChunk);
+	void SetxPlus(Chunk* pChunk);
+	void SetyMinus(Chunk* pChunk);
+	void SetyPlus(Chunk* pChunk);
+	void SetzMinus(Chunk* pChunk);
+	void SetzPlus(Chunk* pChunk);
+
 	// Grid
 	void SetGrid(int x, int y, int z);
 	int GetGridX();
@@ -91,6 +107,15 @@ protected:
 private:
 	/* Private members */
 	Renderer* m_pRenderer;
+
+	// Chunk neighbours
+	int m_numNeighbours;
+	Chunk* m_pxMinus;
+	Chunk* m_pxPlus;
+	Chunk* m_pyMinus;
+	Chunk* m_pyPlus;
+	Chunk* m_pzMinus;
+	Chunk* m_pzPlus;
 
 	// Grid co-ordinates
 	int m_gridX;

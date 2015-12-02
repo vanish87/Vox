@@ -36,6 +36,15 @@ Chunk::~Chunk()
 // Initialize
 void Chunk::Initialize()
 {
+	// Neighbours
+	m_numNeighbours = 0;
+	m_pxMinus = NULL;
+	m_pxPlus = NULL;
+	m_pyMinus = NULL;
+	m_pyPlus = NULL;
+	m_pzMinus = NULL;
+	m_pzPlus = NULL;
+
 	// Grid
 	m_gridX = 0;
 	m_gridY = 0;
@@ -76,6 +85,77 @@ void Chunk::SetPosition(vec3 pos)
 vec3 Chunk::GetPosition()
 {
 	return m_position;
+}
+
+// Neighbours
+int Chunk::GetNumNeighbours()
+{
+	return m_numNeighbours;
+}
+
+void Chunk::SetNumNeighbours(int neighbours)
+{
+	m_numNeighbours = neighbours;
+}
+
+Chunk* Chunk::GetxMinus()
+{
+	return m_pxMinus;
+}
+
+Chunk* Chunk::GetxPlus()
+{
+	return m_pxPlus;
+}
+
+Chunk* Chunk::GetyMinus()
+{
+	return m_pyMinus;
+}
+
+Chunk* Chunk::GetyPlus()
+{
+	return m_pyPlus;
+}
+
+Chunk* Chunk::GetzMinus()
+{
+	return m_pzMinus;
+}
+
+Chunk* Chunk::GetzPlus()
+{
+	return m_pzPlus;
+}
+
+void Chunk::SetxMinus(Chunk* pChunk)
+{
+	m_pxMinus = pChunk;
+}
+
+void Chunk::SetxPlus(Chunk* pChunk)
+{
+	m_pxPlus = pChunk;
+}
+
+void Chunk::SetyMinus(Chunk* pChunk)
+{
+	m_pyMinus = pChunk;
+}
+
+void Chunk::SetyPlus(Chunk* pChunk)
+{
+	m_pyPlus = pChunk;
+}
+
+void Chunk::SetzMinus(Chunk* pChunk)
+{
+	m_pzMinus = pChunk;
+}
+
+void Chunk::SetzPlus(Chunk* pChunk)
+{
+	m_pzPlus = pChunk;
 }
 
 // Grid

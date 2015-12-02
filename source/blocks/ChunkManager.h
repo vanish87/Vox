@@ -47,6 +47,10 @@ inline bool const operator<(const ChunkCoordKeys& l, const ChunkCoordKeys& r) {
 	return false;
 };
 
+typedef std::vector<Chunk*> ChunkList;
+typedef std::vector<ChunkCoordKeys> ChunkCoordKeysList;
+
+
 class ChunkManager
 {
 public:
@@ -60,6 +64,7 @@ public:
 	// Chunk Creation
 	void CreateNewChunk(int x, int y, int z);
 	void UnloadChunk(Chunk* pChunk);
+	void UpdateChunkNeighbours(Chunk* pChunk, int x, int y, int z);
 
 	// Getting chunk and positional information
 	void GetGridFromPosition(vec3 position, int* gridX, int* gridY, int* gridZ);
