@@ -95,7 +95,7 @@ void VoxGame::UpdateCameraAutoCamera(float dt, bool updateCameraPosition)
 		}
 
 		vec3 ratios = normalize(vec3(2.5f, 1.0f, 0.0f));
-		float catchupSpeed = 5.0f * (1.0f - (m_cameraDistance / 20.0f)) * m_autoCameraMovingModifier;
+		float catchupSpeed = 1.0f * (1.0f - (m_cameraDistance / 20.0f)) * m_autoCameraMovingModifier;
 		vec3 cameraFacing = m_pGameCamera->GetFacing();
 		cameraFacing.y = 0.0f;
 
