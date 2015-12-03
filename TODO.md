@@ -78,6 +78,7 @@
 * Character creation and customization.
 * Saving and loading chunks.
 * Terrain generation via chunks.
+  * Chunk loading and unloading based on player position
 * Player movement on voxel world and terrain.
 * Add character creator and customization from front-end.
 * Add debug log information for model loading and rendering - num verts, tris, faces, etc.
