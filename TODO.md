@@ -80,6 +80,7 @@
 * Terrain generation via chunks.
   * Chunk loading and unloading based on player position
 * Player movement on voxel world and terrain.
+  * Walking up single block steps automatically.
 * Add character creator and customization from front-end.
 * Add debug log information for model loading and rendering - num verts, tris, faces, etc.
 * Add pause menu when ESC is pressed, and add popup in center of screen.
