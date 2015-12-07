@@ -27,6 +27,12 @@ Vox engine is an open source voxel engine that is written in C++ and OpenGL and 
 ## Setup
 Setting up and compiling the project is a fairly simple process. Cmake can be used to build the project files for each environment and for different platforms, depending on what you are developing on. Just run Cmake on the root level of the project.
 
+## Building the Source Code
+
+**CMake**
+
+// Todo //
+
 **Windows**
 
 Visual Studio projects are included inside the ```\project``` sub-folder (VS2012, VS2013, VS2015).
