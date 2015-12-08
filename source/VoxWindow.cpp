@@ -1,7 +1,7 @@
 // ******************************************************************************
 // Filename:	VoxWindow.cpp
-// Project:		Vox
-// Author:		Steven Ball
+// Project:	Vox
+// Author:	Steven Ball
 // 
 // Revision History:
 //   Initial Revision - 27/10/15
