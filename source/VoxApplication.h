@@ -1,7 +1,7 @@
 // ******************************************************************************
 // Filename:	VoxApplication.h
-// Project:		Vox
-// Author:		Steven Ball
+// Project:	Vox
+// Author:	Steven Ball
 //
 // Purpose:
 //   Vox application class.
