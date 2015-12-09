@@ -23,6 +23,7 @@
 #include <map>
 using namespace std;
 
+class Player;
 
 struct ChunkCoordKeys {
 	int x;
@@ -57,6 +58,8 @@ public:
 	/* Public methods */
 	ChunkManager(Renderer* pRenderer);
 	~ChunkManager();
+
+	void SetPlayer(Player* pPlayer);
 
 	// Chunk rendering material
 	unsigned int GetChunkMaterialID();
@@ -93,6 +96,7 @@ protected:
 private:
 	/* Private members */
 	Renderer* m_pRenderer;
+	Player* m_pPlayer;
 
 	// Chunk Material
 	unsigned int m_chunkMaterialID;

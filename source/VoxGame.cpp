@@ -143,6 +143,9 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	/* Create the frontend manager */
 	m_pFrontendManager = new FrontendManager(m_pRenderer);
 
+	/* Create module and manager linkage */
+	m_pChunkManager->SetPlayer(m_pPlayer);
+
 	/* Create, setup and skin the GUI components */
 	CreateGUI();
 	SetupGUI();
