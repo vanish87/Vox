@@ -359,3 +359,30 @@ void Chunk::RenderDebug()
 
 	m_pRenderer->SetCullMode(CM_BACK);
 }
+
+void Chunk::Render2D(Camera* pCamera, unsigned int viewport, unsigned int font)
+{
+	int winx, winy;
+	m_pRenderer->PushMatrix();
+		m_pRenderer->SetProjectionMode(PM_PERSPECTIVE, viewport);
+		pCamera->Look();
+		m_pRenderer->GetScreenCoordinatesFromWorldPosition(m_position, &winx, &winy);
+	m_pRenderer->PopMatrix();
+
+	bool renderChunkGrid = true;
+	if (renderChunkGrid)
+	{
+		char lLine1[64];
+		sprintf_s(lLine1, 64, "%i, %i, %i", m_gridX, m_gridY, m_gridZ);
+		char lLine2[64];
+		sprintf_s(lLine2, 64, "Neighbours: %i", m_numNeighbours);
+
+		m_pRenderer->PushMatrix();
+			m_pRenderer->SetRenderMode(RM_SOLID);
+			m_pRenderer->SetProjectionMode(PM_2D, viewport);
+			m_pRenderer->SetLookAtCamera(vec3(0.0f, 0.0f, 250.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+			m_pRenderer->RenderFreeTypeText(font, (float)winx, (float)winy, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "%s", lLine1);
+			m_pRenderer->RenderFreeTypeText(font, (float)winx, (float)winy-20.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "%s", lLine2);
+		m_pRenderer->PopMatrix();
+	}
+}

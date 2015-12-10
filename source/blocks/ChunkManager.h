@@ -80,6 +80,7 @@ public:
 	// Rendering
 	void Render();
 	void RenderDebug();
+	void Render2D(Camera* pCamera, unsigned int viewport, unsigned int font);
 
 protected:
 	/* Protected methods */

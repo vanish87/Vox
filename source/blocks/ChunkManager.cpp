@@ -154,7 +154,7 @@ void ChunkManager::UnloadChunk(Chunk* pChunk)
 
 	if (pChunkXMinus)
 	{
-		if (pChunkXMinus->GetxPlus() == NULL)
+		if (pChunkXMinus->GetxPlus())
 		{
 			pChunkXMinus->SetNumNeighbours(pChunkXMinus->GetNumNeighbours() - 1);
 			pChunkXMinus->SetxPlus(NULL);
@@ -162,7 +162,7 @@ void ChunkManager::UnloadChunk(Chunk* pChunk)
 	}
 	if (pChunkXPlus)
 	{
-		if (pChunkXPlus->GetxMinus() == NULL)
+		if (pChunkXPlus->GetxMinus())
 		{
 			pChunkXPlus->SetNumNeighbours(pChunkXPlus->GetNumNeighbours() - 1);
 			pChunkXPlus->SetxMinus(NULL);
@@ -170,7 +170,7 @@ void ChunkManager::UnloadChunk(Chunk* pChunk)
 	}
 	if (pChunkYMinus)
 	{
-		if (pChunkYMinus->GetyPlus() == NULL)
+		if (pChunkYMinus->GetyPlus())
 		{
 			pChunkYMinus->SetNumNeighbours(pChunkYMinus->GetNumNeighbours() - 1);
 			pChunkYMinus->SetyPlus(NULL);
@@ -178,7 +178,7 @@ void ChunkManager::UnloadChunk(Chunk* pChunk)
 	}
 	if (pChunkYPlus)
 	{
-		if (pChunkYPlus->GetyMinus() == NULL)
+		if (pChunkYPlus->GetyMinus())
 		{
 			pChunkYPlus->SetNumNeighbours(pChunkYPlus->GetNumNeighbours() - 1);
 			pChunkYPlus->SetyMinus(NULL);
@@ -186,7 +186,7 @@ void ChunkManager::UnloadChunk(Chunk* pChunk)
 	}
 	if (pChunkZMinus)
 	{
-		if (pChunkZMinus->GetzPlus() == NULL)
+		if (pChunkZMinus->GetzPlus())
 		{
 			pChunkZMinus->SetNumNeighbours(pChunkZMinus->GetNumNeighbours() - 1);
 			pChunkZMinus->SetzPlus(NULL);
@@ -194,7 +194,7 @@ void ChunkManager::UnloadChunk(Chunk* pChunk)
 	}
 	if (pChunkZPlus)
 	{
-		if (pChunkZPlus->GetzMinus() == NULL)
+		if (pChunkZPlus->GetzMinus())
 		{
 			pChunkZPlus->SetNumNeighbours(pChunkZPlus->GetNumNeighbours() - 1);
 			pChunkZPlus->SetzMinus(NULL);
@@ -411,6 +411,20 @@ void ChunkManager::RenderDebug()
 		if (pChunk != NULL)
 		{
 			pChunk->RenderDebug();
+		}
+	}
+}
+
+void ChunkManager::Render2D(Camera* pCamera, unsigned int viewport, unsigned int font)
+{
+	typedef map<ChunkCoordKeys, Chunk*>::iterator it_type;
+	for (it_type iterator = m_chunksMap.begin(); iterator != m_chunksMap.end(); iterator++)
+	{
+		Chunk* pChunk = iterator->second;
+
+		if (pChunk != NULL)
+		{
+			pChunk->Render2D(pCamera, viewport, font);
 		}
 	}
 }

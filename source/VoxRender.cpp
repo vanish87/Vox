@@ -176,6 +176,12 @@ void VoxGame::Render()
 		// Render debug information and text
 		RenderDebugInformation();
 
+		// Render the chunks 2d
+		if (m_debugRender)
+		{
+			m_pChunkManager->Render2D(m_pGameCamera, m_defaultViewport, m_defaultFont);
+		}
+
 		// Render the GUI
 		RenderGUI();
 
