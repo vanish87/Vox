@@ -65,6 +65,17 @@ void Chunk::Initialize()
 	}
 }
 
+// Creation and destruction
+void Chunk::Unload()
+{
+
+}
+
+void Chunk::Setup()
+{
+
+}
+
 // Saving and loading
 void Chunk::SaveChunk()
 {

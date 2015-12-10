@@ -144,6 +144,73 @@ void ChunkManager::UnloadChunk(Chunk* pChunk)
 	coordKeys.x = pChunk->GetGridX();
 	coordKeys.y = pChunk->GetGridY();
 	coordKeys.z = pChunk->GetGridZ();
+
+	Chunk* pChunkXMinus = GetChunk(coordKeys.x - 1, coordKeys.y, coordKeys.z);
+	Chunk* pChunkXPlus = GetChunk(coordKeys.x + 1, coordKeys.y, coordKeys.z);
+	Chunk* pChunkYMinus = GetChunk(coordKeys.x, coordKeys.y - 1, coordKeys.z);
+	Chunk* pChunkYPlus = GetChunk(coordKeys.x, coordKeys.y + 1, coordKeys.z);
+	Chunk* pChunkZMinus = GetChunk(coordKeys.x, coordKeys.y, coordKeys.z - 1);
+	Chunk* pChunkZPlus = GetChunk(coordKeys.x, coordKeys.y, coordKeys.z + 1);
+
+	if (pChunkXMinus)
+	{
+		if (pChunkXMinus->GetxPlus() == NULL)
+		{
+			pChunkXMinus->SetNumNeighbours(pChunkXMinus->GetNumNeighbours() - 1);
+			pChunkXMinus->SetxPlus(NULL);
+		}
+	}
+	if (pChunkXPlus)
+	{
+		if (pChunkXPlus->GetxMinus() == NULL)
+		{
+			pChunkXPlus->SetNumNeighbours(pChunkXPlus->GetNumNeighbours() - 1);
+			pChunkXPlus->SetxMinus(NULL);
+		}
+	}
+	if (pChunkYMinus)
+	{
+		if (pChunkYMinus->GetyPlus() == NULL)
+		{
+			pChunkYMinus->SetNumNeighbours(pChunkYMinus->GetNumNeighbours() - 1);
+			pChunkYMinus->SetyPlus(NULL);
+		}
+	}
+	if (pChunkYPlus)
+	{
+		if (pChunkYPlus->GetyMinus() == NULL)
+		{
+			pChunkYPlus->SetNumNeighbours(pChunkYPlus->GetNumNeighbours() - 1);
+			pChunkYPlus->SetyMinus(NULL);
+		}
+	}
+	if (pChunkZMinus)
+	{
+		if (pChunkZMinus->GetzPlus() == NULL)
+		{
+			pChunkZMinus->SetNumNeighbours(pChunkZMinus->GetNumNeighbours() - 1);
+			pChunkZMinus->SetzPlus(NULL);
+		}
+	}
+	if (pChunkZPlus)
+	{
+		if (pChunkZPlus->GetzMinus() == NULL)
+		{
+			pChunkZPlus->SetNumNeighbours(pChunkZPlus->GetNumNeighbours() - 1);
+			pChunkZPlus->SetzMinus(NULL);
+		}
+	}
+
+	// Remove from map
+	map<ChunkCoordKeys, Chunk*>::iterator it = m_chunksMap.find(coordKeys);
+	if (it != m_chunksMap.end())
+	{
+		m_chunksMap.erase(coordKeys);
+	}
+
+	// Unload and delete
+	pChunk->Unload();
+	delete pChunk;
 }
 
 // Getting chunk and positional information
@@ -198,6 +265,7 @@ Chunk* ChunkManager::GetChunk(int aX, int aY, int aZ)
 void ChunkManager::Update(float dt)
 {
 	ChunkCoordKeysList addChunkList;
+	ChunkList unloadChunkList;
 
 	typedef map<ChunkCoordKeys, Chunk*>::iterator it_type;
 	for (it_type iterator = m_chunksMap.begin(); iterator != m_chunksMap.end(); iterator++)
@@ -219,10 +287,11 @@ void ChunkManager::Update(float dt)
 			vec3 distanceVec = vec3(xPos, yPos, zPos) - m_pPlayer->GetCenter();
 			float lengthValue = length(distanceVec);
 
-			//if (lengthValue > 32.0f)
+			if (lengthValue > 32.0f)
 			{
+				unloadChunkList.push_back(pChunk);
 			}
-			//else
+			else
 			{
 				// Check neighbours
 				if (pChunk->GetNumNeighbours() < 6)
@@ -280,6 +349,7 @@ void ChunkManager::Update(float dt)
 		}
 	}
 
+	// Adding chunks
 	for (unsigned int i = 0; i < (int)addChunkList.size(); i++)
 	{
 		ChunkCoordKeys coordKey = addChunkList[i];
@@ -305,6 +375,15 @@ void ChunkManager::Update(float dt)
 		}
 	}
 	addChunkList.clear();
+
+	// Unloading chunks
+	for (unsigned int i = 0; i < (int)unloadChunkList.size(); i++)
+	{
+		Chunk* pChunk = unloadChunkList[i];
+
+		UnloadChunk(pChunk);
+	}
+	unloadChunkList.clear();
 }
 
 // Rendering

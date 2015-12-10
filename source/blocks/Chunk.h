@@ -31,6 +31,10 @@ public:
 	// Initialize
 	void Initialize();
 
+	// Creation and destruction
+	void Unload();
+	void Setup();
+
 	// Saving and loading
 	void SaveChunk();
 	void LoadChunk();
