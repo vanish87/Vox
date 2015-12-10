@@ -21,6 +21,9 @@ ChunkManager::ChunkManager(Renderer* pRenderer)
 	m_chunkMaterialID = -1;
 	m_pRenderer->CreateMaterial(Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), 256, &m_chunkMaterialID);
 
+	// Loader radius
+	m_loaderRadius = 48.0f;
+
 	// Create initial chunk
 	CreateNewChunk(0, 0, 0);
 }
@@ -287,7 +290,7 @@ void ChunkManager::Update(float dt)
 			vec3 distanceVec = vec3(xPos, yPos, zPos) - m_pPlayer->GetCenter();
 			float lengthValue = length(distanceVec);
 
-			if (lengthValue > 32.0f)
+			if (lengthValue > m_loaderRadius)
 			{
 				unloadChunkList.push_back(pChunk);
 			}
@@ -364,7 +367,7 @@ void ChunkManager::Update(float dt)
 			vec3 distanceVec = vec3(xPos, yPos, zPos) - m_pPlayer->GetCenter();
 			float lengthValue = length(distanceVec);
 
-			if (lengthValue <= 32.0f)
+			if (lengthValue <= m_loaderRadius)
 			{
 				CreateNewChunk(coordKey.x, coordKey.y, coordKey.z);
 			}

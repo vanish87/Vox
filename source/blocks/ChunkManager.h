@@ -102,6 +102,9 @@ private:
 	// Chunk Material
 	unsigned int m_chunkMaterialID;
 
+	// Loader radius
+	float m_loaderRadius;
+
 	// Chunks storage
 	map<ChunkCoordKeys, Chunk*> m_chunksMap;
 };
