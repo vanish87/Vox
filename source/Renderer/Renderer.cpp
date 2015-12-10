@@ -664,6 +664,47 @@ void Renderer::DisableScissorTest()
 	glDisable(GL_SCISSOR_TEST);
 }
 
+// Screen projection
+vec3 Renderer::GetWorldProjectionFromScreenCoordinates(int x, int y, float z)
+{
+	double mvmatrix[16];
+	double projmatrix[16];
+	int viewport[4];
+	double dX, dY, dZ, dClickY;
+
+	glGetIntegerv(GL_VIEWPORT, viewport);
+	glGetDoublev(GL_MODELVIEW_MATRIX, mvmatrix);
+	glGetDoublev(GL_PROJECTION_MATRIX, projmatrix);
+	dClickY = double(m_windowHeight - y);
+
+	// Get the z co-ordinate from the depth buffer
+	//GLfloat winZ;
+	//glReadPixels((double)x, dClickY, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ);
+
+	gluUnProject((double)x, dClickY, z, mvmatrix, projmatrix, viewport, &dX, &dY, &dZ);
+	return vec3((float)dX, (float)dY, (float)dZ);
+}
+
+void Renderer::GetScreenCoordinatesFromWorldPosition(vec3 pos, int *x, int *y)
+{
+	// NOTE : Projection and camera must be set before calling this function, else you wont get 'camera-relative' results...
+
+	GLdouble model_view[16];
+	glGetDoublev(GL_MODELVIEW_MATRIX, model_view);
+
+	GLdouble projection[16];
+	glGetDoublev(GL_PROJECTION_MATRIX, projection);
+
+	GLint viewport[4];
+	glGetIntegerv(GL_VIEWPORT, viewport);
+
+	GLdouble winx, winy, winz;
+	gluProject(pos.x, pos.y, pos.z, model_view, projection, viewport, &winx, &winy, &winz);
+
+	(*x) = (int)winx;
+	(*y) = (int)winy;
+}
+
 // Camera functionality
 void Renderer::SetLookAtCamera(vec3 pos, vec3 target, vec3 up)
 {

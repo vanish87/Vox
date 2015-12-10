@@ -217,6 +217,10 @@ public:
 	void EnableScissorTest(int x, int y, int width, int height);
 	void DisableScissorTest();
 
+	// Screen projection
+	vec3 GetWorldProjectionFromScreenCoordinates(int x, int y, float z);
+	void GetScreenCoordinatesFromWorldPosition(vec3 pos, int *x, int *y);
+
 	// Camera functionality
 	void SetLookAtCamera(vec3 pos, vec3 target, vec3 up);
 
