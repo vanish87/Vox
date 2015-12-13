@@ -419,6 +419,7 @@ void VoxGame::UpdateGUI(float dt)
 	m_instanceRender = m_pInstanceRenderCheckBox->GetToggled();
 
 	m_pPlayer->SetWireFrameRender(m_modelWireframe);
+	m_pChunkManager->SetWireframeRender(m_modelWireframe);
 	m_pBlockParticleManager->SetWireFrameRender(m_modelWireframe);
 	m_pBlockParticleManager->SetInstancedRendering(m_instanceRender);
 

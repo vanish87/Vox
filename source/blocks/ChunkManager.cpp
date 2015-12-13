@@ -19,10 +19,13 @@ ChunkManager::ChunkManager(Renderer* pRenderer)
 
 	// Chunk material
 	m_chunkMaterialID = -1;
-	m_pRenderer->CreateMaterial(Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), 256, &m_chunkMaterialID);
+	m_pRenderer->CreateMaterial(Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), 64, &m_chunkMaterialID);
 
 	// Loader radius
-	m_loaderRadius = 48.0f;
+	m_loaderRadius = 32.0f;
+
+	// Rendering modes
+	m_wireframeRender = false;
 
 	// Create initial chunk
 	CreateNewChunk(0, 0, 0);
@@ -52,7 +55,7 @@ void ChunkManager::CreateNewChunk(int x, int y, int z)
 	coordKeys.z = z;
 
 	// Create a new chunk at this grid position
-	Chunk* pNewChunk = new Chunk(m_pRenderer);
+	Chunk* pNewChunk = new Chunk(m_pRenderer, this);
 
 	float xPos = x * (Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f);
 	float yPos = y * (Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f);
@@ -61,7 +64,9 @@ void ChunkManager::CreateNewChunk(int x, int y, int z)
 	pNewChunk->SetPosition(vec3(xPos, yPos, zPos));
 	pNewChunk->SetGrid(coordKeys.x, coordKeys.y, coordKeys.z);
 
+	pNewChunk->Setup();
 	pNewChunk->RebuildMesh();
+	pNewChunk->CompleteMesh();
 
 	UpdateChunkNeighbours(pNewChunk, x, y, z);
 
@@ -264,6 +269,12 @@ Chunk* ChunkManager::GetChunk(int aX, int aY, int aZ)
 	return NULL;
 }
 
+// Rendering modes
+void ChunkManager::SetWireframeRender(bool wireframe)
+{
+	m_wireframeRender = wireframe;
+}
+
 // Updating
 void ChunkManager::Update(float dt)
 {
@@ -392,16 +403,40 @@ void ChunkManager::Update(float dt)
 // Rendering
 void ChunkManager::Render()
 {
-	typedef map<ChunkCoordKeys, Chunk*>::iterator it_type;
-	for (it_type iterator = m_chunksMap.begin(); iterator != m_chunksMap.end(); iterator++)
-	{
-		Chunk* pChunk = iterator->second;
+	m_pRenderer->StartMeshRender();
 
-		if (pChunk != NULL)
-		{
-			pChunk->Render();
-		}
+	// Store cull mode
+	CullMode cullMode = m_pRenderer->GetCullMode();
+
+	if (m_wireframeRender)
+	{
+		m_pRenderer->SetLineWidth(1.0f);
+		m_pRenderer->SetRenderMode(RM_WIREFRAME);
 	}
+	else
+	{
+		m_pRenderer->SetRenderMode(RM_SOLID);
+	}
+
+	m_pRenderer->PushMatrix();
+		m_pRenderer->TranslateWorldMatrix(-Chunk::BLOCK_RENDER_SIZE*Chunk::CHUNK_SIZE, -Chunk::BLOCK_RENDER_SIZE*Chunk::CHUNK_SIZE, -Chunk::BLOCK_RENDER_SIZE*Chunk::CHUNK_SIZE);
+
+		typedef map<ChunkCoordKeys, Chunk*>::iterator it_type;
+		for (it_type iterator = m_chunksMap.begin(); iterator != m_chunksMap.end(); iterator++)
+		{
+			Chunk* pChunk = iterator->second;
+
+			if (pChunk != NULL)
+			{
+				pChunk->Render();
+			}
+		}
+	m_pRenderer->PopMatrix();
+
+	// Restore cull mode
+	m_pRenderer->SetCullMode(cullMode);
+
+	m_pRenderer->EndMeshRender();
 }
 
 void ChunkManager::RenderDebug()

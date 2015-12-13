@@ -74,6 +74,9 @@ public:
 	Chunk* GetChunkFromPosition(float posX, float posY, float posZ);
 	Chunk* GetChunk(int aX, int aY, int aZ);
 
+	// Rendering modes
+	void SetWireframeRender(bool wireframe);
+
 	// Updating
 	void Update(float dt);
 	
@@ -104,6 +107,9 @@ private:
 
 	// Loader radius
 	float m_loaderRadius;
+
+	// Render modes
+	bool m_wireframeRender;
 
 	// Chunks storage
 	map<ChunkCoordKeys, Chunk*> m_chunksMap;

@@ -21,12 +21,14 @@
 #include "../Renderer/Renderer.h"
 #include "../Renderer/Camera.h"
 
+class ChunkManager;
+
 
 class Chunk
 {
 public:
 	/* Public methods */
-	Chunk(Renderer* pRenderer);
+	Chunk(Renderer* pRenderer, ChunkManager* pChunkManager);
 	~Chunk();
 
 	// Initialize
@@ -35,6 +37,7 @@ public:
 	// Creation and destruction
 	void Unload();
 	void Setup();
+	bool IsSetup();
 
 	// Saving and loading
 	void SaveChunk();
@@ -81,6 +84,8 @@ public:
 
 	// Create mesh
 	void CreateMesh();
+	void CompleteMesh();
+	void UpdateMergedSide(int *merged, int blockx, int blocky, int blockz, int width, int height, vec3 *p1, vec3 *p2, vec3 *p3, vec3 *p4, int startX, int startY, int maxX, int maxY, bool positive, bool zFace, bool xFace, bool yFace);
 
 	// Rebuild
 	void RebuildMesh();
@@ -113,6 +118,7 @@ protected:
 private:
 	/* Private members */
 	Renderer* m_pRenderer;
+	ChunkManager* m_pChunkManager;
 
 	// Chunk neighbours
 	int m_numNeighbours;
@@ -130,6 +136,9 @@ private:
 
 	// Chunk position
 	vec3 m_position;
+
+	// Setup and creation flags
+	bool m_setup;
 
 	// Flags for empty chunk and completely surrounded
 	bool m_emptyChunk;

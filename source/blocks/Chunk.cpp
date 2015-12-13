@@ -10,25 +10,25 @@
 // ******************************************************************************
 
 #include "Chunk.h"
+#include "ChunkManager.h"
+#include "../models/QubicleBinary.h"
+#include "../Utils/Random.h"
 
 const float Chunk::BLOCK_RENDER_SIZE = 0.5f;
 const float Chunk::CHUNK_RADIUS = sqrt(((CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f)*(CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f))*2.0f) / 2.0f + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*2.0f);
 
 
-Chunk::Chunk(Renderer* pRenderer)
+Chunk::Chunk(Renderer* pRenderer, ChunkManager* pChunkManager)
 {
 	m_pRenderer = pRenderer;
+	m_pChunkManager = pChunkManager;
 
 	Initialize();
 }
 
 Chunk::~Chunk()
 {
-	if (m_pMesh != NULL)
-	{
-		m_pRenderer->ClearMesh(m_pMesh);
-		m_pMesh = NULL;
-	}
+	Unload();
 
 	delete m_colour;
 }
@@ -54,6 +54,9 @@ void Chunk::Initialize()
 	m_emptyChunk = false;
 	m_surroundedChunk = false;
 
+	// Setup and creation
+	m_setup = false;
+
 	// Mesh
 	m_pMesh = NULL;
 
@@ -68,12 +71,40 @@ void Chunk::Initialize()
 // Creation and destruction
 void Chunk::Unload()
 {
-
+	if (m_pMesh != NULL)
+	{
+		m_pRenderer->ClearMesh(m_pMesh);
+		m_pMesh = NULL;
+	}
 }
 
 void Chunk::Setup()
 {
+	for (int x = 0; x < CHUNK_SIZE; x++)
+	{
+		for (int z = 0; z < CHUNK_SIZE; z++)
+		{
+			for (int y = 0; y < CHUNK_SIZE; y++)
+			{
+				float red = 1.0f;
+				float green = 1.0f;
+				float blue = 1.0f;
+				float alpha = 1.0f;
 
+				if (GetRandomNumber(0, 100) > 95)
+				{
+					SetColour(x, y, z, red, green, blue, alpha);
+				}
+			}
+		}
+	}
+
+	m_setup = true;
+}
+
+bool Chunk::IsSetup()
+{
+	return m_setup;
 }
 
 // Saving and loading
@@ -274,13 +305,703 @@ bool Chunk::IsSurrounded()
 // Create mesh
 void Chunk::CreateMesh()
 {
+	if (m_pMesh == NULL)
+	{
+		m_pMesh = m_pRenderer->CreateMesh(OGLMeshType_Textured);
+	}
 
+	int *l_merged;
+	l_merged = new int[CHUNK_SIZE_CUBED];
+
+	for (unsigned int j = 0; j < CHUNK_SIZE_CUBED; j++)
+	{
+		l_merged[j] = MergedSide_None;
+	}
+
+	float r = 1.0f;
+	float g = 1.0f;
+	float b = 1.0f;
+	float a = 1.0f;
+
+	for (int x = 0; x < CHUNK_SIZE; x++)
+	{
+		for (int y = 0; y < CHUNK_SIZE; y++)
+		{
+			for (int z = 0; z < CHUNK_SIZE; z++)
+			{
+				if (GetActive(x, y, z) == false)
+				{
+					continue;
+				}
+				else
+				{
+					GetColour(x, y, z, &r, &g, &b, &a);
+
+					a = 1.0f;
+
+					vec3 p1(x - BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					vec3 p2(x + BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					vec3 p3(x + BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					vec3 p4(x - BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					vec3 p5(x + BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+					vec3 p6(x - BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+					vec3 p7(x - BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+					vec3 p8(x + BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+
+					vec3 n1;
+					unsigned int v1, v2, v3, v4;
+					unsigned int t1, t2, t3, t4;
+
+					bool doXPositive = (IsMergedXPositive(l_merged, x, y, z, CHUNK_SIZE, CHUNK_SIZE) == false);
+					bool doXNegative = (IsMergedXNegative(l_merged, x, y, z, CHUNK_SIZE, CHUNK_SIZE) == false);
+					bool doYPositive = (IsMergedYPositive(l_merged, x, y, z, CHUNK_SIZE, CHUNK_SIZE) == false);
+					bool doYNegative = (IsMergedYNegative(l_merged, x, y, z, CHUNK_SIZE, CHUNK_SIZE) == false);
+					bool doZPositive = (IsMergedZPositive(l_merged, x, y, z, CHUNK_SIZE, CHUNK_SIZE) == false);
+					bool doZNegative = (IsMergedZNegative(l_merged, x, y, z, CHUNK_SIZE, CHUNK_SIZE) == false);
+
+					// Front
+					if (doZPositive && ((z == CHUNK_SIZE - 1) || z < CHUNK_SIZE - 1 && GetActive(x, y, z + 1) == false))
+					{
+						bool addSide = true;
+
+						if ((z == CHUNK_SIZE - 1))
+						{
+							Chunk* pChunk = m_pChunkManager->GetChunk(m_gridX, m_gridY, m_gridZ + 1);
+							if (pChunk == NULL || pChunk->IsSetup())
+							{
+								addSide = pChunk != NULL && (pChunk->GetActive(x, y, 0) == false);
+							}
+						}
+
+						if (addSide)
+						{
+							int endX = (x / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
+							int endY = (y / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
+
+							//if (m_pChunkManager->GetGameWindow()->GetGUIHelper()->GetMergeVoxelFaces())
+							{
+								UpdateMergedSide(l_merged, x, y, z, CHUNK_SIZE, CHUNK_SIZE, &p1, &p2, &p3, &p4, x, y, endX, endY, true, true, false, false);
+							}
+
+							n1 = vec3(0.0f, 0.0f, 1.0f);
+							v1 = m_pRenderer->AddVertexToMesh(p1, n1, r, g, b, a, m_pMesh);
+							t1 = m_pRenderer->AddTextureCoordinatesToMesh(0.0f, 0.0f, m_pMesh);
+							v2 = m_pRenderer->AddVertexToMesh(p2, n1, r, g, b, a, m_pMesh);
+							t2 = m_pRenderer->AddTextureCoordinatesToMesh(1.0f, 0.0f, m_pMesh);
+							v3 = m_pRenderer->AddVertexToMesh(p3, n1, r, g, b, a, m_pMesh);
+							t3 = m_pRenderer->AddTextureCoordinatesToMesh(1.0f, 1.0f, m_pMesh);
+							v4 = m_pRenderer->AddVertexToMesh(p4, n1, r, g, b, a, m_pMesh);
+							t4 = m_pRenderer->AddTextureCoordinatesToMesh(0.0f, 1.0f, m_pMesh);
+
+							m_pRenderer->AddTriangleToMesh(v1, v2, v3, m_pMesh);
+							m_pRenderer->AddTriangleToMesh(v1, v3, v4, m_pMesh);
+						}
+					}
+
+					p1 = vec3(x - BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					p2 = vec3(x + BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					p3 = vec3(x + BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					p4 = vec3(x - BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					p5 = vec3(x + BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+					p6 = vec3(x - BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+					p7 = vec3(x - BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+					p8 = vec3(x + BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+
+					// Back
+					if (doZNegative && ((z == 0) || (z > 0 && GetActive(x, y, z - 1) == false)))
+					{
+						bool addSide = true;
+
+						if ((z == 0))
+						{
+							Chunk* pChunk = m_pChunkManager->GetChunk(m_gridX, m_gridY, m_gridZ - 1);
+							if (pChunk == NULL || pChunk->IsSetup())
+							{
+								addSide = pChunk != NULL && (pChunk->GetActive(x, y, CHUNK_SIZE - 1) == false);
+							}
+						}
+
+						if (addSide)
+						{
+							int endX = (x / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
+							int endY = (y / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
+
+							//if (m_pChunkManager->GetGameWindow()->GetGUIHelper()->GetMergeVoxelFaces())
+							{
+								UpdateMergedSide(l_merged, x, y, z, CHUNK_SIZE, CHUNK_SIZE, &p6, &p5, &p8, &p7, x, y, endX, endY, false, true, false, false);
+							}
+
+							n1 = vec3(0.0f, 0.0f, -1.0f);
+							v1 = m_pRenderer->AddVertexToMesh(p5, n1, r, g, b, a, m_pMesh);
+							t1 = m_pRenderer->AddTextureCoordinatesToMesh(0.0f, 0.0f, m_pMesh);
+							v2 = m_pRenderer->AddVertexToMesh(p6, n1, r, g, b, a, m_pMesh);
+							t2 = m_pRenderer->AddTextureCoordinatesToMesh(1.0f, 0.0f, m_pMesh);
+							v3 = m_pRenderer->AddVertexToMesh(p7, n1, r, g, b, a, m_pMesh);
+							t3 = m_pRenderer->AddTextureCoordinatesToMesh(1.0f, 1.0f, m_pMesh);
+							v4 = m_pRenderer->AddVertexToMesh(p8, n1, r, g, b, a, m_pMesh);
+							t4 = m_pRenderer->AddTextureCoordinatesToMesh(0.0f, 1.0f, m_pMesh);
+
+							m_pRenderer->AddTriangleToMesh(v1, v2, v3, m_pMesh);
+							m_pRenderer->AddTriangleToMesh(v1, v3, v4, m_pMesh);
+						}
+					}
+
+					p1 = vec3(x - BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					p2 = vec3(x + BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					p3 = vec3(x + BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					p4 = vec3(x - BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					p5 = vec3(x + BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+					p6 = vec3(x - BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+					p7 = vec3(x - BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+					p8 = vec3(x + BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+
+					// Right
+					if (doXPositive && ((x == CHUNK_SIZE - 1) || (x < CHUNK_SIZE - 1 && GetActive(x + 1, y, z) == false)))
+					{
+						bool addSide = true;
+
+						if ((x == CHUNK_SIZE - 1))
+						{
+							Chunk* pChunk = m_pChunkManager->GetChunk(m_gridX + 1, m_gridY, m_gridZ);
+							if (pChunk == NULL || pChunk->IsSetup())
+							{
+								addSide = pChunk != NULL && (pChunk->GetActive(0, y, z) == false);
+							}
+						}
+
+						if (addSide)
+						{
+							int endX = (z / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
+							int endY = (y / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
+
+							//if (m_pChunkManager->GetGameWindow()->GetGUIHelper()->GetMergeVoxelFaces())
+							{
+								UpdateMergedSide(l_merged, x, y, z, CHUNK_SIZE, CHUNK_SIZE, &p5, &p2, &p3, &p8, z, y, endX, endY, true, false, true, false);
+							}
+
+							n1 = vec3(1.0f, 0.0f, 0.0f);
+							v1 = m_pRenderer->AddVertexToMesh(p2, n1, r, g, b, a, m_pMesh);
+							t1 = m_pRenderer->AddTextureCoordinatesToMesh(0.0f, 0.0f, m_pMesh);
+							v2 = m_pRenderer->AddVertexToMesh(p5, n1, r, g, b, a, m_pMesh);
+							t2 = m_pRenderer->AddTextureCoordinatesToMesh(1.0f, 0.0f, m_pMesh);
+							v3 = m_pRenderer->AddVertexToMesh(p8, n1, r, g, b, a, m_pMesh);
+							t3 = m_pRenderer->AddTextureCoordinatesToMesh(1.0f, 1.0f, m_pMesh);
+							v4 = m_pRenderer->AddVertexToMesh(p3, n1, r, g, b, a, m_pMesh);
+							t4 = m_pRenderer->AddTextureCoordinatesToMesh(0.0f, 1.0f, m_pMesh);
+
+							m_pRenderer->AddTriangleToMesh(v1, v2, v3, m_pMesh);
+							m_pRenderer->AddTriangleToMesh(v1, v3, v4, m_pMesh);
+						}
+					}
+
+					p1 = vec3(x - BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					p2 = vec3(x + BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					p3 = vec3(x + BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					p4 = vec3(x - BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					p5 = vec3(x + BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+					p6 = vec3(x - BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+					p7 = vec3(x - BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+					p8 = vec3(x + BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+
+					// Left
+					if (doXNegative && ((x == 0) || (x > 0 && GetActive(x - 1, y, z) == false)))
+					{
+						bool addSide = true;
+
+						if ((x == 0))
+						{
+							Chunk* pChunk = m_pChunkManager->GetChunk(m_gridX - 1, m_gridY, m_gridZ);
+							if (pChunk == NULL || pChunk->IsSetup())
+							{
+								addSide = pChunk != NULL && (pChunk->GetActive(CHUNK_SIZE - 1, y, z) == false);
+							}
+						}
+
+						if (addSide)
+						{
+							int endX = (z / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
+							int endY = (y / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
+
+							//if (m_pChunkManager->GetGameWindow()->GetGUIHelper()->GetMergeVoxelFaces())
+							{
+								UpdateMergedSide(l_merged, x, y, z, CHUNK_SIZE, CHUNK_SIZE, &p6, &p1, &p4, &p7, z, y, endX, endY, false, false, true, false);
+							}
+
+							n1 = vec3(-1.0f, 0.0f, 0.0f);
+							v1 = m_pRenderer->AddVertexToMesh(p6, n1, r, g, b, a, m_pMesh);
+							t1 = m_pRenderer->AddTextureCoordinatesToMesh(0.0f, 0.0f, m_pMesh);
+							v2 = m_pRenderer->AddVertexToMesh(p1, n1, r, g, b, a, m_pMesh);
+							t2 = m_pRenderer->AddTextureCoordinatesToMesh(1.0f, 0.0f, m_pMesh);
+							v3 = m_pRenderer->AddVertexToMesh(p4, n1, r, g, b, a, m_pMesh);
+							t3 = m_pRenderer->AddTextureCoordinatesToMesh(1.0f, 1.0f, m_pMesh);
+							v4 = m_pRenderer->AddVertexToMesh(p7, n1, r, g, b, a, m_pMesh);
+							t4 = m_pRenderer->AddTextureCoordinatesToMesh(0.0f, 1.0f, m_pMesh);
+
+							m_pRenderer->AddTriangleToMesh(v1, v2, v3, m_pMesh);
+							m_pRenderer->AddTriangleToMesh(v1, v3, v4, m_pMesh);
+						}
+					}
+
+					p1 = vec3(x - BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					p2 = vec3(x + BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					p3 = vec3(x + BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					p4 = vec3(x - BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					p5 = vec3(x + BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+					p6 = vec3(x - BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+					p7 = vec3(x - BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+					p8 = vec3(x + BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+
+					// Top
+					if (doYPositive && ((y == CHUNK_SIZE - 1) || (y < CHUNK_SIZE - 1 && GetActive(x, y + 1, z) == false)))
+					{
+						bool addSide = true;
+
+						if ((y == CHUNK_SIZE - 1))
+						{
+							Chunk* pChunk = m_pChunkManager->GetChunk(m_gridX, m_gridY + 1, m_gridZ);
+							if (pChunk == NULL || pChunk->IsSetup())
+							{
+								addSide = pChunk != NULL && (pChunk->GetActive(x, 0, z) == false);
+							}
+						}
+
+						if (addSide)
+						{
+							int endX = (x / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
+							int endY = (z / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
+
+							//if (m_pChunkManager->GetGameWindow()->GetGUIHelper()->GetMergeVoxelFaces())
+							{
+								UpdateMergedSide(l_merged, x, y, z, CHUNK_SIZE, CHUNK_SIZE, &p7, &p8, &p3, &p4, x, z, endX, endY, true, false, false, true);
+							}
+
+							n1 = vec3(0.0f, 1.0f, 0.0f);
+							v1 = m_pRenderer->AddVertexToMesh(p4, n1, r, g, b, a, m_pMesh);
+							t1 = m_pRenderer->AddTextureCoordinatesToMesh(0.0f, 0.0f, m_pMesh);
+							v2 = m_pRenderer->AddVertexToMesh(p3, n1, r, g, b, a, m_pMesh);
+							t2 = m_pRenderer->AddTextureCoordinatesToMesh(1.0f, 0.0f, m_pMesh);
+							v3 = m_pRenderer->AddVertexToMesh(p8, n1, r, g, b, a, m_pMesh);
+							t3 = m_pRenderer->AddTextureCoordinatesToMesh(1.0f, 1.0f, m_pMesh);
+							v4 = m_pRenderer->AddVertexToMesh(p7, n1, r, g, b, a, m_pMesh);
+							t4 = m_pRenderer->AddTextureCoordinatesToMesh(0.0f, 1.0f, m_pMesh);
+
+							m_pRenderer->AddTriangleToMesh(v1, v2, v3, m_pMesh);
+							m_pRenderer->AddTriangleToMesh(v1, v3, v4, m_pMesh);
+						}
+					}
+
+					p1 = vec3(x - BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					p2 = vec3(x + BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					p3 = vec3(x + BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					p4 = vec3(x - BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z + BLOCK_RENDER_SIZE);
+					p5 = vec3(x + BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+					p6 = vec3(x - BLOCK_RENDER_SIZE, y - BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+					p7 = vec3(x - BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+					p8 = vec3(x + BLOCK_RENDER_SIZE, y + BLOCK_RENDER_SIZE, z - BLOCK_RENDER_SIZE);
+
+					// Bottom
+					if (doYNegative && ((y == 0) || (y > 0 && GetActive(x, y - 1, z) == false)))
+					{
+						bool addSide = true;
+
+						if ((y == 0))
+						{
+							Chunk* pChunk = m_pChunkManager->GetChunk(m_gridX, m_gridY - 1, m_gridZ);
+							if (pChunk == NULL || pChunk->IsSetup())
+							{
+								addSide = pChunk != NULL && (pChunk->GetActive(x, CHUNK_SIZE - 1, z) == false);
+							}
+						}
+
+						if (addSide)
+						{
+							int endX = (x / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
+							int endY = (z / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
+
+							//if (m_pChunkManager->GetGameWindow()->GetGUIHelper()->GetMergeVoxelFaces())
+							{
+								UpdateMergedSide(l_merged, x, y, z, CHUNK_SIZE, CHUNK_SIZE, &p6, &p5, &p2, &p1, x, z, endX, endY, false, false, false, true);
+							}
+
+							n1 = vec3(0.0f, -1.0f, 0.0f);
+							v1 = m_pRenderer->AddVertexToMesh(p6, n1, r, g, b, a, m_pMesh);
+							t1 = m_pRenderer->AddTextureCoordinatesToMesh(0.0f, 0.0f, m_pMesh);
+							v2 = m_pRenderer->AddVertexToMesh(p5, n1, r, g, b, a, m_pMesh);
+							t2 = m_pRenderer->AddTextureCoordinatesToMesh(1.0f, 0.0f, m_pMesh);
+							v3 = m_pRenderer->AddVertexToMesh(p2, n1, r, g, b, a, m_pMesh);
+							t3 = m_pRenderer->AddTextureCoordinatesToMesh(1.0f, 1.0f, m_pMesh);
+							v4 = m_pRenderer->AddVertexToMesh(p1, n1, r, g, b, a, m_pMesh);
+							t4 = m_pRenderer->AddTextureCoordinatesToMesh(0.0f, 1.0f, m_pMesh);
+
+							m_pRenderer->AddTriangleToMesh(v1, v2, v3, m_pMesh);
+							m_pRenderer->AddTriangleToMesh(v1, v3, v4, m_pMesh);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+void Chunk::CompleteMesh()
+{
+	m_pRenderer->FinishMesh(-1, m_pChunkManager->GetChunkMaterialID(), m_pMesh);
+}
+
+void Chunk::UpdateMergedSide(int *merged, int blockx, int blocky, int blockz, int width, int height, vec3 *p1, vec3 *p2, vec3 *p3, vec3 *p4, int startX, int startY, int maxX, int maxY, bool positive, bool zFace, bool xFace, bool yFace)
+{
+	bool doMore = true;
+	unsigned int incrementX = 0;
+	unsigned int incrementZ = 0;
+	unsigned int incrementY = 0;
+
+	int change = 1;
+	if (positive == false)
+	{
+		//change = -1;
+	}
+
+	if (zFace || yFace)
+	{
+		incrementX = 1;
+		incrementY = 1;
+	}
+	if (xFace)
+	{
+		incrementZ = 1;
+		incrementY = 1;
+	}
+
+	// 1st phase
+	int incrementer = 1;
+	while (doMore)
+	{
+		if (startX + incrementer >= maxX)
+		{
+			doMore = false;
+		}
+		else
+		{
+			bool doPhase1Merge = true;
+			float r1, r2, g1, g2, b1, b2, a1, a2;
+			GetColour(blockx, blocky, blockz, &r1, &g1, &b1, &a1);
+			GetColour(blockx + incrementX, blocky, blockz + incrementZ, &r2, &g2, &b2, &a2);
+			//if(m_pBlocks[blockx][blocky][blockz].GetBlockType() != m_pBlocks[blockx + incrementX][blocky][blockz + incrementZ].GetBlockType())
+			//{
+			// Don't do any phase 1 merging if we don't have the same block type.
+			//	doPhase1Merge = false;
+			//	doMore = false;
+			//}
+			/*//else*/ if ((r1 != r2 || g1 != g2 || b1 != b2 || a1 != a2) /*&& allMerge == false*/)
+			{
+				// Don't do any phase 1 merging if we don't have the same colour variation
+				doPhase1Merge = false;
+				doMore = false;
+			}
+			else
+			{
+				if ((xFace && positive && blockx + incrementX + 1 == CHUNK_SIZE) ||
+					(xFace && !positive && blockx + incrementX == 0) ||
+					(yFace && positive && blocky + 1 == CHUNK_SIZE) ||
+					(yFace && !positive && blocky == 0) ||
+					(zFace && positive && blockz + incrementZ + 1 == CHUNK_SIZE) ||
+					(zFace && !positive && blockz + incrementZ == 0))
+				{
+					doPhase1Merge = false;
+					doMore = false;
+				}
+				// Don't do any phase 1 merging if we find an inactive block or already merged block in our path
+				else if (xFace && positive && (blockx + incrementX + 1) < CHUNK_SIZE && GetActive(blockx + incrementX + 1, blocky, blockz + incrementZ) == true)
+				{
+					doPhase1Merge = false;
+					doMore = false;
+				}
+				else if (xFace && !positive && (blockx + incrementX) > 0 && GetActive(blockx + incrementX - 1, blocky, blockz + incrementZ) == true)
+				{
+					doPhase1Merge = false;
+					doMore = false;
+				}
+				else if (yFace && positive && (blocky + 1) < CHUNK_SIZE && GetActive(blockx + incrementX, blocky + 1, blockz + incrementZ) == true)
+				{
+					doPhase1Merge = false;
+					doMore = false;
+				}
+				else if (yFace && !positive && blocky > 0 && GetActive(blockx + incrementX, blocky - 1, blockz + incrementZ) == true)
+				{
+					doPhase1Merge = false;
+					doMore = false;
+				}
+				else if (zFace && positive && (blockz + incrementZ + 1) < CHUNK_SIZE && GetActive(blockx + incrementX, blocky, blockz + incrementZ + 1) == true)
+				{
+					doPhase1Merge = false;
+					doMore = false;
+				}
+				else if (zFace && !positive && (blockz + incrementZ) > 0 && GetActive(blockx + incrementX, blocky, blockz + incrementZ - 1) == true)
+				{
+					doPhase1Merge = false;
+					doMore = false;
+				}
+				else if (GetActive(blockx + incrementX, blocky, blockz + incrementZ) == false)
+				{
+					doPhase1Merge = false;
+					doMore = false;
+				}
+				else
+				{
+					if (xFace)
+					{
+						doPhase1Merge = positive ? (IsMergedXPositive(merged, blockx + incrementX, blocky, blockz + incrementZ, width, height) == false) : (IsMergedXNegative(merged, blockx + incrementX, blocky, blockz + incrementZ, width, height) == false);
+					}
+					if (zFace)
+					{
+						doPhase1Merge = positive ? (IsMergedZPositive(merged, blockx + incrementX, blocky, blockz + incrementZ, width, height) == false) : (IsMergedZNegative(merged, blockx + incrementX, blocky, blockz + incrementZ, width, height) == false);
+					}
+					if (yFace)
+					{
+						doPhase1Merge = positive ? (IsMergedYPositive(merged, blockx + incrementX, blocky, blockz + incrementZ, width, height) == false) : (IsMergedYNegative(merged, blockx + incrementX, blocky, blockz + incrementZ, width, height) == false);
+					}
+				}
+
+				if (doPhase1Merge)
+				{
+					if (zFace || yFace)
+					{
+						(*p2).x += change * (BLOCK_RENDER_SIZE * 2.0f);
+						(*p3).x += change * (BLOCK_RENDER_SIZE * 2.0f);
+					}
+					if (xFace)
+					{
+						(*p2).z += change * (BLOCK_RENDER_SIZE * 2.0f);
+						(*p3).z += change * (BLOCK_RENDER_SIZE * 2.0f);
+					}
+
+					if (positive)
+					{
+						if (zFace)
+						{
+							merged[(blockx + incrementX) + blocky*width + (blockz + incrementZ)*width*height] |= MergedSide_Z_Positive;
+						}
+						if (xFace)
+						{
+							merged[(blockx + incrementX) + blocky*width + (blockz + incrementZ)*width*height] |= MergedSide_X_Positive;
+						}
+						if (yFace)
+						{
+							merged[(blockx + incrementX) + blocky*width + (blockz + incrementZ)*width*height] |= MergedSide_Y_Positive;
+						}
+					}
+					else
+					{
+						if (zFace)
+						{
+							merged[(blockx + incrementX) + blocky*width + (blockz + incrementZ)*width*height] |= MergedSide_Z_Negative;
+						}
+						if (xFace)
+						{
+							merged[(blockx + incrementX) + blocky*width + (blockz + incrementZ)*width*height] |= MergedSide_X_Negative;
+						}
+						if (yFace)
+						{
+							merged[(blockx + incrementX) + blocky*width + (blockz + incrementZ)*width*height] |= MergedSide_Y_Negative;
+						}
+					}
+				}
+				else
+				{
+					doMore = false;
+				}
+			}
+		}
+
+		if (zFace || yFace)
+		{
+			incrementX += change;
+		}
+		if (xFace)
+		{
+			incrementZ += change;
+		}
+
+		incrementer += change;
+	}
+
+
+	// 2nd phase
+	int loop = incrementer;
+	incrementer = 0;
+	incrementer = incrementY;
+
+	doMore = true;
+	while (doMore)
+	{
+		if (startY + incrementer >= maxY)
+		{
+			doMore = false;
+		}
+		else
+		{
+			for (int i = 0; i < loop - 1; i++)
+			{
+				// Don't do any phase 2 merging is we have any inactive blocks or already merged blocks on the row
+				if (zFace)
+				{
+					float r1, r2, g1, g2, b1, b2, a1, a2;
+					GetColour(blockx, blocky, blockz, &r1, &g1, &b1, &a1);
+					GetColour(blockx + i, blocky + incrementY, blockz, &r2, &g2, &b2, &a2);
+
+					if (positive && (blockz + 1) < CHUNK_SIZE && GetActive(blockx + i, blocky + incrementY, blockz + 1) == true)
+					{
+						doMore = false;
+					}
+					else if (!positive && blockz > 0 && GetActive(blockx + i, blocky + incrementY, blockz - 1) == true)
+					{
+						doMore = false;
+					}
+					else if (GetActive(blockx + i, blocky + incrementY, blockz) == false || (positive ? (IsMergedZPositive(merged, blockx + i, blocky + incrementY, blockz, width, height) == true) : (IsMergedZNegative(merged, blockx + i, blocky + incrementY, blockz, width, height) == true)))
+					{
+						// Failed active or already merged check
+						doMore = false;
+					}
+					/*else if(m_pBlocks[blockx][blocky][blockz].GetBlockType() != m_pBlocks[blockx + i][blocky + incrementY][blockz].GetBlockType())
+					{
+					// Failed block type check
+					doMore = false;
+					}
+					*/
+					else if ((r1 != r2 || g1 != g2 || b1 != b2 || a1 != a2) /*&& allMerge == false*/)
+					{
+						// Failed colour check
+						doMore = false;
+					}
+				}
+				if (xFace)
+				{
+					float r1, r2, g1, g2, b1, b2, a1, a2;
+					GetColour(blockx, blocky, blockz, &r1, &g1, &b1, &a1);
+					GetColour(blockx, blocky + incrementY, blockz + i, &r2, &g2, &b2, &a2);
+
+					if (positive && (blockx + 1) < CHUNK_SIZE && GetActive(blockx + 1, blocky + incrementY, blockz + i) == true)
+					{
+						doMore = false;
+					}
+					else if (!positive && (blockx) > 0 && GetActive(blockx - 1, blocky + incrementY, blockz + i) == true)
+					{
+						doMore = false;
+					}
+					else if (GetActive(blockx, blocky + incrementY, blockz + i) == false || (positive ? (IsMergedXPositive(merged, blockx, blocky + incrementY, blockz + i, width, height) == true) : (IsMergedXNegative(merged, blockx, blocky + incrementY, blockz + i, width, height) == true)))
+					{
+						// Failed active or already merged check
+						doMore = false;
+					}
+					/*else if(m_pBlocks[blockx][blocky][blockz].GetBlockType() != m_pBlocks[blockx][blocky + incrementY][blockz + i].GetBlockType())
+					{
+					// Failed block type check
+					doMore = false;
+					}
+					*/
+					else if ((r1 != r2 || g1 != g2 || b1 != b2 || a1 != a2) /*&& allMerge == false*/)
+					{
+						// Failed colour check
+						doMore = false;
+					}
+				}
+				if (yFace)
+				{
+					float r1, r2, g1, g2, b1, b2, a1, a2;
+					GetColour(blockx, blocky, blockz, &r1, &g1, &b1, &a1);
+					GetColour(blockx + i, blocky, blockz + incrementY, &r2, &g2, &b2, &a2);
+
+					if (positive && (blocky + 1) < CHUNK_SIZE && GetActive(blockx + i, blocky + 1, blockz + incrementY) == true)
+					{
+						doMore = false;
+					}
+					else if (!positive && blocky > 0 && GetActive(blockx + i, blocky - 1, blockz + incrementY) == true)
+					{
+						doMore = false;
+					}
+					else if (GetActive(blockx + i, blocky, blockz + incrementY) == false || (positive ? (IsMergedYPositive(merged, blockx + i, blocky, blockz + incrementY, width, height) == true) : (IsMergedYNegative(merged, blockx + i, blocky, blockz + incrementY, width, height) == true)))
+					{
+						// Failed active or already merged check
+						doMore = false;
+					}
+					/*else if(m_pBlocks[blockx][blocky][blockz].GetBlockType() != m_pBlocks[blockx + i][blocky][blockz + incrementY].GetBlockType())
+					{
+					// Failed block type check
+					doMore = false;
+					}
+					*/
+					else if ((r1 != r2 || g1 != g2 || b1 != b2 || a1 != a2) /*&& allMerge == false*/)
+					{
+						// Failed colour check
+						doMore = false;
+					}
+				}
+			}
+
+			if (doMore == true)
+			{
+				if (zFace || xFace)
+				{
+					(*p3).y += change * (BLOCK_RENDER_SIZE * 2.0f);
+					(*p4).y += change * (BLOCK_RENDER_SIZE * 2.0f);
+				}
+				if (yFace)
+				{
+					(*p3).z += change * (BLOCK_RENDER_SIZE * 2.0f);
+					(*p4).z += change * (BLOCK_RENDER_SIZE * 2.0f);
+				}
+
+				for (int i = 0; i < loop - 1; i++)
+				{
+					if (positive)
+					{
+						if (zFace)
+						{
+							merged[(blockx + i) + (blocky + incrementY)*width + blockz*width*height] |= MergedSide_Z_Positive;
+						}
+						if (xFace)
+						{
+							merged[blockx + (blocky + incrementY)*width + (blockz + i)*width*height] |= MergedSide_X_Positive;
+						}
+						if (yFace)
+						{
+							merged[(blockx + i) + blocky*width + (blockz + incrementY)*width*height] |= MergedSide_Y_Positive;
+						}
+					}
+					else
+					{
+						if (zFace)
+						{
+							merged[(blockx + i) + (blocky + incrementY)*width + blockz*width*height] |= MergedSide_Z_Negative;
+						}
+						if (xFace)
+						{
+							merged[blockx + (blocky + incrementY)*width + (blockz + i)*width*height] |= MergedSide_X_Negative;
+						}
+						if (yFace)
+						{
+							merged[(blockx + i) + blocky*width + (blockz + incrementY)*width*height] |= MergedSide_Y_Negative;
+						}
+					}
+				}
+			}
+		}
+
+		incrementY += change;
+		incrementer += change;
+	}
 }
 
 // Rebuild
 void Chunk::RebuildMesh()
 {
+	if (m_pMesh != NULL)
+	{
+		m_pRenderer->ClearMesh(m_pMesh);
+		m_pMesh = NULL;
+	}
 
+	CreateMesh();
 }
 
 // Updating
@@ -292,7 +1013,28 @@ void Chunk::Update(float dt)
 // Rendering
 void Chunk::Render()
 {
+	if (m_pMesh != NULL)
+	{
+		m_pRenderer->PushMatrix();
+			m_pRenderer->TranslateWorldMatrix(m_position.x, m_position.y, m_position.z);
 
+			// Texture manipulation (for shadow rendering)
+			{
+				Matrix4x4 worldMatrix;
+				m_pRenderer->GetModelMatrix(&worldMatrix);
+
+				m_pRenderer->PushTextureMatrix();
+				m_pRenderer->MultiplyWorldMatrix(worldMatrix);
+			}
+
+			m_pRenderer->MeshStaticBufferRender(m_pMesh);
+
+			// Texture manipulation (for shadow rendering)
+			{
+				m_pRenderer->PopTextureMatrix();
+			}
+		m_pRenderer->PopMatrix();
+	}
 }
 
 void Chunk::RenderDebug()
