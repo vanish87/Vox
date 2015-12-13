@@ -133,6 +133,8 @@
     <ClCompile Include="..\..\source\Renderer\Renderer.cpp" />
     <ClCompile Include="..\..\source\Renderer\texture.cpp" />
     <ClCompile Include="..\..\source\Renderer\tga.cpp" />
+    <ClCompile Include="..\..\source\simplex\simplexnoise.cpp" />
+    <ClCompile Include="..\..\source\simplex\simplextextures.cpp" />
     <ClCompile Include="..\..\source\utils\CountdownTimer.cpp" />
     <ClCompile Include="..\..\source\utils\FileUtils.cpp" />
     <ClCompile Include="..\..\source\utils\Interpolator.cpp" />
@@ -422,6 +424,8 @@
     <ClInclude Include="..\..\source\selene\selene\traits.h" />
     <ClInclude Include="..\..\source\selene\selene\Tuple.h" />
     <ClInclude Include="..\..\source\selene\selene\util.h" />
+    <ClInclude Include="..\..\source\simplex\simplexnoise.h" />
+    <ClInclude Include="..\..\source\simplex\simplextextures.h" />
     <ClInclude Include="..\..\source\utils\CountdownTimer.h" />
     <ClInclude Include="..\..\source\utils\FileUtils.h" />
     <ClInclude Include="..\..\source\utils\Interpolator.h" />

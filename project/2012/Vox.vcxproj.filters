@@ -70,6 +70,9 @@
     <Filter Include="source\ini">
       <UniqueIdentifier>{3d1ed50b-0b65-43f0-88f2-1b684e2707eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\simplex">
+      <UniqueIdentifier>{1aa33aad-3bb2-40dd-9dcd-68e7518cdb5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\glew\src\glew.c">
@@ -455,6 +458,12 @@
     </ClCompile>
     <ClCompile Include="..\..\source\VoxSettings.cpp">
       <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\simplex\simplexnoise.cpp">
+      <Filter>source\simplex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\simplex\simplextextures.cpp">
+      <Filter>source\simplex</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1297,6 +1306,12 @@
     </ClInclude>
     <ClInclude Include="..\..\source\VoxSettings.h">
       <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\simplex\simplexnoise.h">
+      <Filter>source\simplex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\simplex\simplextextures.h">
+      <Filter>source\simplex</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

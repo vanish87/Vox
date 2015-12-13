@@ -31,6 +31,7 @@ add_subdirectory(lua)
 add_subdirectory(selene)
 add_subdirectory(frontend)
 add_subdirectory(ini)
+add_subdirectory(simplex)
 
 source_group("source" FILES ${SRCS})
 source_group("source\\utils" FILES ${UTIL_SRCS})
@@ -54,6 +55,7 @@ source_group("source\\selene" FILES ${SELENE_HEADERS})
 source_group("source\\selene\\selene" FILES ${SELENE_SRCS})
 source_group("source\\frontend" FILES ${FRONTEND_SRCS})
 source_group("source\\ini" FILES ${INI_SRCS})
+source_group("source\\simplex" FILES ${SIMPLEX_SRCS})
 
 add_executable(Vox
                ${SRCS}
@@ -77,7 +79,8 @@ add_executable(Vox
                ${SELENE_HEADERS}
                ${SELENE_SRCS}
                ${FRONTEND_SRCS}
-			   ${INI_SRCS})
+			   ${INI_SRCS}
+			   ${SIMPLEX_SRCS})
 
 include_directories(".")			   
 include_directories("glfw\\include")
