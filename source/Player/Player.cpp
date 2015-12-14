@@ -11,13 +11,16 @@
 
 #include "Player.h"
 #include "../utils/Random.h"
+#include "../blocks/Chunk.h"
+#include <glm/detail/func_geometric.hpp>
 
 const vec3 Player::PLAYER_CENTER_OFFSET = vec3(0.0f, 1.525f, 0.0f);
 
 
-Player::Player(Renderer* pRenderer, QubicleBinaryManager* pQubicleBinaryManager, LightingManager* pLightingManager, BlockParticleManager* pBlockParticleManager)
+Player::Player(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryManager* pQubicleBinaryManager, LightingManager* pLightingManager, BlockParticleManager* pBlockParticleManager)
 {
 	m_pRenderer = pRenderer;
+	m_pChunkManager = pChunkManager;
 	m_pQubicleBinaryManager = pQubicleBinaryManager;
 	m_pLightingManager = pLightingManager;
 	m_pBlockParticleManager = pBlockParticleManager;
@@ -28,8 +31,14 @@ Player::Player(Renderer* pRenderer, QubicleBinaryManager* pQubicleBinaryManager,
 
 	m_targetForward = m_forward;
 
-	m_position = vec3(0.0f, 0.0f, 0.0f);
+	m_position = vec3(8.0f, 8.0f, 8.0f);
 	m_gravityDirection = vec3(0.0f, -1.0f, 0.0f);
+
+	m_gridPositionX = 0;
+	m_gridPositionY = 0;
+	m_gridPositionZ = 0;
+
+	m_pCachedGridChunk = NULL;
 
 	m_bCanJump = true;
 	m_jumpTimer = 0.0f;
@@ -231,19 +240,157 @@ bool Player::CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pN
 {
 	vec3 movementCache = *pMovement;
 
+	// World collision
 	bool worldCollision = false;
 	float radius = GetRadius();
 
-	if (positionCheck.y - radius <= 0.0f)
+	int blockX, blockY, blockZ;
+	vec3 blockPos;
+	int blockXAbove, blockYAbove, blockZAbove;
+	vec3 blockPosAbove;
+	int numChecks = 1 + (int)(radius / (Chunk::BLOCK_RENDER_SIZE* 2.0f));
+	bool canAllStepUp = false;
+	bool firstStepUp = true;
+	for (int x = -numChecks; x <= numChecks; x++)
 	{
-		*pNormal = vec3(0.0f, 1.0f, 0.0f);
+		for (int y = -numChecks; y <= numChecks; y++)
+		{
+			for (int z = -numChecks; z <= numChecks; z++)
+			{
+				bool isStepUp = false;
+				*pNormal = vec3(0.0f, 0.0f, 0.0f);
 
-		float dotResult = dot(*pNormal, *pMovement);
-		*pNormal *= dotResult;
+				Chunk* pChunk = GetCachedGridChunkOrFromPosition(positionCheck + vec3((Chunk::BLOCK_RENDER_SIZE*2.0f)*x, (Chunk::BLOCK_RENDER_SIZE*2.0f)*y, (Chunk::BLOCK_RENDER_SIZE*2.0f)*z));
+				bool active = m_pChunkManager->GetBlockActiveFrom3DPosition(positionCheck.x + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*x), positionCheck.y + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*y), positionCheck.z + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*z), &blockPos, &blockX, &blockY, &blockZ, &pChunk);
+				bool activeAbove = false;
+				bool activeAbove2 = false;
 
-		*pMovement -= *pNormal;
-		
-		worldCollision = true;
+				if (active == false)
+				{
+					if (pChunk == NULL || pChunk->IsSetup() == false)
+					{
+						*pMovement = vec3(0.0f, 0.0f, 0.0f);
+						//m_movementVelocity = vec3(0.0f, 0.0f, 0.0f);
+						worldCollision = false;
+					}
+				}
+				else if (active == true)
+				{
+					Plane3D planes[6];
+					planes[0] = Plane3D(vec3(-1.0f, 0.0f, 0.0f), vec3(Chunk::BLOCK_RENDER_SIZE, 0.0f, 0.0f));
+					planes[1] = Plane3D(vec3(1.0f, 0.0f, 0.0f), vec3(-Chunk::BLOCK_RENDER_SIZE, 0.0f, 0.0f));
+					planes[2] = Plane3D(vec3(0.0f, -1.0f, 0.0f), vec3(0.0f, Chunk::BLOCK_RENDER_SIZE, 0.0f));
+					planes[3] = Plane3D(vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, -Chunk::BLOCK_RENDER_SIZE, 0.0f));
+					planes[4] = Plane3D(vec3(0.0f, 0.0f, -1.0f), vec3(0.0f, 0.0f, Chunk::BLOCK_RENDER_SIZE));
+					planes[5] = Plane3D(vec3(0.0f, 0.0f, 1.0f), vec3(0.0f, 0.0f, -Chunk::BLOCK_RENDER_SIZE));
+
+					float distance;
+					int inside = 0;
+					bool insideCache[6];
+
+					for (int i = 0; i < 6; i++)
+					{
+						vec3 pointToCheck = blockPos - previousPosition;
+						distance = planes[i].GetPointDistance(pointToCheck);
+
+						if (distance < -radius)
+						{
+							// Outside...
+							insideCache[i] = false;
+						}
+						else if (distance < radius)
+						{
+							// Intersecting..
+							insideCache[i] = true;
+						}
+						else
+						{
+							// Inside...
+							insideCache[i] = true;
+						}
+					}
+
+					for (int i = 0; i < 6; i++)
+					{
+						vec3 pointToCheck = blockPos - positionCheck;
+						distance = planes[i].GetPointDistance(pointToCheck);
+
+						if (distance < -radius)
+						{
+							// Outside...
+						}
+						else if (distance < radius)
+						{
+							// Intersecting..
+							inside++;
+							if (insideCache[i] == false)
+							{
+								*pNormal += planes[i].mNormal;
+							}
+						}
+						else
+						{
+							// Inside...
+							inside++;
+							if (insideCache[i] == false)
+							{
+								*pNormal += planes[i].mNormal;
+							}
+						}
+					}
+
+					if (inside == 6)
+					{
+						if (y == 0) // We only want to check on the same y-level as the players position.
+						{
+							vec3 posCheck1 = vec3(positionCheck.x + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*x), positionCheck.y + (Chunk::BLOCK_RENDER_SIZE*2.0f), positionCheck.z + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*z));
+							vec3 posCheck2 = vec3(positionCheck.x + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*x), positionCheck.y + (Chunk::BLOCK_RENDER_SIZE*4.0f), positionCheck.z + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*z));
+
+							Chunk* pChunkAbove = GetCachedGridChunkOrFromPosition(vec3(posCheck1.x, posCheck1.y, posCheck1.z));
+							activeAbove = m_pChunkManager->GetBlockActiveFrom3DPosition(posCheck1.x, posCheck1.y, posCheck1.z, &blockPosAbove, &blockXAbove, &blockYAbove, &blockZAbove, &pChunkAbove);
+							Chunk* pChunkAbove2 = GetCachedGridChunkOrFromPosition(vec3(posCheck2.x, posCheck2.y, posCheck2.z));
+							activeAbove2 = m_pChunkManager->GetBlockActiveFrom3DPosition(posCheck2.x, posCheck2.y, posCheck2.z, &blockPosAbove, &blockXAbove, &blockYAbove, &blockZAbove, &pChunkAbove2);
+
+							if ((activeAbove == false) && (activeAbove2 == false))
+							{
+								if (firstStepUp)
+								{
+									canAllStepUp = true;
+								}
+
+								isStepUp = true;
+							}
+							else
+							{
+								canAllStepUp = false;
+							}
+
+							firstStepUp = false;
+						}
+
+						if (length(*pNormal) <= 1.0f)
+						{
+							if (length(*pNormal) > 0.0f)
+							{
+								*pNormal = normalize(*pNormal);
+							}
+
+							float dotResult = dot(*pNormal, *pMovement);
+							*pNormal *= dotResult;
+
+							*pMovement -= *pNormal;
+
+							//if (fabs((*pNormal).x) > 0.01f || fabs((*pNormal).z) > 0.01f)
+							//{
+							//	m_movementVelocity = vec3(0.0f, 0.0f, 0.0f);
+							//}
+
+							worldCollision = true;
+						}
+					}
+				}
+			}
+		}
 	}
 
 	if (worldCollision)
@@ -254,8 +401,69 @@ bool Player::CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pN
 	return false;
 }
 
+// World
+void Player::UpdateGridPosition()
+{
+	int gridPositionX = (int)((m_position.x + Chunk::BLOCK_RENDER_SIZE) / Chunk::CHUNK_SIZE);
+	int gridPositionY = (int)((m_position.y + Chunk::BLOCK_RENDER_SIZE) / Chunk::CHUNK_SIZE);
+	int gridPositionZ = (int)((m_position.z + Chunk::BLOCK_RENDER_SIZE) / Chunk::CHUNK_SIZE);
+
+	if (m_position.x <= -0.5f)
+		gridPositionX -= 1;
+	if (m_position.y <= -0.5f)
+		gridPositionY -= 1;
+	if (m_position.z <= -0.5f)
+		gridPositionZ -= 1;
+
+	if (gridPositionX != m_gridPositionX || gridPositionY != m_gridPositionY || gridPositionZ != m_gridPositionZ || m_pCachedGridChunk == NULL)
+	{
+		m_gridPositionX = gridPositionX;
+		m_gridPositionY = gridPositionY;
+		m_gridPositionZ = gridPositionZ;
+
+		m_pCachedGridChunk = m_pChunkManager->GetChunk(m_gridPositionX, m_gridPositionY, m_gridPositionZ);
+	}
+}
+
+Chunk* Player::GetCachedGridChunkOrFromPosition(vec3 pos)
+{
+	// First check if the position is in the same grid as the cached chunk
+	int gridPositionX = (int)((pos.x + Chunk::BLOCK_RENDER_SIZE) / Chunk::CHUNK_SIZE);
+	int gridPositionY = (int)((pos.y + Chunk::BLOCK_RENDER_SIZE) / Chunk::CHUNK_SIZE);
+	int gridPositionZ = (int)((pos.z + Chunk::BLOCK_RENDER_SIZE) / Chunk::CHUNK_SIZE);
+
+	if (pos.x <= -0.5f)
+		gridPositionX -= 1;
+	if (pos.y <= -0.5f)
+		gridPositionY -= 1;
+	if (pos.z <= -0.5f)
+		gridPositionZ -= 1;
+
+	if (gridPositionX != m_gridPositionX || gridPositionY != m_gridPositionY || gridPositionZ != m_gridPositionZ)
+	{
+		return NULL;
+	}
+	else
+	{
+		return m_pCachedGridChunk;
+	}
+}
+
+void Player::ClearChunkCacheForChunk(Chunk* pChunk)
+{
+	if (m_pCachedGridChunk == pChunk)
+	{
+		m_pCachedGridChunk = NULL;
+	}
+}
+
 // Movement
-void Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeForward)
+vec3 Player::GetPositionMovementAmount()
+{
+	return m_positionMovementAmount;
+}
+
+vec3 Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeForward)
 {
 	if (shouldChangeForward)
 	{
@@ -265,6 +473,8 @@ void Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeFo
 	m_targetForward = m_forward;
 	m_targetForward.y = 0.0f;
 	m_targetForward = normalize(m_targetForward);
+
+	vec3 totalAmountMoved;
 
 	vec3 movement = direction;
 	vec3 movementAmount = direction*speed;
@@ -284,12 +494,16 @@ void Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeFo
 		}
 
 		m_position += (movement * speedToUse);
+
+		totalAmountMoved += (movement * speedToUse);
 	}
 
 	// Change to run animation
 	m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, true, AnimationSections_FullBody, "Run", 0.01f);
 
 	m_bIsIdle = false;
+
+	return totalAmountMoved;
 }
 
 void Player::Move(const float speed)
@@ -441,6 +655,9 @@ void Player::RebuildVoxelCharacter(bool faceMerge)
 // Updating
 void Player::Update(float dt)
 {
+	// Update grid position
+	UpdateGridPosition();
+
 	// Update the voxel model
 	float animationSpeeds[AnimationSections_NUMSECTIONS] = { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
 	m_pVoxelCharacter->Update(dt, animationSpeeds);
@@ -486,6 +703,8 @@ void Player::UpdateAnimations(float dt)
 
 void Player::UpdatePhysics(float dt)
 {
+	m_positionMovementAmount = vec3(0.0f, 0.0f, 0.0f);
+
 	// Integrate velocity
 	vec3 acceleration = m_force + (m_gravityDirection * 9.81f)*4.0f;
 	m_velocity += acceleration * dt;
@@ -523,6 +742,8 @@ void Player::UpdatePhysics(float dt)
 
 		// Integrate position
 		m_position += velocityToUse * dt;
+
+		m_positionMovementAmount += velocityToUse * dt;
 	}
 
 	// Store previous position

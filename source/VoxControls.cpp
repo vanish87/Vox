@@ -157,8 +157,8 @@ void VoxGame::UpdateKeyboardControls(float dt)
 			bool shouldChangePlayerFacing = (m_cameraMode != CameraMode_FirstPerson);
 
 			m_movementDirection = normalize(m_movementDirection);
-			m_pGameCamera->SetFakePosition(m_pGameCamera->GetFakePosition() + m_movementDirection * m_movementSpeed * dt);
-			m_pPlayer->MoveAbsolute(m_movementDirection, m_movementSpeed * dt, shouldChangePlayerFacing);
+			vec3 amountMoved = m_pPlayer->MoveAbsolute(m_movementDirection, m_movementSpeed * dt, shouldChangePlayerFacing);
+			m_pGameCamera->SetFakePosition(m_pGameCamera->GetFakePosition() + amountMoved);
 		}
 	}
 }
@@ -292,8 +292,8 @@ void VoxGame::UpdateGamePadControls(float dt)
 			bool shouldChangePlayerFacing = (m_cameraMode != CameraMode_FirstPerson);
 
 			m_movementDirection = normalize(m_movementDirection);
-			m_pGameCamera->SetFakePosition(m_pGameCamera->GetFakePosition() + m_movementDirection * m_movementSpeed * dt);
- 			m_pPlayer->MoveAbsolute(m_movementDirection, m_movementSpeed * dt, shouldChangePlayerFacing);
+			vec3 amountMoved = m_pPlayer->MoveAbsolute(m_movementDirection, m_movementSpeed * dt, shouldChangePlayerFacing);
+			m_pGameCamera->SetFakePosition(m_pGameCamera->GetFakePosition() + amountMoved);
 		}
 	}
 }

@@ -44,6 +44,12 @@ void VoxGame::Update()
 
 		// Player
 		m_pPlayer->Update(m_deltaTime);
+
+		if (m_cameraMode == CameraMode_MouseRotate || m_cameraMode == CameraMode_AutoCamera)
+		{
+			vec3 playerMovementChanged = m_pPlayer->GetPositionMovementAmount();
+			m_pGameCamera->SetFakePosition(m_pGameCamera->GetFakePosition() + playerMovementChanged);
+		}
 	}
 
 	// Update the chunk manager

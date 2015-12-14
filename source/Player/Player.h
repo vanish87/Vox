@@ -16,6 +16,7 @@
 #pragma once
 
 #include "../Renderer/Renderer.h"
+#include "../blocks/ChunkManager.h"
 #include "../models/VoxelCharacter.h"
 #include "../Lighting/LightingManager.h"
 #include "../Particles/BlockParticleManager.h"
@@ -25,7 +26,7 @@ class Player
 {
 public:
 	/* Public methods */
-	Player(Renderer* pRenderer, QubicleBinaryManager* pQubicleBinaryManager, LightingManager* pLightingManager, BlockParticleManager* pBlockParticleManager);
+	Player(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryManager* pQubicleBinaryManager, LightingManager* pLightingManager, BlockParticleManager* pBlockParticleManager);
 	~Player();
 
 	// Get voxel character pointer
@@ -49,8 +50,14 @@ public:
 	// Collision
 	bool CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pNormal, vec3 *pMovement);
 
+	// World
+	void UpdateGridPosition();
+	Chunk* GetCachedGridChunkOrFromPosition(vec3 pos);
+	void ClearChunkCacheForChunk(Chunk* pChunk);
+
 	// Movement
-	void MoveAbsolute(vec3 direction, const float speed, bool shouldChangeForward = true);
+	vec3 GetPositionMovementAmount();
+	vec3 MoveAbsolute(vec3 direction, const float speed, bool shouldChangeForward = true);
 	void Move(const float speed);
 	void Strafe(const float speed);
 	void Levitate(const float speed);
@@ -103,6 +110,7 @@ protected:
 private:
 	/* Private members */
 	Renderer* m_pRenderer;
+	ChunkManager* m_pChunkManager;
 	QubicleBinaryManager* m_pQubicleBinaryManager;
 	LightingManager* m_pLightingManager;
 	BlockParticleManager* m_pBlockParticleManager;
@@ -118,6 +126,18 @@ private:
 
 	// The direction of gravity for the player
 	vec3 m_gravityDirection;
+
+	// Keep track of how much we have changed position in the update, based on physics, etc.
+	// So that the fake camera position can be updated, if we are in some kind of follow camera mode.
+	vec3 m_positionMovementAmount;
+
+	// Grid position
+	int m_gridPositionX;
+	int m_gridPositionY;
+	int m_gridPositionZ;
+
+	// Cached chunk from grid position
+	Chunk* m_pCachedGridChunk;
 
 	// Flag to control if we are allowed to jump or not, reset when landing
 	bool m_bCanJump;

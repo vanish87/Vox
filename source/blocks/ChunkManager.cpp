@@ -216,6 +216,9 @@ void ChunkManager::UnloadChunk(Chunk* pChunk)
 		m_chunksMap.erase(coordKeys);
 	}
 
+	// Clear chunk linkage
+	m_pPlayer->ClearChunkCacheForChunk(pChunk);
+
 	// Unload and delete
 	pChunk->Unload();
 	delete pChunk;
@@ -269,6 +272,74 @@ Chunk* ChunkManager::GetChunk(int aX, int aY, int aZ)
 	return NULL;
 }
 
+// Getting the active block state given a position and chunk information
+bool ChunkManager::GetBlockActiveFrom3DPosition(float x, float y, float z, vec3 *blockPos, int* blockX, int* blockY, int* blockZ, Chunk** pChunk)
+{
+	if (*pChunk == NULL)
+	{
+		*pChunk = GetChunkFromPosition(x, y, z);
+
+		if (*pChunk == NULL)
+		{
+			return false;
+		}
+	}
+
+	(*blockX) = (int)((abs(x) + Chunk::BLOCK_RENDER_SIZE) / (Chunk::BLOCK_RENDER_SIZE*2.0f));
+	(*blockY) = (int)((abs(y) + Chunk::BLOCK_RENDER_SIZE) / (Chunk::BLOCK_RENDER_SIZE*2.0f));
+	(*blockZ) = (int)((abs(z) + Chunk::BLOCK_RENDER_SIZE) / (Chunk::BLOCK_RENDER_SIZE*2.0f));
+
+	(*blockX) = (*blockX) % Chunk::CHUNK_SIZE;
+	(*blockY) = (*blockY) % Chunk::CHUNK_SIZE;
+	(*blockZ) = (*blockZ) % Chunk::CHUNK_SIZE;
+
+	(*blockPos).x = (*pChunk)->GetPosition().x + (*blockX) * (Chunk::BLOCK_RENDER_SIZE*2.0f);
+	(*blockPos).y = (*pChunk)->GetPosition().y + (*blockY) * (Chunk::BLOCK_RENDER_SIZE*2.0f);
+	(*blockPos).z = (*pChunk)->GetPosition().z + (*blockZ) * (Chunk::BLOCK_RENDER_SIZE*2.0f);
+
+	if (x < 0.0f)
+	{
+		if ((*blockX) == 0)
+		{
+			(*blockPos).x = (*pChunk)->GetPosition().x;
+		}
+		else
+		{
+			(*blockPos).x = (*pChunk)->GetPosition().x - ((*blockX) * (Chunk::BLOCK_RENDER_SIZE*2.0f)) + (Chunk::CHUNK_SIZE * (Chunk::BLOCK_RENDER_SIZE*2.0f));
+
+			(*blockX) = (Chunk::CHUNK_SIZE) - (*blockX);
+		}
+	}
+	if (y < 0.0f)
+	{
+		if ((*blockY) == 0)
+		{
+			(*blockPos).y = (*pChunk)->GetPosition().y;
+		}
+		else
+		{
+			(*blockPos).y = (*pChunk)->GetPosition().y - ((*blockY) * (Chunk::BLOCK_RENDER_SIZE*2.0f)) + (Chunk::CHUNK_SIZE * (Chunk::BLOCK_RENDER_SIZE*2.0f));
+
+			(*blockY) = (Chunk::CHUNK_SIZE) - (*blockY);
+		}
+	}
+	if (z < 0.0f)
+	{
+		if ((*blockZ) == 0)
+		{
+			(*blockPos).z = (*pChunk)->GetPosition().z;
+		}
+		else
+		{
+			(*blockPos).z = (*pChunk)->GetPosition().z - ((*blockZ) * (Chunk::BLOCK_RENDER_SIZE*2.0f)) + (Chunk::CHUNK_SIZE * (Chunk::BLOCK_RENDER_SIZE*2.0f));
+
+			(*blockZ) = (Chunk::CHUNK_SIZE) - (*blockZ);
+		}
+	}
+
+	return (*pChunk)->GetActive((*blockX), (*blockY), (*blockZ));
+}
+
 // Rendering modes
 void ChunkManager::SetWireframeRender(bool wireframe)
 {
@@ -298,7 +369,8 @@ void ChunkManager::Update(float dt)
 			float yPos = gridY * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
 			float zPos = gridZ * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
 
-			vec3 distanceVec = vec3(xPos, yPos, zPos) - m_pPlayer->GetCenter();
+			vec3 chunkCenter = vec3(xPos, yPos, zPos) + vec3(Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE);
+			vec3 distanceVec = chunkCenter - m_pPlayer->GetCenter();
 			float lengthValue = length(distanceVec);
 
 			if (lengthValue > m_loaderRadius)
@@ -375,7 +447,8 @@ void ChunkManager::Update(float dt)
 			float yPos = coordKey.y * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
 			float zPos = coordKey.z * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
 
-			vec3 distanceVec = vec3(xPos, yPos, zPos) - m_pPlayer->GetCenter();
+			vec3 chunkCenter = vec3(xPos, yPos, zPos) + vec3(Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE);
+			vec3 distanceVec = chunkCenter - m_pPlayer->GetCenter();
 			float lengthValue = length(distanceVec);
 
 			if (lengthValue <= m_loaderRadius)
@@ -419,8 +492,6 @@ void ChunkManager::Render()
 	}
 
 	m_pRenderer->PushMatrix();
-		m_pRenderer->TranslateWorldMatrix(-Chunk::BLOCK_RENDER_SIZE*Chunk::CHUNK_SIZE, -Chunk::BLOCK_RENDER_SIZE*Chunk::CHUNK_SIZE, -Chunk::BLOCK_RENDER_SIZE*Chunk::CHUNK_SIZE);
-
 		typedef map<ChunkCoordKeys, Chunk*>::iterator it_type;
 		for (it_type iterator = m_chunksMap.begin(); iterator != m_chunksMap.end(); iterator++)
 		{

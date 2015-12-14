@@ -138,7 +138,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pBlockParticleManager = new BlockParticleManager(m_pRenderer);
 
 	/* Create the player */
-	m_pPlayer = new Player(m_pRenderer, m_pQubicleBinaryManager, m_pLightingManager, m_pBlockParticleManager);
+	m_pPlayer = new Player(m_pRenderer, m_pChunkManager, m_pQubicleBinaryManager, m_pLightingManager, m_pBlockParticleManager);
 
 	/* Create the frontend manager */
 	m_pFrontendManager = new FrontendManager(m_pRenderer);

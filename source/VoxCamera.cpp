@@ -166,20 +166,60 @@ void VoxGame::UpdateCameraClipping(float dt)
 	{
 		int numIterations = 0;
 		int maxNumIterations = 100;
+		vec3 basePos;
+		vec3 testPos;
+		vec3 cameraFacingUnit = normalize(m_pGameCamera->GetFacing());
 		bool collides = true;
+		int blockX, blockY, blockZ;
+		vec3 blockPos;
+		bool active = false;
 		vec3 toPlayer = ((m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET) - m_pGameCamera->GetFakePosition());
 		float distance = length(toPlayer);
 		float incrementAmount = distance / maxNumIterations;
 		while (collides == true && numIterations < maxNumIterations)
 		{
-			if (cameraPosition.y < 0.0f)
+			collides = false;
+			basePos = cameraPosition;
+
+			vec3 playerRight = m_pPlayer->GetRightVector() * 0.25f;
+			testPos = basePos + playerRight;
+			Chunk* pChunk = NULL;
+			active = m_pChunkManager->GetBlockActiveFrom3DPosition(testPos.x, testPos.y, testPos.z, &blockPos, &blockX, &blockY, &blockZ, &pChunk);
+			if (active)
 			{
-				cameraPosition += m_pGameCamera->GetFacing() * incrementAmount;
 				collides = true;
 			}
-			else
+
+			playerRight = m_pPlayer->GetRightVector() * -0.25f;
+			testPos = basePos + playerRight;
+			pChunk = NULL;
+			active = m_pChunkManager->GetBlockActiveFrom3DPosition(testPos.x, testPos.y, testPos.z, &blockPos, &blockX, &blockY, &blockZ, &pChunk);
+			if (active)
 			{
-				collides = false;
+				collides = true;
+			}
+
+			vec3 playerUp = m_pPlayer->GetUpVector() * -0.25f;
+			testPos = basePos + playerUp;
+			pChunk = NULL;
+			active = m_pChunkManager->GetBlockActiveFrom3DPosition(testPos.x, testPos.y, testPos.z, &blockPos, &blockX, &blockY, &blockZ, &pChunk);
+			if (active)
+			{
+				collides = true;
+			}
+
+			playerUp = m_pPlayer->GetUpVector() * 0.25f;
+			testPos = basePos + playerUp;
+			pChunk = NULL;
+			active = m_pChunkManager->GetBlockActiveFrom3DPosition(testPos.x, testPos.y, testPos.z, &blockPos, &blockX, &blockY, &blockZ, &pChunk);
+			if (active)
+			{
+				collides = true;
+			}
+
+			if (collides == true)
+			{
+				cameraPosition += m_pGameCamera->GetFacing() * incrementAmount;
 			}
 
 			numIterations++;

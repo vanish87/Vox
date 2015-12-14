@@ -13,6 +13,7 @@
 #include "ChunkManager.h"
 #include "../models/QubicleBinary.h"
 #include "../Utils/Random.h"
+#include "../Simplex/simplexnoise.h"
 
 const float Chunk::BLOCK_RENDER_SIZE = 0.5f;
 const float Chunk::CHUNK_RADIUS = sqrt(((CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f)*(CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f))*2.0f) / 2.0f + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*2.0f);
@@ -86,12 +87,19 @@ void Chunk::Setup()
 		{
 			for (int y = 0; y < CHUNK_SIZE; y++)
 			{
+				float xPosition = m_position.x + x;
+				float yPosition = m_position.y + y;
+				float zPosition = m_position.z + z;
+
 				float red = 1.0f;
 				float green = 1.0f;
 				float blue = 1.0f;
 				float alpha = 1.0f;
 
-				if (GetRandomNumber(0, 100) > 95)
+				float noise = octave_noise_3d(4.0f, 0.3f, 0.05f, xPosition, yPosition, zPosition);
+
+				if (noise > 0.25f)
+				//if (y < 8)
 				{
 					SetColour(x, y, z, red, green, blue, alpha);
 				}
@@ -1049,6 +1057,8 @@ void Chunk::RenderDebug()
 
 	m_pRenderer->PushMatrix();
 		m_pRenderer->TranslateWorldMatrix(m_position.x, m_position.y, m_position.z);
+		m_pRenderer->TranslateWorldMatrix(Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE);
+		m_pRenderer->TranslateWorldMatrix(-Chunk::BLOCK_RENDER_SIZE, -Chunk::BLOCK_RENDER_SIZE, -Chunk::BLOCK_RENDER_SIZE);
 
 		m_pRenderer->ImmediateColourAlpha(1.0f, 1.0f, 0.0f, 1.0f);
 		if (IsEmpty())
@@ -1105,10 +1115,12 @@ void Chunk::RenderDebug()
 void Chunk::Render2D(Camera* pCamera, unsigned int viewport, unsigned int font)
 {
 	int winx, winy;
+	vec3 centerPos = m_position + vec3(Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE);
+	centerPos += vec3(-Chunk::BLOCK_RENDER_SIZE, -Chunk::BLOCK_RENDER_SIZE, -Chunk::BLOCK_RENDER_SIZE);
 	m_pRenderer->PushMatrix();
 		m_pRenderer->SetProjectionMode(PM_PERSPECTIVE, viewport);
 		pCamera->Look();
-		m_pRenderer->GetScreenCoordinatesFromWorldPosition(m_position, &winx, &winy);
+		m_pRenderer->GetScreenCoordinatesFromWorldPosition(centerPos, &winx, &winy);
 	m_pRenderer->PopMatrix();
 
 	bool renderChunkGrid = true;

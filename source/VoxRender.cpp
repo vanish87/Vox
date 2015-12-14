@@ -90,7 +90,7 @@ void VoxGame::Render()
 			}
 
 			// Render world
-			RenderWorld();
+			//RenderWorld();
 
 			// Render the chunks
 			m_pChunkManager->Render();
