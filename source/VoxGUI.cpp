@@ -420,9 +420,11 @@ void VoxGame::UpdateGUI(float dt)
 
 	m_pPlayer->SetWireFrameRender(m_modelWireframe);
 	m_pChunkManager->SetWireframeRender(m_modelWireframe);
+	m_pChunkManager->SetFaceMerging(m_pFaceMergingCheckbox->GetToggled());
 	m_pBlockParticleManager->SetWireFrameRender(m_modelWireframe);
 	m_pBlockParticleManager->SetInstancedRendering(m_instanceRender);
 
+	
 	// Update console
 	UpdateConsoleLabels();
 }

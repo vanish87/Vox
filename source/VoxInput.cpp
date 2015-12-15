@@ -491,7 +491,20 @@ void VoxGame::JoystickCameraZoom(float dt)
 
 	float changeY = zoomAmount * dt;
 
-	m_maxCameraDistance += (float)(-changeY);
+	if (m_cameraMode != CameraMode_FirstPerson)
+	{
+		m_maxCameraDistance += (float)(-changeY);
+
+		WrapCameraZoomValue();
+	}
+	else
+	{
+		if (changeY < 0.0f)
+		{
+			m_cameraDistance = 2.0f;
+			m_maxCameraDistance = 2.0f;
+		}
+	}
 
 	WrapCameraZoomValue();
 }

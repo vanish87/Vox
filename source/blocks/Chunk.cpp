@@ -85,21 +85,33 @@ void Chunk::Setup()
 	{
 		for (int z = 0; z < CHUNK_SIZE; z++)
 		{
+			float xPosition = m_position.x + x;
+			//float yPosition = m_position.y + y;
+			float zPosition = m_position.z + z;
+
+			float noise = octave_noise_2d(4.0f, 0.3f, 0.025f, xPosition, zPosition);
+			float noiseNormalized = ((noise + 1.0f) * 0.5f);
+			float noiseHeight = noiseNormalized * CHUNK_SIZE;
+
+			if (m_gridY < 0)
+			{
+				noiseHeight = CHUNK_SIZE;
+			}
+			else if (m_gridY > 0)
+			{
+				noiseHeight = 0;
+			}
+
 			for (int y = 0; y < CHUNK_SIZE; y++)
 			{
-				float xPosition = m_position.x + x;
-				float yPosition = m_position.y + y;
-				float zPosition = m_position.z + z;
 
 				float red = 1.0f;
 				float green = 1.0f;
 				float blue = 1.0f;
-				float alpha = 1.0f;
+				float alpha = 1.0f;				
 
-				float noise = octave_noise_3d(4.0f, 0.3f, 0.05f, xPosition, yPosition, zPosition);
-
-				if (noise > 0.25f)
-				//if (y < 8)
+				//if (noise > 0.25f)
+				if (y < noiseHeight)
 				{
 					SetColour(x, y, z, red, green, blue, alpha);
 				}
@@ -386,7 +398,7 @@ void Chunk::CreateMesh()
 							int endX = (x / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
 							int endY = (y / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
 
-							//if (m_pChunkManager->GetGameWindow()->GetGUIHelper()->GetMergeVoxelFaces())
+							if (m_pChunkManager->GetFaceMerging())
 							{
 								UpdateMergedSide(l_merged, x, y, z, CHUNK_SIZE, CHUNK_SIZE, &p1, &p2, &p3, &p4, x, y, endX, endY, true, true, false, false);
 							}
@@ -434,7 +446,7 @@ void Chunk::CreateMesh()
 							int endX = (x / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
 							int endY = (y / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
 
-							//if (m_pChunkManager->GetGameWindow()->GetGUIHelper()->GetMergeVoxelFaces())
+							if (m_pChunkManager->GetFaceMerging())
 							{
 								UpdateMergedSide(l_merged, x, y, z, CHUNK_SIZE, CHUNK_SIZE, &p6, &p5, &p8, &p7, x, y, endX, endY, false, true, false, false);
 							}
@@ -482,7 +494,7 @@ void Chunk::CreateMesh()
 							int endX = (z / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
 							int endY = (y / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
 
-							//if (m_pChunkManager->GetGameWindow()->GetGUIHelper()->GetMergeVoxelFaces())
+							if (m_pChunkManager->GetFaceMerging())
 							{
 								UpdateMergedSide(l_merged, x, y, z, CHUNK_SIZE, CHUNK_SIZE, &p5, &p2, &p3, &p8, z, y, endX, endY, true, false, true, false);
 							}
@@ -530,7 +542,7 @@ void Chunk::CreateMesh()
 							int endX = (z / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
 							int endY = (y / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
 
-							//if (m_pChunkManager->GetGameWindow()->GetGUIHelper()->GetMergeVoxelFaces())
+							if (m_pChunkManager->GetFaceMerging())
 							{
 								UpdateMergedSide(l_merged, x, y, z, CHUNK_SIZE, CHUNK_SIZE, &p6, &p1, &p4, &p7, z, y, endX, endY, false, false, true, false);
 							}
@@ -578,7 +590,7 @@ void Chunk::CreateMesh()
 							int endX = (x / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
 							int endY = (z / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
 
-							//if (m_pChunkManager->GetGameWindow()->GetGUIHelper()->GetMergeVoxelFaces())
+							if (m_pChunkManager->GetFaceMerging())
 							{
 								UpdateMergedSide(l_merged, x, y, z, CHUNK_SIZE, CHUNK_SIZE, &p7, &p8, &p3, &p4, x, z, endX, endY, true, false, false, true);
 							}
@@ -626,7 +638,7 @@ void Chunk::CreateMesh()
 							int endX = (x / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
 							int endY = (z / CHUNK_SIZE) * CHUNK_SIZE + CHUNK_SIZE;
 
-							//if (m_pChunkManager->GetGameWindow()->GetGUIHelper()->GetMergeVoxelFaces())
+							if (m_pChunkManager->GetFaceMerging())
 							{
 								UpdateMergedSide(l_merged, x, y, z, CHUNK_SIZE, CHUNK_SIZE, &p6, &p5, &p2, &p1, x, z, endX, endY, false, false, false, true);
 							}

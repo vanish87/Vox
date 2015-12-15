@@ -64,6 +64,10 @@ public:
 	// Chunk rendering material
 	unsigned int GetChunkMaterialID();
 
+	// Loader radius
+	void SetLoaderRadius(float radius);
+	float GetLoaderRadius();
+
 	// Chunk Creation
 	void CreateNewChunk(int x, int y, int z);
 	void UnloadChunk(Chunk* pChunk);
@@ -79,6 +83,8 @@ public:
 
 	// Rendering modes
 	void SetWireframeRender(bool wireframe);
+	void SetFaceMerging(bool faceMerge);
+	bool GetFaceMerging();
 
 	// Updating
 	void Update(float dt);
@@ -113,6 +119,7 @@ private:
 
 	// Render modes
 	bool m_wireframeRender;
+	bool m_faceMerging;
 
 	// Chunks storage
 	map<ChunkCoordKeys, Chunk*> m_chunksMap;

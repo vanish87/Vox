@@ -26,6 +26,7 @@ ChunkManager::ChunkManager(Renderer* pRenderer)
 
 	// Rendering modes
 	m_wireframeRender = false;
+	m_faceMerging = true;
 
 	// Create initial chunk
 	CreateNewChunk(0, 0, 0);
@@ -44,6 +45,17 @@ void ChunkManager::SetPlayer(Player* pPlayer)
 unsigned int ChunkManager::GetChunkMaterialID()
 {
 	return m_chunkMaterialID;
+}
+
+// Loader radius
+void ChunkManager::SetLoaderRadius(float radius)
+{
+	m_loaderRadius = radius;
+}
+
+float ChunkManager::GetLoaderRadius()
+{
+	return m_loaderRadius;
 }
 
 // Chunk Creation
@@ -344,6 +356,16 @@ bool ChunkManager::GetBlockActiveFrom3DPosition(float x, float y, float z, vec3 
 void ChunkManager::SetWireframeRender(bool wireframe)
 {
 	m_wireframeRender = wireframe;
+}
+
+void ChunkManager::SetFaceMerging(bool faceMerge)
+{
+	m_faceMerging = faceMerge;
+}
+
+bool ChunkManager::GetFaceMerging()
+{
+	return m_faceMerging;
 }
 
 // Updating

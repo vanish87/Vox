@@ -227,7 +227,8 @@ void VoxGame::RenderShadows()
 		m_pRenderer->StartRenderingToFrameBuffer(m_shadowFrameBuffer);
 		m_pRenderer->SetColourMask(false, false, false, false);
 
-		m_pRenderer->SetupOrthographicProjection(-10.0f, 10.0f, -10.0f, 10.0f, 0.01f, 1000.0f);
+		float loaderRadius = m_pChunkManager->GetLoaderRadius();
+		m_pRenderer->SetupOrthographicProjection(-loaderRadius, loaderRadius, -loaderRadius, loaderRadius, 0.01f, 1000.0f);
 		m_pRenderer->SetLookAtCamera(vec3(m_defaultLightPosition.x, m_defaultLightPosition.y, m_defaultLightPosition.z), m_pPlayer->GetCenter(), vec3(0.0f, 1.0f, 0.0f));
 
 		m_pRenderer->PushMatrix();
