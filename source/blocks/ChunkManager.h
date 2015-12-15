@@ -1,7 +1,7 @@
 // ******************************************************************************
 // Filename:	ChunkManager.h
-// Project:		Game
-// Author:		Steven Ball
+// Project:	Game
+// Author:	Steven Ball
 //
 // Purpose:
 //   ChunkManager handles all the chunk operations and management of the
