@@ -37,6 +37,11 @@ bld/
 # Visual Studio 2015 cache/options directory
 .vs/
 
+# .Net exe files
+*.exe.config
+*.exe.manifest
+*.vshost.exe
+
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
