@@ -73,6 +73,7 @@
   * ~~Chunk loading and unloading based on player position~~
 * ~~Player movement on voxel world and terrain.~~
   * Walking up single block steps automatically.
+* ~~Create Vox EXE launcher. (C# app)~~
 * Convert shaders over to be more unified.
 * Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
@@ -88,4 +89,3 @@
 * Add exit/quit popup when the game is closed or quit using various exit methods.
 * Add voxel editor.
 * Add texture support for voxel blocks.
-* Create Vox EXE launcher. (C# app)
