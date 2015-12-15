@@ -54,6 +54,12 @@ void Chunk::Initialize()
 	// Flags
 	m_emptyChunk = false;
 	m_surroundedChunk = false;
+	m_x_minus_full = false;
+	m_x_plus_full = false;
+	m_y_minus_full = false;
+	m_y_plus_full = false;
+	m_z_minus_full = false;
+	m_z_plus_full = false;
 
 	// Setup and creation
 	m_setup = false;
@@ -76,6 +82,29 @@ void Chunk::Unload()
 	{
 		m_pRenderer->ClearMesh(m_pMesh);
 		m_pMesh = NULL;
+	}
+
+	if (m_setup == true)
+	{
+		Chunk* pChunkXMinus = m_pChunkManager->GetChunk(m_gridX - 1, m_gridY, m_gridZ);
+		Chunk* pChunkXPlus = m_pChunkManager->GetChunk(m_gridX + 1, m_gridY, m_gridZ);
+		Chunk* pChunkYMinus = m_pChunkManager->GetChunk(m_gridX, m_gridY - 1, m_gridZ);
+		Chunk* pChunkYPlus = m_pChunkManager->GetChunk(m_gridX, m_gridY + 1, m_gridZ);
+		Chunk* pChunkZMinus = m_pChunkManager->GetChunk(m_gridX, m_gridY, m_gridZ - 1);
+		Chunk* pChunkZPlus = m_pChunkManager->GetChunk(m_gridX, m_gridY, m_gridZ + 1);
+
+		if (pChunkXMinus != NULL && pChunkXMinus->IsSetup() == true)
+			pChunkXMinus->UpdateSurroundedFlag();
+		if (pChunkXPlus != NULL && pChunkXPlus->IsSetup() == true)
+			pChunkXPlus->UpdateSurroundedFlag();
+		if (pChunkYMinus != NULL && pChunkYMinus->IsSetup() == true)
+			pChunkYMinus->UpdateSurroundedFlag();
+		if (pChunkYPlus != NULL && pChunkYPlus->IsSetup() == true)
+			pChunkYPlus->UpdateSurroundedFlag();
+		if (pChunkZMinus != NULL && pChunkZMinus->IsSetup() == true)
+			pChunkZMinus->UpdateSurroundedFlag();
+		if (pChunkZPlus != NULL && pChunkZPlus->IsSetup() == true)
+			pChunkZPlus->UpdateSurroundedFlag();
 	}
 }
 
@@ -105,12 +134,11 @@ void Chunk::Setup()
 			for (int y = 0; y < CHUNK_SIZE; y++)
 			{
 
-				float red = 1.0f;
-				float green = 1.0f;
-				float blue = 1.0f;
+				float red = 0.0f;
+				float green = 0.56f;
+				float blue = 0.26f;
 				float alpha = 1.0f;				
 
-				//if (noise > 0.25f)
 				if (y < noiseHeight)
 				{
 					SetColour(x, y, z, red, green, blue, alpha);
@@ -320,6 +348,142 @@ bool Chunk::IsEmpty()
 bool Chunk::IsSurrounded()
 {
 	return m_surroundedChunk;
+}
+
+void Chunk::UpdateWallFlags()
+{
+	// Figure out if we have any full walls(sides) and are a completely surrounded chunk
+	int x_minus = 0;
+	int x_plus = 0;
+	int y_minus = 0;
+	int y_plus = 0;
+	int z_minus = 0;
+	int z_plus = 0;
+
+	for (int y = 0; y < CHUNK_SIZE; y++)
+	{
+		for (int z = 0; z < CHUNK_SIZE; z++)
+		{
+			if (GetActive(0, y, z) == true)
+			{
+				x_minus++;
+			}
+
+			if (GetActive(CHUNK_SIZE - 1, y, z) == true)
+			{
+				x_plus++;
+			}
+		}
+	}
+
+	for (int x = 0; x < CHUNK_SIZE; x++)
+	{
+		for (int z = 0; z < CHUNK_SIZE; z++)
+		{
+			if (GetActive(x, 0, z) == true)
+			{
+				y_minus++;
+			}
+
+			if (GetActive(x, CHUNK_SIZE - 1, z) == true)
+			{
+				y_plus++;
+			}
+		}
+	}
+
+	for (int x = 0; x < CHUNK_SIZE; x++)
+	{
+		for (int y = 0; y < CHUNK_SIZE; y++)
+		{
+			if (GetActive(x, y, 0) == true)
+			{
+				z_minus++;
+			}
+
+			if (GetActive(x, y, CHUNK_SIZE - 1) == true)
+			{
+				z_plus++;
+			}
+		}
+	}
+
+	// Reset the wall flags first
+	m_x_minus_full = false;
+	m_x_plus_full = false;
+	m_y_minus_full = false;
+	m_y_plus_full = false;
+	m_z_minus_full = false;
+	m_z_plus_full = false;
+
+	// Set the flags to show if we have any sides completely full
+	int wallsize = CHUNK_SIZE*CHUNK_SIZE;
+	if (x_minus == wallsize)
+		m_x_minus_full = true;
+
+	if (x_plus == wallsize)
+		m_x_plus_full = true;
+
+	if (y_minus == wallsize)
+		m_y_minus_full = true;
+
+	if (y_plus == wallsize)
+		m_y_plus_full = true;
+
+	if (z_minus == wallsize)
+		m_z_minus_full = true;
+
+	if (z_plus == wallsize)
+		m_z_plus_full = true;
+}
+
+bool Chunk::UpdateSurroundedFlag()
+{
+	if (m_pChunkManager == NULL)
+	{
+		return false;
+	}
+
+	Chunk* pChunkXMinus = m_pChunkManager->GetChunk(m_gridX - 1, m_gridY, m_gridZ);
+	Chunk* pChunkXPlus = m_pChunkManager->GetChunk(m_gridX + 1, m_gridY, m_gridZ);
+	Chunk* pChunkYMinus = m_pChunkManager->GetChunk(m_gridX, m_gridY - 1, m_gridZ);
+	Chunk* pChunkYPlus = m_pChunkManager->GetChunk(m_gridX, m_gridY + 1, m_gridZ);
+	Chunk* pChunkZMinus = m_pChunkManager->GetChunk(m_gridX, m_gridY, m_gridZ - 1);
+	Chunk* pChunkZPlus = m_pChunkManager->GetChunk(m_gridX, m_gridY, m_gridZ + 1);
+
+	// Check our neighbor chunks
+	if (pChunkXMinus != NULL && pChunkXMinus->IsSetup() == true && pChunkXMinus->m_x_plus_full &&
+		pChunkXPlus != NULL && pChunkXPlus->IsSetup() == true && pChunkXPlus->m_x_minus_full &&
+		pChunkYMinus != NULL && pChunkYMinus->IsSetup() == true && pChunkYMinus->m_y_plus_full &&
+		pChunkYPlus != NULL && pChunkYPlus->IsSetup() == true && pChunkYPlus->m_y_minus_full &&
+		pChunkZMinus != NULL && pChunkZMinus->IsSetup() == true && pChunkZMinus->m_z_plus_full &&
+		pChunkZPlus != NULL && pChunkZPlus->IsSetup() == true && pChunkZPlus->m_z_minus_full)
+	{
+		m_surroundedChunk = true;
+	}
+	else
+	{
+		m_surroundedChunk = false;
+	}
+
+	return true;
+}
+
+void Chunk::UpdateEmptyFlag()
+{
+	// Figure out if we are a completely empty chunk
+	int numVerts;
+	int numTriangles;
+	m_pRenderer->GetMeshInformation(&numVerts, &numTriangles, m_pMesh);
+
+	if (numVerts == 0 && numTriangles == 0)
+	{
+		m_emptyChunk = true;
+	}
+	else
+	{
+		m_emptyChunk = false;
+	}
 }
 
 // Create mesh
@@ -661,11 +825,16 @@ void Chunk::CreateMesh()
 			}
 		}
 	}
+
+	// Delete the merged array
+	delete l_merged;
 }
 
 void Chunk::CompleteMesh()
 {
 	m_pRenderer->FinishMesh(-1, m_pChunkManager->GetChunkMaterialID(), m_pMesh);
+
+	UpdateEmptyFlag();
 }
 
 void Chunk::UpdateMergedSide(int *merged, int blockx, int blocky, int blockz, int width, int height, vec3 *p1, vec3 *p2, vec3 *p3, vec3 *p4, int startX, int startY, int maxX, int maxY, bool positive, bool zFace, bool xFace, bool yFace)
@@ -1022,6 +1191,30 @@ void Chunk::RebuildMesh()
 	}
 
 	CreateMesh();
+
+	// Update our wall flags, so that our neighbors can check if they are surrounded
+	UpdateWallFlags();
+	UpdateSurroundedFlag();
+
+	Chunk* pChunkXMinus = m_pChunkManager->GetChunk(m_gridX - 1, m_gridY, m_gridZ);
+	Chunk* pChunkXPlus = m_pChunkManager->GetChunk(m_gridX + 1, m_gridY, m_gridZ);
+	Chunk* pChunkYMinus = m_pChunkManager->GetChunk(m_gridX, m_gridY - 1, m_gridZ);
+	Chunk* pChunkYPlus = m_pChunkManager->GetChunk(m_gridX, m_gridY + 1, m_gridZ);
+	Chunk* pChunkZMinus = m_pChunkManager->GetChunk(m_gridX, m_gridY, m_gridZ - 1);
+	Chunk* pChunkZPlus = m_pChunkManager->GetChunk(m_gridX, m_gridY, m_gridZ + 1);
+
+	if (pChunkXMinus != NULL && pChunkXMinus->IsSetup() == true)
+		pChunkXMinus->UpdateSurroundedFlag();
+	if (pChunkXPlus != NULL && pChunkXPlus->IsSetup() == true)
+		pChunkXPlus->UpdateSurroundedFlag();
+	if (pChunkYMinus != NULL && pChunkYMinus->IsSetup() == true)
+		pChunkYMinus->UpdateSurroundedFlag();
+	if (pChunkYPlus != NULL && pChunkYPlus->IsSetup() == true)
+		pChunkYPlus->UpdateSurroundedFlag();
+	if (pChunkZMinus != NULL && pChunkZMinus->IsSetup() == true)
+		pChunkZMinus->UpdateSurroundedFlag();
+	if (pChunkZPlus != NULL && pChunkZPlus->IsSetup() == true)
+		pChunkZPlus->UpdateSurroundedFlag();
 }
 
 // Updating
@@ -1142,13 +1335,19 @@ void Chunk::Render2D(Camera* pCamera, unsigned int viewport, unsigned int font)
 		sprintf_s(lLine1, 64, "%i, %i, %i", m_gridX, m_gridY, m_gridZ);
 		char lLine2[64];
 		sprintf_s(lLine2, 64, "Neighbours: %i", m_numNeighbours);
+		char lLine3[64];
+		sprintf_s(lLine3, 64, "Empty: %s", m_emptyChunk ? "true" : "false");
+		char lLine4[64];
+		sprintf_s(lLine4, 64, "Surrounded: %s", m_surroundedChunk ? "true" : "false");
 
 		m_pRenderer->PushMatrix();
 			m_pRenderer->SetRenderMode(RM_SOLID);
 			m_pRenderer->SetProjectionMode(PM_2D, viewport);
 			m_pRenderer->SetLookAtCamera(vec3(0.0f, 0.0f, 250.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
 			m_pRenderer->RenderFreeTypeText(font, (float)winx, (float)winy, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "%s", lLine1);
-			m_pRenderer->RenderFreeTypeText(font, (float)winx, (float)winy-20.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "%s", lLine2);
+			m_pRenderer->RenderFreeTypeText(font, (float)winx, (float)winy - 20.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "%s", lLine2);
+			m_pRenderer->RenderFreeTypeText(font, (float)winx, (float)winy - 40.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "%s", lLine3);
+			m_pRenderer->RenderFreeTypeText(font, (float)winx, (float)winy - 60.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "%s", lLine4);
 		m_pRenderer->PopMatrix();
 	}
 }

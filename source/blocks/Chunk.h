@@ -81,6 +81,9 @@ public:
 	// Flags
 	bool IsEmpty();
 	bool IsSurrounded();
+	void UpdateWallFlags();
+	bool UpdateSurroundedFlag();
+	void UpdateEmptyFlag();
 
 	// Create mesh
 	void CreateMesh();
@@ -143,6 +146,14 @@ private:
 	// Flags for empty chunk and completely surrounded
 	bool m_emptyChunk;
 	bool m_surroundedChunk;
+
+	// Used for testing if chunk completely covers neighbour chunks
+	bool m_x_minus_full;
+	bool m_x_plus_full;
+	bool m_y_minus_full;
+	bool m_y_plus_full;
+	bool m_z_minus_full;
+	bool m_z_plus_full;
 
 	// The blocks data
 	unsigned int *m_colour;
