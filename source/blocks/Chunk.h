@@ -1,7 +1,7 @@
 // ******************************************************************************
 // Filename:	Chunk.h
-// Project:		Game
-// Author:		Steven Ball
+// Project:	Game
+// Author:	Steven Ball
 //
 // Purpose:
 //   A chunk is a collection of voxel blocks that are arranged together for
