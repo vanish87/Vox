@@ -78,10 +78,13 @@
 * Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
 * Add scenery manager.
+  * Add scenery to work, generation based on point distribution, poisson disc, etc.
+* Add item manager.
 * Create basic front-end.
 * Create front end scene and character line up.
 * Character creation and customization.
 * Saving and loading chunks.
+  * Group together chunks for saving, loading. Not indivisual
 * Add character creator and customization from front-end.
 * Add debug log information for model loading and rendering - num verts, tris, faces, etc.
 * Add pause menu when ESC is pressed, and add popup in center of screen.
