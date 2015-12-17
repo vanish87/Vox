@@ -68,7 +68,6 @@
   * ~~Log when loading/saving model files.~~
   * Log on errors.
   * Allow input commands.
-  * Also output logs to cout.
 * ~~Terrain generation via chunks.~~
   * ~~Chunk loading and unloading based on player position~~
 * ~~Player movement on voxel world and terrain.~~
