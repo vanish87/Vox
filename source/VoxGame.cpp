@@ -127,6 +127,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 
 	/* Create the chunk manager*/
 	m_pChunkManager = new ChunkManager(m_pRenderer);
+	m_pChunkManager->SetStepLockEnabled(m_pVoxSettings->m_stepUpdating);
 
 	/* Create the qubicle binary file manager */
 	m_pQubicleBinaryManager = new QubicleBinaryManager(m_pRenderer);

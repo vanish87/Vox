@@ -27,6 +27,9 @@ public:
 	// Load settings
 	void LoadSettings();
 
+	// Save settings
+	void SaveSettings();
+
 protected:
 	/* Protected methods */
 
@@ -51,6 +54,7 @@ public:
 	bool m_wireframeRendering;
 	bool m_debugRendering;
 	bool m_faceMerging;
+	bool m_stepUpdating;
 
 protected:
 	/* Protected members */

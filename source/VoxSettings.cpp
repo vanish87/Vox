@@ -56,4 +56,11 @@ void VoxSettings::LoadSettings()
 	m_wireframeRendering = reader.GetBoolean("Graphics", "WireframeRendering", false);
 	m_debugRendering = reader.GetBoolean("Graphics", "DebugRendering", false);
 	m_faceMerging = reader.GetBoolean("Graphics", "FaceMerging", false);
+
+	m_stepUpdating = reader.GetBoolean("Debug", "StepUpdatng", false);
+}
+
+// Save settings
+void VoxSettings::SaveSettings()
+{
 }

@@ -179,6 +179,9 @@ protected:
 	static void _FaceMergeCheckboxChanged(void *apData);
 	void FaceMergeCheckboxChanged();
 
+	static void _StepUpdatePressed(void *apData);
+	void StepUpdatePressed();
+
 	static void _ConsoleReturnPressed(void *apData);
 	void ConsoleReturnPressed();
 	
@@ -362,6 +365,8 @@ private:
 	OptionBox* m_pFirstPersonCameraOptionBox;
 	OptionController* m_pCameraModeOptionController;
 	CheckBox* m_pFaceMergingCheckbox;
+	CheckBox* m_pStepUpdateCheckbox;
+	Button* m_pStepUpdateButton;
 	GUIWindow* m_pConsoleWindow;
 	TextBox* m_pConsoleTextbox;
 	ScrollBar* m_pConsoleScrollbar;

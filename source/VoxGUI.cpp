@@ -154,6 +154,15 @@ void VoxGame::CreateGUI()
 	m_pFaceMergingCheckbox->SetCallBackFunction(_FaceMergeCheckboxChanged);
 	m_pFaceMergingCheckbox->SetCallBackData(this);
 
+	m_pStepUpdateCheckbox = new CheckBox(m_pRenderer, m_defaultFont, "Step Update");
+	m_pStepUpdateCheckbox->SetDimensions(110, 10, 14, 14);
+
+	m_pStepUpdateButton = new Button(m_pRenderer, m_defaultFont, "Step");
+	m_pStepUpdateButton->SetDimensions(200, 5, 85, 25);
+	m_pStepUpdateButton->SetLabelColour(Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	m_pStepUpdateButton->SetCallBackFunction(_StepUpdatePressed);
+	m_pStepUpdateButton->SetCallBackData(this);
+
 	m_pDebugCameraOptionBox = new OptionBox(m_pRenderer, m_defaultFont, "Debug");
 	m_pDebugCameraOptionBox->SetDimensions(10, 70, 14, 14);
 	m_pDebugCameraOptionBox->SetCallBackFunction(_CameraModeChanged);
@@ -187,6 +196,8 @@ void VoxGame::CreateGUI()
 	m_pGameWindow->AddComponent(m_pGUIThemePulldown);
 	m_pGameWindow->AddComponent(m_pCameraModeOptionController);
 	m_pGameWindow->AddComponent(m_pFaceMergingCheckbox);
+	m_pGameWindow->AddComponent(m_pStepUpdateCheckbox);
+	m_pGameWindow->AddComponent(m_pStepUpdateButton);
 
 	// Console window
 	m_pConsoleWindow = new GUIWindow(m_pRenderer, m_defaultFont, "Console");
@@ -248,6 +259,7 @@ void VoxGame::SetupGUI()
 	m_pWireframeCheckBox->SetToggled(m_pVoxSettings->m_wireframeRendering);
 	m_pDebugRenderCheckBox->SetToggled(m_pVoxSettings->m_debugRendering);
 	m_pFaceMergingCheckbox->SetToggled(m_pVoxSettings->m_faceMerging);
+	m_pStepUpdateCheckbox->SetToggled(m_pVoxSettings->m_stepUpdating);
 }
 
 void VoxGame::SkinGUI()
@@ -260,6 +272,7 @@ void VoxGame::SkinGUI()
 	m_pFrontendManager->SetCheckboxIcons(m_pDeferredCheckBox);
 	m_pFrontendManager->SetCheckboxIcons(m_pWireframeCheckBox);
 	m_pFrontendManager->SetCheckboxIcons(m_pFaceMergingCheckbox);
+	m_pFrontendManager->SetCheckboxIcons(m_pStepUpdateCheckbox);
 	m_pFrontendManager->SetCheckboxIcons(m_pUpdateCheckBox);
 	m_pFrontendManager->SetCheckboxIcons(m_pDebugRenderCheckBox);
 	m_pFrontendManager->SetCheckboxIcons(m_pInstanceRenderCheckBox);
@@ -282,6 +295,7 @@ void VoxGame::SkinGUI()
 
 	m_pFrontendManager->SetButtonIcons(m_pFullscreenButton, ButtonSize_85x25);
 	m_pFrontendManager->SetButtonIcons(m_pPlayAnimationButton, ButtonSize_85x25);
+	m_pFrontendManager->SetButtonIcons(m_pStepUpdateButton, ButtonSize_85x25);
 }
 
 void VoxGame::UnSkinGUI()
@@ -294,6 +308,7 @@ void VoxGame::UnSkinGUI()
 	m_pDeferredCheckBox->SetDefaultIcons(m_pRenderer);
 	m_pWireframeCheckBox->SetDefaultIcons(m_pRenderer);
 	m_pFaceMergingCheckbox->SetDefaultIcons(m_pRenderer);
+	m_pStepUpdateCheckbox->SetDefaultIcons(m_pRenderer);
 	m_pUpdateCheckBox->SetDefaultIcons(m_pRenderer);
 	m_pDebugRenderCheckBox->SetDefaultIcons(m_pRenderer);
 	m_pInstanceRenderCheckBox->SetDefaultIcons(m_pRenderer);
@@ -314,6 +329,7 @@ void VoxGame::UnSkinGUI()
 
 	m_pFullscreenButton->SetDefaultIcons(m_pRenderer);
 	m_pPlayAnimationButton->SetDefaultIcons(m_pRenderer);
+	m_pStepUpdateButton->SetDefaultIcons(m_pRenderer);
 
 	m_pConsoleScrollbar->SetDefaultIcons(m_pRenderer);
 }
@@ -343,6 +359,8 @@ void VoxGame::DestroyGUI()
 	delete m_pGameModeOptionController;
 	delete m_pGUIThemePulldown;
 	delete m_pFaceMergingCheckbox;
+	delete m_pStepUpdateCheckbox;
+	delete m_pStepUpdateButton;
 	delete m_pDebugCameraOptionBox;
 	delete m_pMouseRotateCameraOptionBox;
 	delete m_pAutoCameraOptionBox;
@@ -421,6 +439,7 @@ void VoxGame::UpdateGUI(float dt)
 	m_pPlayer->SetWireFrameRender(m_modelWireframe);
 	m_pChunkManager->SetWireframeRender(m_modelWireframe);
 	m_pChunkManager->SetFaceMerging(m_pFaceMergingCheckbox->GetToggled());
+	m_pChunkManager->SetStepLockEnabled(m_pStepUpdateCheckbox->GetToggled());
 	m_pBlockParticleManager->SetWireFrameRender(m_modelWireframe);
 	m_pBlockParticleManager->SetInstancedRendering(m_instanceRender);
 
@@ -886,6 +905,17 @@ void VoxGame::FaceMergeCheckboxChanged()
 	bool faceMerging = m_pFaceMergingCheckbox->GetToggled();
 
 	m_pPlayer->RebuildVoxelCharacter(faceMerging);
+}
+
+void VoxGame::_StepUpdatePressed(void *apData)
+{
+	VoxGame* lpVoxGame = (VoxGame*)apData;
+	lpVoxGame->StepUpdatePressed();
+}
+
+void VoxGame::StepUpdatePressed()
+{
+	m_pChunkManager->StepNextUpdate();
 }
 
 void VoxGame::_ConsoleReturnPressed(void *apData)
