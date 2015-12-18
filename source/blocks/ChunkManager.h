@@ -68,6 +68,10 @@ public:
 	void SetLoaderRadius(float radius);
 	float GetLoaderRadius();
 
+	// Step update
+	void SetStepLockEnabled(bool enabled);
+	void StepNextUpdate();
+
 	// Chunk Creation
 	void CreateNewChunk(int x, int y, int z);
 	void UnloadChunk(Chunk* pChunk);
@@ -116,6 +120,10 @@ private:
 
 	// Loader radius
 	float m_loaderRadius;
+
+	// Update step lock
+	bool m_stepLockEnabled;
+	bool m_updateStepLock;
 
 	// Render modes
 	bool m_wireframeRender;

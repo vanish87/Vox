@@ -24,6 +24,10 @@ ChunkManager::ChunkManager(Renderer* pRenderer)
 	// Loader radius
 	m_loaderRadius = 32.0f;
 
+	// Update lock
+	m_stepLockEnabled = false;
+	m_updateStepLock = true;
+
 	// Rendering modes
 	m_wireframeRender = false;
 	m_faceMerging = true;
@@ -56,6 +60,17 @@ void ChunkManager::SetLoaderRadius(float radius)
 float ChunkManager::GetLoaderRadius()
 {
 	return m_loaderRadius;
+}
+
+// Step update
+void ChunkManager::SetStepLockEnabled(bool enabled)
+{
+	m_stepLockEnabled = enabled;
+}
+
+void ChunkManager::StepNextUpdate()
+{
+	m_updateStepLock = false;
 }
 
 // Chunk Creation
@@ -371,6 +386,11 @@ bool ChunkManager::GetFaceMerging()
 // Updating
 void ChunkManager::Update(float dt)
 {
+	if (m_stepLockEnabled == true && m_updateStepLock == true)
+	{
+		return;
+	}
+
 	ChunkCoordKeysList addChunkList;
 	ChunkList unloadChunkList;
 
@@ -493,6 +513,11 @@ void ChunkManager::Update(float dt)
 		UnloadChunk(pChunk);
 	}
 	unloadChunkList.clear();
+
+	if (m_stepLockEnabled == true && m_updateStepLock == false)
+	{
+		m_updateStepLock = true;
+	}
 }
 
 // Rendering
