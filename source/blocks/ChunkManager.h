@@ -23,6 +23,9 @@
 #include <map>
 using namespace std;
 
+#include "../tinythread/tinythread.h"
+using namespace tthread;
+
 class Player;
 
 struct ChunkCoordKeys {
@@ -92,7 +95,9 @@ public:
 
 	// Updating
 	void Update(float dt);
-	
+	static void _UpdatingChunksThread(void* pData);
+	void UpdatingChunksThread();
+
 	// Rendering
 	void Render();
 	void RenderDebug();
@@ -131,4 +136,8 @@ private:
 
 	// Chunks storage
 	map<ChunkCoordKeys, Chunk*> m_chunksMap;
+
+	// Threading
+	thread* m_pUpdatingChunksThread;
+	mutex m_ChunkMapMutexLock;
 };

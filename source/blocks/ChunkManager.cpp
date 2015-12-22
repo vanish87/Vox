@@ -16,6 +16,7 @@
 ChunkManager::ChunkManager(Renderer* pRenderer)
 {
 	m_pRenderer = pRenderer;
+	m_pPlayer = NULL;
 
 	// Chunk material
 	m_chunkMaterialID = -1;
@@ -34,6 +35,9 @@ ChunkManager::ChunkManager(Renderer* pRenderer)
 
 	// Create initial chunk
 	CreateNewChunk(0, 0, 0);
+
+	// Threading
+	m_pUpdatingChunksThread = new thread(_UpdatingChunksThread, this);
 }
 
 ChunkManager::~ChunkManager()
@@ -97,7 +101,9 @@ void ChunkManager::CreateNewChunk(int x, int y, int z)
 
 	UpdateChunkNeighbours(pNewChunk, x, y, z);
 
+	m_ChunkMapMutexLock.lock();
 	m_chunksMap[coordKeys] = pNewChunk;
+	m_ChunkMapMutexLock.unlock();
 }
 
 void ChunkManager::UpdateChunkNeighbours(Chunk* pChunk, int x, int y, int z)
@@ -237,14 +243,19 @@ void ChunkManager::UnloadChunk(Chunk* pChunk)
 	}
 
 	// Remove from map
+	m_ChunkMapMutexLock.lock();
 	map<ChunkCoordKeys, Chunk*>::iterator it = m_chunksMap.find(coordKeys);
 	if (it != m_chunksMap.end())
 	{
 		m_chunksMap.erase(coordKeys);
 	}
+	m_ChunkMapMutexLock.unlock();
 
 	// Clear chunk linkage
-	m_pPlayer->ClearChunkCacheForChunk(pChunk);
+	if (m_pPlayer != NULL)
+	{
+		m_pPlayer->ClearChunkCacheForChunk(pChunk);
+	}
 
 	// Unload and delete
 	pChunk->Unload();
@@ -289,12 +300,15 @@ Chunk* ChunkManager::GetChunk(int aX, int aY, int aZ)
 	chunkKey.y = aY;
 	chunkKey.z = aZ;
 
+	m_ChunkMapMutexLock.lock();
 	map<ChunkCoordKeys, Chunk*>::iterator it = m_chunksMap.find(chunkKey);
 	if (it != m_chunksMap.end())
 	{
 		Chunk* lpReturn = m_chunksMap[chunkKey];
+		m_ChunkMapMutexLock.unlock();
 		return lpReturn;
 	}
+	m_ChunkMapMutexLock.unlock();
 
 	return NULL;
 }
@@ -386,137 +400,159 @@ bool ChunkManager::GetFaceMerging()
 // Updating
 void ChunkManager::Update(float dt)
 {
-	if (m_stepLockEnabled == true && m_updateStepLock == true)
+}
+
+void ChunkManager::_UpdatingChunksThread(void* pData)
+{
+	ChunkManager* lpChunkManager = (ChunkManager*)pData;
+	lpChunkManager->UpdatingChunksThread();
+}
+
+void ChunkManager::UpdatingChunksThread()
+{
+	while (true)
 	{
-		return;
-	}
-
-	ChunkCoordKeysList addChunkList;
-	ChunkList unloadChunkList;
-
-	typedef map<ChunkCoordKeys, Chunk*>::iterator it_type;
-	for (it_type iterator = m_chunksMap.begin(); iterator != m_chunksMap.end(); iterator++)
-	{
-		Chunk* pChunk = iterator->second;
-
-		if (pChunk != NULL)
+		while (m_pPlayer == NULL)
 		{
-			pChunk->Update(dt);
+			Sleep(100);
+		}
 
-			int gridX = pChunk->GetGridX();
-			int gridY = pChunk->GetGridY();
-			int gridZ = pChunk->GetGridZ();
+		while (m_stepLockEnabled == true && m_updateStepLock == true)
+		{
+			Sleep(100);
+		}
 
-			float xPos = gridX * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
-			float yPos = gridY * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
-			float zPos = gridZ * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+		ChunkCoordKeysList addChunkList;
+		ChunkList unloadChunkList;
 
-			vec3 chunkCenter = vec3(xPos, yPos, zPos) + vec3(Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE);
-			vec3 distanceVec = chunkCenter - m_pPlayer->GetCenter();
-			float lengthValue = length(distanceVec);
+		m_ChunkMapMutexLock.lock();
+		typedef map<ChunkCoordKeys, Chunk*>::iterator it_type;
+		for (it_type iterator = m_chunksMap.begin(); iterator != m_chunksMap.end(); iterator++)
+		{
+			Chunk* pChunk = iterator->second;
 
-			if (lengthValue > m_loaderRadius)
+			if (pChunk != NULL)
 			{
-				unloadChunkList.push_back(pChunk);
-			}
-			else
-			{
-				// Check neighbours
-				if (pChunk->GetNumNeighbours() < 6)
+				pChunk->Update(0.01f);
+
+				int gridX = pChunk->GetGridX();
+				int gridY = pChunk->GetGridY();
+				int gridZ = pChunk->GetGridZ();
+
+				float xPos = gridX * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+				float yPos = gridY * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+				float zPos = gridZ * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+
+				vec3 chunkCenter = vec3(xPos, yPos, zPos) + vec3(Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE);
+				vec3 distanceVec = chunkCenter - m_pPlayer->GetCenter();
+				float lengthValue = length(distanceVec);
+
+				if (lengthValue > m_loaderRadius)
 				{
-					if (pChunk->GetxMinus() == NULL)
+					unloadChunkList.push_back(pChunk);
+				}
+				else
+				{
+					// Check neighbours
+					if (pChunk->GetNumNeighbours() < 6)
 					{
-						ChunkCoordKeys coordKey;
-						coordKey.x = gridX - 1;
-						coordKey.y = gridY;
-						coordKey.z = gridZ;
-						addChunkList.push_back(coordKey);
-					}
-					if (pChunk->GetxPlus() == NULL)
-					{
-						ChunkCoordKeys coordKey;
-						coordKey.x = gridX + 1;
-						coordKey.y = gridY;
-						coordKey.z = gridZ;
-						addChunkList.push_back(coordKey);
-					}
-					if (pChunk->GetyMinus() == NULL)
-					{
-						ChunkCoordKeys coordKey;
-						coordKey.x = gridX;
-						coordKey.y = gridY - 1;
-						coordKey.z = gridZ;
-						addChunkList.push_back(coordKey);
-					}
-					if (pChunk->GetyPlus() == NULL)
-					{
-						ChunkCoordKeys coordKey;
-						coordKey.x = gridX;
-						coordKey.y = gridY + 1;
-						coordKey.z = gridZ;
-						addChunkList.push_back(coordKey);
-					}
-					if (pChunk->GetzMinus() == NULL)
-					{
-						ChunkCoordKeys coordKey;
-						coordKey.x = gridX;
-						coordKey.y = gridY;
-						coordKey.z = gridZ - 1;
-						addChunkList.push_back(coordKey);
-					}
-					if (pChunk->GetzPlus() == NULL)
-					{
-						ChunkCoordKeys coordKey;
-						coordKey.x = gridX;
-						coordKey.y = gridY;
-						coordKey.z = gridZ + 1;
-						addChunkList.push_back(coordKey);
+						if (pChunk->GetxMinus() == NULL)
+						{
+							ChunkCoordKeys coordKey;
+							coordKey.x = gridX - 1;
+							coordKey.y = gridY;
+							coordKey.z = gridZ;
+							addChunkList.push_back(coordKey);
+						}
+						if (pChunk->GetxPlus() == NULL)
+						{
+							ChunkCoordKeys coordKey;
+							coordKey.x = gridX + 1;
+							coordKey.y = gridY;
+							coordKey.z = gridZ;
+							addChunkList.push_back(coordKey);
+						}
+						if (pChunk->GetyMinus() == NULL)
+						{
+							ChunkCoordKeys coordKey;
+							coordKey.x = gridX;
+							coordKey.y = gridY - 1;
+							coordKey.z = gridZ;
+							addChunkList.push_back(coordKey);
+						}
+						if (pChunk->GetyPlus() == NULL)
+						{
+							ChunkCoordKeys coordKey;
+							coordKey.x = gridX;
+							coordKey.y = gridY + 1;
+							coordKey.z = gridZ;
+							addChunkList.push_back(coordKey);
+						}
+						if (pChunk->GetzMinus() == NULL)
+						{
+							ChunkCoordKeys coordKey;
+							coordKey.x = gridX;
+							coordKey.y = gridY;
+							coordKey.z = gridZ - 1;
+							addChunkList.push_back(coordKey);
+						}
+						if (pChunk->GetzPlus() == NULL)
+						{
+							ChunkCoordKeys coordKey;
+							coordKey.x = gridX;
+							coordKey.y = gridY;
+							coordKey.z = gridZ + 1;
+							addChunkList.push_back(coordKey);
+						}
 					}
 				}
 			}
 		}
-	}
+		m_ChunkMapMutexLock.unlock();
 
-	// Adding chunks
-	for (unsigned int i = 0; i < (int)addChunkList.size(); i++)
-	{
-		ChunkCoordKeys coordKey = addChunkList[i];
-		Chunk* pChunk = GetChunk(coordKey.x, coordKey.y, coordKey.z);
-
-		if (pChunk == NULL)
+		// Adding chunks
+		for (unsigned int i = 0; i < (int)addChunkList.size(); i++)
 		{
-			float xPos = coordKey.x * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
-			float yPos = coordKey.y * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
-			float zPos = coordKey.z * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+			ChunkCoordKeys coordKey = addChunkList[i];
+			Chunk* pChunk = GetChunk(coordKey.x, coordKey.y, coordKey.z);
 
-			vec3 chunkCenter = vec3(xPos, yPos, zPos) + vec3(Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE);
-			vec3 distanceVec = chunkCenter - m_pPlayer->GetCenter();
-			float lengthValue = length(distanceVec);
-
-			if (lengthValue <= m_loaderRadius)
+			if (pChunk == NULL)
 			{
-				CreateNewChunk(coordKey.x, coordKey.y, coordKey.z);
+				float xPos = coordKey.x * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+				float yPos = coordKey.y * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+				float zPos = coordKey.z * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+
+				vec3 chunkCenter = vec3(xPos, yPos, zPos) + vec3(Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE);
+				vec3 distanceVec = chunkCenter - m_pPlayer->GetCenter();
+				float lengthValue = length(distanceVec);
+
+				if (lengthValue <= m_loaderRadius)
+				{
+					CreateNewChunk(coordKey.x, coordKey.y, coordKey.z);
+				}
+			}
+			else
+			{
+				UpdateChunkNeighbours(pChunk, coordKey.x, coordKey.y, coordKey.z);
 			}
 		}
-		else
+		addChunkList.clear();
+
+		// Unloading chunks
+		for (unsigned int i = 0; i < (int)unloadChunkList.size(); i++)
 		{
-			UpdateChunkNeighbours(pChunk, coordKey.x, coordKey.y, coordKey.z);
+			Chunk* pChunk = unloadChunkList[i];
+
+			UnloadChunk(pChunk);
 		}
-	}
-	addChunkList.clear();
+		unloadChunkList.clear();
 
-	// Unloading chunks
-	for (unsigned int i = 0; i < (int)unloadChunkList.size(); i++)
-	{
-		Chunk* pChunk = unloadChunkList[i];
+		if (m_stepLockEnabled == true && m_updateStepLock == false)
+		{
+			m_updateStepLock = true;
+		}
 
-		UnloadChunk(pChunk);
-	}
-	unloadChunkList.clear();
-
-	if (m_stepLockEnabled == true && m_updateStepLock == false)
-	{
-		m_updateStepLock = true;
+		Sleep(10);
 	}
 }
 
@@ -539,6 +575,7 @@ void ChunkManager::Render()
 	}
 
 	m_pRenderer->PushMatrix();
+		m_ChunkMapMutexLock.lock();
 		typedef map<ChunkCoordKeys, Chunk*>::iterator it_type;
 		for (it_type iterator = m_chunksMap.begin(); iterator != m_chunksMap.end(); iterator++)
 		{
@@ -549,6 +586,7 @@ void ChunkManager::Render()
 				pChunk->Render();
 			}
 		}
+		m_ChunkMapMutexLock.unlock();
 	m_pRenderer->PopMatrix();
 
 	// Restore cull mode
@@ -559,6 +597,7 @@ void ChunkManager::Render()
 
 void ChunkManager::RenderDebug()
 {
+	m_ChunkMapMutexLock.lock();
 	typedef map<ChunkCoordKeys, Chunk*>::iterator it_type;
 	for (it_type iterator = m_chunksMap.begin(); iterator != m_chunksMap.end(); iterator++)
 	{
@@ -569,10 +608,12 @@ void ChunkManager::RenderDebug()
 			pChunk->RenderDebug();
 		}
 	}
+	m_ChunkMapMutexLock.unlock();
 }
 
 void ChunkManager::Render2D(Camera* pCamera, unsigned int viewport, unsigned int font)
 {
+	m_ChunkMapMutexLock.lock();
 	typedef map<ChunkCoordKeys, Chunk*>::iterator it_type;
 	for (it_type iterator = m_chunksMap.begin(); iterator != m_chunksMap.end(); iterator++)
 	{
@@ -583,4 +624,5 @@ void ChunkManager::Render2D(Camera* pCamera, unsigned int viewport, unsigned int
 			pChunk->Render2D(pCamera, viewport, font);
 		}
 	}
+	m_ChunkMapMutexLock.unlock();
 }
