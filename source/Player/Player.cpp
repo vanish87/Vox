@@ -271,7 +271,7 @@ bool Player::CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pN
 					{
 						*pMovement = vec3(0.0f, 0.0f, 0.0f);
 						//m_movementVelocity = vec3(0.0f, 0.0f, 0.0f);
-						worldCollision = false;
+						worldCollision = true;
 					}
 				}
 				else if (active == true)

@@ -23,7 +23,7 @@ ChunkManager::ChunkManager(Renderer* pRenderer)
 	m_pRenderer->CreateMaterial(Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), 64, &m_chunkMaterialID);
 
 	// Loader radius
-	m_loaderRadius = 32.0f;
+	m_loaderRadius = 64.0f;
 
 	// Update lock
 	m_stepLockEnabled = false;
@@ -427,6 +427,8 @@ void ChunkManager::UpdatingChunksThread()
 
 		m_ChunkMapMutexLock.lock();
 		typedef map<ChunkCoordKeys, Chunk*>::iterator it_type;
+		int numAddedChunks = 0;
+		int MAX_NUM_CHUNKS_ADD = 10;
 		for (it_type iterator = m_chunksMap.begin(); iterator != m_chunksMap.end(); iterator++)
 		{
 			Chunk* pChunk = iterator->second;
@@ -453,56 +455,131 @@ void ChunkManager::UpdatingChunksThread()
 				}
 				else
 				{
-					// Check neighbours
-					if (pChunk->GetNumNeighbours() < 6)
+					if (numAddedChunks < MAX_NUM_CHUNKS_ADD)
 					{
-						if (pChunk->GetxMinus() == NULL)
+						// Check neighbours
+						if (pChunk->GetNumNeighbours() < 6)
 						{
-							ChunkCoordKeys coordKey;
-							coordKey.x = gridX - 1;
-							coordKey.y = gridY;
-							coordKey.z = gridZ;
-							addChunkList.push_back(coordKey);
-						}
-						if (pChunk->GetxPlus() == NULL)
-						{
-							ChunkCoordKeys coordKey;
-							coordKey.x = gridX + 1;
-							coordKey.y = gridY;
-							coordKey.z = gridZ;
-							addChunkList.push_back(coordKey);
-						}
-						if (pChunk->GetyMinus() == NULL)
-						{
-							ChunkCoordKeys coordKey;
-							coordKey.x = gridX;
-							coordKey.y = gridY - 1;
-							coordKey.z = gridZ;
-							addChunkList.push_back(coordKey);
-						}
-						if (pChunk->GetyPlus() == NULL)
-						{
-							ChunkCoordKeys coordKey;
-							coordKey.x = gridX;
-							coordKey.y = gridY + 1;
-							coordKey.z = gridZ;
-							addChunkList.push_back(coordKey);
-						}
-						if (pChunk->GetzMinus() == NULL)
-						{
-							ChunkCoordKeys coordKey;
-							coordKey.x = gridX;
-							coordKey.y = gridY;
-							coordKey.z = gridZ - 1;
-							addChunkList.push_back(coordKey);
-						}
-						if (pChunk->GetzPlus() == NULL)
-						{
-							ChunkCoordKeys coordKey;
-							coordKey.x = gridX;
-							coordKey.y = gridY;
-							coordKey.z = gridZ + 1;
-							addChunkList.push_back(coordKey);
+							if (pChunk->GetxMinus() == NULL)
+							{
+								ChunkCoordKeys coordKey;
+								coordKey.x = gridX - 1;
+								coordKey.y = gridY;
+								coordKey.z = gridZ;
+								float xPos = coordKey.x * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+								float yPos = coordKey.y * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+								float zPos = coordKey.z * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+
+								vec3 chunkCenter = vec3(xPos, yPos, zPos) + vec3(Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE);
+								vec3 distanceVec = chunkCenter - m_pPlayer->GetCenter();
+								float lengthValue = length(distanceVec);
+
+								if (lengthValue <= m_loaderRadius)
+								{
+									addChunkList.push_back(coordKey);
+									numAddedChunks++;
+								}
+							}
+							if (pChunk->GetxPlus() == NULL)
+							{
+								ChunkCoordKeys coordKey;
+								coordKey.x = gridX + 1;
+								coordKey.y = gridY;
+								coordKey.z = gridZ;
+								float xPos = coordKey.x * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+								float yPos = coordKey.y * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+								float zPos = coordKey.z * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+
+								vec3 chunkCenter = vec3(xPos, yPos, zPos) + vec3(Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE);
+								vec3 distanceVec = chunkCenter - m_pPlayer->GetCenter();
+								float lengthValue = length(distanceVec);
+
+								if (lengthValue <= m_loaderRadius)
+								{
+									addChunkList.push_back(coordKey);
+									numAddedChunks++;
+								}
+							}
+							if (pChunk->GetyMinus() == NULL)
+							{
+								ChunkCoordKeys coordKey;
+								coordKey.x = gridX;
+								coordKey.y = gridY - 1;
+								coordKey.z = gridZ;
+								float xPos = coordKey.x * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+								float yPos = coordKey.y * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+								float zPos = coordKey.z * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+
+								vec3 chunkCenter = vec3(xPos, yPos, zPos) + vec3(Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE);
+								vec3 distanceVec = chunkCenter - m_pPlayer->GetCenter();
+								float lengthValue = length(distanceVec);
+
+								if (lengthValue <= m_loaderRadius)
+								{
+									addChunkList.push_back(coordKey);
+									numAddedChunks++;
+								}
+							}
+							if (pChunk->GetyPlus() == NULL)
+							{
+								ChunkCoordKeys coordKey;
+								coordKey.x = gridX;
+								coordKey.y = gridY + 1;
+								coordKey.z = gridZ;
+								float xPos = coordKey.x * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+								float yPos = coordKey.y * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+								float zPos = coordKey.z * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+
+								vec3 chunkCenter = vec3(xPos, yPos, zPos) + vec3(Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE);
+								vec3 distanceVec = chunkCenter - m_pPlayer->GetCenter();
+								float lengthValue = length(distanceVec);
+
+								if (lengthValue <= m_loaderRadius)
+								{
+									addChunkList.push_back(coordKey);
+									numAddedChunks++;
+								}
+							}
+							if (pChunk->GetzMinus() == NULL)
+							{
+								ChunkCoordKeys coordKey;
+								coordKey.x = gridX;
+								coordKey.y = gridY;
+								coordKey.z = gridZ - 1;
+								float xPos = coordKey.x * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+								float yPos = coordKey.y * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+								float zPos = coordKey.z * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+
+								vec3 chunkCenter = vec3(xPos, yPos, zPos) + vec3(Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE);
+								vec3 distanceVec = chunkCenter - m_pPlayer->GetCenter();
+								float lengthValue = length(distanceVec);
+
+								if (lengthValue <= m_loaderRadius)
+								{
+									addChunkList.push_back(coordKey);
+									numAddedChunks++;
+								}
+							}
+							if (pChunk->GetzPlus() == NULL)
+							{
+								ChunkCoordKeys coordKey;
+								coordKey.x = gridX;
+								coordKey.y = gridY;
+								coordKey.z = gridZ + 1;
+								float xPos = coordKey.x * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+								float yPos = coordKey.y * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+								float zPos = coordKey.z * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+
+								vec3 chunkCenter = vec3(xPos, yPos, zPos) + vec3(Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE);
+								vec3 distanceVec = chunkCenter - m_pPlayer->GetCenter();
+								float lengthValue = length(distanceVec);
+
+								if (lengthValue <= m_loaderRadius)
+								{
+									addChunkList.push_back(coordKey);
+									numAddedChunks++;
+								}
+							}
 						}
 					}
 				}
@@ -518,18 +595,7 @@ void ChunkManager::UpdatingChunksThread()
 
 			if (pChunk == NULL)
 			{
-				float xPos = coordKey.x * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
-				float yPos = coordKey.y * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
-				float zPos = coordKey.z * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
-
-				vec3 chunkCenter = vec3(xPos, yPos, zPos) + vec3(Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE, Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE);
-				vec3 distanceVec = chunkCenter - m_pPlayer->GetCenter();
-				float lengthValue = length(distanceVec);
-
-				if (lengthValue <= m_loaderRadius)
-				{
-					CreateNewChunk(coordKey.x, coordKey.y, coordKey.z);
-				}
+				CreateNewChunk(coordKey.x, coordKey.y, coordKey.z);
 			}
 			else
 			{

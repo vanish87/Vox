@@ -179,7 +179,7 @@ void VoxGame::Render()
 		// Render the chunks 2d
 		if (m_debugRender)
 		{
-			m_pChunkManager->Render2D(m_pGameCamera, m_defaultViewport, m_defaultFont);
+			//m_pChunkManager->Render2D(m_pGameCamera, m_defaultViewport, m_defaultFont);
 		}
 
 		// Render the GUI
