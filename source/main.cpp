@@ -1,7 +1,7 @@
 // ******************************************************************************
 // Filename:	main.cpp
-// Project:		Vox
-// Author:		Steven Ball
+// Project:	Vox
+// Author:	Steven Ball
 //
 // Purpose:
 //   The main entry point for the application.
