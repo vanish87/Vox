@@ -1,7 +1,7 @@
 // ******************************************************************************
 // Filename:	FileUtils.cpp
-// Project:		Game
-// Author:		Steven Ball
+// Project:	Game
+// Author:	Steven Ball
 //
 // Revision History:
 //   Initial Revision - 17/03/13
