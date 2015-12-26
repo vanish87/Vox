@@ -1,8 +1,8 @@
 // ******************************************************************************
 //
 // Filename:	Random.h
-// Project:		Utils
-// Author:		Steven Ball
+// Project:	Utils
+// Author:	Steven Ball
 //
 // Purpose:
 //	 A selection of helper functions to make generating random numbers easier.
