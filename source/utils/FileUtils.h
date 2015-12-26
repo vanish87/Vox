@@ -1,7 +1,7 @@
 // ******************************************************************************
-// Filename:	FileUtils.h
-// Project:		Game
-// Author:		Steven Ball
+// Filename:  FileUtils.h
+// Project:   Game
+// Author:    Steven Ball
 //
 // Purpose:
 //   Some general file and folder utility functions.
