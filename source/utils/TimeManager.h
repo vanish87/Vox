@@ -1,8 +1,8 @@
 // ******************************************************************************
 //
 // Filename:	TimeManager.h
-// Project:		Utils
-// Author:		Steven Ball
+// Project:	Utils
+// Author:	Steven Ball
 //
 // Purpose:
 //	 A Manager class to handle all time related functionality. Can be used
