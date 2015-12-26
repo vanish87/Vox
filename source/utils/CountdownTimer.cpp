@@ -1,8 +1,8 @@
 // ******************************************************************************
 //
 // Filename:	CountdownTimer.cpp
-// Project:		Utils
-// Author:		Steven Ball
+// Project:	Utils
+// Author:	Steven Ball
 //
 // Purpose:
 //	 A Countdown timer that triggers a function callback upon reaching the
