@@ -1,8 +1,8 @@
 // ******************************************************************************
 //
 // Filename:	QubicleBinary.h
-// Project:		Game
-// Author:		Steven Ball
+// Project:	Game
+// Author:	Steven Ball
 //
 // Purpose:
 //
