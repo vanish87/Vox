@@ -1,7 +1,7 @@
 // ******************************************************************************
 // Filename:	FrontendManager.cpp
-// Project:		Game
-// Author:		Steven Ball
+// Project:	Game
+// Author:	Steven Ball
 //
 // Revision History:
 //   Initial Revision - 01/11/15
