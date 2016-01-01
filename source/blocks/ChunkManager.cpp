@@ -37,11 +37,14 @@ ChunkManager::ChunkManager(Renderer* pRenderer)
 	CreateNewChunk(0, 0, 0);
 
 	// Threading
+	m_updateThreadActive = true;
 	m_pUpdatingChunksThread = new thread(_UpdatingChunksThread, this);
 }
 
 ChunkManager::~ChunkManager()
 {
+	m_updateThreadActive = false;
+	Sleep(200);
 }
 
 void ChunkManager::SetPlayer(Player* pPlayer)
@@ -410,7 +413,7 @@ void ChunkManager::_UpdatingChunksThread(void* pData)
 
 void ChunkManager::UpdatingChunksThread()
 {
-	while (true)
+	while (m_updateThreadActive)
 	{
 		while (m_pPlayer == NULL)
 		{

@@ -140,4 +140,5 @@ private:
 	// Threading
 	thread* m_pUpdatingChunksThread;
 	mutex m_ChunkMapMutexLock;
+	bool m_updateThreadActive;
 };
