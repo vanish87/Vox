@@ -19,7 +19,7 @@ Vox engine is an open source voxel engine that is written in C++ and OpenGL and 
 * Block/cube particle effect system.
 * Modding and scripting support via LUA.
 * Gamepad and controller support.
-* Voxel world and terrain generation. *[coming soon!]*
+* Voxel world and terrain generation.
 * Procedural content creation. *[coming soon!]*
 * In-built voxel editor for creation/editing of in-game assets. *[coming soon!]*
 * Audio and music playback. *[coming soon!]*
