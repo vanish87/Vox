@@ -25,13 +25,15 @@ Vox engine is an open source voxel engine that is written in C++ and OpenGL and 
 * Audio and music playback. *[coming soon!]*
 
 ## Setup
-Setting up and compiling the project is a fairly simple process. Cmake can be used to build the project files for each environment and for different platforms, depending on what you are developing on. Just run Cmake on the root level of the project.
+Setting up and compiling the project is a fairly simple process. Cmake can be used to build the project files for each environment and for different platforms, depending on what you are developing on. Just run CMake on the root level of the project.
 
 ## Building the Source Code
 
+There are various different methods for building the Vox executable from source and the recommended method is using CMake on your desired OS and platform. Various project files are inculded and can be used to build the Vox executable but please note however that there is no guarantee that these project files will always be updated and contain the latest changes to the source tree, to be absoutely sure that you are building using the latest code base, always create your own project and solution files using CMake.
+
 **CMake**
 
-// Todo //
+Run CMake from the root directory level of ```/Vox```.
 
 **Windows**
 
