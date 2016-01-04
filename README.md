@@ -29,7 +29,7 @@ Setting up and compiling the project is a fairly simple process. Cmake can be us
 
 ## Building the Source Code
 
-There are various different methods for building the Vox executable from source and the recommended method is using CMake on your desired OS and platform. Various project files are inculded and can be used to build the Vox executable but please note however that there is no guarantee that these project files will always be updated and contain the latest changes to the source tree, to be absoutely sure that you are building using the latest code base, always create your own project and solution files using CMake.
+There are various different methods for building the Vox executable from the source, the recommended method is to use CMake on your desired OS and platform. Various project files are also inculded and can be used to build the Vox executable without CMake but note however that there is no guarantee that these project files will always be updated and contain the latest changes to the source tree, to be absoutely sure that you are building using the latest source, always create your own project and solution files using CMake.
 
 **CMake**
 
