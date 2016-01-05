@@ -1,7 +1,7 @@
 // ******************************************************************************
 // Filename:	Player.h
-// Project:		Vox
-// Author:		Steven Ball
+// Project:	Vox
+// Author:	Steven Ball
 //
 // Purpose:
 //   The player class contains all the functioanlity of a player, an entity that
