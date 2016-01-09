@@ -139,6 +139,8 @@ public:
 	void GUITurnOffCursor();
 	void ShowGUI();
 	void HideGUI();
+	void UpdateCharactersPulldown();
+	void UpdateWeaponsPulldown();
 	void UpdateAnimationsPulldown();
 	void UpdateGUIThemePulldown();
 	void AddConsoleLabel(string message);

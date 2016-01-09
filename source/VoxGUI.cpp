@@ -84,14 +84,6 @@ void VoxGame::CreateGUI()
 	m_pCharacterPulldown->SetRenderHeader(true);
 	m_pCharacterPulldown->SetMenuItemChangedCallBackFunction(_CharacterPullDownChanged);
 	m_pCharacterPulldown->SetMenuItemChangedCallBackData(this);
-	m_pCharacterPulldown->AddPulldownItem("Steve");
-	m_pCharacterPulldown->AddPulldownItem("Mage");
-	m_pCharacterPulldown->AddPulldownItem("Warrior");
-	m_pCharacterPulldown->AddPulldownItem("Necromancer");
-	m_pCharacterPulldown->AddPulldownItem("Priest");
-	m_pCharacterPulldown->AddPulldownItem("Paladin");
-	m_pCharacterPulldown->AddPulldownItem("Druid");
-	m_pCharacterPulldown->AddPulldownItem("TreeElemental");
 
 	m_pMainWindow->AddComponent(m_pShadowsCheckBox);
 	m_pMainWindow->AddComponent(m_pSSAOCheckBox);
@@ -236,6 +228,8 @@ void VoxGame::CreateGUI()
 	m_pGUI->AddWindow(m_pGameWindow);
 	m_pGUI->AddWindow(m_pConsoleWindow);
 
+	UpdateCharactersPulldown();
+	UpdateWeaponsPulldown();
 	UpdateAnimationsPulldown();
 	UpdateGUIThemePulldown();
 
@@ -483,6 +477,32 @@ void VoxGame::HideGUI()
 	{
 		m_pConsoleWindow->Hide();
 	}
+}
+
+void VoxGame::UpdateCharactersPulldown()
+{
+	m_pCharacterPulldown->RemoveAllPullDownMenuItems();
+	m_pCharacterPulldown->ResetPullDownMenu();
+	m_pMainWindow->RemoveComponent(m_pCharacterPulldown);
+
+	char importDirectory[128];
+	snprintf(importDirectory, 128, "media/gamedata/models/Human/*.qb");
+
+	vector<string> listFiles;
+	listFiles = listFilesInDirectory(importDirectory);
+	for (unsigned int i = 0; i < listFiles.size(); i++)
+	{
+		int lastindex = (int)listFiles[i].find_last_of(".");
+		string characterName = listFiles[i].substr(0, lastindex);
+		m_pCharacterPulldown->AddPulldownItem(characterName);
+	}
+
+	m_pMainWindow->AddComponent(m_pCharacterPulldown);
+	m_pCharacterPulldown->AddEventListeners();
+}
+
+void VoxGame::UpdateWeaponsPulldown()
+{
 }
 
 void VoxGame::UpdateAnimationsPulldown()
