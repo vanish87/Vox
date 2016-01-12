@@ -92,6 +92,9 @@ public:
 
 	// Rebuild
 	void RebuildMesh();
+	void SetNeedsRebuild(bool rebuild, bool rebuildNeighours);
+	bool NeedsRebuild();
+	bool IsRebuildingMesh();
 
 	// Updating
 	void Update(float dt);
@@ -142,6 +145,9 @@ private:
 
 	// Setup and creation flags
 	bool m_setup;
+	bool m_rebuild;
+	bool m_rebuildNeighours;
+	bool m_isRebuildingMesh;
 
 	// Flags for empty chunk and completely surrounded
 	bool m_emptyChunk;

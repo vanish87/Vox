@@ -63,6 +63,9 @@ void Chunk::Initialize()
 
 	// Setup and creation
 	m_setup = false;
+	m_rebuild = false;
+	m_rebuildNeighours = false;
+	m_isRebuildingMesh = false;
 
 	// Mesh
 	m_pMesh = NULL;
@@ -835,6 +838,8 @@ void Chunk::CompleteMesh()
 	m_pRenderer->FinishMesh(-1, m_pChunkManager->GetChunkMaterialID(), m_pMesh);
 
 	UpdateEmptyFlag();
+
+	m_isRebuildingMesh = false;
 }
 
 void Chunk::UpdateMergedSide(int *merged, int blockx, int blocky, int blockz, int width, int height, vec3 *p1, vec3 *p2, vec3 *p3, vec3 *p4, int startX, int startY, int maxX, int maxY, bool positive, bool zFace, bool xFace, bool yFace)
@@ -1184,6 +1189,7 @@ void Chunk::UpdateMergedSide(int *merged, int blockx, int blocky, int blockz, in
 // Rebuild
 void Chunk::RebuildMesh()
 {
+	m_isRebuildingMesh = true;
 	if (m_pMesh != NULL)
 	{
 		m_pRenderer->ClearMesh(m_pMesh);
@@ -1215,6 +1221,43 @@ void Chunk::RebuildMesh()
 		pChunkZMinus->UpdateSurroundedFlag();
 	if (pChunkZPlus != NULL && pChunkZPlus->IsSetup() == true)
 		pChunkZPlus->UpdateSurroundedFlag();
+
+	// Rebuild neighbours
+	if (m_rebuildNeighours)
+	{
+		if (pChunkXMinus != NULL && pChunkXMinus->IsSetup() == true)
+			pChunkXMinus->SetNeedsRebuild(true, false);
+		if (pChunkXPlus != NULL && pChunkXPlus->IsSetup() == true)
+			pChunkXPlus->SetNeedsRebuild(true, false);
+		if (pChunkYMinus != NULL && pChunkYMinus->IsSetup() == true)
+			pChunkYMinus->SetNeedsRebuild(true, false);
+		if (pChunkYPlus != NULL && pChunkYPlus->IsSetup() == true)
+			pChunkYPlus->SetNeedsRebuild(true, false);
+		if (pChunkZMinus != NULL && pChunkZMinus->IsSetup() == true)
+			pChunkZMinus->SetNeedsRebuild(true, false);
+		if (pChunkZPlus != NULL && pChunkZPlus->IsSetup() == true)
+			pChunkZPlus->SetNeedsRebuild(true, false);
+
+		m_rebuildNeighours = false;
+	}
+
+	m_rebuild = false;
+}
+
+void Chunk::SetNeedsRebuild(bool rebuild, bool rebuildNeighours)
+{
+	m_rebuild = rebuild;
+	m_rebuildNeighours = rebuildNeighours;
+}
+
+bool Chunk::NeedsRebuild()
+{
+	return m_rebuild;
+}
+
+bool Chunk::IsRebuildingMesh()
+{
+	return m_isRebuildingMesh;
 }
 
 // Updating

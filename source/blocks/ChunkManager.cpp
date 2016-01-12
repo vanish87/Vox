@@ -99,6 +99,7 @@ void ChunkManager::CreateNewChunk(int x, int y, int z)
 	pNewChunk->SetGrid(coordKeys.x, coordKeys.y, coordKeys.z);
 
 	pNewChunk->Setup();
+	pNewChunk->SetNeedsRebuild(false, true);
 	pNewChunk->RebuildMesh();
 	pNewChunk->CompleteMesh();
 
@@ -426,6 +427,7 @@ void ChunkManager::UpdatingChunksThread()
 		}
 
 		ChunkCoordKeysList addChunkList;
+		ChunkList rebuildChunkList;
 		ChunkList unloadChunkList;
 
 		m_ChunkMapMutexLock.lock();
@@ -616,6 +618,36 @@ void ChunkManager::UpdatingChunksThread()
 		}
 		unloadChunkList.clear();
 
+		// Check for rebuild chunks
+		m_ChunkMapMutexLock.lock();
+		for (it_type iterator = m_chunksMap.begin(); iterator != m_chunksMap.end(); iterator++)
+		{
+			Chunk* pChunk = iterator->second;
+
+			if (pChunk != NULL)
+			{
+				if (pChunk->NeedsRebuild())
+				{
+					rebuildChunkList.push_back(pChunk);
+				}
+			}
+		}
+		m_ChunkMapMutexLock.unlock();
+
+		// Rebuilding chunks
+		int numRebuildChunks = 0;
+		int MAX_NUM_CHUNKS_REBUILD = 5;
+		for (unsigned int i = 0; i < (int)rebuildChunkList.size() && numRebuildChunks < MAX_NUM_CHUNKS_REBUILD; i++)
+		{
+			Chunk* pChunk = rebuildChunkList[i];
+
+			pChunk->RebuildMesh();
+			pChunk->CompleteMesh();
+
+			numRebuildChunks++;
+		}
+		rebuildChunkList.clear();
+
 		if (m_stepLockEnabled == true && m_updateStepLock == false)
 		{
 			m_updateStepLock = true;
@@ -652,7 +684,10 @@ void ChunkManager::Render()
 
 			if (pChunk != NULL)
 			{
-				pChunk->Render();
+				if (pChunk->IsRebuildingMesh() == false)
+				{
+					pChunk->Render();
+				}
 			}
 		}
 		m_ChunkMapMutexLock.unlock();
