@@ -67,6 +67,9 @@ void Chunk::Initialize()
 	m_rebuildNeighours = false;
 	m_isRebuildingMesh = false;
 
+	// Counters
+	m_numRebuilds = 0;
+
 	// Mesh
 	m_pMesh = NULL;
 
@@ -1241,6 +1244,7 @@ void Chunk::RebuildMesh()
 		m_rebuildNeighours = false;
 	}
 
+	m_numRebuilds++;
 	m_rebuild = false;
 }
 
@@ -1382,7 +1386,9 @@ void Chunk::Render2D(Camera* pCamera, unsigned int viewport, unsigned int font)
 		sprintf_s(lLine3, 64, "Empty: %s", m_emptyChunk ? "true" : "false");
 		char lLine4[64];
 		sprintf_s(lLine4, 64, "Surrounded: %s", m_surroundedChunk ? "true" : "false");
-
+		char lLine5[64];
+		sprintf_s(lLine5, 64, "Rebuilds: %i", m_numRebuilds);
+		
 		m_pRenderer->PushMatrix();
 			m_pRenderer->SetRenderMode(RM_SOLID);
 			m_pRenderer->SetProjectionMode(PM_2D, viewport);
@@ -1391,6 +1397,7 @@ void Chunk::Render2D(Camera* pCamera, unsigned int viewport, unsigned int font)
 			m_pRenderer->RenderFreeTypeText(font, (float)winx, (float)winy - 20.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "%s", lLine2);
 			m_pRenderer->RenderFreeTypeText(font, (float)winx, (float)winy - 40.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "%s", lLine3);
 			m_pRenderer->RenderFreeTypeText(font, (float)winx, (float)winy - 60.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "%s", lLine4);
+			m_pRenderer->RenderFreeTypeText(font, (float)winx, (float)winy - 80.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "%s", lLine5);
 		m_pRenderer->PopMatrix();
 	}
 }

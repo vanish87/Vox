@@ -149,6 +149,9 @@ private:
 	bool m_rebuildNeighours;
 	bool m_isRebuildingMesh;
 
+	// Counters
+	int m_numRebuilds;
+
 	// Flags for empty chunk and completely surrounded
 	bool m_emptyChunk;
 	bool m_surroundedChunk;
