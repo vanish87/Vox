@@ -63,15 +63,18 @@ void Chunk::Initialize()
 
 	// Setup and creation
 	m_setup = false;
+	m_isUnloading = false;
 	m_rebuild = false;
 	m_rebuildNeighours = false;
 	m_isRebuildingMesh = false;
+	m_deleteCachedMesh = false;
 
 	// Counters
 	m_numRebuilds = 0;
 
 	// Mesh
 	m_pMesh = NULL;
+	m_pCachedMesh = NULL;
 
 	// Blocks data
 	m_colour = new unsigned int[CHUNK_SIZE_CUBED];
@@ -84,6 +87,8 @@ void Chunk::Initialize()
 // Creation and destruction
 void Chunk::Unload()
 {
+	m_isUnloading = true;
+
 	if (m_pMesh != NULL)
 	{
 		m_pRenderer->ClearMesh(m_pMesh);
@@ -159,6 +164,11 @@ void Chunk::Setup()
 bool Chunk::IsSetup()
 {
 	return m_setup;
+}
+
+bool Chunk::IsUnloading()
+{
+	return m_isUnloading;
 }
 
 // Saving and loading
@@ -1264,6 +1274,17 @@ bool Chunk::IsRebuildingMesh()
 	return m_isRebuildingMesh;
 }
 
+void Chunk::SwitchToCachedMesh()
+{
+	m_pCachedMesh = m_pMesh;
+	m_pMesh = NULL;
+}
+
+void Chunk::UndoCachedMesh()
+{
+	m_deleteCachedMesh = true;
+}
+
 // Updating
 void Chunk::Update(float dt)
 {
@@ -1273,7 +1294,13 @@ void Chunk::Update(float dt)
 // Rendering
 void Chunk::Render()
 {
-	if (m_pMesh != NULL)
+	OpenGLTriangleMesh* pMeshToUse = m_pMesh;
+	if (m_pCachedMesh != NULL)
+	{
+		pMeshToUse = m_pCachedMesh;
+	}
+
+	if (pMeshToUse != NULL)
 	{
 		m_pRenderer->PushMatrix();
 			m_pRenderer->TranslateWorldMatrix(m_position.x, m_position.y, m_position.z);
@@ -1287,13 +1314,24 @@ void Chunk::Render()
 				m_pRenderer->MultiplyWorldMatrix(worldMatrix);
 			}
 
-			m_pRenderer->MeshStaticBufferRender(m_pMesh);
+			m_pRenderer->MeshStaticBufferRender(pMeshToUse);
 
 			// Texture manipulation (for shadow rendering)
 			{
 				m_pRenderer->PopTextureMatrix();
 			}
 		m_pRenderer->PopMatrix();
+	}
+
+	if (m_deleteCachedMesh)
+	{
+		if (m_pCachedMesh != NULL)
+		{
+			m_pRenderer->ClearMesh(m_pCachedMesh);
+			m_pCachedMesh = NULL;
+		}
+
+		m_deleteCachedMesh = false;
 	}
 }
 

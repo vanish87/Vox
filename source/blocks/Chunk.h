@@ -38,6 +38,7 @@ public:
 	void Unload();
 	void Setup();
 	bool IsSetup();
+	bool IsUnloading();
 
 	// Saving and loading
 	void SaveChunk();
@@ -95,6 +96,8 @@ public:
 	void SetNeedsRebuild(bool rebuild, bool rebuildNeighours);
 	bool NeedsRebuild();
 	bool IsRebuildingMesh();
+	void SwitchToCachedMesh();
+	void UndoCachedMesh();
 
 	// Updating
 	void Update(float dt);
@@ -145,9 +148,11 @@ private:
 
 	// Setup and creation flags
 	bool m_setup;
+	bool m_isUnloading;
 	bool m_rebuild;
 	bool m_rebuildNeighours;
 	bool m_isRebuildingMesh;
+	bool m_deleteCachedMesh;
 
 	// Counters
 	int m_numRebuilds;
@@ -169,4 +174,5 @@ private:
 
 	// Render mesh
 	OpenGLTriangleMesh* m_pMesh;
+	OpenGLTriangleMesh* m_pCachedMesh;
 };

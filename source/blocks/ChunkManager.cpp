@@ -23,7 +23,7 @@ ChunkManager::ChunkManager(Renderer* pRenderer)
 	m_pRenderer->CreateMaterial(Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), 64, &m_chunkMaterialID);
 
 	// Loader radius
-	m_loaderRadius = 32.0f;
+	m_loaderRadius = 64.0f;
 
 	// Update lock
 	m_stepLockEnabled = false;
@@ -641,8 +641,10 @@ void ChunkManager::UpdatingChunksThread()
 		{
 			Chunk* pChunk = rebuildChunkList[i];
 
+			pChunk->SwitchToCachedMesh();
 			pChunk->RebuildMesh();
 			pChunk->CompleteMesh();
+			pChunk->UndoCachedMesh();
 
 			numRebuildChunks++;
 		}
@@ -684,10 +686,7 @@ void ChunkManager::Render()
 
 			if (pChunk != NULL)
 			{
-				if (pChunk->IsRebuildingMesh() == false)
-				{
-					pChunk->Render();
-				}
+				pChunk->Render();
 			}
 		}
 		m_ChunkMapMutexLock.unlock();
