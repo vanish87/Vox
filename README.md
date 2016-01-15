@@ -24,6 +24,18 @@ Vox engine is an open source voxel engine that is written in C++ and OpenGL and 
 * In-built voxel editor for creation/editing of in-game assets. *[coming soon!]*
 * Audio and music playback. *[coming soon!]*
 
+## Gameplay Features
+Some parts of the Vox gameplay logic are also incorporated into this source code repo, to better facilitate code sharing and the different sub-systems that make up the game. SomeThe gameplay features of Vox are as follows:
+* Player movement and controls.
+* Inventory and item management.
+* NPC AI and player interations.
+* Quets and gameplay objectives.
+* Enemies and monsters.
+* Combat using melee and ranged weapons, magic and spellcasting.
+* Farming and crop management.
+* Character crteation and generation.
+* World customization and creation elements.
+
 ## Setup
 Setting up and compiling the project is a fairly simple process. Cmake can be used to build the project files for each environment and for different platforms, depending on what you are developing on. Just run CMake on the root level of the project.
 
