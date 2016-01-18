@@ -1,7 +1,7 @@
 // ******************************************************************************
-// Filename:	Renderer.cpp
-// Project:		Vox
-// Author:		Steven Ball
+// Filename:    Renderer.h
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Revision History:
 //   Initial Revision - 12/10/15
