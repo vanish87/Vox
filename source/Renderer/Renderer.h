@@ -1,7 +1,7 @@
 // ******************************************************************************
-// Filename:	Renderer.h
-// Project:		Game
-// Author:		Steven Ball
+// Filename:    Renderer.h
+// Project:     Game
+// Author:      Steven Ball
 //
 // Purpose:
 //   The OpenGL renderer that is an encapsulation of all the rendering
