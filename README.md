@@ -2,6 +2,7 @@
 Vox engine is an open source voxel engine that is written in C++ and OpenGL and can be used to create easy and fast voxel based games and applications. The engine is written to be highly functional and very efficient at allowing voxel game creation and provides a simple framework for creating 3d voxel games.
 
 ## Features
+* 3d voxel engine with cuboid and box-based rendering aesthetic. 
 * GLSL shader support.
 * Support for deferred or forward rendering.
 * Fully dynamic and unlimited lighting system using deferred lighting model.
