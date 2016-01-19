@@ -1,7 +1,7 @@
 // ******************************************************************************
-// Filename:	VoxGame.cpp
-// Project:		Vox
-// Author:		Steven Ball
+// Filename:    VoxGame.cpp
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Revision History:
 //   Initial Revision - 27/10/15
