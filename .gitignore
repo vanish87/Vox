@@ -13,7 +13,6 @@ Vox.ipdb
 *.suo
 *.user
 *.userosscache
-*.sln.docstates
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -37,6 +36,9 @@ bld/
 # Visual Studio 2015 cache/options directory
 .vs/
 *.opendb
+
+# Visual Studio (doc cache file?)
+*.sln.docstates
 
 # .Net exe files
 *.exe.config
