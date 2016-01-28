@@ -463,7 +463,7 @@ void ChunkManager::UpdatingChunksThread()
 					if (numAddedChunks < MAX_NUM_CHUNKS_ADD)
 					{
 						// Check neighbours
-						if (pChunk->GetNumNeighbours() < 6)
+						if (pChunk->GetNumNeighbours() < 6 && pChunk->IsEmpty() == false)
 						{
 							if (pChunk->GetxMinus() == NULL)
 							{
