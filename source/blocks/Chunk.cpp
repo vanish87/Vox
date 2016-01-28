@@ -126,20 +126,21 @@ void Chunk::Setup()
 		for (int z = 0; z < CHUNK_SIZE; z++)
 		{
 			float xPosition = m_position.x + x;
-			//float yPosition = m_position.y + y;
 			float zPosition = m_position.z + z;
 
-			float noise = octave_noise_2d(4.0f, 0.3f, 0.025f, xPosition, zPosition);
+			float noise = octave_noise_2d(4.0f, 0.3f, 0.0025f, xPosition, zPosition);
 			float noiseNormalized = ((noise + 1.0f) * 0.5f);
+
+			float mountainNoise = octave_noise_2d(4.0f, 0.3f, 0.0075f, xPosition, zPosition);
+			float mountainNoiseNormalise = (mountainNoise + 1.0f) * 0.5f;
+			float mountainMultiplier = 2.0f * mountainNoiseNormalise;
+
 			float noiseHeight = noiseNormalized * CHUNK_SIZE;
+			noiseHeight += (mountainNoise*mountainMultiplier)*CHUNK_SIZE;
 
 			if (m_gridY < 0)
 			{
 				noiseHeight = CHUNK_SIZE;
-			}
-			else if (m_gridY > 0)
-			{
-				noiseHeight = 0;
 			}
 
 			for (int y = 0; y < CHUNK_SIZE; y++)
@@ -150,7 +151,7 @@ void Chunk::Setup()
 				float blue = 0.26f;
 				float alpha = 1.0f;				
 
-				if (y < noiseHeight)
+				if (y + (m_gridY*CHUNK_SIZE) < noiseHeight)
 				{
 					SetColour(x, y, z, red, green, blue, alpha);
 				}
