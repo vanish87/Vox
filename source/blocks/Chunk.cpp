@@ -128,7 +128,7 @@ void Chunk::Setup()
 			float xPosition = m_position.x + x;
 			float zPosition = m_position.z + z;
 
-			float noise = octave_noise_2d(4.0f, 0.3f, 0.005f, xPosition, zPosition);
+			float noise = octave_noise_2d(4.0f, 0.3f, 0.01f, xPosition, zPosition);
 			float noiseNormalized = ((noise + 1.0f) * 0.5f);
 
 			float mountainNoise = octave_noise_2d(4.0f, 0.3f, 0.0075f, xPosition, zPosition);
