@@ -83,7 +83,7 @@
 * Create front end scene and character line up.
 * Character creation and customization.
 * Saving and loading chunks.
-  * Group together chunks for saving, loading. Not indivisual
+  * Group together chunks for saving, loading. Not individual
 * Add character creator and customization from front-end.
 * Add debug log information for model loading and rendering - num verts, tris, faces, etc.
 * Add pause menu when ESC is pressed, and add popup in center of screen.
