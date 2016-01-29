@@ -51,9 +51,11 @@ public:
 	bool m_dynamicLighting;
 	bool m_msaa;
 	bool m_instancedParticles;
-	bool m_wireframeRendering;
-	bool m_debugRendering;
 	bool m_faceMerging;
+
+	// Debug
+	bool m_debugRendering;
+	bool m_wireframeRendering;
 	bool m_stepUpdating;
 
 protected:
