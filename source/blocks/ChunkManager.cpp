@@ -636,7 +636,7 @@ void ChunkManager::UpdatingChunksThread()
 
 		// Rebuilding chunks
 		int numRebuildChunks = 0;
-		int MAX_NUM_CHUNKS_REBUILD = 5;
+		int MAX_NUM_CHUNKS_REBUILD = 30;
 		for (unsigned int i = 0; i < (int)rebuildChunkList.size() && numRebuildChunks < MAX_NUM_CHUNKS_REBUILD; i++)
 		{
 			Chunk* pChunk = rebuildChunkList[i];
