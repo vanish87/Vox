@@ -22,13 +22,13 @@
 #include "../Renderer/Camera.h"
 
 class ChunkManager;
-
+class VoxSettings;
 
 class Chunk
 {
 public:
 	/* Public methods */
-	Chunk(Renderer* pRenderer, ChunkManager* pChunkManager);
+	Chunk(Renderer* pRenderer, ChunkManager* pChunkManager, VoxSettings* pVoxSettings);
 	~Chunk();
 
 	// Initialize
@@ -128,6 +128,7 @@ private:
 	/* Private members */
 	Renderer* m_pRenderer;
 	ChunkManager* m_pChunkManager;
+	VoxSettings* m_pVoxSettings;
 
 	// Chunk neighbours
 	int m_numNeighbours;

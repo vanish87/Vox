@@ -27,6 +27,7 @@ using namespace std;
 using namespace tthread;
 
 class Player;
+class VoxSettings;
 
 struct ChunkCoordKeys {
 	int x;
@@ -59,7 +60,7 @@ class ChunkManager
 {
 public:
 	/* Public methods */
-	ChunkManager(Renderer* pRenderer);
+	ChunkManager(Renderer* pRenderer, VoxSettings* pVoxSettings);
 	~ChunkManager();
 
 	void SetPlayer(Player* pPlayer);
@@ -119,6 +120,7 @@ private:
 	/* Private members */
 	Renderer* m_pRenderer;
 	Player* m_pPlayer;
+	VoxSettings* m_pVoxSettings;
 
 	// Chunk Material
 	unsigned int m_chunkMaterialID;

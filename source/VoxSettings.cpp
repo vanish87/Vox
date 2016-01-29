@@ -55,6 +55,15 @@ void VoxSettings::LoadSettings()
 	m_instancedParticles = reader.GetBoolean("Graphics", "InstancedParticles", false);
 	m_faceMerging = reader.GetBoolean("Graphics", "FaceMerging", false);
 
+	// Landscape generation
+	m_landscapeNoiseOctaves = (float)reader.GetReal("Landscape", "LandscapeNoiseOctaves", 4.0f);
+	m_landscapeNoisePersistence = (float)reader.GetReal("Landscape", "LandscapeNoisePersistance", 0.3f);
+	m_landscapeNoiseScale = (float)reader.GetReal("Landscape", "LandscapeNoiseScale", 0.01f);
+	m_mountainNoiseOctaves = (float)reader.GetReal("Landscape", "MountainNoiseOctaves", 4.0f);
+	m_mountainNoisePersistence = (float)reader.GetReal("Landscape", "MountainNoisePersistance", 0.3f);
+	m_mountainNoiseScale = (float)reader.GetReal("Landscape", "MountainNoiseScale", 0.0075f);
+	m_mountainMultiplier = (float)reader.GetReal("Landscape", "MountainNoiseMultiplier", 3.0f);
+
 	// Debug
 	m_debugRendering = reader.GetBoolean("Debug", "DebugRendering", false);
 	m_stepUpdating = reader.GetBoolean("Debug", "StepUpdatng", false);

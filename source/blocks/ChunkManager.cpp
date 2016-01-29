@@ -11,12 +11,14 @@
 
 #include "ChunkManager.h"
 #include "../Player/Player.h"
+#include "../VoxSettings.h"
 
 
-ChunkManager::ChunkManager(Renderer* pRenderer)
+ChunkManager::ChunkManager(Renderer* pRenderer, VoxSettings* pVoxSettings)
 {
 	m_pRenderer = pRenderer;
 	m_pPlayer = NULL;
+	m_pVoxSettings = pVoxSettings;
 
 	// Chunk material
 	m_chunkMaterialID = -1;
@@ -89,7 +91,7 @@ void ChunkManager::CreateNewChunk(int x, int y, int z)
 	coordKeys.z = z;
 
 	// Create a new chunk at this grid position
-	Chunk* pNewChunk = new Chunk(m_pRenderer, this);
+	Chunk* pNewChunk = new Chunk(m_pRenderer, this, m_pVoxSettings);
 
 	float xPos = x * (Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f);
 	float yPos = y * (Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f);

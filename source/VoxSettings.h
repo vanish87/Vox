@@ -53,6 +53,15 @@ public:
 	bool m_instancedParticles;
 	bool m_faceMerging;
 
+	// Landscape generation
+	float m_landscapeNoiseOctaves;
+	float m_landscapeNoisePersistence;
+	float m_landscapeNoiseScale;
+	float m_mountainNoiseOctaves;
+	float m_mountainNoisePersistence;
+	float m_mountainNoiseScale;
+	float m_mountainMultiplier;
+
 	// Debug
 	bool m_debugRendering;
 	bool m_wireframeRendering;

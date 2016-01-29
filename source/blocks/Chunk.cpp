@@ -14,15 +14,17 @@
 #include "../models/QubicleBinary.h"
 #include "../Utils/Random.h"
 #include "../Simplex/simplexnoise.h"
+#include "../VoxSettings.h"
 
 const float Chunk::BLOCK_RENDER_SIZE = 0.5f;
 const float Chunk::CHUNK_RADIUS = sqrt(((CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f)*(CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f))*2.0f) / 2.0f + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*2.0f);
 
 
-Chunk::Chunk(Renderer* pRenderer, ChunkManager* pChunkManager)
+Chunk::Chunk(Renderer* pRenderer, ChunkManager* pChunkManager, VoxSettings* pVoxSettings)
 {
 	m_pRenderer = pRenderer;
 	m_pChunkManager = pChunkManager;
+	m_pVoxSettings = pVoxSettings;
 
 	Initialize();
 }
@@ -128,15 +130,15 @@ void Chunk::Setup()
 			float xPosition = m_position.x + x;
 			float zPosition = m_position.z + z;
 
-			float noise = octave_noise_2d(4.0f, 0.3f, 0.01f, xPosition, zPosition);
+			float noise = octave_noise_2d(m_pVoxSettings->m_landscapeNoiseOctaves, m_pVoxSettings->m_landscapeNoisePersistence, m_pVoxSettings->m_landscapeNoiseScale, xPosition, zPosition);
 			float noiseNormalized = ((noise + 1.0f) * 0.5f);
 
-			float mountainNoise = octave_noise_2d(4.0f, 0.3f, 0.0075f, xPosition, zPosition);
+			float mountainNoise = octave_noise_2d(m_pVoxSettings->m_mountainNoiseOctaves, m_pVoxSettings->m_mountainNoisePersistence, m_pVoxSettings->m_mountainNoiseScale, xPosition, zPosition);
 			float mountainNoiseNormalise = (mountainNoise + 1.0f) * 0.5f;
-			float mountainMultiplier = 2.0f * mountainNoiseNormalise;
+			float mountainMultiplier = m_pVoxSettings->m_mountainMultiplier * mountainNoiseNormalise;
 
 			float noiseHeight = noiseNormalized * CHUNK_SIZE;
-			noiseHeight += mountainMultiplier*CHUNK_SIZE;
+			noiseHeight *= mountainMultiplier;
 
 			if (m_gridY < 0)
 			{
