@@ -56,13 +56,13 @@ void VoxSettings::LoadSettings()
 	m_faceMerging = reader.GetBoolean("Graphics", "FaceMerging", false);
 
 	// Landscape generation
-	m_landscapeNoiseOctaves = (float)reader.GetReal("Landscape", "LandscapeNoiseOctaves", 4.0f);
-	m_landscapeNoisePersistence = (float)reader.GetReal("Landscape", "LandscapeNoisePersistance", 0.3f);
-	m_landscapeNoiseScale = (float)reader.GetReal("Landscape", "LandscapeNoiseScale", 0.01f);
-	m_mountainNoiseOctaves = (float)reader.GetReal("Landscape", "MountainNoiseOctaves", 4.0f);
-	m_mountainNoisePersistence = (float)reader.GetReal("Landscape", "MountainNoisePersistance", 0.3f);
-	m_mountainNoiseScale = (float)reader.GetReal("Landscape", "MountainNoiseScale", 0.0075f);
-	m_mountainMultiplier = (float)reader.GetReal("Landscape", "MountainNoiseMultiplier", 3.0f);
+	m_landscapeOctaves = (float)reader.GetReal("Landscape", "LandscapeOctaves", 4.0f);
+	m_landscapePersistence = (float)reader.GetReal("Landscape", "LandscapePersistance", 0.3f);
+	m_landscapeScale = (float)reader.GetReal("Landscape", "LandscapeScale", 0.01f);
+	m_mountainOctaves = (float)reader.GetReal("Landscape", "MountainOctaves", 4.0f);
+	m_mountainPersistence = (float)reader.GetReal("Landscape", "MountainPersistance", 0.3f);
+	m_mountainScale = (float)reader.GetReal("Landscape", "MountainScale", 0.0075f);
+	m_mountainMultiplier = (float)reader.GetReal("Landscape", "MountainMultiplier", 3.0f);
 
 	// Debug
 	m_debugRendering = reader.GetBoolean("Debug", "DebugRendering", false);

@@ -54,12 +54,12 @@ public:
 	bool m_faceMerging;
 
 	// Landscape generation
-	float m_landscapeNoiseOctaves;
-	float m_landscapeNoisePersistence;
-	float m_landscapeNoiseScale;
-	float m_mountainNoiseOctaves;
-	float m_mountainNoisePersistence;
-	float m_mountainNoiseScale;
+	float m_landscapeOctaves;
+	float m_landscapePersistence;
+	float m_landscapeScale;
+	float m_mountainOctaves;
+	float m_mountainPersistence;
+	float m_mountainScale;
 	float m_mountainMultiplier;
 
 	// Debug

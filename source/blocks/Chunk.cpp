@@ -130,10 +130,10 @@ void Chunk::Setup()
 			float xPosition = m_position.x + x;
 			float zPosition = m_position.z + z;
 
-			float noise = octave_noise_2d(m_pVoxSettings->m_landscapeNoiseOctaves, m_pVoxSettings->m_landscapeNoisePersistence, m_pVoxSettings->m_landscapeNoiseScale, xPosition, zPosition);
+			float noise = octave_noise_2d(m_pVoxSettings->m_landscapeOctaves, m_pVoxSettings->m_landscapePersistence, m_pVoxSettings->m_landscapeScale, xPosition, zPosition);
 			float noiseNormalized = ((noise + 1.0f) * 0.5f);
 
-			float mountainNoise = octave_noise_2d(m_pVoxSettings->m_mountainNoiseOctaves, m_pVoxSettings->m_mountainNoisePersistence, m_pVoxSettings->m_mountainNoiseScale, xPosition, zPosition);
+			float mountainNoise = octave_noise_2d(m_pVoxSettings->m_mountainOctaves, m_pVoxSettings->m_mountainPersistence, m_pVoxSettings->m_mountainScale, xPosition, zPosition);
 			float mountainNoiseNormalise = (mountainNoise + 1.0f) * 0.5f;
 			float mountainMultiplier = m_pVoxSettings->m_mountainMultiplier * mountainNoiseNormalise;
 
