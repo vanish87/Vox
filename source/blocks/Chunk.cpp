@@ -136,7 +136,7 @@ void Chunk::Setup()
 			float mountainMultiplier = 2.0f * mountainNoiseNormalise;
 
 			float noiseHeight = noiseNormalized * CHUNK_SIZE;
-			noiseHeight += (mountainNoise*mountainMultiplier)*CHUNK_SIZE;
+			noiseHeight += mountainMultiplier*CHUNK_SIZE;
 
 			if (m_gridY < 0)
 			{
