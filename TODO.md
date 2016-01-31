@@ -76,6 +76,8 @@
 * Convert shaders over to be more unified.
 * Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
+* Add biome manager
+  * Add colour variation management to biome manager
 * Add scenery manager.
   * Add scenery to work, generation based on point distribution, poisson disc, etc.
 * Add item manager.
