@@ -147,26 +147,26 @@ void Chunk::Setup()
 
 			for (int y = 0; y < CHUNK_SIZE; y++)
 			{
-				float yPosition = m_position.y + y;
-
-				float landscapeNoise = octave_noise_3d(4.0f, 0.3f, 0.005f, xPosition, yPosition, zPosition);
-				float landscapeNoiseNormalized = ((landscapeNoise + 1.0f) * 0.5f);
-
-				float red1 = 0.65f;
-				float green1 = 0.80f;
-				float blue1 = 0.00f;
-				float red2 = 0.00f;
-				float green2 = 0.46f;
-				float blue2 = 0.16f;
-
-				float alpha = 1.0f;				
-
-				float r = red1 + ((red2 - red1) * landscapeNoiseNormalized);
-				float g = green1 + ((green2 - green1) * landscapeNoiseNormalized);
-				float b = blue1 + ((blue2 - blue1) * landscapeNoiseNormalized);
-
 				if (y + (m_gridY*CHUNK_SIZE) < noiseHeight)
 				{
+					float yPosition = m_position.y + y;
+
+					float colorNoise = octave_noise_3d(4.0f, 0.3f, 0.005f, xPosition, yPosition, zPosition);
+					float colorNoiseNormalized = ((colorNoise + 1.0f) * 0.5f);
+
+					float red1 = 0.65f;
+					float green1 = 0.80f;
+					float blue1 = 0.00f;
+					float red2 = 0.00f;
+					float green2 = 0.46f;
+					float blue2 = 0.16f;
+
+					float alpha = 1.0f;
+
+					float r = red1 + ((red2 - red1) * colorNoiseNormalized);
+					float g = green1 + ((green2 - green1) * colorNoiseNormalized);
+					float b = blue1 + ((blue2 - blue1) * colorNoiseNormalized);
+
 					SetColour(x, y, z, r, g, b, alpha);
 				}
 			}
