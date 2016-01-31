@@ -80,7 +80,12 @@
   * Add colour variation management to biome manager
 * Add scenery manager.
   * Add scenery to work, generation based on point distribution, poisson disc, etc.
+  * Tree and flower generation.
 * Add item manager.
+* Debug settings option to toggle the Debug GUI from the settings ini file.
+* Settings in ini to run straigh into game, with player and camera controls - or run into front-end etc.
+* Ordering of the chunk loading based on the camera/player position, so that loading filters outwards from player.
+* Wait before spawning player in world, until world is generated.
 * Create basic front-end.
 * Create front end scene and character line up.
 * Character creation and customization.
@@ -93,3 +98,4 @@
 * Add exit/quit popup when the game is closed or quit using various exit methods.
 * Add voxel editor.
 * Add texture support for voxel blocks.
+* Add back in skyboxes and support tweeningblending from one skybox to the other
