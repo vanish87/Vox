@@ -25,7 +25,7 @@ ChunkManager::ChunkManager(Renderer* pRenderer, VoxSettings* pVoxSettings)
 	m_pRenderer->CreateMaterial(Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), 64, &m_chunkMaterialID);
 
 	// Loader radius
-	m_loaderRadius = 128.0f;
+	m_loaderRadius = 96.0f;
 
 	// Update lock
 	m_stepLockEnabled = false;
