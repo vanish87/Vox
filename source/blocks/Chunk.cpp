@@ -161,6 +161,43 @@ void Chunk::Setup()
 					float green2 = 0.46f;
 					float blue2 = 0.16f;
 
+					if (noise < -0.5f)
+					{
+						red1 = 0.10f;
+						green1 = 0.25f;
+						blue1 = 1.00f;
+						red2 = 0.10f;
+						green2 = 0.25f;
+						blue2 = 1.00f;
+					}
+					else if (noise < -0.25f)
+					{
+						red1 = 0.94f;
+						green1 = 0.74f;
+						blue1 = 0.34f;
+						red2 = 0.50f;
+						green2 = 0.29f;
+						blue2 = 0.20f;
+					}
+					else if (noise < 0.5f)
+					{
+						red1 = 0.65f;
+						green1 = 0.80f;
+						blue1 = 0.00f;
+						red2 = 0.00f;
+						green2 = 0.46f;
+						blue2 = 0.16f;
+					}
+					else if (noise < 1.0f)
+					{
+						red1 = 0.85f;
+						green1 = 0.85f;
+						blue1 = 0.85f;
+						red2 = 0.77f;
+						green2 = 0.65f;
+						blue2 = 0.80f;
+					}
+
 					float alpha = 1.0f;
 
 					float r = red1 + ((red2 - red1) * colorNoiseNormalized);
