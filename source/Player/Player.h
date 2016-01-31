@@ -52,6 +52,9 @@ public:
 
 	// World
 	void UpdateGridPosition();
+	int GetGridX() const;
+	int GetGridY() const;
+	int GetGridZ() const;
 	Chunk* GetCachedGridChunkOrFromPosition(vec3 pos);
 	void ClearChunkCacheForChunk(Chunk* pChunk);
 

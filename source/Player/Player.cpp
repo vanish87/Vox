@@ -425,6 +425,21 @@ void Player::UpdateGridPosition()
 	}
 }
 
+int Player::GetGridX() const
+{
+	return m_gridPositionX;
+}
+
+int Player::GetGridY() const
+{
+	return m_gridPositionY;
+}
+
+int Player::GetGridZ() const
+{
+	return m_gridPositionZ;
+}
+
 Chunk* Player::GetCachedGridChunkOrFromPosition(vec3 pos)
 {
 	// First check if the position is in the same grid as the cached chunk

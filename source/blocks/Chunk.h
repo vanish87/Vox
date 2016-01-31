@@ -22,6 +22,7 @@
 #include "../Renderer/Camera.h"
 
 class ChunkManager;
+class Player;
 class VoxSettings;
 
 class Chunk
@@ -30,6 +31,9 @@ public:
 	/* Public methods */
 	Chunk(Renderer* pRenderer, ChunkManager* pChunkManager, VoxSettings* pVoxSettings);
 	~Chunk();
+
+	// Player pointer
+	void SetPlayer(Player* pPlayer);
 
 	// Initialize
 	void Initialize();
@@ -66,9 +70,9 @@ public:
 
 	// Grid
 	void SetGrid(int x, int y, int z);
-	int GetGridX();
-	int GetGridY();
-	int GetGridZ();
+	int GetGridX() const;
+	int GetGridY() const;
+	int GetGridZ() const;
 
 	// Active
 	bool GetActive(int x, int y, int z);
@@ -107,6 +111,10 @@ public:
 	void RenderDebug();
 	void Render2D(Camera* pCamera, unsigned int viewport, unsigned int font);
 
+	// < Operator (Used for chunk sorting, closest to camera)
+	bool operator<(const Chunk &w) const;
+	static bool ClosestToCamera(const Chunk *lhs, const Chunk *rhs);
+
 protected:
 	/* Protected methods */
 
@@ -128,6 +136,7 @@ private:
 	/* Private members */
 	Renderer* m_pRenderer;
 	ChunkManager* m_pChunkManager;
+	Player* m_pPlayer;
 	VoxSettings* m_pVoxSettings;
 
 	// Chunk neighbours

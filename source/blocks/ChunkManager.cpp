@@ -13,6 +13,8 @@
 #include "../Player/Player.h"
 #include "../VoxSettings.h"
 
+#include <algorithm>
+
 
 ChunkManager::ChunkManager(Renderer* pRenderer, VoxSettings* pVoxSettings)
 {
@@ -25,7 +27,7 @@ ChunkManager::ChunkManager(Renderer* pRenderer, VoxSettings* pVoxSettings)
 	m_pRenderer->CreateMaterial(Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), 64, &m_chunkMaterialID);
 
 	// Loader radius
-	m_loaderRadius = 96.0f;
+	m_loaderRadius = 128.0f;
 
 	// Update lock
 	m_stepLockEnabled = false;
@@ -34,9 +36,6 @@ ChunkManager::ChunkManager(Renderer* pRenderer, VoxSettings* pVoxSettings)
 	// Rendering modes
 	m_wireframeRender = false;
 	m_faceMerging = true;
-
-	// Create initial chunk
-	CreateNewChunk(0, 0, 0);
 
 	// Threading
 	m_updateThreadActive = true;
@@ -49,9 +48,17 @@ ChunkManager::~ChunkManager()
 	Sleep(200);
 }
 
+// Player pointer
 void ChunkManager::SetPlayer(Player* pPlayer)
 {
 	m_pPlayer = pPlayer;
+}
+
+// Initial chunk creation
+void ChunkManager::InitializeChunkCreation()
+{
+	// Create initial chunk
+	CreateNewChunk(0, 0, 0);
 }
 
 // Chunk rendering material
@@ -92,6 +99,7 @@ void ChunkManager::CreateNewChunk(int x, int y, int z)
 
 	// Create a new chunk at this grid position
 	Chunk* pNewChunk = new Chunk(m_pRenderer, this, m_pVoxSettings);
+	pNewChunk->SetPlayer(m_pPlayer);
 
 	float xPos = x * (Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f);
 	float yPos = y * (Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f);
@@ -428,17 +436,28 @@ void ChunkManager::UpdatingChunksThread()
 			Sleep(100);
 		}
 
+		ChunkList updateChunkList;
 		ChunkCoordKeysList addChunkList;
 		ChunkList rebuildChunkList;
 		ChunkList unloadChunkList;
 
 		m_ChunkMapMutexLock.lock();
 		typedef map<ChunkCoordKeys, Chunk*>::iterator it_type;
-		int numAddedChunks = 0;
-		int MAX_NUM_CHUNKS_ADD = 10;
 		for (it_type iterator = m_chunksMap.begin(); iterator != m_chunksMap.end(); iterator++)
 		{
 			Chunk* pChunk = iterator->second;
+
+			updateChunkList.push_back(pChunk);
+		}
+		m_ChunkMapMutexLock.unlock();
+
+		// Updating chunks
+		int numAddedChunks = 0;
+		int MAX_NUM_CHUNKS_ADD = 10;
+		sort(updateChunkList.begin(), updateChunkList.end(), Chunk::ClosestToCamera);
+		for (unsigned int i = 0; i < (int)updateChunkList.size(); i++)
+		{
+			Chunk* pChunk = updateChunkList[i];
 
 			if (pChunk != NULL)
 			{
@@ -592,7 +611,7 @@ void ChunkManager::UpdatingChunksThread()
 				}
 			}
 		}
-		m_ChunkMapMutexLock.unlock();
+		updateChunkList.clear();
 
 		// Adding chunks
 		for (unsigned int i = 0; i < (int)addChunkList.size(); i++)

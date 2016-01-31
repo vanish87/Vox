@@ -147,6 +147,9 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	/* Create module and manager linkage */
 	m_pChunkManager->SetPlayer(m_pPlayer);
 
+	/* Initial chunk creation (Must be after player pointer sent to chunks) */
+	m_pChunkManager->InitializeChunkCreation();
+
 	/* Create, setup and skin the GUI components */
 	CreateGUI();
 	SetupGUI();

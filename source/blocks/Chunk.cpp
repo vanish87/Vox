@@ -11,6 +11,7 @@
 
 #include "Chunk.h"
 #include "ChunkManager.h"
+#include "../Player/Player.h"
 #include "../models/QubicleBinary.h"
 #include "../Utils/Random.h"
 #include "../Simplex/simplexnoise.h"
@@ -24,6 +25,7 @@ Chunk::Chunk(Renderer* pRenderer, ChunkManager* pChunkManager, VoxSettings* pVox
 {
 	m_pRenderer = pRenderer;
 	m_pChunkManager = pChunkManager;
+	m_pPlayer = NULL;
 	m_pVoxSettings = pVoxSettings;
 
 	Initialize();
@@ -34,6 +36,12 @@ Chunk::~Chunk()
 	Unload();
 
 	delete m_colour;
+}
+
+// Player pointer
+void Chunk::SetPlayer(Player* pPlayer)
+{
+	m_pPlayer = pPlayer;
 }
 
 // Initialize
@@ -324,17 +332,17 @@ void Chunk::SetGrid(int x, int y, int z)
 	m_gridZ = z;
 }
 
-int Chunk::GetGridX()
+int Chunk::GetGridX() const
 {
 	return m_gridX;
 }
 
-int Chunk::GetGridY()
+int Chunk::GetGridY() const
 {
 	return m_gridY;
 }
 
-int Chunk::GetGridZ()
+int Chunk::GetGridZ() const
 {
 	return m_gridZ;
 }
@@ -1490,4 +1498,30 @@ void Chunk::Render2D(Camera* pCamera, unsigned int viewport, unsigned int font)
 			m_pRenderer->RenderFreeTypeText(font, (float)winx, (float)winy - 80.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, "%s", lLine5);
 		m_pRenderer->PopMatrix();
 	}
+}
+
+// < Operator (Used for chunk sorting, closest to camera)
+bool Chunk::operator<(const Chunk &w) const
+{
+	int playerX = 0;
+	int playerY = 0;
+	int playerZ = 0;
+	if (m_pPlayer != NULL)
+	{
+		playerX = m_pPlayer->GetGridX();
+		playerY = m_pPlayer->GetGridY();
+		playerZ = m_pPlayer->GetGridZ();
+	}
+
+	int distance = abs(playerX - m_gridX) + abs(playerY - m_gridY) + abs(playerZ - m_gridZ);
+	int wDistance = abs(playerX - w.GetGridX()) + abs(playerY - w.GetGridY()) + abs(playerZ - w.GetGridZ());
+
+	return(distance < wDistance);
+}
+
+bool Chunk::ClosestToCamera(const Chunk *lhs, const Chunk *rhs)
+{
+	if ((*lhs) < (*rhs)) { return true; }
+	if ((*rhs) < (*lhs)) { return false; }
+	return (*lhs) < (*rhs);
 }

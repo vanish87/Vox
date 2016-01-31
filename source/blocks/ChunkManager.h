@@ -63,7 +63,11 @@ public:
 	ChunkManager(Renderer* pRenderer, VoxSettings* pVoxSettings);
 	~ChunkManager();
 
+	// Player pointer
 	void SetPlayer(Player* pPlayer);
+
+	// Initial chunk creation
+	void InitializeChunkCreation();
 
 	// Chunk rendering material
 	unsigned int GetChunkMaterialID();
