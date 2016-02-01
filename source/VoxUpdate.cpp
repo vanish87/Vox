@@ -33,8 +33,21 @@ void VoxGame::Update()
 	// Update the time manager (countdowntimers);
 	TimeManager::GetInstance()->Update(m_deltaTime);
 
+	if (m_initialStartWait == true)
+	{
+		if (m_initialWaitTimer > m_initialWaitTime)
+		{
+			m_initialStartWait = false;
+		}
+		else
+		{
+			m_initialWaitTimer += m_deltaTime;
+			m_initialStartWait = true;
+		}
+	}
+
 	// Animation update
-	if (m_animationUpdate)
+	if (m_animationUpdate && m_initialStartWait == false)
 	{
 		// Update the lighting manager
 		m_pLightingManager->Update(m_deltaTime);

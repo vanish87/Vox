@@ -286,6 +286,11 @@ private:
 	float m_deltaTime;
 	float m_fps;
 
+	// Initial starting wait timer
+	float m_initialWaitTimer;
+	float m_initialWaitTime;
+	bool m_initialStartWait;
+
 	// Keyboard flags
 	bool m_bKeyboardForward;
 	bool m_bKeyboardBackward;

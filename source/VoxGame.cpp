@@ -62,6 +62,11 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_deltaTime = 0.0f;
 	m_fps = 0.0f;
 
+	/* Setup the initial starting wait timing */
+	m_initialWaitTimer = 0.0f;
+	m_initialWaitTime = 0.5f;
+	m_initialStartWait = true;
+
 	/* Create the renderer */
 	m_windowWidth = m_pVoxWindow->GetWindowWidth();
 	m_windowHeight = m_pVoxWindow->GetWindowHeight();
