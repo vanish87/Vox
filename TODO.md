@@ -73,6 +73,8 @@
 * ~~Player movement on voxel world and terrain.~~
   * Walking up single block steps automatically.
 * ~~Create Vox EXE launcher. (C# app)~~
+* ~~Debug settings option to toggle the Debug GUI from the settings ini file.~~
+* ~~Ordering of the chunk loading based on the camera/player position, so that loading filters outwards from player.~~
 * Convert shaders over to be more unified.
 * Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
@@ -82,9 +84,7 @@
   * Add scenery to work, generation based on point distribution, poisson disc, etc.
   * Tree and flower generation.
 * Add item manager.
-* ~~Debug settings option to toggle the Debug GUI from the settings ini file.~~
 * Settings in ini to run straight into game, with player and camera controls - or run into front-end etc.
-* Ordering of the chunk loading based on the camera/player position, so that loading filters outwards from player.
 * Wait before spawning player in world, until world is generated.
 * Create basic front-end.
 * Create front end scene and character line up.
