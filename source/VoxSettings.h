@@ -66,6 +66,7 @@ public:
 	bool m_debugRendering;
 	bool m_wireframeRendering;
 	bool m_stepUpdating;
+	bool m_showDebugGUI;
 
 protected:
 	/* Protected members */

@@ -254,6 +254,15 @@ void VoxGame::SetupGUI()
 	m_pDebugRenderCheckBox->SetToggled(m_pVoxSettings->m_debugRendering);
 	m_pFaceMergingCheckbox->SetToggled(m_pVoxSettings->m_faceMerging);
 	m_pStepUpdateCheckbox->SetToggled(m_pVoxSettings->m_stepUpdating);
+
+	if(m_pVoxSettings->m_showDebugGUI)
+	{
+		ShowGUI();
+	}
+	else
+	{
+		HideGUI();
+	}
 }
 
 void VoxGame::SkinGUI()
