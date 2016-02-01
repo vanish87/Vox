@@ -155,11 +155,6 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	/* Initial chunk creation (Must be after player pointer sent to chunks) */
 	m_pChunkManager->InitializeChunkCreation();
 
-	/* Create, setup and skin the GUI components */
-	CreateGUI();
-	SetupGUI();
-	SkinGUI();
-
 	// Keyboard movement
 	m_bKeyboardForward = false;
 	m_bKeyboardBackward = false;
@@ -222,6 +217,11 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	// Game mode
 	m_gameMode = GameMode_Debug;
 	SetGameMode(m_gameMode);
+
+	/* Create, setup and skin the GUI components */
+	CreateGUI();
+	SetupGUI();
+	SkinGUI();
 }
 
 // Destruction

@@ -255,6 +255,7 @@ void VoxGame::SetupGUI()
 	m_pFaceMergingCheckbox->SetToggled(m_pVoxSettings->m_faceMerging);
 	m_pStepUpdateCheckbox->SetToggled(m_pVoxSettings->m_stepUpdating);
 
+	// Debug GUI
 	if(m_pVoxSettings->m_showDebugGUI)
 	{
 		ShowGUI();
@@ -263,6 +264,23 @@ void VoxGame::SetupGUI()
 	{
 		HideGUI();
 	}
+
+	// Game mode
+	if (strcmp(m_pVoxSettings->m_gameMode.c_str(), "Debug") == 0)
+	{
+		m_pDebugOptionBox->SetToggled(true);
+	}
+	else if (strcmp(m_pVoxSettings->m_gameMode.c_str(), "Game") == 0)
+	{
+		m_pGameOptionBox->SetToggled(true);
+		m_pMouseRotateCameraOptionBox->SetToggled(true);
+	}
+	else if (strcmp(m_pVoxSettings->m_gameMode.c_str(), "FrontEnd") == 0)
+	{
+		m_pFrontEndOptionBox->SetToggled(true);
+	}
+	GameModeChanged();
+	CameraModeChanged();
 }
 
 void VoxGame::SkinGUI()

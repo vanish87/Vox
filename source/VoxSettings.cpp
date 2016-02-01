@@ -69,6 +69,7 @@ void VoxSettings::LoadSettings()
 	m_stepUpdating = reader.GetBoolean("Debug", "StepUpdatng", false);
 	m_wireframeRendering = reader.GetBoolean("Debug", "WireframeRendering", false);
 	m_showDebugGUI = reader.GetBoolean("Debug", "ShowDebugGUI", true);
+	m_gameMode = reader.Get("Debug", "GameMode", "Debug");
 }
 
 // Save settings

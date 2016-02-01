@@ -14,6 +14,9 @@
 
 #pragma once
 
+#include <string>
+using namespace std;
+
 class VoxGame;
 
 
@@ -67,6 +70,7 @@ public:
 	bool m_wireframeRendering;
 	bool m_stepUpdating;
 	bool m_showDebugGUI;
+	string m_gameMode;
 
 protected:
 	/* Protected members */
