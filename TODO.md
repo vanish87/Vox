@@ -82,8 +82,8 @@
   * Add scenery to work, generation based on point distribution, poisson disc, etc.
   * Tree and flower generation.
 * Add item manager.
-* Debug settings option to toggle the Debug GUI from the settings ini file.
-* Settings in ini to run straigh into game, with player and camera controls - or run into front-end etc.
+* ~~Debug settings option to toggle the Debug GUI from the settings ini file.~~
+* Settings in ini to run straight into game, with player and camera controls - or run into front-end etc.
 * Ordering of the chunk loading based on the camera/player position, so that loading filters outwards from player.
 * Wait before spawning player in world, until world is generated.
 * Create basic front-end.
