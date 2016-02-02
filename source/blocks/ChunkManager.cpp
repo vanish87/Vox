@@ -39,12 +39,17 @@ ChunkManager::ChunkManager(Renderer* pRenderer, VoxSettings* pVoxSettings)
 
 	// Threading
 	m_updateThreadActive = true;
+	m_updateThreadFinished = false;
 	m_pUpdatingChunksThread = new thread(_UpdatingChunksThread, this);
 }
 
 ChunkManager::~ChunkManager()
 {
 	m_updateThreadActive = false;
+	while (m_updateThreadFinished == false)
+	{
+		Sleep(200);
+	}
 	Sleep(200);
 }
 
@@ -678,6 +683,8 @@ void ChunkManager::UpdatingChunksThread()
 
 		Sleep(10);
 	}
+
+	m_updateThreadFinished = true;
 }
 
 // Rendering
@@ -721,6 +728,8 @@ void ChunkManager::Render()
 
 void ChunkManager::RenderDebug()
 {
+	m_pRenderer->SetRenderMode(RM_SOLID);
+
 	m_ChunkMapMutexLock.lock();
 	typedef map<ChunkCoordKeys, Chunk*>::iterator it_type;
 	for (it_type iterator = m_chunksMap.begin(); iterator != m_chunksMap.end(); iterator++)
