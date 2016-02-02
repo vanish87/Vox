@@ -279,6 +279,7 @@ void VoxGame::SetupGUI()
 	{
 		m_pFrontEndOptionBox->SetToggled(true);
 	}
+	m_pVoxWindow->Update(m_deltaTime);
 	GameModeChanged();
 	CameraModeChanged();
 }
