@@ -201,7 +201,7 @@ void VoxGame::RenderSkybox()
 		glShader* pShader = m_pRenderer->GetShader(m_cubeMapShader);
 		unsigned int cubemapTexture1 = glGetUniformLocationARB(pShader->GetProgramObject(), "cubemap1");
 		m_pRenderer->PrepareShaderTexture(0, cubemapTexture1);
-		m_pRenderer->BindCubeTexture(m_pSkybox->GetCubeMapTexture1());		
+		m_pRenderer->BindCubeTexture(m_pSkybox->GetCubeMapTexture1());
 
 		//unsigned int cubemapTexture2 = glGetUniformLocationARB(pShader->GetProgramObject(), "cubemap2");
 		//m_pRenderer->PrepareShaderTexture(1, cubemapTexture2);
@@ -216,6 +216,10 @@ void VoxGame::RenderSkybox()
 		CHECK_GL_ERRORS();
 		//m_pRenderer->EmptyCubeTextureIndex(1);
 		//CHECK_GL_ERRORS();
+
+		m_pRenderer->EmptyTextureIndex(2);
+		m_pRenderer->EmptyTextureIndex(1);
+		m_pRenderer->EmptyTextureIndex(0);
 
 		m_pRenderer->EndGLSLShader(m_cubeMapShader);
 	m_pRenderer->PopMatrix();
