@@ -213,9 +213,7 @@ void VoxGame::RenderSkybox()
 		m_pSkybox->Render();
 				
 		m_pRenderer->EmptyCubeTextureIndex(0);
-		CHECK_GL_ERRORS();
 		//m_pRenderer->EmptyCubeTextureIndex(1);
-		//CHECK_GL_ERRORS();
 
 		m_pRenderer->EmptyTextureIndex(2);
 		m_pRenderer->EmptyTextureIndex(1);
