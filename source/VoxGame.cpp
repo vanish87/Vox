@@ -218,7 +218,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_gameMode = GameMode_Debug;
 	SetGameMode(m_gameMode);
 
-	/* Create, setup and skin the GUI components */
+	// Create, setup and skin the GUI components
 	CreateGUI();
 	SetupGUI();
 	SkinGUI();
