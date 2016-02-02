@@ -76,6 +76,9 @@
     <Filter Include="source\tinythread">
       <UniqueIdentifier>{b221125d-675a-4f2d-ac33-43e91b7f2aef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\Skybox">
+      <UniqueIdentifier>{aaa8eb31-d2ae-4a47-959f-ab811682220c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\glew\src\glew.c">
@@ -470,6 +473,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\tinythread\tinythread.cpp">
       <Filter>source\tinythread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Skybox\Skybox.cpp">
+      <Filter>source\Skybox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1324,6 +1330,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\tinythread\tinythread.h">
       <Filter>source\tinythread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Skybox\Skybox.h">
+      <Filter>source\Skybox</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
