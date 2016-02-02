@@ -116,6 +116,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_SSAOShader = -1;
 	m_shadowShader = -1;
 	m_lightingShader = -1;
+	m_cubeMapShader = -1;
 	m_textureShader = -1;
 	m_fxaaShader = -1;
 	m_blurVerticalShader = -1;
@@ -127,6 +128,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	shaderLoaded = m_pRenderer->LoadGLSLShader("media/shaders/fullscreen/SSAO.vertex", "media/shaders/fullscreen/SSAO.pixel", &m_SSAOShader);
 	shaderLoaded = m_pRenderer->LoadGLSLShader("media/shaders/fullscreen/fxaa.vertex", "media/shaders/fullscreen/fxaa.pixel", &m_fxaaShader);
 	shaderLoaded = m_pRenderer->LoadGLSLShader("media/shaders/fullscreen/lighting.vertex", "media/shaders/fullscreen/lighting.pixel", &m_lightingShader);
+	shaderLoaded = m_pRenderer->LoadGLSLShader("media/shaders/cube_map.vertex", "media/shaders/cube_map.pixel", &m_cubeMapShader);
 	shaderLoaded = m_pRenderer->LoadGLSLShader("media/shaders/fullscreen/blur_vertical.vertex", "media/shaders/fullscreen/blur_vertical.pixel", &m_blurVerticalShader);
 	shaderLoaded = m_pRenderer->LoadGLSLShader("media/shaders/fullscreen/blur_horizontal.vertex", "media/shaders/fullscreen/blur_horizontal.pixel", &m_blurHorizontalShader);
 
@@ -139,6 +141,9 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 
 	/* Create the lighting manager */
 	m_pLightingManager = new LightingManager(m_pRenderer);
+
+	/* Create the skybox */
+	m_pSkybox = new Skybox(m_pRenderer);
 
 	/* Create the block particle manager */
 	m_pBlockParticleManager = new BlockParticleManager(m_pRenderer);
@@ -229,6 +234,7 @@ void VoxGame::Destroy()
 {
 	if (c_instance)
 	{
+		delete m_pSkybox;
 		delete m_pLightingManager;
 		delete m_pPlayer;
 		delete m_pQubicleBinaryManager;

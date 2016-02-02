@@ -1335,6 +1335,68 @@ void Renderer::SetTextureData(unsigned int id, int width, int height, unsigned c
 	glDisable(GL_TEXTURE_2D);
 }
 
+// Cube textures
+bool Renderer::LoadCubeTexture(int *width, int *height, string front, string back, string top, string bottom, string left, string right, unsigned int *pID)
+{
+	bool loaded = false;
+	unsigned char *texdataFront = 0;
+	unsigned char *texdataBack = 0;
+	unsigned char *texdataTop = 0;
+	unsigned char *texdataBottom = 0;
+	unsigned char *texdataLeft = 0;
+	unsigned char *texdataRight = 0;
+
+	// Only support TGA cubemaps for now!
+	loaded = LoadFileTGA(front.c_str(), &texdataFront, width, height, true) == 1;
+	loaded = LoadFileTGA(back.c_str(), &texdataBack, width, height, true) == 1;
+	loaded = LoadFileTGA(top.c_str(), &texdataTop, width, height, true) == 1;
+	loaded = LoadFileTGA(bottom.c_str(), &texdataBottom, width, height, true) == 1;
+	loaded = LoadFileTGA(left.c_str(), &texdataLeft, width, height, true) == 1;
+	loaded = LoadFileTGA(right.c_str(), &texdataRight, width, height, true) == 1;
+
+	GLuint id;
+	glEnable(GL_TEXTURE_CUBE_MAP);
+	glGenTextures(1, &id);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, id);
+
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGBA, *width, *height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texdataFront);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGBA, *width, *height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texdataBack);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGBA, *width, *height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texdataTop);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGBA, *width, *height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texdataBottom);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGBA, *width, *height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texdataLeft);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGBA, *width, *height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texdataRight);
+
+	glDisable(GL_TEXTURE_CUBE_MAP);
+
+	*pID = id;
+
+	return true;
+}
+
+void Renderer::BindCubeTexture(unsigned int id)
+{
+	glEnable(GL_TEXTURE_CUBE_MAP);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, id);
+}
+
+void Renderer::EmptyCubeTextureIndex(unsigned int textureIndex)
+{
+	glActiveTextureARB(GL_TEXTURE0_ARB + textureIndex);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, textureIndex);
+	glDisable(GL_TEXTURE_CUBE_MAP);
+}
+
+void Renderer::DisableCubeTexture()
+{
+	glDisable(GL_TEXTURE_CUBE_MAP);
+}
+
 // Vertex buffers
 bool Renderer::CreateStaticBuffer(VertexType type, unsigned int materialID, unsigned int textureID, int nVerts, int nTextureCoordinates, int nIndices, const void *pVerts, const void *pTextureCoordinates, const unsigned int *pIndices, unsigned int *pID)
 {

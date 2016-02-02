@@ -73,6 +73,9 @@ void VoxGame::Render()
 				m_pRenderer->RenderLight(m_defaultLight);
 			m_pRenderer->PopMatrix();
 
+			// Render the skybox
+			RenderSkybox();
+
 			if (m_shadows)
 			{
 				m_pRenderer->BeginGLSLShader(m_shadowShader);
@@ -88,9 +91,6 @@ void VoxGame::Render()
 			{
 				m_pRenderer->BeginGLSLShader(m_defaultShader);
 			}
-
-			// Render world
-			//RenderWorld();
 
 			// Render the chunks
 			m_pChunkManager->Render();
@@ -193,32 +193,32 @@ void VoxGame::Render()
 	m_pVoxWindow->Render();
 }
 
-void VoxGame::RenderWorld()
+void VoxGame::RenderSkybox()
 {
-	float floorY = 0.0f;
-	float floorLength = 15.0f;
+	m_pRenderer->PushMatrix();
+		m_pRenderer->BeginGLSLShader(m_cubeMapShader);
 
-	m_pRenderer->SetRenderMode(RM_SHADED);
-	m_pRenderer->EnableMaterial(m_defaultMaterial);
-	m_pRenderer->EnableImmediateMode(IM_QUADS);
-		m_pRenderer->ImmediateColourAlpha(0.227f, 1.0f, 0.419f, 1.0f);
+		glShader* pShader = m_pRenderer->GetShader(m_cubeMapShader);
+		unsigned int cubemapTexture1 = glGetUniformLocationARB(pShader->GetProgramObject(), "cubemap1");
+		m_pRenderer->PrepareShaderTexture(0, cubemapTexture1);
+		m_pRenderer->BindCubeTexture(m_pSkybox->GetCubeMapTexture1());		
 
-		m_pRenderer->ImmediateTextureCoordinate(0.0f, 0.0f);
-		m_pRenderer->ImmediateVertex(-floorLength, floorY, -floorLength);
-		m_pRenderer->ImmediateNormal(0.0f, 1.0f, 0.0f);
+		//unsigned int cubemapTexture2 = glGetUniformLocationARB(pShader->GetProgramObject(), "cubemap2");
+		//m_pRenderer->PrepareShaderTexture(1, cubemapTexture2);
+		//m_pRenderer->BindCubeTexture(m_pSkybox->GetCubeMapTexture2());
 
-		m_pRenderer->ImmediateTextureCoordinate(0.0f, 1.0f);
-		m_pRenderer->ImmediateVertex(-floorLength, floorY, floorLength);
-		m_pRenderer->ImmediateNormal(0.0f, 1.0f, 0.0f);
+		pShader->setUniform1f("skyboxRatio", 0.0f);
 
-		m_pRenderer->ImmediateTextureCoordinate(1.0f, 1.0f);
-		m_pRenderer->ImmediateVertex(floorLength, floorY, floorLength);
-		m_pRenderer->ImmediateNormal(0.0f, 1.0f, 0.0f);
+		m_pRenderer->TranslateWorldMatrix(m_pPlayer->GetCenter().x, m_pPlayer->GetCenter().y, m_pPlayer->GetCenter().z);
+		m_pSkybox->Render();
+				
+		m_pRenderer->EmptyCubeTextureIndex(0);
+		CHECK_GL_ERRORS();
+		//m_pRenderer->EmptyCubeTextureIndex(1);
+		//CHECK_GL_ERRORS();
 
-		m_pRenderer->ImmediateTextureCoordinate(1.0f, 0.0f);
-		m_pRenderer->ImmediateVertex(floorLength, floorY, -floorLength);
-		m_pRenderer->ImmediateNormal(0.0f, 1.0f, 0.0f);
-	m_pRenderer->DisableImmediateMode();
+		m_pRenderer->EndGLSLShader(m_cubeMapShader);
+	m_pRenderer->PopMatrix();
 }
 
 void VoxGame::RenderShadows()

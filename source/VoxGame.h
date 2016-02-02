@@ -22,6 +22,7 @@
 #include "Player/Player.h"
 #include "blocks/ChunkManager.h"
 #include "frontend/FrontendManager.h"
+#include "Skybox/Skybox.h"
 
 #include "VoxApplication.h"
 #include "VoxWindow.h"
@@ -120,7 +121,7 @@ public:
 	// Rendering
 	void PreRender();
 	void Render();
-	void RenderWorld();
+	void RenderSkybox();
 	void RenderShadows();
 	void RenderDeferredLighting();
 	void RenderTransparency();
@@ -223,6 +224,9 @@ private:
 	// Lighting manager
 	LightingManager* m_pLightingManager;
 
+	// Skybox
+	Skybox* m_pSkybox;
+
 	// Block particle manager
 	BlockParticleManager* m_pBlockParticleManager;
 
@@ -269,6 +273,7 @@ private:
 	unsigned int m_SSAOShader;
 	unsigned int m_shadowShader;
 	unsigned int m_lightingShader;
+	unsigned int m_cubeMapShader;
 	unsigned int m_textureShader;
 	unsigned int m_fxaaShader;
 	unsigned int m_blurVerticalShader;

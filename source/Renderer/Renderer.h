@@ -301,6 +301,12 @@ public:
 	void GenerateEmptyTexture(unsigned int *pID);
 	void SetTextureData(unsigned int id, int width, int height, unsigned char *texdata);
 
+	// Cube textures
+	bool LoadCubeTexture(int *width, int *height, string front, string back, string top, string bottom, string left, string right, unsigned int *pID);
+	void BindCubeTexture(unsigned int id);
+	void EmptyCubeTextureIndex(unsigned int textureIndex);
+	void DisableCubeTexture();
+
 	// Vertex buffers
 	bool CreateStaticBuffer(VertexType type, unsigned int materialID, unsigned int textureID, int nVerts, int nTextureCoordinates, int nIndices, const void *pVerts, const void *pTextureCoordinates, const unsigned int *pIndices, unsigned int *pID);
 	bool RecreateStaticBuffer(unsigned int ID, VertexType type, unsigned int materialID, unsigned int textureID, int nVerts, int nTextureCoordinates, int nIndices, const void *pVerts, const void *pTextureCoordinates, const unsigned int *pIndices);
