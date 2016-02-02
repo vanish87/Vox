@@ -98,7 +98,7 @@
 * Add exit/quit popup when the game is closed or quit using various exit methods.
 * Add voxel editor.
 * Add texture support for voxel blocks.
-* Add back in skyboxes and support tweeningblending from one skybox to the other.
+* ~~Add back in skyboxes and support tweeningblending from one skybox to the other.~~
 * Add inventory GUI.
 * Add character GUI.
 * Add Quest GUI.
