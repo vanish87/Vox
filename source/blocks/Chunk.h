@@ -74,6 +74,10 @@ public:
 	int GetGridY() const;
 	int GetGridZ() const;
 
+	// Batch update
+	void StartBatchUpdate();
+	void StopBatchUpdate();
+
 	// Active
 	bool GetActive(int x, int y, int z);
 
@@ -147,6 +151,9 @@ private:
 	Chunk* m_pyPlus;
 	Chunk* m_pzMinus;
 	Chunk* m_pzPlus;
+
+	// Flag for change during a batch update
+	bool m_chunkChangedDuringBatchUpdate;
 
 	// Grid co-ordinates
 	int m_gridX;

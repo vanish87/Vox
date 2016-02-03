@@ -132,12 +132,12 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	shaderLoaded = m_pRenderer->LoadGLSLShader("media/shaders/fullscreen/blur_vertical.vertex", "media/shaders/fullscreen/blur_vertical.pixel", &m_blurVerticalShader);
 	shaderLoaded = m_pRenderer->LoadGLSLShader("media/shaders/fullscreen/blur_horizontal.vertex", "media/shaders/fullscreen/blur_horizontal.pixel", &m_blurHorizontalShader);
 
-	/* Create the chunk manager*/
-	m_pChunkManager = new ChunkManager(m_pRenderer, m_pVoxSettings);
-	m_pChunkManager->SetStepLockEnabled(m_pVoxSettings->m_stepUpdating);
-
 	/* Create the qubicle binary file manager */
 	m_pQubicleBinaryManager = new QubicleBinaryManager(m_pRenderer);
+
+	/* Create the chunk manager*/
+	m_pChunkManager = new ChunkManager(m_pRenderer, m_pVoxSettings, m_pQubicleBinaryManager);
+	m_pChunkManager->SetStepLockEnabled(m_pVoxSettings->m_stepUpdating);
 
 	/* Create the lighting manager */
 	m_pLightingManager = new LightingManager(m_pRenderer);

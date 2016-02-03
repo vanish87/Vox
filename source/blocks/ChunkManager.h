@@ -17,6 +17,7 @@
 #pragma once
 
 #include "../Renderer/Renderer.h"
+#include "../models/QubicleBinary.h"
 
 #include "Chunk.h"
 
@@ -28,6 +29,7 @@ using namespace tthread;
 
 class Player;
 class VoxSettings;
+class QubicleBinaryManager;
 
 struct ChunkCoordKeys {
 	int x;
@@ -55,12 +57,77 @@ inline bool const operator<(const ChunkCoordKeys& l, const ChunkCoordKeys& r) {
 typedef std::vector<Chunk*> ChunkList;
 typedef std::vector<ChunkCoordKeys> ChunkCoordKeysList;
 
+enum QubicleImportDirection
+{
+	QubicleImportDirection_Normal = 0,
+	QubicleImportDirection_MirrorX,
+	QubicleImportDirection_MirrorY,
+	QubicleImportDirection_MirrorZ,
+	QubicleImportDirection_RotateY90,
+	QubicleImportDirection_RotateY180,
+	QubicleImportDirection_RotateY270,
+	QubicleImportDirection_RotateX90,
+	QubicleImportDirection_RotateX180,
+	QubicleImportDirection_RotateX270,
+	QubicleImportDirection_RotateZ90,
+	QubicleImportDirection_RotateZ180,
+	QubicleImportDirection_RotateZ270,
+};
+
+
+class ChunkStorageLoader
+{
+public:
+	int m_gridX;
+	int m_gridY;
+	int m_gridZ;
+
+	vec3 m_position;
+
+	bool m_blockSet[Chunk::CHUNK_SIZE][Chunk::CHUNK_SIZE][Chunk::CHUNK_SIZE];
+	unsigned int m_colour[Chunk::CHUNK_SIZE][Chunk::CHUNK_SIZE][Chunk::CHUNK_SIZE];
+
+	ChunkStorageLoader::ChunkStorageLoader(int x, int y, int z)
+	{
+		m_gridX = x;
+		m_gridY = y;
+		m_gridZ = z;
+
+		float xPos = x * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+		float yPos = y * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+		float zPos = z * Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f;
+
+		m_position = vec3(xPos, yPos, zPos);
+
+		// Reset initial arrays
+		for (int x = 0; x < Chunk::CHUNK_SIZE; x++)
+		{
+			for (int y = 0; y < Chunk::CHUNK_SIZE; y++)
+			{
+				for (int z = 0; z < Chunk::CHUNK_SIZE; z++)
+				{
+					m_blockSet[x][y][z] = false;
+					m_colour[x][y][z] = 0;
+				}
+			}
+		}
+	}
+
+	void SetBlockColour(int x, int y, int z, unsigned int colour)
+	{
+		m_blockSet[x][y][z] = true;
+		m_colour[x][y][z] = colour;
+	}
+};
+
+typedef std::vector<ChunkStorageLoader*> ChunkStorageLoaderList;
+
 
 class ChunkManager
 {
 public:
 	/* Public methods */
-	ChunkManager(Renderer* pRenderer, VoxSettings* pVoxSettings);
+	ChunkManager(Renderer* pRenderer, VoxSettings* pVoxSettings, QubicleBinaryManager* pQubicleBinaryManager);
 	~ChunkManager();
 
 	// Player pointer
@@ -92,6 +159,16 @@ public:
 
 	// Getting the active block state given a position and chunk information
 	bool GetBlockActiveFrom3DPosition(float x, float y, float z, vec3 *blockPos, int* blockX, int* blockY, int* blockZ, Chunk** pChunk);
+	void GetBlockGridFrom3DPositionChunkStorage(float x, float y, float z, int* blockX, int* blockY, int* blockZ, ChunkStorageLoader* ChunkStorage);
+
+	// Adding to chunk storage for parts of the world generation that are outside of loaded chunks
+	ChunkStorageLoader* GetChunkStorage(int aX, int aY, int aZ, bool CreateIfNotExist);
+	void RemoveChunkStorageLoader(ChunkStorageLoader* pChunkStorage);
+
+	// Importing into the world chunks
+	void ImportQubicleBinaryMatrix(QubicleMatrix* pMatrix, vec3 position, QubicleImportDirection direction);
+	QubicleBinary* ImportQubicleBinary(QubicleBinary* qubicleBinaryFile, vec3 position, QubicleImportDirection direction);
+	QubicleBinary* ImportQubicleBinary(const char* filename, vec3 position, QubicleImportDirection direction);
 
 	// Rendering modes
 	void SetWireframeRender(bool wireframe);
@@ -125,6 +202,7 @@ private:
 	Renderer* m_pRenderer;
 	Player* m_pPlayer;
 	VoxSettings* m_pVoxSettings;
+	QubicleBinaryManager* m_pQubicleBinaryManager;
 
 	// Chunk Material
 	unsigned int m_chunkMaterialID;
@@ -142,6 +220,10 @@ private:
 
 	// Chunks storage
 	map<ChunkCoordKeys, Chunk*> m_chunksMap;
+
+	// Storage for modifications to chunks that are not loaded yet
+	ChunkStorageLoaderList m_vpChunkStorageList;
+	mutex m_chunkStorageListLock;
 
 	// Threading
 	thread* m_pUpdatingChunksThread;

@@ -12,15 +12,17 @@
 #include "ChunkManager.h"
 #include "../Player/Player.h"
 #include "../VoxSettings.h"
+#include "../models/QubicleBinaryManager.h"
 
 #include <algorithm>
 
 
-ChunkManager::ChunkManager(Renderer* pRenderer, VoxSettings* pVoxSettings)
+ChunkManager::ChunkManager(Renderer* pRenderer, VoxSettings* pVoxSettings, QubicleBinaryManager* pQubicleBinaryManager)
 {
 	m_pRenderer = pRenderer;
 	m_pPlayer = NULL;
 	m_pVoxSettings = pVoxSettings;
+	m_pQubicleBinaryManager = pQubicleBinaryManager;
 
 	// Chunk material
 	m_chunkMaterialID = -1;
@@ -45,6 +47,8 @@ ChunkManager::ChunkManager(Renderer* pRenderer, VoxSettings* pVoxSettings)
 
 ChunkManager::~ChunkManager()
 {
+	m_stepLockEnabled = false;
+	m_updateStepLock = true;
 	m_updateThreadActive = false;
 	while (m_updateThreadFinished == false)
 	{
@@ -398,6 +402,288 @@ bool ChunkManager::GetBlockActiveFrom3DPosition(float x, float y, float z, vec3 
 	}
 
 	return (*pChunk)->GetActive((*blockX), (*blockY), (*blockZ));
+}
+
+void ChunkManager::GetBlockGridFrom3DPositionChunkStorage(float x, float y, float z, int* blockX, int* blockY, int* blockZ, ChunkStorageLoader* ChunkStorage)
+{
+	(*blockX) = (int)((abs(x) + Chunk::BLOCK_RENDER_SIZE) / (Chunk::BLOCK_RENDER_SIZE*2.0f));
+	(*blockY) = (int)((abs(y) + Chunk::BLOCK_RENDER_SIZE) / (Chunk::BLOCK_RENDER_SIZE*2.0f));
+	(*blockZ) = (int)((abs(z) + Chunk::BLOCK_RENDER_SIZE) / (Chunk::BLOCK_RENDER_SIZE*2.0f));
+
+	(*blockX) = (*blockX) % Chunk::CHUNK_SIZE;
+	(*blockY) = (*blockY) % Chunk::CHUNK_SIZE;
+	(*blockZ) = (*blockZ) % Chunk::CHUNK_SIZE;
+
+	if (x < 0.0f)
+	{
+		if ((*blockX) == 0)
+		{
+		}
+		else
+		{
+			(*blockX) = (Chunk::CHUNK_SIZE) - (*blockX);
+		}
+	}
+	if (y < 0.0f)
+	{
+		if ((*blockY) == 0)
+		{
+		}
+		else
+		{
+			(*blockY) = (Chunk::CHUNK_SIZE) - (*blockY);
+		}
+	}
+	if (z < 0.0f)
+	{
+		if ((*blockZ) == 0)
+		{
+		}
+		else
+		{
+			(*blockZ) = (Chunk::CHUNK_SIZE) - (*blockZ);
+		}
+	}
+}
+
+// Adding to chunk storage for parts of the world generation that are outside of loaded chunks
+ChunkStorageLoader* ChunkManager::GetChunkStorage(int aX, int aY, int aZ, bool CreateIfNotExist)
+{
+	m_chunkStorageListLock.lock();
+	for (unsigned int i = 0; i < m_vpChunkStorageList.size(); i++)
+	{
+		if (m_vpChunkStorageList[i]->m_gridX == aX && m_vpChunkStorageList[i]->m_gridY == aY && m_vpChunkStorageList[i]->m_gridZ == aZ)
+		{
+			m_chunkStorageListLock.unlock();
+
+			// Found and existing chunk storage, return it
+			return m_vpChunkStorageList[i];
+		}
+	}
+	m_chunkStorageListLock.unlock();
+
+	// No storage found, create a new one
+	if (CreateIfNotExist)
+	{
+		ChunkStorageLoader* pNewStorage = new ChunkStorageLoader(aX, aY, aZ);
+		pNewStorage->m_gridX = aX;
+		pNewStorage->m_gridY = aY;
+		pNewStorage->m_gridZ = aZ;
+
+		m_chunkStorageListLock.lock();
+		m_vpChunkStorageList.push_back(pNewStorage);
+		m_chunkStorageListLock.unlock();
+
+		return pNewStorage;
+	}
+
+	return NULL;
+}
+
+void ChunkManager::RemoveChunkStorageLoader(ChunkStorageLoader* pChunkStorage)
+{
+	m_chunkStorageListLock.lock();
+	ChunkStorageLoaderList::iterator iter = std::find(m_vpChunkStorageList.begin(), m_vpChunkStorageList.end(), pChunkStorage);
+	if (iter != m_vpChunkStorageList.end())
+	{
+		m_vpChunkStorageList.erase(iter);
+	}
+	m_chunkStorageListLock.unlock();
+
+	delete pChunkStorage;
+	pChunkStorage = NULL;
+}
+
+// Importing into the world chunks
+void ChunkManager::ImportQubicleBinaryMatrix(QubicleMatrix* pMatrix, vec3 position, QubicleImportDirection direction)
+{
+	bool mirrorX = false;
+	bool mirrorY = false;
+	bool mirrorZ = false;
+	bool flipXZ = false;
+	bool flipXY = false;
+	bool flipYZ = false;
+
+	switch (direction)
+	{
+	case QubicleImportDirection_Normal: {  } break;
+	case QubicleImportDirection_MirrorX: { mirrorX = true; } break;
+	case QubicleImportDirection_MirrorY: { mirrorY = true; } break;
+	case QubicleImportDirection_MirrorZ: { mirrorZ = true; } break;
+	case QubicleImportDirection_RotateY90: { mirrorX = true; flipXZ = true; } break;
+	case QubicleImportDirection_RotateY180: { mirrorX = true; mirrorZ = true; } break;
+	case QubicleImportDirection_RotateY270: { mirrorZ = true; flipXZ = true; } break;
+	case QubicleImportDirection_RotateX90: { mirrorZ = true; flipYZ = true; } break;
+	case QubicleImportDirection_RotateX180: { mirrorZ = true; mirrorY = true; } break;
+	case QubicleImportDirection_RotateX270: { mirrorY = true; flipYZ = true; } break;
+	case QubicleImportDirection_RotateZ90: { mirrorY = true; flipXY = true; } break;
+	case QubicleImportDirection_RotateZ180: { mirrorX = true; mirrorY = true; } break;
+	case QubicleImportDirection_RotateZ270: { mirrorX = true; flipXY = true; } break;
+	}
+
+	ChunkList vChunkBatchUpdateList;
+
+	float r = 1.0f;
+	float g = 1.0f;
+	float b = 1.0f;
+	float a = 1.0f;
+
+	unsigned int xValueToUse = pMatrix->m_matrixSizeX;
+	unsigned int yValueToUse = pMatrix->m_matrixSizeY;
+	unsigned int zValueToUse = pMatrix->m_matrixSizeZ;
+	if (flipXZ)
+	{
+		xValueToUse = pMatrix->m_matrixSizeZ;
+		zValueToUse = pMatrix->m_matrixSizeX;
+	}
+	if (flipXY)
+	{
+		xValueToUse = pMatrix->m_matrixSizeY;
+		yValueToUse = pMatrix->m_matrixSizeX;
+	}
+	if (flipYZ)
+	{
+		yValueToUse = pMatrix->m_matrixSizeZ;
+		zValueToUse = pMatrix->m_matrixSizeY;
+	}
+
+	int xPosition = 0;
+	if (mirrorX)
+		xPosition = xValueToUse - 1;
+
+	for (unsigned int x = 0; x < xValueToUse; x++)
+	{
+		int yPosition = 0;
+		if (mirrorY)
+			yPosition = yValueToUse - 1;
+
+		for (unsigned int y = 0; y < yValueToUse; y++)
+		{
+			int zPosition = 0;
+			if (mirrorZ)
+				zPosition = zValueToUse - 1;
+
+			for (unsigned int z = 0; z < zValueToUse; z++)
+			{
+				int xPosition_modified = xPosition;
+				int yPosition_modified = yPosition;
+				int zPosition_modified = zPosition;
+				if (flipXZ)
+				{
+					xPosition_modified = zPosition;
+					zPosition_modified = xPosition;
+				}
+				if (flipXY)
+				{
+					xPosition_modified = yPosition;
+					yPosition_modified = xPosition;
+				}
+				if (flipYZ)
+				{
+					yPosition_modified = zPosition;
+					zPosition_modified = yPosition;
+				}
+
+				if (pMatrix->GetActive(xPosition_modified, yPosition_modified, zPosition_modified) == false)
+				{
+					// Do nothing
+				}
+				else
+				{
+					unsigned int colour = pMatrix->GetColourCompact(xPosition_modified, yPosition_modified, zPosition_modified);
+
+					vec3 blockPos = position - vec3((xValueToUse + 0.05f)*0.5f, 0.0f, (zValueToUse + 0.05f)*0.5f) + vec3(x*Chunk::BLOCK_RENDER_SIZE*2.0f, y*Chunk::BLOCK_RENDER_SIZE*2.0f, z*Chunk::BLOCK_RENDER_SIZE*2.0f);
+
+					vec3 blockPosition;
+					int blockX, blockY, blockZ;
+					Chunk* pChunk = NULL;
+					bool blockActive = GetBlockActiveFrom3DPosition(blockPos.x, blockPos.y, blockPos.z, &blockPosition, &blockX, &blockY, &blockZ, &pChunk);
+
+					if (pChunk != NULL)
+					{
+						pChunk->SetColour(blockX, blockY, blockZ, colour);
+
+						// Add to batch update list (no duplicates)
+						bool found = false;
+						for (int i = 0; i < (int)vChunkBatchUpdateList.size() && found == false; i++)
+						{
+							if (vChunkBatchUpdateList[i] == pChunk)
+							{
+								found = true;
+							}
+						}
+						if (found == false)
+						{
+							vChunkBatchUpdateList.push_back(pChunk);
+							pChunk->StartBatchUpdate();
+						}
+					}
+					else
+					{
+						// Add to the chunk storage
+						int gridX;
+						int gridY;
+						int gridZ;
+						GetGridFromPosition(blockPos, &gridX, &gridY, &gridZ);
+						ChunkStorageLoader* pStorage = GetChunkStorage(gridX, gridY, gridZ, true);
+
+						if (pStorage != NULL)
+						{
+							GetBlockGridFrom3DPositionChunkStorage(blockPos.x, blockPos.y, blockPos.z, &blockX, &blockY, &blockZ, pStorage);
+
+							pStorage->SetBlockColour(blockX, blockY, blockZ, colour);
+						}
+					}
+				}
+
+				if (mirrorZ)
+					zPosition--;
+				else
+					zPosition++;
+			}
+
+			if (mirrorY)
+				yPosition--;
+			else
+				yPosition++;
+		}
+
+		if (mirrorX)
+			xPosition--;
+		else
+			xPosition++;
+	}
+
+	for (int i = 0; i < (int)vChunkBatchUpdateList.size(); i++)
+	{
+		vChunkBatchUpdateList[i]->StopBatchUpdate();
+	}
+	vChunkBatchUpdateList.clear();
+}
+
+QubicleBinary* ChunkManager::ImportQubicleBinary(QubicleBinary* qubicleBinaryFile, vec3 position, QubicleImportDirection direction)
+{
+	int numMatrices = qubicleBinaryFile->GetNumMatrices();
+
+	for (int i = 0; i < numMatrices; i++)
+	{
+		QubicleMatrix* pMatrix = qubicleBinaryFile->GetQubicleMatrix(i);
+
+		ImportQubicleBinaryMatrix(pMatrix, position, direction);
+	}
+
+	return qubicleBinaryFile;
+}
+
+QubicleBinary* ChunkManager::ImportQubicleBinary(const char* filename, vec3 position, QubicleImportDirection direction)
+{
+	QubicleBinary* qubicleBinaryFile = m_pQubicleBinaryManager->GetQubicleBinaryFile(filename, true);
+	if (qubicleBinaryFile != NULL)
+	{
+		return ImportQubicleBinary(qubicleBinaryFile, position, direction);
+	}
+
+	return NULL;
 }
 
 // Rendering modes

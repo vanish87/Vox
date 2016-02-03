@@ -56,6 +56,9 @@ void Chunk::Initialize()
 	m_pzMinus = NULL;
 	m_pzPlus = NULL;
 
+	// Flag for change during a batch update
+	m_chunkChangedDuringBatchUpdate = false;
+
 	// Grid
 	m_gridX = 0;
 	m_gridY = 0;
@@ -131,6 +134,8 @@ void Chunk::Unload()
 
 void Chunk::Setup()
 {
+	ChunkStorageLoader* pChunkStorage = m_pChunkManager->GetChunkStorage(m_gridX, m_gridY, m_gridZ, false);
+
 	for (int x = 0; x < CHUNK_SIZE; x++)
 	{
 		for (int z = 0; z < CHUNK_SIZE; z++)
@@ -153,72 +158,107 @@ void Chunk::Setup()
 				noiseHeight = CHUNK_SIZE;
 			}
 
+			bool canPlaceTree = false;
+			float treeYPos = 0.0f;
+
 			for (int y = 0; y < CHUNK_SIZE; y++)
 			{
-				if (y + (m_gridY*CHUNK_SIZE) < noiseHeight)
+				float yPosition = m_position.y + y;
+
+				if (pChunkStorage != NULL && pChunkStorage->m_blockSet[x][y][z] == true)
 				{
-					float yPosition = m_position.y + y;
-
-					float colorNoise = octave_noise_3d(4.0f, 0.3f, 0.005f, xPosition, yPosition, zPosition);
-					float colorNoiseNormalized = ((colorNoise + 1.0f) * 0.5f);
-
-					float red1 = 0.65f;
-					float green1 = 0.80f;
-					float blue1 = 0.00f;
-					float red2 = 0.00f;
-					float green2 = 0.46f;
-					float blue2 = 0.16f;
-
-					if (noise < -0.5f)
+					SetColour(x, y, z, pChunkStorage->m_colour[x][y][z]);
+				}
+				else
+				{
+					if (y + (m_gridY*CHUNK_SIZE) < noiseHeight)
 					{
-						red1 = 0.10f;
-						green1 = 0.25f;
-						blue1 = 1.00f;
-						red2 = 0.10f;
-						green2 = 0.25f;
-						blue2 = 1.00f;
-					}
-					else if (noise < -0.25f)
-					{
-						red1 = 0.94f;
-						green1 = 0.74f;
-						blue1 = 0.34f;
-						red2 = 0.50f;
-						green2 = 0.29f;
-						blue2 = 0.20f;
-					}
-					else if (noise < 0.5f)
-					{
-						red1 = 0.65f;
-						green1 = 0.80f;
-						blue1 = 0.00f;
-						red2 = 0.00f;
-						green2 = 0.46f;
-						blue2 = 0.16f;
-					}
-					else if (noise < 1.0f)
-					{
-						red1 = 0.85f;
-						green1 = 0.85f;
-						blue1 = 0.85f;
-						red2 = 0.77f;
-						green2 = 0.65f;
-						blue2 = 0.80f;
-					}
+						float colorNoise = octave_noise_3d(4.0f, 0.3f, 0.005f, xPosition, yPosition, zPosition);
+						float colorNoiseNormalized = ((colorNoise + 1.0f) * 0.5f);
 
-					float alpha = 1.0f;
+						float red1 = 0.65f;
+						float green1 = 0.80f;
+						float blue1 = 0.00f;
+						float red2 = 0.00f;
+						float green2 = 0.46f;
+						float blue2 = 0.16f;
 
-					float r = red1 + ((red2 - red1) * colorNoiseNormalized);
-					float g = green1 + ((green2 - green1) * colorNoiseNormalized);
-					float b = blue1 + ((blue2 - blue1) * colorNoiseNormalized);
+						if (noise < -0.5f)
+						{
+							red1 = 0.10f;
+							green1 = 0.25f;
+							blue1 = 1.00f;
+							red2 = 0.10f;
+							green2 = 0.25f;
+							blue2 = 1.00f;
+						}
+						else if (noise < -0.25f)
+						{
+							red1 = 0.94f;
+							green1 = 0.74f;
+							blue1 = 0.34f;
+							red2 = 0.50f;
+							green2 = 0.29f;
+							blue2 = 0.20f;
+						}
+						else if (noise < 0.5f)
+						{
+							red1 = 0.65f;
+							green1 = 0.80f;
+							blue1 = 0.00f;
+							red2 = 0.00f;
+							green2 = 0.46f;
+							blue2 = 0.16f;
+						}
+						else if (noise < 1.0f)
+						{
+							red1 = 0.85f;
+							green1 = 0.85f;
+							blue1 = 0.85f;
+							red2 = 0.77f;
+							green2 = 0.65f;
+							blue2 = 0.80f;
+						}
 
-					SetColour(x, y, z, r, g, b, alpha);
+						float alpha = 1.0f;
+
+						float r = red1 + ((red2 - red1) * colorNoiseNormalized);
+						float g = green1 + ((green2 - green1) * colorNoiseNormalized);
+						float b = blue1 + ((blue2 - blue1) * colorNoiseNormalized);
+
+						SetColour(x, y, z, r, g, b, alpha);
+
+						canPlaceTree = true;
+						treeYPos = yPosition;
+					}
+				}
+			}
+
+			// Tree generation
+			if (m_gridY >= 0) // Only above ground
+			{
+				if ((GetRandomNumber(0, 1000) >= 1000) && canPlaceTree)
+				{
+					if (noiseNormalized >= 0.5f)
+					{
+						vec3 treePos = vec3(xPosition, treeYPos, zPosition);
+
+						//m_pChunkManager->ImportQubicleBinary("media/gamedata/terrain/plains/smalltree.qb", treePos, QubicleImportDirection_Normal);
+					}
 				}
 			}
 		}
 	}
 
+	// Remove the chunk storage loader since we no longer need it
+	if (pChunkStorage != NULL)
+	{
+		m_pChunkManager->RemoveChunkStorageLoader(pChunkStorage);
+	}
+
 	m_setup = true;
+
+	SetNeedsRebuild(true, true);
 }
 
 bool Chunk::IsSetup()
@@ -347,6 +387,20 @@ int Chunk::GetGridZ() const
 	return m_gridZ;
 }
 
+// Batch update
+void Chunk::StartBatchUpdate()
+{
+	m_chunkChangedDuringBatchUpdate = false;
+}
+
+void Chunk::StopBatchUpdate()
+{
+	if (m_chunkChangedDuringBatchUpdate)
+	{
+		SetNeedsRebuild(true, true);
+	}
+}
+
 // Active
 bool Chunk::GetActive(int x, int y, int z)
 {
@@ -406,6 +460,11 @@ void Chunk::SetColour(int x, int y, int z, unsigned int colour)
 		return;
 
 	bool changed = ((m_colour[x + y * CHUNK_SIZE + z * CHUNK_SIZE_SQUARED] == colour) == false);
+
+	if (changed)
+	{
+		m_chunkChangedDuringBatchUpdate = true;
+	}
 
 	m_colour[x + y * CHUNK_SIZE + z * CHUNK_SIZE_SQUARED] = colour;
 }

@@ -255,7 +255,8 @@ bool QubicleBinary::Import(const char* fileName, bool faceMerging)
 
 		m_loaded = true;
 
-		VoxGame::GetInstance()->AddConsoleLabel("\'" + string(fileName) + "\' loaded.");
+		// TODO : Temp remove qubicle binary log outputting because of spamming and causing GUI to halt.
+		//VoxGame::GetInstance()->AddConsoleLabel("\'" + string(fileName) + "\' loaded.");
 
 		return true;
 	}
