@@ -75,6 +75,7 @@ void Chunk::Initialize()
 	m_z_plus_full = false;
 
 	// Setup and creation
+	m_created = false;
 	m_setup = false;
 	m_isUnloading = false;
 	m_rebuild = false;
@@ -98,6 +99,16 @@ void Chunk::Initialize()
 }
 
 // Creation and destruction
+void Chunk::SetCreated(bool created)
+{
+	m_created = created;
+}
+
+bool Chunk::IsCreated()
+{
+	return m_created;
+}
+
 void Chunk::Unload()
 {
 	m_isUnloading = true;
@@ -157,9 +168,6 @@ void Chunk::Setup()
 			{
 				noiseHeight = CHUNK_SIZE;
 			}
-
-			bool canPlaceTree = false;
-			float treeYPos = 0.0f;
 
 			for (int y = 0; y < CHUNK_SIZE; y++)
 			{
@@ -227,9 +235,6 @@ void Chunk::Setup()
 						float b = blue1 + ((blue2 - blue1) * colorNoiseNormalized);
 
 						SetColour(x, y, z, r, g, b, alpha);
-
-						canPlaceTree = true;
-						treeYPos = yPosition;
 					}
 				}
 			}
@@ -237,13 +242,12 @@ void Chunk::Setup()
 			// Tree generation
 			if (m_gridY >= 0) // Only above ground
 			{
-				if ((GetRandomNumber(0, 1000) >= 1000) && canPlaceTree)
+				if ((GetRandomNumber(0, 1000) >= 1000))
 				{
 					if (noiseNormalized >= 0.5f)
 					{
-						vec3 treePos = vec3(xPosition, treeYPos, zPosition);
-
-						//m_pChunkManager->ImportQubicleBinary("media/gamedata/terrain/plains/smalltree.qb", treePos, QubicleImportDirection_Normal);
+						vec3 treePos = vec3(xPosition, noiseHeight, zPosition);
+						m_pChunkManager->ImportQubicleBinary("media/gamedata/terrain/plains/smalltree.qb", treePos, QubicleImportDirection_Normal);
 					}
 				}
 			}

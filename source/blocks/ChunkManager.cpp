@@ -117,16 +117,17 @@ void ChunkManager::CreateNewChunk(int x, int y, int z)
 	pNewChunk->SetPosition(vec3(xPos, yPos, zPos));
 	pNewChunk->SetGrid(coordKeys.x, coordKeys.y, coordKeys.z);
 
+	m_ChunkMapMutexLock.lock();
+	m_chunksMap[coordKeys] = pNewChunk;
+	m_ChunkMapMutexLock.unlock();
+
 	pNewChunk->Setup();
 	pNewChunk->SetNeedsRebuild(false, true);
 	pNewChunk->RebuildMesh();
 	pNewChunk->CompleteMesh();
+	pNewChunk->SetCreated(true);
 
 	UpdateChunkNeighbours(pNewChunk, x, y, z);
-
-	m_ChunkMapMutexLock.lock();
-	m_chunksMap[coordKeys] = pNewChunk;
-	m_ChunkMapMutexLock.unlock();
 }
 
 void ChunkManager::UpdateChunkNeighbours(Chunk* pChunk, int x, int y, int z)
@@ -998,7 +999,7 @@ void ChunkManager::Render()
 		{
 			Chunk* pChunk = iterator->second;
 
-			if (pChunk != NULL)
+			if (pChunk != NULL && pChunk->IsCreated())
 			{
 				pChunk->Render();
 			}
@@ -1022,7 +1023,7 @@ void ChunkManager::RenderDebug()
 	{
 		Chunk* pChunk = iterator->second;
 
-		if (pChunk != NULL)
+		if (pChunk != NULL && pChunk->IsCreated())
 		{
 			pChunk->RenderDebug();
 		}
@@ -1038,7 +1039,7 @@ void ChunkManager::Render2D(Camera* pCamera, unsigned int viewport, unsigned int
 	{
 		Chunk* pChunk = iterator->second;
 
-		if (pChunk != NULL)
+		if (pChunk != NULL && pChunk->IsCreated())
 		{
 			pChunk->Render2D(pCamera, viewport, font);
 		}

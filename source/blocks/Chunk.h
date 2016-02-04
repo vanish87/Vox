@@ -39,6 +39,8 @@ public:
 	void Initialize();
 
 	// Creation and destruction
+	void SetCreated(bool created);
+	bool IsCreated();
 	void Unload();
 	void Setup();
 	bool IsSetup();
@@ -164,6 +166,7 @@ private:
 	vec3 m_position;
 
 	// Setup and creation flags
+	bool m_created;
 	bool m_setup;
 	bool m_isUnloading;
 	bool m_rebuild;
