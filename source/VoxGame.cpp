@@ -237,8 +237,8 @@ void VoxGame::Destroy()
 		delete m_pSkybox;
 		delete m_pLightingManager;
 		delete m_pPlayer;
-		delete m_pQubicleBinaryManager;
 		delete m_pChunkManager;
+		delete m_pQubicleBinaryManager;
 		delete m_pFrontendManager;
 		delete m_pGameCamera;
 		DestroyGUI();  // Destroy the GUI components before we delete the GUI manager object.
