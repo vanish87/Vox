@@ -34,7 +34,7 @@ Some parts of the Vox gameplay logic are also incorporated into this source code
 * Enemies and monsters.
 * Combat using melee and ranged weapons, magic and spellcasting.
 * Farming and crop management.
-* Character crteation and generation.
+* Character creation and player generation.
 * World customization and creation elements.
 
 ## Setup
