@@ -163,6 +163,12 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 			m_bKeyboardSpace = false;
 			break;
 		}
+		case GLFW_KEY_O:
+		{
+			vec3 treePos = vec3(10.0f, 6.0f, 0.0f);
+			m_pChunkManager->ImportQubicleBinary("media/gamedata/terrain/plains/smalltree.qb", treePos, QubicleImportDirection_Normal);
+			break;
+		}
 		case GLFW_KEY_P:
 		{
 			if (m_pGUI->IsKeyboardInteractingWithGUIComponent() == false)
