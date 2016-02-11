@@ -19,7 +19,7 @@
 #pragma once
 
 #include "../Renderer/Renderer.h"
-#include "../Renderer/Camera.h"
+#include "../Renderer/camera.h"
 
 class ChunkManager;
 class Player;
