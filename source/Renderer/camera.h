@@ -1,5 +1,5 @@
 // ******************************************************************************
-// Filename:  Camera.h
+// Filename:  camera.h
 // Project:   Vox
 // Author:    Steven Ball
 //
