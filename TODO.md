@@ -85,7 +85,7 @@
   * Add scenery to work, generation based on point distribution, poisson disc, etc.
   * Tree and flower generation.
 * Add item manager.
-* Wait before spawning player in world, until world is generated.
+* ~~Wait before spawning player in world, until world is generated.~~
 * Create basic front-end.
 * Create front end scene and character line up.
 * Character creation and customization.
