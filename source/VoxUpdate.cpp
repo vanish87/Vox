@@ -56,6 +56,9 @@ void VoxGame::Update()
 		// Block particle manager
 		m_pBlockParticleManager->Update(m_deltaTime);
 
+		// Scenery manager
+		m_pSceneryManager->Update(m_deltaTime);
+
 		// Player
 		m_pPlayer->Update(m_deltaTime);
 
@@ -68,7 +71,7 @@ void VoxGame::Update()
 
 	// Update the chunk manager
 	m_pChunkManager->Update(m_deltaTime);
-	
+
 	// Update controls
 	UpdateControls(m_deltaTime);
 

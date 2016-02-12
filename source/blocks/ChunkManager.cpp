@@ -71,6 +71,12 @@ void ChunkManager::SetPlayer(Player* pPlayer)
 	m_pPlayer = pPlayer;
 }
 
+// Scenery manager pointer
+void ChunkManager::SetSceneryManager(SceneryManager* pSceneryManager)
+{
+	m_pSceneryManager = pSceneryManager;
+}
+
 // Initial chunk creation
 void ChunkManager::InitializeChunkCreation()
 {
@@ -117,6 +123,7 @@ void ChunkManager::CreateNewChunk(int x, int y, int z)
 	// Create a new chunk at this grid position
 	Chunk* pNewChunk = new Chunk(m_pRenderer, this, m_pVoxSettings);
 	pNewChunk->SetPlayer(m_pPlayer);
+	pNewChunk->SetSceneryManager(m_pSceneryManager);
 
 	float xPos = x * (Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f);
 	float yPos = y * (Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f);

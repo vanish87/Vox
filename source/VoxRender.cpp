@@ -95,6 +95,9 @@ void VoxGame::Render()
 			// Render the chunks
 			m_pChunkManager->Render();
 
+			// Scenery
+			m_pSceneryManager->Render(false, false, false, false, false);
+
 			// Render the player
 			if (m_cameraMode == CameraMode_FirstPerson)
 			{
@@ -125,6 +128,8 @@ void VoxGame::Render()
 				m_pBlockParticleManager->RenderDebug();
 
 				m_pPlayer->RenderDebug();
+
+				m_pSceneryManager->RenderDebug();
 
 				m_pChunkManager->RenderDebug();
 			}
@@ -242,6 +247,9 @@ void VoxGame::RenderShadows()
 
 			// Render the player
 			m_pPlayer->Render();
+
+			// Scenery
+			m_pSceneryManager->Render(false, false, true, false, false);
 
 			// Render the block particles
 			m_pBlockParticleManager->Render();

@@ -82,6 +82,9 @@
     <Filter Include="source\Skybox">
       <UniqueIdentifier>{f97265ff-34df-4dfb-a9a5-c4c96ef13131}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\scenery">
+      <UniqueIdentifier>{3fb9d526-98fa-4e16-943b-bfe710c1211e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\glew\src\glew.c">
@@ -479,6 +482,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\Skybox\Skybox.cpp">
       <Filter>source\Skybox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\scenery\SceneryManager.cpp">
+      <Filter>source\scenery</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1342,6 +1348,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\Skybox\Skybox.h">
       <Filter>source\Skybox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\scenery\SceneryManager.h">
+      <Filter>source\scenery</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

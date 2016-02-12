@@ -34,6 +34,7 @@ add_subdirectory(ini)
 add_subdirectory(simplex)
 add_subdirectory(tinythread)
 add_subdirectory(Skybox)
+add_subdirectory(scenery)
 
 source_group("source" FILES ${SRCS})
 source_group("source\\utils" FILES ${UTIL_SRCS})
@@ -60,6 +61,7 @@ source_group("source\\ini" FILES ${INI_SRCS})
 source_group("source\\simplex" FILES ${SIMPLEX_SRCS})
 source_group("source\\tinythread" FILES ${TINYTHREAD_SRCS})
 source_group("source\\Skybox" FILES ${SKYBOX_SRCS})
+source_group("source\\scenery" FILES ${SCENERY_SRCS})
 
 add_executable(Vox
                ${SRCS}
@@ -86,7 +88,8 @@ add_executable(Vox
 			   ${INI_SRCS}
 			   ${SIMPLEX_SRCS}
 			   ${TINYTHREAD_SRCS}
-			   ${SKYBOX_SRCS})
+			   ${SKYBOX_SRCS}
+			   ${SCENERY_SRCS})
 
 include_directories(".")			   
 include_directories("glfw\\include")

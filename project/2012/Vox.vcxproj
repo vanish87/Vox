@@ -132,6 +132,7 @@
     <ClCompile Include="..\..\source\Renderer\Renderer.cpp" />
     <ClCompile Include="..\..\source\Renderer\texture.cpp" />
     <ClCompile Include="..\..\source\Renderer\tga.cpp" />
+    <ClCompile Include="..\..\source\scenery\SceneryManager.cpp" />
     <ClCompile Include="..\..\source\simplex\simplexnoise.cpp" />
     <ClCompile Include="..\..\source\simplex\simplextextures.cpp" />
     <ClCompile Include="..\..\source\Skybox\Skybox.cpp" />
@@ -401,6 +402,7 @@
     <ClInclude Include="..\..\source\Renderer\tga.h" />
     <ClInclude Include="..\..\source\Renderer\vertexarray.h" />
     <ClInclude Include="..\..\source\Renderer\viewport.h" />
+    <ClInclude Include="..\..\source\scenery\SceneryManager.h" />
     <ClInclude Include="..\..\source\selene\selene.h" />
     <ClInclude Include="..\..\source\selene\selene\BaseFun.h" />
     <ClInclude Include="..\..\source\selene\selene\Class.h" />

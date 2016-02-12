@@ -28,6 +28,7 @@ using namespace std;
 using namespace tthread;
 
 class Player;
+class SceneryManager;
 class VoxSettings;
 class QubicleBinaryManager;
 
@@ -133,6 +134,9 @@ public:
 	// Player pointer
 	void SetPlayer(Player* pPlayer);
 
+	// Scenery manager pointer
+	void SetSceneryManager(SceneryManager* pSceneryManager);
+
 	// Initial chunk creation
 	void InitializeChunkCreation();
 
@@ -201,6 +205,7 @@ private:
 	/* Private members */
 	Renderer* m_pRenderer;
 	Player* m_pPlayer;
+	SceneryManager* m_pSceneryManager;
 	VoxSettings* m_pVoxSettings;
 	QubicleBinaryManager* m_pQubicleBinaryManager;
 

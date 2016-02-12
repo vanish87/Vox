@@ -142,6 +142,9 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	/* Create the lighting manager */
 	m_pLightingManager = new LightingManager(m_pRenderer);
 
+	/* Create the scenery manager */
+	m_pSceneryManager = new SceneryManager(m_pRenderer, m_pChunkManager);
+
 	/* Create the skybox */
 	m_pSkybox = new Skybox(m_pRenderer);
 
@@ -156,6 +159,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 
 	/* Create module and manager linkage */
 	m_pChunkManager->SetPlayer(m_pPlayer);
+	m_pChunkManager->SetSceneryManager(m_pSceneryManager);
 
 	/* Initial chunk creation (Must be after player pointer sent to chunks) */
 	m_pChunkManager->InitializeChunkCreation();
@@ -237,6 +241,7 @@ void VoxGame::Destroy()
 		delete m_pSkybox;
 		delete m_pLightingManager;
 		delete m_pPlayer;
+		delete m_pSceneryManager;
 		delete m_pChunkManager;
 		delete m_pQubicleBinaryManager;
 		delete m_pFrontendManager;

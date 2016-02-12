@@ -23,6 +23,7 @@
 
 class ChunkManager;
 class Player;
+class SceneryManager;
 class VoxSettings;
 
 class Chunk
@@ -34,6 +35,9 @@ public:
 
 	// Player pointer
 	void SetPlayer(Player* pPlayer);
+
+	// Scenery manager pointer
+	void SetSceneryManager(SceneryManager* pSceneryManager);
 
 	// Initialize
 	void Initialize();
@@ -143,6 +147,7 @@ private:
 	Renderer* m_pRenderer;
 	ChunkManager* m_pChunkManager;
 	Player* m_pPlayer;
+	SceneryManager* m_pSceneryManager;
 	VoxSettings* m_pVoxSettings;
 
 	// Chunk neighbours

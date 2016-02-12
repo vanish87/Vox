@@ -23,7 +23,7 @@
 #include "blocks/ChunkManager.h"
 #include "frontend/FrontendManager.h"
 #include "Skybox/Skybox.h"
-
+#include "scenery/SceneryManager.h"
 #include "VoxApplication.h"
 #include "VoxWindow.h"
 #include "VoxSettings.h"
@@ -220,6 +220,9 @@ private:
 
 	// Chunk manager
 	ChunkManager* m_pChunkManager;
+
+	// Scenery
+	SceneryManager* m_pSceneryManager;
 
 	// Lighting manager
 	LightingManager* m_pLightingManager;
