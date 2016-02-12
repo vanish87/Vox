@@ -64,10 +64,6 @@
 * ~~Add proper ini reader functionality - add other startup params to ini, resolution, fullscreen etc.~~
 * ~~Camera clipping mode.~~
 * ~~Add ability to create and render the Voxel objects/characters without merging, 2 vertex arrays, or rebuild?~~
-* ~~Add console and logger to the in-game gui for output and logging information.~~
-  * ~~Log when loading/saving model files.~~
-  * Log on errors.
-  * Allow input commands.
 * ~~Terrain generation via chunks.~~
   * ~~Chunk loading and unloading based on player position~~
 * ~~Player movement on voxel world and terrain.~~
@@ -76,6 +72,15 @@
 * ~~Debug settings option to toggle the Debug GUI from the settings ini file.~~
 * ~~Settings in ini to run straight into game, with player and camera controls - or run into front-end etc.~~
 * ~~Ordering of the chunk loading based on the camera/player position, so that loading filters outwards from player.~~
+* ~~Add back in skyboxes and support tweeningblending from one skybox to the other.~~
+* ~~Wait before spawning player in world, until world is generated.~~
+* ~~Add console and logger to the in-game gui for output and logging information.~~
+  * ~~Log when loading/saving model files.~~
+  * Remove old log messages, only allow a certain nunber of log messages to be shown.
+  * Log on errors.
+  * Allow input commands.
+  * Clear log text functionality
+  * Rendering of many log messages is slow, output to file?
 * Convert shaders over to be more unified.
 * Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
@@ -86,7 +91,6 @@
   * Flower generation.
   * Convert scenery manager to use instance rendering and the instance shader.
 * Add item manager.
-* ~~Wait before spawning player in world, until world is generated.~~
 * Create basic front-end.
 * Create front end scene and character line up.
 * Character creation and customization.
@@ -99,7 +103,6 @@
 * Add exit/quit popup when the game is closed or quit using various exit methods.
 * Add voxel editor.
 * Add texture support for voxel blocks.
-* ~~Add back in skyboxes and support tweeningblending from one skybox to the other.~~
 * Add inventory GUI.
 * Add character GUI.
 * Add Quest GUI.
