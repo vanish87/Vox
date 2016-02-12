@@ -109,6 +109,8 @@
 		<Unit filename="../../source/Renderer/tga.h" />
 		<Unit filename="../../source/Renderer/vertexarray.h" />
 		<Unit filename="../../source/Renderer/viewport.h" />
+		<Unit filename="../../source/Skybox/Skybox.cpp" />
+		<Unit filename="../../source/Skybox/Skybox.h" />
 		<Unit filename="../../source/VoxApplication.cpp" />
 		<Unit filename="../../source/VoxApplication.h" />
 		<Unit filename="../../source/VoxCamera.cpp" />
@@ -118,6 +120,8 @@
 		<Unit filename="../../source/VoxGame.h" />
 		<Unit filename="../../source/VoxInput.cpp" />
 		<Unit filename="../../source/VoxRender.cpp" />
+		<Unit filename="../../source/VoxSettings.cpp" />
+		<Unit filename="../../source/VoxSettings.h" />
 		<Unit filename="../../source/VoxUpdate.cpp" />
 		<Unit filename="../../source/VoxWindow.cpp" />
 		<Unit filename="../../source/VoxWindow.h" />
@@ -445,6 +449,12 @@
 		<Unit filename="../../source/gui/titlebar.cpp" />
 		<Unit filename="../../source/gui/titlebar.h" />
 		<Unit filename="../../source/gui/treeview.h" />
+		<Unit filename="../../source/ini/INIReader.cpp" />
+		<Unit filename="../../source/ini/INIReader.h" />
+		<Unit filename="../../source/ini/ini.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../source/ini/ini.h" />
 		<Unit filename="../../source/lua/lapi.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -613,6 +623,13 @@
 		<Unit filename="../../source/selene/selene/primitives.h" />
 		<Unit filename="../../source/selene/selene/traits.h" />
 		<Unit filename="../../source/selene/selene/util.h" />
+		<Unit filename="../../source/simplex/simplexnoise.cpp" />
+		<Unit filename="../../source/simplex/simplexnoise.h" />
+		<Unit filename="../../source/simplex/simplextextures.cpp" />
+		<Unit filename="../../source/simplex/simplextextures.h" />
+		<Unit filename="../../source/tinythread/fast_mutex.h" />
+		<Unit filename="../../source/tinythread/tinythread.cpp" />
+		<Unit filename="../../source/tinythread/tinythread.h" />
 		<Unit filename="../../source/utils/CountdownTimer.cpp" />
 		<Unit filename="../../source/utils/CountdownTimer.h" />
 		<Unit filename="../../source/utils/FileUtils.cpp" />

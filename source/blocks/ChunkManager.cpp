@@ -52,9 +52,17 @@ ChunkManager::~ChunkManager()
 	m_updateThreadActive = false;
 	while (m_updateThreadFinished == false)
 	{
-		Sleep(200);
+#ifdef _WIN32
+    		Sleep(200);
+#else
+    		sleep(200);
+#endif
 	}
+#ifdef _WIN32
 	Sleep(200);
+#else
+	sleep(200);
+#endif
 }
 
 // Player pointer
@@ -720,12 +728,20 @@ void ChunkManager::UpdatingChunksThread()
 	{
 		while (m_pPlayer == NULL)
 		{
+#ifdef _WIN32
 			Sleep(100);
+#else
+			sleep(100);
+#endif
 		}
 
 		while (m_stepLockEnabled == true && m_updateStepLock == true)
 		{
+#ifdef _WIN32
 			Sleep(100);
+#else
+			sleep(100);
+#endif
 		}
 
 		ChunkList updateChunkList;
@@ -968,7 +984,11 @@ void ChunkManager::UpdatingChunksThread()
 			m_updateStepLock = true;
 		}
 
+#ifdef _WIN32
 		Sleep(10);
+#else
+		sleep(10);
+#endif
 	}
 
 	m_updateThreadFinished = true;

@@ -87,7 +87,7 @@ public:
 	bool m_blockSet[Chunk::CHUNK_SIZE][Chunk::CHUNK_SIZE][Chunk::CHUNK_SIZE];
 	unsigned int m_colour[Chunk::CHUNK_SIZE][Chunk::CHUNK_SIZE][Chunk::CHUNK_SIZE];
 
-	ChunkStorageLoader::ChunkStorageLoader(int x, int y, int z)
+	ChunkStorageLoader(int x, int y, int z)
 	{
 		m_gridX = x;
 		m_gridY = y;

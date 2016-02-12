@@ -13,8 +13,8 @@
 #include "ChunkManager.h"
 #include "../Player/Player.h"
 #include "../models/QubicleBinary.h"
-#include "../Utils/Random.h"
-#include "../Simplex/simplexnoise.h"
+#include "../utils/Random.h"
+#include "../simplex/simplexnoise.h"
 #include "../VoxSettings.h"
 
 const float Chunk::BLOCK_RENDER_SIZE = 0.5f;
@@ -1540,15 +1540,15 @@ void Chunk::Render2D(Camera* pCamera, unsigned int viewport, unsigned int font)
 	if (renderChunkGrid)
 	{
 		char lLine1[64];
-		sprintf_s(lLine1, 64, "%i, %i, %i", m_gridX, m_gridY, m_gridZ);
+		snprintf(lLine1, 64, "%i, %i, %i", m_gridX, m_gridY, m_gridZ);
 		char lLine2[64];
-		sprintf_s(lLine2, 64, "Neighbours: %i", m_numNeighbours);
+		snprintf(lLine2, 64, "Neighbours: %i", m_numNeighbours);
 		char lLine3[64];
-		sprintf_s(lLine3, 64, "Empty: %s", m_emptyChunk ? "true" : "false");
+		snprintf(lLine3, 64, "Empty: %s", m_emptyChunk ? "true" : "false");
 		char lLine4[64];
-		sprintf_s(lLine4, 64, "Surrounded: %s", m_surroundedChunk ? "true" : "false");
+		snprintf(lLine4, 64, "Surrounded: %s", m_surroundedChunk ? "true" : "false");
 		char lLine5[64];
-		sprintf_s(lLine5, 64, "Rebuilds: %i", m_numRebuilds);
+		snprintf(lLine5, 64, "Rebuilds: %i", m_numRebuilds);
 		
 		m_pRenderer->PushMatrix();
 			m_pRenderer->SetRenderMode(RM_SOLID);
