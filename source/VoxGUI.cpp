@@ -586,7 +586,7 @@ void VoxGame::AddConsoleLabel(string message)
 	}
 
 	char lChatString[8192];
-	sprintf_s(lChatString, 8192, "%s", message.c_str());
+	snprintf(lChatString, 8192, "%s", message.c_str());
 
 	string chatString = lChatString;
 
@@ -980,7 +980,7 @@ void VoxGame::ConsoleReturnPressed()
 	}
 
 	char lChatString[8192];
-	sprintf_s(lChatString, 8192, "%s", m_pConsoleTextbox->GetText().c_str());
+	snprintf(lChatString, 8192, "%s", m_pConsoleTextbox->GetText().c_str());
 	string chatMessage = lChatString;
 
 	AddConsoleLabel(chatMessage);
