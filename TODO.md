@@ -83,7 +83,8 @@
   * Add colour variation management to biome manager
 * Add scenery manager.
   * Add scenery to work, generation based on point distribution, poisson disc, etc.
-  * Tree and flower generation.
+  * Flower generation.
+  * Convert scenery manager to use instance rendering and the instance shader.
 * Add item manager.
 * ~~Wait before spawning player in world, until world is generated.~~
 * Create basic front-end.
