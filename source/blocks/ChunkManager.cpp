@@ -55,13 +55,13 @@ ChunkManager::~ChunkManager()
 #ifdef _WIN32
     		Sleep(200);
 #else
-    		sleep(200);
+    		usleep(200000);
 #endif
 	}
 #ifdef _WIN32
 	Sleep(200);
 #else
-	sleep(200);
+	usleep(200000);
 #endif
 }
 
@@ -731,7 +731,7 @@ void ChunkManager::UpdatingChunksThread()
 #ifdef _WIN32
 			Sleep(100);
 #else
-			sleep(100);
+			usleep(100000);
 #endif
 		}
 
@@ -740,7 +740,7 @@ void ChunkManager::UpdatingChunksThread()
 #ifdef _WIN32
 			Sleep(100);
 #else
-			sleep(100);
+			usleep(100000);
 #endif
 		}
 
@@ -987,7 +987,7 @@ void ChunkManager::UpdatingChunksThread()
 #ifdef _WIN32
 		Sleep(10);
 #else
-		sleep(10);
+		usleep(10000);
 #endif
 	}
 
