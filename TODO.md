@@ -72,6 +72,7 @@
 * ~~Ordering of the chunk loading based on the camera/player position, so that loading filters outwards from player.~~
 * ~~Add back in skyboxes and support tweeningblending from one skybox to the other.~~
 * ~~Wait before spawning player in world, until world is generated.~~
+* ~~Better physics response and detection when jumping and from above~~
 * ~~Add console and logger to the in-game gui for output and logging information.~~
   * ~~Log when loading/saving model files.~~
   * Remove old log messages, only allow a certain nunber of log messages to be shown.
@@ -81,7 +82,6 @@
   * Rendering of many log messages is slow, output to file?
 * ~~Player movement on voxel world and terrain.~~
   * Walking up single block steps automatically.
-* Better physics response and detection when jumping and from above
 * Convert shaders over to be more unified.
 * Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
