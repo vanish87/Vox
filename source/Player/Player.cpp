@@ -270,7 +270,6 @@ bool Player::CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pN
 					if (pChunk == NULL || pChunk->IsSetup() == false)
 					{
 						*pMovement = vec3(0.0f, 0.0f, 0.0f);
-						//m_movementVelocity = vec3(0.0f, 0.0f, 0.0f);
 						worldCollision = true;
 					}
 				}
@@ -379,11 +378,6 @@ bool Player::CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pN
 							*pNormal *= dotResult;
 
 							*pMovement -= *pNormal;
-
-							//if (fabs((*pNormal).x) > 0.01f || fabs((*pNormal).z) > 0.01f)
-							//{
-							//	m_movementVelocity = vec3(0.0f, 0.0f, 0.0f);
-							//}
 
 							worldCollision = true;
 						}
@@ -741,12 +735,12 @@ void Player::UpdatePhysics(float dt)
 			vec3 posToCheck = GetCenter() + velocityToUse*dtToUse;
 			if (CheckCollisions(posToCheck, m_previousPosition, &pNormal, &velAmount))
 			{
+				// Reset velocity, we don't have any bounce
+				m_velocity = vec3(0.0f, 0.0f, 0.0f);
+				velocityToUse = vec3(0.0f, 0.0f, 0.0f);
+
 				if (velocityToUse.y <= 0.0f)
 				{
-					// Reset velocity, we don't have any bounce
-					m_velocity = vec3(0.0f, 0.0f, 0.0f);
-					velocityToUse = vec3(0.0f, 0.0f, 0.0f);
-
 					if (m_bCanJump == false)
 					{
 						m_bCanJump = true;
@@ -762,7 +756,7 @@ void Player::UpdatePhysics(float dt)
 	}
 
 	// Store previous position
-	m_previousPosition = m_position;
+	m_previousPosition = GetCenter();
 }
 
 void Player::UpdateTimers(float dt)
