@@ -66,8 +66,6 @@
 * ~~Add ability to create and render the Voxel objects/characters without merging, 2 vertex arrays, or rebuild?~~
 * ~~Terrain generation via chunks.~~
   * ~~Chunk loading and unloading based on player position~~
-* ~~Player movement on voxel world and terrain.~~
-  * Walking up single block steps automatically.
 * ~~Create Vox EXE launcher. (C# app)~~
 * ~~Debug settings option to toggle the Debug GUI from the settings ini file.~~
 * ~~Settings in ini to run straight into game, with player and camera controls - or run into front-end etc.~~
@@ -81,6 +79,9 @@
   * Allow input commands.
   * Clear log text functionality
   * Rendering of many log messages is slow, output to file?
+* ~~Player movement on voxel world and terrain.~~
+  * Walking up single block steps automatically.
+* Better physics response and detection when jumping and from above
 * Convert shaders over to be more unified.
 * Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
