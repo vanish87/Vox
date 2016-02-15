@@ -108,3 +108,6 @@
 * Add inventory GUI.
 * Add character GUI.
 * Add Quest GUI.
+* Add version string to config ini file and display on GUI.
+* Add DEBUG/RELEASE switch depending on what build was made, display on GUI.
+* Investigate continuous automatic builds on github when files are submitted to depot, using cmake and make.
