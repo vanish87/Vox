@@ -13,8 +13,8 @@
 
 #pragma once
 
-#include "..\Blocks\ChunkManager.h"
-#include "..\Renderer\Renderer.h"
+#include "../blocks/ChunkManager.h"
+#include "../Renderer/Renderer.h"
 
 
 class SceneryObject
