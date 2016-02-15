@@ -48,7 +48,7 @@ public:
 	void UnloadWeapon(bool left);
 
 	// Collision
-	bool CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pNormal, vec3 *pMovement);
+	bool CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pNormal, vec3 *pMovement, bool *pStepUpBlock);
 
 	// World
 	void UpdateGridPosition();
@@ -99,6 +99,8 @@ public:
 
 protected:
 	/* Protected methods */
+	static void _StepUpAnimationFinished(void *apData);
+	void StepUpAnimationFinished();
 
 private:
 	/* Private methods */
@@ -133,6 +135,13 @@ private:
 	// Keep track of how much we have changed position in the update, based on physics, etc.
 	// So that the fake camera position can be updated, if we are in some kind of follow camera mode.
 	vec3 m_positionMovementAmount;
+
+	// Stepping up single world blocks by walking into them
+	bool m_bDoStepUpAnimation;
+	float m_stepUpAnimationYAmount;
+	float m_stepUpAnimationPrevious;
+	float m_stepUpAnimationYOffset;
+	float m_stepUpAdditionYAmountChangedCache;
 
 	// Grid position
 	int m_gridPositionX;

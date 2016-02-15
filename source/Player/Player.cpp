@@ -11,6 +11,7 @@
 
 #include "Player.h"
 #include "../utils/Random.h"
+#include "../utils/Interpolator.h"
 #include "../blocks/Chunk.h"
 #include <glm/detail/func_geometric.hpp>
 
@@ -33,6 +34,13 @@ Player::Player(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryMa
 
 	m_position = vec3(8.0f, 8.0f, 8.0f);
 	m_gravityDirection = vec3(0.0f, -1.0f, 0.0f);
+
+	// Stepping up single world blocks by walking into them
+	m_bDoStepUpAnimation = false;
+	m_stepUpAnimationYAmount = 0.0f;
+	m_stepUpAnimationPrevious = 0.0f;
+	m_stepUpAnimationYOffset = 0.0f;
+	m_stepUpAdditionYAmountChangedCache = 0.0f;
 
 	m_gridPositionX = 0;
 	m_gridPositionY = 0;
@@ -75,6 +83,7 @@ VoxelCharacter* Player::GetVoxelCharacter()
 vec3 Player::GetCenter()
 {
 	vec3 center = m_position + m_up * m_radius;
+	center -= vec3(0.0f, (m_bDoStepUpAnimation ? 0.0f : m_stepUpAnimationYOffset), 0.0f);
 
 	return center;
 }
@@ -236,7 +245,7 @@ void Player::UnloadWeapon(bool left)
 }
 
 // Collision
-bool Player::CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pNormal, vec3 *pMovement)
+bool Player::CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pNormal, vec3 *pMovement, bool *pStepUpBlock)
 {
 	vec3 movementCache = *pMovement;
 
@@ -387,6 +396,8 @@ bool Player::CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pN
 		}
 	}
 
+	*pStepUpBlock = canAllStepUp;
+
 	if (worldCollision)
 		return true;
 
@@ -498,8 +509,26 @@ vec3 Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeFo
 	{
 		float speedToUse = (speed / numberDivision) + ((speed / numberDivision) * i);
 		vec3 posToCheck = GetCenter() + movement*speedToUse;
-		if (CheckCollisions(posToCheck, m_previousPosition, &pNormal, &movement))
+
+		if (m_bDoStepUpAnimation == false)
 		{
+			bool stepUp = false;
+			if (CheckCollisions(posToCheck, m_previousPosition, &pNormal, &movement, &stepUp))
+			{
+				if (stepUp)
+				{
+					if (m_bDoStepUpAnimation == false)
+					{
+						m_bDoStepUpAnimation = true;
+
+						m_stepUpAnimationYAmount = 0.0f;
+						m_stepUpAnimationPrevious = 0.0f;
+						m_stepUpAnimationYOffset = 0.0f;
+						Interpolator::GetInstance()->AddFloatInterpolation(&m_stepUpAnimationYAmount, 0.0f, (Chunk::BLOCK_RENDER_SIZE*2.2f), 0.1f, 0.0f, NULL, _StepUpAnimationFinished, this);
+						Interpolator::GetInstance()->AddFloatInterpolation(&m_stepUpAnimationYOffset, (Chunk::BLOCK_RENDER_SIZE*2.2f), 0.0f, 0.2f, -100.0f);
+					}
+				}
+			}
 		}
 
 		m_position += (movement * speedToUse);
@@ -650,7 +679,7 @@ void Player::CalculateWorldTransformMatrix()
 		m_right.x, m_right.y, m_right.z, 0.0f,
 		m_up.x, m_up.y, m_up.z, 0.0f,
 		m_forward.x, m_forward.y, m_forward.z, 0.0f,
-		m_position.x, m_position.y, m_position.z, 1.0f
+		m_position.x, m_position.y - (m_bDoStepUpAnimation ? 0.0f : m_stepUpAnimationYOffset), m_position.z, 1.0f
 	};
 
 	m_worldMatrix.SetValues(lMatrix);
@@ -714,6 +743,16 @@ void Player::UpdatePhysics(float dt)
 {
 	m_positionMovementAmount = vec3(0.0f, 0.0f, 0.0f);
 
+	// Step up animation
+	float stepUpAddition = 0.0f;	
+	if (m_bDoStepUpAnimation)
+	{
+		stepUpAddition = m_stepUpAnimationYAmount - m_stepUpAnimationPrevious;
+		m_position.y += stepUpAddition;
+
+		m_stepUpAnimationPrevious = m_stepUpAnimationYAmount;
+	}
+
 	// Integrate velocity
 	vec3 acceleration = m_force + (m_gravityDirection * 9.81f)*4.0f;
 	m_velocity += acceleration * dt;
@@ -733,7 +772,8 @@ void Player::UpdatePhysics(float dt)
 		{
 			float dtToUse = (dt / numberDivision) + ((dt / numberDivision) * i);
 			vec3 posToCheck = GetCenter() + velocityToUse*dtToUse;
-			if (CheckCollisions(posToCheck, m_previousPosition, &pNormal, &velAmount))
+			bool stepUp = false;
+			if (CheckCollisions(posToCheck, m_previousPosition, &pNormal, &velAmount, &stepUp))
 			{
 				// Reset velocity, we don't have any bounce
 				m_velocity = vec3(0.0f, 0.0f, 0.0f);
@@ -752,8 +792,11 @@ void Player::UpdatePhysics(float dt)
 		// Integrate position
 		m_position += velocityToUse * dt;
 
+		m_positionMovementAmount += vec3(0.0f, stepUpAddition + m_stepUpAdditionYAmountChangedCache, 0.0f);
 		m_positionMovementAmount += velocityToUse * dt;
 	}
+
+	m_stepUpAdditionYAmountChangedCache = 0.0f;
 
 	// Store previous position
 	m_previousPosition = GetCenter();
@@ -974,4 +1017,19 @@ void Player::RenderDebug()
 			m_pRenderer->DisableImmediateMode();
 		m_pRenderer->PopMatrix();
 	m_pRenderer->PopMatrix();
+}
+
+void Player::_StepUpAnimationFinished(void *apData)
+{
+	Player* lpPlayer = (Player*)apData;
+	lpPlayer->StepUpAnimationFinished();
+}
+
+void Player::StepUpAnimationFinished()
+{
+	// Final addition
+	m_stepUpAdditionYAmountChangedCache = m_stepUpAnimationYAmount - m_stepUpAnimationPrevious;
+	m_position.y += m_stepUpAdditionYAmountChangedCache;
+
+	m_bDoStepUpAnimation = false;
 }
