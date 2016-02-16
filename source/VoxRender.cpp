@@ -615,6 +615,13 @@ void VoxGame::RenderDebugInformation()
 		snprintf(lFPSBuff, 128, "FPS: %.0f", m_fps);
 	}
 
+	char lBuildInfo[128];
+#ifdef _DEBUG
+	snprintf(lBuildInfo, 128, "DEV %s", m_pVoxSettings->m_version.c_str());
+#else
+	snprintf(lBuildInfo, 128, "RELEASE %s", m_pVoxSettings->m_version.c_str());
+#endif //_DEBUG
+
 	int l_nTextHeight = m_pRenderer->GetFreeTypeTextHeight(m_defaultFont, "a");
 
 	m_pRenderer->PushMatrix();
@@ -628,7 +635,8 @@ void VoxGame::RenderDebugInformation()
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - l_nTextHeight - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lCameraBuff);
 		}
 
-		m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lFPSBuff);
+		m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth-65.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lFPSBuff);
+		m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, 15.0f, 1.0f, Colour(0.75f, 0.75f, 0.75f), 1.0f, lBuildInfo);
 
 	m_pRenderer->PopMatrix();
 }
