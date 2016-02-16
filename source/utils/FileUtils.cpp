@@ -82,9 +82,9 @@ vector<string> listFilesInDirectory(string directoryName)
 	{
 		listFileNames.push_back(string(dirp->d_name));
 	}
-	
+
 	closedir(dp);
-	
+
 	return listFileNames;
 #endif //_WIN32
 }

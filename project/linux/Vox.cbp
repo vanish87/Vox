@@ -600,6 +600,8 @@
 		<Unit filename="../../source/models/VoxelWeapon.h" />
 		<Unit filename="../../source/models/modelloader.h" />
 		<Unit filename="../../source/models/objmodel.cpp" />
+		<Unit filename="../../source/scenery/SceneryManager.cpp" />
+		<Unit filename="../../source/scenery/SceneryManager.h" />
 		<Unit filename="../../source/selene/selene.h" />
 		<Unit filename="../../source/selene/selene/BaseFun.h" />
 		<Unit filename="../../source/selene/selene/Class.h" />

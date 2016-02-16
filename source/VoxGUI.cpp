@@ -465,7 +465,7 @@ void VoxGame::UpdateGUI(float dt)
 	m_pBlockParticleManager->SetWireFrameRender(m_modelWireframe);
 	m_pBlockParticleManager->SetInstancedRendering(m_instanceRender);
 
-	
+
 	// Update console
 	UpdateConsoleLabels();
 }
@@ -514,15 +514,31 @@ void VoxGame::UpdateCharactersPulldown()
 	m_pMainWindow->RemoveComponent(m_pCharacterPulldown);
 
 	char importDirectory[128];
-	snprintf(importDirectory, 128, "media/gamedata/models/Human/*.qb");
+#ifdef _WIN32
+    snprintf(importDirectory, 128, "media/gamedata/models/Human/*.qb");
+#elif __linux__
+	snprintf(importDirectory, 128, "media/gamedata/models/Human/*.*");
+#endif //_WIN32
 
 	vector<string> listFiles;
 	listFiles = listFilesInDirectory(importDirectory);
 	for (unsigned int i = 0; i < listFiles.size(); i++)
 	{
+		if (strcmp(listFiles[i].c_str(), ".") == 0 || strcmp(listFiles[i].c_str(), "..") == 0)
+		{
+			continue;
+		}
+
 		int lastindex = (int)listFiles[i].find_last_of(".");
-		string characterName = listFiles[i].substr(0, lastindex);
-		m_pCharacterPulldown->AddPulldownItem(characterName);
+		if(lastindex != -1)
+		{
+            string characterName = listFiles[i].substr(0, lastindex);
+            string extension = listFiles[i].substr(lastindex);
+            if (strcmp(extension.c_str(), ".qb") == 0)
+            {
+                m_pCharacterPulldown->AddPulldownItem(characterName);
+            }
+		}
 	}
 
 	m_pMainWindow->AddComponent(m_pCharacterPulldown);
@@ -558,7 +574,11 @@ void VoxGame::UpdateGUIThemePulldown()
 	m_pGUIThemePulldown->AddPulldownItem("None");
 
 	char importDirectory[128];
+#ifdef _WIN32
+    snprintf(importDirectory, 128, "media/textures/gui/*.*");
+#elif __linux__
 	snprintf(importDirectory, 128, "media/textures/gui/*.*");
+#endif //_WIN32
 
 	vector<string> listFiles;
 	listFiles = listFilesInDirectory(importDirectory);
