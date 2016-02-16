@@ -12,8 +12,8 @@ set(SRCS
     "VoxRender.cpp"
     "VoxUpdate.cpp"
     "VoxGUI.cpp"
-	"VoxSettings.h"
-	"VoxSettings.cpp")
+    "VoxSettings.h"
+    "VoxSettings.cpp")
 
 add_subdirectory(utils)
 add_subdirectory(freetype)
