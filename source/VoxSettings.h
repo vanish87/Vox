@@ -71,6 +71,7 @@ public:
 	bool m_stepUpdating;
 	bool m_showDebugGUI;
 	string m_gameMode;
+	string m_version;
 
 protected:
 	/* Protected members */
