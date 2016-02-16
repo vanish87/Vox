@@ -73,6 +73,8 @@
 * ~~Add back in skyboxes and support tweeningblending from one skybox to the other.~~
 * ~~Wait before spawning player in world, until world is generated.~~
 * ~~Better physics response and detection when jumping and from above~~
+* ~~Add version string to config ini file and display on GUI.~~
+* ~~Add DEBUG/RELEASE switch depending on what build was made, display on GUI.~~
 * ~~Add console and logger to the in-game gui for output and logging information.~~
   * ~~Log when loading/saving model files.~~
   * Remove old log messages, only allow a certain nunber of log messages to be shown.
@@ -108,6 +110,4 @@
 * Add inventory GUI.
 * Add character GUI.
 * Add Quest GUI.
-* Add version string to config ini file and display on GUI.
-* Add DEBUG/RELEASE switch depending on what build was made, display on GUI.
 * Investigate continuous automatic builds on github when files are submitted to depot, using cmake and make.
