@@ -616,11 +616,11 @@ void VoxGame::RenderDebugInformation()
 	}
 
 	char lBuildInfo[128];
-#ifdef _DEBUG
+#if defined(_DEBUG) || defined(NDEBUG)
 	snprintf(lBuildInfo, 128, "DEV %s", m_pVoxSettings->m_version.c_str());
 #else
 	snprintf(lBuildInfo, 128, "RELEASE %s", m_pVoxSettings->m_version.c_str());
-#endif //_DEBUG
+#endif //defined(_DEBUG) || defined(NDEBUG)
 
 	int l_nTextHeight = m_pRenderer->GetFreeTypeTextHeight(m_defaultFont, "a");
 
