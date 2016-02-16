@@ -13,6 +13,9 @@
 
 #include "SceneryManager.h"
 
+#include <vector>
+#include <algorithm>
+
 
 SceneryManager::SceneryManager(Renderer* pRenderer, ChunkManager* pChunkManager)
 {
