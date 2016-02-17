@@ -93,6 +93,7 @@
 * Add scenery manager.
   * Add scenery to work, generation based on point distribution, poisson disc, etc.
   * Flower generation.
+  * Poisson-disc sparation and generation for random placement of scenery.
   * Convert scenery manager to use instance rendering and the instance shader.
 * Add item manager.
 * Create basic front-end.
