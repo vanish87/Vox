@@ -525,7 +525,7 @@ vec3 Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeFo
 						m_stepUpAnimationPrevious = 0.0f;
 						m_stepUpAnimationYOffset = 0.0f;
 						Interpolator::GetInstance()->AddFloatInterpolation(&m_stepUpAnimationYAmount, 0.0f, (Chunk::BLOCK_RENDER_SIZE*2.2f), 0.1f, 0.0f, NULL, _StepUpAnimationFinished, this);
-						Interpolator::GetInstance()->AddFloatInterpolation(&m_stepUpAnimationYOffset, (Chunk::BLOCK_RENDER_SIZE*2.2f), 0.0f, 0.2f, -100.0f);
+						Interpolator::GetInstance()->AddFloatInterpolation(&m_stepUpAnimationYOffset, (Chunk::BLOCK_RENDER_SIZE*2.2f), 0.0f, 0.125f, -100.0f);
 					}
 				}
 			}
