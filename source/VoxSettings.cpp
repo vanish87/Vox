@@ -1,7 +1,7 @@
 // ******************************************************************************
-// Filename:	VoxSettings.cpp
-// Project:		Vox
-// Author:		Steven Ball
+// Filename:    VoxSettings.cpp
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Revision History:
 //   Initial Revision - 15/11/15
