@@ -1,7 +1,7 @@
 // ******************************************************************************
-// Filename:	VoxGame.h
-// Project:		Vox
-// Author:		Steven Ball
+// Filename:    VoxGame.h
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //   Vox game class.
