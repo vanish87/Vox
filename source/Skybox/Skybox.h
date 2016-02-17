@@ -1,7 +1,7 @@
 // ******************************************************************************
-// Filename:	Skybox.h
-// Project:		Game
-// Author:		Steven Ball
+// Filename:    Skybox.h
+// Project:     Game
+// Author:      Steven Ball
 //
 // Purpose:
 //
