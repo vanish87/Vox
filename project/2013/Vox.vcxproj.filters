@@ -489,6 +489,9 @@
     <ClCompile Include="..\..\source\scenery\SceneryManager.cpp">
       <Filter>source\scenery</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\frontend\FrontendPage.cpp">
+      <Filter>source\frontend</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\glew\include\GL\glew.h">
@@ -1351,6 +1354,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\scenery\SceneryManager.h">
       <Filter>source\scenery</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\frontend\FrontendPage.h">
+      <Filter>source\frontend</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

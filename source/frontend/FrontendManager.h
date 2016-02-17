@@ -48,6 +48,28 @@ public:
 	void SetPulldownMenuIcons(PulldownMenu* pPulldownMenu);
 	void SetButtonIcons(Button* pButton, ButtonSize size);
 
+	// Fonts
+	unsigned int GetFrontendFont_14() { return m_frontEndFont_14; }
+	unsigned int GetFrontendFont_14_Outline() { return m_frontEndFont_14_Outline; }
+	unsigned int GetFrontendFont_18() { return m_frontEndFont_18; }
+	unsigned int GetFrontendFont_18_Outline() { return m_frontEndFont_18_Outline; }
+	unsigned int GetFrontendFont_20() { return m_frontEndFont_20; }
+	unsigned int GetFrontendFont_20_Outline() { return m_frontEndFont_20_Outline; }
+	unsigned int GetFrontendFont_22() { return m_frontEndFont_22; }
+	unsigned int GetFrontendFont_22_Outline() { return m_frontEndFont_22_Outline; }
+	unsigned int GetFrontendFont_25() { return m_frontEndFont_25; }
+	unsigned int GetFrontendFont_25_Outline() { return m_frontEndFont_25_Outline; }
+	unsigned int GetFrontendFont_30() { return m_frontEndFont_30; }
+	unsigned int GetFrontendFont_30_Outline() { return m_frontEndFont_30_Outline; }
+	unsigned int GetFrontendFont_35() { return m_frontEndFont_35; }
+	unsigned int GetFrontendFont_35_Outline() { return m_frontEndFont_35_Outline; }
+	unsigned int GetFrontendFont_40() { return m_frontEndFont_40; }
+	unsigned int GetFrontendFont_40_Outline() { return m_frontEndFont_40_Outline; }
+	unsigned int GetFrontendFont_50() { return m_frontEndFont_50; }
+	unsigned int GetFrontendFont_50_Outline() { return m_frontEndFont_50_Outline; }
+	unsigned int GetFrontendFont_80() { return m_frontEndFont_80; }
+	unsigned int GetFrontendFont_80_Outline() { return m_frontEndFont_80_Outline; }
+
 	// Checkbox
 	Icon* GetCheckboxIcon() { return m_pCheckboxIcon; };
 	Icon* GetCheckboxIconHover() { return m_pCheckboxIconHover; };
@@ -111,6 +133,28 @@ protected:
 private:
 	/* Private members */
 	Renderer* m_pRenderer;
+
+	// Fonts
+	unsigned int m_frontEndFont_14;
+	unsigned int m_frontEndFont_14_Outline;
+	unsigned int m_frontEndFont_18;
+	unsigned int m_frontEndFont_18_Outline;
+	unsigned int m_frontEndFont_20;
+	unsigned int m_frontEndFont_20_Outline;
+	unsigned int m_frontEndFont_22;
+	unsigned int m_frontEndFont_22_Outline;
+	unsigned int m_frontEndFont_25;
+	unsigned int m_frontEndFont_25_Outline;
+	unsigned int m_frontEndFont_30;
+	unsigned int m_frontEndFont_30_Outline;
+	unsigned int m_frontEndFont_35;
+	unsigned int m_frontEndFont_35_Outline;
+	unsigned int m_frontEndFont_40;
+	unsigned int m_frontEndFont_40_Outline;
+	unsigned int m_frontEndFont_50;
+	unsigned int m_frontEndFont_50_Outline;
+	unsigned int m_frontEndFont_80;
+	unsigned int m_frontEndFont_80_Outline;
 
 	// Checkbox
 	Icon* m_pCheckboxIcon;

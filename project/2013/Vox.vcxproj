@@ -23,6 +23,7 @@
     <ClCompile Include="..\..\source\blocks\ChunkManager.cpp" />
     <ClCompile Include="..\..\source\freetype\freetypefont.cpp" />
     <ClCompile Include="..\..\source\frontend\FrontendManager.cpp" />
+    <ClCompile Include="..\..\source\frontend\FrontendPage.cpp" />
     <ClCompile Include="..\..\source\glew\src\glew.c" />
     <ClCompile Include="..\..\source\glm\detail\dummy.cpp" />
     <ClCompile Include="..\..\source\glm\detail\glm.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="..\..\source\blocks\ChunkManager.h" />
     <ClInclude Include="..\..\source\freetype\freetypefont.h" />
     <ClInclude Include="..\..\source\frontend\FrontendManager.h" />
+    <ClInclude Include="..\..\source\frontend\FrontendPage.h" />
     <ClInclude Include="..\..\source\glew\include\GL\glew.h" />
     <ClInclude Include="..\..\source\glew\include\GL\glxew.h" />
     <ClInclude Include="..\..\source\glew\include\GL\wglew.h" />

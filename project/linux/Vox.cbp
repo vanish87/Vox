@@ -215,6 +215,8 @@
 		<Unit filename="../../source/freetype/include/ft2build.h" />
 		<Unit filename="../../source/frontend/FrontendManager.cpp" />
 		<Unit filename="../../source/frontend/FrontendManager.h" />
+		<Unit filename="../../source/frontend/FrontendPage.cpp" />
+		<Unit filename="../../source/frontend/FrontendPage.h" />
 		<Unit filename="../../source/glew/include/GL/glew.h" />
 		<Unit filename="../../source/glew/include/GL/glxew.h" />
 		<Unit filename="../../source/glew/include/GL/wglew.h" />
