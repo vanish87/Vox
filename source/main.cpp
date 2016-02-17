@@ -4,12 +4,14 @@
 // Author:	Steven Ball
 //
 // Purpose:
-//   The main entry point for the application.
+//   The main entry point for the application. Creates the initial instances of
+//   the container classes, iterates the game loop, polls events/input and 
+//   detects for game closure to cleanup the with the destruction.
 // 
 // Revision History:
 //   Initial Revision - 27/10/15
 //
-// Copyright (c) 2005-2015, Steven Ball
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #include "VoxGame.h"
