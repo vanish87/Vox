@@ -16,7 +16,7 @@
 
 OpenGLTriangleMesh::OpenGLTriangleMesh()
 {
-    m_staticMeshId = -1;
+	m_staticMeshId = -1;
 
 	m_materialId = -1;
 	m_textureId = -1;
@@ -36,9 +36,9 @@ OpenGLTriangleMesh::~OpenGLTriangleMesh()
 		m_textureCoordinates[i] = 0;
 	}
 	
-    // Delete the triangles
-    for(unsigned int i = 0; i < m_triangles.size(); i++) {
-        delete m_triangles[i];
-        m_triangles[i] = 0;
-    }
+	// Delete the triangles
+	for(unsigned int i = 0; i < m_triangles.size(); i++) {
+		delete m_triangles[i];
+		m_triangles[i] = 0;
+	}
 }
