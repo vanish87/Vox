@@ -1,3 +1,14 @@
+// ******************************************************************************
+// Filename:    VoxInput.cpp
+// Project:     Vox
+// Author:      Steven Ball
+//
+// Revision History:
+//   Initial Revision - 27/10/15
+//
+// Copyright (c) 2005-2015, Steven Ball
+// ******************************************************************************
+
 #include <stdio.h>
 #include <stdlib.h>
 
