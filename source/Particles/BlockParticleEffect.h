@@ -1,16 +1,14 @@
 // ******************************************************************************
-//
-// Filename:	BlockParticleEffect.h
-// Project:		Game
-// Author:		Steven Ball
+// Filename:    BlockParticleEffect.h
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //
 // Revision History:
 //   Initial Revision - 09/11/14
 //
-// Copyright (c) 2005-2011, Steven Ball
-//
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #pragma once
