@@ -271,7 +271,7 @@ void VoxGame::CancelQuitPopup()
 {
 	m_pFrontendManager->SetFrontendScreen(FrontendScreen_None);
 
-	//SetPaused(false);
+	SetPaused(false);
 
 	//SetGlobalBlurAmount(0.0f);
 
@@ -282,7 +282,7 @@ void VoxGame::ShowQuitPopup()
 {
 	m_pFrontendManager->SetFrontendScreen(FrontendScreen_QuitPopup);
 
-	//SetPaused(true);
+	SetPaused(true);
 
 	//SetGlobalBlurAmount(0.0015f);
 

@@ -137,6 +137,8 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 	m_vpFrontendPages.push_back(pQuitPopup);
 
 	// Initial page
+	m_currentScreen = FrontendScreen_None;
+	m_currentPage = NULL;
 	SetFrontendScreen(FrontendScreen_None);
 }
 

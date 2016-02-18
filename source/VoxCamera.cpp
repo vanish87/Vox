@@ -14,17 +14,20 @@
 // Camera controls
 void VoxGame::UpdateCamera(float dt)
 {
-	if (m_cameraMode == CameraMode_MouseRotate)
+	if (m_bPaused == false)
 	{
-		UpdateCameraAutoCamera(dt, false);
-	}
-	else if (m_cameraMode == CameraMode_AutoCamera)
-	{
-		UpdateCameraAutoCamera(dt, true);
-	}
-	else if (m_cameraMode == CameraMode_FirstPerson)
-	{
-		UpdateCameraFirstPerson(dt);
+		if (m_cameraMode == CameraMode_MouseRotate)
+		{
+			UpdateCameraAutoCamera(dt, false);
+		}
+		else if (m_cameraMode == CameraMode_AutoCamera)
+		{
+			UpdateCameraAutoCamera(dt, true);
+		}
+		else if (m_cameraMode == CameraMode_FirstPerson)
+		{
+			UpdateCameraFirstPerson(dt);
+		}
 	}
 
 	if (m_gameMode == GameMode_Game && m_cameraMode != CameraMode_Debug)
