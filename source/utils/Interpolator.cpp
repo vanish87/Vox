@@ -1,8 +1,7 @@
 // ******************************************************************************
-//
-// Filename:	TimeMaInterpolatornager.cpp
-// Project:	Utils
-// Author:	Steven Ball
+// Filename:    Interpolator.cpp
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //	 An interpolator helper class that will manage all the interpolations for
@@ -11,8 +10,7 @@
 // Revision History:
 //   Initial Revision - 23/02/12
 //
-// Copyright (c) 2005-2015, Steven Ball
-//
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #include "Interpolator.h"

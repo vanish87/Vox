@@ -1,8 +1,7 @@
 // ******************************************************************************
-//
-// Filename:	TimeManager.cpp
-// Project:	Utils
-// Author:	Steven Ball
+// Filename:    TimeManager.cpp
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //	 A Manager class to handle all time related functionality. Can be used
@@ -12,8 +11,7 @@
 // Revision History:
 //   Initial Revision - 15/07/08
 //
-// Copyright (c) 2005-2006, Steven Ball
-//
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #include "TimeManager.h"

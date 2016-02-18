@@ -1,8 +1,7 @@
 // ******************************************************************************
-//
-// Filename:	Interpolator.h
-// Project:	Utils
-// Author:	Steven Ball
+// Filename:    Interpolator.h
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //	 An interpolator helper class that will manage all the interpolations for
@@ -11,8 +10,7 @@
 // Revision History:
 //   Initial Revision - 23/02/12
 //
-// Copyright (c) 2005-20015, Steven Ball
-//
+// Copyright (c) 2005-20016, Steven Ball
 // ******************************************************************************
 
 #pragma once

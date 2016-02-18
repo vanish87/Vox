@@ -1,8 +1,7 @@
 // ******************************************************************************
-//
-// Filename:	Random.h
-// Project:	Utils
-// Author:	Steven Ball
+// Filename:    Random.h
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //	 A selection of helper functions to make generating random numbers easier.
@@ -10,8 +9,7 @@
 // Revision History:
 //   Initial Revision - 20/02/11
 //
-// Copyright (c) 2005-2015, Steven Ball
-//
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #pragma once

@@ -1,8 +1,7 @@
 // ******************************************************************************
-//
-// Filename:	CountdownTimer.cpp
-// Project:	Utils
-// Author:	Steven Ball
+// Filename:    CountdownTimer.cpp
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //	 A Countdown timer that triggers a function callback upon reaching the
@@ -12,8 +11,7 @@
 // Revision History:
 //   Initial Revision - 15/07/08
 //
-// Copyright (c) 2005-2006, Steven Ball
-//
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #include "CountdownTimer.h"
