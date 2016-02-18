@@ -37,9 +37,3 @@ void VoxApplication::Destroy()
 void VoxApplication::Update(float dt)
 {
 }
-
-// Events
-int VoxApplication::ShouldCloseApplication()
-{
-	return 0;
-}

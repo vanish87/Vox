@@ -15,6 +15,7 @@
 
 #pragma once
 
+#include "FrontendPage.h"
 #include "../Renderer/Renderer.h"
 #include "../gui/icon.h"
 #include "../gui/checkbox.h"
@@ -24,6 +25,26 @@
 #include "../gui/button.h"
 
 
+enum eFrontendScreen
+{
+	FrontendScreen_None = 0,
+
+	FrontendScreen_Intro,
+
+	FrontendScreen_MainMenu,
+	FrontendScreen_SelectCharacter,
+	FrontendScreen_CreateCharacter,
+	FrontendScreen_SelectWorld,
+	FrontendScreen_CreateWorld,
+	FrontendScreen_Credits,
+
+	FrontendScreen_PauseMenu,
+	FrontendScreen_OptionsMenu,
+	FrontendScreen_ModMenu,
+
+	FrontendScreen_QuitPopup,
+};
+
 enum ButtonSize
 {
 	ButtonSize_85x25 = 0,
@@ -31,12 +52,23 @@ enum ButtonSize
 	ButtonSize_NUM,
 };
 
+typedef std::vector<FrontendPage*> FrontendPageList;
+
 class FrontendManager
 {
 public:
 	/* Public methods */
-	FrontendManager(Renderer* pRenderer);
+	FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI);
 	~FrontendManager();
+
+	// Windows dimensions
+	void SetWindowDimensions(int width, int height);
+	int GetWindowWidth();
+	int GetWindowHeight();
+
+	// Frontend screen
+	eFrontendScreen GetFrontendScreen();
+	void SetFrontendScreen(eFrontendScreen screen);
 
 	// Load the icon graphics based on a theme
 	void LoadCommonGraphics(string themeName);
@@ -133,6 +165,18 @@ protected:
 private:
 	/* Private members */
 	Renderer* m_pRenderer;
+	OpenGLGUI* m_pGUI;
+
+	// Window params
+	int m_windowWidth;
+	int m_windowHeight;
+
+	// Current frontend screen
+	eFrontendScreen m_currentScreen;
+	FrontendPage* m_currentPage;
+
+	// Pages
+	FrontendPageList m_vpFrontendPages;
 
 	// Fonts
 	unsigned int m_frontEndFont_14;

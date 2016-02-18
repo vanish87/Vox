@@ -85,6 +85,9 @@
     <Filter Include="source\fronend">
       <UniqueIdentifier>{930aa78e-1327-4046-956e-f55ddaf01cd0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\fronend\Pages">
+      <UniqueIdentifier>{d2f4837d-aa70-4533-b05e-be8757280872}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\glew\src\glew.c">
@@ -491,6 +494,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\frontend\FrontendPage.cpp">
       <Filter>source\fronend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\frontend\Pages\QuitPopup.cpp">
+      <Filter>source\fronend\Pages</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1357,6 +1363,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\frontend\FrontendPage.h">
       <Filter>source\fronend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\frontend\Pages\QuitPopup.h">
+      <Filter>source\fronend\Pages</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

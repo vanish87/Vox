@@ -17,7 +17,7 @@
 #include "../gui/openglgui.h"
 
 
-FrontEndPage::FrontEndPage(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontendManager, eFrontendScreen pageType, int windowWidth, int windowHeight)
+FrontendPage::FrontendPage(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontendManager, eFrontendScreen pageType, int windowWidth, int windowHeight)
 {
 	m_pRenderer = pRenderer;
 	m_pGUI = pGUI;
@@ -46,13 +46,13 @@ FrontEndPage::FrontEndPage(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager
 	m_windowHeight = windowHeight;
 }
 
-FrontEndPage::~FrontEndPage()
+FrontendPage::~FrontendPage()
 {
 	delete m_pPageTitle;
 	delete m_pPageSubtitle;
 }
 
-void FrontEndPage::SetWindowDimensions(int width, int height)
+void FrontendPage::SetWindowDimensions(int width, int height)
 {
 	m_windowWidth = width;
 	m_windowHeight = height;
@@ -60,12 +60,12 @@ void FrontEndPage::SetWindowDimensions(int width, int height)
 	m_updateTitleTextCenterLocation = true;
 }
 
-eFrontendScreen FrontEndPage::GetPageType()
+eFrontendScreen FrontendPage::GetPageType()
 {
 	return m_pageType;
 }
 
-void FrontEndPage::SetTitleAndSubtitle(string title, string subtitle)
+void FrontendPage::SetTitleAndSubtitle(string title, string subtitle)
 {
 	m_pPageTitle->SetText(title);
 	m_pPageSubtitle->SetText(subtitle);
@@ -81,7 +81,7 @@ void FrontEndPage::SetTitleAndSubtitle(string title, string subtitle)
 	}
 }
 
-void FrontEndPage::RemoveTitlesAndSubTitle()
+void FrontendPage::RemoveTitlesAndSubTitle()
 {
 	if(m_addedTitles == true)
 	{
@@ -92,22 +92,22 @@ void FrontEndPage::RemoveTitlesAndSubTitle()
 	}
 }
 
-vec3 FrontEndPage::GetCameraPosition()
+vec3 FrontendPage::GetCameraPosition()
 {
 	return m_cameraPosition;
 }
 
-vec3 FrontEndPage::GetCameraView()
+vec3 FrontendPage::GetCameraView()
 {
 	return m_cameraView;
 }
 
-void FrontEndPage::Update(float dt)
+void FrontendPage::Update(float dt)
 {
 	/* Do nothing */
 }
 
-void FrontEndPage::Render()
+void FrontendPage::Render()
 {
 	if(m_updateTitleTextCenterLocation)
 	{
@@ -121,12 +121,12 @@ void FrontEndPage::Render()
 	}
 }
 
-void FrontEndPage::Render2D()
+void FrontendPage::Render2D()
 {
 	/* Do nothing */
 }
 
-void FrontEndPage::RenderDebug()
+void FrontendPage::RenderDebug()
 {
 	/* Do nothing */
 }

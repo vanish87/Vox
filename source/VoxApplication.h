@@ -32,9 +32,6 @@ public:
 	// Update
 	void Update(float dt);
 
-	// Events
-	int ShouldCloseApplication();
-
 protected:
 	/* Protected methods */
 

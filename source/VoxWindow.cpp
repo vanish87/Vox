@@ -34,6 +34,7 @@
 
 // Callback functionality
 void WindowResizeCallback(GLFWwindow* window, int width, int height);
+void WindowCloseCallback(GLFWwindow* window);
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void CharacterCallback(GLFWwindow* window, unsigned int keyCode);
 void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
@@ -127,8 +128,11 @@ void VoxWindow::Render()
 
 void VoxWindow::InitializeWindowContext(GLFWwindow* window)
 {
-	/* Window callbacks */
+	/* Window resize callback */
 	glfwSetWindowSizeCallback(window, WindowResizeCallback);
+
+	/* Window close message callback */
+	glfwSetWindowCloseCallback(window, WindowCloseCallback);
 
 	/* Input callbacks */
 	glfwSetKeyCallback(window, KeyCallback);
@@ -361,13 +365,13 @@ void VoxWindow::PollEvents()
 	glfwPollEvents();
 }
 
-int VoxWindow::ShouldCloseWindow()
-{
-	return glfwWindowShouldClose(m_pWindow);
-}
-
 // Callbacks
 void WindowResizeCallback(GLFWwindow* window, int width, int height)
 {
 	VoxGame::GetInstance()->ResizeWindow(width, height);
+}
+
+void WindowCloseCallback(GLFWwindow* window)
+{
+	VoxGame::GetInstance()->CloseWindow();
 }

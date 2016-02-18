@@ -15,16 +15,17 @@
 
 #pragma once
 
-#include "engine.h"
+#include "..\FrontendPage.h"
+#include "..\gui\icon.h"
+#include "..\gui\label.h"
+#include "..\gui\button.h"
 
-#include "..\FrontEndPage.h"
 
-
-class QuitPopup : public FrontEndPage
+class QuitPopup : public FrontendPage
 {
 public:
 	/* Public methods */
-	QuitPopup(OpenGLRenderer* pRenderer, OpenGLGUI* pGUI, FrontEndManager* pFrontPageManager, int windowWidth, int windowHeight);
+	QuitPopup(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontendManager, int windowWidth, int windowHeight);
 	~QuitPopup();
 
 	void Reset();

@@ -59,12 +59,22 @@ public:
 	void Destroy();
 	void DestroyGUI();
 
+	// Quitting
+	void CancelQuitPopup();
+	void ShowQuitPopup();
+	void SetGameQuit(bool quit);
+
+	// Pause
+	bool IsPaused();
+	void SetPaused(bool pause);
+
 	// Events
 	void PollEvents();
 	bool ShouldClose();
 
 	// Window functionality
 	void ResizeWindow(int width, int height);
+	void CloseWindow();
 	void UpdateJoySticks();
 
 	// Controls
@@ -246,6 +256,12 @@ private:
 	// Window width and height
 	int m_windowWidth;
 	int m_windowHeight;
+
+	// Quit message
+	bool m_bGameQuit;
+
+	// Paused
+	bool m_bPaused;
 
 	// View ports
 	unsigned int m_defaultViewport;

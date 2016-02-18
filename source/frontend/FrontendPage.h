@@ -27,12 +27,12 @@ class OpenGLGUI;
 enum eFrontendScreen;
 
 
-class FrontEndPage
+class FrontendPage
 {
 public:
 	/* Public methods */
-	FrontEndPage(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontendManager, eFrontendScreen pageType, int windowWidth, int windowHeight);
-	virtual ~FrontEndPage();
+	FrontendPage(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontendManager, eFrontendScreen pageType, int windowWidth, int windowHeight);
+	virtual ~FrontendPage();
 
 	virtual void SetWindowDimensions(int width, int height);
 

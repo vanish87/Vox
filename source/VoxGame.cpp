@@ -37,6 +37,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pQubicleBinaryManager = NULL;
 	m_pPlayer = NULL;
 	m_pChunkManager = NULL;
+	m_pFrontendManager = NULL;
 
 	m_GUICreated = false;
 
@@ -71,6 +72,10 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_windowWidth = m_pVoxWindow->GetWindowWidth();
 	m_windowHeight = m_pVoxWindow->GetWindowHeight();
 	m_pRenderer = new Renderer(m_windowWidth, m_windowHeight, 32, 8);
+
+	/* Pause and quit */
+	m_bGameQuit = false;
+	m_bPaused = false;
 
 	/* Create the GUI */
 	m_pGUI = new OpenGLGUI(m_pRenderer);
@@ -155,7 +160,8 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pPlayer = new Player(m_pRenderer, m_pChunkManager, m_pQubicleBinaryManager, m_pLightingManager, m_pBlockParticleManager);
 
 	/* Create the frontend manager */
-	m_pFrontendManager = new FrontendManager(m_pRenderer);
+	m_pFrontendManager = new FrontendManager(m_pRenderer, m_pGUI);
+	m_pFrontendManager->SetWindowDimensions(m_windowWidth, m_windowHeight);
 
 	/* Create module and manager linkage */
 	m_pChunkManager->SetPlayer(m_pPlayer);
@@ -260,6 +266,45 @@ void VoxGame::Destroy()
 	}
 }
 
+// Quitting
+void VoxGame::CancelQuitPopup()
+{
+	m_pFrontendManager->SetFrontendScreen(FrontendScreen_None);
+
+	//SetPaused(false);
+
+	//SetGlobalBlurAmount(0.0f);
+
+	m_pVoxWindow->TurnCursorOff();
+}
+
+void VoxGame::ShowQuitPopup()
+{
+	m_pFrontendManager->SetFrontendScreen(FrontendScreen_QuitPopup);
+
+	//SetPaused(true);
+
+	//SetGlobalBlurAmount(0.0015f);
+
+	m_pVoxWindow->TurnCursorOn(true);
+}
+
+void VoxGame::SetGameQuit(bool quit)
+{
+	m_bGameQuit = quit;
+}
+
+// Pause
+bool VoxGame::IsPaused()
+{
+	return m_bPaused;
+}
+
+void VoxGame::SetPaused(bool pause)
+{
+	m_bPaused = pause;
+}
+
 // Events
 void VoxGame::PollEvents()
 {
@@ -268,7 +313,7 @@ void VoxGame::PollEvents()
 
 bool VoxGame::ShouldClose()
 {
-	return (m_pVoxWindow->ShouldCloseWindow() == 1) || (m_pVoxApplication->ShouldCloseApplication() == 1);
+	return m_bGameQuit;
 }
 
 // Window functionality
@@ -301,6 +346,23 @@ void VoxGame::ResizeWindow(int width, int height)
 		m_pMainWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 		m_pGameWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 		m_pConsoleWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
+	}
+
+	if (m_pFrontendManager)
+	{
+		m_pFrontendManager->SetWindowDimensions(m_windowWidth, m_windowHeight);
+	}
+}
+
+void VoxGame::CloseWindow()
+{
+	if (m_gameMode == GameMode_Game)
+	{
+		ShowQuitPopup();
+	}
+	else
+	{
+		m_bGameQuit = true;
 	}
 }
 

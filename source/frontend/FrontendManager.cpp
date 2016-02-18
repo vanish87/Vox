@@ -10,11 +10,13 @@
 // ******************************************************************************
 
 #include "FrontendManager.h"
+#include "Pages\QuitPopup.h"
 
 
-FrontendManager::FrontendManager(Renderer* pRenderer)
+FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 {
 	m_pRenderer = pRenderer;
+	m_pGUI = pGUI;
 
 	// Fonts
 	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 14, &m_frontEndFont_14);
@@ -126,10 +128,28 @@ FrontendManager::FrontendManager(Renderer* pRenderer)
 	}
 
 	LoadCommonGraphics("Default");
+
+	// Pages
+	int width = 800;
+	int height = 800;
+	FrontendPage* pQuitPopup = new QuitPopup(m_pRenderer, m_pGUI, this, width, height);
+
+	m_vpFrontendPages.push_back(pQuitPopup);
+
+	// Initial page
+	SetFrontendScreen(FrontendScreen_None);
 }
 
 FrontendManager::~FrontendManager()
 {
+	// Frontend pages
+	for (unsigned int i = 0; i < m_vpFrontendPages.size(); i++)
+	{
+		delete m_vpFrontendPages[i];
+		m_vpFrontendPages[i] = 0;
+	}
+	m_vpFrontendPages.clear();
+
 	// Checkbox
 	delete m_pCheckboxIcon;
 	delete m_pCheckboxIconHover;
@@ -173,6 +193,62 @@ FrontendManager::~FrontendManager()
 		delete m_pButtonIconHover;
 		delete m_pButtonIconPressed;
 		delete m_pButtonIconDisabled;
+	}
+}
+
+// Windows dimensions
+void FrontendManager::SetWindowDimensions(int width, int height)
+{
+	m_windowWidth = width;
+	m_windowHeight = height;
+
+	for (unsigned int i = 0; i < m_vpFrontendPages.size(); i++)
+	{
+		m_vpFrontendPages[i]->SetWindowDimensions(m_windowWidth, m_windowHeight);
+	}
+}
+
+int FrontendManager::GetWindowWidth()
+{
+	return m_windowWidth;
+}
+
+int FrontendManager::GetWindowHeight()
+{
+	return m_windowHeight;
+}
+
+// Frontend screen
+eFrontendScreen FrontendManager::GetFrontendScreen()
+{
+	return m_currentScreen;
+}
+
+void FrontendManager::SetFrontendScreen(eFrontendScreen screen)
+{
+	m_currentScreen = screen;
+
+	// Unload current page
+	if (m_currentPage != NULL)
+	{
+		m_currentPage->Unload();
+		m_currentPage = NULL;
+	}
+
+	// Find new page
+	for (unsigned int i = 0; i < m_vpFrontendPages.size(); i++)
+	{
+		if (m_vpFrontendPages[i]->GetPageType() == screen)
+		{
+			m_currentPage = m_vpFrontendPages[i];
+			break;
+		}
+	}
+
+	// Load new page
+	if (m_currentPage != NULL)
+	{
+		m_currentPage->Load();
 	}
 }
 

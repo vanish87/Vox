@@ -77,7 +77,6 @@ public:
 
 	// Events
 	void PollEvents();
-	int ShouldCloseWindow();
 
 protected:
 	/* Protected methods */

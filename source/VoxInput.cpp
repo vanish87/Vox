@@ -180,6 +180,11 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 			m_pChunkManager->ImportQubicleBinary("media/gamedata/terrain/plains/smalltree.qb", treePos, QubicleImportDirection_Normal);
 			break;
 		}
+		case GLFW_KEY_L:
+		{
+			SetPaused(!IsPaused());
+			break;
+		}
 		case GLFW_KEY_P:
 		{
 			if (m_pGUI->IsKeyboardInteractingWithGUIComponent() == false)
@@ -195,7 +200,7 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 
 				break;
 			}
-		}
+		}		
 		case GLFW_KEY_ESCAPE:
 		{
 			m_pDebugCameraOptionBox->SetToggled(true);

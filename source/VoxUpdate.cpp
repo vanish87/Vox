@@ -38,8 +38,8 @@ void VoxGame::Update()
 	// Update interpolator singleton
 	Interpolator::GetInstance()->Update(m_deltaTime);
 
-	// Pause the interpolator if animations are paused.
-	Interpolator::GetInstance()->SetPaused(m_animationUpdate == false);
+	// Pause the interpolator we are are paused.
+	Interpolator::GetInstance()->SetPaused(m_bPaused);
 
 	// Update the time manager (countdowntimers);
 	TimeManager::GetInstance()->Update(m_deltaTime);
@@ -59,7 +59,7 @@ void VoxGame::Update()
 	}
 
 	// Animation update
-	if (m_animationUpdate && m_initialStartWait == false)
+	if (m_bPaused == false && m_initialStartWait == false)
 	{
 		// Update the lighting manager
 		m_pLightingManager->Update(m_deltaTime);
@@ -71,7 +71,10 @@ void VoxGame::Update()
 		m_pSceneryManager->Update(m_deltaTime);
 
 		// Player
-		m_pPlayer->Update(m_deltaTime);
+		if (m_animationUpdate)
+		{
+			m_pPlayer->Update(m_deltaTime);
+		}
 
 		if (m_cameraMode == CameraMode_MouseRotate || m_cameraMode == CameraMode_AutoCamera)
 		{

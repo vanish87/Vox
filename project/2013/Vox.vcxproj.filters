@@ -85,6 +85,9 @@
     <Filter Include="source\scenery">
       <UniqueIdentifier>{d8629ebc-5e83-4f71-a3a2-11c684cd3b81}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\frontend\Pages">
+      <UniqueIdentifier>{0562be2c-3df6-46a3-8cdd-ffba5c3b9326}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\glew\src\glew.c">
@@ -491,6 +494,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\frontend\FrontendPage.cpp">
       <Filter>source\frontend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\frontend\Pages\QuitPopup.cpp">
+      <Filter>source\frontend\Pages</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1357,6 +1363,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\frontend\FrontendPage.h">
       <Filter>source\frontend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\frontend\Pages\QuitPopup.h">
+      <Filter>source\frontend\Pages</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

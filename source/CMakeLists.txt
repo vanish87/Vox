@@ -57,6 +57,7 @@ source_group("source\\lua" FILES ${LUA_SRCS})
 source_group("source\\selene" FILES ${SELENE_HEADERS})
 source_group("source\\selene\\selene" FILES ${SELENE_SRCS})
 source_group("source\\frontend" FILES ${FRONTEND_SRCS})
+source_group("source\\frontend\\pages" FILES ${FRONTEND_PAGES})
 source_group("source\\ini" FILES ${INI_SRCS})
 source_group("source\\simplex" FILES ${SIMPLEX_SRCS})
 source_group("source\\tinythread" FILES ${TINYTHREAD_SRCS})
@@ -85,6 +86,7 @@ add_executable(Vox
                ${SELENE_HEADERS}
                ${SELENE_SRCS}
                ${FRONTEND_SRCS}
+			   ${FRONTEND_PAGES}
 			   ${INI_SRCS}
 			   ${SIMPLEX_SRCS}
 			   ${TINYTHREAD_SRCS}
