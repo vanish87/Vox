@@ -1,16 +1,16 @@
 // ******************************************************************************
-//
-// Filename:	BlockParticleManager.h
-// Project:		Game
-// Author:		Steven Ball
+// Filename:    BlockParticleManager.h
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
-//
+//   A manager class for the voxel particle system. This class manages
+//   particle effects, particle emitters and the individual particle objects.
+//   
 // Revision History:
 //   Initial Revision - 09/11/14
 //
-// Copyright (c) 2005-2011, Steven Ball
-//
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #pragma once
