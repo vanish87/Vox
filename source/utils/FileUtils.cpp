@@ -1,12 +1,12 @@
 // ******************************************************************************
-// Filename:	FileUtils.cpp
-// Project:	Game
-// Author:	Steven Ball
+// Filename:    FileUtils.cpp
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Revision History:
 //   Initial Revision - 17/03/13
 //
-// Copyright (c) 2005-2015, Steven Ball
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #include "FileUtils.h"

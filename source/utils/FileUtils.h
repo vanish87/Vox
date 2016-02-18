@@ -1,7 +1,7 @@
 // ******************************************************************************
-// Filename:  FileUtils.h
-// Project:   Game
-// Author:    Steven Ball
+// Filename:    FileUtils.h
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //   Some general file and folder utility functions.
@@ -9,7 +9,7 @@
 // Revision History:
 //   Initial Revision - 17/03/13
 //
-// Copyright (c) 2005-2015, Steven Ball
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #pragma once
