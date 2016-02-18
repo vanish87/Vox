@@ -111,5 +111,7 @@
 * Add inventory GUI.
 * Add character GUI.
 * Add Quest GUI.
+* Water, creating and manipulation, rendering, updating.
 * Investigate continuous automatic builds on github when files are submitted to depot, using cmake and make.
-* Water
+* Add mode to play in reduced and low FPS.
+  * Low FPS causes bad physics and also bad step-up block functionality, investigate and fix
