@@ -1,14 +1,16 @@
 // ******************************************************************************
 // Filename:    Skybox.h
-// Project:     Game
+// Project:     Vox
 // Author:      Steven Ball
 //
 // Purpose:
+//   A cube mapped skybox render. Support for 2 concurrent skyboxes and blending
+//   between the different skyboxes via the skybox cube shader.
 //
 // Revision History:
 //   Initial Revision - 22/09/14
 //
-// Copyright (c) 2005-2011, Steven Ball
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #pragma once
