@@ -84,7 +84,7 @@
   * Rendering of many log messages is slow, output to file?
 * ~~Player movement on voxel world and terrain.~~
   * ~~Walking up single block steps automatically.~~
-  * Smooth out camera when doing single 1-size block step up animation.
+  * ~~Smooth out camera when doing single 1-size block step up animation. (Was because of different interpolator values)~~ 
 * Convert shaders over to be more unified.
 * Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
