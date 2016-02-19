@@ -130,6 +130,7 @@ void Chunk::Unload()
 
 	if (m_setup == true)
 	{
+		// If we are already setup, when we unload, also tell our neighbours to update their flags
 		Chunk* pChunkXMinus = m_pChunkManager->GetChunk(m_gridX - 1, m_gridY, m_gridZ);
 		Chunk* pChunkXPlus = m_pChunkManager->GetChunk(m_gridX + 1, m_gridY, m_gridZ);
 		Chunk* pChunkYMinus = m_pChunkManager->GetChunk(m_gridX, m_gridY - 1, m_gridZ);
@@ -193,6 +194,7 @@ void Chunk::Setup()
 						float colorNoise = octave_noise_3d(4.0f, 0.3f, 0.005f, xPosition, yPosition, zPosition);
 						float colorNoiseNormalized = ((colorNoise + 1.0f) * 0.5f);
 
+						// TODO : Move all the colour code and block type below into the biome manager
 						float red1 = 0.65f;
 						float green1 = 0.80f;
 						float blue1 = 0.00f;
@@ -298,12 +300,12 @@ bool Chunk::IsUnloading()
 // Saving and loading
 void Chunk::SaveChunk()
 {
-
+	// TODO : Write Chunk::SaveChunk()
 }
 
 void Chunk::LoadChunk()
 {
-
+	// TODO : Write Chunk::LoadChunk()
 }
 
 // Position
@@ -1556,8 +1558,8 @@ void Chunk::Render2D(Camera* pCamera, unsigned int viewport, unsigned int font)
 		m_pRenderer->GetScreenCoordinatesFromWorldPosition(centerPos, &winx, &winy);
 	m_pRenderer->PopMatrix();
 
-	bool renderChunkGrid = true;
-	if (renderChunkGrid)
+	bool renderChunkInfo = true;
+	if (renderChunkInfo)
 	{
 		char lLine1[64];
 		snprintf(lLine1, 64, "%i, %i, %i", m_gridX, m_gridY, m_gridZ);
