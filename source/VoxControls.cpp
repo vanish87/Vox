@@ -63,7 +63,7 @@ void VoxGame::UpdateKeyboardControls(float dt)
 	}
 	else if (gameMode == GameMode_Game)
 	{
-		if (m_bPaused == false)
+		if (m_bPaused == false)  // If we are paused, don't allow gameplay control movements
 		{
 			// Jumping
 			if (m_bKeyboardSpace)
@@ -189,7 +189,7 @@ void VoxGame::UpdateMouseControls(float dt)
 	}
 	else if (gameMode == GameMode_Game)
 	{
-		if (m_bPaused == false)
+		if (m_bPaused == false)  // If we are paused, don't allow gameplay control movements
 		{
 			if (m_cameraMode == CameraMode_MouseRotate)
 			{
@@ -227,7 +227,7 @@ void VoxGame::UpdateGamePadControls(float dt)
 	}
 	else if (gameMode == GameMode_Game)
 	{
-		if (m_bPaused == false)
+		if (m_bPaused == false)  // If we are paused, don't allow gameplay control movements
 		{
 			if (m_cameraMode == CameraMode_MouseRotate)
 			{
