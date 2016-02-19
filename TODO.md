@@ -78,7 +78,7 @@
 * ~~Player movement on voxel world and terrain.~~
   * ~~Walking up single block steps automatically.~~
   * ~~Smooth out camera when doing single 1-size block step up animation. (Was because of different interpolator values)~~ 
-* ~~Add pause menu when ESC is pressed, and add popup in center of screen.~~
+* Add exit/quit popup when the game is closed or quit using various exit methods.
 * ~~Add console and logger to the in-game gui for output and logging information.~~
   * ~~Log when loading/saving model files.~~
   * Remove old log messages, only allow a certain nunber of log messages to be shown.
@@ -96,6 +96,7 @@
   * Flower generation.
   * Poisson-disc sparation and generation for random placement of scenery.
   * Convert scenery manager to use instance rendering and the instance shader.
+* Add pause menu when ESC is pressed, and add popup in center of screen.
 * Add item manager.
 * Create basic front-end.
 * Create front end scene and character line up.
@@ -105,7 +106,6 @@
 * Add character creator and customization from front-end.
 * Add debug log information for model loading and rendering - num verts, tris, faces, etc.
 * Add options menu window to pause menu.
-* Add exit/quit popup when the game is closed or quit using various exit methods.
 * Add voxel editor.
 * Add texture support for voxel blocks.
 * Add inventory GUI.
@@ -114,5 +114,5 @@
 * Water, creating and manipulation, rendering, updating.
 * Investigate continuous automatic builds on github when files are submitted to depot, using cmake and make.
 * Add mode to play in reduced and low FPS.
-  * Low FPS causes bad physics and also bad step-up block functionality, investigate and fix
-* Custom cursors - fingers
+  * Low FPS causes bad physics and also bad step-up block functionality, investigate and fix.
+* Custom cursors - fingers.
