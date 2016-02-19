@@ -64,7 +64,7 @@ private:
 
 	Label* m_pQuitText;
 
-	Icon* m_pBackgroundIcon;
+	//Icon* m_pBackgroundIcon;
 
 	Button* m_pCancelButton;
 	Button* m_pConfirmButton;

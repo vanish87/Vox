@@ -29,8 +29,8 @@ QuitPopup::QuitPopup(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFro
 	m_pQuitText->SetOutlineFont(pFrontendManager->GetFrontendFont_40_Outline());
 	m_pQuitText->SetDepth(3.0f);
 
-	m_pBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/QuitPopup/background.tga", 400, 200);
-	m_pBackgroundIcon->SetDepth(2.0f);
+	//m_pBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/QuitPopup/background.tga", 400, 200);
+	//m_pBackgroundIcon->SetDepth(2.0f);
 
 	m_pConfirmButton = new Button(m_pRenderer, pFrontendManager->GetFrontendFont_30(), pFrontendManager->GetFrontendFont_30_Outline(), "Yes", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pConfirmButton->SetLabelOffset(0, 3);
@@ -52,7 +52,7 @@ QuitPopup::QuitPopup(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFro
 QuitPopup::~QuitPopup()
 {
 	delete m_pQuitText;
-	delete m_pBackgroundIcon;
+	//delete m_pBackgroundIcon;
 	delete m_pCancelButton;
 	delete m_pConfirmButton;
 }
@@ -71,7 +71,7 @@ void QuitPopup::SetWindowDimensions(int windowWidth, int windowHeight)
 	int textWidth = m_pRenderer->GetFreeTypeTextWidth(m_pFrontendManager->GetFrontendFont_40(), "%s", m_pQuitText->GetText().c_str());
 	m_pQuitText->SetLocation((int)((m_windowWidth*0.5f)-(textWidth*0.5f)), (int)((m_windowHeight*0.5f) + 25));
 
-	m_pBackgroundIcon->SetDimensions((int)((m_windowWidth*0.5f) - (m_backgroundWidth*0.5f)), (int)((m_windowHeight*0.5f) - (m_backgroundHeight*0.5f)+5), m_backgroundWidth, m_backgroundHeight);
+	//m_pBackgroundIcon->SetDimensions((int)((m_windowWidth*0.5f) - (m_backgroundWidth*0.5f)), (int)((m_windowHeight*0.5f) - (m_backgroundHeight*0.5f)+5), m_backgroundWidth, m_backgroundHeight);
 
 	m_pCancelButton->SetDimensions((int)((m_windowWidth*0.5f) - 65 - (110*0.5f)), (int)((m_windowHeight*0.5f)-50), 110, 47);
 	m_pConfirmButton->SetDimensions((int)((m_windowWidth*0.5f) + 65 - (110*0.5f)), (int)((m_windowHeight*0.5f)-50), 110, 47);
@@ -80,7 +80,7 @@ void QuitPopup::SetWindowDimensions(int windowWidth, int windowHeight)
 void QuitPopup::Load()
 {
 	m_pGUI->AddComponent(m_pQuitText);
-	m_pGUI->AddComponent(m_pBackgroundIcon);
+	//m_pGUI->AddComponent(m_pBackgroundIcon);
 	m_pGUI->AddComponent(m_pCancelButton);
 	m_pGUI->AddComponent(m_pConfirmButton);
 }
@@ -88,7 +88,7 @@ void QuitPopup::Load()
 void QuitPopup::Unload()
 {
 	m_pGUI->RemoveComponent(m_pQuitText);
-	m_pGUI->RemoveComponent(m_pBackgroundIcon);
+	//->RemoveComponent(m_pBackgroundIcon);
 	m_pGUI->RemoveComponent(m_pCancelButton);
 	m_pGUI->RemoveComponent(m_pConfirmButton);
 }
