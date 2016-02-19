@@ -65,6 +65,11 @@ Renderer::Renderer(int width, int height, int depthBits, int stencilBits)
 		m_stencil = true;
 	}
 
+	// Enable smooth shading
+	glShadeModel(GL_SMOOTH);
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+
+	// Quadratic initialize
 	m_Quadratic = gluNewQuadric();
 	gluQuadricNormals(m_Quadratic, GLU_SMOOTH);
 	gluQuadricTexture(m_Quadratic, GL_TRUE);
