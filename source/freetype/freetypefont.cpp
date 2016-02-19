@@ -91,8 +91,6 @@ void FreeTypeFont::BuildFont(const char* fontName, int size)
 		MakeDisplayList(m_face, i, m_base, m_textures);
 	}
 
-	bool use_kerning = FT_HAS_KERNING(m_face);
-
 	m_inited = true;
 }
 
