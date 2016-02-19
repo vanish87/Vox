@@ -116,6 +116,7 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 		int width = 0;
 		int height = 0;
 		if (ButtonSize(i) == ButtonSize_85x25) { width = 85; height = 25; }
+		if (ButtonSize(i) == ButtonSize_65x25) { width = 65; height = 25; }
 
 		m_pButtonIcon[ButtonSize(i)] = new Icon(m_pRenderer, "", width, height);
 		m_pButtonIcon[ButtonSize(i)]->SetDepth(2.0f);
@@ -191,10 +192,10 @@ FrontendManager::~FrontendManager()
 	// Buttons
 	for (int i = 0; i < ButtonSize_NUM; i++)
 	{
-		delete m_pButtonIcon;
-		delete m_pButtonIconHover;
-		delete m_pButtonIconPressed;
-		delete m_pButtonIconDisabled;
+		delete m_pButtonIcon[i];
+		delete m_pButtonIconHover[i];
+		delete m_pButtonIconPressed[i];
+		delete m_pButtonIconDisabled[i];
 	}
 }
 
@@ -329,7 +330,8 @@ void FrontendManager::LoadCommonGraphics(string themeName)
 	for (int i = 0; i < ButtonSize_NUM; i++)
 	{
 		string sizeFolder = "";
-		if (ButtonSize(i) == ButtonSize_85x25) { sizeFolder = "85x25";  }
+		if (ButtonSize(i) == ButtonSize_85x25) { sizeFolder = "85x25"; }
+		if (ButtonSize(i) == ButtonSize_65x25) { sizeFolder = "65x25"; }
 
 		iconName = "media/textures/gui/" + themeName + "/common/buttons/" + sizeFolder + "/buttonDefault.tga";
 		m_pButtonIcon[ButtonSize(i)]->SetIcon(iconName);
@@ -395,10 +397,10 @@ void FrontendManager::SetPulldownMenuIcons(PulldownMenu* pPulldownMenu)
 
 void FrontendManager::SetButtonIcons(Button* pButton, ButtonSize size)
 {
-	pButton->SetDefaultIcon(GetButtonIcon(ButtonSize_85x25));
-	pButton->SetHoverIcon(GetButtonIconHover(ButtonSize_85x25));
-	pButton->SetSelectedIcon(GetButtonIconPressed(ButtonSize_85x25));
-	pButton->SetDisabledIcon(GetButtonIconDisabled(ButtonSize_85x25));
+	pButton->SetDefaultIcon(GetButtonIcon(size));
+	pButton->SetHoverIcon(GetButtonIconHover(size));
+	pButton->SetSelectedIcon(GetButtonIconPressed(size));
+	pButton->SetDisabledIcon(GetButtonIconDisabled(size));
 }
 
 // Updating

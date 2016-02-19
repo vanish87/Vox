@@ -160,7 +160,7 @@ void VoxGame::CreateGUI()
 	m_pStepUpdateCheckbox->SetDimensions(110, 10, 14, 14);
 
 	m_pStepUpdateButton = new Button(m_pRenderer, m_defaultFont, "Step");
-	m_pStepUpdateButton->SetDimensions(200, 5, 85, 25);
+	m_pStepUpdateButton->SetDimensions(200, 5, 65, 25);
 	m_pStepUpdateButton->SetLabelColour(Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pStepUpdateButton->SetCallBackFunction(_StepUpdatePressed);
 	m_pStepUpdateButton->SetCallBackData(this);
@@ -214,7 +214,7 @@ void VoxGame::CreateGUI()
 	m_pConsoleWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 
 	m_pConsoleTextbox = new TextBox(m_pRenderer, m_defaultFont, "", "");
-	m_pConsoleTextbox->SetDimensions(0, 0, 500, 18);
+	m_pConsoleTextbox->SetDimensions(1, 1, 498, 16);
 	m_pConsoleTextbox->SetDontLoseFocus(false);
 	m_pConsoleTextbox->SetCallBackFunction_OnReturnPressed(_ConsoleReturnPressed);
 	m_pConsoleTextbox->SetCallBackData_OnReturnPressed(this);
@@ -327,7 +327,7 @@ void VoxGame::SkinGUI()
 
 	m_pFrontendManager->SetButtonIcons(m_pFullscreenButton, ButtonSize_85x25);
 	m_pFrontendManager->SetButtonIcons(m_pPlayAnimationButton, ButtonSize_85x25);
-	m_pFrontendManager->SetButtonIcons(m_pStepUpdateButton, ButtonSize_85x25);
+	m_pFrontendManager->SetButtonIcons(m_pStepUpdateButton, ButtonSize_65x25);
 }
 
 void VoxGame::UnSkinGUI()

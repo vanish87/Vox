@@ -48,6 +48,7 @@ enum eFrontendScreen
 enum ButtonSize
 {
 	ButtonSize_85x25 = 0,
+	ButtonSize_65x25,
 
 	ButtonSize_NUM,
 };
