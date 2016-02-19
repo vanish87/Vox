@@ -91,6 +91,8 @@ void FreeTypeFont::BuildFont(const char* fontName, int size)
 		MakeDisplayList(m_face, i, m_base, m_textures);
 	}
 
+	bool use_kerning = FT_HAS_KERNING(m_face);
+
 	m_inited = true;
 }
 
@@ -100,7 +102,7 @@ void FreeTypeFont::MakeDisplayList(FT_Face face, unsigned char ch, GLuint list_b
 	//into a bitmap.  This actually requires a couple of FreeType commands:
 
 	//Load the Glyph for our character.
-	if(FT_Load_Glyph( face, FT_Get_Char_Index( face, ch ), FT_LOAD_DEFAULT ))
+	if(FT_Load_Glyph( face, FT_Get_Char_Index( face, ch ), FT_LOAD_NO_HINTING ))
 	{
 		// Load glyph failed
 		assert(0);
