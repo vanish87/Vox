@@ -34,7 +34,7 @@ QuitPopup::QuitPopup(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFro
 
 	m_pConfirmButton = new Button(m_pRenderer, pFrontendManager->GetFrontendFont_30(), pFrontendManager->GetFrontendFont_30_Outline(), "Yes", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pConfirmButton->SetLabelOffset(0, 3);
-	m_pConfirmButton->SetPressedOffset(0, -4);
+	m_pConfirmButton->SetPressedOffset(0, 3);
 	m_pConfirmButton->SetDepth(3.0f);
 	m_pConfirmButton->SetCallBackFunction(_ConfirmPressed);
 	m_pConfirmButton->SetCallBackData(this);	
@@ -42,7 +42,7 @@ QuitPopup::QuitPopup(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFro
 	m_pCancelButton = new Button(m_pRenderer, pFrontendManager->GetFrontendFont_30(), pFrontendManager->GetFrontendFont_30_Outline(), "No", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pCancelButton->SetLabelOffset(0, 3);
 	m_pCancelButton->SetDepth(3.0f);
-	m_pCancelButton->SetPressedOffset(0, -4);
+	m_pCancelButton->SetPressedOffset(0, -3);
 	m_pCancelButton->SetCallBackFunction(_CancelPressed);
 	m_pCancelButton->SetCallBackData(this);	
 

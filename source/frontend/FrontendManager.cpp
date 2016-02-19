@@ -11,7 +11,7 @@
 
 #include "FrontendManager.h"
 #include "Pages\QuitPopup.h"
-
+#include "Pages\PauseMenu.h"
 
 FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 {
@@ -134,8 +134,10 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 	int width = 800;
 	int height = 800;
 	FrontendPage* pQuitPopup = new QuitPopup(m_pRenderer, m_pGUI, this, width, height);
+	FrontendPage* pPauseMenu = new PauseMenu(m_pRenderer, m_pGUI, this, width, height);
 
 	m_vpFrontendPages.push_back(pQuitPopup);
+	m_vpFrontendPages.push_back(pPauseMenu);
 
 	// Initial page
 	m_currentScreen = FrontendScreen_None;

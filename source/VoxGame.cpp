@@ -180,6 +180,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_bKeyboardUp = false;
 	m_bKeyboardDown = false;
 	m_bKeyboardSpace = false;
+	m_bKeyboardMenu = false;
 
 	// Joystick flags
 	m_bJoystickJump = false;
@@ -303,6 +304,28 @@ bool VoxGame::IsPaused()
 void VoxGame::SetPaused(bool pause)
 {
 	m_bPaused = pause;
+}
+
+void VoxGame::SetPauseMenu()
+{
+	m_pFrontendManager->SetFrontendScreen(FrontendScreen_PauseMenu);
+
+	SetPaused(true);
+
+	//SetGlobalBlurAmount(0.0015f);
+
+	m_pVoxWindow->TurnCursorOn(true);
+}
+
+void VoxGame::UnsetPauseMenu()
+{
+	m_pFrontendManager->SetFrontendScreen(FrontendScreen_None);
+
+	SetPaused(false);
+
+	//SetGlobalBlurAmount(0.0f);
+
+	m_pVoxWindow->TurnCursorOff();
 }
 
 // Events

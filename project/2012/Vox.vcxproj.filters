@@ -498,6 +498,9 @@
     <ClCompile Include="..\..\source\frontend\Pages\QuitPopup.cpp">
       <Filter>source\fronend\Pages</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\frontend\Pages\PauseMenu.cpp">
+      <Filter>source\fronend\Pages</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\glew\include\GL\glew.h">
@@ -1365,6 +1368,9 @@
       <Filter>source\fronend</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\frontend\Pages\QuitPopup.h">
+      <Filter>source\fronend\Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\frontend\Pages\PauseMenu.h">
       <Filter>source\fronend\Pages</Filter>
     </ClInclude>
   </ItemGroup>

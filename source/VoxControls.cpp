@@ -63,6 +63,21 @@ void VoxGame::UpdateKeyboardControls(float dt)
 	}
 	else if (gameMode == GameMode_Game)
 	{
+		// Pause menu
+		if (m_bKeyboardMenu)
+		{
+			m_bKeyboardMenu = false;
+
+			if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_None)
+			{
+				SetPauseMenu();
+			}
+			else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_PauseMenu)
+			{
+				UnsetPauseMenu();
+			}
+		}
+
 		if (m_bPaused == false)  // If we are paused, don't allow gameplay control movements
 		{
 			// Jumping

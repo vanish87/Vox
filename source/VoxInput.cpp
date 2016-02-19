@@ -127,6 +127,11 @@ void VoxGame::KeyPressed(int key, int scancode, int mods)
 			m_bKeyboardSpace = true;
 			break;
 		}
+		case GLFW_KEY_ESCAPE:
+		{
+			m_bKeyboardMenu = true;
+			break;
+		}		
 	}
 }
 
@@ -174,10 +179,15 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 			m_bKeyboardSpace = false;
 			break;
 		}
+		case GLFW_KEY_ESCAPE:
+		{
+			m_bKeyboardMenu = false;
+			break;
+		}
 		case GLFW_KEY_O:
 		{
-			vec3 treePos = vec3(10.0f, 6.0f, 0.0f);
-			m_pChunkManager->ImportQubicleBinary("media/gamedata/terrain/plains/smalltree.qb", treePos, QubicleImportDirection_Normal);
+			m_pDebugCameraOptionBox->SetToggled(true);
+			CameraModeChanged();
 			break;
 		}
 		case GLFW_KEY_L:
@@ -201,12 +211,6 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 				break;
 			}
 		}		
-		case GLFW_KEY_ESCAPE:
-		{
-			m_pDebugCameraOptionBox->SetToggled(true);
-			CameraModeChanged();
-			break;
-		}
 	}
 }
 

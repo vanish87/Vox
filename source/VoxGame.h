@@ -67,6 +67,8 @@ public:
 	// Pause
 	bool IsPaused();
 	void SetPaused(bool pause);
+	void SetPauseMenu();
+	void UnsetPauseMenu();
 
 	// Events
 	void PollEvents();
@@ -325,6 +327,7 @@ private:
 	bool m_bKeyboardUp;
 	bool m_bKeyboardDown;
 	bool m_bKeyboardSpace;
+	bool m_bKeyboardMenu;
 
 	// Joystick flags
 	bool m_bJoystickJump;
