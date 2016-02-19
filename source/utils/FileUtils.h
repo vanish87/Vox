@@ -19,7 +19,12 @@
 #include <iostream>
 using namespace std;
 
-#ifdef __linux__
+#ifdef _WIN32
+#include <windows.h>
+#elif __linux__
+#include <sys/types.h>
+#include <dirent.h>
+#include <errno.h>
 #define fopen_s(pFile,filename,mode) ((*(pFile))=fopen((filename),(mode)))==NULL
 #endif
 
