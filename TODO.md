@@ -75,6 +75,10 @@
 * ~~Better physics response and detection when jumping and from above~~
 * ~~Add version string to config ini file and display on GUI.~~
 * ~~Add DEBUG/RELEASE switch depending on what build was made, display on GUI.~~
+* ~~Player movement on voxel world and terrain.~~
+  * ~~Walking up single block steps automatically.~~
+  * ~~Smooth out camera when doing single 1-size block step up animation. (Was because of different interpolator values)~~ 
+* ~~Add pause menu when ESC is pressed, and add popup in center of screen.~~
 * ~~Add console and logger to the in-game gui for output and logging information.~~
   * ~~Log when loading/saving model files.~~
   * Remove old log messages, only allow a certain nunber of log messages to be shown.
@@ -82,9 +86,6 @@
   * Allow input commands.
   * Clear log text functionality
   * Rendering of many log messages is slow, output to file?
-* ~~Player movement on voxel world and terrain.~~
-  * ~~Walking up single block steps automatically.~~
-  * ~~Smooth out camera when doing single 1-size block step up animation. (Was because of different interpolator values)~~ 
 * Convert shaders over to be more unified.
 * Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
@@ -103,7 +104,6 @@
   * Group together chunks for saving, loading. Not individual
 * Add character creator and customization from front-end.
 * Add debug log information for model loading and rendering - num verts, tris, faces, etc.
-* Add pause menu when ESC is pressed, and add popup in center of screen.
 * Add options menu window to pause menu.
 * Add exit/quit popup when the game is closed or quit using various exit methods.
 * Add voxel editor.
