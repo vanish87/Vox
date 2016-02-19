@@ -529,6 +529,12 @@ void VoxGame::RenderFirstPassFullScreen()
 
 		float blurSize = 0.0015f;
 
+		// Override any blur amount if we have global blur set
+		if (m_globalBlurAmount > 0.0f)
+		{
+			blurSize = m_globalBlurAmount;
+		}
+
 		unsigned int textureId0 = glGetUniformLocationARB(pShader->GetProgramObject(), "texture");
 		m_pRenderer->PrepareShaderTexture(0, textureId0);
 		m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_firstPassFullscreenBuffer));

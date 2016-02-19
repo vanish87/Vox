@@ -212,6 +212,9 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_maxMovementSpeed = 10.0f;
 	m_movementStopThreshold = 0.05f;
 
+	// Blur
+	m_globalBlurAmount = 0.0f;
+
 	// Toggle flags
 	m_deferredRendering = true;
 	m_modelWireframe = false;
@@ -274,7 +277,7 @@ void VoxGame::CancelQuitPopup()
 
 	SetPaused(false);
 
-	//SetGlobalBlurAmount(0.0f);
+	SetGlobalBlurAmount(0.0f);
 
 	m_pVoxWindow->TurnCursorOff();
 }
@@ -285,7 +288,7 @@ void VoxGame::ShowQuitPopup()
 
 	SetPaused(true);
 
-	//SetGlobalBlurAmount(0.0015f);
+	SetGlobalBlurAmount(0.0015f);
 
 	m_pVoxWindow->TurnCursorOn(true);
 }
@@ -312,7 +315,7 @@ void VoxGame::SetPauseMenu()
 
 	SetPaused(true);
 
-	//SetGlobalBlurAmount(0.0015f);
+	SetGlobalBlurAmount(0.0015f);
 
 	m_pVoxWindow->TurnCursorOn(true);
 }
@@ -323,9 +326,16 @@ void VoxGame::UnsetPauseMenu()
 
 	SetPaused(false);
 
-	//SetGlobalBlurAmount(0.0f);
+	SetGlobalBlurAmount(0.0f);
 
 	m_pVoxWindow->TurnCursorOff();
+}
+
+// Blur
+void VoxGame::SetGlobalBlurAmount(float blurAmount)
+{
+	m_globalBlurAmount = blurAmount;
+	m_pBlurCheckBox->SetToggled(m_globalBlurAmount > 0.0f);
 }
 
 // Events

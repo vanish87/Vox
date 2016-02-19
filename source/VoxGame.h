@@ -70,6 +70,9 @@ public:
 	void SetPauseMenu();
 	void UnsetPauseMenu();
 
+	// Blur
+	void SetGlobalBlurAmount(float blurAmount);
+
 	// Events
 	void PollEvents();
 	bool ShouldClose();
@@ -368,6 +371,9 @@ private:
 	float m_movementIncreaseTime;
 	float m_maxMovementSpeed;
 	float m_movementStopThreshold;
+
+	// Blur
+	float m_globalBlurAmount;
 
 	// GUI Components
 	bool m_GUICreated;
