@@ -217,6 +217,10 @@
 		<Unit filename="../../source/frontend/FrontendManager.h" />
 		<Unit filename="../../source/frontend/FrontendPage.cpp" />
 		<Unit filename="../../source/frontend/FrontendPage.h" />
+		<Unit filename="../../source/frontend/Pages/PauseMenu.cpp" />
+		<Unit filename="../../source/frontend/Pages/PauseMenu.h" />
+		<Unit filename="../../source/frontend/Pages/QuitPopup.cpp" />
+		<Unit filename="../../source/frontend/Pages/QuitPopup.h" />
 		<Unit filename="../../source/glew/include/GL/glew.h" />
 		<Unit filename="../../source/glew/include/GL/glxew.h" />
 		<Unit filename="../../source/glew/include/GL/wglew.h" />
