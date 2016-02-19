@@ -18,7 +18,9 @@
 #include "../simplex/simplexnoise.h"
 #include "../VoxSettings.h"
 
+// A chunk cube is double this render size, since we create from - to + for each axis.
 const float Chunk::BLOCK_RENDER_SIZE = 0.5f;
+// The chunk radius is an approximation of a sphere that will enclose totally our cuboid. (Used for culling)
 const float Chunk::CHUNK_RADIUS = sqrt(((CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f)*(CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE*2.0f))*2.0f) / 2.0f + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*2.0f);
 
 
