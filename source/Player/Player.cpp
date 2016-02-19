@@ -48,6 +48,9 @@ Player::Player(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryMa
 
 	m_pCachedGridChunk = NULL;
 
+	m_bIsOnGround = false;
+	m_groundCheckTimer = 0.0f;
+
 	m_bCanJump = true;
 	m_jumpTimer = 0.0f;
 
@@ -515,17 +518,20 @@ vec3 Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeFo
 			bool stepUp = false;
 			if (CheckCollisions(posToCheck, m_previousPosition, &pNormal, &movement, &stepUp))
 			{
-				if (stepUp)
+				if (m_bIsOnGround == true && m_bCanJump == true)  // Only allow step up block animations when we are on the ground and also when we can jump. i.e not in air.
 				{
-					if (m_bDoStepUpAnimation == false)
+					if (stepUp)
 					{
-						m_bDoStepUpAnimation = true;
+						if (m_bDoStepUpAnimation == false)
+						{
+							m_bDoStepUpAnimation = true;
 
-						m_stepUpAnimationYAmount = 0.0f;
-						m_stepUpAnimationPrevious = 0.0f;
-						m_stepUpAnimationYOffset = 0.0f;
-						Interpolator::GetInstance()->AddFloatInterpolation(&m_stepUpAnimationYAmount, 0.0f, (Chunk::BLOCK_RENDER_SIZE*2.2f), 0.1f, 0.0f, NULL, _StepUpAnimationFinished, this);
-						Interpolator::GetInstance()->AddFloatInterpolation(&m_stepUpAnimationYOffset, (Chunk::BLOCK_RENDER_SIZE*2.2f), 0.0f, 0.125f, -100.0f);
+							m_stepUpAnimationYAmount = 0.0f;
+							m_stepUpAnimationPrevious = 0.0f;
+							m_stepUpAnimationYOffset = 0.0f;
+							Interpolator::GetInstance()->AddFloatInterpolation(&m_stepUpAnimationYAmount, 0.0f, (Chunk::BLOCK_RENDER_SIZE*2.2f), 0.1f, 0.0f, NULL, _StepUpAnimationFinished, this);
+							Interpolator::GetInstance()->AddFloatInterpolation(&m_stepUpAnimationYOffset, (Chunk::BLOCK_RENDER_SIZE*2.2f), 0.0f, 0.125f, -100.0f);
+						}
 					}
 				}
 			}
@@ -582,6 +588,11 @@ void Player::Jump()
 	}
 
 	if (m_jumpTimer >= 0.0f)
+	{
+		return;
+	}
+
+	if (m_bIsOnGround == false)
 	{
 		return;
 	}
@@ -743,6 +754,11 @@ void Player::UpdatePhysics(float dt)
 {
 	m_positionMovementAmount = vec3(0.0f, 0.0f, 0.0f);
 
+	if (m_groundCheckTimer <= 0.0f)
+	{
+		m_bIsOnGround = false;
+	}
+
 	// Step up animation
 	float stepUpAddition = 0.0f;	
 	if (m_bDoStepUpAnimation)
@@ -781,6 +797,9 @@ void Player::UpdatePhysics(float dt)
 
 				if (velocityToUse.y <= 0.0f)
 				{
+					m_bIsOnGround = true;
+					m_groundCheckTimer = 0.1f;
+
 					if (m_bCanJump == false)
 					{
 						m_bCanJump = true;
@@ -808,6 +827,12 @@ void Player::UpdateTimers(float dt)
 	if (m_jumpTimer >= 0.0f)
 	{
 		m_jumpTimer -= dt;
+	}
+
+	// Ground check timer
+	if (m_groundCheckTimer >= 0.0f)
+	{
+		m_groundCheckTimer -= dt;
 	}
 }
 

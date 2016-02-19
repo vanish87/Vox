@@ -151,6 +151,10 @@ private:
 	// Cached chunk from grid position
 	Chunk* m_pCachedGridChunk;
 
+	// Ground flag
+	bool m_bIsOnGround;
+	float m_groundCheckTimer;
+
 	// Flag to control if we are allowed to jump or not, reset when landing
 	bool m_bCanJump;
 	float m_jumpTimer;
