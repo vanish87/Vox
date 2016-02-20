@@ -156,6 +156,9 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	/* Create the block particle manager */
 	m_pBlockParticleManager = new BlockParticleManager(m_pRenderer);
 
+	/* Create the instance manager */
+	m_pInstanceManager = new InstanceManager(m_pRenderer);
+
 	/* Create the player */
 	m_pPlayer = new Player(m_pRenderer, m_pChunkManager, m_pQubicleBinaryManager, m_pLightingManager, m_pBlockParticleManager);
 
@@ -252,6 +255,8 @@ void VoxGame::Destroy()
 		delete m_pLightingManager;
 		delete m_pPlayer;
 		delete m_pSceneryManager;
+		delete m_pBlockParticleManager;
+		delete m_pInstanceManager;
 		delete m_pChunkManager;
 		delete m_pQubicleBinaryManager;
 		delete m_pFrontendManager;

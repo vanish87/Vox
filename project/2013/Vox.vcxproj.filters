@@ -88,6 +88,9 @@
     <Filter Include="source\frontend\Pages">
       <UniqueIdentifier>{0562be2c-3df6-46a3-8cdd-ffba5c3b9326}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\Instance">
+      <UniqueIdentifier>{99e389c7-160c-42c4-9de3-3790e3a431d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\glew\src\glew.c">
@@ -500,6 +503,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\frontend\Pages\PauseMenu.cpp">
       <Filter>source\frontend\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Instance\InstanceManager.cpp">
+      <Filter>source\Instance</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1372,6 +1378,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\frontend\Pages\PauseMenu.h">
       <Filter>source\frontend\Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Instance\InstanceManager.h">
+      <Filter>source\Instance</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

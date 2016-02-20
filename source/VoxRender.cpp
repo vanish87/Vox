@@ -122,6 +122,9 @@ void VoxGame::Render()
 			// Render the block particles
 			m_pBlockParticleManager->Render();
 
+			// Render the instanced objects
+			m_pInstanceManager->Render();
+
 			if (m_shadows)
 			{
 				m_pRenderer->EndGLSLShader(m_shadowShader);
@@ -264,6 +267,9 @@ void VoxGame::RenderShadows()
 
 			// Render the block particles
 			m_pBlockParticleManager->Render();
+
+			// Render the instanced objects
+			m_pInstanceManager->Render();
 
 			m_pRenderer->SetTextureMatrix();
 			m_pRenderer->SetCullMode(CM_BACK);

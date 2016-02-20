@@ -24,6 +24,7 @@
 #include "frontend/FrontendManager.h"
 #include "Skybox/Skybox.h"
 #include "scenery/SceneryManager.h"
+#include "Instance/InstanceManager.h"
 #include "VoxApplication.h"
 #include "VoxWindow.h"
 #include "VoxSettings.h"
@@ -247,6 +248,9 @@ private:
 
 	// Block particle manager
 	BlockParticleManager* m_pBlockParticleManager;
+
+	// Instance manager
+	InstanceManager* m_pInstanceManager;
 
 	// Frontend manager
 	FrontendManager* m_pFrontendManager;
