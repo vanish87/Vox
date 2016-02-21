@@ -410,19 +410,28 @@ void VoxGame::UpdateJoySticks()
 }
 
 // Game functions
+void VoxGame::QuitToFrontEnd()
+{
+	m_pVoxWindow->TurnCursorOn(true);
+	SetGameMode(GameMode_FrontEnd);
+
+	m_pFrontEndOptionBox->SetToggled(true);
+	m_pDebugCameraOptionBox->SetToggled(true);
+	m_pVoxWindow->Update(m_deltaTime);
+	GameModeChanged();
+	CameraModeChanged();
+}
+
 void VoxGame::SetupDataForGame()
 {
-
 }
 
 void VoxGame::SetupDataForFrontEnd()
 {
-
 }
 
 void VoxGame::StartGameFromFrontEnd()
 {
-
 }
 
 void VoxGame::SetGameMode(GameMode mode)

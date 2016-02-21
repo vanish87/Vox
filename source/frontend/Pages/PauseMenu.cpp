@@ -157,4 +157,5 @@ void PauseMenu::_QuitPressed(void *apData)
 void PauseMenu::QuiPressed()
 {
 	VoxGame::GetInstance()->UnsetPauseMenu();
+	VoxGame::GetInstance()->QuitToFrontEnd();
 }

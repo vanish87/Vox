@@ -120,6 +120,7 @@ public:
 	void JoystickCameraZoom(float dt);
 
 	// Game functions
+	void QuitToFrontEnd();
 	void SetupDataForGame();
 	void SetupDataForFrontEnd();
 	void StartGameFromFrontEnd();
