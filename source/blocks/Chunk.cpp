@@ -269,6 +269,7 @@ void Chunk::Setup()
 					if (noiseNormalized >= 0.5f)
 					{
 						vec3 pos = vec3(xPosition, noiseHeight, zPosition);
+						// TODO : Create scenery using poisson disc and also using instance manager.
 						//m_pSceneryManager->AddSceneryObject("flower", "media/gamedata/terrain/plains/flower1.qb", pos, vec3(0.0f, 0.0f, 0.0f), QubicleImportDirection_Normal, QubicleImportDirection_Normal, 0.08f, GetRandomNumber(0, 360, 2));
 					}
 				}
