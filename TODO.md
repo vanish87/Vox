@@ -120,3 +120,4 @@
 * Dont allow jumping multiple times by holding down the space (or joy button).
 * Fix camera glitching when going in and out of pause menu (also quit menu).
 * Allow for font changing on the fly, allow different font styles to go with the themes.
+* Add shadow receiving on instanced rendered objects. (Add texture matrix to shader??)
