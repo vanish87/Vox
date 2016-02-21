@@ -66,6 +66,7 @@ public:
 	float m_mountainMultiplier;
 
 	// Debug
+	float m_loaderRadius;
 	bool m_debugRendering;
 	bool m_wireframeRendering;
 	bool m_stepUpdating;

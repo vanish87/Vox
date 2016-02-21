@@ -65,6 +65,7 @@ void VoxSettings::LoadSettings()
 	m_mountainMultiplier = (float)reader.GetReal("Landscape", "MountainMultiplier", 3.0f);
 
 	// Debug
+	m_loaderRadius = (float)reader.GetReal("Debug", "LoaderRadius", 64.0f);
 	m_debugRendering = reader.GetBoolean("Debug", "DebugRendering", false);
 	m_stepUpdating = reader.GetBoolean("Debug", "StepUpdatng", false);
 	m_wireframeRendering = reader.GetBoolean("Debug", "WireframeRendering", false);
