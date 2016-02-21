@@ -78,7 +78,8 @@
 * ~~Player movement on voxel world and terrain.~~
   * ~~Walking up single block steps automatically.~~
   * ~~Smooth out camera when doing single 1-size block step up animation. (Was because of different interpolator values)~~ 
-* Add exit/quit popup when the game is closed or quit using various exit methods.
+* ~~Add exit/quit popup when the game is closed or quit using various exit methods.~~
+* ~~Add pause menu when ESC is pressed, and add popup in center of screen.~~
 * ~~Add console and logger to the in-game gui for output and logging information.~~
   * ~~Log when loading/saving model files.~~
   * Remove old log messages, only allow a certain nunber of log messages to be shown.
@@ -96,7 +97,6 @@
   * Flower generation.
   * Poisson-disc sparation and generation for random placement of scenery.
   * Convert scenery manager to use instance rendering and the instance shader.
-* Add pause menu when ESC is pressed, and add popup in center of screen.
 * Add item manager.
 * Create basic front-end.
 * Create front end scene and character line up.
