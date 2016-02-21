@@ -254,7 +254,7 @@ void Chunk::Setup()
 			if (m_gridY >= 0) // Only above ground
 			{
 				// Trees
-				if ((GetRandomNumber(0, 1000) >= 1000))
+				if ((GetRandomNumber(0, 2000) >= 2000))
 				{
 					if (noiseNormalized >= 0.5f)
 					{
@@ -264,15 +264,15 @@ void Chunk::Setup()
 				}
 
 				// Scenery
-				if ((GetRandomNumber(0, 1000) >= 995))
-				{
-					if (noiseNormalized >= 0.5f)
-					{
-						vec3 pos = vec3(xPosition, noiseHeight, zPosition);
-						// TODO : Create scenery using poisson disc and also using instance manager.
-						//m_pSceneryManager->AddSceneryObject("flower", "media/gamedata/terrain/plains/flower1.qb", pos, vec3(0.0f, 0.0f, 0.0f), QubicleImportDirection_Normal, QubicleImportDirection_Normal, 0.08f, GetRandomNumber(0, 360, 2));
-					}
-				}
+				// TODO : Create scenery using poisson disc and also using instance manager.
+				//if ((GetRandomNumber(0, 1000) >= 995))
+				//{
+				//	if (noiseNormalized >= 0.5f)
+				//	{
+				//		vec3 pos = vec3(xPosition, noiseHeight, zPosition);
+				//		m_pSceneryManager->AddSceneryObject("flower", "media/gamedata/terrain/plains/flower1.qb", pos, vec3(0.0f, 0.0f, 0.0f), QubicleImportDirection_Normal, QubicleImportDirection_Normal, 0.08f, GetRandomNumber(0, 360, 2));
+				//	}
+				//}
 			}
 		}
 	}
