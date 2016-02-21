@@ -202,16 +202,16 @@ void Chunk::Setup()
 						float green2 = 0.46f;
 						float blue2 = 0.16f;
 
-						if (noise < -0.5f)
+						if (noise < -0.5f) // Stone
 						{
-							red1 = 0.10f;
-							green1 = 0.25f;
-							blue1 = 1.00f;
-							red2 = 0.10f;
-							green2 = 0.25f;
-							blue2 = 1.00f;
+							red1 = 0.50f;
+							green1 = 0.50f;
+							blue1 = 0.50f;
+							red2 = 0.35f;
+							green2 = 0.40f;
+							blue2 = 0.35f;
 						}
-						else if (noise < -0.25f)
+						else if (noise < -0.25f) // Dirt
 						{
 							red1 = 0.94f;
 							green1 = 0.74f;
@@ -220,7 +220,7 @@ void Chunk::Setup()
 							green2 = 0.29f;
 							blue2 = 0.20f;
 						}
-						else if (noise < 0.5f)
+						else if (noise < 0.5f) // Grass
 						{
 							red1 = 0.65f;
 							green1 = 0.80f;
@@ -229,7 +229,7 @@ void Chunk::Setup()
 							green2 = 0.46f;
 							blue2 = 0.16f;
 						}
-						else if (noise < 1.0f)
+						else if (noise < 1.0f) // Snow
 						{
 							red1 = 0.85f;
 							green1 = 0.85f;
