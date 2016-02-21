@@ -628,10 +628,13 @@ void VoxGame::RenderDebugInformation()
 		m_pGameCamera->GetRight().x, m_pGameCamera->GetRight().y, m_pGameCamera->GetRight().z, length(m_pGameCamera->GetRight()),
 		m_pGameCamera->GetView().x, m_pGameCamera->GetView().y, m_pGameCamera->GetView().z,
 		m_pGameCamera->GetZoomAmount());
+
 	char lFPSBuff[128];
+	float fpsWidthOffset = 65.0f;
 	if (m_debugRender)
 	{
-		snprintf(lFPSBuff, 128, "FPS: %.0f  Delta: %.4f", m_fps, m_deltaTime);
+		snprintf(lFPSBuff, 128, "Delta: %.4f  FPS: %.0f", m_deltaTime, m_fps);
+		fpsWidthOffset = 135.0f;
 	}
 	else
 	{
@@ -658,7 +661,7 @@ void VoxGame::RenderDebugInformation()
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - l_nTextHeight - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lCameraBuff);
 		}
 
-		m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth-65.0f, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lFPSBuff);
+		m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth-fpsWidthOffset, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lFPSBuff);
 		m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, 15.0f, 1.0f, Colour(0.75f, 0.75f, 0.75f), 1.0f, lBuildInfo);
 
 	m_pRenderer->PopMatrix();
