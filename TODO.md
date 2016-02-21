@@ -82,7 +82,9 @@
 * ~~Add pause menu when ESC is pressed, and add popup in center of screen.~~
 * ~~Add console and logger to the in-game gui for output and logging information.~~
   * ~~Log when loading/saving model files.~~
+  * Log to output file and log files as well as console GUI.
   * Remove old log messages, only allow a certain nunber of log messages to be shown.
+  * Add debug log information for model loading and rendering - num verts, tris, faces, etc.
   * Log on errors.
   * Allow input commands.
   * Clear log text functionality
@@ -104,7 +106,6 @@
 * Saving and loading chunks.
   * Group together chunks for saving, loading. Not individual
 * Add character creator and customization from front-end.
-* Add debug log information for model loading and rendering - num verts, tris, faces, etc.
 * Add options menu window to pause menu.
 * Add voxel editor.
 * Add texture support for voxel blocks.
