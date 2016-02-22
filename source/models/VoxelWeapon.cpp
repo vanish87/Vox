@@ -307,20 +307,16 @@ void VoxelWeapon::SaveWeapon(const char *weaponFilename)
 
 		file << "scale: " << m_renderScale << "\n";
 
+		// TODO : Write export functionality
 		// Animated sections
-		// TODO
 
 		// Dynamic lights
-		// TODO
 
 		// Particle effects
-		// TODO
 
 		// Weapon trails
-		// TODO
 
 		// Gameplay
-		// TODO
 
 		file.close();
 	}
