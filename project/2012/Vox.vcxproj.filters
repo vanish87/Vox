@@ -91,6 +91,12 @@
     <Filter Include="source\Instance">
       <UniqueIdentifier>{1cc8e98d-3c87-4e6c-b1ce-70bb907fc48b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\Inventory">
+      <UniqueIdentifier>{0ce8fb8f-77c7-448a-89fc-3a018dbc30ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Items">
+      <UniqueIdentifier>{4a6e56e8-2b2b-4ab0-b289-9a785da5397d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\glew\src\glew.c">
@@ -506,6 +512,21 @@
     </ClCompile>
     <ClCompile Include="..\..\source\Instance\InstanceManager.cpp">
       <Filter>source\Instance</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Inventory\InventoryManager.cpp">
+      <Filter>source\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Items\Item.cpp">
+      <Filter>source\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Items\ItemManager.cpp">
+      <Filter>source\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Items\ItemUtils.cpp">
+      <Filter>source\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Items\StatAttribute.cpp">
+      <Filter>source\Items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1381,6 +1402,21 @@
     </ClInclude>
     <ClInclude Include="..\..\source\Instance\InstanceManager.h">
       <Filter>source\Instance</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Inventory\InventoryManager.h">
+      <Filter>source\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Items\Item.h">
+      <Filter>source\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Items\ItemManager.h">
+      <Filter>source\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Items\StatAttribute.h">
+      <Filter>source\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Maths\BoundingRegion.h">
+      <Filter>source\Maths</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

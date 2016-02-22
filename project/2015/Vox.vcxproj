@@ -73,6 +73,11 @@
     <ClCompile Include="..\..\source\ini\ini.c" />
     <ClCompile Include="..\..\source\ini\INIReader.cpp" />
     <ClCompile Include="..\..\source\Instance\InstanceManager.cpp" />
+    <ClCompile Include="..\..\source\Inventory\InventoryManager.cpp" />
+    <ClCompile Include="..\..\source\Items\Item.cpp" />
+    <ClCompile Include="..\..\source\Items\ItemManager.cpp" />
+    <ClCompile Include="..\..\source\Items\ItemUtils.cpp" />
+    <ClCompile Include="..\..\source\Items\StatAttribute.cpp" />
     <ClCompile Include="..\..\source\Lighting\DynamicLight.cpp" />
     <ClCompile Include="..\..\source\Lighting\LightingManager.cpp" />
     <ClCompile Include="..\..\source\lua\lapi.c" />
@@ -354,6 +359,10 @@
     <ClInclude Include="..\..\source\ini\ini.h" />
     <ClInclude Include="..\..\source\ini\INIReader.h" />
     <ClInclude Include="..\..\source\Instance\InstanceManager.h" />
+    <ClInclude Include="..\..\source\Inventory\InventoryManager.h" />
+    <ClInclude Include="..\..\source\Items\Item.h" />
+    <ClInclude Include="..\..\source\Items\ItemManager.h" />
+    <ClInclude Include="..\..\source\Items\StatAttribute.h" />
     <ClInclude Include="..\..\source\Lighting\DynamicLight.h" />
     <ClInclude Include="..\..\source\Lighting\LightingManager.h" />
     <ClInclude Include="..\..\source\lua\lapi.h" />
@@ -384,6 +393,7 @@
     <ClInclude Include="..\..\source\lua\lzio.h" />
     <ClInclude Include="..\..\source\Maths\3dGeometry.h" />
     <ClInclude Include="..\..\source\Maths\3dmaths.h" />
+    <ClInclude Include="..\..\source\Maths\BoundingRegion.h" />
     <ClInclude Include="..\..\source\models\BoundingBox.h" />
     <ClInclude Include="..\..\source\models\modelloader.h" />
     <ClInclude Include="..\..\source\models\MS3DAnimator.h" />

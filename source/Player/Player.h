@@ -20,7 +20,30 @@
 #include "../models/VoxelCharacter.h"
 #include "../Lighting/LightingManager.h"
 #include "../Particles/BlockParticleManager.h"
+#include "../Inventory/InventoryManager.h"
 
+
+static const int PlayerEquippedProperties_None = 0;
+static const int PlayerEquippedProperties_Sword = 1;
+static const int PlayerEquippedProperties_Axe = 2;
+static const int PlayerEquippedProperties_Hammer = 4;
+static const int PlayerEquippedProperties_Mace = 8;
+static const int PlayerEquippedProperties_Dagger = 16;
+static const int PlayerEquippedProperties_Sickle = 32;
+static const int PlayerEquippedProperties_2HandedSword = 64;
+static const int PlayerEquippedProperties_Shield = 128;
+static const int PlayerEquippedProperties_Boomerang = 256;
+static const int PlayerEquippedProperties_Bow = 512;
+static const int PlayerEquippedProperties_Staff = 1024;
+static const int PlayerEquippedProperties_Wand = 2048;
+static const int PlayerEquippedProperties_Pickaxe = 4096;
+static const int PlayerEquippedProperties_Torch = 8192;
+static const int PlayerEquippedProperties_PlacementItem = 16384;
+static const int PlayerEquippedProperties_PlacementScenery = 32768;
+static const int PlayerEquippedProperties_PlacementBlock = 65536;
+static const int PlayerEquippedProperties_Consumable = 131072;
+static const int PlayerEquippedProperties_Bomb = 262144;
+static const int PlayerEquippedProperties_SpellHands = 524288;
 
 class Player
 {
@@ -46,6 +69,13 @@ public:
 
 	// Unloading
 	void UnloadWeapon(bool left);
+
+	// Equipping items
+	void EquipItem(InventoryItem* pItem);
+	void UnequipItem(EquipSlot equipSlot);
+
+	// Stat modifier values
+	void RefreshStatModifierCacheValues();
 
 	// Collision
 	bool CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pNormal, vec3 *pMovement, bool *pStepUpBlock);
@@ -73,6 +103,51 @@ public:
 	void ReleaseAttack();
 	bool CanAttackLeft();
 	bool CanAttackRight();
+
+	// Player equipped attributes
+	void SetNormal();
+	void SetSword(bool s);
+	void SetAxe(bool s);
+	void SetHammer(bool s);
+	void SetMace(bool s);
+	void SetDagger(bool s);
+	void SetSickle(bool s);
+	void Set2HandedSword(bool s);
+	void SetShield(bool s);
+	void SetBoomerang(bool s);
+	void SetBow(bool s);
+	void SetStaff(bool s);
+	void SetWand(bool s);
+	void SetPickaxe(bool s);
+	void SetTorch(bool s);
+	void SetItemPlacing(bool s);
+	void SetSceneryPlacing(bool s);
+	void SetBlockPlacing(bool s);
+	void SetConsumable(bool s);
+	void SetBomb(bool s);
+	void SetSpellHands(bool s);
+
+	bool IsNormal();
+	bool IsSword();
+	bool IsAxe();
+	bool IsHammer();
+	bool IsMace();
+	bool IsDagger();
+	bool IsSickle();
+	bool Is2HandedSword();
+	bool IsShield();
+	bool IsBoomerang();
+	bool IsBow();
+	bool IsStaff();
+	bool IsWand();
+	bool IsPickaxe();
+	bool IsTorch();
+	bool IsItemPlacing();
+	bool IsSceneryPlacing();
+	bool IsBlockPlacing();
+	bool IsConsumable();
+	bool IsBomb();
+	bool IsSpellHands();
 
 	// Rendering modes
 	void SetWireFrameRender(bool wireframe);
@@ -132,9 +207,21 @@ private:
 	// The direction of gravity for the player
 	vec3 m_gravityDirection;
 
+	// Local axis
+	vec3 m_forward;
+	vec3 m_right;
+	vec3 m_up;
+
+	// Target forward / looking vector
+	vec3 m_targetForward;
+
 	// Keep track of how much we have changed position in the update, based on physics, etc.
 	// So that the fake camera position can be updated, if we are in some kind of follow camera mode.
 	vec3 m_positionMovementAmount;
+
+	// Player name
+	string m_type;
+	string m_modelName;
 
 	// Stepping up single world blocks by walking into them
 	bool m_bDoStepUpAnimation;
@@ -167,16 +254,19 @@ private:
 	bool m_bCanAttackRight;
 	bool m_bCanInteruptCombatAnim;
 
+	// Bitfield flag to hold the equipped properties for a player
+	unsigned int m_equippedProperties;
+
+	// Cached values for stat modifications, cache is refreshed whenever we equip or unequip a new item
+	int m_strengthModifier;
+	int m_dexterityModifier;
+	int m_intelligenceModifier;
+	int m_vitalityModifier;
+	int m_armorModifier;
+	int m_luckModifier;
+
 	// Player radius
 	float m_radius;
-
-	// Local axis
-	vec3 m_forward;
-	vec3 m_right;
-	vec3 m_up;
-
-	// Target forward / looking vector
-	vec3 m_targetForward;
 
 	// Animation params
 	bool m_animationFinished[AnimationSections_NUMSECTIONS];
@@ -186,4 +276,5 @@ private:
 
 	// Voxel character
 	VoxelCharacter* m_pVoxelCharacter;
+	QubicleBinary* m_pCharacterBackup;
 };

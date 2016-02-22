@@ -6,6 +6,7 @@ set(MATHS_SRCS
 	"${CMAKE_CURRENT_SOURCE_DIR}/Line3D.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/matrix4x4.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/Plane3D.cpp"
+	"${CMAKE_CURRENT_SOURCE_DIR}/BoundingRegion.h"
 	PARENT_SCOPE)
 
 source_group("maths" FILES ${MATHS_SRCS})

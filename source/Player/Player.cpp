@@ -60,6 +60,18 @@ Player::Player(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryMa
 	m_bCanAttackRight = true;
 	m_bCanInteruptCombatAnim = true;
 
+	// Player stats
+	m_strengthModifier = 0;
+	m_dexterityModifier = 0;
+	m_intelligenceModifier = 0;
+	m_vitalityModifier = 0;
+	m_armorModifier = 0;
+	m_luckModifier = 0;
+
+	// Initial equipped state
+	m_equippedProperties = 0;
+	SetNormal();
+
 	for (int i = 0; i < AnimationSections_NUMSECTIONS; i++)
 	{
 		m_animationFinished[i] = false;
@@ -67,7 +79,8 @@ Player::Player(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryMa
 
 	// Create voxel character
 	m_pVoxelCharacter = new VoxelCharacter(m_pRenderer, m_pQubicleBinaryManager);
-	 
+	m_pCharacterBackup = new QubicleBinary(m_pRenderer);
+
 	// Load default character model
 	LoadCharacter("Steve");
 }
@@ -132,21 +145,22 @@ void Player::LoadCharacter(string characterName)
 	m_pVoxelCharacter->UnloadCharacter();
 	m_pVoxelCharacter->Reset();
 
+	m_type = "Human";
+	m_modelName = characterName;
+
 	char characterBaseFolder[128];
 	char qbFilename[128];
 	char ms3dFilename[128];
 	char animListFilename[128];
 	char facesFilename[128];
 	char characterFilename[128];
-	string modelName = characterName;
-	string typeName = "Human";
 	snprintf(characterBaseFolder, 128, "media/gamedata/models");
-	snprintf(qbFilename, 128, "media/gamedata/models/%s/%s.qb", typeName.c_str(), modelName.c_str());
-	snprintf(ms3dFilename, 128, "media/gamedata/models/%s/%s.ms3d", typeName.c_str(), typeName.c_str());
-	snprintf(animListFilename, 128, "media/gamedata/models/%s/%s.animlist", typeName.c_str(), typeName.c_str());
-	snprintf(facesFilename, 128, "media/gamedata/models/%s/%s.faces", typeName.c_str(), modelName.c_str());
-	snprintf(characterFilename, 128, "media/gamedata/models/%s/%s.character", typeName.c_str(), modelName.c_str());
-	m_pVoxelCharacter->LoadVoxelCharacter(typeName.c_str(), qbFilename, ms3dFilename, animListFilename, facesFilename, characterFilename, characterBaseFolder);
+	snprintf(qbFilename, 128, "media/gamedata/models/%s/%s.qb", m_type.c_str(), m_modelName.c_str());
+	snprintf(ms3dFilename, 128, "media/gamedata/models/%s/%s.ms3d", m_type.c_str(), m_type.c_str());
+	snprintf(animListFilename, 128, "media/gamedata/models/%s/%s.animlist", m_type.c_str(), m_type.c_str());
+	snprintf(facesFilename, 128, "media/gamedata/models/%s/%s.faces", m_type.c_str(), m_modelName.c_str());
+	snprintf(characterFilename, 128, "media/gamedata/models/%s/%s.character", m_type.c_str(), m_modelName.c_str());
+	m_pVoxelCharacter->LoadVoxelCharacter(m_type.c_str(), qbFilename, ms3dFilename, animListFilename, facesFilename, characterFilename, characterBaseFolder);
 
 	m_pVoxelCharacter->SetBreathingAnimationEnabled(true);
 	m_pVoxelCharacter->SetWinkAnimationEnabled(true);
@@ -155,6 +169,14 @@ void Player::LoadCharacter(string characterName)
 	m_pVoxelCharacter->SetRandomLookDirection(true);
 	m_pVoxelCharacter->SetWireFrameRender(false);
 	m_pVoxelCharacter->SetCharacterScale(0.08f);
+
+	if (m_pCharacterBackup != NULL)
+	{
+		delete m_pCharacterBackup;
+		m_pCharacterBackup = new QubicleBinary(m_pRenderer);
+	}
+
+	m_pCharacterBackup->Import(qbFilename, true);
 
 	UpdateRadius();
 }
@@ -245,6 +267,393 @@ void Player::UnloadWeapon(bool left)
 			m_pVoxelCharacter->UnloadRightWeapon();
 		}
 	}
+}
+
+// Equipping items
+void Player::EquipItem(InventoryItem* pItem)
+{
+	switch (pItem->m_equipSlot)
+	{
+	case EquipSlot_LeftHand:
+	{
+		//LoadWeapon(true, pItem->m_filename);
+
+		switch (pItem->m_itemType)
+		{
+		case InventoryType_Weapon_Dagger: { SetDagger(true); } break;
+		case InventoryType_Weapon_Shield: { SetShield(true); } break;
+		case InventoryType_Weapon_Bow: { SetBow(true); } break;
+		case InventoryType_Weapon_Torch: { SetTorch(true); } break;
+		case InventoryType_Weapon_SpellHands:
+		{
+			SetSpellHands(true);
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "HandSpellCastPose", 0.25f);
+			m_pVoxelCharacter->SetQubicleMatrixRender("Left_Hand", false);
+			break;
+		}
+		}
+
+		if (pItem->m_itemType == InventoryType_Weapon_Bow)
+		{
+			VoxelWeapon* pNewEquipment = new VoxelWeapon(m_pRenderer, m_pQubicleBinaryManager);
+			pNewEquipment->SetVoxelCharacterParent(NULL);
+			pNewEquipment->LoadWeapon("media/gamedata/items/Quiver/Quiver.item", false);
+
+			pNewEquipment->GetAnimatedSection(0)->m_pVoxelObject->GetQubicleModel()->SetScaleAndOffsetForMatrix("Quiver", pNewEquipment->GetAnimatedSection(0)->m_renderScale, pNewEquipment->GetAnimatedSection(0)->m_renderOffset.x, pNewEquipment->GetAnimatedSection(0)->m_renderOffset.y, pNewEquipment->GetAnimatedSection(0)->m_renderOffset.z);
+			QubicleMatrix* pQuiverMatrix = pNewEquipment->GetAnimatedSection(0)->m_pVoxelObject->GetQubicleModel()->GetQubicleMatrix("Quiver");
+			pQuiverMatrix->m_boneIndex = m_pVoxelCharacter->GetBodyBoneIndex();
+			m_pVoxelCharacter->AddQubicleMatrix(pQuiverMatrix, false);
+		}
+	}
+	break;
+	case EquipSlot_RightHand:
+	{
+		//LoadWeapon(false, pItem->m_filename);
+
+		switch (pItem->m_itemType)
+		{
+		case InventoryType_Item: { SetItemPlacing(true); } break;
+		case InventoryType_Scenery: { SetSceneryPlacing(true); } break;
+		case InventoryType_Block: { SetBlockPlacing(true); } break;
+		case InventoryType_Weapon_Sword: { SetSword(true); } break;
+		case InventoryType_Weapon_Dagger: { SetDagger(true); /*SetStealth(true);*/ } break;
+		case InventoryType_Weapon_Axe: { SetAxe(true); } break;
+		case InventoryType_Weapon_Hammer: { SetHammer(true); } break;
+		case InventoryType_Weapon_Mace: { SetMace(true); } break;
+		case InventoryType_Weapon_Sickle: { SetSickle(true); } break;
+		case InventoryType_Weapon_2HandedSword:
+		{
+			Set2HandedSword(true);
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "2HandedSwordPose", 0.25f);
+			break;
+		}
+		case InventoryType_Weapon_Boomerang: { SetBoomerang(true); /*m_bCanThrowWeapon = true;*/ } break;
+		case InventoryType_Weapon_Bomb: { SetBomb(true); } break;
+		case InventoryType_Weapon_Staff:
+		{
+			SetStaff(true);
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "StaffPose", 0.25f);
+			break;
+		}
+		case InventoryType_Weapon_Wand: { SetWand(true); } break;
+		case InventoryType_Weapon_Pickaxe: { SetPickaxe(true); } break;
+		case InventoryType_Weapon_SpellHands:
+		{
+			SetSpellHands(true);
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "HandSpellCastPose", 0.25f);
+			m_pVoxelCharacter->SetQubicleMatrixRender("Right_Hand", false);
+			break;
+		}
+		}
+	}
+	break;
+	case EquipSlot_Head:
+	{
+		if (m_pVoxelCharacter != NULL)
+		{
+			VoxelWeapon* pNewEquipment = new VoxelWeapon(m_pRenderer, m_pQubicleBinaryManager);
+			pNewEquipment->SetVoxelCharacterParent(NULL);
+			pNewEquipment->LoadWeapon(pItem->m_filename.c_str(), false);
+
+			pNewEquipment->GetAnimatedSection(0)->m_pVoxelObject->GetQubicleModel()->SetScaleAndOffsetForMatrix("Helm", pNewEquipment->GetAnimatedSection(0)->m_renderScale, pNewEquipment->GetAnimatedSection(0)->m_renderOffset.x, pNewEquipment->GetAnimatedSection(0)->m_renderOffset.y, pNewEquipment->GetAnimatedSection(0)->m_renderOffset.z);
+			QubicleMatrix* pHelmMatrix = pNewEquipment->GetAnimatedSection(0)->m_pVoxelObject->GetQubicleModel()->GetQubicleMatrix("Helm");
+			pHelmMatrix->m_boneIndex = m_pVoxelCharacter->GetHeadBoneIndex();
+			m_pVoxelCharacter->AddQubicleMatrix(pHelmMatrix, false);
+		}
+	}
+	break;
+	case EquipSlot_Shoulders:
+	{
+		if (m_pVoxelCharacter != NULL)
+		{
+			VoxelWeapon* pNewEquipment = new VoxelWeapon(m_pRenderer, m_pQubicleBinaryManager);
+			pNewEquipment->SetVoxelCharacterParent(NULL);
+			pNewEquipment->LoadWeapon(pItem->m_filename.c_str(), false);
+
+			if (pItem->m_right)
+			{
+				pNewEquipment->GetAnimatedSection(0)->m_pVoxelObject->GetQubicleModel()->SetScaleAndOffsetForMatrix("Right_Shoulder_Armor", pNewEquipment->GetAnimatedSection(0)->m_renderScale, pNewEquipment->GetAnimatedSection(0)->m_renderOffset.x, pNewEquipment->GetAnimatedSection(0)->m_renderOffset.y, pNewEquipment->GetAnimatedSection(0)->m_renderOffset.z);
+				QubicleMatrix* pRightShoulderMatrix = pNewEquipment->GetAnimatedSection(0)->m_pVoxelObject->GetQubicleModel()->GetQubicleMatrix("Right_Shoulder_Armor");
+				pRightShoulderMatrix->m_boneIndex = m_pVoxelCharacter->GetRightShoulderBoneIndex();
+				m_pVoxelCharacter->AddQubicleMatrix(pRightShoulderMatrix, false);
+			}
+
+			if (pItem->m_left)
+			{
+				pNewEquipment->GetAnimatedSection(1)->m_pVoxelObject->GetQubicleModel()->SetScaleAndOffsetForMatrix("Left_Shoulder_Armor", pNewEquipment->GetAnimatedSection(1)->m_renderScale, pNewEquipment->GetAnimatedSection(1)->m_renderOffset.x, pNewEquipment->GetAnimatedSection(1)->m_renderOffset.y, pNewEquipment->GetAnimatedSection(1)->m_renderOffset.z);
+				QubicleMatrix* pLeftShoulderMatrix = pNewEquipment->GetAnimatedSection(1)->m_pVoxelObject->GetQubicleModel()->GetQubicleMatrix("Left_Shoulder_Armor");
+				pLeftShoulderMatrix->m_boneIndex = m_pVoxelCharacter->GetLeftShoulderBoneIndex();
+				m_pVoxelCharacter->AddQubicleMatrix(pLeftShoulderMatrix, false);
+			}
+		}
+	}
+	break;
+	case EquipSlot_Body:
+	{
+		if (m_pVoxelCharacter != NULL)
+		{
+			VoxelWeapon* pNewEquipment = new VoxelWeapon(m_pRenderer, m_pQubicleBinaryManager);
+			pNewEquipment->SetVoxelCharacterParent(NULL);
+			pNewEquipment->LoadWeapon(pItem->m_filename.c_str(), false);
+
+			pNewEquipment->GetAnimatedSection(0)->m_pVoxelObject->GetQubicleModel()->SetScaleAndOffsetForMatrix("Body", pNewEquipment->GetAnimatedSection(0)->m_renderScale, pNewEquipment->GetAnimatedSection(0)->m_renderOffset.x, pNewEquipment->GetAnimatedSection(0)->m_renderOffset.y, pNewEquipment->GetAnimatedSection(0)->m_renderOffset.z);
+			QubicleMatrix* pBodyMatrix = pNewEquipment->GetAnimatedSection(0)->m_pVoxelObject->GetQubicleModel()->GetQubicleMatrix("Body");
+			pBodyMatrix->m_boneIndex = m_pVoxelCharacter->GetBodyBoneIndex();
+			m_pVoxelCharacter->AddQubicleMatrix(pBodyMatrix, false);
+		}
+	}
+	break;
+	case EquipSlot_Legs:
+	{
+		if (m_pVoxelCharacter != NULL)
+		{
+			VoxelWeapon* pNewEquipment = new VoxelWeapon(m_pRenderer, m_pQubicleBinaryManager);
+			pNewEquipment->SetVoxelCharacterParent(NULL);
+			pNewEquipment->LoadWeapon(pItem->m_filename.c_str(), false);
+
+			pNewEquipment->GetAnimatedSection(0)->m_pVoxelObject->GetQubicleModel()->SetScaleAndOffsetForMatrix("Legs", pNewEquipment->GetAnimatedSection(0)->m_renderScale, pNewEquipment->GetAnimatedSection(0)->m_renderOffset.x, pNewEquipment->GetAnimatedSection(0)->m_renderOffset.y, pNewEquipment->GetAnimatedSection(0)->m_renderOffset.z);
+			QubicleMatrix* pLegsMatrix = pNewEquipment->GetAnimatedSection(0)->m_pVoxelObject->GetQubicleModel()->GetQubicleMatrix("Legs");
+			pLegsMatrix->m_boneIndex = m_pVoxelCharacter->GetLegsBoneIndex();
+			m_pVoxelCharacter->AddQubicleMatrix(pLegsMatrix, false);
+		}
+	}
+	break;
+	case EquipSlot_Hand:
+	{
+		if (m_pVoxelCharacter != NULL)
+		{
+			VoxelWeapon* pNewEquipment = new VoxelWeapon(m_pRenderer, m_pQubicleBinaryManager);
+			pNewEquipment->SetVoxelCharacterParent(NULL);
+			pNewEquipment->LoadWeapon(pItem->m_filename.c_str(), false);
+
+			if (pItem->m_right)
+			{
+				pNewEquipment->GetAnimatedSection(0)->m_pVoxelObject->GetQubicleModel()->SetScaleAndOffsetForMatrix("Right_Hand", pNewEquipment->GetAnimatedSection(0)->m_renderScale, pNewEquipment->GetAnimatedSection(0)->m_renderOffset.x, pNewEquipment->GetAnimatedSection(0)->m_renderOffset.y, pNewEquipment->GetAnimatedSection(0)->m_renderOffset.z);
+				QubicleMatrix* pRightHandMatrix = pNewEquipment->GetAnimatedSection(0)->m_pVoxelObject->GetQubicleModel()->GetQubicleMatrix("Right_Hand");
+				pRightHandMatrix->m_boneIndex = m_pVoxelCharacter->GetRightHandBoneIndex();
+				m_pVoxelCharacter->AddQubicleMatrix(pRightHandMatrix, false);
+			}
+
+			if (pItem->m_left)
+			{
+				pNewEquipment->GetAnimatedSection(1)->m_pVoxelObject->GetQubicleModel()->SetScaleAndOffsetForMatrix("Left_Hand", pNewEquipment->GetAnimatedSection(1)->m_renderScale, pNewEquipment->GetAnimatedSection(1)->m_renderOffset.x, pNewEquipment->GetAnimatedSection(1)->m_renderOffset.y, pNewEquipment->GetAnimatedSection(1)->m_renderOffset.z);
+				QubicleMatrix* pLeftHandMatrix = pNewEquipment->GetAnimatedSection(1)->m_pVoxelObject->GetQubicleModel()->GetQubicleMatrix("Left_Hand");
+				pLeftHandMatrix->m_boneIndex = m_pVoxelCharacter->GetLeftHandBoneIndex();
+				m_pVoxelCharacter->AddQubicleMatrix(pLeftHandMatrix, false);
+			}
+		}
+	}
+	break;
+	case EquipSlot_Feet:
+	{
+		if (m_pVoxelCharacter != NULL)
+		{
+			VoxelWeapon* pNewEquipment = new VoxelWeapon(m_pRenderer, m_pQubicleBinaryManager);
+			pNewEquipment->SetVoxelCharacterParent(NULL);
+			pNewEquipment->LoadWeapon(pItem->m_filename.c_str(), false);
+
+			if (pItem->m_right)
+			{
+				pNewEquipment->GetAnimatedSection(0)->m_pVoxelObject->GetQubicleModel()->SetScaleAndOffsetForMatrix("Right_Foot", pNewEquipment->GetAnimatedSection(0)->m_renderScale, pNewEquipment->GetAnimatedSection(0)->m_renderOffset.x, pNewEquipment->GetAnimatedSection(0)->m_renderOffset.y, pNewEquipment->GetAnimatedSection(0)->m_renderOffset.z);
+				QubicleMatrix* pRightFootMatrix = pNewEquipment->GetAnimatedSection(0)->m_pVoxelObject->GetQubicleModel()->GetQubicleMatrix("Right_Foot");
+				pRightFootMatrix->m_boneIndex = m_pVoxelCharacter->GetRightFootBoneIndex();
+				m_pVoxelCharacter->AddQubicleMatrix(pRightFootMatrix, false);
+			}
+
+			if (pItem->m_left)
+			{
+				pNewEquipment->GetAnimatedSection(1)->m_pVoxelObject->GetQubicleModel()->SetScaleAndOffsetForMatrix("Left_Foot", pNewEquipment->GetAnimatedSection(1)->m_renderScale, pNewEquipment->GetAnimatedSection(1)->m_renderOffset.x, pNewEquipment->GetAnimatedSection(1)->m_renderOffset.y, pNewEquipment->GetAnimatedSection(1)->m_renderOffset.z);
+				QubicleMatrix* pLeftFootMatrix = pNewEquipment->GetAnimatedSection(1)->m_pVoxelObject->GetQubicleModel()->GetQubicleMatrix("Left_Foot");
+				pLeftFootMatrix->m_boneIndex = m_pVoxelCharacter->GetLeftFootBoneIndex();
+				m_pVoxelCharacter->AddQubicleMatrix(pLeftFootMatrix, false);
+			}
+		}
+	}
+	break;
+	case EquipSlot_Accessory1:
+	{
+	}
+	break;
+	case EquipSlot_Accessory2:
+	{
+	}
+	break;
+	}
+
+	// Refresh stat modifier cache since we have equipped an item
+	RefreshStatModifierCacheValues();
+}
+
+void Player::UnequipItem(EquipSlot equipSlot)
+{
+	switch (equipSlot)
+	{
+	case EquipSlot_LeftHand:
+	{
+		UnloadWeapon(true);
+
+		SetBow(false);
+		SetShield(false);
+		SetTorch(false);
+
+		// TODO : Add me back in
+		//InventoryItem* pRightHand = m_pInventoryManager->GetInventoryItemForEquipSlot(EquipSlot_RightHand);
+		//if (pRightHand == NULL || pRightHand->m_itemType != InventoryType_Weapon_SpellHands)
+		//{
+		//	SetSpellHands(false);
+		//}
+
+		m_pVoxelCharacter->SetQubicleMatrixRender("Left_Hand", true);
+
+		m_pVoxelCharacter->RemoveQubicleMatrix("Quiver");
+	}
+	break;
+	case EquipSlot_RightHand:
+	{
+		UnloadWeapon(false);
+
+		SetSword(false);
+		SetAxe(false);
+		SetHammer(false);
+		SetMace(false);
+		SetDagger(false);
+		SetSickle(false);
+		Set2HandedSword(false);
+		SetBoomerang(false);
+		SetBomb(false);
+		SetStaff(false);
+		SetWand(false);
+		SetPickaxe(false);
+		SetItemPlacing(false);
+		SetSceneryPlacing(false);
+		SetBlockPlacing(false);
+		SetConsumable(false);
+
+		// TODO : Add me back in
+		//InventoryItem* pLeftHand = m_pInventoryManager->GetInventoryItemForEquipSlot(EquipSlot_LeftHand);
+		//if (pLeftHand == NULL || pLeftHand->m_itemType != InventoryType_Weapon_SpellHands)
+		//{
+		//	SetSpellHands(false);
+		//}
+
+		m_pVoxelCharacter->SetQubicleMatrixRender("Right_Hand", true);
+
+		/*SetStealth(false);*/
+
+		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "BindPose", 0.25f);
+	}
+	break;
+	case EquipSlot_Head:
+	{
+		m_pVoxelCharacter->RemoveQubicleMatrix("Helm");
+	}
+	break;
+	case EquipSlot_Shoulders:
+	{
+		m_pVoxelCharacter->RemoveQubicleMatrix("Right_Shoulder_Armor");
+		m_pVoxelCharacter->RemoveQubicleMatrix("Left_Shoulder_Armor");
+	}
+	break;
+	case EquipSlot_Body:
+	{
+		QubicleMatrix* pBodyMatrix = m_pCharacterBackup->GetQubicleMatrix("Body");
+		pBodyMatrix->m_boneIndex = m_pVoxelCharacter->GetBodyBoneIndex();
+		m_pVoxelCharacter->AddQubicleMatrix(pBodyMatrix, false);
+
+		char characterFilename[128];
+		sprintf(characterFilename, "media/gamedata/characters/%s/%s.character", m_type.c_str(), m_modelName.c_str());
+		m_pVoxelCharacter->ResetMatrixParamsFromCharacterFile(characterFilename, "Body");
+	}
+	break;
+	case EquipSlot_Legs:
+	{
+		QubicleMatrix* pLegsMatrix = m_pCharacterBackup->GetQubicleMatrix("Legs");
+		pLegsMatrix->m_boneIndex = m_pVoxelCharacter->GetLegsBoneIndex();
+		m_pVoxelCharacter->AddQubicleMatrix(pLegsMatrix, false);
+
+		char characterFilename[128];
+		sprintf(characterFilename, "media/gamedata/characters/%s/%s.character", m_type.c_str(), m_modelName.c_str());
+		m_pVoxelCharacter->ResetMatrixParamsFromCharacterFile(characterFilename, "Legs");
+	}
+	break;
+	case EquipSlot_Hand:
+	{
+		QubicleMatrix* pRightHandMatrix = m_pCharacterBackup->GetQubicleMatrix("Right_Hand");
+		pRightHandMatrix->m_boneIndex = m_pVoxelCharacter->GetRightHandBoneIndex();
+		m_pVoxelCharacter->AddQubicleMatrix(pRightHandMatrix, false);
+
+		QubicleMatrix* pLeftHandMatrix = m_pCharacterBackup->GetQubicleMatrix("Left_Hand");
+		pLeftHandMatrix->m_boneIndex = m_pVoxelCharacter->GetLeftHandBoneIndex();
+		m_pVoxelCharacter->AddQubicleMatrix(pLeftHandMatrix, false);
+
+		char characterFilename[128];
+		sprintf(characterFilename, "media/gamedata/characters/%s/%s.character", m_type.c_str(), m_modelName.c_str());
+		m_pVoxelCharacter->ResetMatrixParamsFromCharacterFile(characterFilename, "Right_Hand");
+		m_pVoxelCharacter->ResetMatrixParamsFromCharacterFile(characterFilename, "Left_Hand");
+	}
+	break;
+	case EquipSlot_Feet:
+	{
+		QubicleMatrix* pRightFootMatrix = m_pCharacterBackup->GetQubicleMatrix("Right_Foot");
+		pRightFootMatrix->m_boneIndex = m_pVoxelCharacter->GetRightFootBoneIndex();
+		m_pVoxelCharacter->AddQubicleMatrix(pRightFootMatrix, false);
+
+		QubicleMatrix* pLeftFootMatrix = m_pCharacterBackup->GetQubicleMatrix("Left_Foot");
+		pLeftFootMatrix->m_boneIndex = m_pVoxelCharacter->GetLeftFootBoneIndex();
+		m_pVoxelCharacter->AddQubicleMatrix(pLeftFootMatrix, false);
+
+		char characterFilename[128];
+		sprintf(characterFilename, "media/gamedata/characters/%s/%s.character", m_type.c_str(), m_modelName.c_str());
+		m_pVoxelCharacter->ResetMatrixParamsFromCharacterFile(characterFilename, "Right_Foot");
+		m_pVoxelCharacter->ResetMatrixParamsFromCharacterFile(characterFilename, "Left_Foot");
+	}
+	break;
+	case EquipSlot_Accessory1:
+	{
+	}
+	break;
+	case EquipSlot_Accessory2:
+	{
+	}
+	break;
+	}
+
+	// Refresh stat modifier cache since we have un-equipped an item
+	RefreshStatModifierCacheValues();
+}
+
+void Player::RefreshStatModifierCacheValues()
+{
+	m_strengthModifier = 0;
+	m_dexterityModifier = 0;
+	m_intelligenceModifier = 0;
+	m_vitalityModifier = 0;
+	m_armorModifier = 0;
+	m_luckModifier = 0;
+
+	for (int i = 0; i < EquipSlot_NumSlots; i++)
+	{
+		// TODO : Add me back in
+		//InventoryItem *pEquippedItem = m_pInventoryManager->GetInventoryItemForEquipSlot((EquipSlot)i);
+
+		//if (pEquippedItem != NULL)
+		//{
+		//	for (int j = 0; j < (int)pEquippedItem->m_vpStatAttributes.size(); j++)
+		//	{
+		//		switch (pEquippedItem->m_vpStatAttributes[j]->GetType())
+		//		{
+		//		case AttributeType_Strength: { m_strengthModifier += pEquippedItem->m_vpStatAttributes[j]->GetModifyAmount(); break; }
+		//		case AttributeType_Dexterity: { m_dexterityModifier += pEquippedItem->m_vpStatAttributes[j]->GetModifyAmount(); break; }
+		//		case AttributeType_Intelligence: { m_intelligenceModifier += pEquippedItem->m_vpStatAttributes[j]->GetModifyAmount(); break; }
+		//		case AttributeType_Vitality: { m_vitalityModifier += pEquippedItem->m_vpStatAttributes[j]->GetModifyAmount(); break; }
+		//		case AttributeType_Armor: { m_armorModifier += pEquippedItem->m_vpStatAttributes[j]->GetModifyAmount(); break; }
+		//		case AttributeType_Luck: { m_luckModifier += pEquippedItem->m_vpStatAttributes[j]->GetModifyAmount(); break; }
+		//		}
+		//	}
+		//}
+	}
+
+	//m_pCharacterGUI->UpdatePlayerStats();
 }
 
 // Collision
@@ -666,6 +1075,357 @@ bool Player::CanAttackLeft()
 bool Player::CanAttackRight()
 {
 	return m_bCanAttackRight;
+}
+
+// Player equipped attributes
+void Player::SetNormal()
+{
+	m_equippedProperties = PlayerEquippedProperties_None;
+}
+
+void Player::SetSword(bool s)
+{
+	if (s)
+	{
+		m_equippedProperties |= PlayerEquippedProperties_Sword;
+	}
+	else
+	{
+		m_equippedProperties &= ~PlayerEquippedProperties_Sword;
+	}
+}
+
+void Player::SetAxe(bool s)
+{
+	if (s)
+	{
+		m_equippedProperties |= PlayerEquippedProperties_Axe;
+	}
+	else
+	{
+		m_equippedProperties &= ~PlayerEquippedProperties_Axe;
+	}
+}
+
+void Player::SetHammer(bool s)
+{
+	if (s)
+	{
+		m_equippedProperties |= PlayerEquippedProperties_Hammer;
+	}
+	else
+	{
+		m_equippedProperties &= ~PlayerEquippedProperties_Hammer;
+	}
+}
+
+void Player::SetMace(bool s)
+{
+	if (s)
+	{
+		m_equippedProperties |= PlayerEquippedProperties_Mace;
+	}
+	else
+	{
+		m_equippedProperties &= ~PlayerEquippedProperties_Mace;
+	}
+}
+
+void Player::SetDagger(bool s)
+{
+	if (s)
+	{
+		m_equippedProperties |= PlayerEquippedProperties_Dagger;
+	}
+	else
+	{
+		m_equippedProperties &= ~PlayerEquippedProperties_Dagger;
+	}
+}
+
+void Player::SetSickle(bool s)
+{
+	if (s)
+	{
+		m_equippedProperties |= PlayerEquippedProperties_Sickle;
+	}
+	else
+	{
+		m_equippedProperties &= ~PlayerEquippedProperties_Sickle;
+	}
+}
+
+void Player::Set2HandedSword(bool s)
+{
+	if (s)
+	{
+		m_equippedProperties |= PlayerEquippedProperties_2HandedSword;
+	}
+	else
+	{
+		m_equippedProperties &= ~PlayerEquippedProperties_2HandedSword;
+	}
+}
+
+void Player::SetShield(bool s)
+{
+	if (s)
+	{
+		m_equippedProperties |= PlayerEquippedProperties_Shield;
+	}
+	else
+	{
+		m_equippedProperties &= ~PlayerEquippedProperties_Shield;
+	}
+}
+
+void Player::SetBoomerang(bool s)
+{
+	if (s)
+	{
+		m_equippedProperties |= PlayerEquippedProperties_Boomerang;
+	}
+	else
+	{
+		m_equippedProperties &= ~PlayerEquippedProperties_Boomerang;
+	}
+}
+
+void Player::SetBow(bool s)
+{
+	if (s)
+	{
+		m_equippedProperties |= PlayerEquippedProperties_Bow;
+	}
+	else
+	{
+		m_equippedProperties &= ~PlayerEquippedProperties_Bow;
+	}
+}
+
+void Player::SetStaff(bool s)
+{
+	if (s)
+	{
+		m_equippedProperties |= PlayerEquippedProperties_Staff;
+	}
+	else
+	{
+		m_equippedProperties &= ~PlayerEquippedProperties_Staff;
+	}
+}
+
+void Player::SetWand(bool s)
+{
+	if (s)
+	{
+		m_equippedProperties |= PlayerEquippedProperties_Wand;
+	}
+	else
+	{
+		m_equippedProperties &= ~PlayerEquippedProperties_Wand;
+	}
+}
+
+void Player::SetPickaxe(bool s)
+{
+	if (s)
+	{
+		m_equippedProperties |= PlayerEquippedProperties_Pickaxe;
+	}
+	else
+	{
+		m_equippedProperties &= ~PlayerEquippedProperties_Pickaxe;
+	}
+}
+
+void Player::SetTorch(bool s)
+{
+	if (s)
+	{
+		m_equippedProperties |= PlayerEquippedProperties_Torch;
+	}
+	else
+	{
+		m_equippedProperties &= ~PlayerEquippedProperties_Torch;
+	}
+}
+
+void Player::SetItemPlacing(bool s)
+{
+	if (s)
+	{
+		m_equippedProperties |= PlayerEquippedProperties_PlacementItem;
+	}
+	else
+	{
+		m_equippedProperties &= ~PlayerEquippedProperties_PlacementItem;
+	}
+}
+
+void Player::SetSceneryPlacing(bool s)
+{
+	if (s)
+	{
+		m_equippedProperties |= PlayerEquippedProperties_PlacementScenery;
+	}
+	else
+	{
+		m_equippedProperties &= ~PlayerEquippedProperties_PlacementScenery;
+	}
+}
+
+void Player::SetBlockPlacing(bool s)
+{
+	if (s)
+	{
+		m_equippedProperties |= PlayerEquippedProperties_PlacementBlock;
+	}
+	else
+	{
+		m_equippedProperties &= ~PlayerEquippedProperties_PlacementBlock;
+	}
+}
+
+void Player::SetConsumable(bool s)
+{
+	if (s)
+	{
+		m_equippedProperties |= PlayerEquippedProperties_Consumable;
+	}
+	else
+	{
+		m_equippedProperties &= ~PlayerEquippedProperties_Consumable;
+	}
+}
+
+void Player::SetBomb(bool s)
+{
+	if (s)
+	{
+		m_equippedProperties |= PlayerEquippedProperties_Bomb;
+	}
+	else
+	{
+		m_equippedProperties &= ~PlayerEquippedProperties_Bomb;
+	}
+}
+
+void Player::SetSpellHands(bool s)
+{
+	if (s)
+	{
+		m_equippedProperties |= PlayerEquippedProperties_SpellHands;
+	}
+	else
+	{
+		m_equippedProperties &= ~PlayerEquippedProperties_SpellHands;
+	}
+}
+
+bool Player::IsNormal()
+{
+	return (m_equippedProperties & PlayerEquippedProperties_None) == PlayerEquippedProperties_None;
+}
+
+bool Player::IsSword()
+{
+	return (m_equippedProperties & PlayerEquippedProperties_Sword) == PlayerEquippedProperties_Sword;
+}
+
+bool Player::IsAxe()
+{
+	return (m_equippedProperties & PlayerEquippedProperties_Axe) == PlayerEquippedProperties_Axe;
+}
+
+bool Player::IsHammer()
+{
+	return (m_equippedProperties & PlayerEquippedProperties_Hammer) == PlayerEquippedProperties_Hammer;
+}
+
+bool Player::IsMace()
+{
+	return (m_equippedProperties & PlayerEquippedProperties_Mace) == PlayerEquippedProperties_Mace;
+}
+
+bool Player::IsDagger()
+{
+	return (m_equippedProperties & PlayerEquippedProperties_Dagger) == PlayerEquippedProperties_Dagger;
+}
+
+bool Player::IsSickle()
+{
+	return (m_equippedProperties & PlayerEquippedProperties_Sickle) == PlayerEquippedProperties_Sickle;
+}
+
+bool Player::Is2HandedSword()
+{
+	return (m_equippedProperties & PlayerEquippedProperties_2HandedSword) == PlayerEquippedProperties_2HandedSword;
+}
+
+bool Player::IsShield()
+{
+	return (m_equippedProperties & PlayerEquippedProperties_Shield) == PlayerEquippedProperties_Shield;
+}
+
+bool Player::IsBoomerang()
+{
+	return (m_equippedProperties & PlayerEquippedProperties_Boomerang) == PlayerEquippedProperties_Boomerang;
+}
+
+bool Player::IsBow()
+{
+	return (m_equippedProperties & PlayerEquippedProperties_Bow) == PlayerEquippedProperties_Bow;
+}
+
+bool Player::IsStaff()
+{
+	return (m_equippedProperties & PlayerEquippedProperties_Staff) == PlayerEquippedProperties_Staff;
+}
+
+bool Player::IsWand()
+{
+	return (m_equippedProperties & PlayerEquippedProperties_Wand) == PlayerEquippedProperties_Wand;
+}
+
+bool Player::IsPickaxe()
+{
+	return (m_equippedProperties & PlayerEquippedProperties_Pickaxe) == PlayerEquippedProperties_Pickaxe;
+}
+
+bool Player::IsTorch()
+{
+	return (m_equippedProperties & PlayerEquippedProperties_Torch) == PlayerEquippedProperties_Torch;
+}
+
+bool Player::IsItemPlacing()
+{
+	return (m_equippedProperties & PlayerEquippedProperties_PlacementItem) == PlayerEquippedProperties_PlacementItem;
+}
+
+bool Player::IsSceneryPlacing()
+{
+	return (m_equippedProperties & PlayerEquippedProperties_PlacementScenery) == PlayerEquippedProperties_PlacementScenery;
+}
+
+bool Player::IsBlockPlacing()
+{
+	return (m_equippedProperties & PlayerEquippedProperties_PlacementBlock) == PlayerEquippedProperties_PlacementBlock;
+}
+
+bool Player::IsConsumable()
+{
+	return (m_equippedProperties & PlayerEquippedProperties_Consumable) == PlayerEquippedProperties_Consumable;
+}
+
+bool Player::IsBomb()
+{
+	return (m_equippedProperties & PlayerEquippedProperties_Bomb) == PlayerEquippedProperties_Bomb;
+}
+
+bool Player::IsSpellHands()
+{
+	return (m_equippedProperties & PlayerEquippedProperties_SpellHands) == PlayerEquippedProperties_SpellHands;
 }
 
 // Rendering modes
