@@ -44,7 +44,7 @@ public:
 	}
 };
 
-typedef std::vector<InstanceObject*> InstanceObjectList;
+typedef vector<InstanceObject*> InstanceObjectList;
 
 class InstanceParent
 {
@@ -61,7 +61,7 @@ public:
 	QubicleBinary* m_pQubicleBinary;
 };
 
-typedef std::vector<InstanceParent*> InstanceParentList;
+typedef vector<InstanceParent*> InstanceParentList;
 
 
 class InstanceManager
