@@ -121,3 +121,7 @@
 * Fix camera glitching when going in and out of pause menu (also quit menu).
 * Allow for font changing on the fly, allow different font styles to go with the themes.
 * Add shadow receiving on instanced rendered objects. (Add texture matrix to shader??)
+* Tidy up inventory and item managers!
+  * Add back in TODO code (TODO : Add me back in).
+  * Test ALL functionality with player equipping items and weapons.
+  * Add hooks to GUI.
