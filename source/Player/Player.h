@@ -61,6 +61,8 @@ public:
 	VoxelCharacter* GetVoxelCharacter();
 
 	// Accessors / Setters
+	void SetName(string name);
+	string GetName();
 	vec3 GetCenter();
 	vec3 GetForwardVector();
 	vec3 GetRightVector();
@@ -227,6 +229,9 @@ private:
 	vec3 m_positionMovementAmount;
 
 	// Player name
+	string m_name;
+
+	// Player type and model name
 	string m_type;
 	string m_modelName;
 

@@ -84,6 +84,7 @@ Player::Player(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryMa
 	m_pCharacterBackup = new QubicleBinary(m_pRenderer);
 
 	// Load default character model
+	SetName("Steve");
 	LoadCharacter("Steve");
 }
 
@@ -109,6 +110,16 @@ VoxelCharacter* Player::GetVoxelCharacter()
 }
 
 // Accessors / Setters
+void Player::SetName(string name)
+{
+	m_name = name;
+}
+
+string Player::GetName()
+{
+	return m_name;
+}
+
 vec3 Player::GetCenter()
 {
 	vec3 center = m_position + m_up * m_radius;
