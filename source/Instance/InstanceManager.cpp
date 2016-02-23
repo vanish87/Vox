@@ -271,7 +271,7 @@ bool instance_object_needs_erasing(InstanceObject* pInstanceObject)
 	{
 		if(pInstanceObject->m_pOwningChunk != NULL)
 		{
-			// TODO : Add functionality back in
+			// TODO : Add functionality back in, when chunks own instances
 			//pInstanceObject->m_pOwningChunk->RemoveInstanceObjectFromList(pInstanceObject);
 		}
 
