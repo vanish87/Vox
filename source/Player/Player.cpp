@@ -89,6 +89,17 @@ Player::~Player()
 {
 }
 
+// Linkage
+void Player::SetInventoryManager(InventoryManager* pInventoryManager)
+{
+	m_pInventoryManager = pInventoryManager;
+}
+
+void Player::SetItemManager(ItemManager* pItemManager)
+{
+	m_pItemManager = pItemManager;
+}
+
 // Get voxel character pointer
 VoxelCharacter* Player::GetVoxelCharacter()
 {
@@ -496,12 +507,11 @@ void Player::UnequipItem(EquipSlot equipSlot)
 		SetShield(false);
 		SetTorch(false);
 
-		// TODO : Add me back in
-		//InventoryItem* pRightHand = m_pInventoryManager->GetInventoryItemForEquipSlot(EquipSlot_RightHand);
-		//if (pRightHand == NULL || pRightHand->m_itemType != InventoryType_Weapon_SpellHands)
-		//{
-		//	SetSpellHands(false);
-		//}
+		InventoryItem* pRightHand = m_pInventoryManager->GetInventoryItemForEquipSlot(EquipSlot_RightHand);
+		if (pRightHand == NULL || pRightHand->m_itemType != InventoryType_Weapon_SpellHands)
+		{
+			SetSpellHands(false);
+		}
 
 		m_pVoxelCharacter->SetQubicleMatrixRender("Left_Hand", true);
 
@@ -529,12 +539,11 @@ void Player::UnequipItem(EquipSlot equipSlot)
 		SetBlockPlacing(false);
 		SetConsumable(false);
 
-		// TODO : Add me back in
-		//InventoryItem* pLeftHand = m_pInventoryManager->GetInventoryItemForEquipSlot(EquipSlot_LeftHand);
-		//if (pLeftHand == NULL || pLeftHand->m_itemType != InventoryType_Weapon_SpellHands)
-		//{
-		//	SetSpellHands(false);
-		//}
+		InventoryItem* pLeftHand = m_pInventoryManager->GetInventoryItemForEquipSlot(EquipSlot_LeftHand);
+		if (pLeftHand == NULL || pLeftHand->m_itemType != InventoryType_Weapon_SpellHands)
+		{
+			SetSpellHands(false);
+		}
 
 		m_pVoxelCharacter->SetQubicleMatrixRender("Right_Hand", true);
 
@@ -633,24 +642,23 @@ void Player::RefreshStatModifierCacheValues()
 
 	for (int i = 0; i < EquipSlot_NumSlots; i++)
 	{
-		// TODO : Add me back in
-		//InventoryItem *pEquippedItem = m_pInventoryManager->GetInventoryItemForEquipSlot((EquipSlot)i);
+		InventoryItem *pEquippedItem = m_pInventoryManager->GetInventoryItemForEquipSlot((EquipSlot)i);
 
-		//if (pEquippedItem != NULL)
-		//{
-		//	for (int j = 0; j < (int)pEquippedItem->m_vpStatAttributes.size(); j++)
-		//	{
-		//		switch (pEquippedItem->m_vpStatAttributes[j]->GetType())
-		//		{
-		//		case AttributeType_Strength: { m_strengthModifier += pEquippedItem->m_vpStatAttributes[j]->GetModifyAmount(); break; }
-		//		case AttributeType_Dexterity: { m_dexterityModifier += pEquippedItem->m_vpStatAttributes[j]->GetModifyAmount(); break; }
-		//		case AttributeType_Intelligence: { m_intelligenceModifier += pEquippedItem->m_vpStatAttributes[j]->GetModifyAmount(); break; }
-		//		case AttributeType_Vitality: { m_vitalityModifier += pEquippedItem->m_vpStatAttributes[j]->GetModifyAmount(); break; }
-		//		case AttributeType_Armor: { m_armorModifier += pEquippedItem->m_vpStatAttributes[j]->GetModifyAmount(); break; }
-		//		case AttributeType_Luck: { m_luckModifier += pEquippedItem->m_vpStatAttributes[j]->GetModifyAmount(); break; }
-		//		}
-		//	}
-		//}
+		if (pEquippedItem != NULL)
+		{
+			for (int j = 0; j < (int)pEquippedItem->m_vpStatAttributes.size(); j++)
+			{
+				switch (pEquippedItem->m_vpStatAttributes[j]->GetType())
+				{
+				case AttributeType_Strength: { m_strengthModifier += pEquippedItem->m_vpStatAttributes[j]->GetModifyAmount(); break; }
+				case AttributeType_Dexterity: { m_dexterityModifier += pEquippedItem->m_vpStatAttributes[j]->GetModifyAmount(); break; }
+				case AttributeType_Intelligence: { m_intelligenceModifier += pEquippedItem->m_vpStatAttributes[j]->GetModifyAmount(); break; }
+				case AttributeType_Vitality: { m_vitalityModifier += pEquippedItem->m_vpStatAttributes[j]->GetModifyAmount(); break; }
+				case AttributeType_Armor: { m_armorModifier += pEquippedItem->m_vpStatAttributes[j]->GetModifyAmount(); break; }
+				case AttributeType_Luck: { m_luckModifier += pEquippedItem->m_vpStatAttributes[j]->GetModifyAmount(); break; }
+				}
+			}
+		}
 	}
 
 	//m_pCharacterGUI->UpdatePlayerStats();

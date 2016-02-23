@@ -474,7 +474,7 @@ void VoxGame::UpdateGUI(float dt)
 	m_pChunkManager->SetStepLockEnabled(m_pStepUpdateCheckbox->GetToggled());
 	m_pBlockParticleManager->SetWireFrameRender(m_modelWireframe);
 	m_pBlockParticleManager->SetInstancedRendering(m_instanceRender);
-
+	m_pItemManager->SetWireFrameRender(m_modelWireframe);
 
 	// Update console
 	UpdateConsoleLabels();

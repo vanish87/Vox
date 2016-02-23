@@ -227,6 +227,7 @@ public:
 	InventoryManager();
 	~InventoryManager();
 
+	// Linkage
 	void SetPlayer(Player* pPlayer);
 	void SetInventoryGUI(InventoryGUI* pInventoryGUI);
 	void SetLootGUI(LootGUI* pLootGUI);

@@ -73,12 +73,19 @@ void VoxGame::Update()
 		// Scenery manager
 		m_pSceneryManager->Update(m_deltaTime);
 
+		// Inventory manager
+		m_pInventoryManager->Update(m_deltaTime);
+
+		// Item manager
+		m_pItemManager->Update(m_deltaTime);
+
 		// Player
 		if (m_animationUpdate)
 		{
 			m_pPlayer->Update(m_deltaTime);
 		}
 
+		// Camera faked position
 		if (m_cameraMode == CameraMode_MouseRotate || m_cameraMode == CameraMode_AutoCamera)
 		{
 			vec3 playerMovementChanged = m_pPlayer->GetPositionMovementAmount();

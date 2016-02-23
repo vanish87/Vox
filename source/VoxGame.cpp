@@ -162,6 +162,12 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	/* Create the player */
 	m_pPlayer = new Player(m_pRenderer, m_pChunkManager, m_pQubicleBinaryManager, m_pLightingManager, m_pBlockParticleManager);
 
+	/* Create the inventory manager */
+	m_pInventoryManager = new InventoryManager();
+
+	/* Create the item manager */
+	m_pItemManager = new ItemManager(m_pRenderer, m_pChunkManager, m_pPlayer);
+
 	/* Create the frontend manager */
 	m_pFrontendManager = new FrontendManager(m_pRenderer, m_pGUI);
 	m_pFrontendManager->SetWindowDimensions(m_windowWidth, m_windowHeight);
@@ -169,6 +175,16 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	/* Create module and manager linkage */
 	m_pChunkManager->SetPlayer(m_pPlayer);
 	m_pChunkManager->SetSceneryManager(m_pSceneryManager);
+	m_pPlayer->SetInventoryManager(m_pInventoryManager);
+	m_pPlayer->SetItemManager(m_pItemManager);
+	m_pInventoryManager->SetPlayer(m_pPlayer);
+	//m_pInventoryManager->SetInventoryGUI(m_pInventoryGUI);
+	//m_pInventoryManager->SetLootGUI(m_pLootGUI);
+	//m_pInventoryManager->SetActionBar(m_pActionBar);
+	m_pItemManager->SetLightingManager(m_pLightingManager);
+	m_pItemManager->SetBlockParticleManager(m_pBlockParticleManager);
+	m_pItemManager->SetQubicleBinaryManager(m_pQubicleBinaryManager);
+	m_pItemManager->SetInventoryManager(m_pInventoryManager);
 
 	/* Initial chunk creation (Must be after player pointer sent to chunks) */
 	m_pChunkManager->InitializeChunkCreation();
@@ -253,6 +269,8 @@ void VoxGame::Destroy()
 	{
 		delete m_pSkybox;
 		delete m_pLightingManager;
+		delete m_pInventoryManager;
+		delete m_pItemManager;
 		delete m_pPlayer;
 		delete m_pSceneryManager;
 		delete m_pBlockParticleManager;

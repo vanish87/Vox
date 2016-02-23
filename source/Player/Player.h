@@ -21,6 +21,7 @@
 #include "../Lighting/LightingManager.h"
 #include "../Particles/BlockParticleManager.h"
 #include "../Inventory/InventoryManager.h"
+#include "../Items/ItemManager.h"
 
 
 static const int PlayerEquippedProperties_None = 0;
@@ -51,6 +52,10 @@ public:
 	/* Public methods */
 	Player(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryManager* pQubicleBinaryManager, LightingManager* pLightingManager, BlockParticleManager* pBlockParticleManager);
 	~Player();
+
+	// Linkage
+	void SetInventoryManager(InventoryManager* pInventoryManager);
+	void SetItemManager(ItemManager* pItemManager);
 
 	// Get voxel character pointer
 	VoxelCharacter* GetVoxelCharacter();
@@ -194,6 +199,8 @@ private:
 	QubicleBinaryManager* m_pQubicleBinaryManager;
 	LightingManager* m_pLightingManager;
 	BlockParticleManager* m_pBlockParticleManager;
+	InventoryManager* m_pInventoryManager;
+	ItemManager* m_pItemManager;
 
 	// Player position and movement variables
 	vec3 m_position;

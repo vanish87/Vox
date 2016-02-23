@@ -69,6 +69,7 @@ void InventoryManager::Reset()
 	ClearOtherCreatedItems();
 }
 
+// Linkage
 void InventoryManager::SetPlayer(Player* pPlayer)
 {
 	m_pPlayer = pPlayer;

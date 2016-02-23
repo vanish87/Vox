@@ -20,6 +20,8 @@
 #include "Lighting/LightingManager.h"
 #include "Particles/BlockParticleManager.h"
 #include "Player/Player.h"
+#include "Inventory/InventoryManager.h"
+#include "Items/ItemManager.h"
 #include "blocks/ChunkManager.h"
 #include "frontend/FrontendManager.h"
 #include "Skybox/Skybox.h"
@@ -234,6 +236,12 @@ private:
 
 	// Player
 	Player* m_pPlayer;
+
+	// Inventory
+	InventoryManager* m_pInventoryManager;
+
+	// Items
+	ItemManager* m_pItemManager;
 
 	// Chunk manager
 	ChunkManager* m_pChunkManager;
