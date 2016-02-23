@@ -25,6 +25,8 @@ Player::Player(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryMa
 	m_pQubicleBinaryManager = pQubicleBinaryManager;
 	m_pLightingManager = pLightingManager;
 	m_pBlockParticleManager = pBlockParticleManager;
+	m_pInventoryManager = NULL;
+	m_pItemManager = NULL;
 
 	m_forward = vec3(0.0f, 0.0f, 1.0f);
 	m_right = vec3(1.0f, 0.0f, 0.0f);

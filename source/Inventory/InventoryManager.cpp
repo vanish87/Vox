@@ -37,6 +37,11 @@ static ItemTextData g_itemData[] =
 
 InventoryManager::InventoryManager()
 {
+	m_pPlayer = NULL;
+	m_pInventoryGUI = NULL;
+	m_pLootGUI = NULL;
+	m_pActionBar = NULL;
+
     // Reset the inventory mapping array
     for(int i = 0; i < MAX_NUM_INVENTORY_SLOTS; i++)
     {

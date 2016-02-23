@@ -26,6 +26,10 @@ ItemManager::ItemManager(Renderer* pRenderer, ChunkManager* pChunkManager, Playe
 	m_pRenderer = pRenderer;
 	m_pChunkManager = pChunkManager;
 	m_pPlayer = pPlayer;
+	m_pQubicleBinaryManager = NULL;
+	m_pInventoryManager = NULL;
+	m_pLightingManager = NULL;
+	m_pBlockParticleManager = NULL;
 
 	m_numRenderItems = 0;
 
