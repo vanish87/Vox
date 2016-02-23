@@ -296,12 +296,12 @@ void Player::EquipItem(InventoryItem* pItem)
 		case InventoryType_Weapon_Bow: { SetBow(true); } break;
 		case InventoryType_Weapon_Torch: { SetTorch(true); } break;
 		case InventoryType_Weapon_SpellHands:
-		{
-			SetSpellHands(true);
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "HandSpellCastPose", 0.25f);
-			m_pVoxelCharacter->SetQubicleMatrixRender("Left_Hand", false);
-			break;
-		}
+			{
+				SetSpellHands(true);
+				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "HandSpellCastPose", 0.25f);
+				m_pVoxelCharacter->SetQubicleMatrixRender("Left_Hand", false);
+				break;
+			}
 		}
 
 		if (pItem->m_itemType == InventoryType_Weapon_Bow)
@@ -333,28 +333,28 @@ void Player::EquipItem(InventoryItem* pItem)
 		case InventoryType_Weapon_Mace: { SetMace(true); } break;
 		case InventoryType_Weapon_Sickle: { SetSickle(true); } break;
 		case InventoryType_Weapon_2HandedSword:
-		{
-			Set2HandedSword(true);
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "2HandedSwordPose", 0.25f);
-			break;
-		}
+			{
+				Set2HandedSword(true);
+				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "2HandedSwordPose", 0.25f);
+				break;
+			}
 		case InventoryType_Weapon_Boomerang: { SetBoomerang(true); /*m_bCanThrowWeapon = true;*/ } break;
 		case InventoryType_Weapon_Bomb: { SetBomb(true); } break;
 		case InventoryType_Weapon_Staff:
-		{
-			SetStaff(true);
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "StaffPose", 0.25f);
-			break;
-		}
+			{
+				SetStaff(true);
+				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "StaffPose", 0.25f);
+				break;
+			}
 		case InventoryType_Weapon_Wand: { SetWand(true); } break;
 		case InventoryType_Weapon_Pickaxe: { SetPickaxe(true); } break;
 		case InventoryType_Weapon_SpellHands:
-		{
-			SetSpellHands(true);
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "HandSpellCastPose", 0.25f);
-			m_pVoxelCharacter->SetQubicleMatrixRender("Right_Hand", false);
-			break;
-		}
+			{
+				SetSpellHands(true);
+				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "HandSpellCastPose", 0.25f);
+				m_pVoxelCharacter->SetQubicleMatrixRender("Right_Hand", false);
+				break;
+			}
 		}
 	}
 	break;
