@@ -944,7 +944,7 @@ void Item::Interact()
 			spawnSubItems = true;
 			createHitEffect = true;
 			createCrumbleBlockParticles = true;
-			sprintf_s(itemFilename, 64, "media/gamedata/items/CopperVein/CopperVein%i.item", m_interactCount);
+			sprintf(itemFilename, "media/gamedata/items/CopperVein/CopperVein%i.item", m_interactCount);
 		}
 		if(m_itemType == eItem_IronVein)
 		{
@@ -952,7 +952,7 @@ void Item::Interact()
 			spawnSubItems = true;
 			createHitEffect = true;
 			createCrumbleBlockParticles = true;
-			sprintf_s(itemFilename, 64, "media/gamedata/items/IronVein/IronVein%i.item", m_interactCount);
+			sprintf(itemFilename, "media/gamedata/items/IronVein/IronVein%i.item", m_interactCount);
 		}
 		if(m_itemType == eItem_SilverVein)
 		{
@@ -960,7 +960,7 @@ void Item::Interact()
 			spawnSubItems = true;
 			createHitEffect = true;
 			createCrumbleBlockParticles = true;
-			sprintf_s(itemFilename, 64, "media/gamedata/items/SilverVein/SilverVein%i.item", m_interactCount);
+			sprintf(itemFilename, "media/gamedata/items/SilverVein/SilverVein%i.item", m_interactCount);
 		}
 		if(m_itemType == eItem_GoldVein)
 		{
@@ -968,7 +968,7 @@ void Item::Interact()
 			spawnSubItems = true;
 			createHitEffect = true;
 			createCrumbleBlockParticles = true;
-			sprintf_s(itemFilename, 64, "media/gamedata/items/GoldVein/GoldVein%i.item", m_interactCount);
+			sprintf(itemFilename, "media/gamedata/items/GoldVein/GoldVein%i.item", m_interactCount);
 		}
 		
 		if(changeItemModel)
