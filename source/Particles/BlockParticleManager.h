@@ -23,8 +23,6 @@
 #include "BlockParticleEmitter.h"
 #include "BlockParticleEffect.h"
 
-class GameWindow;
-
 typedef std::vector<BlockParticle*> BlockParticlesList;
 typedef std::vector<BlockParticleEmitter*> BlockParticlesEmitterList;
 typedef std::vector<BlockParticleEffect*> BlockParticleEffectList;
