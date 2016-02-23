@@ -38,6 +38,7 @@ add_subdirectory(scenery)
 add_subdirectory(Instance)
 add_subdirectory(Inventory)
 add_subdirectory(Items)
+add_subdirectory(GameGUI)
 
 source_group("source" FILES ${SRCS})
 source_group("source\\utils" FILES ${UTIL_SRCS})
@@ -69,6 +70,7 @@ source_group("source\\scenery" FILES ${SCENERY_SRCS})
 source_group("source\\Instance" FILES ${INSTANCE_SRCS})
 source_group("source\\Inventory" FILES ${INVENTORY_SRCS})
 source_group("source\\Items" FILES ${ITEMS_SRCS})
+source_group("source\\GameGUI" FILES ${GAMEGUI_SRCS})
 
 add_executable(Vox
                ${SRCS}
@@ -100,7 +102,8 @@ add_executable(Vox
 			   ${SCENERY_SRCS}
 			   ${INSTANCE_SRCS}
 			   ${INVENTORY_SRCS}
-			   ${ITEMS_SRCS})
+			   ${ITEMS_SRCS}
+			   ${GAMEGUI_SRCS})
 
 include_directories(".")			   
 include_directories("glfw\\include")

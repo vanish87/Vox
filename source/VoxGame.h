@@ -30,7 +30,11 @@
 #include "VoxApplication.h"
 #include "VoxWindow.h"
 #include "VoxSettings.h"
-
+#include "GameGUI\ActionBar.h"
+#include "GameGUI\CharacterGUI.h"
+#include "GameGUI\CraftingGUI.h"
+#include "GameGUI\InventoryGUI.h"
+#include "GameGUI\LootGUI.h"
 
 enum GameMode
 {
@@ -138,6 +142,7 @@ public:
 	void UpdatePlayerAlpha(float dt);
 	void UpdateLights(float dt);
 	void UpdateGUI(float dt);
+	void UpdateGameGUI(float dt);
 
 	// Rendering
 	void PreRender();
@@ -389,6 +394,13 @@ private:
 
 	// Blur
 	float m_globalBlurAmount;
+
+	// Game GUI
+	InventoryGUI* m_pInventoryGUI;
+	CharacterGUI* m_pCharacterGUI;
+	LootGUI* m_pLootGUI;
+	CraftingGUI* m_pCraftingGUI;
+	ActionBar* m_pActionBar;
 
 	// GUI Components
 	bool m_GUICreated;

@@ -82,12 +82,6 @@
     <Filter Include="source\scenery">
       <UniqueIdentifier>{5ca09085-140f-4d65-b63f-133a5c6cfdbb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="source\fronend">
-      <UniqueIdentifier>{930aa78e-1327-4046-956e-f55ddaf01cd0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="source\fronend\Pages">
-      <UniqueIdentifier>{d2f4837d-aa70-4533-b05e-be8757280872}</UniqueIdentifier>
-    </Filter>
     <Filter Include="source\Instance">
       <UniqueIdentifier>{1cc8e98d-3c87-4e6c-b1ce-70bb907fc48b}</UniqueIdentifier>
     </Filter>
@@ -96,6 +90,15 @@
     </Filter>
     <Filter Include="source\Items">
       <UniqueIdentifier>{4a6e56e8-2b2b-4ab0-b289-9a785da5397d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\GameGUI">
+      <UniqueIdentifier>{e92275fc-d155-4529-862f-3401ed640f15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\frontend">
+      <UniqueIdentifier>{930aa78e-1327-4046-956e-f55ddaf01cd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\frontend\Pages">
+      <UniqueIdentifier>{d2f4837d-aa70-4533-b05e-be8757280872}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -499,16 +502,16 @@
       <Filter>source\scenery</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\frontend\FrontendManager.cpp">
-      <Filter>source\fronend</Filter>
+      <Filter>source\frontend</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\frontend\FrontendPage.cpp">
-      <Filter>source\fronend</Filter>
+      <Filter>source\frontend</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\frontend\Pages\QuitPopup.cpp">
-      <Filter>source\fronend\Pages</Filter>
+      <Filter>source\frontend\Pages</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\frontend\Pages\PauseMenu.cpp">
-      <Filter>source\fronend\Pages</Filter>
+      <Filter>source\frontend\Pages</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\Instance\InstanceManager.cpp">
       <Filter>source\Instance</Filter>
@@ -527,6 +530,21 @@
     </ClCompile>
     <ClCompile Include="..\..\source\Items\StatAttribute.cpp">
       <Filter>source\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\GameGUI\CharacterGUI.cpp">
+      <Filter>source\GameGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\GameGUI\CraftingGUI.cpp">
+      <Filter>source\GameGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\GameGUI\InventoryGUI.cpp">
+      <Filter>source\GameGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\GameGUI\LootGUI.cpp">
+      <Filter>source\GameGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\GameGUI\ActionBar.cpp">
+      <Filter>source\GameGUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1389,16 +1407,16 @@
       <Filter>source\scenery</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\frontend\FrontendManager.h">
-      <Filter>source\fronend</Filter>
+      <Filter>source\frontend</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\frontend\FrontendPage.h">
-      <Filter>source\fronend</Filter>
+      <Filter>source\frontend</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\frontend\Pages\QuitPopup.h">
-      <Filter>source\fronend\Pages</Filter>
+      <Filter>source\frontend\Pages</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\frontend\Pages\PauseMenu.h">
-      <Filter>source\fronend\Pages</Filter>
+      <Filter>source\frontend\Pages</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\Instance\InstanceManager.h">
       <Filter>source\Instance</Filter>
@@ -1417,6 +1435,21 @@
     </ClInclude>
     <ClInclude Include="..\..\source\Maths\BoundingRegion.h">
       <Filter>source\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameGUI\ActionBar.h">
+      <Filter>source\GameGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameGUI\CharacterGUI.h">
+      <Filter>source\GameGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameGUI\CraftingGUI.h">
+      <Filter>source\GameGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameGUI\InventoryGUI.h">
+      <Filter>source\GameGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameGUI\LootGUI.h">
+      <Filter>source\GameGUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

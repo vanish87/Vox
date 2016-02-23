@@ -172,19 +172,39 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pFrontendManager = new FrontendManager(m_pRenderer, m_pGUI);
 	m_pFrontendManager->SetWindowDimensions(m_windowWidth, m_windowHeight);
 
+	/* Create the game GUI pages */
+	m_pInventoryGUI = new InventoryGUI(m_pRenderer, m_pGUI, m_pFrontendManager, m_pChunkManager, m_pPlayer, m_pInventoryManager, m_windowWidth, m_windowHeight);
+	m_pCharacterGUI = new CharacterGUI(m_pRenderer, m_pGUI, m_pFrontendManager, m_pChunkManager, m_pPlayer, m_pInventoryManager, m_windowWidth, m_windowHeight);
+	m_pLootGUI = new LootGUI(m_pRenderer, m_pGUI, m_pFrontendManager, m_pChunkManager, m_pPlayer, m_pInventoryManager, m_windowWidth, m_windowHeight);
+	m_pCraftingGUI = new CraftingGUI(m_pRenderer, m_pGUI, m_pFrontendManager, m_pChunkManager, m_pPlayer, m_pInventoryManager, m_windowWidth, m_windowHeight);
+	m_pActionBar = new ActionBar(m_pRenderer, m_pGUI, m_pFrontendManager, m_pChunkManager, m_pPlayer, m_pInventoryManager, m_windowWidth, m_windowHeight);
+
 	/* Create module and manager linkage */
 	m_pChunkManager->SetPlayer(m_pPlayer);
 	m_pChunkManager->SetSceneryManager(m_pSceneryManager);
 	m_pPlayer->SetInventoryManager(m_pInventoryManager);
 	m_pPlayer->SetItemManager(m_pItemManager);
 	m_pInventoryManager->SetPlayer(m_pPlayer);
-	//m_pInventoryManager->SetInventoryGUI(m_pInventoryGUI);
-	//m_pInventoryManager->SetLootGUI(m_pLootGUI);
-	//m_pInventoryManager->SetActionBar(m_pActionBar);
+	m_pInventoryManager->SetInventoryGUI(m_pInventoryGUI);
+	m_pInventoryManager->SetLootGUI(m_pLootGUI);
+	m_pInventoryManager->SetActionBar(m_pActionBar);
 	m_pItemManager->SetLightingManager(m_pLightingManager);
 	m_pItemManager->SetBlockParticleManager(m_pBlockParticleManager);
 	m_pItemManager->SetQubicleBinaryManager(m_pQubicleBinaryManager);
 	m_pItemManager->SetInventoryManager(m_pInventoryManager);
+	m_pInventoryGUI->SetCharacterGUI(m_pCharacterGUI);
+	m_pInventoryGUI->SetLootGUI(m_pLootGUI);
+	m_pInventoryGUI->SetActionBar(m_pActionBar);
+	m_pCharacterGUI->SetInventoryGUI(m_pInventoryGUI);
+	m_pCharacterGUI->SetLootGUI(m_pLootGUI);
+	m_pCharacterGUI->SetActionBar(m_pActionBar);
+	m_pLootGUI->SetInventoryGUI(m_pInventoryGUI);
+	m_pLootGUI->SetCharacterGUI(m_pCharacterGUI);
+	m_pLootGUI->SetActionBar(m_pActionBar);
+	m_pActionBar->SetInventoryGUI(m_pInventoryGUI);
+	m_pActionBar->SetCharacterGUI(m_pCharacterGUI);
+	m_pActionBar->SetLootGUI(m_pLootGUI);
+
 
 	/* Initial chunk creation (Must be after player pointer sent to chunks) */
 	m_pChunkManager->InitializeChunkCreation();
@@ -279,6 +299,11 @@ void VoxGame::Destroy()
 		delete m_pQubicleBinaryManager;
 		delete m_pFrontendManager;
 		delete m_pGameCamera;
+		delete m_pInventoryGUI;
+		delete m_pCharacterGUI;
+		delete m_pLootGUI;
+		delete m_pCraftingGUI;
+		delete m_pActionBar;
 		DestroyGUI();  // Destroy the GUI components before we delete the GUI manager object.
 		delete m_pGUI;
 		delete m_pRenderer;
@@ -414,9 +439,32 @@ void VoxGame::ResizeWindow(int width, int height)
 		m_pConsoleWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 	}
 
+	// Frontend
 	if (m_pFrontendManager)
 	{
 		m_pFrontendManager->SetWindowDimensions(m_windowWidth, m_windowHeight);
+	}
+
+	// Resize game GUI
+	if (m_pInventoryGUI)
+	{
+		m_pInventoryGUI->SetWindowDimensions(m_windowWidth, m_windowHeight);
+	}
+	if (m_pCharacterGUI)
+	{
+		m_pCharacterGUI->SetWindowDimensions(m_windowWidth, m_windowHeight);
+	}
+	if (m_pLootGUI)
+	{
+		m_pLootGUI->SetWindowDimensions(m_windowWidth, m_windowHeight);
+	}
+	if (m_pCraftingGUI)
+	{
+		m_pCraftingGUI->SetWindowDimensions(m_windowWidth, m_windowHeight);
+	}
+	if (m_pActionBar)
+	{
+		m_pActionBar->SetWindowDimensions(m_windowWidth, m_windowHeight);
 	}
 }
 

@@ -16,9 +16,9 @@
 #include "InventoryManager.h"
 #include "..\Items\Item.h"
 #include "..\Player\Player.h"
-//#include "..\GUI\InventoryGUI.h"
-//#include "..\GUI\LootGUI.h"
-//#include "..\GUI\ActionBar.h"
+#include "..\GameGUI\InventoryGUI.h"
+#include "..\GameGUI\LootGUI.h"
+#include "..\GameGUI\ActionBar.h"
 
 #include <algorithm>
 #include <fstream>

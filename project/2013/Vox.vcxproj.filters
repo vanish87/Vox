@@ -97,6 +97,9 @@
     <Filter Include="source\Items">
       <UniqueIdentifier>{d0d45a50-e33d-483a-9e58-033cd1afabf1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\GameGUI">
+      <UniqueIdentifier>{d2308808-719c-4cc4-b50b-aafa56850caf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\glew\src\glew.c">
@@ -527,6 +530,21 @@
     </ClCompile>
     <ClCompile Include="..\..\source\Items\StatAttribute.cpp">
       <Filter>source\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\GameGUI\ActionBar.cpp">
+      <Filter>source\GameGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\GameGUI\CharacterGUI.cpp">
+      <Filter>source\GameGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\GameGUI\CraftingGUI.cpp">
+      <Filter>source\GameGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\GameGUI\InventoryGUI.cpp">
+      <Filter>source\GameGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\GameGUI\LootGUI.cpp">
+      <Filter>source\GameGUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1417,6 +1435,21 @@
     </ClInclude>
     <ClInclude Include="..\..\source\Maths\BoundingRegion.h">
       <Filter>source\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameGUI\ActionBar.h">
+      <Filter>source\GameGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameGUI\CharacterGUI.h">
+      <Filter>source\GameGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameGUI\CraftingGUI.h">
+      <Filter>source\GameGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameGUI\InventoryGUI.h">
+      <Filter>source\GameGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameGUI\LootGUI.h">
+      <Filter>source\GameGUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

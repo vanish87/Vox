@@ -207,10 +207,47 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 				{
 					HideGUI();
 				}
-
-				break;
 			}
-		}		
+			break;
+		}
+
+		// Game GUI
+		case GLFW_KEY_I:
+		{
+			if (m_pInventoryGUI->IsLoaded())
+			{
+				m_pInventoryGUI->Unload();
+
+				m_pVoxWindow->TurnCursorOff();
+			}
+			else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_None)
+			{
+				m_pInventoryGUI->Load();
+
+				m_pPlayer->StopMoving();
+
+				m_pVoxWindow->TurnCursorOn(true);
+			}
+			break;
+		}
+		case GLFW_KEY_C:
+		{
+			if (m_pCharacterGUI->IsLoaded())
+			{
+				m_pCharacterGUI->Unload();
+
+				m_pVoxWindow->TurnCursorOff();
+			}
+			else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_None)
+			{
+				m_pCharacterGUI->Load();
+
+				m_pPlayer->StopMoving();
+
+				m_pVoxWindow->TurnCursorOn(true);
+			}
+			break;
+		}
 	}
 }
 

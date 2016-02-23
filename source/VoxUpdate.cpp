@@ -128,6 +128,9 @@ void VoxGame::Update()
 	}
 	UpdateGUI(m_deltaTime);
 
+	// Update game GUI
+	UpdateGameGUI(m_deltaTime);
+
 	// Update lights
 	UpdateLights(m_deltaTime);
 
@@ -147,4 +150,24 @@ void VoxGame::UpdatePlayerAlpha(float dt)
 void VoxGame::UpdateLights(float dt)
 {
 	m_pRenderer->EditLightPosition(m_defaultLight, m_defaultLightPosition);
+}
+
+void VoxGame::UpdateGameGUI(float dt)
+{
+	if (m_pInventoryGUI->IsLoaded())
+	{
+		m_pInventoryGUI->Update(dt);
+	}
+	if (m_pCharacterGUI->IsLoaded())
+	{
+		m_pCharacterGUI->Update(dt);
+	}
+	if (m_pLootGUI->IsLoaded())
+	{
+		m_pLootGUI->Update(dt);
+	}
+	if (m_pCraftingGUI->IsLoaded())
+	{
+		m_pCraftingGUI->Update(dt);
+	}
 }
