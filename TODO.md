@@ -127,3 +127,4 @@
   * Add hooks to GUI.
 * Player particle trail on walking.
 * Cinematic letterbox mode.
+* Test out Baked AO models using MagikaVoxel.
