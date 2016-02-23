@@ -125,3 +125,4 @@
   * Add back in TODO code (TODO : Add me back in).
   * Test ALL functionality with player equipping items and weapons.
   * Add hooks to GUI.
+* Player particle trail on walking.
