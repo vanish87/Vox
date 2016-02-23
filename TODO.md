@@ -126,3 +126,4 @@
   * Test ALL functionality with player equipping items and weapons.
   * Add hooks to GUI.
 * Player particle trail on walking.
+* Cinematic letterbox mode.
