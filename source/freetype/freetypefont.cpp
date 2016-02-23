@@ -278,7 +278,7 @@ int FreeTypeFont::GetTextWidth(const char *text)
 
 int FreeTypeFont::GetCharWidth(int c)
 {
-	// TODO : Write me...
+	// TODO : Write me - GetCharWidth()
 	return 0;
 }
 
