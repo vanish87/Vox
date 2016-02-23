@@ -81,6 +81,8 @@ public:
 	bool ShouldClose();
 
 	// Window functionality
+	int GetWindowCursorX();
+	int GetWindowCursorY();
 	void ResizeWindow(int width, int height);
 	void CloseWindow();
 	void UpdateJoySticks();

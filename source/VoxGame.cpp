@@ -373,6 +373,16 @@ bool VoxGame::ShouldClose()
 }
 
 // Window functionality
+int VoxGame::GetWindowCursorX()
+{
+	return m_pVoxWindow->GetCursorY();
+}
+
+int VoxGame::GetWindowCursorY()
+{
+	return m_pVoxWindow->GetCursorY();
+}
+
 void VoxGame::ResizeWindow(int width, int height)
 {
 	m_windowWidth = width;

@@ -57,7 +57,7 @@ public:
 	// Minimized
 	bool GetMinimized();
 
-	// Cursor 
+	// Cursor
 	int GetCursorX();
 	int GetCursorY();
 	void SetCursorPosition(int x, int y);
