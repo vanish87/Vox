@@ -12,7 +12,7 @@
 // ******************************************************************************
 
 #include "PauseMenu.h"
-#include "..\FrontEndManager.h"
+#include "..\FrontendManager.h"
 #include "..\gui\openglgui.h"
 #include "..\VoxGame.h"
 
