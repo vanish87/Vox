@@ -135,7 +135,7 @@ bool QubicleBinary::Import(const char* fileName, bool faceMerging)
 	m_fileName = fileName;
 
 	char qbFilename[256];
-	snprintf(qbFilename, 256, fileName);;
+	sprintf(qbFilename, fileName);;
 
 	FILE* pQBfile = NULL;
 	fopen_s(&pQBfile, qbFilename, "rb");
@@ -265,7 +265,7 @@ bool QubicleBinary::Import(const char* fileName, bool faceMerging)
 bool QubicleBinary::Export(const char* fileName)
 {
 	char qbFilename[256];
-	snprintf(qbFilename, 256, fileName);;
+	sprintf(qbFilename, fileName);;
 
 	FILE* pQBfile = NULL;
 	fopen_s(&pQBfile, qbFilename, "wb");

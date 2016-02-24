@@ -525,9 +525,9 @@ void VoxGame::UpdateCharactersPulldown()
 
 	char importDirectory[128];
 #ifdef _WIN32
-    snprintf(importDirectory, 128, "media/gamedata/models/Human/*.qb");
+    sprintf(importDirectory, "media/gamedata/models/Human/*.qb");
 #elif __linux__
-	snprintf(importDirectory, 128, "media/gamedata/models/Human/*.*");
+	sprintf(importDirectory, "media/gamedata/models/Human/*.*");
 #endif //_WIN32
 
 	vector<string> listFiles;
@@ -585,9 +585,9 @@ void VoxGame::UpdateGUIThemePulldown()
 
 	char importDirectory[128];
 #ifdef _WIN32
-    snprintf(importDirectory, 128, "media/textures/gui/*.*");
+    sprintf(importDirectory, "media/textures/gui/*.*");
 #elif __linux__
-	snprintf(importDirectory, 128, "media/textures/gui/*.*");
+	sprintf(importDirectory, "media/textures/gui/*.*");
 #endif //_WIN32
 
 	vector<string> listFiles;
@@ -616,7 +616,7 @@ void VoxGame::AddConsoleLabel(string message)
 	}
 
 	char lChatString[8192];
-	snprintf(lChatString, 8192, "%s", message.c_str());
+	sprintf(lChatString, "%s", message.c_str());
 
 	string chatString = lChatString;
 
@@ -1008,7 +1008,7 @@ void VoxGame::ConsoleReturnPressed()
 	}
 
 	char lChatString[8192];
-	snprintf(lChatString, 8192, "%s", m_pConsoleTextbox->GetText().c_str());
+	sprintf(lChatString, "%s", m_pConsoleTextbox->GetText().c_str());
 	string chatMessage = lChatString;
 
 	AddConsoleLabel(chatMessage);

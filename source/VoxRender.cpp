@@ -629,7 +629,7 @@ void VoxGame::RenderGUI()
 void VoxGame::RenderDebugInformation()
 {
 	char lCameraBuff[256];
-	snprintf(lCameraBuff, 256, "Pos(%.2f, %.2f, %.2f), Facing(%.2f, %.2f, %.2f) = %.2f, Up(%.2f, %.2f, %.2f) = %.2f, Right(%.2f, %.2f, %.2f) = %.2f, View(%.2f, %.2f, %.2f), Zoom=%.2f",
+	sprintf(lCameraBuff, "Pos(%.2f, %.2f, %.2f), Facing(%.2f, %.2f, %.2f) = %.2f, Up(%.2f, %.2f, %.2f) = %.2f, Right(%.2f, %.2f, %.2f) = %.2f, View(%.2f, %.2f, %.2f), Zoom=%.2f",
 		m_pGameCamera->GetPosition().x, m_pGameCamera->GetPosition().y, m_pGameCamera->GetPosition().z,
 		m_pGameCamera->GetFacing().x, m_pGameCamera->GetFacing().y, m_pGameCamera->GetFacing().z, length(m_pGameCamera->GetFacing()),
 		m_pGameCamera->GetUp().x, m_pGameCamera->GetUp().y, m_pGameCamera->GetUp().z, length(m_pGameCamera->GetUp()),
@@ -641,19 +641,19 @@ void VoxGame::RenderDebugInformation()
 	float fpsWidthOffset = 65.0f;
 	if (m_debugRender)
 	{
-		snprintf(lFPSBuff, 128, "Delta: %.4f  FPS: %.0f", m_deltaTime, m_fps);
+		sprintf(lFPSBuff, "Delta: %.4f  FPS: %.0f", m_deltaTime, m_fps);
 		fpsWidthOffset = 135.0f;
 	}
 	else
 	{
-		snprintf(lFPSBuff, 128, "FPS: %.0f", m_fps);
+		sprintf(lFPSBuff, "FPS: %.0f", m_fps);
 	}
 
 	char lBuildInfo[128];
 #if defined(_DEBUG) || defined(NDEBUG)
-	snprintf(lBuildInfo, 128, "DEV %s", m_pVoxSettings->m_version.c_str());
+	sprintf(lBuildInfo, "DEV %s", m_pVoxSettings->m_version.c_str());
 #else
-	snprintf(lBuildInfo, 128, "RELEASE %s", m_pVoxSettings->m_version.c_str());
+	sprintf(lBuildInfo, "RELEASE %s", m_pVoxSettings->m_version.c_str());
 #endif //defined(_DEBUG) || defined(NDEBUG)
 
 	int l_nTextHeight = m_pRenderer->GetFreeTypeTextHeight(m_defaultFont, "a");

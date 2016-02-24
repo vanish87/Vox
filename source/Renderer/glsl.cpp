@@ -1583,11 +1583,11 @@ glShader* glShaderManager::loadfromFile(char* vertexFile, char* fragmentFile)
 	// Shader logs
 	ofstream vertexLogFile;
 	char lfilename[128];
-	snprintf(lfilename, 128, "logs/%s.log", vertexFile);
+	sprintf(lfilename, "logs/%s.log", vertexFile);
 	vertexLogFile.open(lfilename); 
 
 	ofstream fragmentLogFile;
-	snprintf(lfilename, 128, "logs/%s.log", fragmentFile);
+	sprintf(lfilename, "logs/%s.log", fragmentFile);
 	fragmentLogFile.open(lfilename); 
 
 

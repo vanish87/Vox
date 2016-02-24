@@ -1563,15 +1563,15 @@ void Chunk::Render2D(Camera* pCamera, unsigned int viewport, unsigned int font)
 	if (renderChunkInfo)
 	{
 		char lLine1[64];
-		snprintf(lLine1, 64, "%i, %i, %i", m_gridX, m_gridY, m_gridZ);
+		sprintf(lLine1, "%i, %i, %i", m_gridX, m_gridY, m_gridZ);
 		char lLine2[64];
-		snprintf(lLine2, 64, "Neighbours: %i", m_numNeighbours);
+		sprintf(lLine2, "Neighbours: %i", m_numNeighbours);
 		char lLine3[64];
-		snprintf(lLine3, 64, "Empty: %s", m_emptyChunk ? "true" : "false");
+		sprintf(lLine3, "Empty: %s", m_emptyChunk ? "true" : "false");
 		char lLine4[64];
-		snprintf(lLine4, 64, "Surrounded: %s", m_surroundedChunk ? "true" : "false");
+		sprintf(lLine4, "Surrounded: %s", m_surroundedChunk ? "true" : "false");
 		char lLine5[64];
-		snprintf(lLine5, 64, "Rebuilds: %i", m_numRebuilds);
+		sprintf(lLine5, "Rebuilds: %i", m_numRebuilds);
 		
 		m_pRenderer->PushMatrix();
 			m_pRenderer->SetRenderMode(RM_SOLID);

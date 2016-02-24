@@ -178,12 +178,12 @@ void Player::LoadCharacter(string characterName)
 	char animListFilename[128];
 	char facesFilename[128];
 	char characterFilename[128];
-	snprintf(characterBaseFolder, 128, "media/gamedata/models");
-	snprintf(qbFilename, 128, "media/gamedata/models/%s/%s.qb", m_type.c_str(), m_modelName.c_str());
-	snprintf(ms3dFilename, 128, "media/gamedata/models/%s/%s.ms3d", m_type.c_str(), m_type.c_str());
-	snprintf(animListFilename, 128, "media/gamedata/models/%s/%s.animlist", m_type.c_str(), m_type.c_str());
-	snprintf(facesFilename, 128, "media/gamedata/models/%s/%s.faces", m_type.c_str(), m_modelName.c_str());
-	snprintf(characterFilename, 128, "media/gamedata/models/%s/%s.character", m_type.c_str(), m_modelName.c_str());
+	sprintf(characterBaseFolder, "media/gamedata/models");
+	sprintf(qbFilename, "media/gamedata/models/%s/%s.qb", m_type.c_str(), m_modelName.c_str());
+	sprintf(ms3dFilename, "media/gamedata/models/%s/%s.ms3d", m_type.c_str(), m_type.c_str());
+	sprintf(animListFilename, "media/gamedata/models/%s/%s.animlist", m_type.c_str(), m_type.c_str());
+	sprintf(facesFilename, "media/gamedata/models/%s/%s.faces", m_type.c_str(), m_modelName.c_str());
+	sprintf(characterFilename, "media/gamedata/models/%s/%s.character", m_type.c_str(), m_modelName.c_str());
 	m_pVoxelCharacter->LoadVoxelCharacter(m_type.c_str(), qbFilename, ms3dFilename, animListFilename, facesFilename, characterFilename, characterBaseFolder);
 
 	m_pVoxelCharacter->SetBreathingAnimationEnabled(true);
