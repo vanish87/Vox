@@ -39,6 +39,12 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pChunkManager = NULL;
 	m_pFrontendManager = NULL;
 
+	m_pInventoryGUI = NULL;
+	m_pCharacterGUI = NULL;
+	m_pLootGUI = NULL;
+	m_pCraftingGUI = NULL;
+	m_pActionBar = NULL;
+
 	m_GUICreated = false;
 
 	m_pVoxSettings = pVoxSettings;
