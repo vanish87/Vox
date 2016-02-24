@@ -400,7 +400,7 @@ bool VoxGame::ShouldClose()
 // Window functionality
 int VoxGame::GetWindowCursorX()
 {
-	return m_pVoxWindow->GetCursorY();
+	return m_pVoxWindow->GetCursorX();
 }
 
 int VoxGame::GetWindowCursorY()
@@ -500,6 +500,7 @@ void VoxGame::QuitToFrontEnd()
 
 void VoxGame::SetupDataForGame()
 {
+	m_pInventoryManager->LoadDefaultInventory("Steve");
 }
 
 void VoxGame::SetupDataForFrontEnd()

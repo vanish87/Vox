@@ -614,7 +614,7 @@ void LootGUI::ShowTooltip(LootSlotItem* pInventoryItem)
 	{
 		x = x + 30;
 	}
-	if(VoxGame::GetInstance()->GetWindowCursorY() > m_windowHeight - m_tooltipHeight - 50)
+	if((m_windowHeight-VoxGame::GetInstance()->GetWindowCursorY()) > m_windowHeight - m_tooltipHeight - 50)
 	{
 		y = y + 20 - m_tooltipHeight;
 	}
@@ -710,7 +710,7 @@ void LootGUI::LootItemReleased(LootSlotItem* pLootItem)
 	int y;
 	int width;
 	int height;
-	POINT lMouse = { VoxGame::GetInstance()->GetWindowCursorX(), VoxGame::GetInstance()->GetWindowCursorY() };
+	POINT lMouse = { VoxGame::GetInstance()->GetWindowCursorX(), (m_windowHeight-VoxGame::GetInstance()->GetWindowCursorY()) };
 	bool switched = false;
 	bool sameSlot = false;
 	bool draggedToInventory = false;

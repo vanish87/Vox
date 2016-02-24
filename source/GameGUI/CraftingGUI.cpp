@@ -900,7 +900,7 @@ void CraftingGUI::ShowTooltip(RecipeSlotItem* pRecipeItem)
 	{
 		x = x + 15;
 	}
-	if(VoxGame::GetInstance()->GetWindowCursorY() > m_windowHeight - m_tooltipHeight - 50)
+	if((m_windowHeight-VoxGame::GetInstance()->GetWindowCursorY()) > m_windowHeight - m_tooltipHeight - 50)
 	{
 		y = y + 35 - m_tooltipHeight;
 	}
@@ -1027,7 +1027,7 @@ void CraftingGUI::ShowTooltip(IngredientsSlotItem* pIngredientItem)
 	{
 		x = x + 15;
 	}
-	if(VoxGame::GetInstance()->GetWindowCursorY() > m_windowHeight - m_tooltipHeight - 50)
+	if((m_windowHeight-VoxGame::GetInstance()->GetWindowCursorY()) > m_windowHeight - m_tooltipHeight - 50)
 	{
 		y = y + 20 - m_tooltipHeight;
 	}

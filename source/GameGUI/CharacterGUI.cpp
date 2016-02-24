@@ -920,7 +920,7 @@ void CharacterGUI::ShowTooltip(CharacterSlotItem* pCharacterItem)
 	{
 		x = x + 30;
 	}
-	if(VoxGame::GetInstance()->GetWindowCursorY() > m_windowHeight - m_tooltipHeight - 50)
+	if((m_windowHeight-VoxGame::GetInstance()->GetWindowCursorY()) > m_windowHeight - m_tooltipHeight - 50)
 	{
 		y = y + 20 - m_tooltipHeight;
 	}
@@ -1409,7 +1409,7 @@ void CharacterGUI::CharacterItemReleased(CharacterSlotItem* pCharacterItem)
 	int y;
 	int width;
 	int height;
-	POINT lMouse = { VoxGame::GetInstance()->GetWindowCursorX(), VoxGame::GetInstance()->GetWindowCursorY() };
+	POINT lMouse = { VoxGame::GetInstance()->GetWindowCursorX(), (m_windowHeight-VoxGame::GetInstance()->GetWindowCursorY()) };
 	bool unequip = false;
 
 	// Check if we have released on an inventory slot
