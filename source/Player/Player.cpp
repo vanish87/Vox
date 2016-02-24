@@ -206,6 +206,26 @@ void Player::LoadCharacter(string characterName)
 }
 
 // Unloading
+void Player::LoadWeapon(bool left, string weaponFile)
+{
+	if (left)
+	{
+		if (m_pVoxelCharacter->GetLeftWeapon() != NULL)
+		{
+			// Load the weapon file
+			m_pVoxelCharacter->LoadLeftWeapon(weaponFile.c_str());
+		}
+	}
+	else
+	{
+		if (m_pVoxelCharacter->GetRightWeapon() != NULL)
+		{
+			// Load the weapon file
+			m_pVoxelCharacter->LoadRightWeapon(weaponFile.c_str());
+		}
+	}
+}
+
 void Player::UnloadWeapon(bool left)
 {
 	VoxelWeapon* pWeapon = NULL;
@@ -300,7 +320,7 @@ void Player::EquipItem(InventoryItem* pItem)
 	{
 	case EquipSlot_LeftHand:
 	{
-		//LoadWeapon(true, pItem->m_filename);
+		LoadWeapon(true, pItem->m_filename);
 
 		switch (pItem->m_itemType)
 		{
@@ -332,7 +352,7 @@ void Player::EquipItem(InventoryItem* pItem)
 	break;
 	case EquipSlot_RightHand:
 	{
-		//LoadWeapon(false, pItem->m_filename);
+		LoadWeapon(false, pItem->m_filename);
 
 		switch (pItem->m_itemType)
 		{

@@ -75,6 +75,7 @@ public:
 	void LoadCharacter(string characterName);
 
 	// Unloading
+	void LoadWeapon(bool left, string weaponFile);
 	void UnloadWeapon(bool left);
 
 	// Equipping items
