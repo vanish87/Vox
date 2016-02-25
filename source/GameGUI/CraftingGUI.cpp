@@ -363,8 +363,10 @@ void CraftingGUI::Unload()
 
 	m_loaded = false;
 
-	// Needs to be after setting loaded to false, so that we correctly turn the cursor back off
-	VoxGame::GetInstance()->GUITurnOffCursor();
+	if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false) // Needs to be after setting loaded to false, so that we correctly turn the cursor back off
+	{
+		VoxGame::GetInstance()->TurnCursorOff();
+	}
 }
 
 bool CraftingGUI::IsLoaded()

@@ -218,7 +218,10 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 			{
 				m_pInventoryGUI->Unload();
 
-				m_pVoxWindow->TurnCursorOff();
+				if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
+				{
+					m_pVoxWindow->TurnCursorOff();
+				}
 			}
 			else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_None)
 			{
@@ -236,7 +239,10 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 			{
 				m_pCharacterGUI->Unload();
 
-				m_pVoxWindow->TurnCursorOff();
+				if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
+				{
+					m_pVoxWindow->TurnCursorOff();
+				}
 			}
 			else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_None)
 			{

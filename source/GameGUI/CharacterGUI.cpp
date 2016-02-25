@@ -1647,7 +1647,10 @@ void CharacterGUI::CloseExitPressed()
 {
 	Unload();
 
-	VoxGame::GetInstance()->GUITurnOffCursor();
+	if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
+	{
+		VoxGame::GetInstance()->TurnCursorOff();
+	}
 }
 
 void CharacterGUI::_OpenCloseTabPressed(void *pData)

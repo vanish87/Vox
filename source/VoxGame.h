@@ -158,6 +158,12 @@ public:
 	void RenderGUI();
 	void RenderDebugInformation();
 
+	// GUI Helper functions
+	bool IsGUIWindowStillDisplayed();
+	void CloseAllGUIWindows();
+	void TurnCursorOn(bool resetCursorPosition);
+	void TurnCursorOff();
+
 	// GUI
 	void CreateGUI();
 	void SetupGUI();

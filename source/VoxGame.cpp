@@ -338,6 +338,8 @@ void VoxGame::CancelQuitPopup()
 
 void VoxGame::ShowQuitPopup()
 {
+	CloseAllGUIWindows();
+
 	m_pFrontendManager->SetFrontendScreen(FrontendScreen_QuitPopup);
 
 	SetPaused(true);
@@ -530,6 +532,9 @@ void VoxGame::SetGameMode(GameMode mode)
 	{
 		if (previousgameMode == GameMode_Game || previousgameMode == GameMode_Loading)
 		{
+			// Close all open GUI windows
+			CloseAllGUIWindows();
+
 			// Setup the gamedata since we have just loaded fresh into the frontend.
 			SetupDataForFrontEnd();
 		}
@@ -539,6 +544,9 @@ void VoxGame::SetGameMode(GameMode mode)
 	{
 		if (previousgameMode == GameMode_FrontEnd || previousgameMode == GameMode_Loading)
 		{
+			// Close all open GUI windows
+			CloseAllGUIWindows();
+
 			// Setup the gamedata since we have just loaded fresh into a game.
 			SetupDataForGame();
 		}
@@ -558,4 +566,63 @@ void VoxGame::SetCameraMode(CameraMode mode)
 CameraMode VoxGame::GetCameraMode()
 {
 	return m_cameraMode;
+}
+
+// GUI Helper functions
+bool VoxGame::IsGUIWindowStillDisplayed()
+{
+	if (m_pInventoryGUI->IsLoaded())
+	{
+		return true;
+	}
+
+	if (m_pCharacterGUI->IsLoaded())
+	{
+		return true;
+	}
+
+	if (m_pLootGUI->IsLoaded())
+	{
+		return true;
+	}
+
+	if (m_pCraftingGUI->IsLoaded())
+	{
+		return true;
+	}
+
+	return false;
+}
+
+void VoxGame::CloseAllGUIWindows()
+{
+	if (m_pInventoryGUI->IsLoaded())
+	{
+		m_pInventoryGUI->Unload();
+	}
+
+	if (m_pCharacterGUI->IsLoaded())
+	{
+		m_pCharacterGUI->Unload();
+	}
+
+	if (m_pLootGUI->IsLoaded())
+	{
+		m_pLootGUI->Unload();
+	}
+
+	if (m_pCraftingGUI->IsLoaded())
+	{
+		m_pCraftingGUI->Unload();
+	}
+}
+
+void VoxGame::TurnCursorOn(bool resetCursorPosition)
+{
+	m_pVoxWindow->TurnCursorOn(resetCursorPosition);
+}
+
+void VoxGame::TurnCursorOff()
+{
+	m_pVoxWindow->TurnCursorOff();
 }

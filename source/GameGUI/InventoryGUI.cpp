@@ -1424,7 +1424,10 @@ void InventoryGUI::CloseExitPressed()
 {
 	Unload();
 
-	VoxGame::GetInstance()->GUITurnOffCursor();
+	if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
+	{
+		VoxGame::GetInstance()->TurnCursorOff();
+	}
 }
 
 void InventoryGUI::_PopupConfirmPressed(void *apData)
