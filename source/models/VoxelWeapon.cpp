@@ -305,18 +305,75 @@ void VoxelWeapon::SaveWeapon(const char *weaponFilename)
 	{
 		file << "offset: " << m_renderOffset.x << " " << m_renderOffset.y << " " << m_renderOffset.z << "\n";
 
-		file << "scale: " << m_renderScale << "\n";
+		file << "scale: " << m_renderScale << "\n\n";
 
-		// TODO : Write export functionality
 		// Animated sections
+		file << "numAnimatedSections: " << m_numAnimatedSections << "\n";
+		for (int i = 0; i < m_numAnimatedSections; i++)
+		{
+			file << "qubicleFile: " << m_pAnimatedSections[i].m_fileName << "\n";
+			file << "renderScale: " << m_pAnimatedSections[i].m_renderScale << "\n";
+			file << "renderOffset: " << m_pAnimatedSections[i].m_renderOffset.x << " " << m_pAnimatedSections[i].m_renderOffset.y << " " << m_pAnimatedSections[i].m_renderOffset.z << " " << "\n";
+			file << "autoStartAnimation: " << m_pAnimatedSections[i].m_autoStart << "\n";
+			file << "loopingAnimation: " << m_pAnimatedSections[i].m_loopingAnimation << "\n";
+			file << "translateXSpeed: " << m_pAnimatedSections[i].m_translateSpeedX << "\n";
+			file << "translateYSpeed: " << m_pAnimatedSections[i].m_translateSpeedY << "\n";
+			file << "translateZSpeed: " << m_pAnimatedSections[i].m_translateSpeedZ << "\n";
+			file << "translateXRange: " << m_pAnimatedSections[i].m_translateRangeXMin << " " << m_pAnimatedSections[i].m_translateRangeXMax << "\n";
+			file << "translateYRange: " << m_pAnimatedSections[i].m_translateRangeYMin << " " << m_pAnimatedSections[i].m_translateRangeYMax << "\n";
+			file << "translateZRange: " << m_pAnimatedSections[i].m_translateRangeZMin << " " << m_pAnimatedSections[i].m_translateRangeZMax << "\n";
+			file << "translateXTurnSpeed: " << m_pAnimatedSections[i].m_translateSpeedTurnSpeedX << "\n";
+			file << "translateYTurnSpeed: " << m_pAnimatedSections[i].m_translateSpeedTurnSpeedY << "\n";
+			file << "translateZTurnSpeed: " << m_pAnimatedSections[i].m_translateSpeedTurnSpeedZ << "\n";
+			file << "rotationPoint: " << m_pAnimatedSections[i].m_rotationPoint.x << " " << m_pAnimatedSections[i].m_rotationPoint.y << " " << m_pAnimatedSections[i].m_rotationPoint.z << "\n";
+			file << "rotationXSpeed: " << m_pAnimatedSections[i].m_rotationSpeedX << "\n";
+			file << "rotationYSpeed: " << m_pAnimatedSections[i].m_rotationSpeedY << "\n";
+			file << "rotationZSpeed: " << m_pAnimatedSections[i].m_rotationSpeedZ << "\n";
+			file << "rotationXRange: " << m_pAnimatedSections[i].m_rotationRangeXMin << " " << m_pAnimatedSections[i].m_rotationRangeXMax << "\n";
+			file << "rotationYRange: " << m_pAnimatedSections[i].m_rotationRangeYMin << " " << m_pAnimatedSections[i].m_rotationRangeYMax << "\n";
+			file << "rotationZRange: " << m_pAnimatedSections[i].m_rotationRangeZMin << " " << m_pAnimatedSections[i].m_rotationRangeZMax << "\n";
+			file << "rotationXTurnSpeed: " << m_pAnimatedSections[i].m_rotationSpeedTurnSpeedX << "\n";
+			file << "rotationYTurnSpeed: " << m_pAnimatedSections[i].m_rotationSpeedTurnSpeedY << "\n";
+			file << "rotationZTurnSpeed: " << m_pAnimatedSections[i].m_rotationSpeedTurnSpeedZ << "\n";
+		}
+		file << "\n";
 
 		// Dynamic lights
+		file << "numLights: " << m_numLights << "\n";
+		for (int i = 0; i < m_numLights; i++)
+		{
+			file << "lightOffset: " << m_pLights[i].m_lightOffset.x << " " << m_pLights[i].m_lightOffset.y << " " << m_pLights[i].m_lightOffset.z << " " << "\n";
+			file << "lightRadius: " << m_pLights[i].m_lightRadius << "\n";
+			file << "lightDiffuseMultiplier: " << m_pLights[i].m_lightDiffuseMultiplier << "\n";
+			file << "lightColour: " << m_pLights[i].m_lightColour.GetRed() << " " << m_pLights[i].m_lightColour.GetGreen() << " " << m_pLights[i].m_lightColour.GetBlue() << " " << m_pLights[i].m_lightColour.GetAlpha() << "\n";
+			file << "connectedToSection: " << m_pLights[i].m_connectedToSectionIndex << "\n";
+		}
+		file << "\n";
 
 		// Particle effects
+		file << "numParticleEffects: " << m_numParticleEffects << "\n";
+		for (int i = 0; i < m_numParticleEffects; i++)
+		{
+			file << "particleEffect: " << m_pParticleEffects[i].m_fileName << "\n";
+			file << "position: " << m_pParticleEffects[i].m_positionOffset.x << " " << m_pParticleEffects[i].m_positionOffset.y << " " << m_pParticleEffects[i].m_positionOffset.z << "\n";
+			file << "connectedToSection: " << m_pParticleEffects[i].m_connectedToSectionIndex << "\n";
+		}
+		file << "\n";
 
 		// Weapon trails
+		file << "numWeaponTrails: " << m_numWeaponTrails << "\n";
+		for (int i = 0; i < m_numWeaponTrails; i++)
+		{
+			file << "trailTime: " << m_pWeaponTrails[i].m_trailTime << "\n";
+			file << "startOffsetPoint: " << m_pWeaponTrails[i].m_startOffsetPoint.x << " " << m_pWeaponTrails[i].m_startOffsetPoint.y << " " << m_pWeaponTrails[i].m_startOffsetPoint.z << "\n";
+			file << "endOffsetPoint: " << m_pWeaponTrails[i].m_endOffsetPoint.x << " " << m_pWeaponTrails[i].m_endOffsetPoint.y << " " << m_pWeaponTrails[i].m_endOffsetPoint.z << "\n";
+			file << "trailColour: " << m_pWeaponTrails[i].m_trailColour.GetRed() << " " << m_pWeaponTrails[i].m_trailColour.GetGreen() << " " << m_pWeaponTrails[i].m_trailColour.GetBlue() << " " << m_pWeaponTrails[i].m_trailColour.GetAlpha() << "\n";
+			file << "followOrigin: " << m_pWeaponTrails[i].m_followOrigin << "\n";
+		}
+		file << "\n";
 
 		// Gameplay
+		file << "weaponRadius: " << m_weaponRadius << "\n";
 
 		file.close();
 	}
