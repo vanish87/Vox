@@ -1,7 +1,7 @@
 // ******************************************************************************
-// Filename:	Player.h
-// Project:	Vox
-// Author:	Steven Ball
+// Filename:    Player.h
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //   The player class contains all the functioanlity of a player, an entity that
@@ -10,7 +10,7 @@
 // Revision History:
 //   Initial Revision - 27/10/15
 //
-// Copyright (c) 2005-2015, Steven Ball
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #pragma once
@@ -105,6 +105,9 @@ public:
 	void StopMoving();
 	void Jump();
 	bool CanJump();
+
+	// Dead
+	bool IsDead();
 
 	// Combat
 	void PressAttack();
@@ -262,10 +265,20 @@ private:
 	// Idle flag
 	bool m_bIsIdle;
 
+	// Dead flag
+	bool m_dead;
+
 	// Combat
 	bool m_bCanAttackLeft;
 	bool m_bCanAttackRight;
 	bool m_bCanInteruptCombatAnim;
+
+	// Charging attacks
+	bool m_bIsChargingAttack;
+	float m_chargeAmount;
+	float m_chargeTime;
+	vec3 m_chargeSpawnVelocity;
+	vec3 m_chargeSpawnPosition;
 
 	// Bitfield flag to hold the equipped properties for a player
 	unsigned int m_equippedProperties;

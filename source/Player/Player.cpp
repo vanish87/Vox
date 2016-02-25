@@ -1,16 +1,15 @@
 // ******************************************************************************
-// Filename:	Player.cpp
-// Project:	Vox
-// Author:	Steven Ball
+// Filename:    Player.cpp
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Revision History:
 //   Initial Revision - 27/10/15
 //
-// Copyright (c) 2005-2015, Steven Ball
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #include "Player.h"
-#include "../utils/Random.h"
 #include "../utils/Interpolator.h"
 #include "../blocks/Chunk.h"
 #include <glm/detail/func_geometric.hpp>
@@ -44,23 +43,36 @@ Player::Player(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryMa
 	m_stepUpAnimationYOffset = 0.0f;
 	m_stepUpAdditionYAmountChangedCache = 0.0f;
 
+	// Grid positioning
 	m_gridPositionX = 0;
 	m_gridPositionY = 0;
 	m_gridPositionZ = 0;
 
 	m_pCachedGridChunk = NULL;
 
+	// Ground check
 	m_bIsOnGround = false;
 	m_groundCheckTimer = 0.0f;
 
+	// Jumping
 	m_bCanJump = true;
 	m_jumpTimer = 0.0f;
 
+	// Dead flag
+	m_dead = false;
+
+	// Idle flag
 	m_bIsIdle = true;
 
+	// Combat
 	m_bCanAttackLeft = true;
 	m_bCanAttackRight = true;
 	m_bCanInteruptCombatAnim = true;
+
+	// Charging attacks
+	m_bIsChargingAttack = false;
+	m_chargeAmount = 0.0f;
+	m_chargeTime = 1.0f;
 
 	// Player stats
 	m_strengthModifier = 0;
@@ -326,7 +338,11 @@ void Player::EquipItem(InventoryItem* pItem)
 		{
 		case InventoryType_Weapon_Dagger: { SetDagger(true); } break;
 		case InventoryType_Weapon_Shield: { SetShield(true); } break;
-		case InventoryType_Weapon_Bow: { SetBow(true); } break;
+		case InventoryType_Weapon_Bow:
+			{
+				SetBow(true);
+				break;
+			}
 		case InventoryType_Weapon_Torch: { SetTorch(true); } break;
 		case InventoryType_Weapon_SpellHands:
 			{
@@ -993,7 +1009,14 @@ vec3 Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeFo
 	}
 
 	// Change to run animation
-	m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, true, AnimationSections_FullBody, "Run", 0.01f);
+	if (m_bIsChargingAttack == false)
+	{
+		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, true, AnimationSections_Legs_Feet, "Run", 0.01f);
+	}
+	else
+	{
+		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, true, AnimationSections_FullBody, "Run", 0.01f);
+	}
 
 	m_bIsIdle = false;
 
@@ -1053,13 +1076,19 @@ void Player::Jump()
 	m_velocity += m_up * 14.0f;
 
 	// Change to jump animation
-	if (CanAttackLeft() && CanAttackRight())
+	if (m_bIsChargingAttack == false)
 	{
-		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "Jump", 0.01f);
+		if (CanAttackLeft() && CanAttackRight())
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "Jump", 0.01f);
+		}
 	}
-	if (m_bCanInteruptCombatAnim)
+	else
 	{
-		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, false, AnimationSections_Legs_Feet, "Jump", 0.01f);
+		if (m_bCanInteruptCombatAnim)
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, false, AnimationSections_Legs_Feet, "Jump", 0.01f);
+		}
 	}
 }
 
@@ -1068,54 +1097,10 @@ bool Player::CanJump()
 	return m_bCanJump;
 }
 
-// Combat
-void Player::PressAttack()
+// Dead
+bool Player::IsDead()
 {
-	if (CanAttackRight())
-	{
-		int randomAttack = GetRandomNumber(1, 3);
-		if (randomAttack == 1)
-		{
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, true, AnimationSections_FullBody, "SwordAttack1", 0.01f);
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Head_Body, false, AnimationSections_Head_Body, "SwordAttack1", 0.01f);
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "SwordAttack1", 0.01f);
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "SwordAttack1", 0.01f);
-
-			m_bCanInteruptCombatAnim = true;
-		}
-		else if (randomAttack == 2)
-		{
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, true, AnimationSections_FullBody, "SwordAttack2", 0.01f);
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Head_Body, false, AnimationSections_Head_Body, "SwordAttack2", 0.01f);
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "SwordAttack2", 0.01f);
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "SwordAttack1", 0.01f);
-
-			m_bCanInteruptCombatAnim = true;
-		}
-		else if (randomAttack == 3)
-		{
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "SwordAttack3", 0.01f);
-
-			m_bCanInteruptCombatAnim = false;
-		}
-
-		m_bCanAttackRight = false;
-	}
-}
-
-void Player::ReleaseAttack()
-{
-
-}
-
-bool Player::CanAttackLeft()
-{
-	return m_bCanAttackLeft;
-}
-
-bool Player::CanAttackRight()
-{
-	return m_bCanAttackRight;
+	return m_dead;
 }
 
 // Player equipped attributes

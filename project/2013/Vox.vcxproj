@@ -139,6 +139,7 @@
     <ClCompile Include="..\..\source\Particles\BlockParticleEmitter.cpp" />
     <ClCompile Include="..\..\source\Particles\BlockParticleManager.cpp" />
     <ClCompile Include="..\..\source\Player\Player.cpp" />
+    <ClCompile Include="..\..\source\Player\PlayerCombat.cpp" />
     <ClCompile Include="..\..\source\Renderer\camera.cpp" />
     <ClCompile Include="..\..\source\Renderer\colour.cpp" />
     <ClCompile Include="..\..\source\Renderer\frustum.cpp" />

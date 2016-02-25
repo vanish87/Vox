@@ -543,6 +543,9 @@
     <ClCompile Include="..\..\source\GameGUI\LootGUI.cpp">
       <Filter>source\GameGUI</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\Player\PlayerCombat.cpp">
+      <Filter>source\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\glew\include\GL\glew.h">
