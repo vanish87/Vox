@@ -508,7 +508,6 @@ void VoxGame::QuitToFrontEnd()
 
 void VoxGame::SetupDataForGame()
 {
-	m_pInventoryManager->LoadDefaultInventory("Steve");
 }
 
 void VoxGame::SetupDataForFrontEnd()

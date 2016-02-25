@@ -888,6 +888,8 @@ void VoxGame::GameModeChanged()
 	{
 		SetGameMode(GameMode_Game);
 
+		m_pInventoryManager->LoadDefaultInventory("Steve");
+
 		m_pMouseRotateCameraOptionBox->SetDisabled(false);
 		m_pAutoCameraOptionBox->SetDisabled(false);
 	}
