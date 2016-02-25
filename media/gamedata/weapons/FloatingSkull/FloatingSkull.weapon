@@ -10,22 +10,22 @@ loopingAnimation: 1
 translateXSpeed: 0
 translateYSpeed: 0.6
 translateZSpeed: 0
-translateXRange 0 0
-translateYRange -1.5 0.5
-translateZRange 0 0
-translateXTurnSpeed 0
-translateYTurnSpeed 0.75
-translateZTurnSpeed 0
+translateXRange: 0 0
+translateYRange: -1.5 0.5
+translateZRange: 0 0
+translateXTurnSpeed: 0
+translateYTurnSpeed: 0.75
+translateZTurnSpeed: 0
 rotationPoint: 0 0 0
-rotationXSpeed 0
-rotationYSpeed 5
-rotationZSpeed 0
-rotationXRange 0 0
-rotationYRange -20 20
-rotationZRange 0 0
-rotationXTurnSpeed 0
-rotationYTurnSpeed 1
-rotationZTurnSpeed 0
+rotationXSpeed: 0
+rotationYSpeed: 5
+rotationZSpeed: 0
+rotationXRange: 0 0
+rotationYRange: -20 20
+rotationZRange: 0 0
+rotationXTurnSpeed: 0
+rotationYTurnSpeed: 1
+rotationZTurnSpeed: 0
 
 numLights: 1
 lightOffset: 0.0 0.0 0.0

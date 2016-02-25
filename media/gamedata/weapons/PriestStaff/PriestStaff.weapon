@@ -10,22 +10,22 @@ loopingAnimation: 0
 translateXSpeed: 0
 translateYSpeed: 0
 translateZSpeed: 0
-translateXRange 0 0
-translateYRange 0 0
-translateZRange 0 0
-translateXTurnSpeed 0
-translateYTurnSpeed 0
-translateZTurnSpeed 0
+translateXRange: 0 0
+translateYRange: 0 0
+translateZRange: 0 0
+translateXTurnSpeed: 0
+translateYTurnSpeed: 0
+translateZTurnSpeed: 0
 rotationPoint: 0 0 0
-rotationXSpeed 0
-rotationYSpeed 0
-rotationZSpeed 0
-rotationXRange 0 0
-rotationYRange 0 0
-rotationZRange 0 0
-rotationXTurnSpeed 0
-rotationYTurnSpeed 0
-rotationZTurnSpeed 0
+rotationXSpeed: 0
+rotationYSpeed: 0
+rotationZSpeed: 0
+rotationXRange: 0 0
+rotationYRange: 0 0
+rotationZRange: 0 0
+rotationXTurnSpeed: 0
+rotationYTurnSpeed: 0
+rotationZTurnSpeed: 0
 
 qubicleFile: media/gamedata/weapons/PriestStaff/Crystal1.qb
 renderScale: 1.25
@@ -35,22 +35,22 @@ loopingAnimation: 1
 translateXSpeed: 0
 translateYSpeed: 1
 translateZSpeed: 0
-translateXRange 0 0
-translateYRange -4 0
-translateZRange 0 0
-translateXTurnSpeed 0
-translateYTurnSpeed 2
-translateZTurnSpeed 0
+translateXRange: 0 0
+translateYRange: -4 0
+translateZRange: 0 0
+translateXTurnSpeed: 0
+translateYTurnSpeed: 2
+translateZTurnSpeed: 0
 rotationPoint: 0 0 0
-rotationXSpeed 0
-rotationYSpeed 55
-rotationZSpeed 0
-rotationXRange 0 0
-rotationYRange 0 360
-rotationZRange 0 0
-rotationXTurnSpeed 0
-rotationYTurnSpeed 55
-rotationZTurnSpeed 0
+rotationXSpeed: 0
+rotationYSpeed: 55
+rotationZSpeed: 0
+rotationXRange: 0 0
+rotationYRange: 0 360
+rotationZRange: 0 0
+rotationXTurnSpeed: 0
+rotationYTurnSpeed: 55
+rotationZTurnSpeed: 0
 
 qubicleFile: media/gamedata/weapons/PriestStaff/Crystal1.qb
 renderScale: 1.25
@@ -60,22 +60,22 @@ loopingAnimation: 1
 translateXSpeed: 0
 translateYSpeed: 1
 translateZSpeed: 0
-translateXRange 0 0
-translateYRange 0 4.5
-translateZRange 0 0
-translateXTurnSpeed 0
-translateYTurnSpeed 2
-translateZTurnSpeed 0
+translateXRange: 0 0
+translateYRange: 0 4.5
+translateZRange: 0 0
+translateXTurnSpeed: 0
+translateYTurnSpeed: 2
+translateZTurnSpeed: 0
 rotationPoint: 0 0 0
-rotationXSpeed 0
-rotationYSpeed 50
-rotationZSpeed 0
-rotationXRange 0 0
-rotationYRange 0 360
-rotationZRange 0 0
-rotationXTurnSpeed 0
-rotationYTurnSpeed 50
-rotationZTurnSpeed 0
+rotationXSpeed: 0
+rotationYSpeed: 50
+rotationZSpeed: 0
+rotationXRange: 0 0
+rotationYRange: 0 360
+rotationZRange: 0 0
+rotationXTurnSpeed: 0
+rotationYTurnSpeed: 50
+rotationZTurnSpeed: 0
 
 qubicleFile: media/gamedata/weapons/PriestStaff/Crystal2.qb
 renderScale: 1
@@ -85,22 +85,22 @@ loopingAnimation: 1
 translateXSpeed: 0
 translateYSpeed: 1
 translateZSpeed: 0
-translateXRange 0 0
-translateYRange -1 2
-translateZRange 0 0
-translateXTurnSpeed 0
-translateYTurnSpeed 2
-translateZTurnSpeed 0
+translateXRange: 0 0
+translateYRange: -1 2
+translateZRange: 0 0
+translateXTurnSpeed: 0
+translateYTurnSpeed: 2
+translateZTurnSpeed: 0
 rotationPoint: 0 0 0
-rotationXSpeed 0
-rotationYSpeed 60
-rotationZSpeed 0
-rotationXRange 0 0
-rotationYRange 0 360
-rotationZRange 0 0
-rotationXTurnSpeed 0
-rotationYTurnSpeed 60
-rotationZTurnSpeed 0
+rotationXSpeed: 0
+rotationYSpeed: 60
+rotationZSpeed: 0
+rotationXRange: 0 0
+rotationYRange: 0 360
+rotationZRange: 0 0
+rotationXTurnSpeed: 0
+rotationYTurnSpeed: 60
+rotationZTurnSpeed: 0
 
 numLights: 1
 lightOffset: 0 0 0
