@@ -1,16 +1,14 @@
 // ******************************************************************************
-//
-// Filename:	LootGUI.cpp
-// Project:		Game
-// Author:		Steven Ball
+// Filename:    LootGUI.cpp
+// Project:     Game
+// Author:      Steven Ball
 //
 // Purpose:
 //
 // Revision History:
 //   Initial Revision - 18/11/14
 //
-// Copyright (c) 2005-2011, Steven Ball
-//
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #pragma warning(disable: 4800) // Disable 'casting to bool' warning C4800

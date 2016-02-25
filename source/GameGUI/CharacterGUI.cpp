@@ -1,16 +1,14 @@
 // ******************************************************************************
-//
-// Filename:	CharacterGUI.cpp
-// Project:		Game
-// Author:		Steven Ball
+// Filename:    CharacterGUI.cpp
+// Project:     Game
+// Author:      Steven Ball
 //
 // Purpose:
 //
 // Revision History:
 //   Initial Revision - 11/06/12
 //
-// Copyright (c) 2005-2011, Steven Ball
-//
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #include "CharacterGUI.h"

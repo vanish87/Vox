@@ -1,16 +1,14 @@
 // ******************************************************************************
-//
-// Filename:	InventoryGUI.cpp
-// Project:		Game
-// Author:		Steven Ball
+// Filename:    InventoryGUI.cpp
+// Project:     Game
+// Author:      Steven Ball
 //
 // Purpose:
 //
 // Revision History:
 //   Initial Revision - 18/11/14
 //
-// Copyright (c) 2005-2011, Steven Ball
-//
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #include "InventoryGUI.h"
