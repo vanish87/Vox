@@ -205,7 +205,6 @@ public:
 	void SetWireFrameRender(bool wireframe);
 	void SetMeshAlpha(float alpha);
 	void SetMeshSingleColour(float r, float g, float b);
-	void SetForceTransparency(bool force);
 
 	// Updating
 	void SetWeaponTrailsParams(Matrix4x4 originMatrix, float scale);
