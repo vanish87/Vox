@@ -174,6 +174,9 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	/* Create the item manager */
 	m_pItemManager = new ItemManager(m_pRenderer, m_pChunkManager, m_pPlayer);
 
+	/* Create the projectile manager */
+	m_pProjectileManager = new ProjectileManager(m_pRenderer, m_pChunkManager);
+
 	/* Create the frontend manager */
 	m_pFrontendManager = new FrontendManager(m_pRenderer, m_pGUI);
 	m_pFrontendManager->SetWindowDimensions(m_windowWidth, m_windowHeight);
@@ -190,6 +193,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pChunkManager->SetSceneryManager(m_pSceneryManager);
 	m_pPlayer->SetInventoryManager(m_pInventoryManager);
 	m_pPlayer->SetItemManager(m_pItemManager);
+	m_pPlayer->SetProjectileManager(m_pProjectileManager);
 	m_pInventoryManager->SetPlayer(m_pPlayer);
 	m_pInventoryManager->SetInventoryGUI(m_pInventoryGUI);
 	m_pInventoryManager->SetLootGUI(m_pLootGUI);
@@ -198,6 +202,10 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pItemManager->SetBlockParticleManager(m_pBlockParticleManager);
 	m_pItemManager->SetQubicleBinaryManager(m_pQubicleBinaryManager);
 	m_pItemManager->SetInventoryManager(m_pInventoryManager);
+	m_pProjectileManager->SetLightingManager(m_pLightingManager);
+	m_pProjectileManager->SetBlockParticleManager(m_pBlockParticleManager);
+	m_pProjectileManager->SetPlayer(m_pPlayer);
+	m_pProjectileManager->SetQubicleBinaryManager(m_pQubicleBinaryManager);
 	m_pInventoryGUI->SetCharacterGUI(m_pCharacterGUI);
 	m_pInventoryGUI->SetLootGUI(m_pLootGUI);
 	m_pInventoryGUI->SetActionBar(m_pActionBar);

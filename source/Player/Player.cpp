@@ -115,6 +115,11 @@ void Player::SetItemManager(ItemManager* pItemManager)
 	m_pItemManager = pItemManager;
 }
 
+void Player::SetProjectileManager(ProjectileManager* pProjectileManager)
+{
+	m_pProjectileManager = pProjectileManager;
+}
+
 // Get voxel character pointer
 VoxelCharacter* Player::GetVoxelCharacter()
 {
@@ -1015,7 +1020,10 @@ vec3 Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeFo
 	}
 	else
 	{
-		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, true, AnimationSections_FullBody, "Run", 0.01f);
+		if (m_bIsIdle)
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, false, AnimationSections_Legs_Feet, "Run", 0.01f);
+		}
 	}
 
 	m_bIsIdle = false;
@@ -1042,13 +1050,20 @@ void Player::StopMoving()
 	{
 		m_bIsIdle = true;
 
-		if (CanAttackLeft() && CanAttackRight())
+		if (m_bIsChargingAttack == false)
 		{
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BindPose", 0.15f);
+			if (CanAttackLeft() && CanAttackRight())
+			{
+				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BindPose", 0.15f);
+			}
+			if (m_bCanInteruptCombatAnim)
+			{
+				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, false, AnimationSections_Legs_Feet, "BindPose", 0.15f);
+			}
 		}
-		if (m_bCanInteruptCombatAnim)
+		else
 		{
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, false, AnimationSections_Legs_Feet, "BindPose", 0.15f);
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, false, AnimationSections_Legs_Feet, "BowStance", 0.15f);
 		}
 	}
 }
@@ -1501,6 +1516,9 @@ void Player::Update(float dt)
 	// Update animations
 	UpdateAnimations(dt);
 
+	// Update charging attack
+	UpdateChargingAttack(dt);
+
 	// Update / Create weapon lights and particle effects
 	UpdateWeaponLights(dt);
 	UpdateWeaponParticleEffects(dt);
@@ -1743,6 +1761,34 @@ void Player::UpdateWeaponParticleEffects(float dt)
 				}
 			}
 		}
+	}
+}
+
+void Player::UpdateChargingAttack(float dt)
+{
+	// Charging - figure out trajectory and velocity for projectile
+	if (m_bIsChargingAttack)
+	{
+		m_chargeAmount += dt / m_chargeTime;
+
+		if (m_chargeAmount > 1.0f)
+		{
+			m_chargeAmount = 1.0f;
+		}
+
+		m_chargeSpawnPosition = GetCenter() + (m_forward*0.75f) + (GetUpVector()*0.5f);
+
+		float liftAmount = 3.5f * m_chargeAmount;
+		float powerAmount = 90.0f * m_chargeAmount;
+		float cameraMultiplier = 75.0f;
+
+		m_chargeSpawnVelocity = (m_forward * powerAmount) + (GetUpVector() * liftAmount) + (vec3(0.0f, 1.0f, 0.0f) * /*(m_cameraForward.y*cameraMultiplier) * */m_chargeAmount);
+
+		//m_pVoxelCharacter->SetHeadAndUpperBodyLookRotation(-m_cameraForward.y*20.0f, 0.5f);
+	}
+	else
+	{
+		//m_pVoxelCharacter->SetHeadAndUpperBodyLookRotation(0.0f, 0.0f);
 	}
 }
 

@@ -23,6 +23,8 @@
 #include "../Inventory/InventoryManager.h"
 #include "../Items/ItemManager.h"
 
+class ProjectileManager;
+class Projectile;
 
 static const int PlayerEquippedProperties_None = 0;
 static const int PlayerEquippedProperties_Sword = 1;
@@ -56,6 +58,7 @@ public:
 	// Linkage
 	void SetInventoryManager(InventoryManager* pInventoryManager);
 	void SetItemManager(ItemManager* pItemManager);
+	void SetProjectileManager(ProjectileManager* pProjectileManager);
 
 	// Get voxel character pointer
 	VoxelCharacter* GetVoxelCharacter();
@@ -175,6 +178,7 @@ public:
 	void UpdateTimers(float dt);
 	void UpdateWeaponLights(float dt);
 	void UpdateWeaponParticleEffects(float dt);
+	void UpdateChargingAttack(float dt);
 
 	// Rendering
 	void Render();
@@ -207,6 +211,7 @@ private:
 	BlockParticleManager* m_pBlockParticleManager;
 	InventoryManager* m_pInventoryManager;
 	ItemManager* m_pItemManager;
+	ProjectileManager* m_pProjectileManager;
 
 	// Player position and movement variables
 	vec3 m_position;

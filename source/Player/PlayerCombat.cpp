@@ -11,6 +11,8 @@
 
 #include "Player.h"
 #include "../utils/Random.h"
+#include "../Projectile/ProjectileManager.h"
+#include "../Projectile/Projectile.h"
 
 // Combat
 void Player::PressAttack()
@@ -150,6 +152,11 @@ void Player::ReleaseAttack()
 		if (m_bIsChargingAttack == true)
 		{
 			UnloadWeapon(false);
+
+			Projectile* pProjectile = m_pProjectileManager->CreateProjectile(m_chargeSpawnPosition, m_chargeSpawnVelocity, 0.0f, "media/gamedata/items/Arrow/Arrow.item", 0.08f);
+			pProjectile->SetProjectileType(true, false, false);
+			// TODO : Add me back in
+			//pProjectile->SetOwner(this, NULL, NULL);
 
 			m_bIsChargingAttack = false;
 			m_chargeAmount = 0.0f;

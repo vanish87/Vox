@@ -100,6 +100,9 @@
     <Filter Include="source\GameGUI">
       <UniqueIdentifier>{d2308808-719c-4cc4-b50b-aafa56850caf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\Projectile">
+      <UniqueIdentifier>{05ff6403-749f-4d65-ba47-4fc98b04f664}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\glew\src\glew.c">
@@ -548,6 +551,12 @@
     </ClCompile>
     <ClCompile Include="..\..\source\Player\PlayerCombat.cpp">
       <Filter>source\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Projectile\Projectile.cpp">
+      <Filter>source\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Projectile\ProjectileManager.cpp">
+      <Filter>source\Projectile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1453,6 +1462,12 @@
     </ClInclude>
     <ClInclude Include="..\..\source\GameGUI\LootGUI.h">
       <Filter>source\GameGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Projectile\Projectile.h">
+      <Filter>source\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Projectile\ProjectileManager.h">
+      <Filter>source\Projectile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

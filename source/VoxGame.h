@@ -27,6 +27,7 @@
 #include "Skybox/Skybox.h"
 #include "scenery/SceneryManager.h"
 #include "Instance/InstanceManager.h"
+#include "Projectile/ProjectileManager.h"
 #include "VoxApplication.h"
 #include "VoxWindow.h"
 #include "VoxSettings.h"
@@ -255,6 +256,9 @@ private:
 
 	// Items
 	ItemManager* m_pItemManager;
+
+	// Projectile manager
+	ProjectileManager* m_pProjectileManager;
 
 	// Chunk manager
 	ChunkManager* m_pChunkManager;

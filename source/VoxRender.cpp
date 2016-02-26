@@ -109,6 +109,9 @@ void VoxGame::Render()
 			// Scenery
 			m_pSceneryManager->Render(false, false, false, false, false);
 
+			// Projectiles
+			m_pProjectileManager->Render();
+
 			// Items
 			m_pItemManager->Render(false, false, false, false);
 
@@ -151,6 +154,8 @@ void VoxGame::Render()
 				m_pItemManager->RenderDebug();
 
 				m_pChunkManager->RenderDebug();
+
+				m_pProjectileManager->RenderDebug();
 			}
 		m_pRenderer->PopMatrix();
 
@@ -266,6 +271,9 @@ void VoxGame::RenderShadows()
 
 			// Render the player
 			m_pPlayer->Render();
+
+			// Projectiles
+			m_pProjectileManager->Render();
 
 			// Scenery
 			m_pSceneryManager->Render(false, false, true, false, false);
@@ -398,6 +406,9 @@ void VoxGame::RenderTransparency()
 
 		// Render the player's weapon trails
 		m_pPlayer->RenderWeaponTrails();
+
+		// Projectile trails
+		m_pProjectileManager->RenderWeaponTrails();
 
 		if (m_deferredRendering)
 		{
