@@ -1228,7 +1228,7 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 		//			m_pCharacterGUI->HideEquipHover();
 
 		//			// Show a sell text effect
-		//			Vector3d screenposition = m_pPlayer->GetCenter();
+		//			vec3 screenposition = m_pPlayer->GetCenter();
 		//			char coinText[32];
 		//			sprintf_s(coinText, 32, "+%i", coinAmount);
 		//			AnimatedText* lpTestTextEffect = m_pGameWindow->GetTextEffectsManager()->CreateTextEffect(m_pGameWindow->GetTextEffectFont(), m_pGameWindow->GetTextEffectOutlineFont(), m_pGameWindow->GetMainViewport(), TextDrawMode_3D_Screen, TextEffect_FadeUp, TextDrawStyle_Outline, screenposition, Colour(1.0f, 1.0f, 0.0f), Colour(0.0f, 0.0f, 0.0f), coinText, 2.0f);
