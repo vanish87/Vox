@@ -1,16 +1,14 @@
 // ******************************************************************************
-//
-// Filename:	ProjectileManager.h
-// Project:		Game
-// Author:		Steven Ball
+// Filename:    ProjectileManager.h
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //
 // Revision History:
 //   Initial Revision - 15/02/15
 //
-// Copyright (c) 2005-2011, Steven Ball
-//
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #pragma once
