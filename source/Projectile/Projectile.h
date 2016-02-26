@@ -1,16 +1,14 @@
 // ******************************************************************************
-//
-// Filename:	Projectile.h
-// Project:		Game
-// Author:		Steven Ball
+// Filename:    Projectile.h
+// Project:     Game
+// Author:      Steven Ball
 //
 // Purpose:
 //
 // Revision History:
-//   Initial Revision - 15/02/15
+//   Initial Revision - 15/02/16
 //
 // Copyright (c) 2005-2011, Steven Ball
-//
 // ******************************************************************************
 
 #pragma once
