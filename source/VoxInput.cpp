@@ -214,43 +214,49 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 		// Game GUI
 		case GLFW_KEY_I:
 		{
-			if (m_pInventoryGUI->IsLoaded())
+			if (GetGameMode() == GameMode_Game)
 			{
-				m_pInventoryGUI->Unload();
-
-				if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
+				if (m_pInventoryGUI->IsLoaded())
 				{
-					m_pVoxWindow->TurnCursorOff();
+					m_pInventoryGUI->Unload();
+
+					if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
+					{
+						m_pVoxWindow->TurnCursorOff();
+					}
 				}
-			}
-			else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_None)
-			{
-				m_pInventoryGUI->Load();
+				else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_None)
+				{
+					m_pInventoryGUI->Load();
 
-				m_pPlayer->StopMoving();
+					m_pPlayer->StopMoving();
 
-				m_pVoxWindow->TurnCursorOn(true);
+					m_pVoxWindow->TurnCursorOn(true);
+				}
 			}
 			break;
 		}
 		case GLFW_KEY_C:
 		{
-			if (m_pCharacterGUI->IsLoaded())
+			if (GetGameMode() == GameMode_Game)
 			{
-				m_pCharacterGUI->Unload();
-
-				if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
+				if (m_pCharacterGUI->IsLoaded())
 				{
-					m_pVoxWindow->TurnCursorOff();
+					m_pCharacterGUI->Unload();
+
+					if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
+					{
+						m_pVoxWindow->TurnCursorOff();
+					}
 				}
-			}
-			else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_None)
-			{
-				m_pCharacterGUI->Load();
+				else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_None)
+				{
+					m_pCharacterGUI->Load();
 
-				m_pPlayer->StopMoving();
+					m_pPlayer->StopMoving();
 
-				m_pVoxWindow->TurnCursorOn(true);
+					m_pVoxWindow->TurnCursorOn(true);
+				}
 			}
 			break;
 		}
