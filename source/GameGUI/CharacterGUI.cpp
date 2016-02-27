@@ -1371,7 +1371,7 @@ void CharacterGUI::CharacterItemPressed(CharacterSlotItem* pCharacterItem)
 
 	// Temporarily increase the depth of the dragged icon
 	m_pPressedCharacterItem->m_pInventoryIcon->SetDepth(5.0f);
-	m_pPressedCharacterItem->m_pInventoryIcon->SetLocation(m_pressedX-4, m_pressedY+4);
+	//m_pPressedCharacterItem->m_pInventoryIcon->SetLocation(m_pressedX - 4, m_pressedY + 4);
 	m_pPressedCharacterItem->m_pInventoryIcon->AddIcon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/drop_shadow.tga", 64, 64, 64, 64, 4, -4, 0.5f);
 	m_pCharacterWindow->DepthSortComponentChildren();
 

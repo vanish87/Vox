@@ -874,7 +874,7 @@ void InventoryGUI::InventoryItemPressed(InventorySlotItem* pInventoryItem)
 	{
 		m_pPressedInventoryItem->m_dropshadowAdded = true;
 		m_pPressedInventoryItem->m_pInventoryIcon->SetDepth(5.0f);
-		m_pPressedInventoryItem->m_pInventoryIcon->SetLocation(m_pressedX - 4, m_pressedY + 4);
+		//m_pPressedInventoryItem->m_pInventoryIcon->SetLocation(m_pressedX - 4, m_pressedY + 4);
 		m_pPressedInventoryItem->m_pInventoryIcon->AddIcon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/drop_shadow.tga", 64, 64, 64, 64, 4, -4, 0.5f);
 	}
 
