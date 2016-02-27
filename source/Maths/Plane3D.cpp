@@ -1,7 +1,7 @@
 // ******************************************************************************
-// Filename:	Plane3D.cpp
-// Project:		3DMaths
-// Author:		Steven Ball
+// Filename:    Plane3D.cpp
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //   3D Plane implementation.
@@ -9,7 +9,7 @@
 // Revision History:
 //   Initial Revision - 28/11/08
 //
-// Copyright (c) 2005-2015, Steven Ball
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #include "3dGeometry.h"
