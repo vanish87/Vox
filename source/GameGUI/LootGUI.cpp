@@ -530,6 +530,9 @@ void LootGUI::ShowTooltip(LootSlotItem* pInventoryItem)
 		return;
 	}
 
+	// Set the focused window when we show a tooltip
+	m_pLootWindow->SetFocusWindow();
+
 	// Replace the tooltip name
 	m_pTooltipNameLabel->SetText(pInventoryItem->m_pInventoryItem->m_title);
 

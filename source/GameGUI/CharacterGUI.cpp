@@ -821,6 +821,9 @@ void CharacterGUI::ShowTooltip(CharacterSlotItem* pCharacterItem)
 		return;
 	}
 
+	// Set the focused window when we show a tooltip
+	m_pCharacterWindow->SetFocusWindow();
+
 	// Replace the tooltip name
 	m_pTooltipNameLabel->SetText(pCharacterItem->m_pInventoryItem->m_title);
 

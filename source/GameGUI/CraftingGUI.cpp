@@ -819,6 +819,9 @@ void CraftingGUI::ShowTooltip(RecipeSlotItem* pRecipeItem)
 		return;
 	}
 
+	// Set the focused window when we show a tooltip
+	m_pCraftingWindow->SetFocusWindow();
+
 	// Replace the tooltip name
 	m_pTooltipNameLabel->SetText(pRecipeItem->m_pInventoryItem->m_title);
 
@@ -941,10 +944,8 @@ void CraftingGUI::ShowTooltip(IngredientsSlotItem* pIngredientItem)
 		return;
 	}
 
-	if(m_toolTipVisible == true)
-	{
-		return;
-	}
+	// Set the focused window when we show a tooltip
+	m_pCraftingWindow->SetFocusWindow();
 
 	// Replace the tooltip name
 	m_pTooltipNameLabel->SetText(pIngredientItem->m_pInventoryItem->m_title);

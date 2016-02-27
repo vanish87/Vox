@@ -39,6 +39,7 @@ public:
 	int m_slotX;
 	int m_slotY;
 
+	bool m_dropshadowAdded;
 	bool m_erase;
 };
 

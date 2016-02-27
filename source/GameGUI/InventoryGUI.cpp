@@ -457,6 +457,7 @@ void InventoryGUI::CreateInventoryItems()
 				pNewItem->m_pInventoryIcon = pNewSlotItem;
 				pNewItem->m_slotX = j;
 				pNewItem->m_slotY = i;
+				pNewItem->m_dropshadowAdded = false;
 				pNewItem->m_erase = false;
 				m_vpInventorySlotItems.push_back(pNewItem);
 
@@ -563,6 +564,9 @@ void InventoryGUI::ShowTooltip(InventorySlotItem* pInventoryItem)
 	{
 		return;
 	}
+
+	// Set the focused window when we show a tooltip
+	m_pInventoryWindow->SetFocusWindow();
 
 	// Replace the tooltip name
 	m_pTooltipNameLabel->SetText(pInventoryItem->m_pInventoryItem->m_title);
@@ -866,9 +870,14 @@ void InventoryGUI::InventoryItemPressed(InventorySlotItem* pInventoryItem)
 	m_pInventoryWindow->AddComponent(m_pDropLabel);
 
 	// Temporarily increase the depth of the dragged icon
-	m_pPressedInventoryItem->m_pInventoryIcon->SetDepth(5.0f);
-	m_pPressedInventoryItem->m_pInventoryIcon->SetLocation(m_pressedX-4, m_pressedY+4);
-	m_pPressedInventoryItem->m_pInventoryIcon->AddIcon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/drop_shadow.tga", 64, 64, 64, 64, 4, -4, 0.5f);
+	if (m_pPressedInventoryItem->m_dropshadowAdded == false)
+	{
+		m_pPressedInventoryItem->m_dropshadowAdded = true;
+		m_pPressedInventoryItem->m_pInventoryIcon->SetDepth(5.0f);
+		m_pPressedInventoryItem->m_pInventoryIcon->SetLocation(m_pressedX - 4, m_pressedY + 4);
+		m_pPressedInventoryItem->m_pInventoryIcon->AddIcon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/drop_shadow.tga", 64, 64, 64, 64, 4, -4, 0.5f);
+	}
+
 	m_pInventoryWindow->DepthSortComponentChildren();
 
 	HideTooltip();
@@ -1367,7 +1376,12 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 	if(deleted == false && equipped == false)
 	{
 		pInventoryItem->m_pInventoryIcon->SetDepth(3.0f);
-		pInventoryItem->m_pInventoryIcon->RemoveIcon("media/textures/gui/StoneWash/Common/items/drop_shadow.tga");
+		if (pInventoryItem->m_dropshadowAdded == true)
+		{
+			pInventoryItem->m_dropshadowAdded = false;
+			pInventoryItem->m_pInventoryIcon->RemoveIcon("media/textures/gui/StoneWash/Common/items/drop_shadow.tga");
+		}
+
 		m_pInventoryWindow->DepthSortComponentChildren();
 	}
 
@@ -1375,7 +1389,11 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 	if(switched == false && equipped == false)
 	{
 		pInventoryItem->m_pInventoryIcon->SetLocation(m_pressedX, m_pressedY);
-		pInventoryItem->m_pInventoryIcon->RemoveIcon("media/textures/gui/StoneWash/Common/items/drop_shadow.tga");
+		if (pInventoryItem->m_dropshadowAdded == true)
+		{
+			pInventoryItem->m_dropshadowAdded = false;
+			pInventoryItem->m_pInventoryIcon->RemoveIcon("media/textures/gui/StoneWash/Common/items/drop_shadow.tga");
+		}
 	}
 
 	m_pInventoryWindow->RemoveComponent(m_pDestroyIcon);
