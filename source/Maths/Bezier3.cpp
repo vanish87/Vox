@@ -1,7 +1,7 @@
 // ******************************************************************************
-// Filename:	Bezier3.cpp
-// Project:		3DMaths
-// Author:		Steven Ball
+// Filename:    Bezier3.cpp
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //   Bezier Curve with 3 points - 1 control point.
@@ -9,7 +9,7 @@
 // Revision History:
 //   Initial Revision - 03/08/08
 //
-// Copyright (c) 2005-2015, Steven Ball
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #include "3dGeometry.h"
