@@ -192,6 +192,9 @@ protected:
 	static void _StepUpAnimationFinished(void *apData);
 	void StepUpAnimationFinished();
 
+	static void _AttackAnimationTimerFinished(void *apData);
+	void AttackAnimationTimerFinished();
+
 private:
 	/* Private methods */
 

@@ -45,6 +45,22 @@ void Player::PressAttack()
 	}
 	else if (IsBoomerang())
 	{
+		if (CanAttackRight())
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, true, AnimationSections_FullBody, "SwordAttack1", 0.01f);
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "SwordAttack1", 0.01f);
+
+			m_bCanAttackRight = false;
+
+			// Start weapon trails
+			if (m_pVoxelCharacter->GetRightWeapon())
+			{
+				if (m_pVoxelCharacter->IsRightWeaponLoaded())
+				{
+					m_pVoxelCharacter->GetRightWeapon()->StartWeaponTrails();
+				}
+			}
+		}
 	}
 	else if (IsStaff())
 	{
@@ -198,4 +214,15 @@ bool Player::CanAttackLeft()
 bool Player::CanAttackRight()
 {
 	return m_bCanAttackRight;
+}
+
+void Player::_AttackAnimationTimerFinished(void *apData)
+{
+	Player* lpPlayer = (Player*)apData;
+	lpPlayer->AttackAnimationTimerFinished();
+}
+
+void Player::AttackAnimationTimerFinished()
+{
+
 }
