@@ -107,10 +107,11 @@
   * Group together chunks for saving, loading. Not individual
 * Add character creator and customization from front-end.
 * Add options menu window to pause menu.
+* Add mods menu window to pause menu.
 * Add voxel editor.
 * Add texture support for voxel blocks.
-* Add inventory GUI.
-* Add character GUI.
+* ~~Add inventory GUI.~~
+* ~~Add character GUI.~~
 * Add Quest GUI.
 * Water, creating and manipulation, rendering, updating.
 * Investigate continuous automatic builds on github when files are submitted to depot, using cmake and make.
@@ -124,7 +125,10 @@
 * Tidy up inventory and item managers!
   * Add back in TODO code (TODO : Add me back in).
   * Test ALL functionality with player equipping items and weapons.
-  * Add hooks to GUI.
+  * ~~Add hooks to GUI.~~
 * Player particle trail on walking.
 * Cinematic letterbox mode.
 * Test out Baked AO models using MagikaVoxel.
+* Enemies.
+* NPCs.
+* Companion pets.
