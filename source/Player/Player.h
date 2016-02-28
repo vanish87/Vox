@@ -25,6 +25,7 @@
 
 class ProjectileManager;
 class Projectile;
+enum eProjectileHitboxType;
 
 static const int PlayerEquippedProperties_None = 0;
 static const int PlayerEquippedProperties_Sword = 1;
@@ -73,6 +74,8 @@ public:
 	float GetRadius();
 	void UpdateRadius();
 	void SetForwardVector(vec3 forward);
+	void SetRotation(float rot);
+	float GetRotation();
 
 	// Loading
 	void LoadCharacter(string characterName);
@@ -121,6 +124,15 @@ public:
 	void ReleaseAttack();
 	bool CanAttackLeft();
 	bool CanAttackRight();
+	void CheckProjectileDamageRadius(Projectile* pProjectile);
+
+	// Projectile hitbox
+	eProjectileHitboxType GetProjectileHitboxType();
+	float GetProjectileHitboxRadius();
+	float GetProjectileHitboxXLength();
+	float GetProjectileHitboxYLength();
+	float GetProjectileHitboxZLength();
+	vec3 GetProjectileHitboxCenter();
 
 	// Player equipped attributes
 	void SetNormal();
@@ -183,6 +195,7 @@ public:
 	void UpdateWeaponLights(float dt);
 	void UpdateWeaponParticleEffects(float dt);
 	void UpdateChargingAttack(float dt);
+	void UpdateCombat(float dt);
 
 	// Rendering
 	void Render();
@@ -190,6 +203,7 @@ public:
 	void RenderWeaponTrails();
 	void RenderFace();
 	void RenderDebug();
+	void RenderProjectileHitboxDebug();
 
 protected:
 	/* Protected methods */
@@ -288,6 +302,15 @@ private:
 	bool m_bCanAttackLeft;
 	bool m_bCanAttackRight;
 	bool m_bCanInteruptCombatAnim;
+	bool m_bCanThrowWeapon;
+
+	// Projectile hitbox
+	eProjectileHitboxType m_eProjectileHitboxType;
+	float m_projectileHitboxRadius;
+	float m_projectileHitboxXLength;
+	float m_projectileHitboxYLength;
+	float m_projectileHitboxZLength;
+	vec3 m_projectileHitboxCenterOffset;
 
 	// Charging attacks
 	bool m_bIsChargingAttack;

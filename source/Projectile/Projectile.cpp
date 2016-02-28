@@ -317,7 +317,7 @@ void Projectile::SetGravityMultiplier(float multiplier)
 
 void Projectile::SetProjectileCurveParams(vec3 forward, vec3 target, float curveTime)
 {	
-	bool goRight = (GetRandomNumber(0, 100) > 50); // Randomly go either left or right to start with
+	bool goRight = true;// (GetRandomNumber(0, 100) > 50); // Randomly go either left or right to start with
 
 	vec3 crossRight = cross(forward, vec3(0.0f, 1.0f, 0.0f));
 	vec3 targetDiff = target - m_position;

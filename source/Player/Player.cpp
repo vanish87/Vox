@@ -69,6 +69,14 @@ Player::Player(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryMa
 	m_bCanAttackLeft = true;
 	m_bCanAttackRight = true;
 	m_bCanInteruptCombatAnim = true;
+	m_bCanThrowWeapon = true;
+
+	// Projectile hitbox
+	m_eProjectileHitboxType = eProjectileHitboxType_Cube;
+	m_projectileHitboxXLength = 0.65f;
+	m_projectileHitboxYLength = 1.25f;
+	m_projectileHitboxZLength = 0.65f;
+	m_projectileHitboxCenterOffset = vec3(0.0f, 0.75f, 0.0f);
 
 	// Charging attacks
 	m_bIsChargingAttack = false;
@@ -181,6 +189,26 @@ void Player::SetForwardVector(vec3 forward)
 	m_targetForward = m_forward;
 	m_targetForward.y = 0.0f;
 	m_targetForward = normalize(m_targetForward);
+}
+
+void Player::SetRotation(float rot)
+{
+	float angle = DegToRad(rot);
+	m_forward = vec3(sin(angle), 0.0f, cos(angle));
+
+	m_targetForward = m_forward;
+}
+
+float Player::GetRotation()
+{
+	float rotationAngle = acos(dot(vec3(0.0f, 0.0f, 1.0f), m_forward));
+	rotationAngle = RadToDeg(rotationAngle);
+	if (m_forward.x < 0.0f)
+	{
+		rotationAngle = (360.0f - rotationAngle);
+	}
+
+	return rotationAngle;
 }
 
 // Loading
@@ -395,7 +423,7 @@ void Player::EquipItem(InventoryItem* pItem)
 				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "2HandedSwordPose", 0.25f);
 				break;
 			}
-		case InventoryType_Weapon_Boomerang: { SetBoomerang(true); /*m_bCanThrowWeapon = true;*/ } break;
+		case InventoryType_Weapon_Boomerang: { SetBoomerang(true); m_bCanThrowWeapon = true; } break;
 		case InventoryType_Weapon_Bomb: { SetBomb(true); } break;
 		case InventoryType_Weapon_Staff:
 			{
@@ -1077,6 +1105,15 @@ void Player::StopMoving()
 			{
 				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BindPose", 0.15f);
 			}
+			else if (CanAttackLeft())
+			{
+				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "BindPose", 0.15f);
+			}
+			else if (CanAttackRight())
+			{
+				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "BindPose", 0.15f);
+			}
+
 			if (m_bCanInteruptCombatAnim)
 			{
 				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, false, AnimationSections_Legs_Feet, "BindPose", 0.15f);
@@ -1540,6 +1577,9 @@ void Player::Update(float dt)
 	// Update charging attack
 	UpdateChargingAttack(dt);
 
+	// Update combat
+	UpdateCombat(dt);
+
 	// Update / Create weapon lights and particle effects
 	UpdateWeaponLights(dt);
 	UpdateWeaponParticleEffects(dt);
@@ -1819,6 +1859,20 @@ void Player::UpdateChargingAttack(float dt)
 	}
 }
 
+void Player::UpdateCombat(float dt)
+{
+	// Check projectile hits
+	for (int j = 0; j < m_pProjectileManager->GetNumProjectiles(); j++)
+	{
+		Projectile* pProjectile = m_pProjectileManager->GetProjectile(j);
+
+		if (pProjectile != NULL && pProjectile->GetErase() == false)
+		{
+			CheckProjectileDamageRadius(pProjectile);
+		}
+	}
+}
+
 // Rendering
 void Player::Render()
 {
@@ -1859,47 +1913,122 @@ void Player::RenderFace()
 
 void Player::RenderDebug()
 {
+	if (VoxGame::GetInstance()->GetCameraMode() != CameraMode_FirstPerson)
+	{
+		m_pRenderer->PushMatrix();
+			m_pRenderer->TranslateWorldMatrix(GetCenter().x, GetCenter().y, GetCenter().z);
+
+			// Radius
+			m_pRenderer->PushMatrix();
+				m_pRenderer->SetLineWidth(1.0f);
+				m_pRenderer->SetRenderMode(RM_WIREFRAME);
+				m_pRenderer->ImmediateColourAlpha(1.0f, 1.0f, 1.0f, 1.0f);
+
+				m_pRenderer->RotateWorldMatrix(90.0f, 0.0f, 0.0f);
+				m_pRenderer->DrawSphere(m_radius, 20, 20);
+			m_pRenderer->PopMatrix();
+
+			// Forwards
+			m_pRenderer->PushMatrix();
+				m_pRenderer->ScaleWorldMatrix(m_pVoxelCharacter->GetCharacterScale(), m_pVoxelCharacter->GetCharacterScale(), m_pVoxelCharacter->GetCharacterScale());
+
+				m_pRenderer->SetRenderMode(RM_SOLID);
+				m_pRenderer->SetLineWidth(3.0f);
+				m_pRenderer->EnableImmediateMode(IM_LINES);
+					// Target forwards
+					m_pRenderer->ImmediateColourAlpha(0.0f, 1.0f, 1.0f, 1.0f);
+					m_pRenderer->ImmediateVertex(0.0f, 0.0f, 0.0f);
+					m_pRenderer->ImmediateVertex(m_targetForward.x*15.0f, m_targetForward.y*15.0f, m_targetForward.z*15.0f);
+
+					// Right
+					m_pRenderer->ImmediateColourAlpha(1.0f, 0.0f, 0.0f, 1.0f);
+					m_pRenderer->ImmediateVertex(0.0f, 0.0f, 0.0f);
+					m_pRenderer->ImmediateVertex(m_right.x*15.0f, m_right.y*15.0f, m_right.z*15.0f);
+
+					// Up
+					m_pRenderer->ImmediateColourAlpha(0.0f, 1.0f, 0.0f, 1.0f);
+					m_pRenderer->ImmediateVertex(0.0f, 0.0f, 0.0f);
+					m_pRenderer->ImmediateVertex(m_up.x*15.0f, m_up.y*15.0f, m_up.z*15.0f);	
+
+					// Forwards
+					m_pRenderer->ImmediateColourAlpha(0.0f, 0.0f, 1.0f, 1.0f);
+					m_pRenderer->ImmediateVertex(0.0f, 0.0f, 0.0f);
+					m_pRenderer->ImmediateVertex(m_forward.x*15.0f, m_forward.y*15.0f, m_forward.z*15.0f);	
+				m_pRenderer->DisableImmediateMode();
+			m_pRenderer->PopMatrix();
+		m_pRenderer->PopMatrix();
+
+		// Projectile hitbox
+		RenderProjectileHitboxDebug();
+	}
+}
+
+void Player::RenderProjectileHitboxDebug()
+{
 	m_pRenderer->PushMatrix();
-		m_pRenderer->TranslateWorldMatrix(GetCenter().x, GetCenter().y, GetCenter().z);
+		m_pRenderer->TranslateWorldMatrix(GetProjectileHitboxCenter().x, GetProjectileHitboxCenter().y, GetProjectileHitboxCenter().z);
 
-		// Radius
-		m_pRenderer->PushMatrix();
-			m_pRenderer->SetLineWidth(1.0f);
-			m_pRenderer->SetRenderMode(RM_WIREFRAME);
-			m_pRenderer->ImmediateColourAlpha(1.0f, 1.0f, 1.0f, 1.0f);
+		m_pRenderer->SetLineWidth(1.0f);
+		m_pRenderer->SetRenderMode(RM_WIREFRAME);
+		m_pRenderer->ImmediateColourAlpha(0.0f, 1.0f, 1.0f, 1.0f);
 
-			m_pRenderer->RotateWorldMatrix(90.0f, 0.0f, 0.0f);
+		if (m_eProjectileHitboxType == eProjectileHitboxType_Sphere)
+		{
 			m_pRenderer->DrawSphere(m_radius, 20, 20);
-		m_pRenderer->PopMatrix();
+		}
+		else if (m_eProjectileHitboxType == eProjectileHitboxType_Cube)
+		{
+			float l_length = m_projectileHitboxXLength;
+			float l_height = m_projectileHitboxYLength;
+			float l_width = m_projectileHitboxZLength;
 
-		// Forwards
-		m_pRenderer->PushMatrix();
-			m_pRenderer->ScaleWorldMatrix(m_pVoxelCharacter->GetCharacterScale(), m_pVoxelCharacter->GetCharacterScale(), m_pVoxelCharacter->GetCharacterScale());
+			m_pRenderer->SetRenderMode(RM_WIREFRAME);
+			m_pRenderer->SetCullMode(CM_NOCULL);
+			m_pRenderer->SetLineWidth(1.0f);
 
-			m_pRenderer->SetRenderMode(RM_SOLID);
-			m_pRenderer->SetLineWidth(3.0f);
-			m_pRenderer->EnableImmediateMode(IM_LINES);
-				// Target forwards
-				m_pRenderer->ImmediateColourAlpha(0.0f, 1.0f, 1.0f, 1.0f);
-				m_pRenderer->ImmediateVertex(0.0f, 0.0f, 0.0f);
-				m_pRenderer->ImmediateVertex(m_targetForward.x*15.0f, m_targetForward.y*15.0f, m_targetForward.z*15.0f);
+			m_pRenderer->RotateWorldMatrix(0.0f, GetRotation(), 0.0f);
 
-				// Right
-				m_pRenderer->ImmediateColourAlpha(1.0f, 0.0f, 0.0f, 1.0f);
-				m_pRenderer->ImmediateVertex(0.0f, 0.0f, 0.0f);
-				m_pRenderer->ImmediateVertex(m_right.x*15.0f, m_right.y*15.0f, m_right.z*15.0f);
+			m_pRenderer->EnableImmediateMode(IM_QUADS);
+				m_pRenderer->ImmediateColourAlpha(1.0f, 1.0f, 0.0f, 1.0f);
+				m_pRenderer->ImmediateNormal(0.0f, 0.0f, -1.0f);
+				m_pRenderer->ImmediateVertex(l_length, -l_height, -l_width);
+				m_pRenderer->ImmediateVertex(-l_length, -l_height, -l_width);
+				m_pRenderer->ImmediateVertex(-l_length, l_height, -l_width);
+				m_pRenderer->ImmediateVertex(l_length, l_height, -l_width);
 
-				// Up
-				m_pRenderer->ImmediateColourAlpha(0.0f, 1.0f, 0.0f, 1.0f);
-				m_pRenderer->ImmediateVertex(0.0f, 0.0f, 0.0f);
-				m_pRenderer->ImmediateVertex(m_up.x*15.0f, m_up.y*15.0f, m_up.z*15.0f);	
+				m_pRenderer->ImmediateNormal(0.0f, 0.0f, 1.0f);
+				m_pRenderer->ImmediateVertex(-l_length, -l_height, l_width);
+				m_pRenderer->ImmediateVertex(l_length, -l_height, l_width);
+				m_pRenderer->ImmediateVertex(l_length, l_height, l_width);
+				m_pRenderer->ImmediateVertex(-l_length, l_height, l_width);
 
-				// Forwards
-				m_pRenderer->ImmediateColourAlpha(0.0f, 0.0f, 1.0f, 1.0f);
-				m_pRenderer->ImmediateVertex(0.0f, 0.0f, 0.0f);
-				m_pRenderer->ImmediateVertex(m_forward.x*15.0f, m_forward.y*15.0f, m_forward.z*15.0f);	
+				m_pRenderer->ImmediateNormal(1.0f, 0.0f, 0.0f);
+				m_pRenderer->ImmediateVertex(l_length, -l_height, l_width);
+				m_pRenderer->ImmediateVertex(l_length, -l_height, -l_width);
+				m_pRenderer->ImmediateVertex(l_length, l_height, -l_width);
+				m_pRenderer->ImmediateVertex(l_length, l_height, l_width);
+
+				m_pRenderer->ImmediateNormal(-1.0f, 0.0f, 0.0f);
+				m_pRenderer->ImmediateVertex(-l_length, -l_height, -l_width);
+				m_pRenderer->ImmediateVertex(-l_length, -l_height, l_width);
+				m_pRenderer->ImmediateVertex(-l_length, l_height, l_width);
+				m_pRenderer->ImmediateVertex(-l_length, l_height, -l_width);
+
+				m_pRenderer->ImmediateNormal(0.0f, -1.0f, 0.0f);
+				m_pRenderer->ImmediateVertex(-l_length, -l_height, -l_width);
+				m_pRenderer->ImmediateVertex(l_length, -l_height, -l_width);
+				m_pRenderer->ImmediateVertex(l_length, -l_height, l_width);
+				m_pRenderer->ImmediateVertex(-l_length, -l_height, l_width);
+
+				m_pRenderer->ImmediateNormal(0.0f, 1.0f, 0.0f);
+				m_pRenderer->ImmediateVertex(l_length, l_height, -l_width);
+				m_pRenderer->ImmediateVertex(-l_length, l_height, -l_width);
+				m_pRenderer->ImmediateVertex(-l_length, l_height, l_width);
+				m_pRenderer->ImmediateVertex(l_length, l_height, l_width);
 			m_pRenderer->DisableImmediateMode();
-		m_pRenderer->PopMatrix();
+
+			m_pRenderer->SetCullMode(CM_BACK);
+		}
 	m_pRenderer->PopMatrix();
 }
 
