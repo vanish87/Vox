@@ -80,9 +80,9 @@ public:
 	bool IsReturnToPlayer();
 	void SetExplodingProjectile(bool exploding, float radius);
 
+	void SetOwner(Player* pPlayer, NPC* pNPC, Enemy* pEnemy);
+	Player* GetPlayerOwner();
 	// TODO : Add me back in
-	//void SetOwner(Player* pPlayer, NPC* pNPC, Enemy* pEnemy);
-	//Player* GetPlayerOwner();
 	//NPC* GetNPCOwner();
 	//Enemy* GetEnemyOwner();
 

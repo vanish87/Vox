@@ -101,9 +101,6 @@ void Player::PressAttack()
 	else if (IsSickle())
 	{
 	}
-	else if (IsShield())
-	{
-	}
 	else if (IsPickaxe())
 	{
 		if (CanAttackRight())
@@ -173,6 +170,9 @@ void Player::PressAttack()
 	else if (IsSpellHands())
 	{
 	}
+	else if (IsShield())
+	{
+	}
 	else if (IsTorch())
 	{
 	}
@@ -193,8 +193,7 @@ void Player::ReleaseAttack()
 
 			Projectile* pProjectile = m_pProjectileManager->CreateProjectile(m_chargeSpawnPosition, m_chargeSpawnVelocity, 0.0f, "media/gamedata/items/Arrow/Arrow.item", 0.08f);
 			pProjectile->SetProjectileType(true, false, false);
-			// TODO : Add me back in
-			//pProjectile->SetOwner(this, NULL, NULL);
+			pProjectile->SetOwner(this, NULL, NULL);
 
 			m_bIsChargingAttack = false;
 			m_chargeAmount = 0.0f;
@@ -254,8 +253,7 @@ void Player::AttackAnimationTimerFinished()
 
 		Projectile* pProjectile = m_pProjectileManager->CreateProjectile(spellSpawnPosition, spellSpawnVelocity, 0.0f, "media/gamedata/items/Fireball/Fireball.item", 0.05f);
 		pProjectile->SetProjectileType(true, false, false);
-		// TODO : Add me back in
-		//pProjectile->SetOwner(this, NULL, NULL);
+		pProjectile->SetOwner(this, NULL, NULL);
 		pProjectile->SetGravityMultiplier(0.0f);
 	}
 	else if (IsWand())
@@ -279,9 +277,6 @@ void Player::AttackAnimationTimerFinished()
 	else if (IsSickle())
 	{
 	}
-	else if (IsShield())
-	{
-	}	
 	else if (IsPickaxe())
 	{
 	}
@@ -304,6 +299,9 @@ void Player::AttackAnimationTimerFinished()
 	{
 	}
 	else if (IsSpellHands())
+	{
+	}
+	else if (IsShield())
 	{
 	}
 	else if (IsTorch())

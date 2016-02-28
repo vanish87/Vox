@@ -68,8 +68,8 @@ Projectile::Projectile(Renderer* pRenderer, ChunkManager* pChunkManager, Qubicle
 	m_rightCurve = true;
 	m_returningDirectToPlayer = false;
 
+	m_pOwnedPlayer = NULL;
 	// TODO : Add me back in
-	//m_pOwnedPlayer = NULL;
 	//m_pOwnedNPC = NULL;
 	//m_pOwnedEnemy = NULL;
 
@@ -402,19 +402,20 @@ void Projectile::SetExplodingProjectile(bool exploding, float radius)
 	m_explosionRadius = radius;
 }
 
+void Projectile::SetOwner(Player* pPlayer, NPC* pNPC, Enemy* pEnemy)
+{
+	m_pOwnedPlayer = pPlayer;
+	// TODO : Add me back in
+	//m_pOwnedNPC = pNPC;
+	//m_pOwnedEnemy = pEnemy;
+}
+
+Player* Projectile::GetPlayerOwner()
+{
+	return m_pOwnedPlayer;
+}
+
 // TODO : Add me back in
-//void Projectile::SetOwner(Player* pPlayer, NPC* pNPC, Enemy* pEnemy)
-//{
-//	m_pOwnedPlayer = pPlayer;
-//	m_pOwnedNPC = pNPC;
-//	m_pOwnedEnemy = pEnemy;
-//}
-//
-//Player* Projectile::GetPlayerOwner()
-//{
-//	return m_pOwnedPlayer;
-//}
-//
 //NPC* Projectile::GetNPCOwner()
 //{
 //	return m_pOwnedNPC;
