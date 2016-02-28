@@ -303,6 +303,7 @@ private:
 	bool m_bCanAttackRight;
 	bool m_bCanInteruptCombatAnim;
 	bool m_bCanThrowWeapon;
+	float m_bowAttackDelay;
 
 	// Projectile hitbox
 	eProjectileHitboxType m_eProjectileHitboxType;

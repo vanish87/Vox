@@ -26,22 +26,25 @@ void Player::PressAttack()
 
 	if (IsBow())
 	{
-		if (m_bIsChargingAttack == false)
+		if (m_bowAttackDelay <= 0.0f)
 		{
-			m_bIsChargingAttack = true;
-			m_chargeAmount = 0.0f;
-
-			LoadWeapon(false, "media/gamedata/items/Arrow/ArrowHold.item");
-
-			if (m_bIsIdle)
+			if (m_bIsChargingAttack == false)
 			{
-				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BowCharge", 0.2f);
-			}
-			else
-			{
-				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Head_Body, false, AnimationSections_Head_Body, "BowCharge", 0.2f);
-				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "BowCharge", 0.2f);
-				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "BowCharge", 0.2f);
+				m_bIsChargingAttack = true;
+				m_chargeAmount = 0.0f;
+
+				LoadWeapon(false, "media/gamedata/items/Arrow/ArrowHold.item");
+
+				if (m_bIsIdle)
+				{
+					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BowCharge", 0.2f);
+				}
+				else
+				{
+					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Head_Body, false, AnimationSections_Head_Body, "BowCharge", 0.2f);
+					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "BowCharge", 0.2f);
+					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "BowCharge", 0.2f);
+				}
 			}
 		}
 	}
@@ -203,6 +206,7 @@ void Player::ReleaseAttack()
 
 			m_bIsChargingAttack = false;
 			m_chargeAmount = 0.0f;
+			m_bowAttackDelay = 0.125f;
 
 			if (m_bIsIdle)
 			{

@@ -70,6 +70,7 @@ Player::Player(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryMa
 	m_bCanAttackRight = true;
 	m_bCanInteruptCombatAnim = true;
 	m_bCanThrowWeapon = true;
+	m_bowAttackDelay = 0.0f;
 
 	// Projectile hitbox
 	m_eProjectileHitboxType = eProjectileHitboxType_Cube;
@@ -1704,6 +1705,12 @@ void Player::UpdateTimers(float dt)
 	if (m_groundCheckTimer >= 0.0f)
 	{
 		m_groundCheckTimer -= dt;
+	}
+
+	// Bow attack delay
+	if (m_bowAttackDelay >= 0.0f)
+	{
+		m_bowAttackDelay -= dt;
 	}
 }
 
