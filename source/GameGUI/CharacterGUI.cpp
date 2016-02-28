@@ -490,7 +490,7 @@ void CharacterGUI::Load()
 		m_pCharacterWindow->AddComponent(m_vpInventorySlotItems[i]->m_pInventoryIcon);
 	}
 
-	// TODO : Add me back in
+	// TODO : Add me back in - player stats
 	//if(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable() > 0)
 	//{
 	//	m_pCharacterWindow->AddComponent(m_pStat1IncreaseButton);
@@ -526,7 +526,7 @@ void CharacterGUI::Load()
 	m_leftArrowPressed = false;
 	m_rightArrowPressed = false;
 
-	// TODO : Add me back in
+	// TODO : Add me back in - character ragdoll
 	//m_pGameWindow->SetPaperdollRotation(0.0f);
 
 	m_loaded = true;
@@ -1074,7 +1074,7 @@ void CharacterGUI::UpdatePlayerStats()
 	// Player name
 	m_pCharacterTitleLabel->SetText(m_pPlayer->GetName());
 
-	// TODO : Add me back in
+	// TODO : Add me back in - player stats
 	//// Stats
 	//// Strength
 	//char stat1Value[32];
@@ -1106,7 +1106,7 @@ void CharacterGUI::UpdatePlayerStats()
 	//sprintf(stat6Value, "%i %s", m_pPlayer->GetPlayerStats()->GetLuckStat(), m_pPlayer->GetLuckModifierString().c_str());
 	//m_pStatsValueLabel6->SetText(stat6Value);
 
-	// TODO : Add me back in
+	// TODO : Add me back in - player stats
 	//if(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable() <= 0)
 	{
 		m_pCharacterWindow->RemoveComponent(m_pStat1IncreaseButton);
@@ -1146,7 +1146,7 @@ void CharacterGUI::Update(float dt)
 {
 	UpdateToolTipAppear(dt);
 
-	// TODO : Add me back in
+	// TODO : Add me back in - character ragdoll
 	//m_pDynamicPaperDollIcon->SetDynamicTexture(m_pGameWindow->GetDynamicPaperdollTexture());
 
 	// Check if the character GUI needs update (we have equipped items, or quantity changed, etc)
@@ -1171,7 +1171,7 @@ void CharacterGUI::Update(float dt)
 	// Update equip hover icon
 	UpdateEquipHover();
 
-	// TODO : Add me back in
+	// TODO : Add me back in - character ragdoll
 	//if(m_rightArrowPressed)
 	//{
 	//	m_pGameWindow->RotatePaperdollModel(150.0f * dt);
@@ -1212,7 +1212,7 @@ void CharacterGUI::Update(float dt)
 			m_pStatsValueLabel5->SetDimensions(-m_statsTabWidth+m_statsValueLabel_XOffset, m_statsTitleLabel_Y-130, 59, 26);
 			m_pStatsValueLabel6->SetDimensions(-m_statsTabWidth+m_statsValueLabel_XOffset, m_statsTitleLabel_Y-156, 59, 26);
 
-			// TODO : Add me back in
+			// TODO : Add me back in - player stats
 			//if(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable() > 0)
 			//{
 			//	m_pStat1IncreaseButton->SetDimensions(-73, m_statsTitleLabel_Y-25, 16, 16);
@@ -1282,7 +1282,7 @@ void CharacterGUI::Update(float dt)
 			m_pStatsValueLabel5->SetDimensions(m_characterWindowWidth+m_statsValueLabel_XOffset-4, m_statsTitleLabel_Y-130, 59, 26);
 			m_pStatsValueLabel6->SetDimensions(m_characterWindowWidth+m_statsValueLabel_XOffset-4, m_statsTitleLabel_Y-156, 59, 26);
 
-			// TODO : Add me back in
+			// TODO : Add me back in - player stats
 			//if(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable() > 0)
 			//{
 			//	m_pStat1IncreaseButton->SetDimensions(m_characterWindowWidth+87, m_statsTitleLabel_Y-25, 16, 16);
@@ -1728,7 +1728,7 @@ void CharacterGUI::_Stat1IncreasePressed(void *apData)
 
 void CharacterGUI::Stat1IncreasePressed()
 {
-	// TODO : Add me back in
+	// TODO : Add me back in - player stats
 	//m_pPlayer->GetPlayerStats()->SetStrengthStat(m_pPlayer->GetPlayerStats()->GetStrengthStat()+1);
 	//m_pPlayer->GetPlayerStats()->SetNumPointsAvailable(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable()-1);
 	UpdatePlayerStats();
@@ -1742,7 +1742,7 @@ void CharacterGUI::_Stat2IncreasePressed(void *apData)
 
 void CharacterGUI::Stat2IncreasePressed()
 {
-	// TODO : Add me back in
+	// TODO : Add me back in - player stats
 	//m_pPlayer->GetPlayerStats()->SetDexterityStat(m_pPlayer->GetPlayerStats()->GetDexterityStat()+1);
 	//m_pPlayer->GetPlayerStats()->SetNumPointsAvailable(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable()-1);
 	UpdatePlayerStats();
@@ -1756,7 +1756,7 @@ void CharacterGUI::_Stat3IncreasePressed(void *apData)
 
 void CharacterGUI::Stat3IncreasePressed()
 {
-	// TODO : Add me back in
+	// TODO : Add me back in - player stats
 	//m_pPlayer->GetPlayerStats()->SetIntelligenceStat(m_pPlayer->GetPlayerStats()->GetIntelligenceStat()+1);
 	//m_pPlayer->GetPlayerStats()->SetNumPointsAvailable(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable()-1);
 	UpdatePlayerStats();
@@ -1770,7 +1770,7 @@ void CharacterGUI::_Stat4IncreasePressed(void *apData)
 
 void CharacterGUI::Stat4IncreasePressed()
 {
-	// TODO : Add me back in
+	// TODO : Add me back in - player stats
 	//m_pPlayer->GetPlayerStats()->SetVitalityStat(m_pPlayer->GetPlayerStats()->GetVitalityStat()+1);
 	//m_pPlayer->GetPlayerStats()->SetNumPointsAvailable(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable()-1);
 	UpdatePlayerStats();
@@ -1784,7 +1784,7 @@ void CharacterGUI::_Stat5IncreasePressed(void *apData)
 
 void CharacterGUI::Stat5IncreasePressed()
 {
-	// TODO : Add me back in
+	// TODO : Add me back in - player stats
 	//m_pPlayer->GetPlayerStats()->SetArmorStat(m_pPlayer->GetPlayerStats()->GetArmorStat()+1);
 	//m_pPlayer->GetPlayerStats()->SetNumPointsAvailable(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable()-1);
 	UpdatePlayerStats();
@@ -1798,7 +1798,7 @@ void CharacterGUI::_Stat6IncreasePressed(void *apData)
 
 void CharacterGUI::Stat6IncreasePressed()
 {
-	// TODO : Add me back in
+	// TODO : Add me back in - player stats
 	//m_pPlayer->GetPlayerStats()->SetLuckStat(m_pPlayer->GetPlayerStats()->GetLuckStat()+1);
 	//m_pPlayer->GetPlayerStats()->SetNumPointsAvailable(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable()-1);
 	UpdatePlayerStats();

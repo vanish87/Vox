@@ -82,7 +82,7 @@ public:
 
 	void SetOwner(Player* pPlayer, NPC* pNPC, Enemy* pEnemy);
 	Player* GetPlayerOwner();
-	// TODO : Add me back in
+	// TODO : Add me back in - NPC and enemy
 	//NPC* GetNPCOwner();
 	//Enemy* GetEnemyOwner();
 

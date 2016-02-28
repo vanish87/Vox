@@ -586,8 +586,7 @@ void InventoryManager::ImportInventory(string playerName)
 				m_equippedSlots[equipSlot] = pNewItem;
 				m_equippedSlots[equipSlot]->m_equipped = true;
 
-				// TODO : Add me back in
-				//m_pInventoryGUI->SetEquippedItem((EquipSlot)equipSlot, title);
+				m_pInventoryGUI->SetEquippedItem((EquipSlot)equipSlot, title);
 				m_pPlayer->EquipItem(pNewItem);
 
 				SetInventoryGUINeedsUpdate(true);

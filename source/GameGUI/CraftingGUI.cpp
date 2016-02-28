@@ -346,7 +346,7 @@ void CraftingGUI::Unload()
 
 	m_pGUI->RemoveWindow(m_pCraftingWindow);
 
-	// TODO : Add me back in
+	// TODO : Add me back in - Crafting
 	//m_pPlayer->SetCrafting(false);
 	//m_pPlayer->SetCraftingItem(false);
 	//m_pPlayer->DisableMoveToTargetPosition();
@@ -356,7 +356,7 @@ void CraftingGUI::Unload()
 		m_pInteractionItem->SetCollisionEnabled(true);
 	}
 
-	// TODO : Add me back in
+	// TODO : Add me back in - cinematic mode
 	//m_pGameWindow->CloseLetterBox();
 
 	m_loaded = false;
@@ -374,7 +374,7 @@ bool CraftingGUI::IsLoaded()
 
 void CraftingGUI::CraftingComplete()
 {
-	// TODO : Add me back in
+	// TODO : Add me back in - Crafting
 	//m_pPlayer->SetCrafting(false);
 
 	bool canCraft = CanCraftRecipe();
@@ -1082,7 +1082,7 @@ void CraftingGUI::Update(float dt)
 {
 	UpdateToolTipAppear(dt);
 
-	// TODO : Add me back in
+	// TODO : Add me back in - Crafting
 	//if(m_pGameWindow->IsPaused() == false)
 	//{
 	//	if(m_crafting)
@@ -1294,7 +1294,7 @@ void CraftingGUI::CraftPressed(bool fakeCraft)
 		m_craftingTime = 3.5f;
 		m_craftingTimer = 0.0f;
 
-		// TODO : Add me back in
+		// TODO : Add me back in - Crafting
 		//m_pPlayer->SetCrafting(true);
 		//m_pPlayer->SetCraftingItem(true);
 

@@ -80,7 +80,7 @@ void ProjectileManager::ClearProjectileOwnerForEnemy(Enemy* pEnemy)
 	m_projectileMutex.lock();
 	for(unsigned int i = 0; i < m_vpProjectileList.size(); i++)
 	{
-		// TODO : Add me back in
+		// TODO : Add me back in - NPC and enemy
 		//if(m_vpProjectileList[i]->GetEnemyOwner() == pEnemy)
 		//{
 		//	m_vpProjectileList[i]->SetOwner(NULL, NULL, NULL);
@@ -94,7 +94,7 @@ void ProjectileManager::ClearProjectileOwnerForNPC(NPC* pNPC)
 	m_projectileMutex.lock();
 	for(unsigned int i = 0; i < m_vpProjectileList.size(); i++)
 	{
-		// TODO : Add me back in
+		// TODO : Add me back in - NPC and enemy
 		//if(m_vpProjectileList[i]->GetNPCOwner() == pNPC)
 		//{
 		//	m_vpProjectileList[i]->SetOwner(NULL, NULL, NULL);
@@ -226,13 +226,13 @@ void ProjectileManager::Render()
 	{
 		Projectile* pProjectile = m_vpProjectileList[i];
 
-		// TODO : Add me back in
+		// TODO : Add me back in - render culling
 		//if(m_pChunkManager->IsInsideLoader(pProjectile->GetCenter()) == false)
 		//{
 		//	continue;
 		//}
 
-		// TODO : Add me back in
+		// TODO : Add me back in - render culling
 		//if(m_pRenderer->SphereInFrustum(m_pGameWindow->GetMainViewport(), pProjectile->GetCenter(), pProjectile->GetRadius()))
 		{
 			pProjectile->Render();
@@ -250,13 +250,13 @@ void ProjectileManager::RenderWeaponTrails()
 	{
 		Projectile* pProjectile = m_vpProjectileList[i];
 
-		// TODO : Add me back in
+		// TODO : Add me back in - render culling
 		//if(m_pChunkManager->IsInsideLoader(pProjectile->GetCenter()) == false)
 		//{
 		//	continue;
 		//}
 
-		// TODO : Add me back in
+		// TODO : Add me back in - render culling
 		//if(m_pRenderer->SphereInFrustum(m_pGameWindow->GetMainViewport(), pProjectile->GetCenter(), pProjectile->GetRadius()))
 		{
 			pProjectile->RenderWeaponTrails();
@@ -272,13 +272,13 @@ void ProjectileManager::RenderDebug()
 	{
 		Projectile* pProjectile = m_vpProjectileList[i];
 
-		// TODO : Add me back in
+		// TODO : Add me back in - render culling
 		//if(m_pChunkManager->IsInsideLoader(pProjectile->GetCenter()) == false)
 		//{
 		//	continue;
 		//}
 
-		// TODO : Add me back in
+		// TODO : Add me back in - render culling
 		//if(m_pRenderer->SphereInFrustum(m_pGameWindow->GetMainViewport(), pProjectile->GetCenter(), pProjectile->GetRadius()))
 		{
 			pProjectile->RenderDebug();

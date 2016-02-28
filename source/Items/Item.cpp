@@ -1070,7 +1070,7 @@ void Item::Interact()
 	// Do a hit particle effect
 	if(createHitEffect)
 	{
-		// TODO : Add me back in
+		// TODO : Add me back in - item hit particle effect
 		//vec3 direction = GetCenter() - m_pPlayer->GetCenter();
 		//vec3 hitParticlePos = GetCenter() - (normalize(direction) * (m_radius*0.5f));
 		//unsigned int effectId = -1;
@@ -1187,7 +1187,7 @@ void Item::Update(float dt)
 	}
 
 	// Make sure that an owning chunk knows about us
-	// TODO : Add me back in
+	// TODO : Add me back in - Chunks owning items
 	//if(m_pOwningChunk == NULL || m_pOwningChunk->IsInsideChunk(m_position) == false)
 	//{
 	//	if(m_pOwningChunk != NULL)
@@ -1236,7 +1236,7 @@ void Item::Update(float dt)
 		//int blockX, blockY, blockZ;
 		//vec3 blockPos;
 		
-		// TODO : Add me back in
+		// TODO : Add me back in - chunks owning items
 		//if(m_pOwningChunk != NULL && m_pOwningChunk->IsSetup() && m_pOwningChunk->IsInsideChunk(m_position))
 		//{
 		//	Chunk* pChunk = GetCachedGridChunkOrFromPosition(m_position);

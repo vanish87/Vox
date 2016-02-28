@@ -474,7 +474,7 @@ void ItemManager::Render(bool outline, bool reflection, bool silhouette, bool sh
 			continue;
 		}
 
-		// TODO : Add me back in
+		// TODO : Add me back in - render culling
 		//float toCamera = (m_pGameWindow->GetGameCamera()->GetPosition() - pItem->GetCenter()).GetLength();
 		//if(toCamera > m_pGameWindow->GetGUIHelper()->GetFogRadius() + (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*5.0f))
 		//{
@@ -485,7 +485,7 @@ void ItemManager::Render(bool outline, bool reflection, bool silhouette, bool sh
 		//	m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
 		//}
 
-		// TODO : Add me back in
+		// TODO : Add me back in - render culling
 		//if(shadow || m_pRenderer->SphereInFrustum(m_pGameWindow->GetMainViewport(), pItem->GetCenter(), pItem->GetRadius()))
 		{
 			pItem->Render(outline, reflection, silhouette);
@@ -506,7 +506,7 @@ void ItemManager::RenderDebug()
 			continue;
 		}
 
-		// TODO : Add me back in
+		// TODO : Add me back in - render culling
 		//if(m_pRenderer->SphereInFrustum(m_pGameWindow->GetMainViewport(), pItem->GetCenter(), pItem->GetRadius()))
 		{
 			pItem->RenderDebug();

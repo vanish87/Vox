@@ -1295,7 +1295,7 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 						// Drop the item in the world
 						vec3 vel = vec3(GetRandomNumber(-1, 1, 2), 0.0f, GetRandomNumber(-1, 1, 2)) * GetRandomNumber(2, 3, 2);
 
-						// TODO : Add me back in
+						// TODO : Add me back in - Dropping items in the world
 						//Item* pItem = m_pGameWindow->GetItemManager()->CreateItem(m_pPlayer->GetCenter(), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), pInventoryItem->m_pInventoryItem->m_filename.c_str(), eItem_DroppedItem, pInventoryItem->m_pInventoryItem->m_title.c_str(), true, false, 0.08f);
 						//if(pItem != NULL)
 						//{
