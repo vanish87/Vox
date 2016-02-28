@@ -11,8 +11,10 @@
 
 #include "Player.h"
 #include "../utils/Random.h"
+#include "../utils/Interpolator.h"
 #include "../Projectile/ProjectileManager.h"
 #include "../Projectile/Projectile.h"
+#include "../VoxGame.h"
 
 // Combat
 void Player::PressAttack()
@@ -70,11 +72,10 @@ void Player::PressAttack()
 			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "StaffAttack", 0.01f);
 			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Head_Body, false, AnimationSections_Head_Body, "StaffAttack", 0.01f);
 
+			Interpolator::GetInstance()->AddFloatInterpolation(&m_animationTimer, 0.0f, 0.2f, 0.2f, 0.0f, NULL, _AttackAnimationTimerFinished, this);
+
 			m_bCanAttackRight = false;
 		}
-	}
-	else if (IsSpellHands())
-	{
 	}
 	else if (IsWand())
 	{
@@ -100,6 +101,9 @@ void Player::PressAttack()
 	else if (IsSickle())
 	{
 	}
+	else if (IsShield())
+	{
+	}
 	else if (IsPickaxe())
 	{
 		if (CanAttackRight())
@@ -109,9 +113,6 @@ void Player::PressAttack()
 
 			m_bCanAttackRight = false;
 		}
-	}
-	else if (IsTorch())
-	{
 	}
 	else if (IsAxe())
 	{
@@ -169,6 +170,12 @@ void Player::PressAttack()
 	else if (IsSceneryPlacing())
 	{
 	}
+	else if (IsSpellHands())
+	{
+	}
+	else if (IsTorch())
+	{
+	}
 }
 
 void Player::ReleaseAttack()
@@ -224,5 +231,82 @@ void Player::_AttackAnimationTimerFinished(void *apData)
 
 void Player::AttackAnimationTimerFinished()
 {
+	if (IsBow())
+	{
+	}
+	else if (IsBoomerang())
+	{
+	}
+	else if (IsStaff())
+	{
+		float powerAmount = 25.0f;
+		float cameraMultiplier = 25.0f;
 
+		vec3 spellSpawnPosition = GetCenter() + (m_forward*1.25f) + (GetUpVector()*0.25f);
+
+		if (VoxGame::GetInstance()->GetCameraMode() == CameraMode_FirstPerson)
+		{
+			cameraMultiplier = 30.0f;
+			spellSpawnPosition.y += 0.75f;
+		}
+
+		vec3 spellSpawnVelocity = m_forward * powerAmount + vec3(0.0f, 1.0f, 0.0f) * (m_cameraForward.y*cameraMultiplier);
+
+		Projectile* pProjectile = m_pProjectileManager->CreateProjectile(spellSpawnPosition, spellSpawnVelocity, 0.0f, "media/gamedata/items/Fireball/Fireball.item", 0.05f);
+		pProjectile->SetProjectileType(true, false, false);
+		// TODO : Add me back in
+		//pProjectile->SetOwner(this, NULL, NULL);
+		pProjectile->SetGravityMultiplier(0.0f);
+	}
+	else if (IsWand())
+	{
+	}
+	else if (IsBomb())
+	{
+	}
+	else if (IsConsumable())
+	{
+	}
+	else if (IsDagger())
+	{
+	}
+	else if (IsHammer())
+	{
+	}
+	else if (IsMace())
+	{
+	}
+	else if (IsSickle())
+	{
+	}
+	else if (IsShield())
+	{
+	}	
+	else if (IsPickaxe())
+	{
+	}
+	else if (IsAxe())
+	{
+	}
+	else if (Is2HandedSword())
+	{
+	}
+	else if (IsSword())
+	{
+	}
+	else if (IsBlockPlacing())
+	{
+	}
+	else if (IsItemPlacing())
+	{
+	}
+	else if (IsSceneryPlacing())
+	{
+	}
+	else if (IsSpellHands())
+	{
+	}
+	else if (IsTorch())
+	{
+	}
 }

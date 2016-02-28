@@ -12,6 +12,7 @@
 #include "Player.h"
 #include "../utils/Interpolator.h"
 #include "../blocks/Chunk.h"
+#include "../VoxGame.h"
 #include <glm/detail/func_geometric.hpp>
 
 const vec3 Player::PLAYER_CENTER_OFFSET = vec3(0.0f, 1.525f, 0.0f);
@@ -86,10 +87,12 @@ Player::Player(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryMa
 	m_equippedProperties = 0;
 	SetNormal();
 
+	// Animation params
 	for (int i = 0; i < AnimationSections_NUMSECTIONS; i++)
 	{
 		m_animationFinished[i] = false;
 	}
+	m_animationTimer = 0.0f;
 
 	// Create voxel character
 	m_pVoxelCharacter = new VoxelCharacter(m_pRenderer, m_pQubicleBinaryManager);
@@ -951,6 +954,17 @@ void Player::ClearChunkCacheForChunk(Chunk* pChunk)
 	}
 }
 
+// Camera
+void Player::SetCameraPosition(vec3 cameraPos)
+{
+	m_cameraPosition = cameraPos;
+}
+
+void Player::SetCameraForward(vec3 cameraForward)
+{
+	m_cameraForward = cameraForward;
+}
+
 // Movement
 vec3 Player::GetPositionMovementAmount()
 {
@@ -1016,7 +1030,14 @@ vec3 Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeFo
 	// Change to run animation
 	if (m_bIsChargingAttack == false)
 	{
-		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, true, AnimationSections_Legs_Feet, "Run", 0.01f);
+		if (IsStaff())
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, true, AnimationSections_Legs_Feet, "StaffRun", 0.01f);
+		}
+		else
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, true, AnimationSections_Legs_Feet, "Run", 0.01f);
+		}
 	}
 	else
 	{
@@ -1782,13 +1803,19 @@ void Player::UpdateChargingAttack(float dt)
 		float powerAmount = 90.0f * m_chargeAmount;
 		float cameraMultiplier = 75.0f;
 
-		m_chargeSpawnVelocity = (m_forward * powerAmount) + (GetUpVector() * liftAmount) + (vec3(0.0f, 1.0f, 0.0f) * /*(m_cameraForward.y*cameraMultiplier) * */m_chargeAmount);
+		if (VoxGame::GetInstance()->GetCameraMode() == CameraMode_FirstPerson)
+		{
+			//liftAmount *= 2.0f;
+			cameraMultiplier = 107.0f;
+		}
 
-		//m_pVoxelCharacter->SetHeadAndUpperBodyLookRotation(-m_cameraForward.y*20.0f, 0.5f);
+		m_chargeSpawnVelocity = (m_forward * powerAmount) + (GetUpVector() * liftAmount) + (vec3(0.0f, 1.0f, 0.0f) * (m_cameraForward.y*cameraMultiplier) * m_chargeAmount);
+
+		m_pVoxelCharacter->SetHeadAndUpperBodyLookRotation(-m_cameraForward.y*20.0f, 0.5f);
 	}
 	else
 	{
-		//m_pVoxelCharacter->SetHeadAndUpperBodyLookRotation(0.0f, 0.0f);
+		m_pVoxelCharacter->SetHeadAndUpperBodyLookRotation(0.0f, 0.0f);
 	}
 }
 

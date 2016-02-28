@@ -21,6 +21,39 @@ void VoxGame::PreRender()
 	m_pPlayer->CalculateWorldTransformMatrix();
 }
 
+void VoxGame::BeginShaderRender()
+{
+	glShader* pShader = NULL;
+
+	if (m_shadows)
+	{
+		m_pRenderer->BeginGLSLShader(m_shadowShader);
+
+		pShader = m_pRenderer->GetShader(m_shadowShader);
+		GLuint shadowMapUniform = glGetUniformLocationARB(pShader->GetProgramObject(), "ShadowMap");
+		m_pRenderer->PrepareShaderTexture(7, shadowMapUniform);
+		m_pRenderer->BindRawTextureId(m_pRenderer->GetDepthTextureFromFrameBuffer(m_shadowFrameBuffer));
+		glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "renderShadow"), m_shadows);
+		glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "alwaysShadow"), false);
+	}
+	else
+	{
+		m_pRenderer->BeginGLSLShader(m_defaultShader);
+	}
+}
+
+void VoxGame::EndShaderRender()
+{
+	if (m_shadows)
+	{
+		m_pRenderer->EndGLSLShader(m_shadowShader);
+	}
+	else
+	{
+		m_pRenderer->EndGLSLShader(m_defaultShader);
+	}
+}
+
 void VoxGame::Render()
 {
 	if (m_pVoxWindow->GetMinimized())
@@ -28,8 +61,6 @@ void VoxGame::Render()
 		// Don't call any render functions if minimized
 		return;
 	}
-
-	glShader* pShader = NULL;
 
 	// Begin rendering
 	m_pRenderer->BeginScene(true, true, true);
@@ -87,43 +118,21 @@ void VoxGame::Render()
 			// Render the skybox
 			RenderSkybox();
 
-			if (m_shadows)
+			BeginShaderRender();
 			{
-				m_pRenderer->BeginGLSLShader(m_shadowShader);
+				// Render the chunks
+				m_pChunkManager->Render();
 
-				pShader = m_pRenderer->GetShader(m_shadowShader);
-				GLuint shadowMapUniform = glGetUniformLocationARB(pShader->GetProgramObject(), "ShadowMap");
-				m_pRenderer->PrepareShaderTexture(7, shadowMapUniform);
-				m_pRenderer->BindRawTextureId(m_pRenderer->GetDepthTextureFromFrameBuffer(m_shadowFrameBuffer));
-				glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "renderShadow"), m_shadows);
-				glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "alwaysShadow"), false);
+				// Scenery
+				m_pSceneryManager->Render(false, false, false, false, false);
+
+				// Projectiles
+				m_pProjectileManager->Render();
+
+				// Items
+				m_pItemManager->Render(false, false, false, false);
 			}
-			else
-			{
-				m_pRenderer->BeginGLSLShader(m_defaultShader);
-			}
-
-			// Render the chunks
-			m_pChunkManager->Render();
-
-			// Scenery
-			m_pSceneryManager->Render(false, false, false, false, false);
-
-			// Projectiles
-			m_pProjectileManager->Render();
-
-			// Items
-			m_pItemManager->Render(false, false, false, false);
-
-			// Render the player
-			if (m_cameraMode == CameraMode_FirstPerson)
-			{
-				m_pPlayer->RenderFirstPerson();
-			}
-			else
-			{
-				m_pPlayer->Render();
-			}
+			EndShaderRender();
 
 			// Render the block particles
 			m_pBlockParticleManager->Render();
@@ -131,14 +140,21 @@ void VoxGame::Render()
 			// Render the instanced objects
 			m_pInstanceManager->Render();
 
-			if (m_shadows)
+			BeginShaderRender();
 			{
-				m_pRenderer->EndGLSLShader(m_shadowShader);
+
+				// Render the player
+				if (m_cameraMode == CameraMode_FirstPerson)
+				{
+					m_pPlayer->RenderFirstPerson();
+				}
+				else
+				{
+					m_pPlayer->Render();
+				}
 			}
-			else
-			{
-				m_pRenderer->EndGLSLShader(m_defaultShader);
-			}
+			EndShaderRender();
+
 
 			// Debug rendering
 			if(m_debugRender)

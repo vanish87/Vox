@@ -108,6 +108,8 @@ void VoxGame::Update()
 	if (m_gameMode == GameMode_Game)
 	{
 		UpdateCamera(m_deltaTime);
+		m_pPlayer->SetCameraPosition(m_pGameCamera->GetPosition());
+		m_pPlayer->SetCameraForward(normalize(m_pGameCamera->GetFacing()));
 	}
 
 	// Update the dynamic camera zoom

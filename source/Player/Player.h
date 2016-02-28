@@ -99,6 +99,10 @@ public:
 	Chunk* GetCachedGridChunkOrFromPosition(vec3 pos);
 	void ClearChunkCacheForChunk(Chunk* pChunk);
 
+	// Camera
+	void SetCameraPosition(vec3 cameraPos);
+	void SetCameraForward(vec3 cameraForward);
+
 	// Movement
 	vec3 GetPositionMovementAmount();
 	vec3 MoveAbsolute(vec3 direction, const float speed, bool shouldChangeForward = true);
@@ -262,6 +266,10 @@ private:
 	// Cached chunk from grid position
 	Chunk* m_pCachedGridChunk;
 
+	// Camera variables
+	vec3 m_cameraPosition;
+	vec3 m_cameraForward;
+
 	// Ground flag
 	bool m_bIsOnGround;
 	float m_groundCheckTimer;
@@ -304,6 +312,7 @@ private:
 
 	// Animation params
 	bool m_animationFinished[AnimationSections_NUMSECTIONS];
+	float m_animationTimer;
 
 	// Players world matrix
 	Matrix4x4 m_worldMatrix;

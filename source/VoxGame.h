@@ -147,6 +147,8 @@ public:
 
 	// Rendering
 	void PreRender();
+	void BeginShaderRender();
+	void EndShaderRender();
 	void Render();
 	void RenderSkybox();
 	void RenderShadows();
