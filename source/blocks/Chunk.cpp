@@ -615,11 +615,11 @@ bool Chunk::UpdateSurroundedFlag()
 
 	// Check our neighbor chunks
 	if (pChunkXMinus != NULL && pChunkXMinus->IsSetup() == true && pChunkXMinus->m_x_plus_full &&
-		pChunkXPlus != NULL && pChunkXPlus->IsSetup() == true && pChunkXPlus->m_x_minus_full &&
-		pChunkYMinus != NULL && pChunkYMinus->IsSetup() == true && pChunkYMinus->m_y_plus_full &&
-		pChunkYPlus != NULL && pChunkYPlus->IsSetup() == true && pChunkYPlus->m_y_minus_full &&
-		pChunkZMinus != NULL && pChunkZMinus->IsSetup() == true && pChunkZMinus->m_z_plus_full &&
-		pChunkZPlus != NULL && pChunkZPlus->IsSetup() == true && pChunkZPlus->m_z_minus_full)
+	    pChunkXPlus != NULL && pChunkXPlus->IsSetup() == true && pChunkXPlus->m_x_minus_full &&
+	    pChunkYMinus != NULL && pChunkYMinus->IsSetup() == true && pChunkYMinus->m_y_plus_full &&
+	    pChunkYPlus != NULL && pChunkYPlus->IsSetup() == true && pChunkYPlus->m_y_minus_full &&
+	    pChunkZMinus != NULL && pChunkZMinus->IsSetup() == true && pChunkZMinus->m_z_plus_full &&
+	    pChunkZPlus != NULL && pChunkZPlus->IsSetup() == true && pChunkZPlus->m_z_minus_full)
 	{
 		m_surroundedChunk = true;
 	}
