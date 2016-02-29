@@ -19,6 +19,7 @@
 #include "..\Frontend\FrontendManager.h"
 #include "..\Player\Player.h"
 #include "..\VoxGame.h"
+#include "..\Items\ItemManager.h"
 
 #include "..\utils\FileUtils.h"
 #include "..\utils\Random.h"
@@ -255,6 +256,11 @@ void InventoryGUI::SetLootGUI(LootGUI* pLootGUI)
 void InventoryGUI::SetActionBar(ActionBar* pActionBar)
 {
 	m_pActionBar = pActionBar;
+}
+
+void InventoryGUI::SetItemManager(ItemManager *pItemManager)
+{
+	m_pItemManager = pItemManager;
 }
 
 void InventoryGUI::Load()
@@ -1295,25 +1301,24 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 						// Drop the item in the world
 						vec3 vel = vec3(GetRandomNumber(-1, 1, 2), 0.0f, GetRandomNumber(-1, 1, 2)) * GetRandomNumber(2, 3, 2);
 
-						// TODO : Add me back in - Dropping items in the world
-						//Item* pItem = m_pGameWindow->GetItemManager()->CreateItem(m_pPlayer->GetCenter(), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), pInventoryItem->m_pInventoryItem->m_filename.c_str(), eItem_DroppedItem, pInventoryItem->m_pInventoryItem->m_title.c_str(), true, false, 0.08f);
-						//if(pItem != NULL)
-						//{
-						//	pItem->SetGravityDirection(vec3(0.0f, -1.0f, 0.0f));
-						//	pItem->SetVelocity(normalize(vel)*4.5f + vec3(0.0f, 9.5f+GetRandomNumber(3, 6, 2), 0.0f));
-						//	pItem->SetRotation(vec3(0.0f, GetRandomNumber(0, 360, 2), 0.0f));
-						//	pItem->SetAngularVelocity(vec3(0.0f, 90.0f, 0.0f));
-						//	pItem->SetDroppedItem(pInventoryItem->m_pInventoryItem->m_filename.c_str(), pInventoryItem->m_pInventoryItem->m_Iconfilename.c_str(), pInventoryItem->m_pInventoryItem->m_itemType, pInventoryItem->m_pInventoryItem->m_item, pInventoryItem->m_pInventoryItem->m_status, pInventoryItem->m_pInventoryItem->m_equipSlot, pInventoryItem->m_pInventoryItem->m_itemQuality, pInventoryItem->m_pInventoryItem->m_left, pInventoryItem->m_pInventoryItem->m_right, pInventoryItem->m_pInventoryItem->m_title.c_str(), pInventoryItem->m_pInventoryItem->m_description.c_str(), pInventoryItem->m_pInventoryItem->m_placementR, pInventoryItem->m_pInventoryItem->m_placementG, pInventoryItem->m_pInventoryItem->m_placementB, pInventoryItem->m_pInventoryItem->m_quantity);
-						//	pItem->SetCollisionEnabled(false);
+						Item* pItem = m_pItemManager->CreateItem(m_pPlayer->GetCenter(), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), pInventoryItem->m_pInventoryItem->m_filename.c_str(), eItem_DroppedItem, pInventoryItem->m_pInventoryItem->m_title.c_str(), true, false, 0.08f);
+						if(pItem != NULL)
+						{
+							pItem->SetGravityDirection(vec3(0.0f, -1.0f, 0.0f));
+							pItem->SetVelocity(normalize(vel)*4.5f + vec3(0.0f, 9.5f+GetRandomNumber(3, 6, 2), 0.0f));
+							pItem->SetRotation(vec3(0.0f, GetRandomNumber(0, 360, 2), 0.0f));
+							pItem->SetAngularVelocity(vec3(0.0f, 90.0f, 0.0f));
+							pItem->SetDroppedItem(pInventoryItem->m_pInventoryItem->m_filename.c_str(), pInventoryItem->m_pInventoryItem->m_Iconfilename.c_str(), pInventoryItem->m_pInventoryItem->m_itemType, pInventoryItem->m_pInventoryItem->m_item, pInventoryItem->m_pInventoryItem->m_status, pInventoryItem->m_pInventoryItem->m_equipSlot, pInventoryItem->m_pInventoryItem->m_itemQuality, pInventoryItem->m_pInventoryItem->m_left, pInventoryItem->m_pInventoryItem->m_right, pInventoryItem->m_pInventoryItem->m_title.c_str(), pInventoryItem->m_pInventoryItem->m_description.c_str(), pInventoryItem->m_pInventoryItem->m_placementR, pInventoryItem->m_pInventoryItem->m_placementG, pInventoryItem->m_pInventoryItem->m_placementB, pInventoryItem->m_pInventoryItem->m_quantity);
+							pItem->SetCollisionEnabled(false);
 
-						//	for(int i = 0; i < (int)pInventoryItem->m_pInventoryItem->m_vpStatAttributes.size(); i++)
-						//	{
-						//		pItem->GetDroppedInventoryItem()->AddStatAttribute(pInventoryItem->m_pInventoryItem->m_vpStatAttributes[i]->GetType(), pInventoryItem->m_pInventoryItem->m_vpStatAttributes[i]->GetModifyAmount());
-						//	}
+							for(int i = 0; i < (int)pInventoryItem->m_pInventoryItem->m_vpStatAttributes.size(); i++)
+							{
+								pItem->GetDroppedInventoryItem()->AddStatAttribute(pInventoryItem->m_pInventoryItem->m_vpStatAttributes[i]->GetType(), pInventoryItem->m_pInventoryItem->m_vpStatAttributes[i]->GetModifyAmount());
+							}
 
-						//	int numY = pItem->GetVoxelItem()->GetAnimatedSection(0)->m_pVoxelObject->GetQubicleModel()->GetQubicleMatrix(0)->m_matrixSizeY;
-						//	pItem->GetVoxelItem()->SetRenderOffset(vec3(0.0f, numY*0.5f, 0.0f));
-						//}
+							int numY = pItem->GetVoxelItem()->GetAnimatedSection(0)->m_pVoxelObject->GetQubicleModel()->GetQubicleMatrix(0)->m_matrixSizeY;
+							pItem->GetVoxelItem()->SetRenderOffset(vec3(0.0f, numY*0.5f, 0.0f));
+						}
 
 						m_pInventoryManager->RemoveInventoryItem(pInventoryItem->m_slotX, pInventoryItem->m_slotY);
 

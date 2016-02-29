@@ -209,6 +209,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pInventoryGUI->SetCharacterGUI(m_pCharacterGUI);
 	m_pInventoryGUI->SetLootGUI(m_pLootGUI);
 	m_pInventoryGUI->SetActionBar(m_pActionBar);
+	m_pInventoryGUI->SetItemManager(m_pItemManager);
 	m_pCharacterGUI->SetInventoryGUI(m_pInventoryGUI);
 	m_pCharacterGUI->SetLootGUI(m_pLootGUI);
 	m_pCharacterGUI->SetActionBar(m_pActionBar);

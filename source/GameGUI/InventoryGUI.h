@@ -27,7 +27,7 @@ class CharacterGUI;
 class LootGUI;
 class ActionBar;
 class LootSlotItem;
-
+class ItemManager;
 
 class InventorySlotItem
 {
@@ -53,6 +53,7 @@ public:
 	void SetCharacterGUI(CharacterGUI* pCharacterGUI);
 	void SetLootGUI(LootGUI* pLootGUI);
 	void SetActionBar(ActionBar* pActionBar);
+	void SetItemManager(ItemManager *pItemManager);
 
 	void Load();
 	void Unload();
@@ -138,6 +139,7 @@ private:
 	CharacterGUI* m_pCharacterGUI;
 	LootGUI* m_pLootGUI;
 	ActionBar* m_pActionBar;
+	ItemManager* m_pItemManager;
 
 	bool m_loaded;
 
