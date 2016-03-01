@@ -132,3 +132,4 @@
 * Enemies.
 * NPCs.
 * Companion pets.
+* Add back in frustum culling for chunk rendering.
