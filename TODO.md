@@ -133,3 +133,4 @@
 * NPCs.
 * Companion pets.
 * Add back in frustum culling for chunk rendering.
+* Add debug render metrics for all counters (i.e num chunks, particles, items, triangles, verts, etc).
