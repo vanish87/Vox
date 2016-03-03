@@ -94,8 +94,7 @@ Item::~Item()
 	// Remove us from an owning chunk
 	if(m_pOwningChunk != NULL)
 	{
-		// TODO : Add me back in when chunks own items
-		//m_pOwningChunk->RemoveItem(this);
+		m_pOwningChunk->RemoveItem(this);
 	}
 
 	// Clear the dropped item
@@ -1187,27 +1186,26 @@ void Item::Update(float dt)
 	}
 
 	// Make sure that an owning chunk knows about us
-	// TODO : Add me back in - Chunks owning items
-	//if(m_pOwningChunk == NULL || m_pOwningChunk->IsInsideChunk(m_position) == false)
-	//{
-	//	if(m_pOwningChunk != NULL)
-	//	{
-	//		m_pOwningChunk->RemoveItem(this);
-	//	}
+	if(m_pOwningChunk == NULL || m_pOwningChunk->IsInsideChunk(m_position) == false)
+	{
+		if(m_pOwningChunk != NULL)
+		{
+			m_pOwningChunk->RemoveItem(this);
+		}
 
-	//	m_pOwningChunk = m_pChunkManager->GetChunkFromPosition(m_position.x, m_position.y, m_position.z);
+		m_pOwningChunk = m_pChunkManager->GetChunkFromPosition(m_position.x, m_position.y, m_position.z);
 
-	//	if(m_pOwningChunk != NULL)
-	//	{
-	//		m_pOwningChunk->AddItem(this);
-	//	}
-	//	else
-	//	{
-	//		//SetErase(true);
-	//	}
+		if(m_pOwningChunk != NULL)
+		{
+			m_pOwningChunk->AddItem(this);
+		}
+		else
+		{
+			//SetErase(true);
+		}
 
-	//	return;
-	//}
+		return;
+	}
 
 	// Auto disappear
 	if(m_autoDisappear)
@@ -1233,43 +1231,42 @@ void Item::Update(float dt)
 
 	if(m_worldCollide)
 	{
-		//int blockX, blockY, blockZ;
-		//vec3 blockPos;
+		int blockX, blockY, blockZ;
+		vec3 blockPos;
 		
-		// TODO : Add me back in - chunks owning items
-		//if(m_pOwningChunk != NULL && m_pOwningChunk->IsSetup() && m_pOwningChunk->IsInsideChunk(m_position))
-		//{
-		//	Chunk* pChunk = GetCachedGridChunkOrFromPosition(m_position);
-		//	bool active = m_pChunkManager->GetBlockActiveFrom3DPosition(m_position.x, m_position.y, m_position.z, &blockPos, &blockX, &blockY, &blockZ, &pChunk);
+		if(m_pOwningChunk != NULL && m_pOwningChunk->IsSetup() && m_pOwningChunk->IsInsideChunk(m_position))
+		{
+			Chunk* pChunk = GetCachedGridChunkOrFromPosition(m_position);
+			bool active = m_pChunkManager->GetBlockActiveFrom3DPosition(m_position.x, m_position.y, m_position.z, &blockPos, &blockX, &blockY, &blockZ, &pChunk);
 
-		//	if(active == true)
-		//	{
-		//		// Roll back the integration, since we will intersect the block otherwise
-		//		m_position -= m_velocity * dt;
+			if(active == true)
+			{
+				// Roll back the integration, since we will intersect the block otherwise
+				m_position -= m_velocity * dt;
 
-		//		m_velocity = vec3(0.0f, 0.0f, 0.0f);
-		//	}
-		//}
-		//else
-		//{
-		//	if(m_pOwningChunk != NULL)
-		//	{
-		//		m_pOwningChunk->RemoveItem(this);
-		//	}
+				m_velocity = vec3(0.0f, 0.0f, 0.0f);
+			}
+		}
+		else
+		{
+			if(m_pOwningChunk != NULL)
+			{
+				m_pOwningChunk->RemoveItem(this);
+			}
 
-		//	m_pOwningChunk = m_pChunkManager->GetChunkFromPosition(m_position.x, m_position.y, m_position.z);
+			m_pOwningChunk = m_pChunkManager->GetChunkFromPosition(m_position.x, m_position.y, m_position.z);
 
-		//	if(m_pOwningChunk != NULL)
-		//	{
-		//		m_pOwningChunk->AddItem(this);
-		//	}
+			if(m_pOwningChunk != NULL)
+			{
+				m_pOwningChunk->AddItem(this);
+			}
 
-		//	if(m_pOwningChunk == NULL)
-		//	{
-		//		m_position -= m_velocity * dt;
-		//		m_velocity = vec3(0.0f, 0.0f, 0.0f);
-		//	}
-		//}
+			if(m_pOwningChunk == NULL)
+			{
+				m_position -= m_velocity * dt;
+				m_velocity = vec3(0.0f, 0.0f, 0.0f);
+			}
+		}
 	}
 }
 

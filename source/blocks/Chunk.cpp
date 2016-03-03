@@ -17,6 +17,7 @@
 #include "../utils/Random.h"
 #include "../simplex/simplexnoise.h"
 #include "../VoxSettings.h"
+#include "../Items/ItemManager.h"
 
 // A chunk cube is double this render size, since we create from - to + for each axis.
 const float Chunk::BLOCK_RENDER_SIZE = 0.5f;
@@ -443,6 +444,54 @@ bool Chunk::GetActive(int x, int y, int z)
 	}
 
 	return true;
+}
+
+// Inside chunk
+bool Chunk::IsInsideChunk(vec3 pos)
+{
+	if ((pos.x < m_position.x - BLOCK_RENDER_SIZE) || (pos.x - m_position.x > CHUNK_SIZE * (BLOCK_RENDER_SIZE*2.0f) - BLOCK_RENDER_SIZE))
+		return false;
+
+	if ((pos.y < m_position.y - BLOCK_RENDER_SIZE) || (pos.y - m_position.y > CHUNK_SIZE * (BLOCK_RENDER_SIZE*2.0f) - BLOCK_RENDER_SIZE))
+		return false;
+
+	if ((pos.z < m_position.z - BLOCK_RENDER_SIZE) || (pos.z - m_position.z > CHUNK_SIZE * (BLOCK_RENDER_SIZE*2.0f) - BLOCK_RENDER_SIZE))
+		return false;
+
+	return true;
+}
+
+// Items
+void Chunk::AddItem(Item* pItem)
+{
+	m_itemMutexLock.lock();
+	m_vpItemList.push_back(pItem);
+	m_itemMutexLock.unlock();
+}
+
+void Chunk::RemoveItem(Item* pItem)
+{
+	m_itemMutexLock.lock();
+	vector<Item*>::iterator iter = std::find(m_vpItemList.begin(), m_vpItemList.end(), pItem);
+	if (iter != m_vpItemList.end())
+	{
+		m_vpItemList.erase(iter);
+	}
+	m_itemMutexLock.unlock();
+}
+
+void Chunk::RemoveItems()
+{
+	// Delete the chunk items data
+	m_itemMutexLock.lock();
+	for (unsigned int i = 0; i < m_vpItemList.size(); i++)
+	{
+		m_vpItemList[i]->SetChunk(NULL);
+		m_vpItemList[i]->SetErase(true);
+		// SB REDO m_vpItemList[i]->SetSaved(true);
+	}
+	m_vpItemList.clear();
+	m_itemMutexLock.unlock();
 }
 
 // Block colour

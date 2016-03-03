@@ -21,10 +21,19 @@
 #include "../Renderer/Renderer.h"
 #include "../Renderer/camera.h"
 
+#include <vector>
+using namespace std;
+
+#include "../tinythread/tinythread.h"
+using namespace tthread;
+
 class ChunkManager;
 class Player;
 class SceneryManager;
 class VoxSettings;
+class Item;
+
+typedef vector<Item*> ItemList;
 
 class Chunk
 {
@@ -86,6 +95,14 @@ public:
 
 	// Active
 	bool GetActive(int x, int y, int z);
+
+	// Inside chunk
+	bool IsInsideChunk(vec3 pos);
+
+	// Items
+	void AddItem(Item* pItem);
+	void RemoveItem(Item* pItem);
+	void RemoveItems();
 
 	// Block colour
 	void SetColour(int x, int y, int z, float r, float g, float b, float a);
@@ -196,6 +213,10 @@ private:
 
 	// The blocks data
 	unsigned int *m_colour;
+
+	// Item list
+	mutex m_itemMutexLock;
+	ItemList m_vpItemList;
 
 	// Render mesh
 	OpenGLTriangleMesh* m_pMesh;
