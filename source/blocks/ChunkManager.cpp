@@ -39,6 +39,10 @@ ChunkManager::ChunkManager(Renderer* pRenderer, VoxSettings* pVoxSettings, Qubic
 	m_wireframeRender = false;
 	m_faceMerging = true;
 
+	// Chunk counters
+	m_numChunksLoaded = 0;
+	m_numChunksRender = 0;
+
 	// Threading
 	m_updateThreadActive = true;
 	m_updateThreadFinished = false;
@@ -88,6 +92,16 @@ void ChunkManager::InitializeChunkCreation()
 unsigned int ChunkManager::GetChunkMaterialID()
 {
 	return m_chunkMaterialID;
+}
+
+int ChunkManager::GetNumChunksLoaded()
+{
+	return m_numChunksLoaded;
+}
+
+int ChunkManager::GetNumChunksRender()
+{
+	return m_numChunksRender;
 }
 
 // Loader radius
@@ -721,6 +735,7 @@ bool ChunkManager::GetFaceMerging()
 // Updating
 void ChunkManager::Update(float dt)
 {
+	m_numChunksLoaded = (int)m_chunksMap.size();
 }
 
 void ChunkManager::_UpdatingChunksThread(void* pData)
@@ -1002,8 +1017,13 @@ void ChunkManager::UpdatingChunksThread()
 }
 
 // Rendering
-void ChunkManager::Render()
+void ChunkManager::Render(bool shadowRender)
 {
+	if (shadowRender == false)
+	{
+		m_numChunksRender = 0;
+	}
+
 	m_pRenderer->StartMeshRender();
 
 	// Store cull mode
@@ -1029,6 +1049,8 @@ void ChunkManager::Render()
 			if (pChunk != NULL && pChunk->IsCreated())
 			{
 				pChunk->Render();
+
+				m_numChunksRender++;
 			}
 		}
 		m_ChunkMapMutexLock.unlock();

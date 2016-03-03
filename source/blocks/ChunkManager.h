@@ -160,6 +160,10 @@ public:
 	// Chunk rendering material
 	unsigned int GetChunkMaterialID();
 
+	// Chunk counters
+	int GetNumChunksLoaded();
+	int GetNumChunksRender();
+
 	// Loader radius
 	void SetLoaderRadius(float radius);
 	float GetLoaderRadius();
@@ -202,7 +206,7 @@ public:
 	void UpdatingChunksThread();
 
 	// Rendering
-	void Render();
+	void Render(bool shadowRender);
 	void RenderDebug();
 	void Render2D(Camera* pCamera, unsigned int viewport, unsigned int font);
 
@@ -246,6 +250,10 @@ private:
 	// Storage for modifications to chunks that are not loaded yet
 	ChunkStorageLoaderList m_vpChunkStorageList;
 	mutex m_chunkStorageListLock;
+
+	// Chunk counters
+	int m_numChunksLoaded;
+	int m_numChunksRender;
 
 	// Threading
 	thread* m_pUpdatingChunksThread;

@@ -121,7 +121,7 @@ void VoxGame::Render()
 			BeginShaderRender();
 			{
 				// Render the chunks
-				m_pChunkManager->Render();
+				m_pChunkManager->Render(false);
 
 				// Scenery
 				m_pSceneryManager->Render(false, false, false, false, false);
@@ -283,7 +283,7 @@ void VoxGame::RenderShadows()
 			m_pRenderer->SetCullMode(CM_FRONT);
 
 			// Render the chunks
-			m_pChunkManager->Render();
+			m_pChunkManager->Render(true);
 
 			// Render the player
 			m_pPlayer->Render();
@@ -664,6 +664,17 @@ void VoxGame::RenderDebugInformation()
 		m_pGameCamera->GetView().x, m_pGameCamera->GetView().y, m_pGameCamera->GetView().z,
 		m_pGameCamera->GetZoomAmount());
 
+	char lDrawingBuff[256];
+	sprintf(lDrawingBuff, "Vertices: %i, Faces: %i", 0, 0);
+	char lChunksBuff[256];
+	sprintf(lChunksBuff, "Chunks: %i, Render: %i", m_pChunkManager->GetNumChunksLoaded(), m_pChunkManager->GetNumChunksRender());
+	char lParticlesBuff[256];
+	sprintf(lParticlesBuff, "Particles: %i, Render: %i, Emitters: %i, Effects: %i", m_pBlockParticleManager->GetNumBlockParticles(), m_pBlockParticleManager->GetNumRenderableParticles(), m_pBlockParticleManager->GetNumBlockParticleEmitters(), m_pBlockParticleManager->GetNumBlockParticleEffects());
+	char lItemsBuff[256];
+	sprintf(lItemsBuff, "Items: %i, Render: %i", m_pItemManager->GetNumItems(), m_pItemManager->GetNumRenderItems());
+	char lInstancesBuff[256];
+	sprintf(lInstancesBuff,  "Instance Parents: %i, Instance Objects: %i, Instance Render: %i", m_pInstanceManager->GetNumInstanceParents(), m_pInstanceManager->GetTotalNumInstanceObjects(), m_pInstanceManager->GetTotalNumInstanceRenderObjects());
+
 	char lFPSBuff[128];
 	float fpsWidthOffset = 65.0f;
 	if (m_debugRender)
@@ -693,7 +704,14 @@ void VoxGame::RenderDebugInformation()
 		m_pRenderer->SetLookAtCamera(vec3(0.0f, 0.0f, 250.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
 		if (m_debugRender)
 		{
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - l_nTextHeight - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lCameraBuff);
+			
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight*1) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lCameraBuff);
+			//m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight*2) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lDrawingBuff);
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight*3) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lChunksBuff);
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight*4) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lParticlesBuff);
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight*5) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lItemsBuff);
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight*6) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lInstancesBuff);
+
 		}
 
 		m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth-fpsWidthOffset, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lFPSBuff);

@@ -35,6 +35,7 @@ public:
 	BlockParticleManager(Renderer* pRenderer);
 	~BlockParticleManager();
 
+	// Clearing
 	void ClearBlockParticles();
 	void ClearBlockParticleEmitters();
 	void ClearBlockParticleEffects();

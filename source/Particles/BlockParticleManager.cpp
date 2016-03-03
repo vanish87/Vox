@@ -101,6 +101,7 @@ BlockParticleManager::~BlockParticleManager()
 	ClearBlockParticleEffects();
 }
 
+// Clearing
 void BlockParticleManager::ClearBlockParticles()
 {
 	for(unsigned int i = 0; i < m_vpBlockParticlesList.size(); i++)
