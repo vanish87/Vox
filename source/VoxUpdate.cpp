@@ -78,6 +78,8 @@ void VoxGame::Update()
 
 		// Item manager
 		m_pItemManager->Update(m_deltaTime);
+		m_pItemManager->UpdateItemLights(m_deltaTime);
+		m_pItemManager->UpdateItemParticleEffects(m_deltaTime);
 
 		// Projectile manager
 		m_pProjectileManager->Update(m_deltaTime);

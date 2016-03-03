@@ -303,9 +303,9 @@ void VoxGame::Destroy()
 	if (c_instance)
 	{
 		delete m_pSkybox;
+		delete m_pItemManager;
 		delete m_pLightingManager;
 		delete m_pInventoryManager;
-		delete m_pItemManager;
 		delete m_pPlayer;
 		delete m_pSceneryManager;
 		delete m_pBlockParticleManager;
