@@ -43,11 +43,15 @@ public:
 	// Creating
 	Projectile* CreateProjectile(vec3 position, vec3 velocity, float rotation, const char* objectFilename, float scale);
 
+	// Get projectile
+	Projectile* GetProjectile(int index);
+
 	// Get number of projectiles
 	int GetNumProjectiles();
 	int GetNumRenderProjectiles();
 
-	Projectile* GetProjectile(int index);
+	// Rendering helpers
+	void CalculateWorldTransformMatrix();
 
 	// Updating
 	void Update(float dt);

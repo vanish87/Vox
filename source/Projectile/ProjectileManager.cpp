@@ -125,6 +125,16 @@ Projectile* ProjectileManager::CreateProjectile(vec3 position, vec3 velocity, fl
 	return pNewProjectile;
 }
 
+// Get projectile
+Projectile* ProjectileManager::GetProjectile(int index)
+{
+	m_projectileMutex.lock();
+	Projectile* pProjectile = m_vpProjectileList[index];
+	m_projectileMutex.unlock();
+
+	return pProjectile;
+}
+
 // Get number of projectiles
 int ProjectileManager::GetNumProjectiles()
 {
@@ -140,15 +150,6 @@ int ProjectileManager::GetNumRenderProjectiles()
 	return m_numRenderProjectiles;
 }
 
-Projectile* ProjectileManager::GetProjectile(int index)
-{
-	m_projectileMutex.lock();
-	Projectile* pProjectile =  m_vpProjectileList[index];
-	m_projectileMutex.unlock();
-
-	return pProjectile;
-}
-
 bool projectile_needs_erasing(Projectile* aProjectile)
 {
 	bool needsErase = aProjectile->GetErase();
@@ -159,6 +160,19 @@ bool projectile_needs_erasing(Projectile* aProjectile)
 	}
 
 	return needsErase;
+}
+
+// Rendering helpers
+void ProjectileManager::CalculateWorldTransformMatrix()
+{
+	m_projectileMutex.lock();
+	for (unsigned int i = 0; i < m_vpProjectileList.size(); i++)
+	{
+		Projectile* pProjectile = m_vpProjectileList[i];
+
+		pProjectile->CalculateWorldTransformMatrix();
+	}
+	m_projectileMutex.unlock();
 }
 
 // Updating

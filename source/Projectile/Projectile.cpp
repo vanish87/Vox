@@ -770,8 +770,6 @@ void Projectile::Render()
 		return;
 	}
 
-	CalculateWorldTransformMatrix();
-
 	if(m_pVoxeProjectile != NULL)
 	{
 		Colour OutlineColour(1.0f, 1.0f, 0.0f, 1.0f);

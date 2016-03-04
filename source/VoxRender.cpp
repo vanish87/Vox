@@ -19,6 +19,8 @@ void VoxGame::PreRender()
 {
 	// Update matrices for game objects
 	m_pPlayer->CalculateWorldTransformMatrix();
+	m_pItemManager->CalculateWorldTransformMatrix();
+	m_pProjectileManager->CalculateWorldTransformMatrix();
 }
 
 void VoxGame::BeginShaderRender()

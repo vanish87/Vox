@@ -93,6 +93,7 @@ public:
 	Item* CheckItemPlayerInteraction();
 
 	// Rendering Helpers
+	void CalculateWorldTransformMatrix();
 	void SetWireFrameRender(bool wireframe);
 
 	// Update

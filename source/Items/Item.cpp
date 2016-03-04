@@ -1488,8 +1488,6 @@ void Item::Render(bool outline, bool reflection, bool silhouette)
 		return;
 	}
 
-	CalculateWorldTransformMatrix();
-
 	if(m_pOwningChunk == NULL || m_pOwningChunk->IsUnloading())
 	{
 		return;

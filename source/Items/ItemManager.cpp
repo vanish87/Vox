@@ -332,6 +332,16 @@ bool needs_erasing(Item* aI)
 }
 
 // Rendering Helpers
+void ItemManager::CalculateWorldTransformMatrix()
+{
+	for (unsigned int i = 0; i < m_vpItemList.size(); i++)
+	{
+		Item* pItem = m_vpItemList[i];
+
+		pItem->CalculateWorldTransformMatrix();
+	}
+}
+
 void ItemManager::SetWireFrameRender(bool wireframe)
 {
 	for(unsigned int i = 0; i < m_vpItemList.size(); i++)
