@@ -118,6 +118,13 @@ public:
 
 	// Dead
 	bool IsDead();
+	
+	// Level up
+	void LevelUp();
+
+	// Gameplay
+	void GiveHealth(float amount);
+	void GiveCoins(int amount);
 
 	// Combat
 	void PressAttack();
@@ -297,6 +304,8 @@ private:
 
 	// Dead flag
 	bool m_dead;
+
+	// Gameplay
 
 	// Combat
 	bool m_bCanAttackLeft;

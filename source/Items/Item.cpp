@@ -1342,42 +1342,41 @@ void Item::UpdatePlayerMagnet(float dt)
 				float yAdditionalMaagnetOffset = 0.5f;
 
 				// Magnet towards the player
-				// TODO : Add me back in when player gameplay is added for dead and giving health and coins
-				//if(m_pPlayer->IsDead() == false && length(m_pPlayer->GetCenter() - GetCenter()) < m_pPlayer->GetRadius() + 4.0f)
-				//{
-				//	vec3 toPlayer = (m_pPlayer->GetCenter()+vec3(0.0f, yAdditionalMaagnetOffset, 0.0f)) - GetCenter();
-				//	SetGravityDirection(toPlayer);
-				//	SetVelocity(normalize(toPlayer)*(20.0f/length(toPlayer)));
-				//	SetWorldCollide(false);
-				//}
-				//else
-				//{
-				//	SetGravityDirection(vec3(0.0f, -1.0f, 0.0f));
-				//	SetWorldCollide(true);
-				//}
+				if(m_pPlayer->IsDead() == false && length(m_pPlayer->GetCenter() - GetCenter()) < m_pPlayer->GetRadius() + 4.0f)
+				{
+					vec3 toPlayer = (m_pPlayer->GetCenter()+vec3(0.0f, yAdditionalMaagnetOffset, 0.0f)) - GetCenter();
+					SetGravityDirection(toPlayer);
+					SetVelocity(normalize(toPlayer)*(20.0f/length(toPlayer)));
+					SetWorldCollide(false);
+				}
+				else
+				{
+					SetGravityDirection(vec3(0.0f, -1.0f, 0.0f));
+					SetWorldCollide(true);
+				}
 
-				//// Check if we have been picked up by the player
-				//if(m_pPlayer->IsDead() == false && length((m_pPlayer->GetCenter()+vec3(0.0f, yAdditionalMaagnetOffset, 0.0f)) - GetCenter()) < m_pPlayer->GetRadius())
-				//{
-				//	SetPickupGotoPosition(m_pPlayer->GetCenter() + vec3(0.0f, 2.5f, 0.0f));
-				//	SetVelocity(vec3(0.0f, 0.0f, 0.0f));
-				//	SetGravityDirection(vec3(0.0f, 0.0f, 0.0f));
+				// Check if we have been picked up by the player
+				if(m_pPlayer->IsDead() == false && length((m_pPlayer->GetCenter()+vec3(0.0f, yAdditionalMaagnetOffset, 0.0f)) - GetCenter()) < m_pPlayer->GetRadius())
+				{
+					SetPickupGotoPosition(m_pPlayer->GetCenter() + vec3(0.0f, 2.5f, 0.0f));
+					SetVelocity(vec3(0.0f, 0.0f, 0.0f));
+					SetGravityDirection(vec3(0.0f, 0.0f, 0.0f));
 
-				//	if(m_itemType == eItem_Heart)
-				//	{
-				//		m_pPlayer->GiveHealth(10.0f);
-				//	}
+					if(m_itemType == eItem_Heart)
+					{
+						m_pPlayer->GiveHealth(10.0f);
+					}
 
-				//	if(m_itemType == eItem_Coin)
-				//	{
-				//		m_pPlayer->GiveCoins(1);
-				//	}
+					if(m_itemType == eItem_Coin)
+					{
+						m_pPlayer->GiveCoins(1);
+					}
 
-				//	if(m_droppedInventoryItem != NULL)
-				//	{
-				//		m_pInventoryManager->AddInventoryItem(m_droppedInventoryItem, -1, -1);
-				//	}
-				//}
+					if(m_droppedInventoryItem != NULL)
+					{
+						m_pInventoryManager->AddInventoryItem(m_droppedInventoryItem, -1, -1);
+					}
+				}
 			}
 		}
 	}

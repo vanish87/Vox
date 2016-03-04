@@ -1183,6 +1183,50 @@ bool Player::IsDead()
 	return m_dead;
 }
 
+// Level up
+void Player::LevelUp()
+{
+	// TODO : Player LevelUp()
+}
+
+// Gameplay
+void Player::GiveHealth(float amount)
+{
+	// TODO : Player GiveHealth()
+
+	//m_health += amount;
+
+	//if (m_health >= m_maxHealth)
+	//{
+	//	m_health = m_maxHealth;
+	//}
+
+	//// Do an animated text effect
+	//vec3 screenposition = GetCenter() + vec3(GetRandomNumber(-1, 1, 2)*0.25f, 0.0f, GetRandomNumber(-1, 1, 2)*0.25f);
+	//char healthText[32];
+	//sprintf_s(healthText, 32, "%i", (int)amount);
+	//AnimatedText* lpTestTextEffect = m_pTextEffectsManager->CreateTextEffect(m_pGameWindow->GetTextEffectFont(), m_pGameWindow->GetTextEffectOutlineFont(), m_pGameWindow->GetMainViewport(), TextDrawMode_3D_Screen, TextEffect_FadeUp, TextDrawStyle_Outline, screenposition, Colour(0.0f, 1.0f, 0.0f), Colour(0.0f, 0.0f, 0.0f), healthText, 1.0f);
+	//lpTestTextEffect->SetAutoDelete(true);
+	//lpTestTextEffect->StartEffect();
+
+	//m_pGameWindow->GetHUD()->UpdatePlayerData();
+}
+
+void Player::GiveCoins(int amount)
+{
+	// TODO PLayer GiveCoins()
+
+	// Do an animated text effect
+	//vec3 screenposition = GetCenter() + vec3(GetRandomNumber(-1, 1, 2)*0.25f, 0.0f, GetRandomNumber(-1, 1, 2)*0.25f);
+	//char healthText[32];
+	//sprintf_s(healthText, 32, "%i", (int)amount);
+	//AnimatedText* lpTestTextEffect = m_pTextEffectsManager->CreateTextEffect(m_pGameWindow->GetTextEffectFont(), m_pGameWindow->GetTextEffectOutlineFont(), m_pGameWindow->GetMainViewport(), TextDrawMode_3D_Screen, TextEffect_FadeUp, TextDrawStyle_Outline, screenposition, Colour(1.0f, 1.0f, 0.0f), Colour(0.0f, 0.0f, 0.0f), healthText, 1.0f);
+	//lpTestTextEffect->SetAutoDelete(true);
+	//lpTestTextEffect->StartEffect();
+
+	//m_pGameWindow->GetHUD()->UpdatePlayerData();
+}
+
 // Player equipped attributes
 void Player::SetNormal()
 {
