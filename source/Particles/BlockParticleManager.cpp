@@ -69,9 +69,10 @@ float normals[] = { 0.0f, 0.0f, 1.0f, 1.0f, // Front
 
 int indices[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 };
 
-BlockParticleManager::BlockParticleManager(Renderer* pRenderer)
+BlockParticleManager::BlockParticleManager(Renderer* pRenderer, ChunkManager* pChunkManager)
 {
 	m_pRenderer = pRenderer;
+	m_pChunkManager = pChunkManager;
 
 	m_particleEffectCounter = 0;
 
@@ -544,6 +545,7 @@ BlockParticle* BlockParticleManager::CreateBlockParticle(vec3 pos, vec3 gravityD
 	bool createEmitters, BlockParticleEmitter* pCreatedEmitter)
 {
 	BlockParticle* pBlockParticle = new BlockParticle();
+	pBlockParticle->m_pChunkManager = m_pChunkManager;
 
 	pBlockParticle->m_position = pos;
 	pBlockParticle->m_gravityDirection = gravityDir;

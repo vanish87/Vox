@@ -160,7 +160,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pSkybox = new Skybox(m_pRenderer);
 
 	/* Create the block particle manager */
-	m_pBlockParticleManager = new BlockParticleManager(m_pRenderer);
+	m_pBlockParticleManager = new BlockParticleManager(m_pRenderer, m_pChunkManager);
 
 	/* Create the instance manager */
 	m_pInstanceManager = new InstanceManager(m_pRenderer);

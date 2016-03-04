@@ -14,7 +14,8 @@
 #include "BlockParticle.h"
 #include "BlockParticleEmitter.h"
 #include "BlockParticleEffect.h"
-
+#include "../blocks/Chunk.h"
+#include "../blocks/ChunkManager.h"
 #include "../utils/Random.h"
 
 
@@ -27,6 +28,8 @@ BlockParticle::BlockParticle()
 	m_gridPositionX = 0;
 	m_gridPositionY = 0;
 	m_gridPositionZ = 0;
+
+	m_pCachedGridChunk = NULL;
 
 	m_pParent = NULL;
 
@@ -48,6 +51,13 @@ BlockParticle::~BlockParticle()
 	}
 }
 
+void BlockParticle::ClearParticleChunkCacheForChunk(Chunk* pChunk)
+{
+	if (m_pCachedGridChunk == pChunk)
+	{
+		m_pCachedGridChunk = NULL;
+	}
+}
 
 void BlockParticle::CreateStartingParams()
 {
@@ -113,6 +123,53 @@ void BlockParticle::CalculateWorldTransformMatrix()
 	m_worldMatrix = scaleMat * m_worldMatrix;
 }
 
+void BlockParticle::UpdateGridPosition()
+{
+	int gridPositionX = (int)((m_position.x + Chunk::BLOCK_RENDER_SIZE) / Chunk::CHUNK_SIZE);
+	int gridPositionY = (int)((m_position.y + Chunk::BLOCK_RENDER_SIZE) / Chunk::CHUNK_SIZE);
+	int gridPositionZ = (int)((m_position.z + Chunk::BLOCK_RENDER_SIZE) / Chunk::CHUNK_SIZE);
+
+	if (m_position.x <= -0.5f)
+		gridPositionX -= 1;
+	if (m_position.y <= -0.5f)
+		gridPositionY -= 1;
+	if (m_position.z <= -0.5f)
+		gridPositionZ -= 1;
+
+	if (gridPositionX != m_gridPositionX || gridPositionY != m_gridPositionY || gridPositionZ != m_gridPositionZ || m_pCachedGridChunk == NULL)
+	{
+		m_gridPositionX = gridPositionX;
+		m_gridPositionY = gridPositionY;
+		m_gridPositionZ = gridPositionZ;
+
+		m_pCachedGridChunk = m_pChunkManager->GetChunk(m_gridPositionX, m_gridPositionY, m_gridPositionZ);
+	}
+}
+
+Chunk* BlockParticle::GetCachedGridChunkOrFromPosition(vec3 pos)
+{
+	// First check if the position is in the same grid as the cached chunk
+	int gridPositionX = (int)((pos.x + Chunk::BLOCK_RENDER_SIZE) / Chunk::CHUNK_SIZE);
+	int gridPositionY = (int)((pos.y + Chunk::BLOCK_RENDER_SIZE) / Chunk::CHUNK_SIZE);
+	int gridPositionZ = (int)((pos.z + Chunk::BLOCK_RENDER_SIZE) / Chunk::CHUNK_SIZE);
+
+	if (pos.x <= -0.5f)
+		gridPositionX -= 1;
+	if (pos.y <= -0.5f)
+		gridPositionY -= 1;
+	if (pos.z <= -0.5f)
+		gridPositionZ -= 1;
+
+	if (gridPositionX != m_gridPositionX || gridPositionY != m_gridPositionY || gridPositionZ != m_gridPositionZ)
+	{
+		return NULL;
+	}
+	else
+	{
+		return m_pCachedGridChunk;
+	}
+}
+
 void BlockParticle::SetFreezeDelayTimer(float timer)
 {
 	m_freezeUpdateTimer = timer;
@@ -145,6 +202,25 @@ void BlockParticle::Update(float dt)
 		if(m_lifeTime < 0.0f)
 		{
 			m_lifeTime = 0.0f;
+		}
+	}
+
+	// Update grid position and cached chunk pointer
+	if (m_checkWorldCollisions)
+	{
+		UpdateGridPosition();
+
+		if (m_pCachedGridChunk == NULL)
+		{
+			m_hasCollided = true;
+
+			if (m_destoryOnCollision)
+			{
+				m_erase = true;
+				return;
+			}
+
+			return;
 		}
 	}
 
@@ -209,11 +285,62 @@ void BlockParticle::Update(float dt)
 		m_angularVelocity += angularAcceleration * dt;
 		m_rotation += m_angularVelocity * dt;
 
-		if(m_checkWorldCollisions)
+		if (m_checkWorldCollisions)
 		{
-			if(m_position.y < -2.0f)
+			int blockX, blockY, blockZ;
+			vec3 blockPos;
+			vec3 particlePos = m_position;
+			if (m_pParent != NULL && m_pParent->m_particlesFollowEmitter)
 			{
-				m_erase = true;
+				particlePos += m_pParent->m_position;
+			}
+
+			Chunk* pChunk = GetCachedGridChunkOrFromPosition(particlePos);
+			bool active = m_pChunkManager->GetBlockActiveFrom3DPosition(particlePos.x, particlePos.y, particlePos.z, &blockPos, &blockX, &blockY, &blockZ, &pChunk);
+
+			if (active == true)
+			{
+				m_hasCollided = true;
+
+				if (m_destoryOnCollision)
+				{
+					m_erase = true;
+					return;
+				}
+
+				if (m_allowFloorSliding)
+				{
+					// Roll back the integration, since we will intersect the block otherwise
+					m_position -= vec3(0.0f, m_velocity.y, 0.0f) * dt;
+					m_position -= m_tangentialVelocity * dt;
+					m_position -= m_pointVelocity * dt;
+					m_velocity -= acceleration * dt;
+
+					// Apply some damping to the rotation and velocity
+					m_angularVelocity *= 0.96f;
+					m_velocity *= 0.96f;
+
+					if (m_velocity.y <= 0.05f)
+					{
+						m_velocity = vec3(m_velocity.x, 0.0f, m_velocity.z);
+					}
+				}
+				else
+				{
+					// Roll back the integration, since we will intersect the block otherwise
+					m_position -= m_velocity * dt;
+					m_position -= m_tangentialVelocity * dt;
+					m_position -= m_pointVelocity * dt;
+
+					// Apply some damping to the rotation and velocity
+					m_angularVelocity *= 0.96f;
+					m_velocity *= 0.96f;
+
+					if (m_velocity.y <= 0.05f)
+					{
+						m_velocity = vec3(0.0f, 0.0f, 0.0f);
+					}
+				}
 			}
 		}
 	}

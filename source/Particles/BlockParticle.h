@@ -16,6 +16,8 @@
 #include "../Maths/3dmaths.h"
 
 class BlockParticleEmitter;
+class Chunk;
+class ChunkManager;
 
 
 class BlockParticle
@@ -25,9 +27,14 @@ public:
 	BlockParticle();
 	~BlockParticle();
 
+	void ClearParticleChunkCacheForChunk(Chunk* pChunk);
+
 	void CreateStartingParams();
 
 	void CalculateWorldTransformMatrix();
+
+	void UpdateGridPosition();
+	Chunk* GetCachedGridChunkOrFromPosition(vec3 pos);
 
 	void SetFreezeDelayTimer(float timer);
 	void SetWaitAfterUpdateCompleteTimer(float timer);
@@ -141,6 +148,9 @@ public:
 	int m_gridPositionY;
 	int m_gridPositionZ;
 
+	// Cached chunk pointer
+	Chunk* m_pCachedGridChunk;
+
 	// Emitter parent
 	BlockParticleEmitter* m_pParent;
 
@@ -153,4 +163,5 @@ protected:
 
 public:
 	/* Private members */
+	ChunkManager* m_pChunkManager;
 };

@@ -32,7 +32,7 @@ class BlockParticleManager
 {
 public:
 	/* Public methods */
-	BlockParticleManager(Renderer* pRenderer);
+	BlockParticleManager(Renderer* pRenderer, ChunkManager* pChunkManager);
 	~BlockParticleManager();
 
 	// Clearing
@@ -108,6 +108,7 @@ protected:
 private:
 	/* Private members */
 	Renderer* m_pRenderer;
+	ChunkManager* m_pChunkManager;
 
 	// Particle effect counter
 	int m_particleEffectCounter;
