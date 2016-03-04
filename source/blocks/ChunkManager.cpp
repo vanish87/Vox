@@ -12,6 +12,7 @@
 #include "ChunkManager.h"
 #include "../Player/Player.h"
 #include "../VoxSettings.h"
+#include "../VoxGame.h"
 #include "../models/QubicleBinaryManager.h"
 
 #include <algorithm>
@@ -1048,9 +1049,17 @@ void ChunkManager::Render(bool shadowRender)
 
 			if (pChunk != NULL && pChunk->IsCreated())
 			{
-				pChunk->Render();
+				vec3 chunkCenter = pChunk->GetPosition() + vec3((Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE) - Chunk::BLOCK_RENDER_SIZE, (Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE) - Chunk::BLOCK_RENDER_SIZE, (Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE) - Chunk::BLOCK_RENDER_SIZE);
 
-				m_numChunksRender++;
+				if (shadowRender == true || m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), chunkCenter, Chunk::CHUNK_RADIUS))
+				{
+					pChunk->Render();
+
+					if (shadowRender == false)
+					{
+						m_numChunksRender++;
+					}
+				}
 			}
 		}
 		m_ChunkMapMutexLock.unlock();
