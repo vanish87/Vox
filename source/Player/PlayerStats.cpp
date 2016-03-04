@@ -40,7 +40,7 @@ void PlayerStats::ResetStats()
 	m_experience = 0;
 	m_maxExperience = 100;
 
-	m_numPointsAvailable = 5;
+	m_numPointsAvailable = 0;
 
 	m_strengthStat = 1;
 	m_dexterityStat = 1;
