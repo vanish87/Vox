@@ -99,7 +99,7 @@
   * Flower generation.
   * Poisson-disc sparation and generation for random placement of scenery.
   * Convert scenery manager to use instance rendering and the instance shader.
-* Add item manager.
+* ~~Add item manager.~~
 * Create basic front-end.
 * Create front end scene and character line up.
 * Character creation and customization.
@@ -126,11 +126,15 @@
   * Add back in TODO code (TODO : Add me back in).
   * Test ALL functionality with player equipping items and weapons.
   * ~~Add hooks to GUI.~~
+  * Player stats.
+  * Character GUI paperdoll render.
+  * Crafting GUI functionality.
+  * Loot GUI chest interactions.
 * Player particle trail on walking.
 * Cinematic letterbox mode.
 * Test out Baked AO models using MagikaVoxel.
 * Enemies.
 * NPCs.
 * Companion pets.
-* Add back in frustum culling for chunk rendering.
+* ~~Add back in frustum culling for chunk rendering.~~
 * Add debug render metrics for all counters (i.e num chunks, particles, items, triangles, verts, etc).
