@@ -290,6 +290,8 @@ private:
 
 	// Game mode
 	GameMode m_gameMode;
+	bool m_allowToChangeToGame;
+	bool m_allowToChangeToFrontend;
 
 	// Camera mode
 	CameraMode m_cameraMode;

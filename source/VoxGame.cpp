@@ -289,6 +289,8 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 
 	// Game mode
 	m_gameMode = GameMode_Loading;
+	m_allowToChangeToGame = true;
+	m_allowToChangeToFrontend = true;
 	SetGameMode(m_gameMode);
 
 	// Create, setup and skin the GUI components
