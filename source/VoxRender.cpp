@@ -145,14 +145,17 @@ void VoxGame::Render()
 			BeginShaderRender();
 			{
 
-				// Render the player
-				if (m_cameraMode == CameraMode_FirstPerson)
+				if (m_gameMode != GameMode_FrontEnd)
 				{
-					m_pPlayer->RenderFirstPerson();
-				}
-				else
-				{
-					m_pPlayer->Render();
+					// Render the player
+					if (m_cameraMode == CameraMode_FirstPerson)
+					{
+						m_pPlayer->RenderFirstPerson();
+					}
+					else
+					{
+						m_pPlayer->Render();
+					}
 				}
 			}
 			EndShaderRender();
@@ -165,7 +168,10 @@ void VoxGame::Render()
 
 				m_pBlockParticleManager->RenderDebug();
 
-				m_pPlayer->RenderDebug();
+				if (m_gameMode != GameMode_FrontEnd)
+				{
+					m_pPlayer->RenderDebug();
+				}
 
 				m_pSceneryManager->RenderDebug();
 
@@ -287,8 +293,11 @@ void VoxGame::RenderShadows()
 			// Render the chunks
 			m_pChunkManager->Render(true);
 
-			// Render the player
-			m_pPlayer->Render();
+			if (m_gameMode != GameMode_FrontEnd)
+			{
+				// Render the player
+				m_pPlayer->Render();
+			}
 
 			// Projectiles
 			m_pProjectileManager->Render();
@@ -416,14 +425,17 @@ void VoxGame::RenderTransparency()
 			m_pRenderer->StartRenderingToFrameBuffer(m_transparencyFrameBuffer);
 		}
 
-		// Render the player's face
-		if (m_cameraMode != CameraMode_FirstPerson)
+		if (m_gameMode != GameMode_FrontEnd)
 		{
-			m_pPlayer->RenderFace();
-		}
+			// Render the player's face
+			if (m_cameraMode != CameraMode_FirstPerson)
+			{
+				m_pPlayer->RenderFace();
+			}
 
-		// Render the player's weapon trails
-		m_pPlayer->RenderWeaponTrails();
+			// Render the player's weapon trails
+			m_pPlayer->RenderWeaponTrails();
+		}
 
 		// Projectile trails
 		m_pProjectileManager->RenderWeaponTrails();
