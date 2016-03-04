@@ -1443,7 +1443,7 @@ void CharacterGUI::CharacterItemReleased(CharacterSlotItem* pCharacterItem)
 						m_pInventoryManager->SetInventoryGUINeedsUpdate(true);
 						m_pInventoryManager->SetCharacterGUINeedsUpdate(true);
 						
-						// SB REDO - SOUND EFFECTS
+						// TODO : SOUND EFFECTS
 						//if(m_pGameWindow->GetConfigurationManager()->GetSoundEffects())
 						//{
 						//	FMOD::Channel* pChannel = NULL;
@@ -1562,7 +1562,7 @@ void CharacterGUI::CharacterItemReleased(CharacterSlotItem* pCharacterItem)
 							m_pInventoryManager->SetInventoryGUINeedsUpdate(true);
 							m_pInventoryManager->SetCharacterGUINeedsUpdate(true);
 
-							// SB REDO - SOUND EFFECTS
+							// TODO : SOUND EFFECTS
 							//if(m_pGameWindow->GetConfigurationManager()->GetSoundEffects())
 							//{
 							//	FMOD::Channel* pChannel = NULL;

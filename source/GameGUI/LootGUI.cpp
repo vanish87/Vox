@@ -753,7 +753,7 @@ void LootGUI::LootItemReleased(LootSlotItem* pLootItem)
 				pLootItem->m_pInventoryItem->m_lootSlotY = i;
 				pLootItem->m_pInventoryIcon->SetLocation(x, y);
 
-				// SB REDO - SOUND EFFECTS
+				// TODO: SOUND EFFECTS
 				//if(m_pGameWindow->GetConfigurationManager()->GetSoundEffects())
 				//{
 				//	FMOD::Channel* pChannel = NULL;
@@ -907,7 +907,7 @@ void LootGUI::LootItemReleased(LootSlotItem* pLootItem)
 
 							RemoveLootItem(pLootItem);
 
-							// SB REDO - SOUND EFFECTS
+							// TODO: SOUND EFFECTS
 							//if(m_pGameWindow->GetConfigurationManager()->GetSoundEffects())
 							//{
 							//	FMOD::Channel* pChannel = NULL;

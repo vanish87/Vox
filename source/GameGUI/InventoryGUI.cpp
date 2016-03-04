@@ -840,7 +840,7 @@ void InventoryGUI::Update(float dt)
 		CreateInventoryItems();
 		UpdateActionBar();
 
-		// SB REDO 
+		// TODO : Coins?
 		//int numCoins = m_pInventoryManager->GetNumCoins();
 		//char CoinsText[32];
 		//sprintf_s(CoinsText, 32, "%i", numCoins);
@@ -1006,7 +1006,7 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 	{
 		ShowTooltip(pInventoryItem);
 
-		// SB REDO - SOUND EFFECTS
+		// TODO: SOUND EFFECTS
 		//if(m_pGameWindow->GetConfigurationManager()->GetSoundEffects())
 		//{
 		//	FMOD::Channel* pChannel = NULL;
@@ -1205,7 +1205,7 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 								switched = true;
 								deleted = true;
 
-								// SB REDO - SOUND EFFECTS
+								// TODO: SOUND EFFECTS
 								//if(m_pGameWindow->GetConfigurationManager()->GetSoundEffects())
 								//{
 								//	FMOD::Channel* pChannel = NULL;
@@ -1219,7 +1219,7 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 			}
 
 
-		// SB REDO 
+		// TODO : REDO - Shop GUI 
 		//	// Check if we need to sell the item after dropping on the shop GUI
 		//	if(m_pShopGUI->IsLoaded())
 		//	{

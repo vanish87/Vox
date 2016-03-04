@@ -152,6 +152,8 @@ void Chunk::Unload()
 		if (pChunkZPlus != NULL && pChunkZPlus->IsSetup() == true)
 			pChunkZPlus->UpdateSurroundedFlag();
 	}
+
+	RemoveItems();
 }
 
 void Chunk::Setup()
@@ -488,7 +490,7 @@ void Chunk::RemoveItems()
 	{
 		m_vpItemList[i]->SetChunk(NULL);
 		m_vpItemList[i]->SetErase(true);
-		// SB REDO m_vpItemList[i]->SetSaved(true);
+		// TODO : REDO m_vpItemList[i]->SetSaved(true);
 	}
 	m_vpItemList.clear();
 	m_itemMutexLock.unlock();
