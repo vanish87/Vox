@@ -20,6 +20,7 @@
 #include "../utils/Random.h"
 #include "../Player/Player.h"
 #include "../Lighting/LightingManager.h"
+#include "../VoxGame.h"
 
 
 Item::Item(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryManager* pQubicleBinaryManager, string itemTitle, eItem itemType, float scale)
@@ -1069,12 +1070,11 @@ void Item::Interact()
 	// Do a hit particle effect
 	if(createHitEffect)
 	{
-		// TODO : Add me back in - item hit particle effect
-		//vec3 direction = GetCenter() - m_pPlayer->GetCenter();
-		//vec3 hitParticlePos = GetCenter() - (normalize(direction) * (m_radius*0.5f));
-		//unsigned int effectId = -1;
-		//BlockParticleEffect* pBlockParticleEffect = m_pChunkManager->GetGameWindow()->GetBlockParticleManager()->ImportParticleEffect("media/gamedata/particles/combat_hit.effect", hitParticlePos, &effectId);
-		//pBlockParticleEffect->PlayEffect();
+		vec3 direction = GetCenter() - m_pPlayer->GetCenter();
+		vec3 hitParticlePos = GetCenter() - (normalize(direction) * (m_radius*0.5f));
+		unsigned int effectId = -1;
+		BlockParticleEffect* pBlockParticleEffect = VoxGame::GetInstance()->GetBlockParticleManager()->ImportParticleEffect("media/gamedata/particles/combat_hit.effect", hitParticlePos, &effectId);
+		pBlockParticleEffect->PlayEffect();
 	}
 
 	if(needsErase)
