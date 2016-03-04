@@ -772,9 +772,13 @@ bool Player::CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pN
 {
 	vec3 movementCache = *pMovement;
 
+	float radius = GetRadius();
+
+	// Item collisions
+	bool itemCollision = m_pItemManager->CheckCollisions(positionCheck, previousPosition, radius, pNormal, pMovement);
+
 	// World collision
 	bool worldCollision = false;
-	float radius = GetRadius();
 
 	int blockX, blockY, blockZ;
 	vec3 blockPos;
@@ -920,6 +924,9 @@ bool Player::CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pN
 	}
 
 	*pStepUpBlock = canAllStepUp;
+
+	if (itemCollision)
+		return true;
 
 	if (worldCollision)
 		return true;
