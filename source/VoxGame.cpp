@@ -636,6 +636,11 @@ void VoxGame::TurnCursorOff()
 }
 
 // Accessors
+unsigned int VoxGame::GetDefaultViewport()
+{
+	return m_defaultViewport;
+}
+
 BlockParticleManager* VoxGame::GetBlockParticleManager()
 {
 	return m_pBlockParticleManager;

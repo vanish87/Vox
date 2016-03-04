@@ -14,6 +14,7 @@
 #include "ItemManager.h"
 #include "../utils/Random.h"
 #include "../Lighting/LightingManager.h"
+#include "../VoxGame.h"
 
 #include <algorithm>
 
@@ -474,7 +475,7 @@ void ItemManager::Render(bool outline, bool reflection, bool silhouette, bool sh
 			continue;
 		}
 
-		// TODO : Add me back in - render culling
+		// TODO : Add me back in - Fog rendering
 		//float toCamera = (m_pGameWindow->GetGameCamera()->GetPosition() - pItem->GetCenter()).GetLength();
 		//if(toCamera > m_pGameWindow->GetGUIHelper()->GetFogRadius() + (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*5.0f))
 		//{
@@ -485,8 +486,7 @@ void ItemManager::Render(bool outline, bool reflection, bool silhouette, bool sh
 		//	m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
 		//}
 
-		// TODO : Add me back in - render culling
-		//if(shadow || m_pRenderer->SphereInFrustum(m_pGameWindow->GetMainViewport(), pItem->GetCenter(), pItem->GetRadius()))
+		if(shadow || m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), pItem->GetCenter(), pItem->GetRadius()))
 		{
 			pItem->Render(outline, reflection, silhouette);
 
@@ -506,8 +506,7 @@ void ItemManager::RenderDebug()
 			continue;
 		}
 
-		// TODO : Add me back in - render culling
-		//if(m_pRenderer->SphereInFrustum(m_pGameWindow->GetMainViewport(), pItem->GetCenter(), pItem->GetRadius()))
+		if(m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), pItem->GetCenter(), pItem->GetRadius()))
 		{
 			pItem->RenderDebug();
 		}

@@ -16,6 +16,7 @@
 #include <algorithm>
 
 #include "../Lighting/LightingManager.h"
+#include "../VoxGame.h"
 
 
 ProjectileManager::ProjectileManager(Renderer* pRenderer, ChunkManager* pChunkManager)
@@ -232,8 +233,7 @@ void ProjectileManager::Render()
 		//	continue;
 		//}
 
-		// TODO : Add me back in - render culling
-		//if(m_pRenderer->SphereInFrustum(m_pGameWindow->GetMainViewport(), pProjectile->GetCenter(), pProjectile->GetRadius()))
+		if(m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), pProjectile->GetCenter(), pProjectile->GetRadius()))
 		{
 			pProjectile->Render();
 
@@ -256,8 +256,7 @@ void ProjectileManager::RenderWeaponTrails()
 		//	continue;
 		//}
 
-		// TODO : Add me back in - render culling
-		//if(m_pRenderer->SphereInFrustum(m_pGameWindow->GetMainViewport(), pProjectile->GetCenter(), pProjectile->GetRadius()))
+		if(m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), pProjectile->GetCenter(), pProjectile->GetRadius()))
 		{
 			pProjectile->RenderWeaponTrails();
 		}
@@ -278,8 +277,7 @@ void ProjectileManager::RenderDebug()
 		//	continue;
 		//}
 
-		// TODO : Add me back in - render culling
-		//if(m_pRenderer->SphereInFrustum(m_pGameWindow->GetMainViewport(), pProjectile->GetCenter(), pProjectile->GetRadius()))
+		if(m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), pProjectile->GetCenter(), pProjectile->GetRadius()))
 		{
 			pProjectile->RenderDebug();
 		}

@@ -184,6 +184,7 @@ public:
 	void UpdateConsoleLabels();
 
 	// Accessors
+	unsigned int GetDefaultViewport();
 	BlockParticleManager* GetBlockParticleManager();
 
 protected:
