@@ -65,6 +65,9 @@ public:
 	// Get voxel character pointer
 	VoxelCharacter* GetVoxelCharacter();
 
+	// Player reset
+	void ResetPlayer();
+
 	// Accessors / Setters
 	void SetName(string name);
 	string GetName();

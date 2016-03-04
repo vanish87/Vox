@@ -288,7 +288,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_previousCameraMode = CameraMode_Debug;
 
 	// Game mode
-	m_gameMode = GameMode_Debug;
+	m_gameMode = GameMode_Loading;
 	SetGameMode(m_gameMode);
 
 	// Create, setup and skin the GUI components
@@ -517,6 +517,10 @@ void VoxGame::QuitToFrontEnd()
 
 void VoxGame::SetupDataForGame()
 {
+	Item* pFurnace = m_pItemManager->CreateItem(vec3(25.0f, 10.0f, -5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Furnace/Furnace.item", eItem_Furnace, "Furnace", true, false, 0.16f);
+	Item* pAnvil = m_pItemManager->CreateItem(vec3(32.0f, 9.0f, -1.5f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Anvil/Anvil.item", eItem_Anvil, "Anvil", true, false, 0.14f);
+	pAnvil->SetInteractionPositionOffset(vec3(0.0f, 0.0f, -1.5f));
+	Item* pChest = m_pItemManager->CreateItem(vec3(24.0f, 12.0f, 13.5f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 180.0f, 0.0f), "media/gamedata/items/Chest/Chest.item", eItem_Chest, "Chest", true, false, 0.08f);
 }
 
 void VoxGame::SetupDataForFrontEnd()
@@ -543,6 +547,9 @@ void VoxGame::SetGameMode(GameMode mode)
 			// Close all open GUI windows
 			CloseAllGUIWindows();
 
+			// Clear the items
+			m_pItemManager->ClearItems();
+
 			// Setup the gamedata since we have just loaded fresh into the frontend.
 			SetupDataForFrontEnd();
 		}
@@ -554,6 +561,15 @@ void VoxGame::SetGameMode(GameMode mode)
 		{
 			// Close all open GUI windows
 			CloseAllGUIWindows();
+
+			// Clear the items
+			m_pItemManager->ClearItems();
+
+			// Reset the player
+			m_pPlayer->ResetPlayer();
+
+			// Load default inventory
+			m_pInventoryManager->LoadDefaultInventory("Steve");
 
 			// Setup the gamedata since we have just loaded fresh into a game.
 			SetupDataForGame();

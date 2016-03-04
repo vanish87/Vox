@@ -28,6 +28,53 @@ Player::Player(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryMa
 	m_pInventoryManager = NULL;
 	m_pItemManager = NULL;
 
+	// Create voxel character
+	m_pVoxelCharacter = new VoxelCharacter(m_pRenderer, m_pQubicleBinaryManager);
+	m_pCharacterBackup = new QubicleBinary(m_pRenderer);
+
+	ResetPlayer();
+
+	// Load default character model
+	SetName("Steve");
+	LoadCharacter("Steve");
+}
+
+Player::~Player()
+{
+	delete m_pPlayerStats;
+
+	delete m_pVoxelCharacter;
+	if (m_pCharacterBackup != NULL)
+	{
+		delete m_pCharacterBackup;
+	}
+}
+
+// Linkage
+void Player::SetInventoryManager(InventoryManager* pInventoryManager)
+{
+	m_pInventoryManager = pInventoryManager;
+}
+
+void Player::SetItemManager(ItemManager* pItemManager)
+{
+	m_pItemManager = pItemManager;
+}
+
+void Player::SetProjectileManager(ProjectileManager* pProjectileManager)
+{
+	m_pProjectileManager = pProjectileManager;
+}
+
+// Get voxel character pointer
+VoxelCharacter* Player::GetVoxelCharacter()
+{
+	return m_pVoxelCharacter;
+}
+
+// Player reset
+void Player::ResetPlayer()
+{
 	m_forward = vec3(0.0f, 0.0f, 1.0f);
 	m_right = vec3(1.0f, 0.0f, 0.0f);
 	m_up = vec3(0.0f, 1.0f, 0.0f);
@@ -104,46 +151,8 @@ Player::Player(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryMa
 	}
 	m_animationTimer = 0.0f;
 
-	// Create voxel character
-	m_pVoxelCharacter = new VoxelCharacter(m_pRenderer, m_pQubicleBinaryManager);
-	m_pCharacterBackup = new QubicleBinary(m_pRenderer);
-
-	// Load default character model
-	SetName("Steve");
-	LoadCharacter("Steve");
-}
-
-Player::~Player()
-{
-	delete m_pPlayerStats;
-
-	delete m_pVoxelCharacter;
-	if (m_pCharacterBackup != NULL)
-	{
-		delete m_pCharacterBackup;
-	}
-}
-
-// Linkage
-void Player::SetInventoryManager(InventoryManager* pInventoryManager)
-{
-	m_pInventoryManager = pInventoryManager;
-}
-
-void Player::SetItemManager(ItemManager* pItemManager)
-{
-	m_pItemManager = pItemManager;
-}
-
-void Player::SetProjectileManager(ProjectileManager* pProjectileManager)
-{
-	m_pProjectileManager = pProjectileManager;
-}
-
-// Get voxel character pointer
-VoxelCharacter* Player::GetVoxelCharacter()
-{
-	return m_pVoxelCharacter;
+	UnloadWeapon(true);
+	UnloadWeapon(false);
 }
 
 // Accessors / Setters
