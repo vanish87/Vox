@@ -1113,39 +1113,42 @@ void Player::Levitate(const float speed)
 
 void Player::StopMoving()
 {
-	if (m_bIsIdle == false)
+	if (m_bCanJump)
 	{
-		m_bIsIdle = true;
-
-		if (m_bIsChargingAttack == false)
+		if (m_bIsIdle == false)
 		{
-			if (CanAttackLeft() && CanAttackRight())
-			{
-				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BindPose", 0.15f);
-			}
-			else if (CanAttackLeft())
-			{
-				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "BindPose", 0.15f);
-			}
-			else if (CanAttackRight())
-			{
-				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "BindPose", 0.15f);
-			}
+			m_bIsIdle = true;
 
-			if (IsSpellHands())
+			if (m_bIsChargingAttack == false)
 			{
-				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "HandSpellCastPose", 0.15f);
-				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "HandSpellCastPose", 0.15f);
-			}
+				if (CanAttackLeft() && CanAttackRight())
+				{
+					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BindPose", 0.15f);
+				}
+				else if (CanAttackLeft())
+				{
+					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "BindPose", 0.15f);
+				}
+				else if (CanAttackRight())
+				{
+					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "BindPose", 0.15f);
+				}
 
-			if (m_bCanInteruptCombatAnim)
-			{
-				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, false, AnimationSections_Legs_Feet, "BindPose", 0.15f);
+				if (IsSpellHands())
+				{
+					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "HandSpellCastPose", 0.15f);
+					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "HandSpellCastPose", 0.15f);
+				}
+
+				if (m_bCanInteruptCombatAnim)
+				{
+					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, false, AnimationSections_Legs_Feet, "BindPose", 0.15f);
+				}
 			}
-		}
-		else
-		{
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, false, AnimationSections_Legs_Feet, "BowStance", 0.15f);
+			else
+			{
+				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, false, AnimationSections_Legs_Feet, "BowStance", 0.15f);
+			}
 		}
 	}
 }
