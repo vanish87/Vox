@@ -183,6 +183,9 @@ public:
 	void ClearConsoleLabels();
 	void UpdateConsoleLabels();
 
+	// Accessors
+	BlockParticleManager* GetBlockParticleManager();
+
 protected:
 	/* Protected methods */
 	VoxGame() {};

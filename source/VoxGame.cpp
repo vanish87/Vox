@@ -634,3 +634,9 @@ void VoxGame::TurnCursorOff()
 {
 	m_pVoxWindow->TurnCursorOff();
 }
+
+// Accessors
+BlockParticleManager* VoxGame::GetBlockParticleManager()
+{
+	return m_pBlockParticleManager;
+}
