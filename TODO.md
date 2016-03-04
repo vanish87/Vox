@@ -139,3 +139,5 @@
 * Animated text effects in the HUD, for pickups, combat, etc..
 * ~~Add back in frustum culling for chunk rendering.~~
 * Add debug render metrics for all counters (i.e num chunks, particles, items, triangles, verts, etc).
+* Player collision with items.
+* Player interaction with items.
