@@ -132,6 +132,8 @@ void Item::UnloadEffectsAndLights()
 			m_pLightingManager->RemoveLight(lightId);
 			m_pVoxelItem->SetLightingId(i, -1);
 
+			lightPos += m_position;
+
 			if(m_itemType != eItem_DroppedItem)
 			{
 				unsigned int lId;
