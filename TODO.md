@@ -126,7 +126,7 @@
   * ~~Add back in TODO code (TODO : Add me back in).~~
   * ~~Test ALL functionality with player equipping items and weapons.~~
   * ~~Add hooks to GUI.~~
-  * Player stats.
+  * ~~Player stats.~~
   * Character GUI paperdoll render.
   * Crafting GUI functionality.
   * Loot GUI chest interactions.
