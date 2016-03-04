@@ -490,18 +490,17 @@ void CharacterGUI::Load()
 		m_pCharacterWindow->AddComponent(m_vpInventorySlotItems[i]->m_pInventoryIcon);
 	}
 
-	// TODO : Add me back in - player stats
-	//if(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable() > 0)
-	//{
-	//	m_pCharacterWindow->AddComponent(m_pStat1IncreaseButton);
-	//	m_pCharacterWindow->AddComponent(m_pStat2IncreaseButton);
-	//	m_pCharacterWindow->AddComponent(m_pStat3IncreaseButton);
-	//	m_pCharacterWindow->AddComponent(m_pStat4IncreaseButton);
-	//	m_pCharacterWindow->AddComponent(m_pStat5IncreaseButton);
-	//	m_pCharacterWindow->AddComponent(m_pStat6IncreaseButton);
+	if(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable() > 0)
+	{
+		m_pCharacterWindow->AddComponent(m_pStat1IncreaseButton);
+		m_pCharacterWindow->AddComponent(m_pStat2IncreaseButton);
+		m_pCharacterWindow->AddComponent(m_pStat3IncreaseButton);
+		m_pCharacterWindow->AddComponent(m_pStat4IncreaseButton);
+		m_pCharacterWindow->AddComponent(m_pStat5IncreaseButton);
+		m_pCharacterWindow->AddComponent(m_pStat6IncreaseButton);
 
-	//	m_addedStatIncreaseButtons = true;
-	//}
+		m_addedStatIncreaseButtons = true;
+	}
 
 	m_pCharacterWindow->DepthSortComponentChildren();
 	m_pGUI->AddWindow(m_pCharacterWindow);
@@ -1074,40 +1073,38 @@ void CharacterGUI::UpdatePlayerStats()
 	// Player name
 	m_pCharacterTitleLabel->SetText(m_pPlayer->GetName());
 
-	// TODO : Add me back in - player stats
-	//// Stats
-	//// Strength
-	//char stat1Value[32];
-	//sprintf(stat1Value, "%i %s", m_pPlayer->GetPlayerStats()->GetStrengthStat(), m_pPlayer->GetStrengthModifierString().c_str());
-	//m_pStatsValueLabel1->SetText(stat1Value);
+	// Stats
+	// Strength
+	char stat1Value[32];
+	sprintf(stat1Value, "%i %s", m_pPlayer->GetPlayerStats()->GetStrengthStat(), m_pPlayer->GetStrengthModifierString().c_str());
+	m_pStatsValueLabel1->SetText(stat1Value);
 
-	//// Dexterity
-	//char stat2Value[32];
-	//sprintf(stat2Value, "%i %s", m_pPlayer->GetPlayerStats()->GetDexterityStat(), m_pPlayer->GetDexterityModifierString().c_str());
-	//m_pStatsValueLabel2->SetText(stat2Value);
+	// Dexterity
+	char stat2Value[32];
+	sprintf(stat2Value, "%i %s", m_pPlayer->GetPlayerStats()->GetDexterityStat(), m_pPlayer->GetDexterityModifierString().c_str());
+	m_pStatsValueLabel2->SetText(stat2Value);
 
-	//// Magic
-	//char stat3Value[32];
-	//sprintf(stat3Value, "%i %s", m_pPlayer->GetPlayerStats()->GetIntelligenceStat(), m_pPlayer->GetIntelligenceModifierString().c_str());
-	//m_pStatsValueLabel3->SetText(stat3Value);
+	// Magic
+	char stat3Value[32];
+	sprintf(stat3Value, "%i %s", m_pPlayer->GetPlayerStats()->GetIntelligenceStat(), m_pPlayer->GetIntelligenceModifierString().c_str());
+	m_pStatsValueLabel3->SetText(stat3Value);
 
-	//// Vitality
-	//char stat4Value[32];
-	//sprintf(stat4Value, "%i %s", m_pPlayer->GetPlayerStats()->GetVitalityStat(), m_pPlayer->GetVitalityModifierString().c_str());
-	//m_pStatsValueLabel4->SetText(stat4Value);
+	// Vitality
+	char stat4Value[32];
+	sprintf(stat4Value, "%i %s", m_pPlayer->GetPlayerStats()->GetVitalityStat(), m_pPlayer->GetVitalityModifierString().c_str());
+	m_pStatsValueLabel4->SetText(stat4Value);
 
-	//// Armor
-	//char stat5Value[32];
-	//sprintf(stat5Value, "%i %s", m_pPlayer->GetPlayerStats()->GetArmorStat(), m_pPlayer->GetArmorModifierString().c_str());
-	//m_pStatsValueLabel5->SetText(stat5Value);
+	// Armor
+	char stat5Value[32];
+	sprintf(stat5Value, "%i %s", m_pPlayer->GetPlayerStats()->GetArmorStat(), m_pPlayer->GetArmorModifierString().c_str());
+	m_pStatsValueLabel5->SetText(stat5Value);
 
-	//// Luck
-	//char stat6Value[32];
-	//sprintf(stat6Value, "%i %s", m_pPlayer->GetPlayerStats()->GetLuckStat(), m_pPlayer->GetLuckModifierString().c_str());
-	//m_pStatsValueLabel6->SetText(stat6Value);
+	// Luck
+	char stat6Value[32];
+	sprintf(stat6Value, "%i %s", m_pPlayer->GetPlayerStats()->GetLuckStat(), m_pPlayer->GetLuckModifierString().c_str());
+	m_pStatsValueLabel6->SetText(stat6Value);
 
-	// TODO : Add me back in - player stats
-	//if(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable() <= 0)
+	if(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable() <= 0)
 	{
 		m_pCharacterWindow->RemoveComponent(m_pStat1IncreaseButton);
 		m_pCharacterWindow->RemoveComponent(m_pStat2IncreaseButton);
@@ -1118,28 +1115,28 @@ void CharacterGUI::UpdatePlayerStats()
 
 		m_addedStatIncreaseButtons = false;
 	}
-	//else
-	//{
-	//	if(m_loaded)
-	//	{
-	//		if(m_addedStatIncreaseButtons == false)
-	//		{
-	//			m_pGUI->RemoveWindow(m_pCharacterWindow);
+	else
+	{
+		if(m_loaded)
+		{
+			if(m_addedStatIncreaseButtons == false)
+			{
+				m_pGUI->RemoveWindow(m_pCharacterWindow);
 
-	//			m_pCharacterWindow->AddComponent(m_pStat1IncreaseButton);
-	//			m_pCharacterWindow->AddComponent(m_pStat2IncreaseButton);
-	//			m_pCharacterWindow->AddComponent(m_pStat3IncreaseButton);
-	//			m_pCharacterWindow->AddComponent(m_pStat4IncreaseButton);
-	//			m_pCharacterWindow->AddComponent(m_pStat5IncreaseButton);
-	//			m_pCharacterWindow->AddComponent(m_pStat6IncreaseButton);
+				m_pCharacterWindow->AddComponent(m_pStat1IncreaseButton);
+				m_pCharacterWindow->AddComponent(m_pStat2IncreaseButton);
+				m_pCharacterWindow->AddComponent(m_pStat3IncreaseButton);
+				m_pCharacterWindow->AddComponent(m_pStat4IncreaseButton);
+				m_pCharacterWindow->AddComponent(m_pStat5IncreaseButton);
+				m_pCharacterWindow->AddComponent(m_pStat6IncreaseButton);
 
-	//			m_pGUI->AddWindow(m_pCharacterWindow);
-	//			m_pCharacterWindow->Show();
+				m_pGUI->AddWindow(m_pCharacterWindow);
+				m_pCharacterWindow->Show();
 
-	//			m_addedStatIncreaseButtons = true;
-	//		}
-	//	}
-	//}
+				m_addedStatIncreaseButtons = true;
+			}
+		}
+	}
 }
 
 void CharacterGUI::Update(float dt)
@@ -1212,16 +1209,15 @@ void CharacterGUI::Update(float dt)
 			m_pStatsValueLabel5->SetDimensions(-m_statsTabWidth+m_statsValueLabel_XOffset, m_statsTitleLabel_Y-130, 59, 26);
 			m_pStatsValueLabel6->SetDimensions(-m_statsTabWidth+m_statsValueLabel_XOffset, m_statsTitleLabel_Y-156, 59, 26);
 
-			// TODO : Add me back in - player stats
-			//if(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable() > 0)
-			//{
-			//	m_pStat1IncreaseButton->SetDimensions(-73, m_statsTitleLabel_Y-25, 16, 16);
-			//	m_pStat2IncreaseButton->SetDimensions(-73, m_statsTitleLabel_Y-51, 16, 16);
-			//	m_pStat3IncreaseButton->SetDimensions(-73, m_statsTitleLabel_Y-77, 16, 16);
-			//	m_pStat4IncreaseButton->SetDimensions(-73, m_statsTitleLabel_Y-103, 16, 16);
-			//	m_pStat5IncreaseButton->SetDimensions(-73, m_statsTitleLabel_Y-129, 16, 16);
-			//	m_pStat6IncreaseButton->SetDimensions(-73, m_statsTitleLabel_Y-155, 16, 16);
-			//}
+			if(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable() > 0)
+			{
+				m_pStat1IncreaseButton->SetDimensions(-73, m_statsTitleLabel_Y-25, 16, 16);
+				m_pStat2IncreaseButton->SetDimensions(-73, m_statsTitleLabel_Y-51, 16, 16);
+				m_pStat3IncreaseButton->SetDimensions(-73, m_statsTitleLabel_Y-77, 16, 16);
+				m_pStat4IncreaseButton->SetDimensions(-73, m_statsTitleLabel_Y-103, 16, 16);
+				m_pStat5IncreaseButton->SetDimensions(-73, m_statsTitleLabel_Y-129, 16, 16);
+				m_pStat6IncreaseButton->SetDimensions(-73, m_statsTitleLabel_Y-155, 16, 16);
+			}
 		}
 		else
 		{
@@ -1282,16 +1278,15 @@ void CharacterGUI::Update(float dt)
 			m_pStatsValueLabel5->SetDimensions(m_characterWindowWidth+m_statsValueLabel_XOffset-4, m_statsTitleLabel_Y-130, 59, 26);
 			m_pStatsValueLabel6->SetDimensions(m_characterWindowWidth+m_statsValueLabel_XOffset-4, m_statsTitleLabel_Y-156, 59, 26);
 
-			// TODO : Add me back in - player stats
-			//if(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable() > 0)
-			//{
-			//	m_pStat1IncreaseButton->SetDimensions(m_characterWindowWidth+87, m_statsTitleLabel_Y-25, 16, 16);
-			//	m_pStat2IncreaseButton->SetDimensions(m_characterWindowWidth+87, m_statsTitleLabel_Y-51, 16, 16);
-			//	m_pStat3IncreaseButton->SetDimensions(m_characterWindowWidth+87, m_statsTitleLabel_Y-77, 16, 16);
-			//	m_pStat4IncreaseButton->SetDimensions(m_characterWindowWidth+87, m_statsTitleLabel_Y-103, 16, 16);
-			//	m_pStat5IncreaseButton->SetDimensions(m_characterWindowWidth+87, m_statsTitleLabel_Y-129, 16, 16);
-			//	m_pStat6IncreaseButton->SetDimensions(m_characterWindowWidth+87, m_statsTitleLabel_Y-155, 16, 16);
-			//}
+			if(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable() > 0)
+			{
+				m_pStat1IncreaseButton->SetDimensions(m_characterWindowWidth+87, m_statsTitleLabel_Y-25, 16, 16);
+				m_pStat2IncreaseButton->SetDimensions(m_characterWindowWidth+87, m_statsTitleLabel_Y-51, 16, 16);
+				m_pStat3IncreaseButton->SetDimensions(m_characterWindowWidth+87, m_statsTitleLabel_Y-77, 16, 16);
+				m_pStat4IncreaseButton->SetDimensions(m_characterWindowWidth+87, m_statsTitleLabel_Y-103, 16, 16);
+				m_pStat5IncreaseButton->SetDimensions(m_characterWindowWidth+87, m_statsTitleLabel_Y-129, 16, 16);
+				m_pStat6IncreaseButton->SetDimensions(m_characterWindowWidth+87, m_statsTitleLabel_Y-155, 16, 16);
+			}
 		}
 		else
 		{
@@ -1728,9 +1723,8 @@ void CharacterGUI::_Stat1IncreasePressed(void *apData)
 
 void CharacterGUI::Stat1IncreasePressed()
 {
-	// TODO : Add me back in - player stats
-	//m_pPlayer->GetPlayerStats()->SetStrengthStat(m_pPlayer->GetPlayerStats()->GetStrengthStat()+1);
-	//m_pPlayer->GetPlayerStats()->SetNumPointsAvailable(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable()-1);
+	m_pPlayer->GetPlayerStats()->SetStrengthStat(m_pPlayer->GetPlayerStats()->GetStrengthStat()+1);
+	m_pPlayer->GetPlayerStats()->SetNumPointsAvailable(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable()-1);
 	UpdatePlayerStats();
 }
 
@@ -1742,9 +1736,8 @@ void CharacterGUI::_Stat2IncreasePressed(void *apData)
 
 void CharacterGUI::Stat2IncreasePressed()
 {
-	// TODO : Add me back in - player stats
-	//m_pPlayer->GetPlayerStats()->SetDexterityStat(m_pPlayer->GetPlayerStats()->GetDexterityStat()+1);
-	//m_pPlayer->GetPlayerStats()->SetNumPointsAvailable(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable()-1);
+	m_pPlayer->GetPlayerStats()->SetDexterityStat(m_pPlayer->GetPlayerStats()->GetDexterityStat()+1);
+	m_pPlayer->GetPlayerStats()->SetNumPointsAvailable(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable()-1);
 	UpdatePlayerStats();
 }
 
@@ -1756,9 +1749,8 @@ void CharacterGUI::_Stat3IncreasePressed(void *apData)
 
 void CharacterGUI::Stat3IncreasePressed()
 {
-	// TODO : Add me back in - player stats
-	//m_pPlayer->GetPlayerStats()->SetIntelligenceStat(m_pPlayer->GetPlayerStats()->GetIntelligenceStat()+1);
-	//m_pPlayer->GetPlayerStats()->SetNumPointsAvailable(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable()-1);
+	m_pPlayer->GetPlayerStats()->SetIntelligenceStat(m_pPlayer->GetPlayerStats()->GetIntelligenceStat()+1);
+	m_pPlayer->GetPlayerStats()->SetNumPointsAvailable(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable()-1);
 	UpdatePlayerStats();
 }
 
@@ -1770,9 +1762,8 @@ void CharacterGUI::_Stat4IncreasePressed(void *apData)
 
 void CharacterGUI::Stat4IncreasePressed()
 {
-	// TODO : Add me back in - player stats
-	//m_pPlayer->GetPlayerStats()->SetVitalityStat(m_pPlayer->GetPlayerStats()->GetVitalityStat()+1);
-	//m_pPlayer->GetPlayerStats()->SetNumPointsAvailable(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable()-1);
+	m_pPlayer->GetPlayerStats()->SetVitalityStat(m_pPlayer->GetPlayerStats()->GetVitalityStat()+1);
+	m_pPlayer->GetPlayerStats()->SetNumPointsAvailable(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable()-1);
 	UpdatePlayerStats();
 }
 
@@ -1784,9 +1775,8 @@ void CharacterGUI::_Stat5IncreasePressed(void *apData)
 
 void CharacterGUI::Stat5IncreasePressed()
 {
-	// TODO : Add me back in - player stats
-	//m_pPlayer->GetPlayerStats()->SetArmorStat(m_pPlayer->GetPlayerStats()->GetArmorStat()+1);
-	//m_pPlayer->GetPlayerStats()->SetNumPointsAvailable(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable()-1);
+	m_pPlayer->GetPlayerStats()->SetArmorStat(m_pPlayer->GetPlayerStats()->GetArmorStat()+1);
+	m_pPlayer->GetPlayerStats()->SetNumPointsAvailable(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable()-1);
 	UpdatePlayerStats();
 }
 
@@ -1798,8 +1788,7 @@ void CharacterGUI::_Stat6IncreasePressed(void *apData)
 
 void CharacterGUI::Stat6IncreasePressed()
 {
-	// TODO : Add me back in - player stats
-	//m_pPlayer->GetPlayerStats()->SetLuckStat(m_pPlayer->GetPlayerStats()->GetLuckStat()+1);
-	//m_pPlayer->GetPlayerStats()->SetNumPointsAvailable(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable()-1);
+	m_pPlayer->GetPlayerStats()->SetLuckStat(m_pPlayer->GetPlayerStats()->GetLuckStat()+1);
+	m_pPlayer->GetPlayerStats()->SetNumPointsAvailable(m_pPlayer->GetPlayerStats()->GetNumPointsAvailable()-1);
 	UpdatePlayerStats();
 }

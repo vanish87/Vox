@@ -15,6 +15,7 @@
 
 #pragma once
 
+#include "PlayerStats.h"
 #include "../Renderer/Renderer.h"
 #include "../blocks/ChunkManager.h"
 #include "../models/VoxelCharacter.h"
@@ -125,6 +126,15 @@ public:
 	// Gameplay
 	void GiveHealth(float amount);
 	void GiveCoins(int amount);
+
+	// Player stats
+	PlayerStats* GetPlayerStats();
+	string GetStrengthModifierString();
+	string GetDexterityModifierString();
+	string GetIntelligenceModifierString();
+	string GetVitalityModifierString();
+	string GetArmorModifierString();
+	string GetLuckModifierString();
 
 	// Combat
 	void PressAttack();
@@ -306,6 +316,9 @@ private:
 	bool m_dead;
 
 	// Gameplay
+
+	// Player stats
+	PlayerStats* m_pPlayerStats;
 
 	// Combat
 	bool m_bCanAttackLeft;

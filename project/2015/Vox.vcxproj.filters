@@ -555,6 +555,9 @@
     <ClCompile Include="..\..\source\Projectile\ProjectileManager.cpp">
       <Filter>source\Projectile</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\Player\PlayerStats.cpp">
+      <Filter>source\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\glew\include\GL\glew.h">
@@ -1468,6 +1471,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\Projectile\Projectile.h">
       <Filter>source\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Player\PlayerStats.h">
+      <Filter>source\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

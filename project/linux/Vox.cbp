@@ -89,6 +89,8 @@
 		<Unit filename="../../source/Player/Player.cpp" />
 		<Unit filename="../../source/Player/Player.h" />
 		<Unit filename="../../source/Player/PlayerCombat.cpp" />
+		<Unit filename="../../source/Player/PlayerStats.cpp" />
+		<Unit filename="../../source/Player/PlayerStats.h" />
 		<Unit filename="../../source/Renderer/Renderer.cpp" />
 		<Unit filename="../../source/Renderer/Renderer.h" />
 		<Unit filename="../../source/Renderer/camera.cpp" />

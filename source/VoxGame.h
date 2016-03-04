@@ -186,6 +186,7 @@ public:
 	// Accessors
 	unsigned int GetDefaultViewport();
 	BlockParticleManager* GetBlockParticleManager();
+	CharacterGUI* GetCharacterGUI();
 
 protected:
 	/* Protected methods */

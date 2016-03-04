@@ -85,6 +85,7 @@ Player::Player(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryMa
 	m_chargeTime = 1.0f;
 
 	// Player stats
+	m_pPlayerStats = new PlayerStats(this);
 	m_strengthModifier = 0;
 	m_dexterityModifier = 0;
 	m_intelligenceModifier = 0;
@@ -114,6 +115,13 @@ Player::Player(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryMa
 
 Player::~Player()
 {
+	delete m_pPlayerStats;
+
+	delete m_pVoxelCharacter;
+	if (m_pCharacterBackup != NULL)
+	{
+		delete m_pCharacterBackup;
+	}
 }
 
 // Linkage
@@ -747,7 +755,7 @@ void Player::RefreshStatModifierCacheValues()
 		}
 	}
 
-	//m_pCharacterGUI->UpdatePlayerStats();
+	VoxGame::GetInstance()->GetCharacterGUI()->UpdatePlayerStats();
 }
 
 // Collision
@@ -1225,6 +1233,162 @@ void Player::GiveCoins(int amount)
 	//lpTestTextEffect->StartEffect();
 
 	//m_pGameWindow->GetHUD()->UpdatePlayerData();
+}
+
+// Player stats
+PlayerStats* Player::GetPlayerStats()
+{
+	return m_pPlayerStats;
+}
+
+string Player::GetStrengthModifierString()
+{
+	char returnString[64];
+	char signModifier[2];
+	char colourModifier[16];
+	if (m_strengthModifier == 0)
+	{
+		return "";
+	}
+	else if (m_strengthModifier > 0)
+	{
+		sprintf_s(signModifier, 2, "+");
+		sprintf_s(colourModifier, 16, "Green");
+	}
+	else
+	{
+		sprintf_s(signModifier, 2, "-");
+		sprintf_s(colourModifier, 16, "Red");
+	}
+
+	sprintf_s(returnString, 64, "[C=%s]%s %i", colourModifier, signModifier, abs(m_strengthModifier));
+
+	return returnString;
+}
+
+string Player::GetDexterityModifierString()
+{
+	char returnString[64];
+	char signModifier[2];
+	char colourModifier[16];
+	if (m_dexterityModifier == 0)
+	{
+		return "";
+	}
+	else if (m_dexterityModifier > 0)
+	{
+		sprintf_s(signModifier, 2, "+");
+		sprintf_s(colourModifier, 16, "Green");
+	}
+	else
+	{
+		sprintf_s(signModifier, 2, "-");
+		sprintf_s(colourModifier, 16, "Red");
+	}
+
+	sprintf_s(returnString, 64, "[C=%s]%s %i", colourModifier, signModifier, abs(m_dexterityModifier));
+
+	return returnString;
+}
+
+string Player::GetIntelligenceModifierString()
+{
+	char returnString[64];
+	char signModifier[2];
+	char colourModifier[16];
+	if (m_intelligenceModifier == 0)
+	{
+		return "";
+	}
+	else if (m_intelligenceModifier > 0)
+	{
+		sprintf_s(signModifier, 2, "+");
+		sprintf_s(colourModifier, 16, "Green");
+	}
+	else
+	{
+		sprintf_s(signModifier, 2, "-");
+		sprintf_s(colourModifier, 16, "Red");
+	}
+
+	sprintf_s(returnString, 64, "[C=%s]%s %i", colourModifier, signModifier, abs(m_intelligenceModifier));
+
+	return returnString;
+}
+
+string Player::GetVitalityModifierString()
+{
+	char returnString[64];
+	char signModifier[2];
+	char colourModifier[16];
+	if (m_vitalityModifier == 0)
+	{
+		return "";
+	}
+	else if (m_vitalityModifier > 0)
+	{
+		sprintf_s(signModifier, 2, "+");
+		sprintf_s(colourModifier, 16, "Green");
+	}
+	else
+	{
+		sprintf_s(signModifier, 2, "-");
+		sprintf_s(colourModifier, 16, "Red");
+	}
+
+	sprintf_s(returnString, 64, "[C=%s]%s %i", colourModifier, signModifier, abs(m_vitalityModifier));
+
+	return returnString;
+}
+
+string Player::GetArmorModifierString()
+{
+	char returnString[64];
+	char signModifier[2];
+	char colourModifier[16];
+	if (m_armorModifier == 0)
+	{
+		return "";
+	}
+	else if (m_armorModifier > 0)
+	{
+		sprintf_s(signModifier, 2, "+");
+		sprintf_s(colourModifier, 16, "Green");
+	}
+	else
+	{
+		sprintf_s(signModifier, 2, "-");
+		sprintf_s(colourModifier, 16, "Red");
+	}
+
+	sprintf_s(returnString, 64, "[C=%s]%s %i", colourModifier, signModifier, abs(m_armorModifier));
+
+	return returnString;
+}
+
+string Player::GetLuckModifierString()
+{
+	char returnString[64];
+	char signModifier[2];
+	char colourModifier[16];
+	if (m_luckModifier == 0)
+	{
+		return "";
+	}
+	else if (m_luckModifier > 0)
+	{
+		sprintf_s(signModifier, 2, "+");
+		sprintf_s(colourModifier, 16, "Green");
+	}
+	else
+	{
+		sprintf_s(signModifier, 2, "-");
+		sprintf_s(colourModifier, 16, "Red");
+	}
+
+	sprintf_s(returnString, 64, "[C=%s]%s %i", colourModifier, signModifier, abs(m_luckModifier));
+
+	return returnString;
 }
 
 // Player equipped attributes
