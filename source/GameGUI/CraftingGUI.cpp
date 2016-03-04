@@ -931,7 +931,7 @@ void CraftingGUI::ShowTooltip(RecipeSlotItem* pRecipeItem)
 
 	m_tooltipQuality = pRecipeItem->m_pInventoryItem->m_itemQuality;
 
-	m_tooltipAppearDelayTimer = 0.75f;
+	m_tooltipAppearDelayTimer = m_pFrontendManager->GetToolTipAppearDelay();
 
 	m_toolTipVisible = true;
 	m_toolTipComponentsAdded = false;
@@ -1056,7 +1056,7 @@ void CraftingGUI::ShowTooltip(IngredientsSlotItem* pIngredientItem)
 
 	m_tooltipQuality = pIngredientItem->m_pInventoryItem->m_itemQuality;
 
-	m_tooltipAppearDelayTimer = 0.75f;
+	m_tooltipAppearDelayTimer = m_pFrontendManager->GetToolTipAppearDelay();
 
 	m_toolTipVisible = true;
 	m_toolTipComponentsAdded = false;

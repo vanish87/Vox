@@ -948,7 +948,7 @@ void CharacterGUI::ShowTooltip(CharacterSlotItem* pCharacterItem)
 
 	m_tooltipQuality = pCharacterItem->m_pInventoryItem->m_itemQuality;
 
-	m_tooltipAppearDelayTimer = 0.75f;
+	m_tooltipAppearDelayTimer = m_pFrontendManager->GetToolTipAppearDelay();
 
 	m_toolTipVisible = true;
 	m_toolTipComponentsAdded = false;

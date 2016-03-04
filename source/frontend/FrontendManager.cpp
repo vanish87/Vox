@@ -131,6 +131,9 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 		m_pButtonIconDisabled[ButtonSize(i)]->SetDepth(2.0f);
 	}
 
+	// Constants
+	m_tooltipAppearDelay = 0.25f;
+
 	LoadCommonGraphics("Default");
 
 	// Pages

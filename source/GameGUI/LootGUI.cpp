@@ -645,7 +645,7 @@ void LootGUI::ShowTooltip(LootSlotItem* pInventoryItem)
 
 	m_tooltipQuality = pInventoryItem->m_pInventoryItem->m_itemQuality;
 
-	m_tooltipAppearDelayTimer = 0.75f;
+	m_tooltipAppearDelayTimer = 0.5f;
 
 	m_toolTipVisible = true;
 	m_toolTipComponentsAdded = false;

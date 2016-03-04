@@ -148,6 +148,9 @@ public:
 	Icon* GetButtonIconPressed(ButtonSize size) { return m_pButtonIconPressed[size]; };
 	Icon* GetButtonIconDisabled(ButtonSize size) { return m_pButtonIconDisabled[size]; };
 
+	// Constants
+	float GetToolTipAppearDelay() { return m_tooltipAppearDelay; }
+
 	// Updating
 	void Update(float dt);
 	
@@ -248,4 +251,7 @@ private:
 	Icon** m_pButtonIconHover;
 	Icon** m_pButtonIconPressed;
 	Icon** m_pButtonIconDisabled;
+
+	// Constants
+	float m_tooltipAppearDelay;
 };
