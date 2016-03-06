@@ -196,7 +196,7 @@ public:
 	void Explode();
 
 	// Interaction
-	void SetInteractable(bool interatable);
+	void SetInteractable(bool interactable);
 	bool IsInteractable();
 	void Interact();
 	void SpawnSubItems();

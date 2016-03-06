@@ -917,9 +917,9 @@ float Item::GetCollisionRadius()
 }
 
 // Interaction
-void Item::SetInteractable(bool interatable)
+void Item::SetInteractable(bool interactable)
 {
-	m_interactable = interatable;
+	m_interactable = interactable;
 }
 
 bool Item::IsInteractable()
