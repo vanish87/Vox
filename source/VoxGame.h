@@ -138,6 +138,10 @@ public:
 	void SetCameraMode(CameraMode mode);
 	CameraMode GetCameraMode();
 
+	// Interactions
+	bool CheckInteractions();
+	Item* GetInteractItem();
+
 	// Updating
 	void Update();
 	void UpdatePlayerAlpha(float dt);
@@ -296,6 +300,10 @@ private:
 	// Camera mode
 	CameraMode m_cameraMode;
 	CameraMode m_previousCameraMode;
+
+	// Interacting item
+	mutex m_interactItemMutex;
+	Item* m_pInteractItem;
 
 	// Window width and height
 	int m_windowWidth;

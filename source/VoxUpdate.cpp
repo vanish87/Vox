@@ -80,6 +80,9 @@ void VoxGame::Update()
 		m_pItemManager->Update(m_deltaTime);
 		m_pItemManager->UpdateItemLights(m_deltaTime);
 		m_pItemManager->UpdateItemParticleEffects(m_deltaTime);
+		m_interactItemMutex.lock();
+		m_pInteractItem = m_pItemManager->CheckItemPlayerInteraction();
+		m_interactItemMutex.unlock();
 
 		// Projectile manager
 		m_pProjectileManager->Update(m_deltaTime);

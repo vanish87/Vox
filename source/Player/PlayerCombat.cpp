@@ -448,6 +448,16 @@ void Player::AttackAnimationTimerFinished()
 	}
 	else if (IsPickaxe())
 	{
+		Item* pInteractItem = VoxGame::GetInstance()->GetInteractItem();
+		if (pInteractItem != NULL)
+		{
+			pInteractItem->Interact();
+		}
+		else
+		{
+			// TODO : DestroyBlock functionality
+			//DestroyBlock();
+		}
 	}
 	else if (IsAxe())
 	{

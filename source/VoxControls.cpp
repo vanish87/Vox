@@ -100,7 +100,13 @@ void VoxGame::UpdateKeyboardControls(float dt)
 				// Attacking
 				if (m_bAttackPressed_Mouse && m_bCanDoAttack_Mouse)
 				{
-					m_pPlayer->PressAttack();
+					// Check interactions
+					bool interaction = CheckInteractions();
+					if (interaction == false)
+					{
+						m_pPlayer->PressAttack();
+					}
+
 					m_bCanDoAttack_Mouse = false;
 				}
 				if (m_bAttackReleased_Mouse)
@@ -283,7 +289,12 @@ void VoxGame::UpdateGamePadControls(float dt)
 				// Attacking
 				if (m_bAttackPressed_Joystick && m_bCanDoAttack_Joystick)
 				{
-					m_pPlayer->PressAttack();
+					// Check interactions
+					bool interaction = CheckInteractions();
+					if (interaction == false)
+					{
+						m_pPlayer->PressAttack();
+					}
 					m_bCanDoAttack_Joystick = false;
 				}
 				if (m_bAttackReleased_Joystick)

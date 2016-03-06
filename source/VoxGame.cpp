@@ -83,6 +83,9 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_bGameQuit = false;
 	m_bPaused = false;
 
+	/* Interactions */
+	m_pInteractItem = NULL;
+
 	/* Create the GUI */
 	m_pGUI = new OpenGLGUI(m_pRenderer);
 
@@ -592,6 +595,160 @@ void VoxGame::SetCameraMode(CameraMode mode)
 CameraMode VoxGame::GetCameraMode()
 {
 	return m_cameraMode;
+}
+
+// Interactions
+bool VoxGame::CheckInteractions()
+{
+	bool interaction = false;
+
+	if (m_bPaused)
+	{
+		return false;
+	}
+
+	if (m_pPlayer->CanJump() == false)
+	{
+		// Don't allow interactions if we are jumping
+		return false;
+	}
+
+	if (m_pPlayer->IsDead())
+	{
+		// Don't allow interactions if the player is dead.
+		return false;
+	}
+
+	// Check item interactions
+	m_interactItemMutex.lock();
+	if (interaction == false && m_pInteractItem != NULL)
+	{
+		// Stop any movement drag when we interact with item
+		m_movementSpeed = 0.0f;
+
+		// Dropped items become collectible by the player and magnet towards him
+		if (m_pInteractItem->GetItemType() == eItem_DroppedItem)
+		{
+			if (m_pInventoryManager->CanAddInventoryItem(m_pInteractItem->GetDroppedInventoryItem()->m_title.c_str(), m_pInteractItem->GetDroppedInventoryItem()->m_item, m_pInteractItem->GetDroppedInventoryItem()->m_quantity))
+			{
+				m_pInteractItem->SetIsCollectible(true);
+				m_pInteractItem->SetCollectionDelay(0.0f);
+			}
+
+			interaction = true;
+		}
+
+		// Open/close door
+		if (m_pInteractItem->GetItemType() == eItem_Door)
+		{
+			m_pInteractItem->Interact();
+
+			interaction = true;
+		}
+
+		// Sitting in chair
+		if (m_pInteractItem->GetItemType() == eItem_Chair)
+		{
+			m_pInteractItem->Interact();
+			m_pPlayer->StopMoving();
+
+			interaction = true;
+		}
+
+		// Crafting stations
+		if (m_pInteractItem->GetItemType() == eItem_Anvil || m_pInteractItem->GetItemType() == eItem_Furnace)
+		{
+			m_pPlayer->StopMoving();
+
+			// Load crafting GUI
+			if (m_pCraftingGUI->IsLoaded() == false)
+			{
+				m_pCraftingGUI->SetCraftingRecipesForItem(m_pInteractItem->GetItemType());
+				m_pCraftingGUI->Load();
+				m_pCraftingGUI->SetInteractionitem(m_pInteractItem);
+
+				m_pVoxWindow->TurnCursorOn(true);
+			}
+
+			// TODO : Crafting mode camera - NPC dialog
+			// Set NPC dialog camera mode
+			//SetCameraMode(CameraMode_NPCDialog);
+
+			//// Figure out which way to position the camera, based on how we are looking at the NPC when interacting
+			//m_pGameCamera->CalculateFacing();
+			//Vector3d toItem = (m_pInteractItem->GetCenter() - m_pInteractItem->GetInteractionPosition()).GetUnit();
+			//Vector3d cross = Vector3d::CrossProduct(Vector3d(0.0f, 1.0f, 0.0f), toItem);
+			//float dotAngle = Vector3d::DotProduct(m_pGameCamera->GetFacing(), cross);
+			//if (dotAngle > 0.5f)
+			//{
+			//	Vector3d center = (m_pInteractItem->GetCenter() - m_pInteractItem->GetInteractionPosition());
+			//	Vector3d crossRight = Vector3d::CrossProduct(center.GetUnit(), Vector3d(0.0f, 1.0f, 0.0f));
+			//	m_targetCameraPosition_NPCDialog = (m_pInteractItem->GetInteractionPosition() + center*2.0f + crossRight*4.0f + Vector3d(0.0f, 1.0f, 0.0f)*2.5f);
+			//	m_targetCameraView_NPCDialog = (m_pInteractItem->GetInteractionPosition() + center*0.0f - crossRight*4.0f);
+			//}
+			//else
+			//{
+			//	Vector3d center = (m_pInteractItem->GetCenter() - m_pInteractItem->GetInteractionPosition());
+			//	Vector3d crossRight = Vector3d::CrossProduct(center.GetUnit(), Vector3d(0.0f, 1.0f, 0.0f));
+			//	m_targetCameraPosition_NPCDialog = (m_pInteractItem->GetInteractionPosition() + center*2.0f - crossRight*4.0f + Vector3d(0.0f, 1.0f, 0.0f)*2.5f);
+			//	m_targetCameraView_NPCDialog = (m_pInteractItem->GetInteractionPosition() + center*0.0f + crossRight*4.0f);
+			//}
+
+			//// Player move to interaction point and look at interaction item
+			//m_pPlayer->SetMoveToTargetPosition(m_pInteractItem->GetInteractionPosition());
+			//m_pPlayer->SetLookAtTargetAfterMoveToPosition(m_pInteractItem->GetCenter());
+
+			//// Set player alpha to full opacity
+			//m_pPlayer->SetPlayerAlpha(1.0f);
+
+			//// Open cinematic letterbox
+			//OpenLetterBox();
+
+			interaction = true;
+		}
+
+		// Chest interaction
+		if (m_pInteractItem->GetItemType() == eItem_Chest)
+		{
+			m_pInteractItem->Interact();
+			m_pPlayer->StopMoving();
+
+			interaction = true;
+
+			if (m_pLootGUI->IsLoaded())
+			{
+				m_pLootGUI->Unload();
+
+				if (IsGUIWindowStillDisplayed() == false)
+				{
+					TurnCursorOff();
+				}
+			}
+			else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_None)
+			{
+				m_pLootGUI->LoadItems(m_pInteractItem);
+
+				m_pLootGUI->Load();
+
+				if (m_pInventoryGUI->IsLoaded() == false)
+				{
+					m_pInventoryGUI->Load();
+				}
+
+				m_pPlayer->StopMoving();
+
+				m_pVoxWindow->TurnCursorOn(true);
+			}
+		}
+	}
+	m_interactItemMutex.unlock();
+
+	return interaction;
+}
+
+Item* VoxGame::GetInteractItem()
+{
+	return m_pInteractItem;
 }
 
 // GUI Helper functions
