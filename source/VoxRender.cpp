@@ -124,7 +124,15 @@ void VoxGame::Render()
 			{
 				// Render the chunks
 				m_pChunkManager->Render(false);
+			}
+			EndShaderRender();
 
+			// Render items outline and silhouette before the world/chunks
+			m_pItemManager->Render(true, false, false, false);
+			m_pItemManager->Render(false, false, true, false);
+
+			BeginShaderRender();
+			{
 				// Scenery
 				m_pSceneryManager->Render(false, false, false, false, false);
 
