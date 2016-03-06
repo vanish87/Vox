@@ -728,11 +728,11 @@ bool VoxGame::CheckInteractions()
 			{
 				m_pLootGUI->LoadItems(m_pInteractItem);
 
-				m_pLootGUI->Load();
+				m_pLootGUI->Load(true, 1.0f);
 
 				if (m_pInventoryGUI->IsLoaded() == false)
 				{
-					m_pInventoryGUI->Load();
+					m_pInventoryGUI->Load(true, 1.0f);
 				}
 
 				m_pPlayer->StopMoving();

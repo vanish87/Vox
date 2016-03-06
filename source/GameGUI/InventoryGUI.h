@@ -55,7 +55,7 @@ public:
 	void SetActionBar(ActionBar* pActionBar);
 	void SetItemManager(ItemManager *pItemManager);
 
-	void Load();
+	void Load(bool loadDelay = false, float loadDelayTime = 0.0f);
 	void Unload();
 
 	bool IsLoaded();
@@ -150,6 +150,10 @@ private:
 	int m_inventoryWindowHeight;
 	int m_titlebarWidth;
 	int m_titlebarHeight;
+
+	// Load delay
+	bool m_loadDelay;
+	float m_loadDelayTime;
 
 	// GUI components
 	GUIWindow* m_pInventoryWindow;

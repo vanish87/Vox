@@ -57,7 +57,7 @@ public:
 
 	void SetWindowDimensions(int windowWidth, int windowHeight);
 
-	void Load();
+	void Load(bool loadDelay = false, float loadDelayTime = 0.0f);
 	void Unload();
 
 	bool IsLoaded();
@@ -135,6 +135,10 @@ private:
 	int m_titlebarHeight;
 
 	Item* m_pStorageItem;
+
+	// Load delay
+	bool m_loadDelay;
+	float m_loadDelayTime;
 
 	// GUI components
 	GUIWindow* m_pLootWindow;

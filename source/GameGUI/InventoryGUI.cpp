@@ -34,8 +34,6 @@ InventoryGUI::InventoryGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager
 	m_pPlayer = pPlayer;
 	m_pInventoryManager = pInventoryManager;
 
-	m_loaded = false;
-
 	m_windowWidth = windowWidth;
 	m_windowHeight = windowHeight;
 
@@ -204,6 +202,12 @@ InventoryGUI::InventoryGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager
 	SetWindowDimensions(m_windowWidth, m_windowHeight);
 
 	m_pInventoryItemToDelete = NULL;
+
+	// Load delay
+	m_loadDelay = false;
+	m_loadDelayTime = 0.0f;
+
+	m_loaded = false;
 }
 
 InventoryGUI::~InventoryGUI()
@@ -263,8 +267,11 @@ void InventoryGUI::SetItemManager(ItemManager *pItemManager)
 	m_pItemManager = pItemManager;
 }
 
-void InventoryGUI::Load()
+void InventoryGUI::Load(bool loadDelay, float loadDelayTime)
 {
+	m_loadDelay = loadDelay;
+	m_loadDelayTime = loadDelayTime;
+
 	if(m_pInventoryManager->InventoryGUINeedsUpdate())
 	{
 		DeleteInventoryItems();
@@ -277,8 +284,11 @@ void InventoryGUI::Load()
 		}
 	}
 
-	m_pGUI->AddWindow(m_pInventoryWindow);
-	m_pInventoryWindow->Show();
+	if (m_loadDelay == false)
+	{
+		m_pGUI->AddWindow(m_pInventoryWindow);
+		m_pInventoryWindow->Show();
+	}
 
 	//m_pPopupConfirmButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
 	//m_pPopupCancelButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
@@ -299,6 +309,9 @@ void InventoryGUI::Load()
 
 void InventoryGUI::Unload()
 {
+	m_loadDelay = false;
+	m_loadDelayTime = 0.0f;
+
 	HideTooltip();
 
 	m_pGUI->RemoveWindow(m_pInventoryWindow);
@@ -829,6 +842,20 @@ void InventoryGUI::UnequipItem(EquipSlot equipSlot)
 
 void InventoryGUI::Update(float dt)
 {
+	if (m_loadDelay == true)
+	{
+		if (m_loadDelayTime <= 0.0f)
+		{
+			m_loadDelay = false;
+			m_pGUI->AddWindow(m_pInventoryWindow);
+			m_pInventoryWindow->Show();
+		}
+		else
+		{
+			m_loadDelayTime -= dt;
+		}
+	}
+
 	UpdateToolTipAppear(dt);
 
 	// Check if the inventory GUI needs update (we have moved items in the inventory or got new items)

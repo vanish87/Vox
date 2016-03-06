@@ -141,6 +141,10 @@ LootGUI::LootGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFronten
 
 	m_pStorageItem = NULL;
 
+	// Load delay
+	m_loadDelay = false;
+	m_loadDelayTime = 0.0f;
+
 	m_loaded = false;
 }
 
@@ -207,13 +211,19 @@ void LootGUI::SetWindowDimensions(int windowWidth, int windowHeight)
 	m_pCloseExitButton->SetDimensions(m_lootWindowWidth-32, m_lootWindowHeight, 32, 32);
 }
 
-void LootGUI::Load()
+void LootGUI::Load(bool loadDelay, float loadDelayTime)
 {
+	m_loadDelay = loadDelay;
+	m_loadDelayTime = loadDelayTime;
+
 	CreateLootItems();
 
 	m_pLootWindow->DepthSortComponentChildren();
-	m_pGUI->AddWindow(m_pLootWindow);
-	m_pLootWindow->Show();
+	if (m_loadDelay == false)
+	{
+		m_pGUI->AddWindow(m_pLootWindow);
+		m_pLootWindow->Show();
+	}
 
 	m_pressedX = 0;
 	m_pressedY = 0;
@@ -229,6 +239,9 @@ void LootGUI::Load()
 
 void LootGUI::Unload()
 {
+	m_loadDelay = false;
+	m_loadDelayTime = 0.0f;
+
 	HideTooltip();
 
 	DeleteLootItems();
@@ -668,6 +681,20 @@ void LootGUI::HideTooltip()
 
 void LootGUI::Update(float dt)
 {
+	if (m_loadDelay == true)
+	{
+		if (m_loadDelayTime <= 0.0f)
+		{
+			m_loadDelay = false;
+			m_pGUI->AddWindow(m_pLootWindow);
+			m_pLootWindow->Show();
+		}
+		else
+		{
+			m_loadDelayTime -= dt;
+		}
+	}
+
 	UpdateToolTipAppear(dt);
 }
 
