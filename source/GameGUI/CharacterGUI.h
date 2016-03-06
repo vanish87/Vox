@@ -13,7 +13,7 @@
 
 #pragma once
 
-#include "../Blocks/ChunkManager.h"
+#include "../blocks/ChunkManager.h"
 #include "../Player/Player.h"
 #include "../Inventory/InventoryManager.h"
 #include "../gui/draggablerenderrectangle.h"

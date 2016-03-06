@@ -31,11 +31,11 @@
 #include "VoxApplication.h"
 #include "VoxWindow.h"
 #include "VoxSettings.h"
-#include "GameGUI\ActionBar.h"
-#include "GameGUI\CharacterGUI.h"
-#include "GameGUI\CraftingGUI.h"
-#include "GameGUI\InventoryGUI.h"
-#include "GameGUI\LootGUI.h"
+#include "GameGUI/ActionBar.h"
+#include "GameGUI/CharacterGUI.h"
+#include "GameGUI/CraftingGUI.h"
+#include "GameGUI/InventoryGUI.h"
+#include "GameGUI/LootGUI.h"
 
 enum GameMode
 {

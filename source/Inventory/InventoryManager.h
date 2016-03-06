@@ -17,7 +17,7 @@
 #include <string>
 using namespace std;
 
-#include "..\Items\StatAttribute.h"
+#include "../Items/StatAttribute.h"
 
 class Player;
 class InventoryGUI;

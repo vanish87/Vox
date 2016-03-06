@@ -13,9 +13,8 @@
 
 #pragma once
 
-#include "../Blocks/ChunkManager.h"
+#include "../blocks/ChunkManager.h"
 #include "../models/VoxelWeapon.h"
-#include "../Blocks/ChunkManager.h"
 #include "../Particles/BlockParticleManager.h"
 #include "../Inventory/InventoryManager.h"
 #include "../Maths/BoundingRegion.h"

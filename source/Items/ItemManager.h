@@ -18,7 +18,7 @@
 using namespace std;
 
 #include "Item.h"
-#include "../Blocks/ChunkManager.h"
+#include "../blocks/ChunkManager.h"
 #include "../Particles/BlockParticleManager.h"
 #include "../Inventory/InventoryManager.h"
 #include "../Player/Player.h"
