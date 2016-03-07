@@ -61,10 +61,10 @@ CharacterGUI::CharacterGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager
 	m_pTitleBarBackgroundIcon->SetDepth(1.0f);
 
 	m_pCloseExitButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_30(), m_pFrontendManager->GetFrontendFont_30_Outline(), "", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pCloseExitButton->SetDefaultIcon(m_pFrontendManager->GetCloseExitButtonIcon());
-	//m_pCloseExitButton->SetHoverIcon(m_pFrontendManager->GetCloseExitButtonIcon_Hover());
-	//m_pCloseExitButton->SetSelectedIcon(m_pFrontendManager->GetCloseExitButtonIcon_Pressed());
-	//m_pCloseExitButton->SetDisabledIcon(m_pFrontendManager->GetCloseExitButtonIcon());
+	m_pCloseExitButton->SetDefaultIcon(m_pFrontendManager->GetCloseExitButtonIcon());
+	m_pCloseExitButton->SetHoverIcon(m_pFrontendManager->GetCloseExitButtonIcon_Hover());
+	m_pCloseExitButton->SetSelectedIcon(m_pFrontendManager->GetCloseExitButtonIcon_Pressed());
+	m_pCloseExitButton->SetDisabledIcon(m_pFrontendManager->GetCloseExitButtonIcon());
 	m_pCloseExitButton->SetLabelOffset(0, 5);
 	m_pCloseExitButton->SetCallBackFunction(_CloseExitPressed);
 	m_pCloseExitButton->SetCallBackData(this);
@@ -235,10 +235,10 @@ CharacterGUI::CharacterGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager
 	m_pTabOpenCloseButton->SetCallBackData(this);
 
 	m_pArrowLeftButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_30(), m_pFrontendManager->GetFrontendFont_30_Outline(), "", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pArrowLeftButton->SetDefaultIcon(m_pFrontendManager->GetLeftRotateArrow());
-	//m_pArrowLeftButton->SetHoverIcon(m_pFrontendManager->GetLeftRotateArrow_Hover());
-	//m_pArrowLeftButton->SetSelectedIcon(m_pFrontendManager->GetLeftRotateArrow_Pressed());
-	//m_pArrowLeftButton->SetDisabledIcon(m_pFrontendManager->GetLeftRotateArrow());
+	m_pArrowLeftButton->SetDefaultIcon(m_pFrontendManager->GetLeftRotateArrow());
+	m_pArrowLeftButton->SetHoverIcon(m_pFrontendManager->GetLeftRotateArrow_Hover());
+	m_pArrowLeftButton->SetSelectedIcon(m_pFrontendManager->GetLeftRotateArrow_Pressed());
+	m_pArrowLeftButton->SetDisabledIcon(m_pFrontendManager->GetLeftRotateArrow());
 	m_pArrowLeftButton->SetLabelOffset(0, 5);
 	m_pArrowLeftButton->SetCallBackFunction_Pressed(_ArrowLeftPressed);
 	m_pArrowLeftButton->SetCallBackData_Pressed(this);
@@ -247,10 +247,10 @@ CharacterGUI::CharacterGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager
 	m_pArrowLeftButton->SetDepth(3.0f);
 
 	m_pArrowRightButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_30(), m_pFrontendManager->GetFrontendFont_30_Outline(), "", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pArrowRightButton->SetDefaultIcon(m_pFrontendManager->GetRightRotateArrow());
-	//m_pArrowRightButton->SetHoverIcon(m_pFrontendManager->GetRightRotateArrow_Hover());
-	//m_pArrowRightButton->SetSelectedIcon(m_pFrontendManager->GetRightRotateArrow_Pressed());
-	//m_pArrowRightButton->SetDisabledIcon(m_pFrontendManager->GetRightRotateArrow());
+	m_pArrowRightButton->SetDefaultIcon(m_pFrontendManager->GetRightRotateArrow());
+	m_pArrowRightButton->SetHoverIcon(m_pFrontendManager->GetRightRotateArrow_Hover());
+	m_pArrowRightButton->SetSelectedIcon(m_pFrontendManager->GetRightRotateArrow_Pressed());
+	m_pArrowRightButton->SetDisabledIcon(m_pFrontendManager->GetRightRotateArrow());
 	m_pArrowRightButton->SetLabelOffset(0, 5);
 	m_pArrowRightButton->SetCallBackFunction_Pressed(_ArrowRightPressed);
 	m_pArrowRightButton->SetCallBackData_Pressed(this);

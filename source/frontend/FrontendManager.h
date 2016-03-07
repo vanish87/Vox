@@ -129,6 +129,19 @@ public:
 	Icon* GetButtonIconPressed(ButtonSize size) { return m_pButtonIconPressed[size]; };
 	Icon* GetButtonIconDisabled(ButtonSize size) { return m_pButtonIconDisabled[size]; };
 
+	// Close button
+	Icon* GetCloseExitButtonIcon() { return m_pCloseExitButtonIcon; }
+	Icon* GetCloseExitButtonIcon_Hover() { return m_pCloseExitButtonIcon_Hover; }
+	Icon* GetCloseExitButtonIcon_Pressed() { return m_pCloseExitButtonIcon_Pressed; }
+
+	// Rotate buttons
+	Icon* GetRightRotateArrow() { return m_pArrowRight_Icon; }
+	Icon* GetRightRotateArrow_Hover() { return m_pArrowRight_Icon_Hover; }
+	Icon* GetRightRotateArrow_Pressed() { return m_pArrowRight_Icon_Pressed; }
+	Icon* GetLeftRotateArrow() { return m_pArrowLeft_Icon; }
+	Icon* GetLeftRotateArrow_Hover() { return m_pArrowLeft_Icon_Hover; }
+	Icon* GetLeftRotateArrow_Pressed() { return m_pArrowLeft_Icon_Pressed; }
+
 	// Constants
 	float GetToolTipAppearDelay() { return m_tooltipAppearDelay; }
 
@@ -232,6 +245,19 @@ private:
 	Icon** m_pButtonIconHover;
 	Icon** m_pButtonIconPressed;
 	Icon** m_pButtonIconDisabled;
+
+	// Close button
+	Icon* m_pCloseExitButtonIcon;
+	Icon* m_pCloseExitButtonIcon_Hover;
+	Icon* m_pCloseExitButtonIcon_Pressed;
+
+	// Rotate buttons
+	Icon* m_pArrowLeft_Icon;
+	Icon* m_pArrowLeft_Icon_Hover;
+	Icon* m_pArrowLeft_Icon_Pressed;
+	Icon* m_pArrowRight_Icon;
+	Icon* m_pArrowRight_Icon_Hover;
+	Icon* m_pArrowRight_Icon_Pressed;
 
 	// Constants
 	float m_tooltipAppearDelay;

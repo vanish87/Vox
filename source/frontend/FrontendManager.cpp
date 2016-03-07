@@ -132,10 +132,32 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 		m_pButtonIconDisabled[ButtonSize(i)]->SetDepth(2.0f);
 	}
 
+	// Close button
+	m_pCloseExitButtonIcon = new Icon(m_pRenderer, "", 32, 32);
+	m_pCloseExitButtonIcon->SetDepth(1.0f);
+	m_pCloseExitButtonIcon_Hover = new Icon(m_pRenderer, "", 32, 32);
+	m_pCloseExitButtonIcon_Hover->SetDepth(1.0f);
+	m_pCloseExitButtonIcon_Pressed = new Icon(m_pRenderer, "", 32, 32);
+	m_pCloseExitButtonIcon_Pressed->SetDepth(1.0f);
+
+	// Rotate buttons
+	m_pArrowLeft_Icon = new Icon(m_pRenderer, "", 32, 32);
+	m_pArrowLeft_Icon->SetDepth(2.0f);
+	m_pArrowLeft_Icon_Hover = new Icon(m_pRenderer, "", 32, 32);
+	m_pArrowLeft_Icon_Hover->SetDepth(2.0f);
+	m_pArrowLeft_Icon_Pressed = new Icon(m_pRenderer, "", 32, 32);
+	m_pArrowLeft_Icon_Pressed->SetDepth(2.0f);
+	m_pArrowRight_Icon = new Icon(m_pRenderer, "", 32, 32);
+	m_pArrowRight_Icon->SetDepth(2.0f);
+	m_pArrowRight_Icon_Hover = new Icon(m_pRenderer, "", 32, 32);
+	m_pArrowRight_Icon_Hover->SetDepth(2.0f);
+	m_pArrowRight_Icon_Pressed = new Icon(m_pRenderer, "", 32, 32);
+	m_pArrowRight_Icon_Pressed->SetDepth(2.0f);
+
 	// Constants
 	m_tooltipAppearDelay = 0.25f;
 
-	LoadCommonGraphics("Default");
+	LoadCommonGraphics("Stonewash");
 
 	// Pages
 	int width = 800;
@@ -206,6 +228,19 @@ FrontendManager::~FrontendManager()
 		delete m_pButtonIconPressed[i];
 		delete m_pButtonIconDisabled[i];
 	}
+
+	// Close button
+	delete m_pCloseExitButtonIcon;
+	delete m_pCloseExitButtonIcon_Hover;
+	delete m_pCloseExitButtonIcon_Pressed;
+
+	// Rotate buttons
+	delete m_pArrowLeft_Icon;
+	delete m_pArrowLeft_Icon_Hover;
+	delete m_pArrowLeft_Icon_Pressed;
+	delete m_pArrowRight_Icon;
+	delete m_pArrowRight_Icon_Hover;
+	delete m_pArrowRight_Icon_Pressed;
 }
 
 // Windows dimensions
@@ -351,6 +386,28 @@ void FrontendManager::LoadCommonGraphics(string themeName)
 		iconName = "media/textures/gui/" + themeName + "/common/buttons/" + sizeFolder + "/buttonDisabled.tga";
 		m_pButtonIconDisabled[ButtonSize(i)]->SetIcon(iconName);
 	}
+
+	// Close button
+	iconName = "media/textures/gui/" + themeName + "/common/close_button/close_exit.tga";
+	m_pCloseExitButtonIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/close_button/close_exit_hover.tga";
+	m_pCloseExitButtonIcon_Hover->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/close_button/close_exit_pressed.tga";
+	m_pCloseExitButtonIcon_Pressed->SetIcon(iconName);
+
+	// Rotate buttons
+	iconName = "media/textures/gui/" + themeName + "/common/rotate/arrow_left.tga";
+	m_pArrowLeft_Icon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/rotate/arrow_left_hover.tga";
+	m_pArrowLeft_Icon_Hover->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/rotate/arrow_left_pressed.tga";
+	m_pArrowLeft_Icon_Pressed->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/rotate/arrow_right.tga";
+	m_pArrowRight_Icon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/rotate/arrow_right_hover.tga";
+	m_pArrowRight_Icon_Hover->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/rotate/arrow_right_pressed.tga";
+	m_pArrowRight_Icon_Pressed->SetIcon(iconName);
 }
 
 // Setup icons for components
