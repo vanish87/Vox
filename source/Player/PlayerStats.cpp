@@ -57,7 +57,7 @@ void PlayerStats::ImportStats(string playerName)
 
 	ifstream importFile;
 	char lfilename[128];
-	sprintf_s(lfilename, "saves/characters/%s/%s.stats", playerName.c_str(), playerName.c_str());
+	sprintf(lfilename, "saves/characters/%s/%s.stats", playerName.c_str(), playerName.c_str());
 	importFile.open(lfilename, ios_base::binary);
 
     if(importFile.is_open())
@@ -94,7 +94,7 @@ void PlayerStats::ExportStats(string playerName)
 
 	ofstream exportFile;
 	char lfilename[128];
-	sprintf_s(lfilename, "saves/characters/%s/%s.stats", playerName.c_str(), playerName.c_str());
+	sprintf(lfilename, "saves/characters/%s/%s.stats", playerName.c_str(), playerName.c_str());
 	exportFile.open(lfilename, ios_base::binary);
 
 	if(exportFile.is_open())

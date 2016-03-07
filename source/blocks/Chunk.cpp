@@ -9,6 +9,8 @@
 // Copyright (c) 2005-2015, Steven Ball
 // ******************************************************************************
 
+#include <algorithm>
+
 #include "Chunk.h"
 #include "ChunkManager.h"
 #include "../Player/Player.h"

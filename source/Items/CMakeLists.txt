@@ -6,6 +6,7 @@ set(ITEMS_SRCS
    "${CMAKE_CURRENT_SOURCE_DIR}/StatAttribute.h"
    "${CMAKE_CURRENT_SOURCE_DIR}/StatAttribute.cpp"
    "${CMAKE_CURRENT_SOURCE_DIR}/ItemUtils.cpp"
+   "${CMAKE_CURRENT_SOURCE_DIR}/ItemsEnum.h"
    PARENT_SCOPE)
 
 source_group("Items" FILES ${ITEMS_SRCS})

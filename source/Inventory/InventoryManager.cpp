@@ -14,11 +14,11 @@
 #pragma warning(disable: 4800) // Disable 'casting to bool' warning C4800
 
 #include "InventoryManager.h"
-#include "..\Items\Item.h"
-#include "..\Player\Player.h"
-#include "..\GameGUI\InventoryGUI.h"
-#include "..\GameGUI\LootGUI.h"
-#include "..\GameGUI\ActionBar.h"
+#include "../Items/Item.h"
+#include "../Player/Player.h"
+#include "../GameGUI/InventoryGUI.h"
+#include "../GameGUI/LootGUI.h"
+#include "../GameGUI/ActionBar.h"
 
 #include <algorithm>
 #include <fstream>

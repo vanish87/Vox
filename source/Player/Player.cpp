@@ -1231,7 +1231,7 @@ void Player::GiveHealth(float amount)
 	//// Do an animated text effect
 	//vec3 screenposition = GetCenter() + vec3(GetRandomNumber(-1, 1, 2)*0.25f, 0.0f, GetRandomNumber(-1, 1, 2)*0.25f);
 	//char healthText[32];
-	//sprintf_s(healthText, 32, "%i", (int)amount);
+	//sprintf(healthText, "%i", (int)amount);
 	//AnimatedText* lpTestTextEffect = m_pTextEffectsManager->CreateTextEffect(m_pGameWindow->GetTextEffectFont(), m_pGameWindow->GetTextEffectOutlineFont(), m_pGameWindow->GetMainViewport(), TextDrawMode_3D_Screen, TextEffect_FadeUp, TextDrawStyle_Outline, screenposition, Colour(0.0f, 1.0f, 0.0f), Colour(0.0f, 0.0f, 0.0f), healthText, 1.0f);
 	//lpTestTextEffect->SetAutoDelete(true);
 	//lpTestTextEffect->StartEffect();
@@ -1246,7 +1246,7 @@ void Player::GiveCoins(int amount)
 	// Do an animated text effect
 	//vec3 screenposition = GetCenter() + vec3(GetRandomNumber(-1, 1, 2)*0.25f, 0.0f, GetRandomNumber(-1, 1, 2)*0.25f);
 	//char healthText[32];
-	//sprintf_s(healthText, 32, "%i", (int)amount);
+	//sprintf(healthText,, "%i", (int)amount);
 	//AnimatedText* lpTestTextEffect = m_pTextEffectsManager->CreateTextEffect(m_pGameWindow->GetTextEffectFont(), m_pGameWindow->GetTextEffectOutlineFont(), m_pGameWindow->GetMainViewport(), TextDrawMode_3D_Screen, TextEffect_FadeUp, TextDrawStyle_Outline, screenposition, Colour(1.0f, 1.0f, 0.0f), Colour(0.0f, 0.0f, 0.0f), healthText, 1.0f);
 	//lpTestTextEffect->SetAutoDelete(true);
 	//lpTestTextEffect->StartEffect();
@@ -1271,16 +1271,16 @@ string Player::GetStrengthModifierString()
 	}
 	else if (m_strengthModifier > 0)
 	{
-		sprintf_s(signModifier, 2, "+");
-		sprintf_s(colourModifier, 16, "Green");
+		sprintf(signModifier, "+");
+		sprintf(colourModifier, "Green");
 	}
 	else
 	{
-		sprintf_s(signModifier, 2, "-");
-		sprintf_s(colourModifier, 16, "Red");
+		sprintf(signModifier, "-");
+		sprintf(colourModifier, "Red");
 	}
 
-	sprintf_s(returnString, 64, "[C=%s]%s %i", colourModifier, signModifier, abs(m_strengthModifier));
+	sprintf(returnString, "[C=%s]%s %i", colourModifier, signModifier, abs(m_strengthModifier));
 
 	return returnString;
 }
@@ -1296,16 +1296,16 @@ string Player::GetDexterityModifierString()
 	}
 	else if (m_dexterityModifier > 0)
 	{
-		sprintf_s(signModifier, 2, "+");
-		sprintf_s(colourModifier, 16, "Green");
+		sprintf(signModifier, "+");
+		sprintf(colourModifier, "Green");
 	}
 	else
 	{
-		sprintf_s(signModifier, 2, "-");
-		sprintf_s(colourModifier, 16, "Red");
+		sprintf(signModifier, "-");
+		sprintf(colourModifier, "Red");
 	}
 
-	sprintf_s(returnString, 64, "[C=%s]%s %i", colourModifier, signModifier, abs(m_dexterityModifier));
+	sprintf(returnString, "[C=%s]%s %i", colourModifier, signModifier, abs(m_dexterityModifier));
 
 	return returnString;
 }
@@ -1321,16 +1321,16 @@ string Player::GetIntelligenceModifierString()
 	}
 	else if (m_intelligenceModifier > 0)
 	{
-		sprintf_s(signModifier, 2, "+");
-		sprintf_s(colourModifier, 16, "Green");
+		sprintf(signModifier, "+");
+		sprintf(colourModifier, "Green");
 	}
 	else
 	{
-		sprintf_s(signModifier, 2, "-");
-		sprintf_s(colourModifier, 16, "Red");
+		sprintf(signModifier, "-");
+		sprintf(colourModifier, "Red");
 	}
 
-	sprintf_s(returnString, 64, "[C=%s]%s %i", colourModifier, signModifier, abs(m_intelligenceModifier));
+	sprintf(returnString, "[C=%s]%s %i", colourModifier, signModifier, abs(m_intelligenceModifier));
 
 	return returnString;
 }
@@ -1346,16 +1346,16 @@ string Player::GetVitalityModifierString()
 	}
 	else if (m_vitalityModifier > 0)
 	{
-		sprintf_s(signModifier, 2, "+");
-		sprintf_s(colourModifier, 16, "Green");
+		sprintf(signModifier, "+");
+		sprintf(colourModifier, "Green");
 	}
 	else
 	{
-		sprintf_s(signModifier, 2, "-");
-		sprintf_s(colourModifier, 16, "Red");
+		sprintf(signModifier, "-");
+		sprintf(colourModifier, "Red");
 	}
 
-	sprintf_s(returnString, 64, "[C=%s]%s %i", colourModifier, signModifier, abs(m_vitalityModifier));
+	sprintf(returnString, "[C=%s]%s %i", colourModifier, signModifier, abs(m_vitalityModifier));
 
 	return returnString;
 }
@@ -1371,16 +1371,16 @@ string Player::GetArmorModifierString()
 	}
 	else if (m_armorModifier > 0)
 	{
-		sprintf_s(signModifier, 2, "+");
-		sprintf_s(colourModifier, 16, "Green");
+		sprintf(signModifier, "+");
+		sprintf(colourModifier, "Green");
 	}
 	else
 	{
-		sprintf_s(signModifier, 2, "-");
-		sprintf_s(colourModifier, 16, "Red");
+		sprintf(signModifier, "-");
+		sprintf(colourModifier, "Red");
 	}
 
-	sprintf_s(returnString, 64, "[C=%s]%s %i", colourModifier, signModifier, abs(m_armorModifier));
+	sprintf(returnString, "[C=%s]%s %i", colourModifier, signModifier, abs(m_armorModifier));
 
 	return returnString;
 }
@@ -1396,16 +1396,16 @@ string Player::GetLuckModifierString()
 	}
 	else if (m_luckModifier > 0)
 	{
-		sprintf_s(signModifier, 2, "+");
-		sprintf_s(colourModifier, 16, "Green");
+		sprintf(signModifier, "+");
+		sprintf(colourModifier, "Green");
 	}
 	else
 	{
-		sprintf_s(signModifier, 2, "-");
-		sprintf_s(colourModifier, 16, "Red");
+		sprintf(signModifier, "-");
+		sprintf(colourModifier, "Red");
 	}
 
-	sprintf_s(returnString, 64, "[C=%s]%s %i", colourModifier, signModifier, abs(m_luckModifier));
+	sprintf(returnString, "[C=%s]%s %i", colourModifier, signModifier, abs(m_luckModifier));
 
 	return returnString;
 }

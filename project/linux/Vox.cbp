@@ -66,6 +66,28 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="../../source/GameGUI/ActionBar.cpp" />
+		<Unit filename="../../source/GameGUI/ActionBar.h" />
+		<Unit filename="../../source/GameGUI/CharacterGUI.cpp" />
+		<Unit filename="../../source/GameGUI/CharacterGUI.h" />
+		<Unit filename="../../source/GameGUI/CraftingGUI.cpp" />
+		<Unit filename="../../source/GameGUI/CraftingGUI.h" />
+		<Unit filename="../../source/GameGUI/InventoryGUI.cpp" />
+		<Unit filename="../../source/GameGUI/InventoryGUI.h" />
+		<Unit filename="../../source/GameGUI/LootGUI.cpp" />
+		<Unit filename="../../source/GameGUI/LootGUI.h" />
+		<Unit filename="../../source/Instance/InstanceManager.cpp" />
+		<Unit filename="../../source/Instance/InstanceManager.h" />
+		<Unit filename="../../source/Inventory/InventoryManager.cpp" />
+		<Unit filename="../../source/Inventory/InventoryManager.h" />
+		<Unit filename="../../source/Items/Item.cpp" />
+		<Unit filename="../../source/Items/Item.h" />
+		<Unit filename="../../source/Items/ItemManager.cpp" />
+		<Unit filename="../../source/Items/ItemManager.h" />
+		<Unit filename="../../source/Items/ItemUtils.cpp" />
+		<Unit filename="../../source/Items/ItemsEnum.h" />
+		<Unit filename="../../source/Items/StatAttribute.cpp" />
+		<Unit filename="../../source/Items/StatAttribute.h" />
 		<Unit filename="../../source/Lighting/DynamicLight.cpp" />
 		<Unit filename="../../source/Lighting/DynamicLight.h" />
 		<Unit filename="../../source/Lighting/LightingManager.cpp" />
@@ -75,6 +97,7 @@
 		<Unit filename="../../source/Maths/3dmaths.h" />
 		<Unit filename="../../source/Maths/Bezier3.cpp" />
 		<Unit filename="../../source/Maths/Bezier4.cpp" />
+		<Unit filename="../../source/Maths/BoundingRegion.h" />
 		<Unit filename="../../source/Maths/Line3D.cpp" />
 		<Unit filename="../../source/Maths/Plane3D.cpp" />
 		<Unit filename="../../source/Maths/matrix4x4.cpp" />
@@ -91,6 +114,10 @@
 		<Unit filename="../../source/Player/PlayerCombat.cpp" />
 		<Unit filename="../../source/Player/PlayerStats.cpp" />
 		<Unit filename="../../source/Player/PlayerStats.h" />
+		<Unit filename="../../source/Projectile/Projectile.cpp" />
+		<Unit filename="../../source/Projectile/Projectile.h" />
+		<Unit filename="../../source/Projectile/ProjectileManager.cpp" />
+		<Unit filename="../../source/Projectile/ProjectileManager.h" />
 		<Unit filename="../../source/Renderer/Renderer.cpp" />
 		<Unit filename="../../source/Renderer/Renderer.h" />
 		<Unit filename="../../source/Renderer/camera.cpp" />
@@ -220,31 +247,11 @@
 		<Unit filename="../../source/frontend/FrontendManager.h" />
 		<Unit filename="../../source/frontend/FrontendPage.cpp" />
 		<Unit filename="../../source/frontend/FrontendPage.h" />
+		<Unit filename="../../source/frontend/FrontendScreens.h" />
 		<Unit filename="../../source/frontend/Pages/PauseMenu.cpp" />
 		<Unit filename="../../source/frontend/Pages/PauseMenu.h" />
 		<Unit filename="../../source/frontend/Pages/QuitPopup.cpp" />
 		<Unit filename="../../source/frontend/Pages/QuitPopup.h" />
-		<Unit filename="../../source/GameGUI/ActionBar.h" />
-		<Unit filename="../../source/GameGUI/ActionBar.cpp" />
-		<Unit filename="../../source/GameGUI/CharacterGUI.h" />
-		<Unit filename="../../source/GameGUI/CharacterGUI.cpp" />
-		<Unit filename="../../source/GameGUI/CraftingGUI.h" />
-		<Unit filename="../../source/GameGUI/CraftingGUI.cpp" />
-		<Unit filename="../../source/GameGUI/InventoryGUI.h" />
-		<Unit filename="../../source/GameGUI/InventoryGUI.cpp" />
-		<Unit filename="../../source/GameGUI/LootGUI.h" />
-		<Unit filename="../../source/GameGUI/LootGUI.cpp" />
-		<Unit filename="../../source/Inventory/InventoryManager.h" />
-		<Unit filename="../../source/Inventory/InventoryManager.cpp" />
-		<Unit filename="../../source/Instance/InstanceManager.h" />
-		<Unit filename="../../source/Instance/InstanceManager.cpp" />
-		<Unit filename="../../source/Items/Item.h" />
-		<Unit filename="../../source/Items/Item.cpp" 
-		<Unit filename="../../source/Items/ItemManager.h" />
-		<Unit filename="../../source/Items/ItemManager.cpp" />
-		<Unit filename="../../source/Items/ItemUtils.cpp" />
-		<Unit filename="../../source/Items/StatAttribute.h" />
-		<Unit filename="../../source/Items/StatAttribute.cpp" />
 		<Unit filename="../../source/glew/include/GL/glew.h" />
 		<Unit filename="../../source/glew/include/GL/glxew.h" />
 		<Unit filename="../../source/glew/include/GL/wglew.h" />
@@ -673,9 +680,7 @@
 		<Unit filename="../../source/utils/TimeManager.h" />
 		<Extensions>
 			<code_completion />
-			<debugger>
-				<search_path add="../../" />
-			</debugger>
+			<debugger />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

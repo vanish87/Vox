@@ -19,12 +19,12 @@ using namespace std;
 #include <glm/vec3.hpp>
 using namespace glm;
 
+#include "FrontendScreens.h"
 #include "../gui/label.h"
 
 class Renderer;
-class FrontendManager;
 class OpenGLGUI;
-enum eFrontendScreen;
+class FrontendManager;
 
 
 class FrontendPage

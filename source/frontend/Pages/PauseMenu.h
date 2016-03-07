@@ -13,8 +13,8 @@
 
 #pragma once
 
-#include "..\FrontEndPage.h"
-#include "..\..\gui\button.h"
+#include "../FrontendPage.h"
+#include "../../gui/button.h"
 
 
 class PauseMenu : public FrontendPage

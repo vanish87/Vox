@@ -16,6 +16,7 @@
 #pragma once
 
 #include "FrontendPage.h"
+#include "FrontendScreens.h"
 #include "../Renderer/Renderer.h"
 #include "../gui/icon.h"
 #include "../gui/checkbox.h"
@@ -24,26 +25,6 @@
 #include "../gui/pulldownmenu.h"
 #include "../gui/button.h"
 
-
-enum eFrontendScreen
-{
-	FrontendScreen_None = 0,
-
-	FrontendScreen_Intro,
-
-	FrontendScreen_MainMenu,
-	FrontendScreen_SelectCharacter,
-	FrontendScreen_CreateCharacter,
-	FrontendScreen_SelectWorld,
-	FrontendScreen_CreateWorld,
-	FrontendScreen_Credits,
-
-	FrontendScreen_PauseMenu,
-	FrontendScreen_OptionsMenu,
-	FrontendScreen_ModMenu,
-
-	FrontendScreen_QuitPopup,
-};
 
 enum ButtonSize
 {

@@ -16,13 +16,13 @@
 #include "LootGUI.h"
 #include "ActionBar.h"
 
-#include "..\Frontend\FrontendManager.h"
-#include "..\Player\Player.h"
-#include "..\VoxGame.h"
-#include "..\Items\ItemManager.h"
+#include "../frontend/FrontendManager.h"
+#include "../Player/Player.h"
+#include "../VoxGame.h"
+#include "../Items/ItemManager.h"
 
-#include "..\utils\FileUtils.h"
-#include "..\utils\Random.h"
+#include "../utils/FileUtils.h"
+#include "../utils/Random.h"
 
 
 InventoryGUI::InventoryGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontendManager, ChunkManager* pChunkManager, Player* pPlayer, InventoryManager* pInventoryManager, int windowWidth, int windowHeight)
@@ -451,7 +451,7 @@ void InventoryGUI::CreateInventoryItems()
 				pNewSlotItem->SetDimensions(x, y, width, height);
 				pNewSlotItem->SetDepth(3.0f);
 				char lItemTexture[128];
-				sprintf_s(lItemTexture, "%s", pItem->m_Iconfilename.c_str());
+				sprintf(lItemTexture, "%s", pItem->m_Iconfilename.c_str());
 				pNewSlotItem->AddIcon(m_pRenderer, lItemTexture, 64, 64, 56, 56, 4, 4, 1.5f);
 				switch(pItem->m_itemQuality)
 				{
@@ -465,7 +465,7 @@ void InventoryGUI::CreateInventoryItems()
 				if(pItem->m_quantity != -1)
 				{
 					char lQuantity[128];
-					sprintf_s(lQuantity, "%i", pItem->m_quantity);
+					sprintf(lQuantity, "%i", pItem->m_quantity);
 					int textWidth = m_pRenderer->GetFreeTypeTextWidth(m_pFrontendManager->GetFrontendFont_18(), "%s", lQuantity);
 					pNewSlotItem->AddText(m_pRenderer, m_pFrontendManager->GetFrontendFont_18(), m_pFrontendManager->GetFrontendFont_18_Outline(), lQuantity, Colour(1.0f, 1.0f, 1.0f, 1.0f), width-10-textWidth, 8, true, Colour(0.0f, 0.0f, 0.0f, 1.0f));
 				}
@@ -598,16 +598,16 @@ void InventoryGUI::ShowTooltip(InventorySlotItem* pInventoryItem)
 	char slotText[32];
 	switch(pInventoryItem->m_pInventoryItem->m_equipSlot)
 	{
-	case EquipSlot_NoSlot: { sprintf_s(slotText, 32, ""); break; }
+	case EquipSlot_NoSlot: { sprintf(slotText, ""); break; }
 	case EquipSlot_LeftHand:
 		{
 			if(pInventoryItem->m_pInventoryItem->m_right)
 			{
-				sprintf_s(slotText, 32, "Two Handed");
+				sprintf(slotText, "Two Handed");
 			}
 			else
 			{
-				sprintf_s(slotText, 32, "Left Hand");
+				sprintf(slotText, "Left Hand");
 			}
 
 			break;
@@ -616,23 +616,23 @@ void InventoryGUI::ShowTooltip(InventorySlotItem* pInventoryItem)
 		{
 			if(pInventoryItem->m_pInventoryItem->m_left)
 			{
-				sprintf_s(slotText, 32, "Two Handed");
+				sprintf(slotText, "Two Handed");
 			}
 			else
 			{
-				sprintf_s(slotText, 32, "Right Hand");
+				sprintf(slotText, "Right Hand");
 			}
 
 			break;
 		}
-	case EquipSlot_Head: { sprintf_s(slotText, 32, "Head"); break; }
-	case EquipSlot_Shoulders: { sprintf_s(slotText, 32, "Shoulders"); break; }
-	case EquipSlot_Body: { sprintf_s(slotText, 32, "Body"); break; }
-	case EquipSlot_Legs: { sprintf_s(slotText, 32, "Lefs"); break; }
-	case EquipSlot_Hand: { sprintf_s(slotText, 32, "Hand"); break; }
-	case EquipSlot_Feet: { sprintf_s(slotText, 32, "Feet"); break; }
-	case EquipSlot_Accessory1: { sprintf_s(slotText, 32, "Accessory 1"); break; }
-	case EquipSlot_Accessory2: { sprintf_s(slotText, 32, "Accessory 2"); break; }
+	case EquipSlot_Head: { sprintf(slotText, "Head"); break; }
+	case EquipSlot_Shoulders: { sprintf(slotText, "Shoulders"); break; }
+	case EquipSlot_Body: { sprintf(slotText, "Body"); break; }
+	case EquipSlot_Legs: { sprintf(slotText, "Lefs"); break; }
+	case EquipSlot_Hand: { sprintf(slotText, "Hand"); break; }
+	case EquipSlot_Feet: { sprintf(slotText, "Feet"); break; }
+	case EquipSlot_Accessory1: { sprintf(slotText, "Accessory 1"); break; }
+	case EquipSlot_Accessory2: { sprintf(slotText, "Accessory 2"); break; }
 	}
 	m_pTooltipSlotLabel->SetText(slotText);
 
@@ -641,11 +641,11 @@ void InventoryGUI::ShowTooltip(InventorySlotItem* pInventoryItem)
 	Colour qualityColour;
 	switch(pInventoryItem->m_pInventoryItem->m_itemQuality)
 	{
-	case ItemQuality_Common :  { sprintf_s(qualityText, 32, "Common"); qualityColour = Colour(0.5f, 0.5f, 0.5f, 1.0f); break; }
-	case ItemQuality_Uncommon :  { sprintf_s(qualityText, 32, "Uncommon"); qualityColour = Colour(0.95f, 1.0f, 0.2f, 1.0f); break; }
-	case ItemQuality_Magical :  { sprintf_s(qualityText, 32, "Magical"); qualityColour = Colour(0.0f, 1.0f, 0.0f, 1.0f); break; }
-	case ItemQuality_Rare :  { sprintf_s(qualityText, 32, "Rare"); qualityColour = Colour(0.0f, 0.5f, 1.0f, 1.0f); break; }
-	case ItemQuality_Epic :  { sprintf_s(qualityText, 32, "Epic"); qualityColour = Colour(0.64f, 0.2f, 0.93f, 1.0f); break; }
+	case ItemQuality_Common :  { sprintf(qualityText, "Common"); qualityColour = Colour(0.5f, 0.5f, 0.5f, 1.0f); break; }
+	case ItemQuality_Uncommon :  { sprintf(qualityText, "Uncommon"); qualityColour = Colour(0.95f, 1.0f, 0.2f, 1.0f); break; }
+	case ItemQuality_Magical :  { sprintf(qualityText, "Magical"); qualityColour = Colour(0.0f, 1.0f, 0.0f, 1.0f); break; }
+	case ItemQuality_Rare :  { sprintf(qualityText, "Rare"); qualityColour = Colour(0.0f, 0.5f, 1.0f, 1.0f); break; }
+	case ItemQuality_Epic :  { sprintf(qualityText, "Epic"); qualityColour = Colour(0.64f, 0.2f, 0.93f, 1.0f); break; }
 	}
 	m_pTooltipQualityLabel->SetText(qualityText);
 	m_pTooltipQualityLabel->SetColour(qualityColour);
@@ -870,7 +870,7 @@ void InventoryGUI::Update(float dt)
 		// TODO : Coins?
 		//int numCoins = m_pInventoryManager->GetNumCoins();
 		//char CoinsText[32];
-		//sprintf_s(CoinsText, 32, "%i", numCoins);
+		//sprintf(CoinsText, "%i", numCoins);
 		//m_pGoldCoinsLabel->SetText(CoinsText);
 
 		for(unsigned int i = 0; i < m_vpInventorySlotItems.size(); i++)
@@ -1272,7 +1272,7 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 		//			// Show a sell text effect
 		//			vec3 screenposition = m_pPlayer->GetCenter();
 		//			char coinText[32];
-		//			sprintf_s(coinText, 32, "+%i", coinAmount);
+		//			sprintf(coinText, "+%i", coinAmount);
 		//			AnimatedText* lpTestTextEffect = m_pGameWindow->GetTextEffectsManager()->CreateTextEffect(m_pGameWindow->GetTextEffectFont(), m_pGameWindow->GetTextEffectOutlineFont(), m_pGameWindow->GetMainViewport(), TextDrawMode_3D_Screen, TextEffect_FadeUp, TextDrawStyle_Outline, screenposition, Colour(1.0f, 1.0f, 0.0f), Colour(0.0f, 0.0f, 0.0f), coinText, 2.0f);
 		//			lpTestTextEffect->SetAutoDelete(true);
 		//			lpTestTextEffect->StartEffect();
@@ -1373,10 +1373,10 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 					else
 					{
 						char popupTitle[256];
-						sprintf_s(popupTitle, 256, "Delete");
+						sprintf(popupTitle, "Delete");
 
 						char popupText[256];
-						sprintf_s(popupText, 256, "Are you sure you want to delete [C=Custom(00A2E8)]%s[C=White]?", pInventoryItem->m_pInventoryItem->m_title.c_str());
+						sprintf(popupText, "Are you sure you want to delete [C=Custom(00A2E8)]%s[C=White]?", pInventoryItem->m_pInventoryItem->m_title.c_str());
 
 						OpenPopup(popupTitle, popupText);
 

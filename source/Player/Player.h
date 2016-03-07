@@ -23,10 +23,8 @@
 #include "../Particles/BlockParticleManager.h"
 #include "../Inventory/InventoryManager.h"
 #include "../Items/ItemManager.h"
+#include "../Projectile/ProjectileManager.h"
 
-class ProjectileManager;
-class Projectile;
-enum eProjectileHitboxType;
 
 static const int PlayerEquippedProperties_None = 0;
 static const int PlayerEquippedProperties_Sword = 1;

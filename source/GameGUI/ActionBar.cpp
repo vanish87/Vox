@@ -18,9 +18,9 @@
 #include "CharacterGUI.h"
 #include "LootGUI.h"
 
-#include "..\Frontend\FrontendManager.h"
-#include "..\Inventory\InventoryManager.h"
-#include "..\VoxGame.h"
+#include "../frontend/FrontendManager.h"
+#include "../Inventory/InventoryManager.h"
+#include "../VoxGame.h"
 
 #include <fstream>
 #include <ostream>
@@ -183,7 +183,7 @@ void ActionBar::ExportActionBar(string playerName)
 				exportFile << lpAction->m_inventoryX << "|";
 				exportFile << lpAction->m_inventoryY << "|";
 				exportFile << lpAction->m_equipSlot << "|";
-				exportFile << (pInventoryItem == NULL ? "0" : pInventoryItem->m_equipped) << "|";
+				exportFile << (pInventoryItem == NULL ? false : pInventoryItem->m_equipped) << "|";
 			}
 		}
 

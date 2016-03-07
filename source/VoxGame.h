@@ -53,6 +53,13 @@ enum CameraMode
 	CameraMode_FirstPerson,
 };
 
+#ifdef __linux__
+typedef struct POINT {
+  float x;
+  float y;
+} POINT;
+#endif //__linux__
+
 
 class VoxGame
 {

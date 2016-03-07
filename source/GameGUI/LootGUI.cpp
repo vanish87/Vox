@@ -16,13 +16,13 @@
 #include "InventoryGUI.h"
 #include "ActionBar.h"
 
-#include "..\Items\Item.h"
-#include "..\Frontend\FrontendManager.h"
-#include "..\Player\Player.h"
-#include "..\VoxGame.h"
+#include "../Items/Item.h"
+#include "../frontend/FrontendManager.h"
+#include "../Player/Player.h"
+#include "../VoxGame.h"
 
-#include "..\utils\FileUtils.h"
-#include "..\utils\Random.h"
+#include "../utils/FileUtils.h"
+#include "../utils/Random.h"
 
 
 LootGUI::LootGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontendManager, ChunkManager* pChunkManager, Player* pPlayer, InventoryManager* pInventoryManager, int windowWidth, int windowHeight)
@@ -448,7 +448,7 @@ void LootGUI::CreateLootItems()
 			pNewSlotItem->SetDepth(3.0f);
 
 			char lItemTexture[128];
-			sprintf_s(lItemTexture, "%s", pItem->m_Iconfilename.c_str());
+			sprintf(lItemTexture, "%s", pItem->m_Iconfilename.c_str());
 			pNewSlotItem->AddIcon(m_pRenderer, lItemTexture, 64, 64, 56, 56, 4, 4, 1.5f);
 			switch(pItem->m_itemQuality)
 			{
@@ -462,7 +462,7 @@ void LootGUI::CreateLootItems()
 			if(pItem->m_quantity != -1)
 			{
 				char lQuantity[128];
-				sprintf_s(lQuantity, "%i", pItem->m_quantity);
+				sprintf(lQuantity, "%i", pItem->m_quantity);
 				int textWidth = m_pRenderer->GetFreeTypeTextWidth(m_pFrontendManager->GetFrontendFont_18(), "%s", lQuantity);
 				pNewSlotItem->AddText(m_pRenderer, m_pFrontendManager->GetFrontendFont_18(), m_pFrontendManager->GetFrontendFont_18_Outline(), lQuantity, Colour(1.0f, 1.0f, 1.0f, 1.0f), width-10-textWidth, 8, true, Colour(0.0f, 0.0f, 0.0f, 1.0f));
 			}
@@ -557,16 +557,16 @@ void LootGUI::ShowTooltip(LootSlotItem* pInventoryItem)
 	char slotText[32];
 	switch(pInventoryItem->m_pInventoryItem->m_equipSlot)
 	{
-	case EquipSlot_NoSlot: { sprintf_s(slotText, 32, ""); break; }
+	case EquipSlot_NoSlot: { sprintf(slotText, ""); break; }
 	case EquipSlot_LeftHand:
 		{
 			if(pInventoryItem->m_pInventoryItem->m_right)
 			{
-				sprintf_s(slotText, 32, "Two Handed");
+				sprintf(slotText, "Two Handed");
 			}
 			else
 			{
-				sprintf_s(slotText, 32, "Left Hand");
+				sprintf(slotText, "Left Hand");
 			}
 
 			break;
@@ -575,23 +575,23 @@ void LootGUI::ShowTooltip(LootSlotItem* pInventoryItem)
 		{
 			if(pInventoryItem->m_pInventoryItem->m_left)
 			{
-				sprintf_s(slotText, 32, "Two Handed");
+				sprintf(slotText, "Two Handed");
 			}
 			else
 			{
-				sprintf_s(slotText, 32, "Right Hand");
+				sprintf(slotText, "Right Hand");
 			}
 
 			break;
 		}
-	case EquipSlot_Head: { sprintf_s(slotText, 32, "Head"); break; }
-	case EquipSlot_Shoulders: { sprintf_s(slotText, 32, "Shoulders"); break; }
-	case EquipSlot_Body: { sprintf_s(slotText, 32, "Body"); break; }
-	case EquipSlot_Legs: { sprintf_s(slotText, 32, "Lefs"); break; }
-	case EquipSlot_Hand: { sprintf_s(slotText, 32, "Hand"); break; }
-	case EquipSlot_Feet: { sprintf_s(slotText, 32, "Feet"); break; }
-	case EquipSlot_Accessory1: { sprintf_s(slotText, 32, "Accessory 1"); break; }
-	case EquipSlot_Accessory2: { sprintf_s(slotText, 32, "Accessory 2"); break; }
+	case EquipSlot_Head: { sprintf(slotText, "Head"); break; }
+	case EquipSlot_Shoulders: { sprintf(slotText, "Shoulders"); break; }
+	case EquipSlot_Body: { sprintf(slotText, "Body"); break; }
+	case EquipSlot_Legs: { sprintf(slotText, "Lefs"); break; }
+	case EquipSlot_Hand: { sprintf(slotText, "Hand"); break; }
+	case EquipSlot_Feet: { sprintf(slotText, "Feet"); break; }
+	case EquipSlot_Accessory1: { sprintf(slotText, "Accessory 1"); break; }
+	case EquipSlot_Accessory2: { sprintf(slotText, "Accessory 2"); break; }
 	}
 	m_pTooltipSlotLabel->SetText(slotText);
 
@@ -600,11 +600,11 @@ void LootGUI::ShowTooltip(LootSlotItem* pInventoryItem)
 	Colour qualityColour;
 	switch(pInventoryItem->m_pInventoryItem->m_itemQuality)
 	{
-	case ItemQuality_Common :  { sprintf_s(qualityText, 32, "Common"); qualityColour = Colour(0.5f, 0.5f, 0.5f, 1.0f); break; }
-	case ItemQuality_Uncommon :  { sprintf_s(qualityText, 32, "Uncommon"); qualityColour = Colour(0.95f, 1.0f, 0.2f, 1.0f); break; }
-	case ItemQuality_Magical :  { sprintf_s(qualityText, 32, "Magical"); qualityColour = Colour(0.0f, 1.0f, 0.0f, 1.0f); break; }
-	case ItemQuality_Rare :  { sprintf_s(qualityText, 32, "Rare"); qualityColour = Colour(0.0f, 0.5f, 1.0f, 1.0f); break; }
-	case ItemQuality_Epic :  { sprintf_s(qualityText, 32, "Epic"); qualityColour = Colour(0.64f, 0.2f, 0.93f, 1.0f); break; }
+	case ItemQuality_Common :  { sprintf(qualityText, "Common"); qualityColour = Colour(0.5f, 0.5f, 0.5f, 1.0f); break; }
+	case ItemQuality_Uncommon :  { sprintf(qualityText, "Uncommon"); qualityColour = Colour(0.95f, 1.0f, 0.2f, 1.0f); break; }
+	case ItemQuality_Magical :  { sprintf(qualityText, "Magical"); qualityColour = Colour(0.0f, 1.0f, 0.0f, 1.0f); break; }
+	case ItemQuality_Rare :  { sprintf(qualityText, "Rare"); qualityColour = Colour(0.0f, 0.5f, 1.0f, 1.0f); break; }
+	case ItemQuality_Epic :  { sprintf(qualityText, "Epic"); qualityColour = Colour(0.64f, 0.2f, 0.93f, 1.0f); break; }
 	}
 	m_pTooltipQualityLabel->SetText(qualityText);
 	m_pTooltipQualityLabel->SetColour(qualityColour);

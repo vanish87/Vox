@@ -3,6 +3,7 @@ set(FRONTEND_SRCS
    "${CMAKE_CURRENT_SOURCE_DIR}/FrontendManager.cpp"
    "${CMAKE_CURRENT_SOURCE_DIR}/FrontendPage.h"
    "${CMAKE_CURRENT_SOURCE_DIR}/FrontendPage.cpp"
+   "${CMAKE_CURRENT_SOURCE_DIR}/FrontendScreens.h"
    PARENT_SCOPE)
 
 file(GLOB FRONTEND_PAGES pages/*.h  pages/*.cpp)

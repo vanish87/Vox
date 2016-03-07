@@ -13,6 +13,12 @@
 
 #include "StatAttribute.h"
 
+#include <fstream>
+#include <ostream>
+#include <iostream>
+#include <string>
+using namespace std;
+
 
 StatAttribute::StatAttribute(AttributeType type, int modifyAmount)
 {

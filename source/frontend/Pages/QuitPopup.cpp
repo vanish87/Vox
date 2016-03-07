@@ -14,9 +14,9 @@
 // ******************************************************************************
 
 #include "QuitPopup.h"
-#include "..\FrontendManager.h"
-#include "..\..\gui\openglgui.h"
-#include "..\..\VoxGame.h"
+#include "../FrontendManager.h"
+#include "../../gui/openglgui.h"
+#include "../../VoxGame.h"
 
 
 QuitPopup::QuitPopup(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontendManager, int windowWidth, int windowHeight)

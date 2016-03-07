@@ -15,10 +15,10 @@
 
 #pragma once
 
-#include "..\FrontendPage.h"
-#include "..\..\gui\icon.h"
-#include "..\..\gui\label.h"
-#include "..\..\gui\button.h"
+#include "../FrontendPage.h"
+#include "../../gui/icon.h"
+#include "../../gui/label.h"
+#include "../../gui/button.h"
 
 
 class QuitPopup : public FrontendPage
