@@ -48,13 +48,13 @@ InventoryGUI::InventoryGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager
 	m_pInventoryWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 	m_pInventoryWindow->Hide();
 
-	m_pTitleBarIcon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/InventoryGUI/inventory_title_icon.tga", 44, 44);
+	m_pTitleBarIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/InventoryGUI/inventory_title_icon.tga", 44, 44);
 	m_pTitleBarIcon->SetDepth(4.0f);
 
-	m_pInventoryWindowBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/InventoryGUI/inventory_window_background.tga", 400, 211);
+	m_pInventoryWindowBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/InventoryGUI/inventory_window_background.tga", 400, 211);
 	m_pInventoryWindowBackgroundIcon->SetDepth(1.0f);
 
-	m_pTitleBarBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/InventoryGUI/titlebar_background.tga", 133, 35);
+	m_pTitleBarBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/InventoryGUI/titlebar_background.tga", 133, 35);
 	m_pTitleBarBackgroundIcon->SetDepth(1.0f);
 
 	m_pCloseExitButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_30(), m_pFrontendManager->GetFrontendFont_30_Outline(), "", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
@@ -66,7 +66,7 @@ InventoryGUI::InventoryGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager
 	m_pCloseExitButton->SetCallBackFunction(_CloseExitPressed);
 	m_pCloseExitButton->SetCallBackData(this);
 
-	m_pDestroyIcon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/InventoryGUI/delete_background.tga", 175, 65);
+	m_pDestroyIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/InventoryGUI/delete_background.tga", 175, 65);
 	m_pDestroyIcon->SetDepth(2.1f);
 
 	char destroyText[] = "DESTROY";
@@ -76,7 +76,7 @@ InventoryGUI::InventoryGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager
 	m_pDestroyLabel->SetOutlineFont(m_pFrontendManager->GetFrontendFont_50_Outline());
 	m_pDestroyLabel->SetDepth(3.0f);
 
-	m_pDropIcon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/InventoryGUI/drop_background.tga", 175, 65);
+	m_pDropIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/InventoryGUI/drop_background.tga", 175, 65);
 	m_pDropIcon->SetDepth(2.1f);
 
 	char dropText[] = "DROP";
@@ -92,35 +92,35 @@ InventoryGUI::InventoryGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager
 	m_pInventoryWindow->AddComponent(m_pTitleBarIcon);
 	m_pInventoryWindow->AddComponent(m_pCloseExitButton);
 
-	m_pInventoryBackgroundSlotBorder_Common = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/border_common.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Common = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_common.tga", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Common->SetDepth(2.0f);
 
-	m_pInventoryBackgroundSlotBorder_Uncommon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/border_uncommon.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Uncommon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_uncommon.tga", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Uncommon->SetDepth(2.0f);
 
-	m_pInventoryBackgroundSlotBorder_Magical = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/border_magical.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Magical = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_magical.tga", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Magical->SetDepth(2.0f);
 
-	m_pInventoryBackgroundSlotBorder_Rare = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/border_rare.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Rare = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_rare.tga", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Rare->SetDepth(2.0f);
 
-	m_pInventoryBackgroundSlotBorder_Epic = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/border_epic.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Epic = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_epic.tga", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Epic->SetDepth(2.0f);
 
 	// Tooltip
-	m_pTooltipBackground_Common = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/Tooltips/tooltip_background_common.tga", 200, 220);
+	m_pTooltipBackground_Common = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/Tooltips/tooltip_background_common.tga", 200, 220);
 	m_pTooltipBackground_Common->SetDepth(5.5f);
 
-	m_pTooltipBackground_Uncommon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/Tooltips/tooltip_background_uncommon.tga", 200, 220);
+	m_pTooltipBackground_Uncommon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/Tooltips/tooltip_background_uncommon.tga", 200, 220);
 	m_pTooltipBackground_Uncommon->SetDepth(5.5f);
 
-	m_pTooltipBackground_Magical = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/Tooltips/tooltip_background_magical.tga", 200, 220);
+	m_pTooltipBackground_Magical = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/Tooltips/tooltip_background_magical.tga", 200, 220);
 	m_pTooltipBackground_Magical->SetDepth(5.5f);
 
-	m_pTooltipBackground_Rare = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/Tooltips/tooltip_background_rare.tga", 200, 220);
+	m_pTooltipBackground_Rare = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/Tooltips/tooltip_background_rare.tga", 200, 220);
 	m_pTooltipBackground_Rare->SetDepth(5.5f);
 
-	m_pTooltipBackground_Epic = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/Tooltips/tooltip_background_epic.tga", 200, 220);
+	m_pTooltipBackground_Epic = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/Tooltips/tooltip_background_epic.tga", 200, 220);
 	m_pTooltipBackground_Epic->SetDepth(5.5f);
 
 	char nameText[] = "[ITEM]";
@@ -170,7 +170,7 @@ InventoryGUI::InventoryGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager
 	m_popupText->SetDepth(9.0f);
 	m_popupText->SetWordWrap(true);
 
-	m_pPopupBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/popup_background.tga", 270, 200);
+	m_pPopupBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/popup_background.tga", 270, 200);
 	m_pPopupBackgroundIcon->SetDepth(2.0f);
 
 	m_pPopupConfirmButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_30(), m_pFrontendManager->GetFrontendFont_30_Outline(), "Yes", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
@@ -455,11 +455,11 @@ void InventoryGUI::CreateInventoryItems()
 				pNewSlotItem->AddIcon(m_pRenderer, lItemTexture, 64, 64, 56, 56, 4, 4, 1.5f);
 				switch(pItem->m_itemQuality)
 				{
-				case ItemQuality_Common: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/item_background_common.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
-				case ItemQuality_Uncommon: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/item_background_uncommon.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
-				case ItemQuality_Magical: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/item_background_magical.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
-				case ItemQuality_Rare: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/item_background_rare.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
-				case ItemQuality_Epic: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/item_background_epic.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
+				case ItemQuality_Common: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_common.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
+				case ItemQuality_Uncommon: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_uncommon.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
+				case ItemQuality_Magical: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_magical.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
+				case ItemQuality_Rare: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_rare.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
+				case ItemQuality_Epic: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_epic.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
 				}
 
 				if(pItem->m_quantity != -1)
@@ -908,7 +908,7 @@ void InventoryGUI::InventoryItemPressed(InventorySlotItem* pInventoryItem)
 		m_pPressedInventoryItem->m_dropshadowAdded = true;
 		m_pPressedInventoryItem->m_pInventoryIcon->SetDepth(5.0f);
 		//m_pPressedInventoryItem->m_pInventoryIcon->SetLocation(m_pressedX - 4, m_pressedY + 4);
-		m_pPressedInventoryItem->m_pInventoryIcon->AddIcon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/drop_shadow.tga", 64, 64, 64, 64, 4, -4, 0.5f);
+		m_pPressedInventoryItem->m_pInventoryIcon->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/drop_shadow.tga", 64, 64, 64, 64, 4, -4, 0.5f);
 	}
 
 	m_pInventoryWindow->DepthSortComponentChildren();
@@ -1411,7 +1411,7 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 		if (pInventoryItem->m_dropshadowAdded == true)
 		{
 			pInventoryItem->m_dropshadowAdded = false;
-			pInventoryItem->m_pInventoryIcon->RemoveIcon("media/textures/gui/StoneWash/Common/items/drop_shadow.tga");
+			pInventoryItem->m_pInventoryIcon->RemoveIcon("media/textures/gui/Stonewash/Common/items/drop_shadow.tga");
 		}
 
 		m_pInventoryWindow->DepthSortComponentChildren();
@@ -1424,7 +1424,7 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 		if (pInventoryItem->m_dropshadowAdded == true)
 		{
 			pInventoryItem->m_dropshadowAdded = false;
-			pInventoryItem->m_pInventoryIcon->RemoveIcon("media/textures/gui/StoneWash/Common/items/drop_shadow.tga");
+			pInventoryItem->m_pInventoryIcon->RemoveIcon("media/textures/gui/Stonewash/Common/items/drop_shadow.tga");
 		}
 	}
 

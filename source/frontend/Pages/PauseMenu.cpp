@@ -20,7 +20,7 @@
 PauseMenu::PauseMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontendManager, int windowWidth, int windowHeight)
 	: FrontendPage(pRenderer, pGUI, pFrontendManager, FrontendScreen_PauseMenu, windowWidth, windowHeight)
 {
-	m_pBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/PauseMenu/pause_background.tga", 230, 265);
+	m_pBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/PauseMenu/pause_background.tga", 230, 265);
 	m_pBackgroundIcon->SetDepth(1.5f);
 
 	m_pResumeButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_30(), m_pFrontendManager->GetFrontendFont_30_Outline(), "Resume", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));

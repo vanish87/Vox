@@ -45,13 +45,13 @@ CraftingGUI::CraftingGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pCraftingWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 	m_pCraftingWindow->Hide();
 
-	m_pTitleBarIcon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/CraftingGUI/crafting_title_icon.tga", 44, 44);
+	m_pTitleBarIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/crafting_title_icon.tga", 44, 44);
 	m_pTitleBarIcon->SetDepth(4.0f);
 
-	m_pCraftingWindowBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/CraftingGUI/crafting_window_background.tga", 408, 314);
+	m_pCraftingWindowBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/crafting_window_background.tga", 408, 314);
 	m_pCraftingWindowBackgroundIcon->SetDepth(1.0f);
 
-	m_pTitleBarBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/CraftingGUI/titlebar_background.tga", 133, 35);
+	m_pTitleBarBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/titlebar_background.tga", 133, 35);
 	m_pTitleBarBackgroundIcon->SetDepth(1.0f);
 
 	m_pCloseExitButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_30(), m_pFrontendManager->GetFrontendFont_30_Outline(), "", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
@@ -82,13 +82,13 @@ CraftingGUI::CraftingGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	//m_pResultsScrollbar->SetRightArrowSelectedIcon(m_pFrontendManager->GetScrollBarDownArrowIcon_Pressed());
 	//m_pResultsScrollbar->SetRightArrowDisabledIcon(m_pFrontendManager->GetScrollBarDownArrowIcon_Disabled());	
 
-	m_pCraftButton_Icon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/CraftingGUI/craft_button.tga", 115, 32);
+	m_pCraftButton_Icon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/craft_button.tga", 115, 32);
 	m_pCraftButton_Icon->SetDepth(2.0f);
-	m_pCraftButton_Icon_Hover = new Icon(m_pRenderer, "media/textures/gui/StoneWash/CraftingGUI/craft_button_hover.tga", 115, 32);
+	m_pCraftButton_Icon_Hover = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/craft_button_hover.tga", 115, 32);
 	m_pCraftButton_Icon_Hover->SetDepth(2.0f);
-	m_pCraftButton_Icon_Pressed = new Icon(m_pRenderer, "media/textures/gui/StoneWash/CraftingGUI/craft_button_pressed.tga", 115, 32);
+	m_pCraftButton_Icon_Pressed = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/craft_button_pressed.tga", 115, 32);
 	m_pCraftButton_Icon_Pressed->SetDepth(2.0f);
-	m_pCraftButton_Icon_Disabled = new Icon(m_pRenderer, "media/textures/gui/StoneWash/CraftingGUI/craft_button_disabled.tga", 115, 32);
+	m_pCraftButton_Icon_Disabled = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/craft_button_disabled.tga", 115, 32);
 	m_pCraftButton_Icon_Disabled->SetDepth(2.0f);
 
 	m_pCraftButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_25(), m_pFrontendManager->GetFrontendFont_25_Outline(), "Craft", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
@@ -104,17 +104,17 @@ CraftingGUI::CraftingGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	//m_pCraftButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
 	//m_pCraftButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
-	m_pCraftingProgressBarFiller = new Icon(m_pRenderer, "media/textures/gui/StoneWash/CraftingGUI/craft_progress_filler.tga", 96, 14);
+	m_pCraftingProgressBarFiller = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/craft_progress_filler.tga", 96, 14);
 	m_pCraftingProgressBarFiller->SetDepth(1.0f);
 
-	m_pCraftingProgressBarBackgroundFiller = new Icon(m_pRenderer, "media/textures/gui/StoneWash/CraftingGUI/craft_progress_filler_background.tga", 53, 14);
+	m_pCraftingProgressBarBackgroundFiller = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/craft_progress_filler_background.tga", 53, 14);
 	m_pCraftingProgressBarBackgroundFiller->SetDepth(1.5f);
 
 	m_pCraftingProgressBar = new ProgressBar(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), 0.0f, 100.0f);
 	m_pCraftingProgressBar->SetProgressFiller(m_pCraftingProgressBarFiller);
 	m_pCraftingProgressBar->SetProgressBackground(m_pCraftingProgressBarBackgroundFiller);
 
-	m_pSearchTextboxIcon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/CraftingGUI/search_textbox.tga", 156, 24);
+	m_pSearchTextboxIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/search_textbox.tga", 156, 24);
 	m_pSearchTextboxIcon->SetDepth(1.0f);
 
 	m_pSearchBox = new TextBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_Medium(), "", "");
@@ -125,47 +125,47 @@ CraftingGUI::CraftingGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pSearchBox->SetTextColour(Colour(1.0f, 1.0f, 1.0f));
 	m_pSearchBox->SetDepth(2.0f);
 
-	m_pRecipeButton_Icon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/CraftingGUI/recipe_item_button.tga", 152, 32);
+	m_pRecipeButton_Icon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/recipe_item_button.tga", 152, 32);
 	m_pRecipeButton_Icon->SetDepth(1.0f);
 
-	m_pRecipeButton_Hover_Icon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/CraftingGUI/recipe_item_hover_button.tga", 152, 32);
+	m_pRecipeButton_Hover_Icon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/recipe_item_hover_button.tga", 152, 32);
 	m_pRecipeButton_Hover_Icon->SetDepth(1.0f);
 
-	m_pRecipeButton_Pressed_Icon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/CraftingGUI/recipe_item_pressed_button.tga", 152, 32);
+	m_pRecipeButton_Pressed_Icon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/recipe_item_pressed_button.tga", 152, 32);
 	m_pRecipeButton_Pressed_Icon->SetDepth(1.0f);
 
-	m_pRecipeButton_Selected_Icon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/CraftingGUI/recipe_item_selected_button.tga", 152, 32);
+	m_pRecipeButton_Selected_Icon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/recipe_item_selected_button.tga", 152, 32);
 	m_pRecipeButton_Selected_Icon->SetDepth(1.0f);
 
-	m_pInventoryBackgroundSlotBorder_Common = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/border_common.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Common = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_common.tga", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Common->SetDepth(2.0f);
 
-	m_pInventoryBackgroundSlotBorder_Uncommon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/border_uncommon.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Uncommon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_uncommon.tga", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Uncommon->SetDepth(2.0f);
 
-	m_pInventoryBackgroundSlotBorder_Magical = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/border_magical.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Magical = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_magical.tga", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Magical->SetDepth(2.0f);
 
-	m_pInventoryBackgroundSlotBorder_Rare = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/border_rare.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Rare = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_rare.tga", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Rare->SetDepth(2.0f);
 
-	m_pInventoryBackgroundSlotBorder_Epic = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/border_epic.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Epic = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_epic.tga", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Epic->SetDepth(2.0f);
 
 	// Tooltip
-	m_pTooltipBackground_Common = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/Tooltips/tooltip_background_common.tga", 200, 220);
+	m_pTooltipBackground_Common = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/Tooltips/tooltip_background_common.tga", 200, 220);
 	m_pTooltipBackground_Common->SetDepth(7.5f);
 
-	m_pTooltipBackground_Uncommon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/Tooltips/tooltip_background_uncommon.tga", 200, 220);
+	m_pTooltipBackground_Uncommon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/Tooltips/tooltip_background_uncommon.tga", 200, 220);
 	m_pTooltipBackground_Uncommon->SetDepth(7.5f);
 
-	m_pTooltipBackground_Magical = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/Tooltips/tooltip_background_magical.tga", 200, 220);
+	m_pTooltipBackground_Magical = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/Tooltips/tooltip_background_magical.tga", 200, 220);
 	m_pTooltipBackground_Magical->SetDepth(7.5f);
 
-	m_pTooltipBackground_Rare = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/Tooltips/tooltip_background_rare.tga", 200, 220);
+	m_pTooltipBackground_Rare = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/Tooltips/tooltip_background_rare.tga", 200, 220);
 	m_pTooltipBackground_Rare->SetDepth(7.5f);
 
-	m_pTooltipBackground_Epic = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/Tooltips/tooltip_background_epic.tga", 200, 220);
+	m_pTooltipBackground_Epic = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/Tooltips/tooltip_background_epic.tga", 200, 220);
 	m_pTooltipBackground_Epic->SetDepth(7.5f);
 
 	char nameText[] = "[ITEM]";
@@ -689,11 +689,11 @@ void CraftingGUI::CreateIngredientsButtons()
 
 		switch(pInventoryItem->m_itemQuality)
 		{
-		case ItemQuality_Common: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/item_background_common.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
-		case ItemQuality_Uncommon: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/item_background_uncommon.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
-		case ItemQuality_Magical: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/item_background_magical.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
-		case ItemQuality_Rare: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/item_background_rare.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
-		case ItemQuality_Epic: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/StoneWash/Common/items/item_background_epic.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
+		case ItemQuality_Common: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_common.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
+		case ItemQuality_Uncommon: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_uncommon.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
+		case ItemQuality_Magical: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_magical.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
+		case ItemQuality_Rare: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_rare.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
+		case ItemQuality_Epic: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_epic.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
 		}
 
 		if(pInventoryItem->m_quantity != -1)
