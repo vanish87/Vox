@@ -80,6 +80,9 @@
   * ~~Smooth out camera when doing single 1-size block step up animation. (Was because of different interpolator values)~~ 
 * ~~Add exit/quit popup when the game is closed or quit using various exit methods.~~
 * ~~Add pause menu when ESC is pressed, and add popup in center of screen.~~
+* ~~Add back in frustum culling for chunk rendering.~~
+* ~~Player collision with items.~~
+* ~~Player interaction with items.~~
 * ~~Add console and logger to the in-game gui for output and logging information.~~
   * ~~Log when loading/saving model files.~~
   * Log to output file and log files as well as console GUI.
@@ -101,6 +104,9 @@
   * Convert scenery manager to use instance rendering and the instance shader.
 * ~~Add item manager.~~
 * Create basic front-end.
+* ~~Add inventory GUI.~~
+* ~~Add character GUI.~~
+* Add Quest GUI.
 * Create front end scene and character line up.
 * Character creation and customization.
 * Saving and loading chunks.
@@ -110,9 +116,6 @@
 * Add mods menu window to pause menu.
 * Add voxel editor.
 * Add texture support for voxel blocks.
-* ~~Add inventory GUI.~~
-* ~~Add character GUI.~~
-* Add Quest GUI.
 * Water, creating and manipulation, rendering, updating.
 * Investigate continuous automatic builds on github when files are submitted to depot, using cmake and make.
 * Add mode to play in reduced and low FPS.
@@ -127,9 +130,9 @@
   * ~~Test ALL functionality with player equipping items and weapons.~~
   * ~~Add hooks to GUI.~~
   * ~~Player stats.~~
+  * ~~Loot GUI chest interactions.~~
   * Character GUI paperdoll render.
   * Crafting GUI functionality.
-  * Loot GUI chest interactions.
 * Player particle trail on walking.
 * Cinematic letterbox mode.
 * Test out Baked AO models using MagikaVoxel.
@@ -137,7 +140,4 @@
 * NPCs.
 * Companion pets.
 * Animated text effects in the HUD, for pickups, combat, etc..
-* ~~Add back in frustum culling for chunk rendering.~~
 * Add debug render metrics for all counters (i.e num chunks, particles, items, triangles, verts, etc).
-* ~~Player collision with items.~~
-* ~~Player interaction with items.~~
