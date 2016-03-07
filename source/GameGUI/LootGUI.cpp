@@ -248,11 +248,10 @@ void LootGUI::Unload()
 
 	m_pGUI->RemoveWindow(m_pLootWindow);
 
-	// TODO : Add me back in - Chest interactions
-	//if(m_pGameWindow->GetInteractItem() != NULL && m_pGameWindow->GetInteractItem()->GetItemType() == eItem_Chest)
-	//{
-	//	m_pGameWindow->GetInteractItem()->Interact();
-	//}
+	if(VoxGame::GetInstance()->GetInteractItem() != NULL && VoxGame::GetInstance()->GetInteractItem()->GetItemType() == eItem_Chest)
+	{
+		VoxGame::GetInstance()->GetInteractItem()->Interact();
+	}
 
 	m_loaded = false;
 }

@@ -927,6 +927,11 @@ bool Item::IsInteractable()
 	return m_interactable;
 }
 
+bool Item::IsInteracting()
+{
+	return m_itemInteracting;
+}
+
 void Item::Interact()
 {
 	m_interactCount++;

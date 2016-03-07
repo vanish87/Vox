@@ -136,6 +136,7 @@ public:
 	// Interaction
 	void SetInteractable(bool interactable);
 	bool IsInteractable();
+	bool IsInteracting();
 	void Interact();
 	void SpawnSubItems();
 	void SeCurrentInteractCount(int currentInteract);

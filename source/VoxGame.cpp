@@ -711,33 +711,37 @@ bool VoxGame::CheckInteractions()
 		if (m_pInteractItem->GetItemType() == eItem_Chest)
 		{
 			m_pInteractItem->Interact();
-			m_pPlayer->StopMoving();
 
 			interaction = true;
 
-			if (m_pLootGUI->IsLoaded())
+			if (m_pInteractItem->IsInteracting() == true) // Only open the GUI screens if we are opening a chest
 			{
-				m_pLootGUI->Unload();
-
-				if (IsGUIWindowStillDisplayed() == false)
-				{
-					TurnCursorOff();
-				}
-			}
-			else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_None)
-			{
-				m_pLootGUI->LoadItems(m_pInteractItem);
-
-				m_pLootGUI->Load(true, 1.0f);
-
-				if (m_pInventoryGUI->IsLoaded() == false)
-				{
-					m_pInventoryGUI->Load(true, 1.0f);
-				}
-
 				m_pPlayer->StopMoving();
 
-				m_pVoxWindow->TurnCursorOn(true);
+				if (m_pLootGUI->IsLoaded())
+				{
+					m_pLootGUI->Unload();
+
+					if (IsGUIWindowStillDisplayed() == false)
+					{
+						TurnCursorOff();
+					}
+				}
+				else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_None)
+				{
+					m_pLootGUI->LoadItems(m_pInteractItem);
+
+					m_pLootGUI->Load(true, 0.9f);
+
+					if (m_pInventoryGUI->IsLoaded() == false)
+					{
+						m_pInventoryGUI->Load(true, 0.9f);
+					}
+
+					m_pPlayer->StopMoving();
+
+					m_pVoxWindow->TurnCursorOn(true);
+				}
 			}
 		}
 	}
