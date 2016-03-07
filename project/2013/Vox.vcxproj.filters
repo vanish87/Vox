@@ -1475,6 +1475,12 @@
     <ClInclude Include="..\..\source\Player\PlayerStats.h">
       <Filter>source\Player</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\Items\ItemsEnum.h">
+      <Filter>source\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\frontend\FrontendScreens.h">
+      <Filter>source\frontend</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\source\glm\detail\type_mat3x4.inl">

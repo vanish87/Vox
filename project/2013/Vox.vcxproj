@@ -177,6 +177,7 @@
     <ClInclude Include="..\..\source\freetype\freetypefont.h" />
     <ClInclude Include="..\..\source\frontend\FrontendManager.h" />
     <ClInclude Include="..\..\source\frontend\FrontendPage.h" />
+    <ClInclude Include="..\..\source\frontend\FrontendScreens.h" />
     <ClInclude Include="..\..\source\frontend\Pages\PauseMenu.h" />
     <ClInclude Include="..\..\source\frontend\Pages\QuitPopup.h" />
     <ClInclude Include="..\..\source\GameGUI\ActionBar.h" />
@@ -376,6 +377,7 @@
     <ClInclude Include="..\..\source\Inventory\InventoryManager.h" />
     <ClInclude Include="..\..\source\Items\Item.h" />
     <ClInclude Include="..\..\source\Items\ItemManager.h" />
+    <ClInclude Include="..\..\source\Items\ItemsEnum.h" />
     <ClInclude Include="..\..\source\Items\StatAttribute.h" />
     <ClInclude Include="..\..\source\Lighting\DynamicLight.h" />
     <ClInclude Include="..\..\source\Lighting\LightingManager.h" />

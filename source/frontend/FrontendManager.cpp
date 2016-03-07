@@ -143,8 +143,8 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 	FrontendPage* pQuitPopup = new QuitPopup(m_pRenderer, m_pGUI, this, width, height);
 	FrontendPage* pPauseMenu = new PauseMenu(m_pRenderer, m_pGUI, this, width, height);
 
-	//m_vpFrontendPages.push_back(pQuitPopup);
-	//m_vpFrontendPages.push_back(pPauseMenu);
+	m_vpFrontendPages.push_back(pQuitPopup);
+	m_vpFrontendPages.push_back(pPauseMenu);
 
 	// Initial page
 	m_currentScreen = FrontendScreen_None;
