@@ -144,6 +144,10 @@ public:
 	bool CanAttackRight();
 	void CheckProjectileDamageRadius(Projectile* pProjectile);
 
+	// Crafting
+	void SetCrafting(bool crafting);
+	void SetCraftingItem(bool crafting);
+
 	// Projectile hitbox
 	eProjectileHitboxType GetProjectileHitboxType();
 	float GetProjectileHitboxRadius();
@@ -209,6 +213,7 @@ public:
 	void Update(float dt);
 	void UpdateAnimations(float dt);
 	void UpdatePhysics(float dt);
+	void UpdateWorking(float dt);
 	void UpdateTimers(float dt);
 	void UpdateWeaponLights(float dt);
 	void UpdateWeaponParticleEffects(float dt);
@@ -316,7 +321,11 @@ private:
 	// Dead flag
 	bool m_dead;
 
-	// Gameplay
+	// Crafting
+	bool m_crafting;
+	float m_workingAnimationWaitTimer;
+	float m_workingAnimationDelay;
+	bool m_createdAnvilHitParticleEffect;
 
 	// Player stats
 	PlayerStats* m_pPlayerStats;

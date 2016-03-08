@@ -112,6 +112,12 @@ void Player::ResetPlayer()
 	// Idle flag
 	m_bIsIdle = true;
 
+	// Crafting
+	m_crafting = false;
+	m_workingAnimationWaitTimer = 0.0f;
+	m_workingAnimationDelay = 0.55f;
+	m_createdAnvilHitParticleEffect = true;
+
 	// Combat
 	m_bCanAttackLeft = true;
 	m_bCanAttackRight = true;
@@ -1410,6 +1416,44 @@ string Player::GetLuckModifierString()
 	return returnString;
 }
 
+// Crafting
+void Player::SetCrafting(bool crafting)
+{
+	m_crafting = crafting;
+
+	if (m_crafting)
+	{
+		m_createdAnvilHitParticleEffect = true;
+	}
+}
+
+void Player::SetCraftingItem(bool crafting)
+{
+	if (crafting)
+	{
+		LoadWeapon(false, "media/gamedata/weapons/Hammer/Hammer.weapon");
+	}
+	else
+	{
+		m_createdAnvilHitParticleEffect = true;
+
+		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BindPose", 0.1f);
+
+		// TODO : SetRandomLookMode
+		//SetRandomLookMode();
+
+		InventoryItem* pInventoryItem = m_pInventoryManager->GetInventoryItemForEquipSlot(EquipSlot_RightHand);
+		if (pInventoryItem != NULL)
+		{
+			LoadWeapon(false, pInventoryItem->m_filename);
+		}
+		else
+		{
+			UnloadWeapon(false);
+		}
+	}
+}
+
 // Player equipped attributes
 void Player::SetNormal()
 {
@@ -1814,6 +1858,9 @@ void Player::Update(float dt)
 	// Update combat
 	UpdateCombat(dt);
 
+	// Update working
+	UpdateWorking(dt);
+
 	// Update / Create weapon lights and particle effects
 	UpdateWeaponLights(dt);
 	UpdateWeaponParticleEffects(dt);
@@ -1918,6 +1965,70 @@ void Player::UpdatePhysics(float dt)
 
 	// Store previous position
 	m_previousPosition = GetCenter();
+}
+
+void Player::UpdateWorking(float dt)
+{
+	if (m_pVoxelCharacter->HasAnimationFinished(AnimationSections_Right_Arm_Hand))
+	{
+		if (m_createdAnvilHitParticleEffect == false)
+		{
+			// TODO : Look point
+			vec3 anvilHitPos;// = m_lookPoint + vec3(0.0f, 0.5f, 0.0f);
+
+			unsigned int effectId = -1;
+			BlockParticleEffect* pBlockParticleEffect = m_pBlockParticleManager->ImportParticleEffect("media/gamedata/particles/anvil_hit.effect", anvilHitPos, &effectId);
+			pBlockParticleEffect->PlayEffect();
+
+			// Stop weapon trails
+			if (m_pVoxelCharacter->GetRightWeapon())
+			{
+				if (m_pVoxelCharacter->IsRightWeaponLoaded())
+				{
+					m_pVoxelCharacter->GetRightWeapon()->StopWeaponTrails();
+				}
+			}
+
+			m_createdAnvilHitParticleEffect = true;
+		}
+	}
+
+	if (m_crafting)
+	{
+		if (m_pVoxelCharacter->HasAnimationFinished(AnimationSections_Right_Arm_Hand))
+		{
+			if (m_workingAnimationWaitTimer <= 0.0f)
+			{
+				m_workingAnimationWaitTimer = m_workingAnimationDelay;
+
+				if (m_pVoxelCharacter->HasAnimationFinished(AnimationSections_Right_Arm_Hand))
+				{
+					// TODO : Animation speeds
+					//for (int i = 0; i < AnimationSections_NUMSECTIONS; i++)
+					//{
+					//	SetAnimationSpeed(1.0f, false, (AnimationSections)i);
+					//}
+
+					m_pVoxelCharacter->PlayAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "AnvilWork");
+
+					// Start weapon trails
+					if (m_pVoxelCharacter->GetRightWeapon())
+					{
+						if (m_pVoxelCharacter->IsRightWeaponLoaded())
+						{
+							m_pVoxelCharacter->GetRightWeapon()->StartWeaponTrails();
+						}
+					}
+
+					m_createdAnvilHitParticleEffect = false;
+				}
+			}
+			else
+			{
+				m_workingAnimationWaitTimer -= dt;
+			}
+		}
+	}
 }
 
 void Player::UpdateTimers(float dt)

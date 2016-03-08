@@ -346,9 +346,9 @@ void CraftingGUI::Unload()
 
 	m_pGUI->RemoveWindow(m_pCraftingWindow);
 
+	m_pPlayer->SetCrafting(false);
+	m_pPlayer->SetCraftingItem(false);
 	// TODO : Add me back in - Crafting
-	//m_pPlayer->SetCrafting(false);
-	//m_pPlayer->SetCraftingItem(false);
 	//m_pPlayer->DisableMoveToTargetPosition();
 
 	if(m_pInteractionItem != NULL)
@@ -378,8 +378,7 @@ bool CraftingGUI::IsLoaded()
 
 void CraftingGUI::CraftingComplete()
 {
-	// TODO : Add me back in - Crafting
-	//m_pPlayer->SetCrafting(false);
+	m_pPlayer->SetCrafting(false);
 
 	bool canCraft = CanCraftRecipe();
 
@@ -1086,26 +1085,25 @@ void CraftingGUI::Update(float dt)
 {
 	UpdateToolTipAppear(dt);
 
-	// TODO : Add me back in - Crafting
-	//if(m_pGameWindow->IsPaused() == false)
-	//{
-	//	if(m_crafting)
-	//	{
-	//		m_craftingTimer += dt;
+	if(VoxGame::GetInstance()->IsPaused() == false)
+	{
+		if(m_crafting)
+		{
+			m_craftingTimer += dt;
 
-	//		if(m_craftingTimer > m_craftingTime)
-	//		{
-	//			m_craftingTimer = m_craftingTime;
+			if(m_craftingTimer > m_craftingTime)
+			{
+				m_craftingTimer = m_craftingTime;
 
-	//			m_crafting = false;
-	//			CraftingComplete();
-	//		}
+				m_crafting = false;
+				CraftingComplete();
+			}
 
-	//		m_pCraftingProgressBar->SetCurrentValue((m_craftingTimer / m_craftingTime) * 100.0f);
-	//		int stopperX = (int)(m_pCraftingProgressBar->GetLocation().m_x + m_pCraftingProgressBar->GetDimensions().m_width * (m_craftingTimer / m_craftingTime));
-	//		int stopperY = m_pCraftingProgressBar->GetLocation().m_y - 4;
-	//	}
-	//}
+			m_pCraftingProgressBar->SetCurrentValue((m_craftingTimer / m_craftingTime) * 100.0f);
+			int stopperX = (int)(m_pCraftingProgressBar->GetLocation().m_x + m_pCraftingProgressBar->GetDimensions().m_width * (m_craftingTimer / m_craftingTime));
+			int stopperY = m_pCraftingProgressBar->GetLocation().m_y - 4;
+		}
+	}
 
 	// Update the filtered
 	if(strcmp(m_cachedSearchText.c_str(), m_pSearchBox->GetText().c_str()) != 0)
@@ -1146,7 +1144,7 @@ void CraftingGUI::UpdateCraftButton()
 {
 	bool canCraft = CanCraftRecipe();
 
-	if(canCraft)
+	if(m_crafting == false && canCraft)
 	{
 		m_pCraftButton->SetDisabled(false);
 		m_pCraftButton->SetLabelColour(Colour(1.0f, 1.0f, 1.0f));
@@ -1298,14 +1296,15 @@ void CraftingGUI::CraftPressed(bool fakeCraft)
 		m_craftingTime = 3.5f;
 		m_craftingTimer = 0.0f;
 
-		// TODO : Add me back in - Crafting
-		//m_pPlayer->SetCrafting(true);
-		//m_pPlayer->SetCraftingItem(true);
+		m_pPlayer->SetCrafting(true);
+		m_pPlayer->SetCraftingItem(true);
 
 		for(unsigned int i = 0; i < m_vpRecipeSlotItem_Filtered.size(); i++)
 		{
 			m_vpRecipeSlotItem_Filtered[i]->m_pResultsIcon->SetEnabled(false);
 		}
+
+		UpdateCraftButton();
 	}
 }
 
