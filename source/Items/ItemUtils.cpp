@@ -1,9 +1,11 @@
 // ******************************************************************************
 // Filename:    ItemUtils.cpp
-// Project:     Game
+// Project:     Vox
 // Author:      Steven Ball
 //
 // Purpose:
+//   Utility functionality for items, mostly a way to associate item enums with
+//   data like the friendly names and display strings.
 //
 // Revision History:
 //   Initial Revision - 12/04/14
@@ -17,42 +19,42 @@ string GetItemTypeToString(eItem type)
 {
 	switch(type)
 	{
-		case eItem_None:			{ return "None"; } break;
+		case eItem_None:		{ return "None"; } break;
 		case eItem_DroppedItem:		{ return "DroppedItem"; } break;
-		case eItem_Coin:			{ return "Coin"; } break;
-		case eItem_Heart:			{ return "Heart"; } break;
-		case eItem_Gib:				{ return "Gib"; } break;
+		case eItem_Coin:		{ return "Coin"; } break;
+		case eItem_Heart:		{ return "Heart"; } break;
+		case eItem_Gib:			{ return "Gib"; } break;
 		case eItem_Tombstone:		{ return "TombStone"; } break;
-		case eItem_Chest:			{ return "Chest"; } break;
-		case eItem_Torch:			{ return "Torch"; } break;
-		case eItem_Furnace:			{ return "Furnace"; } break;
-		case eItem_Anvil:			{ return "Anvil"; } break;
+		case eItem_Chest:		{ return "Chest"; } break;
+		case eItem_Torch:		{ return "Torch"; } break;
+		case eItem_Furnace:		{ return "Furnace"; } break;
+		case eItem_Anvil:		{ return "Anvil"; } break;
 		case eItem_QuestBoard:		{ return "QuestBoard"; } break;
 		case eItem_CampFire:		{ return "CampFire"; } break;
 		case eItem_Mannequin:		{ return "Mannequin"; } break;
-		case eItem_Door:			{ return "Door"; } break;
-		case eItem_Chair:			{ return "Chair"; } break;
-		case eItem_Table:			{ return "Table"; } break;
-		case eItem_Bed:				{ return "Bed"; } break;
-		case eItem_Portal:			{ return "Portal"; } break;
+		case eItem_Door:		{ return "Door"; } break;
+		case eItem_Chair:		{ return "Chair"; } break;
+		case eItem_Table:		{ return "Table"; } break;
+		case eItem_Bed:			{ return "Bed"; } break;
+		case eItem_Portal:		{ return "Portal"; } break;
 		case eItem_PortalPillar:	{ return "PortalPillar"; } break;
 		case eItem_CopperVein:		{ return "CopperVein"; } break;
 		case eItem_CopperOre:		{ return "CopperOre"; } break;
 		case eItem_CopperBar:		{ return "CopperBar"; } break;
 		case eItem_IronVein:		{ return "IronVein"; } break;
-		case eItem_IronOre:			{ return "IronOre"; } break;
-		case eItem_IronBar:			{ return "IronBar"; } break;
+		case eItem_IronOre:		{ return "IronOre"; } break;
+		case eItem_IronBar:		{ return "IronBar"; } break;
 		case eItem_SilverVein:		{ return "SilverVein"; } break;
 		case eItem_SilverOre:		{ return "SilverOre"; } break;
 		case eItem_SilverBar:		{ return "SilverBar"; } break;
 		case eItem_GoldVein:		{ return "GoldVein"; } break;
-		case eItem_GoldOre:			{ return "GoldOre"; } break;
-		case eItem_GoldBar:			{ return "GoldBar"; } break;
+		case eItem_GoldOre:		{ return "GoldOre"; } break;
+		case eItem_GoldBar:		{ return "GoldBar"; } break;
 		case eItem_CropSoil:		{ return "CropSoil"; } break;
 		case eItem_CropWheat:		{ return "CropWheat"; } break;
 		case eItem_CropCorn:		{ return "CropCorn"; } break;
 		case eItem_CropTomato:		{ return "CropTomato"; } break;
-		case eItem_Fence:			{ return "Fence"; } break;
+		case eItem_Fence:		{ return "Fence"; } break;
 		case eItem_Block_Grass:		{ return "BlockGrass"; } break;
 		case eItem_Block_Dirt:		{ return "BlockDirt"; } break;
 		case eItem_Block_Stone:		{ return "BlockStone"; } break;
