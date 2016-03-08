@@ -51,6 +51,7 @@ enum CameraMode
 	CameraMode_MouseRotate,
 	CameraMode_AutoCamera,
 	CameraMode_FirstPerson,
+	CameraMode_NPCDialog,
 };
 
 #ifdef __linux__
@@ -115,8 +116,12 @@ public:
 	void InitializeCameraRotation();
 	void UpdateCameraAutoCamera(float dt, bool updateCameraPosition);
 	void UpdateCameraFirstPerson(float dt);
+	void UpdateCameraNPCDialog(float dt);
 	void UpdateCameraClipping(float dt);
 	void UpdateCameraZoom(float dt);
+	bool ShouldRestorePreviousCameraMode();
+	void SavePreviousCameraMode();
+	void RestorePreviousCameraMode();
 
 	// Input
 	void KeyPressed(int key, int scancode, int mods);
@@ -313,6 +318,7 @@ private:
 	// Camera mode
 	CameraMode m_cameraMode;
 	CameraMode m_previousCameraMode;
+	bool m_shouldRestorePreviousCameraMode;
 
 	// Interacting item
 	mutex m_interactItemMutex;
@@ -417,6 +423,10 @@ private:
 	vec3 m_cameraPosition_AutoMode;
 	vec3 m_cameraBehindPlayerPosition;
 	float m_autoCameraMovingModifier;
+
+	// NPC dialog camera mode
+	vec3 m_targetCameraView_NPCDialog;
+	vec3 m_targetCameraPosition_NPCDialog;
 
 	// Camera clipping
 	vec3 m_targetCameraPositionBeforeClipping;

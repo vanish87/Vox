@@ -1475,6 +1475,11 @@ void InventoryGUI::CloseExitPressed()
 	if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
 	{
 		VoxGame::GetInstance()->TurnCursorOff();
+		if (VoxGame::GetInstance()->ShouldRestorePreviousCameraMode())
+		{
+			VoxGame::GetInstance()->RestorePreviousCameraMode();
+			VoxGame::GetInstance()->InitializeCameraRotation();
+		}
 	}
 }
 

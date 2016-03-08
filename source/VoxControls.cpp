@@ -235,7 +235,7 @@ void VoxGame::UpdateMouseControls(float dt)
 				{
 					MouseCameraRotate();
 				}
-				if (m_cameraMode == CameraMode_AutoCamera)
+				else if (m_cameraMode == CameraMode_AutoCamera)
 				{
 					/* Do nothing, camera rotation is not controlled by player. */
 				}
@@ -282,7 +282,7 @@ void VoxGame::UpdateGamePadControls(float dt)
 				{
 					JoystickCameraRotate(dt);
 				}
-				if (m_cameraMode == CameraMode_AutoCamera)
+				else if (m_cameraMode == CameraMode_AutoCamera)
 				{
 					/* Do nothing, camera rotation is not controlled by player. */
 				}

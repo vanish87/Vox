@@ -28,6 +28,10 @@ void VoxGame::UpdateCamera(float dt)
 		{
 			UpdateCameraFirstPerson(dt);
 		}
+		else if (m_cameraMode == CameraMode_NPCDialog)
+		{
+			UpdateCameraNPCDialog(dt);
+		}
 	}
 
 	if (m_gameMode == GameMode_Game && m_cameraMode != CameraMode_Debug)
@@ -42,7 +46,7 @@ void VoxGame::UpdateCameraModeSwitching()
 	{
 		if (m_cameraMode != CameraMode_FirstPerson)
 		{
-			m_previousCameraMode = m_cameraMode;
+			SavePreviousCameraMode();
 			SetCameraMode(CameraMode_FirstPerson);
 			m_pFirstPersonCameraOptionBox->SetToggled(true);
 			m_pGameCamera->SetZoomAmount(1.5f);
@@ -64,7 +68,7 @@ void VoxGame::UpdateCameraModeSwitching()
 			m_cameraDistance = 1.5f;
 			m_maxCameraDistance = 1.5f;
 
-			SetCameraMode(m_previousCameraMode);
+			RestorePreviousCameraMode();
 			InitializeCameraRotation();
 		}
 	}
@@ -172,6 +176,27 @@ void VoxGame::UpdateCameraFirstPerson(float dt)
 	m_pPlayer->SetForwardVector(m_pGameCamera->GetFacing());
 }
 
+void VoxGame::UpdateCameraNPCDialog(float dt)
+{
+	// Position
+	vec3 diff = m_targetCameraPosition_NPCDialog - m_pGameCamera->GetPosition();
+	m_pGameCamera->SetFakePosition(m_pGameCamera->GetPosition() + ((diff * 5.0f) * dt));
+
+	// Forward
+	diff = m_targetCameraView_NPCDialog - m_pGameCamera->GetView();
+	vec3 cameraLookAt = m_pGameCamera->GetView() + ((diff * 5.0f) * dt);
+	vec3 cameraForward = normalize(cameraLookAt - m_pGameCamera->GetFakePosition());
+	m_pGameCamera->SetFacing(cameraForward);
+
+	// Right
+	vec3 cameraRight = normalize(cross(cameraForward, m_pPlayer->GetUpVector()));
+	m_pGameCamera->SetRight(cameraRight);
+
+	// Up
+	vec3 cameraUp = normalize(cross(cameraRight, cameraForward));
+	m_pGameCamera->SetUp(cameraUp);
+}
+
 void VoxGame::UpdateCameraClipping(float dt)
 {
 	vec3 cameraPosition = m_targetCameraPositionBeforeClipping;
@@ -263,4 +288,20 @@ void VoxGame::UpdateCameraZoom(float dt)
 		m_cameraDistance += changeAmount;
 		m_pGameCamera->Zoom(changeAmount, true);
 	}
+}
+
+bool VoxGame::ShouldRestorePreviousCameraMode()
+{
+	return m_shouldRestorePreviousCameraMode;
+}
+
+void VoxGame::SavePreviousCameraMode()
+{
+	m_previousCameraMode = m_cameraMode;
+}
+
+void VoxGame::RestorePreviousCameraMode()
+{
+	SetCameraMode(m_previousCameraMode);
+	m_shouldRestorePreviousCameraMode = false;
 }

@@ -282,6 +282,7 @@ void VoxGame::SetupGUI()
 	}
 	else if (strcmp(m_pVoxSettings->m_gameMode.c_str(), "Game") == 0)
 	{
+		m_previousCameraMode = CameraMode_MouseRotate;
 		m_pGameOptionBox->SetToggled(true);
 		m_pMouseRotateCameraOptionBox->SetToggled(true);
 	}

@@ -394,7 +394,7 @@ void VoxGame::WrapCameraZoomValue()
 	float maxAmount = 15.0f;
 
 	// Camera rotation modes
-	if (m_gameMode == GameMode_Game && (m_cameraMode == CameraMode_AutoCamera || m_cameraMode == CameraMode_MouseRotate))
+	if (m_gameMode == GameMode_Game && (m_cameraMode == CameraMode_AutoCamera || m_cameraMode == CameraMode_MouseRotate || m_cameraMode == CameraMode_NPCDialog))
 	{
 		minAmount = 1.0f;
 		maxAmount = 15.0f;

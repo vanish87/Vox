@@ -96,7 +96,7 @@ void VoxGame::Update()
 		}
 
 		// Camera faked position
-		if (m_cameraMode == CameraMode_MouseRotate || m_cameraMode == CameraMode_AutoCamera)
+		if (m_cameraMode == CameraMode_MouseRotate || m_cameraMode == CameraMode_AutoCamera || m_cameraMode == CameraMode_NPCDialog)
 		{
 			vec3 playerMovementChanged = m_pPlayer->GetPositionMovementAmount();
 			m_pGameCamera->SetFakePosition(m_pGameCamera->GetFakePosition() + playerMovementChanged);

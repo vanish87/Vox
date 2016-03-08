@@ -13,6 +13,7 @@
 
 #include "VoxGame.h"
 #include "../utils/Interpolator.h"
+#include <glm/detail/func_geometric.hpp>
 
 #ifdef __linux__
 #include <sys/time.h>
@@ -293,6 +294,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	// Camera mode
 	m_cameraMode = CameraMode_Debug;
 	m_previousCameraMode = CameraMode_Debug;
+	m_shouldRestorePreviousCameraMode = false;
 
 	// Game mode
 	m_gameMode = GameMode_Loading;
@@ -538,6 +540,7 @@ void VoxGame::QuitToFrontEnd()
 void VoxGame::SetupDataForGame()
 {
 	Item* pFurnace = m_pItemManager->CreateItem(vec3(25.0f, 10.0f, -5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Furnace/Furnace.item", eItem_Furnace, "Furnace", true, false, 0.16f);
+	pFurnace->SetInteractionPositionOffset(vec3(0.0f, 0.0f, -2.0f));
 	Item* pAnvil = m_pItemManager->CreateItem(vec3(32.0f, 9.0f, -1.5f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Anvil/Anvil.item", eItem_Anvil, "Anvil", true, false, 0.14f);
 	pAnvil->SetInteractionPositionOffset(vec3(0.0f, 0.0f, -1.5f));
 	Item* pChest = m_pItemManager->CreateItem(vec3(24.0f, 12.0f, 13.5f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 180.0f, 0.0f), "media/gamedata/items/Chest/Chest.item", eItem_Chest, "Chest", true, false, 0.08f);
@@ -682,39 +685,40 @@ bool VoxGame::CheckInteractions()
 				m_pCraftingGUI->Load();
 				m_pCraftingGUI->SetInteractionitem(m_pInteractItem);
 
+				SavePreviousCameraMode();
+				m_shouldRestorePreviousCameraMode = true;
 				TurnCursorOn(true);
 			}
 
-			// TODO : Crafting mode camera - NPC dialog
 			// Set NPC dialog camera mode
-			//SetCameraMode(CameraMode_NPCDialog);
+			SetCameraMode(CameraMode_NPCDialog);
 
-			//// Figure out which way to position the camera, based on how we are looking at the NPC when interacting
-			//m_pGameCamera->CalculateFacing();
-			//Vector3d toItem = (m_pInteractItem->GetCenter() - m_pInteractItem->GetInteractionPosition()).GetUnit();
-			//Vector3d cross = Vector3d::CrossProduct(Vector3d(0.0f, 1.0f, 0.0f), toItem);
-			//float dotAngle = Vector3d::DotProduct(m_pGameCamera->GetFacing(), cross);
-			//if (dotAngle > 0.5f)
-			//{
-			//	Vector3d center = (m_pInteractItem->GetCenter() - m_pInteractItem->GetInteractionPosition());
-			//	Vector3d crossRight = Vector3d::CrossProduct(center.GetUnit(), Vector3d(0.0f, 1.0f, 0.0f));
-			//	m_targetCameraPosition_NPCDialog = (m_pInteractItem->GetInteractionPosition() + center*2.0f + crossRight*4.0f + Vector3d(0.0f, 1.0f, 0.0f)*2.5f);
-			//	m_targetCameraView_NPCDialog = (m_pInteractItem->GetInteractionPosition() + center*0.0f - crossRight*4.0f);
-			//}
-			//else
-			//{
-			//	Vector3d center = (m_pInteractItem->GetCenter() - m_pInteractItem->GetInteractionPosition());
-			//	Vector3d crossRight = Vector3d::CrossProduct(center.GetUnit(), Vector3d(0.0f, 1.0f, 0.0f));
-			//	m_targetCameraPosition_NPCDialog = (m_pInteractItem->GetInteractionPosition() + center*2.0f - crossRight*4.0f + Vector3d(0.0f, 1.0f, 0.0f)*2.5f);
-			//	m_targetCameraView_NPCDialog = (m_pInteractItem->GetInteractionPosition() + center*0.0f + crossRight*4.0f);
-			//}
+			// Figure out which way to position the camera, based on how we are looking at the NPC when interacting
+			vec3 toItem = normalize(m_pInteractItem->GetCenter() - m_pInteractItem->GetInteractionPosition());
+			vec3 crossResult = cross(vec3(0.0f, 1.0f, 0.0f), toItem);
+			float dotAngle = dot(m_pGameCamera->GetFacing(), crossResult);
+			if (dotAngle > 0.5f)
+			{
+				vec3 center = (m_pInteractItem->GetCenter() - m_pInteractItem->GetInteractionPosition());
+				vec3 crossRight = cross(normalize(center), vec3(0.0f, 1.0f, 0.0f));
+				m_targetCameraPosition_NPCDialog = (m_pInteractItem->GetInteractionPosition() + center*2.0f + crossRight*4.0f + vec3(0.0f, 1.0f, 0.0f)*2.5f);
+				m_targetCameraView_NPCDialog = (m_pInteractItem->GetInteractionPosition() + center*0.0f - crossRight*4.0f);
+			}
+			else
+			{
+				vec3 center = (m_pInteractItem->GetCenter() - m_pInteractItem->GetInteractionPosition());
+				vec3 crossRight = cross(normalize(center), vec3(0.0f, 1.0f, 0.0f));
+				m_targetCameraPosition_NPCDialog = (m_pInteractItem->GetInteractionPosition() + center*2.0f - crossRight*4.0f + vec3(0.0f, 1.0f, 0.0f)*2.5f);
+				m_targetCameraView_NPCDialog = (m_pInteractItem->GetInteractionPosition() + center*0.0f + crossRight*4.0f);
+			}
 
-			//// Player move to interaction point and look at interaction item
+			// TODO : Crafting mode camera - NPC dialog
+			// Player move to interaction point and look at interaction item
 			//m_pPlayer->SetMoveToTargetPosition(m_pInteractItem->GetInteractionPosition());
 			//m_pPlayer->SetLookAtTargetAfterMoveToPosition(m_pInteractItem->GetCenter());
 
-			//// Set player alpha to full opacity
-			//m_pPlayer->SetPlayerAlpha(1.0f);
+			// Set player alpha to full opacity
+			m_pPlayer->SetPlayerAlpha(1.0f);
 
 			// Open cinematic letterbox
 			OpenLetterBox();
