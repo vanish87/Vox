@@ -86,6 +86,7 @@ public:
 	int GetTotalNumInstanceObjects();
 	int GetTotalNumInstanceRenderObjects();
 
+	// Setup
 	void SetupGLBuffers(InstanceParent *pInstanceParent);
 
 	InstanceParent* GetInstanceParent(string modelName);
