@@ -4,6 +4,8 @@
 // Author:      Steven Ball
 //
 // Purpose:
+//   An enum list of all of the items in the game, used for item tracking
+//   and item specific functionality.
 //
 // Revision History:
 //   Initial Revision - 12/04/14
