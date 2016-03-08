@@ -1,6 +1,6 @@
 // ******************************************************************************
 // Filename:    Item.h
-// Project:     Game
+// Project:     Vox
 // Author:      Steven Ball
 //
 // Purpose:
