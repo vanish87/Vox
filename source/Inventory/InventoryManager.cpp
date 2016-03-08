@@ -1,9 +1,7 @@
 // ******************************************************************************
 // Filename:    InventoryManager.cpp
-// Project:     Game
+// Project:     Vox
 // Author:      Steven Ball
-//
-// Purpose:
 //
 // Revision History:
 //   Initial Revision - 30/07/12
@@ -1163,6 +1161,7 @@ int InventoryManager::ConvertSlotsToIndex(int x, int y)
 	return (MAX_NUM_SLOTS_HORIZONTAL * y) + x;
 }
 
+// Coins
 int InventoryManager::GetNumCoins()
 {
     return m_numCoins;
@@ -1170,7 +1169,7 @@ int InventoryManager::GetNumCoins()
 
 void InventoryManager::GiveCoins(int numCoins)
 {
-    m_numCoins += numCoins;
+	m_numCoins += numCoins;
 
 	m_coinsUpdated = true;
 
@@ -1180,7 +1179,7 @@ void InventoryManager::GiveCoins(int numCoins)
 
 void InventoryManager::TakeCoins(int numCoins)
 {
-    m_numCoins -= numCoins;
+	m_numCoins -= numCoins;
 
 	m_coinsUpdated = true;
 }
@@ -1209,6 +1208,6 @@ bool needs_removing(InventoryItem* aI)
 
 void InventoryManager::Update(float dt)
 {
-    // Remove any items that need to be removed from the vector container
-    m_vpInventoryItemList.erase( remove_if(m_vpInventoryItemList.begin(), m_vpInventoryItemList.end(), needs_removing), m_vpInventoryItemList.end() );
+	// Remove any items that need to be removed from the vector container
+	m_vpInventoryItemList.erase( remove_if(m_vpInventoryItemList.begin(), m_vpInventoryItemList.end(), needs_removing), m_vpInventoryItemList.end() );
 }
