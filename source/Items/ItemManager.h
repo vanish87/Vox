@@ -1,9 +1,13 @@
 // ******************************************************************************
 // Filename:    ItemManager.h
-// Project:     Game
+// Project:     Vox
 // Author:      Steven Ball
 //
 // Purpose:
+//   The item manager is in charge of managing and all the items in the game,
+//   including creation, destruction, updating and rendering the items.
+//   Different rendering modes are also supported for items depending on their
+//   state.
 //
 // Revision History:
 //   Initial Revision - 12/04/14
@@ -133,10 +137,12 @@ private:
 	QubicleBinaryManager* m_pQubicleBinaryManager;
 	InventoryManager* m_pInventoryManager;
 
+	// Counters
 	int m_numRenderItems;
 
 	// Item list
 	ItemList m_vpItemList;
 
+	// Subspawn data, used to control which items spawn sub items
 	ItemSubSpawnDataList m_vpItemSubSpawnDataList;
 };
