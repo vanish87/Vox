@@ -132,8 +132,8 @@
   * ~~Add hooks to GUI.~~
   * ~~Player stats.~~
   * ~~Loot GUI chest interactions.~~
+  * ~~Crafting GUI functionality.~~
   * Character GUI paperdoll render.
-  * Crafting GUI functionality.
 * Player particle trail on walking.
 * Test out Baked AO models using MagikaVoxel.
 * Enemies.
