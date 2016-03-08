@@ -1,9 +1,7 @@
 // ******************************************************************************
 // Filename:    StatAttribute.cpp
-// Project:     Game
+// Project:     Vox
 // Author:      Steven Ball
-//
-// Purpose:
 //
 // Revision History:
 //   Initial Revision - 12/04/14
@@ -50,6 +48,7 @@ void StatAttribute::SetModifyAmount(int amount)
 	m_modifyAmount = amount;
 }
 
+// Helper function for GUI display purposes
 string StatAttribute::GetString()
 {
 	char returnString[64];
@@ -71,8 +70,8 @@ string StatAttribute::GetString()
 	case AttributeType_Dexterity:		{ sprintf(returnString, "[C=%s]%s%i Dexterity", colourModifier, signModifier, m_modifyAmount); break; }
 	case AttributeType_Intelligence:	{ sprintf(returnString, "[C=%s]%s%i Magic", colourModifier, signModifier, m_modifyAmount); break; }
 	case AttributeType_Vitality:		{ sprintf(returnString, "[C=%s]%s%i Vitality", colourModifier, signModifier, m_modifyAmount); break; }
-	case AttributeType_Armor:			{ sprintf(returnString, "[C=%s]%s%i Armor", colourModifier, signModifier, m_modifyAmount); break; }
-	case AttributeType_Luck:			{ sprintf(returnString, "[C=%s]%s%i Luck", colourModifier, signModifier, m_modifyAmount); break; }
+	case AttributeType_Armor:		{ sprintf(returnString, "[C=%s]%s%i Armor", colourModifier, signModifier, m_modifyAmount); break; }
+	case AttributeType_Luck:		{ sprintf(returnString, "[C=%s]%s%i Luck", colourModifier, signModifier, m_modifyAmount); break; }
 	}
 
 	return returnString;
