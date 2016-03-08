@@ -1047,7 +1047,7 @@ void ChunkManager::Render(bool shadowRender)
 		{
 			Chunk* pChunk = iterator->second;
 
-			if (pChunk != NULL && pChunk->IsCreated())
+			if (pChunk != NULL && pChunk->IsCreated() && pChunk->IsSetup() && pChunk->IsUnloading() == false && pChunk->IsEmpty() == false && pChunk->IsSurrounded() == false)
 			{
 				vec3 chunkCenter = pChunk->GetPosition() + vec3((Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE) - Chunk::BLOCK_RENDER_SIZE, (Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE) - Chunk::BLOCK_RENDER_SIZE, (Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE) - Chunk::BLOCK_RENDER_SIZE);
 
