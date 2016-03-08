@@ -1,9 +1,15 @@
 // ******************************************************************************
 // Filename:    InstanceManager.h
-// Project:     Game
+// Project:     Vox
 // Author:      Steven Ball
 //
 // Purpose:
+//   Instanced objects are a group of objects that all share the same render call.
+//   Thus we can group together all instances into a single call, and just modify
+//   the objects matrix and other render properties in the shader, in a single
+//   draw call. This is mostly used for rendering large chunks of similar objects
+//   where the only difference is the model matrix (scale, position, rotation),
+//   For example, scenery, flowers, clutter, etc.
 //
 // Revision History:
 //   Initial Revision - 11/06/12
@@ -73,6 +79,7 @@ public:
 
 	void ClearInstanceObjects();
 
+	// Counters
 	int GetNumInstanceParents();
 	int GetNumInstanceObjectsForParent(int parentId);
 	int GetNumInstanceRenderObjectsForParent(int parentId);
@@ -106,9 +113,12 @@ private:
 	/* Private members */
 	Renderer* m_pRenderer;
 
+	// Shader
 	unsigned int m_instanceShader;
 
+	// List of instance parents what we render in a single render call for all children instances
 	InstanceParentList m_vpInstanceParentList;
 
+	// Timer to check for when to erase instances that are no longer linked to an owning chunk
 	float m_checkChunkInstanceTimer;
 };
