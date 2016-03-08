@@ -83,6 +83,7 @@
 * ~~Add back in frustum culling for chunk rendering.~~
 * ~~Player collision with items.~~
 * ~~Player interaction with items.~~
+* ~~Cinematic letterbox mode.~~
 * ~~Add console and logger to the in-game gui for output and logging information.~~
   * ~~Log when loading/saving model files.~~
   * Log to output file and log files as well as console GUI.
@@ -134,7 +135,6 @@
   * Character GUI paperdoll render.
   * Crafting GUI functionality.
 * Player particle trail on walking.
-* Cinematic letterbox mode.
 * Test out Baked AO models using MagikaVoxel.
 * Enemies.
 * NPCs.
