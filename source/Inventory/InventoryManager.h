@@ -313,9 +313,9 @@ private:
 
 public:
 	/* Public members */
-    static const int MAX_NUM_SLOTS_HORIZONTAL = 6;
-    static const int MAX_NUM_SLOTS_VERTICAL = 3;
-    static const int MAX_NUM_INVENTORY_SLOTS = MAX_NUM_SLOTS_HORIZONTAL * MAX_NUM_SLOTS_VERTICAL;
+	static const int MAX_NUM_SLOTS_HORIZONTAL = 6;
+	static const int MAX_NUM_SLOTS_VERTICAL = 3;
+	static const int MAX_NUM_INVENTORY_SLOTS = MAX_NUM_SLOTS_HORIZONTAL * MAX_NUM_SLOTS_VERTICAL;
 
 protected:
 	/* Protected members */
