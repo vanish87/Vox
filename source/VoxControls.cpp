@@ -89,7 +89,12 @@ void VoxGame::UpdateKeyboardControls(float dt)
 
 		if (m_bPaused == false)  // If we are paused, don't allow gameplay control movements
 		{
-			if (IsGUIWindowStillDisplayed() == false)
+			if (IsGUIWindowStillDisplayed() == true)
+			{
+				// Reset movement speed since we have a GUI window open
+				m_movementSpeed = 0.0f;
+			}
+			else
 			{
 				// Jumping
 				if (m_bKeyboardSpace)
@@ -265,7 +270,13 @@ void VoxGame::UpdateGamePadControls(float dt)
 	{
 		if (m_bPaused == false)  // If we are paused, don't allow gameplay control movements
 		{
-			if (IsGUIWindowStillDisplayed() == false)
+
+			if (IsGUIWindowStillDisplayed() == true)
+			{
+				// Reset movement speed since we have a GUI window open
+				m_movementSpeed = 0.0f;
+			}
+			else
 			{
 				if (m_cameraMode == CameraMode_MouseRotate)
 				{
