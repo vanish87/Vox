@@ -824,6 +824,9 @@ void VoxGame::CloseAllGUIWindows()
 	{
 		m_pCraftingGUI->Unload();
 	}
+
+	// Reset focus, also resets any text entry that we might have been doing.
+	m_pGUI->ResetFocus();
 }
 
 void VoxGame::TurnCursorOn(bool resetCursorPosition)

@@ -82,7 +82,7 @@ void VoxGame::KeyPressed(int key, int scancode, int mods)
 {
 	m_pGUI->KeyPressed(key, mods);
 
-	if (m_pGUI->IsKeyboardInteractingWithGUIComponent())
+	if (m_pGUI->IsKeyboardInteractingWithGUIComponent() && key != GLFW_KEY_ESCAPE)
 	{
 		return;  // For textbox entry
 	}
@@ -138,6 +138,11 @@ void VoxGame::KeyPressed(int key, int scancode, int mods)
 void VoxGame::KeyReleased(int key, int scancode, int mods)
 {
 	m_pGUI->KeyReleased(key, mods);
+
+	if (m_pGUI->IsKeyboardInteractingWithGUIComponent() && key != GLFW_KEY_ESCAPE)
+	{
+		return;  // For textbox entry
+	}
 
 	switch (key)
 	{
