@@ -4,6 +4,10 @@
 // Author:      Steven Ball
 //
 // Purpose:
+//   An item object contains all the data and functionality associated with
+//   the items that are used in the game, this includes items that are stored
+//   and equipped by the player, as well as items that are dropped in the world.
+//   Items are interactable by the players and also have physics and collisions.
 //
 // Revision History:
 //   Initial Revision - 12/04/14
