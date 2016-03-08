@@ -162,13 +162,13 @@ void InventoryManager::LoadDefaultInventory(string playerName)
 	InventoryItem* pFurnace = AddInventoryItem("media/gamedata/items/Furnace/Furnace.item", "media/textures/items/furnace.tga", InventoryType_Item, eItem_Furnace, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Furnace", "Used for smelting ore", 1.0f, 1.0f, 1.0f, 1, -1, -1, -1, -1);
 	InventoryItem* pBed = AddInventoryItem("media/gamedata/items/Bed/Bed.item", "media/textures/items/question_mark.tga", InventoryType_Item, eItem_Bed, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Bed", "Set spawn position", 1.0f, 1.0f, 1.0f, 1, -1, -1, -1, -1);
 	*/
-
+	/*
 	InventoryItem* pStone = AddInventoryItem("media/gamedata/items/Block_Stone/Block_Stone.item", "media/textures/items/block_stone.tga", InventoryType_Block, eItem_Block_Stone, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Stone Block", "Stone block for world building", 1.0f, 1.0f, 1.0f, 3, -1, -1, -1, -1);
 	InventoryItem* pWood = AddInventoryItem("media/gamedata/items/Block_Wood/Block_Wood.item", "media/textures/items/block_wood.tga", InventoryType_Block, eItem_Block_Wood, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Wood Block", "Wood block for world building", 1.0f, 1.0f, 1.0f, 4, -1, -1, -1, -1);
 	InventoryItem* pGrass = AddInventoryItem("media/gamedata/items/Block_Grass/Block_Grass.item", "media/textures/items/block_grass.tga", InventoryType_Block, eItem_Block_Grass, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Grass Block", "Grass block for world building", 1.0f, 1.0f, 1.0f, 2, -1, -1, -1, -1);
 	InventoryItem* pDirt = AddInventoryItem("media/gamedata/items/Block_Dirt/Block_Dirt.item", "media/textures/items/block_dirt.tga", InventoryType_Block, eItem_Block_Dirt, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Dirt Block", "Dirt block for world building", 1.0f, 1.0f, 1.0f, 2, -1, -1, -1, -1);
 	InventoryItem* pLeaf = AddInventoryItem("media/gamedata/items/Block_Leaf/Block_Leaf.item", "media/textures/items/block_leaf.tga", InventoryType_Block, eItem_Block_Leaf, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Leaf Block", "Leaf block for world building", 1.0f, 1.0f, 1.0f, 2, -1, -1, -1, -1);
-
+	*/
 	/*
 	InventoryItem* pShoulders = AddInventoryItem("media/gamedata/equipment/WoodShoulders/WoodShoulders.equipment", "media/textures/items/wood_shoulders.tga", InventoryType_Clothing, eItem_None, ItemStatus_None, EquipSlot_Shoulders, ItemQuality_Uncommon, true, true, "Shoulders", "Shoulder armor.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
 	pShoulders->AddStatAttribute(AttributeType_Armor, 1);
