@@ -1241,7 +1241,7 @@ void Player::GiveHealth(float amount)
 
 void Player::GiveCoins(int amount)
 {
-	// TODO PLayer GiveCoins()
+	// TODO : Player GiveCoins()
 
 	// Do an animated text effect
 	//vec3 screenposition = GetCenter() + vec3(GetRandomNumber(-1, 1, 2)*0.25f, 0.0f, GetRandomNumber(-1, 1, 2)*0.25f);
