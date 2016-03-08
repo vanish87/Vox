@@ -3,8 +3,6 @@
 // Project:     Game
 // Author:      Steven Ball
 //
-// Purpose:
-//
 // Revision History:
 //   Initial Revision - 12/04/14
 //
