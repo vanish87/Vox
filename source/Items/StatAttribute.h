@@ -1,9 +1,12 @@
 // ******************************************************************************
 // Filename:    StatAttribute.h
-// Project:     Game
+// Project:     Vox
 // Author:      Steven Ball
 //
 // Purpose:
+//   Stat attributes are a sub-class that are used by items that modify the
+//   player stats when equipped. For example armor that increased defence, or
+//   weapons that improve attack strench or dexterity.
 //
 // Revision History:
 //   Initial Revision - 12/04/14
@@ -41,6 +44,7 @@ public:
 	int GetModifyAmount();
 	void SetModifyAmount(int amount);
 
+	// Helper function for GUI display purposes
 	string GetString();
 
 protected:
