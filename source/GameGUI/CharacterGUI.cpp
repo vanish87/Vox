@@ -286,35 +286,35 @@ CharacterGUI::CharacterGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager
 	m_pCharacterWindow->AddComponent(m_pStatsValueLabel5);
 	m_pCharacterWindow->AddComponent(m_pStatsValueLabel6);
 
-	m_pInventoryBackgroundSlotBorder_Common = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_common.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Common = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_common.tga", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Common->SetDepth(2.0f);
 
-	m_pInventoryBackgroundSlotBorder_Uncommon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_uncommon.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Uncommon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_uncommon.tga", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Uncommon->SetDepth(2.0f);
 
-	m_pInventoryBackgroundSlotBorder_Magical = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_magical.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Magical = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_magical.tga", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Magical->SetDepth(2.0f);
 
-	m_pInventoryBackgroundSlotBorder_Rare = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_rare.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Rare = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_rare.tga", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Rare->SetDepth(2.0f);
 
-	m_pInventoryBackgroundSlotBorder_Epic = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_epic.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Epic = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_epic.tga", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Epic->SetDepth(2.0f);
 
 	// Tooltip
-	m_pTooltipBackground_Common = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/Tooltips/tooltip_background_common.tga", 200, 220);
+	m_pTooltipBackground_Common = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/Tooltips/tooltip_background_common.tga", 200, 220);
 	m_pTooltipBackground_Common->SetDepth(5.5f);
 
-	m_pTooltipBackground_Uncommon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/Tooltips/tooltip_background_uncommon.tga", 200, 220);
+	m_pTooltipBackground_Uncommon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/Tooltips/tooltip_background_uncommon.tga", 200, 220);
 	m_pTooltipBackground_Uncommon->SetDepth(5.5f);
 
-	m_pTooltipBackground_Magical = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/Tooltips/tooltip_background_magical.tga", 200, 220);
+	m_pTooltipBackground_Magical = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/Tooltips/tooltip_background_magical.tga", 200, 220);
 	m_pTooltipBackground_Magical->SetDepth(5.5f);
 
-	m_pTooltipBackground_Rare = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/Tooltips/tooltip_background_rare.tga", 200, 220);
+	m_pTooltipBackground_Rare = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/Tooltips/tooltip_background_rare.tga", 200, 220);
 	m_pTooltipBackground_Rare->SetDepth(5.5f);
 
-	m_pTooltipBackground_Epic = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/Tooltips/tooltip_background_epic.tga", 200, 220);
+	m_pTooltipBackground_Epic = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/Tooltips/tooltip_background_epic.tga", 200, 220);
 	m_pTooltipBackground_Epic->SetDepth(5.5f);
 
 	char nameText[] = "[ITEM]";
@@ -338,14 +338,14 @@ CharacterGUI::CharacterGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager
 	m_pTooltipSlotLabel->SetOutline(true);
 	m_pTooltipSlotLabel->SetOutlineColour(Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pTooltipSlotLabel->SetOutlineFont(m_pFrontendManager->GetFrontendFont_20_Outline());
-	m_pTooltipSlotLabel->SetDepth(5.5f);	
+	m_pTooltipSlotLabel->SetDepth(5.5f);
 
 	char qualityText[] = "[QUALITY]";
 	m_pTooltipQualityLabel = new Label(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), qualityText, Colour(0.5f, 0.5f, 0.5f, 1.0f));
 	m_pTooltipQualityLabel->SetOutline(true);
 	m_pTooltipQualityLabel->SetOutlineColour(Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pTooltipQualityLabel->SetOutlineFont(m_pFrontendManager->GetFrontendFont_20_Outline());
-	m_pTooltipQualityLabel->SetDepth(5.5f);	
+	m_pTooltipQualityLabel->SetDepth(5.5f);
 
 	SetWindowDimensions(m_windowWidth, m_windowHeight);
 
@@ -612,11 +612,11 @@ void CharacterGUI::CreateInventoryItems()
 			pNewSlotItem->AddIcon(m_pRenderer, lItemTexture, 64, 64, 56, 56, 4, 4, 1.5f);
 			switch(pItem->m_itemQuality)
 			{
-			case ItemQuality_Common: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_common.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
-			case ItemQuality_Uncommon: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_uncommon.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
-			case ItemQuality_Magical: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_magical.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
-			case ItemQuality_Rare: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_rare.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
-			case ItemQuality_Epic: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_epic.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
+			case ItemQuality_Common: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_common.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
+			case ItemQuality_Uncommon: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_uncommon.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
+			case ItemQuality_Magical: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_magical.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
+			case ItemQuality_Rare: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_rare.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
+			case ItemQuality_Epic: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_epic.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
 			}
 
 			if(pItem->m_quantity != -1)
@@ -661,12 +661,12 @@ void CharacterGUI::CreateInventoryItems()
 
 				pBlockSlotItem = new Icon(m_pRenderer);
 				pBlockSlotItem->SetIcon(m_pInventoryBackgroundSlotBorder_Common);
-				pBlockSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_foreground_alpha.tga", 64, 64, 64, 64, 0, 0, 3.0f);
+				pBlockSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_foreground_alpha.tga", 64, 64, 64, 64, 0, 0, 3.0f);
 
 				char lItemTexture[128];
 				sprintf(lItemTexture, "%s", pItem->m_Iconfilename.c_str());
 				pBlockSlotItem->AddIcon(m_pRenderer, lItemTexture, 64, 64, 56, 56, 4, 4, 1.5f);
-	
+
 				pBlockSlotItem->SetDimensions(x, y, width, height);
 				pBlockSlotItem->SetDepth(2.0f);
 
@@ -682,7 +682,7 @@ void CharacterGUI::CreateInventoryItems()
 
 				pBlockSlotItem = new Icon(m_pRenderer);
 				pBlockSlotItem->SetIcon(m_pInventoryBackgroundSlotBorder_Common);
-				pBlockSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_foreground_alpha.tga", 64, 64, 64, 64, 0, 0, 3.0f);
+				pBlockSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_foreground_alpha.tga", 64, 64, 64, 64, 0, 0, 3.0f);
 
 				char lItemTexture[128];
 				sprintf(lItemTexture, "%s", pItem->m_Iconfilename.c_str());
@@ -754,7 +754,7 @@ void CharacterGUI::ShowEquipHover(EquipSlot equipSlot)
 
 void CharacterGUI::HideEquipHover()
 {
-	m_pCharacterWindow->RemoveComponent(m_pEquipHoverIcon);	
+	m_pCharacterWindow->RemoveComponent(m_pEquipHoverIcon);
 }
 
 void CharacterGUI::UpdateEquipHover()
@@ -1148,7 +1148,7 @@ void CharacterGUI::Update(float dt)
 
 	// Check if the character GUI needs update (we have equipped items, or quantity changed, etc)
 	if(m_pInventoryManager->CharacterGUINeedsUpdate() && IsLoaded() == true)
-	{	
+	{
 		m_pGUI->RemoveWindow(m_pCharacterWindow);
 
 		DeleteInventoryItems();
@@ -1367,7 +1367,7 @@ void CharacterGUI::CharacterItemPressed(CharacterSlotItem* pCharacterItem)
 	// Temporarily increase the depth of the dragged icon
 	m_pPressedCharacterItem->m_pInventoryIcon->SetDepth(5.0f);
 	//m_pPressedCharacterItem->m_pInventoryIcon->SetLocation(m_pressedX - 4, m_pressedY + 4);
-	m_pPressedCharacterItem->m_pInventoryIcon->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/drop_shadow.tga", 64, 64, 64, 64, 4, -4, 0.5f);
+	m_pPressedCharacterItem->m_pInventoryIcon->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/drop_shadow.tga", 64, 64, 64, 64, 4, -4, 0.5f);
 	m_pCharacterWindow->DepthSortComponentChildren();
 
 	HideTooltip();
@@ -1442,7 +1442,7 @@ void CharacterGUI::CharacterItemReleased(CharacterSlotItem* pCharacterItem)
 
 						m_pInventoryManager->SetInventoryGUINeedsUpdate(true);
 						m_pInventoryManager->SetCharacterGUINeedsUpdate(true);
-						
+
 						// TODO : SOUND EFFECTS
 						//if(m_pGameWindow->GetConfigurationManager()->GetSoundEffects())
 						//{
@@ -1542,7 +1542,7 @@ void CharacterGUI::CharacterItemReleased(CharacterSlotItem* pCharacterItem)
 				{
 					m_pLootGUI->GetLootDimensions(j, i, &x, &y, &width, &height);
 					GUIWindow* pLootWindow = m_pLootGUI->GetLootWindow();
-					// Check if we released (mouse cursor) in the boundary of another slot            
+					// Check if we released (mouse cursor) in the boundary of another slot
 					if(lMouse.x > pLootWindow->GetDimensions().m_x+x && lMouse.x < pLootWindow->GetDimensions().m_x+x+width && lMouse.y > pLootWindow->GetDimensions().m_y+y && lMouse.y < pLootWindow->GetDimensions().m_y+y+height)
 					{
 						if(m_pLootGUI->GetLootSlotItem(j, i) == NULL) // ONLY if an item doesn't already exist in the loot slot position
@@ -1586,7 +1586,7 @@ void CharacterGUI::CharacterItemReleased(CharacterSlotItem* pCharacterItem)
 			{
 				m_pActionBar->GetActionSlotDimensions(i, &x, &y, &width, &height);
 
-				// Check if we released (mouse cursor) in the boundary of another slot            
+				// Check if we released (mouse cursor) in the boundary of another slot
 				if(lMouse.x > x && lMouse.x < x+width && lMouse.y > y && lMouse.y < y+height)
 				{
 					m_pActionBar->AddItemToActionBar(pCharacterItem->m_pInventoryItem, i, pCharacterItem->m_slotX, pCharacterItem->m_slotY);
@@ -1605,7 +1605,7 @@ void CharacterGUI::CharacterItemReleased(CharacterSlotItem* pCharacterItem)
 
 		// Reset back to the original position
 		pCharacterItem->m_pInventoryIcon->SetLocation(m_pressedX, m_pressedY);
-		pCharacterItem->m_pInventoryIcon->RemoveIcon("media/textures/gui/Stonewash/Common/items/drop_shadow.tga");
+		pCharacterItem->m_pInventoryIcon->RemoveIcon("media/textures/gui/Stonewash/common/items/drop_shadow.tga");
 
 		// Figure out if we are still in the same slot, to re-show the tooltip
 		int x;

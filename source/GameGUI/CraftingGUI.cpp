@@ -137,35 +137,35 @@ CraftingGUI::CraftingGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pRecipeButton_Selected_Icon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/recipe_item_selected_button.tga", 152, 32);
 	m_pRecipeButton_Selected_Icon->SetDepth(1.0f);
 
-	m_pInventoryBackgroundSlotBorder_Common = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_common.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Common = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_common.tga", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Common->SetDepth(2.0f);
 
-	m_pInventoryBackgroundSlotBorder_Uncommon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_uncommon.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Uncommon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_uncommon.tga", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Uncommon->SetDepth(2.0f);
 
-	m_pInventoryBackgroundSlotBorder_Magical = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_magical.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Magical = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_magical.tga", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Magical->SetDepth(2.0f);
 
-	m_pInventoryBackgroundSlotBorder_Rare = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_rare.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Rare = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_rare.tga", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Rare->SetDepth(2.0f);
 
-	m_pInventoryBackgroundSlotBorder_Epic = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_epic.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Epic = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_epic.tga", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Epic->SetDepth(2.0f);
 
 	// Tooltip
-	m_pTooltipBackground_Common = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/Tooltips/tooltip_background_common.tga", 200, 220);
+	m_pTooltipBackground_Common = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/Tooltips/tooltip_background_common.tga", 200, 220);
 	m_pTooltipBackground_Common->SetDepth(7.5f);
 
-	m_pTooltipBackground_Uncommon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/Tooltips/tooltip_background_uncommon.tga", 200, 220);
+	m_pTooltipBackground_Uncommon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/Tooltips/tooltip_background_uncommon.tga", 200, 220);
 	m_pTooltipBackground_Uncommon->SetDepth(7.5f);
 
-	m_pTooltipBackground_Magical = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/Tooltips/tooltip_background_magical.tga", 200, 220);
+	m_pTooltipBackground_Magical = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/Tooltips/tooltip_background_magical.tga", 200, 220);
 	m_pTooltipBackground_Magical->SetDepth(7.5f);
 
-	m_pTooltipBackground_Rare = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/Tooltips/tooltip_background_rare.tga", 200, 220);
+	m_pTooltipBackground_Rare = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/Tooltips/tooltip_background_rare.tga", 200, 220);
 	m_pTooltipBackground_Rare->SetDepth(7.5f);
 
-	m_pTooltipBackground_Epic = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/Tooltips/tooltip_background_epic.tga", 200, 220);
+	m_pTooltipBackground_Epic = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/Tooltips/tooltip_background_epic.tga", 200, 220);
 	m_pTooltipBackground_Epic->SetDepth(7.5f);
 
 	char nameText[] = "[ITEM]";
@@ -189,14 +189,14 @@ CraftingGUI::CraftingGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pTooltipSlotLabel->SetOutline(true);
 	m_pTooltipSlotLabel->SetOutlineColour(Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pTooltipSlotLabel->SetOutlineFont(m_pFrontendManager->GetFrontendFont_20_Outline());
-	m_pTooltipSlotLabel->SetDepth(7.5f);	
+	m_pTooltipSlotLabel->SetDepth(7.5f);
 
 	char qualityText[] = "[QUALITY]";
 	m_pTooltipQualityLabel = new Label(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), qualityText, Colour(0.5f, 0.5f, 0.5f, 1.0f));
 	m_pTooltipQualityLabel->SetOutline(true);
 	m_pTooltipQualityLabel->SetOutlineColour(Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pTooltipQualityLabel->SetOutlineFont(m_pFrontendManager->GetFrontendFont_20_Outline());
-	m_pTooltipQualityLabel->SetDepth(7.5f);	
+	m_pTooltipQualityLabel->SetDepth(7.5f);
 
 	m_pCraftingWindow->SetBackgroundIcon(m_pCraftingWindowBackgroundIcon);
 	m_pCraftingWindow->SetTitlebarBackgroundIcon(m_pTitleBarBackgroundIcon);
@@ -389,7 +389,7 @@ void CraftingGUI::CraftingComplete()
 		{
 			m_pInventoryManager->RemoveInventoryItem(m_pRecipeSlotItemSelected->m_pCraftingReceipe->m_vpCraftingItems[i]->m_title.c_str(), m_pRecipeSlotItemSelected->m_pCraftingReceipe->m_vpCraftingItems[i]->m_item, m_pRecipeSlotItemSelected->m_pCraftingReceipe->m_vpCraftingItems[i]->m_quantity);
 		}
-		
+
 		// Add the new item to the inventory
 		if(m_pInventoryManager->CanAddInventoryItem(m_pRecipeSlotItemSelected->m_pInventoryItem->m_title.c_str(), m_pRecipeSlotItemSelected->m_pInventoryItem->m_item, m_pRecipeSlotItemSelected->m_pCraftingReceipe->m_pResultItem->m_quantity))
 		{
@@ -424,7 +424,7 @@ void CraftingGUI::SetInteractionitem(Item* pInteractionItem)
 	if(m_pInteractionItem != NULL)
 	{
 		m_pInteractionItem->SetCollisionEnabled(false);
-	}	
+	}
 }
 
 // Recipes
@@ -445,7 +445,7 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 			pPickaxeRecipe->m_vpCraftingItems.push_back(pGrass);
 
 			InventoryItem* pPickaxe = m_pInventoryManager->CreateInventoryItem("media/gamedata/weapons/Pickaxe/Pickaxe.weapon", "media/textures/items/pickaxe.tga", InventoryType_Weapon_Pickaxe, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Pickaxe", "Used for mining and digging the world.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
-			pPickaxe->m_scale = 0.0f; pPickaxe->m_offsetX = 0.5f; pPickaxe->m_offsetY = 0.95f; pPickaxe->m_offsetZ = 0.5f; 
+			pPickaxe->m_scale = 0.0f; pPickaxe->m_offsetX = 0.5f; pPickaxe->m_offsetY = 0.95f; pPickaxe->m_offsetZ = 0.5f;
 			pPickaxeRecipe->m_pResultItem = pPickaxe;
 
 			AddCraftingRecipe(pPickaxeRecipe);
@@ -460,7 +460,7 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 			pHammerRecipe->m_vpCraftingItems.push_back(pWood);
 
 			InventoryItem* pHammer = m_pInventoryManager->CreateInventoryItem("media/gamedata/weapons/Hammer/Hammer.weapon", "media/textures/items/hammer.tga", InventoryType_Weapon_Hammer, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Hammer", "Used for removing items from the world and repositioning.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
-			pHammer->m_scale = 0.5f; pHammer->m_offsetX = 0.5f; pHammer->m_offsetY = 0.83f; pHammer->m_offsetZ = 0.5f; 
+			pHammer->m_scale = 0.5f; pHammer->m_offsetX = 0.5f; pHammer->m_offsetY = 0.83f; pHammer->m_offsetZ = 0.5f;
 			pHammerRecipe->m_pResultItem = pHammer;
 
 			AddCraftingRecipe(pHammerRecipe);
@@ -473,7 +473,7 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 			pSwordRecipe->m_vpCraftingItems.push_back(pStone);
 
 			InventoryItem* pSword = m_pInventoryManager->CreateInventoryItem("media/gamedata/weapons/Sword/Sword.weapon", "media/textures/items/sword.tga", InventoryType_Weapon_Sword, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Sword", "Attacking enemies.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
-			pSword->m_scale = 0.5f; pSword->m_offsetX = 0.5f; pSword->m_offsetY = 0.83f; pSword->m_offsetZ = 0.5f; 
+			pSword->m_scale = 0.5f; pSword->m_offsetX = 0.5f; pSword->m_offsetY = 0.83f; pSword->m_offsetZ = 0.5f;
 			pSwordRecipe->m_pResultItem = pSword;
 
 			AddCraftingRecipe(pSwordRecipe);
@@ -486,7 +486,7 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 			pBiggerSwordRecipe->m_vpCraftingItems.push_back(pStone);
 
 			InventoryItem* pBiggerSword = m_pInventoryManager->CreateInventoryItem("media/gamedata/weapons/2HandedSword/2HandedSword.weapon", "media/textures/items/2handed_sword.tga", InventoryType_Weapon_2HandedSword, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, true, true, "Bigger Sword", "Used for removing items from the world and repositioning.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
-			pBiggerSword->m_scale = 0.5f; pBiggerSword->m_offsetX = 0.5f; pBiggerSword->m_offsetY = 0.83f; pBiggerSword->m_offsetZ = 0.5f; 
+			pBiggerSword->m_scale = 0.5f; pBiggerSword->m_offsetX = 0.5f; pBiggerSword->m_offsetY = 0.83f; pBiggerSword->m_offsetZ = 0.5f;
 			pBiggerSwordRecipe->m_pResultItem = pBiggerSword;
 
 			AddCraftingRecipe(pBiggerSwordRecipe);
@@ -551,7 +551,7 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 			pKnifeRecipe->m_vpCraftingItems.push_back(pGrass);
 
 			InventoryItem* pKnife = m_pInventoryManager->CreateInventoryItem("media/gamedata/weapons/Knife/Knife.weapon", "media/textures/items/knife.tga", InventoryType_Weapon_Dagger, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Rare, false, false, "Knife", "Used for removing items from the world and repositioning.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
-			pKnife->m_scale = 0.5f; pKnife->m_offsetX = 0.5f; pKnife->m_offsetY = 0.83f; pKnife->m_offsetZ = 0.5f; 
+			pKnife->m_scale = 0.5f; pKnife->m_offsetX = 0.5f; pKnife->m_offsetY = 0.83f; pKnife->m_offsetZ = 0.5f;
 			pKnifeRecipe->m_pResultItem = pKnife;
 
 			AddCraftingRecipe(pKnifeRecipe);
@@ -692,11 +692,11 @@ void CraftingGUI::CreateIngredientsButtons()
 
 		switch(pInventoryItem->m_itemQuality)
 		{
-		case ItemQuality_Common: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_common.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
-		case ItemQuality_Uncommon: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_uncommon.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
-		case ItemQuality_Magical: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_magical.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
-		case ItemQuality_Rare: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_rare.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
-		case ItemQuality_Epic: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_epic.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
+		case ItemQuality_Common: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_common.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
+		case ItemQuality_Uncommon: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_uncommon.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
+		case ItemQuality_Magical: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_magical.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
+		case ItemQuality_Rare: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_rare.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
+		case ItemQuality_Epic: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_epic.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
 		}
 
 		if(pInventoryItem->m_quantity != -1)

@@ -48,19 +48,19 @@ ActionBar::ActionBar(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFro
 	m_pActionButtonBackground_6_Icon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/ActionBar/actionbar_background_6.tga", 392, 76);
 	m_pActionButtonBackground_6_Icon->SetDepth(2.0f);
 
-	m_pActionButtonBackgroundSlotBorder_Common = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_common.tga", 64, 64);
+	m_pActionButtonBackgroundSlotBorder_Common = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_common.tga", 64, 64);
 	m_pActionButtonBackgroundSlotBorder_Common->SetDepth(2.0f);
 
-	m_pActionButtonBackgroundSlotBorder_Uncommon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_uncommon.tga", 64, 64);
+	m_pActionButtonBackgroundSlotBorder_Uncommon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_uncommon.tga", 64, 64);
 	m_pActionButtonBackgroundSlotBorder_Uncommon->SetDepth(2.0f);
 
-	m_pActionButtonBackgroundSlotBorder_Magical = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_magical.tga", 64, 64);
+	m_pActionButtonBackgroundSlotBorder_Magical = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_magical.tga", 64, 64);
 	m_pActionButtonBackgroundSlotBorder_Magical->SetDepth(2.0f);
 
-	m_pActionButtonBackgroundSlotBorder_Rare = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_rare.tga", 64, 64);
+	m_pActionButtonBackgroundSlotBorder_Rare = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_rare.tga", 64, 64);
 	m_pActionButtonBackgroundSlotBorder_Rare->SetDepth(2.0f);
 
-	m_pActionButtonBackgroundSlotBorder_Epic = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/border_epic.tga", 64, 64);
+	m_pActionButtonBackgroundSlotBorder_Epic = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_epic.tga", 64, 64);
 	m_pActionButtonBackgroundSlotBorder_Epic->SetDepth(2.0f);
 
 	SetWindowDimensions(m_windowWidth, m_windowHeight);
@@ -232,7 +232,7 @@ void ActionBar::ImportActionBar(string playerName)
 			if((bool)equipped == true)
 			{
 				pItem = m_pInventoryManager->GetInventoryItemForEquipSlot((EquipSlot)equipSlot);
-			} 
+			}
 			else
 			{
 				pItem = m_pInventoryGUI->GetInventorySlotItem(inventoryX, inventoryY) != NULL ? m_pInventoryGUI->GetInventorySlotItem(inventoryX, inventoryY)->m_pInventoryItem : NULL;
@@ -521,7 +521,7 @@ void ActionBar::CreateActionButtonIcon(ActionButtonItem* pActionButton)
 	case ItemQuality_Magical: { pNewSlotItem->SetIcon(m_pActionButtonBackgroundSlotBorder_Magical); break; }
 	case ItemQuality_Rare: { pNewSlotItem->SetIcon(m_pActionButtonBackgroundSlotBorder_Rare); break; }
 	case ItemQuality_Epic: { pNewSlotItem->SetIcon(m_pActionButtonBackgroundSlotBorder_Epic); break; }
-	}	
+	}
 	pNewSlotItem->SetDimensions(x, y, width, height);
 	pNewSlotItem->SetDepth(8.0f);
 
@@ -530,11 +530,11 @@ void ActionBar::CreateActionButtonIcon(ActionButtonItem* pActionButton)
 	pNewSlotItem->AddIcon(m_pRenderer, lItemTexture, 64, 64, 56, 56, 4, 4, 1.5f);
 	switch(pInventoryItem->m_itemQuality)
 	{
-	case ItemQuality_Common: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_common.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
-	case ItemQuality_Uncommon: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_uncommon.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
-	case ItemQuality_Magical: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_magical.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
-	case ItemQuality_Rare: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_rare.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
-	case ItemQuality_Epic: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/Common/items/item_background_epic.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
+	case ItemQuality_Common: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_common.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
+	case ItemQuality_Uncommon: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_uncommon.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
+	case ItemQuality_Magical: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_magical.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
+	case ItemQuality_Rare: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_rare.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
+	case ItemQuality_Epic: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_epic.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
 	}
 
 	pActionButton->m_pItemIcon = pNewSlotItem;
@@ -730,7 +730,7 @@ void ActionBar::ActionButtonReleased(ActionButtonItem* pActionButton)
 	int y;
 	int width;
 	int height;
-	POINT lMouse = { VoxGame::GetInstance()->GetWindowCursorX(), (m_windowHeight-VoxGame::GetInstance()->GetWindowCursorY()) };	
+	POINT lMouse = { VoxGame::GetInstance()->GetWindowCursorX(), (m_windowHeight-VoxGame::GetInstance()->GetWindowCursorY()) };
 	bool switched = false;
 	bool sameSlot = false;
 	int switchSlot = -1;
@@ -738,7 +738,7 @@ void ActionBar::ActionButtonReleased(ActionButtonItem* pActionButton)
 	{
 		GetActionSlotDimensions(i, &x, &y, &width, &height);
 
-		// Check if we released (mouse cursor) in the boundary of another slot            
+		// Check if we released (mouse cursor) in the boundary of another slot
 		if(lMouse.x > x && lMouse.x < x+width && lMouse.y > y && lMouse.y < y+height)
 		{
 			switched = true;
