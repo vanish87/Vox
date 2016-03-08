@@ -1,9 +1,7 @@
 // ******************************************************************************
 // Filename:    Item.cpp
-// Project:     Game
+// Project:     Vox
 // Author:      Steven Ball
-//
-// Purpose:
 //
 // Revision History:
 //   Initial Revision - 12/04/14
