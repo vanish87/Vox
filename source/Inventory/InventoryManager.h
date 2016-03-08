@@ -1,9 +1,14 @@
 // ******************************************************************************
 // Filename:    InventoryManager.h
-// Project:     Game
+// Project:     Vox
 // Author:      Steven Ball
 //
 // Purpose:
+//   The inventory manager is linked to the player and holds the information
+//   about what items the player has inside their inventory and also what
+//   items the player has equipped. The internal state of the inventory and
+//   equipped items gets changed when the player modifies the InventoryGUI
+//   and characterGUI.
 //
 // Revision History:
 //   Initial Revision - 30/07/12
@@ -246,8 +251,8 @@ public:
 	void SetCharacterGUINeedsUpdate(bool update);
 	bool CharacterGUINeedsUpdate();
 
-    void ExportInventory(string playerName);
-    void ImportInventory(string playerName);
+	void ExportInventory(string playerName);
+	void ImportInventory(string playerName);
 
 	bool IsInventoryFull();
 
@@ -259,21 +264,21 @@ public:
 	InventoryItem* CreateInventoryItem(InventoryItem* pItem);
 	InventoryItem* CreateInventoryItem(const char* filename, const char* iconFilename, InventoryType itemType, eItem item, ItemStatus status, EquipSlot equipSlot, ItemQuality itemQuality, bool left, bool right, const char* title, const char* description, float r, float g, float b, int quantity, int lootSlotX, int lootSlotY, int setInventorySlotX, int setInventorySlotY);
 
-    InventoryItem* AddInventoryItem(const char* filename, const char* iconFilename, InventoryType itemType, eItem item, ItemStatus status, EquipSlot equipSlot, ItemQuality itemQuality, bool left, bool right, const char* title, const char* description, float r, float g, float b, int quantity, int lootSlotX, int lootSlotY, int setInventorySlotX, int setInventorySlotY);
-    void AddInventoryItem(InventoryItem* pInventoryItem, int inventoryX, int inventoryY);
+	InventoryItem* AddInventoryItem(const char* filename, const char* iconFilename, InventoryType itemType, eItem item, ItemStatus status, EquipSlot equipSlot, ItemQuality itemQuality, bool left, bool right, const char* title, const char* description, float r, float g, float b, int quantity, int lootSlotX, int lootSlotY, int setInventorySlotX, int setInventorySlotY);
+	void AddInventoryItem(InventoryItem* pInventoryItem, int inventoryX, int inventoryY);
 	
 	void RemoveInventoryItem(const char* title, eItem item, int quantity);
 	void RemoveInventoryItem(EquipSlot equipSlot);
-    void RemoveInventoryItem(int slotIndex);
-    void RemoveInventoryItem(int xPos, int yPos);
+	void RemoveInventoryItem(int slotIndex);
+	void RemoveInventoryItem(int xPos, int yPos);
 
-    InventoryItem* GetInventoryItemForSlot(int slotIndex);
-    InventoryItem* GetInventoryItemForSlot(int xPos, int yPos);
+	InventoryItem* GetInventoryItemForSlot(int slotIndex);
+	InventoryItem* GetInventoryItemForSlot(int xPos, int yPos);
 
 	InventoryItem* GetInventoryItemWithTitle(string title);
 
-    void SwitchInventoryItems(int slot1, int slot2);
-    void SwitchInventoryItems(int x1, int y1, int x2, int y2);
+	void SwitchInventoryItems(int slot1, int slot2);
+    	void SwitchInventoryItems(int x1, int y1, int x2, int y2);
 
 	void SwitchEquippedSlots(EquipSlot equipSlotSrc, EquipSlot equipSlotDst);
 
@@ -290,9 +295,10 @@ public:
 
 	bool IsEquippedStatus(ItemStatus status);
 
-    int GetNumCoins();
-    void GiveCoins(int numCoins);
-    void TakeCoins(int numCoins);
+	// Coins
+    	int GetNumCoins();
+    	void GiveCoins(int numCoins);
+    	void TakeCoins(int numCoins);
 	bool CoinsUpdated();
 	void SetCoinsUpdated(bool set);
 
@@ -319,13 +325,14 @@ private:
 	bool m_InventoryGUINeedsUpdate;
 	bool m_CharacterGUINeedsUpdate;
 
+	// Player name
 	string m_playerName;
 
 	// List of inventory items in the GUI and equipped
 	InventoryItemList m_vpInventoryItemList;
 
 	// Slot mapping for inventory
-    InventoryItem* m_ItemSlotMapping[MAX_NUM_INVENTORY_SLOTS];
+    	InventoryItem* m_ItemSlotMapping[MAX_NUM_INVENTORY_SLOTS];
 
 	// SLot mapping for equipped items
 	InventoryItem* m_equippedSlots[EquipSlot_NumSlots];
@@ -334,7 +341,7 @@ private:
 	InventoryItemList m_vpOtherInventoryItemList;
 
 	// Coins
-    int m_numCoins;
+    	int m_numCoins;
 	bool m_coinsUpdated;
 
 	Player* m_pPlayer;
