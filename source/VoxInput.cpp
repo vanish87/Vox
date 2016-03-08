@@ -222,7 +222,7 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 
 					if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
 					{
-						m_pVoxWindow->TurnCursorOff();
+						TurnCursorOff();
 					}
 				}
 				else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_None)
@@ -231,7 +231,7 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 
 					m_pPlayer->StopMoving();
 
-					m_pVoxWindow->TurnCursorOn(true);
+					TurnCursorOn(true);
 				}
 			}
 			break;
@@ -246,7 +246,7 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 
 					if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
 					{
-						m_pVoxWindow->TurnCursorOff();
+						TurnCursorOff();
 					}
 				}
 				else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_None)
@@ -255,7 +255,7 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 
 					m_pPlayer->StopMoving();
 
-					m_pVoxWindow->TurnCursorOn(true);
+					TurnCursorOn(true);
 				}
 			}
 			break;
@@ -287,7 +287,7 @@ void VoxGame::MouseLeftPressed()
 			// Turn cursor off
 			if (m_pVoxWindow->IsCursorOn() == true)
 			{
-				m_pVoxWindow->TurnCursorOff();
+				TurnCursorOff();
 			}
 
 			m_bCameraRotate = true;
@@ -313,7 +313,7 @@ void VoxGame::MouseLeftReleased()
 			// Turn cursor on
 			if (m_pVoxWindow->IsCursorOn() == false)
 			{
-				m_pVoxWindow->TurnCursorOn(true);
+				TurnCursorOn(true);
 			}
 		}
 

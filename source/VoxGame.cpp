@@ -347,7 +347,7 @@ void VoxGame::CancelQuitPopup()
 
 	SetGlobalBlurAmount(0.0f);
 
-	m_pVoxWindow->TurnCursorOff();
+	TurnCursorOff();
 }
 
 void VoxGame::ShowQuitPopup()
@@ -360,7 +360,7 @@ void VoxGame::ShowQuitPopup()
 
 	SetGlobalBlurAmount(0.0015f);
 
-	m_pVoxWindow->TurnCursorOn(true);
+	TurnCursorOn(true);
 }
 
 void VoxGame::SetGameQuit(bool quit)
@@ -387,7 +387,7 @@ void VoxGame::SetPauseMenu()
 
 	SetGlobalBlurAmount(0.0015f);
 
-	m_pVoxWindow->TurnCursorOn(true);
+	TurnCursorOn(true);
 }
 
 void VoxGame::UnsetPauseMenu()
@@ -398,7 +398,7 @@ void VoxGame::UnsetPauseMenu()
 
 	SetGlobalBlurAmount(0.0f);
 
-	m_pVoxWindow->TurnCursorOff();
+	TurnCursorOff();
 }
 
 // Blur
@@ -510,7 +510,7 @@ void VoxGame::UpdateJoySticks()
 // Game functions
 void VoxGame::QuitToFrontEnd()
 {
-	m_pVoxWindow->TurnCursorOn(true);
+	TurnCursorOn(true);
 	SetGameMode(GameMode_FrontEnd);
 
 	m_pFrontEndOptionBox->SetToggled(true);
@@ -667,7 +667,7 @@ bool VoxGame::CheckInteractions()
 				m_pCraftingGUI->Load();
 				m_pCraftingGUI->SetInteractionitem(m_pInteractItem);
 
-				m_pVoxWindow->TurnCursorOn(true);
+				TurnCursorOn(true);
 			}
 
 			// TODO : Crafting mode camera - NPC dialog
@@ -740,7 +740,7 @@ bool VoxGame::CheckInteractions()
 
 					m_pPlayer->StopMoving();
 
-					m_pVoxWindow->TurnCursorOn(true);
+					TurnCursorOn(true);
 				}
 			}
 		}
@@ -812,6 +812,10 @@ void VoxGame::TurnCursorOn(bool resetCursorPosition)
 void VoxGame::TurnCursorOff()
 {
 	m_pVoxWindow->TurnCursorOff();
+
+	// Make sure to set the current X and Y when we turn the cursor off, so that camera controls don't glitch.
+	m_currentX = m_pVoxWindow->GetCursorX();
+	m_currentY = m_pVoxWindow->GetCursorY();
 }
 
 // Accessors
