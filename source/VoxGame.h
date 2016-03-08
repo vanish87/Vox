@@ -88,6 +88,10 @@ public:
 	// Blur
 	void SetGlobalBlurAmount(float blurAmount);
 
+	// Cinematic letterbox
+	void OpenLetterBox();
+	void CloseLetterBox();
+
 	// Events
 	void PollEvents();
 	bool ShouldClose();
@@ -170,6 +174,8 @@ public:
 	void RenderFirstPassFullScreen();
 	void RenderSecondPassFullScreen();
 	void RenderGUI();
+	void RenderCinematicLetterBox();
+	void RenderCrosshair();
 	void RenderDebugInformation();
 
 	// GUI Helper functions
@@ -428,6 +434,9 @@ private:
 
 	// Blur
 	float m_globalBlurAmount;
+
+	// Cinematic letterbox mode
+	float m_letterBoxRatio;
 
 	// Game GUI
 	InventoryGUI* m_pInventoryGUI;

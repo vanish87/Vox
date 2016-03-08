@@ -171,7 +171,6 @@ void VoxGame::Render()
 			}
 			EndShaderRender();
 
-
 			// Debug rendering
 			if(m_debugRender)
 			{
@@ -204,6 +203,14 @@ void VoxGame::Render()
 		// Render 2d
 		// ---------------------------------------
 		m_pRenderer->PushMatrix();
+			// Crosshair
+			if (m_cameraMode == CameraMode_FirstPerson)
+			{
+				RenderCrosshair();
+			}
+
+			// Cinematic mode (letter box)
+			RenderCinematicLetterBox();
 		m_pRenderer->PopMatrix();
 
 		// SSAO frame buffer rendering stop
@@ -678,6 +685,63 @@ void VoxGame::RenderGUI()
 		m_pRenderer->SetLookAtCamera(vec3(0.0f, 0.0f, 250.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
 
 		m_pGUI->Render();
+	m_pRenderer->PopMatrix();
+}
+
+void VoxGame::RenderCinematicLetterBox()
+{
+	float letterboxHeight = 100.0f * m_letterBoxRatio;
+
+	m_pRenderer->PushMatrix();
+		m_pRenderer->SetProjectionMode(PM_2D, m_defaultViewport);
+
+		m_pRenderer->SetLookAtCamera(vec3(0.0f, 0.0f, 250.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+
+		m_pRenderer->SetRenderMode(RM_SOLID);
+
+		m_pRenderer->EnableImmediateMode(IM_QUADS);
+			m_pRenderer->ImmediateColourAlpha(0.0f, 0.0f, 0.0f, 1.0f);
+			// Bottom
+			m_pRenderer->ImmediateVertex(0.0f, 0.0f, 1.5f);
+			m_pRenderer->ImmediateVertex((float)m_windowWidth, 0.0f, 1.5f);
+			m_pRenderer->ImmediateVertex((float)m_windowWidth, letterboxHeight, 1.5f);
+			m_pRenderer->ImmediateVertex(0.0f, letterboxHeight, 1.5f);
+			// Top
+			m_pRenderer->ImmediateVertex(0.0f, (float)m_windowHeight - letterboxHeight, 1.5f);
+			m_pRenderer->ImmediateVertex((float)m_windowWidth, (float)m_windowHeight - letterboxHeight, 1.5f);
+			m_pRenderer->ImmediateVertex((float)m_windowWidth, (float)m_windowHeight, 1.5f);
+			m_pRenderer->ImmediateVertex(0.0f, (float)m_windowHeight, 1.5f);
+		m_pRenderer->DisableImmediateMode();
+	m_pRenderer->PopMatrix();
+}
+
+void VoxGame::RenderCrosshair()
+{
+	m_pRenderer->PushMatrix();
+		m_pRenderer->SetProjectionMode(PM_2D, m_defaultViewport);
+
+		m_pRenderer->SetLookAtCamera(vec3(0.0f, 0.0f, 250.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+
+		m_pRenderer->TranslateWorldMatrix(m_windowWidth*0.5f, m_windowHeight*0.5f, 0.0f);
+
+		float crosshairSize = 1.0f;
+		float crosshairBorder = 2.0f;
+		float crosshairLength = 4.0f;
+
+		m_pRenderer->EnableImmediateMode(IM_QUADS);
+			m_pRenderer->ImmediateColourAlpha(1.0f, 1.0f, 1.0f, 1.0f);
+			m_pRenderer->ImmediateVertex(-crosshairSize, -crosshairSize, 3.0f);
+			m_pRenderer->ImmediateVertex(crosshairSize, -crosshairSize, 3.0f);
+			m_pRenderer->ImmediateVertex(crosshairSize, crosshairSize, 3.0f);
+			m_pRenderer->ImmediateVertex(-crosshairSize, crosshairSize, 3.0f);
+
+			m_pRenderer->ImmediateColourAlpha(0.0f, 0.0f, 0.0f, 1.0f);
+			m_pRenderer->ImmediateVertex(-crosshairBorder, -crosshairBorder, 3.0f);
+			m_pRenderer->ImmediateVertex(crosshairBorder, -crosshairBorder, 3.0f);
+			m_pRenderer->ImmediateVertex(crosshairBorder, crosshairBorder, 3.0f);
+			m_pRenderer->ImmediateVertex(-crosshairBorder, crosshairBorder, 3.0f);
+		m_pRenderer->DisableImmediateMode();
+
 	m_pRenderer->PopMatrix();
 }
 

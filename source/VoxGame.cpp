@@ -12,6 +12,7 @@
 #include "glew/include/GL/glew.h"
 
 #include "VoxGame.h"
+#include "../utils/Interpolator.h"
 
 #ifdef __linux__
 #include <sys/time.h>
@@ -272,6 +273,9 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	// Blur
 	m_globalBlurAmount = 0.0f;
 
+	// Cinematic letterbox mode
+	m_letterBoxRatio = 0.0f;
+
 	// Toggle flags
 	m_deferredRendering = true;
 	m_modelWireframe = false;
@@ -406,6 +410,17 @@ void VoxGame::SetGlobalBlurAmount(float blurAmount)
 {
 	m_globalBlurAmount = blurAmount;
 	m_pBlurCheckBox->SetToggled(m_globalBlurAmount > 0.0f);
+}
+
+// Cinematic letterbox
+void VoxGame::OpenLetterBox()
+{
+	Interpolator::GetInstance()->AddFloatInterpolation(&m_letterBoxRatio, m_letterBoxRatio, 1.0f, 0.25f, -100.0f);
+}
+
+void VoxGame::CloseLetterBox()
+{
+	Interpolator::GetInstance()->AddFloatInterpolation(&m_letterBoxRatio, m_letterBoxRatio, 0.0f, 0.25f, 100.0f);
 }
 
 // Events
@@ -701,8 +716,8 @@ bool VoxGame::CheckInteractions()
 			//// Set player alpha to full opacity
 			//m_pPlayer->SetPlayerAlpha(1.0f);
 
-			//// Open cinematic letterbox
-			//OpenLetterBox();
+			// Open cinematic letterbox
+			OpenLetterBox();
 
 			interaction = true;
 		}

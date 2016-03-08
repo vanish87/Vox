@@ -356,8 +356,7 @@ void CraftingGUI::Unload()
 		m_pInteractionItem->SetCollisionEnabled(true);
 	}
 
-	// TODO : Add me back in - cinematic mode
-	//m_pGameWindow->CloseLetterBox();
+	VoxGame::GetInstance()->CloseLetterBox();
 
 	m_loaded = false;
 
