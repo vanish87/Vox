@@ -1,9 +1,7 @@
 // ******************************************************************************
 // Filename:    InstanceManager.cpp
-// Project:     Game
+// Project:     Vox
 // Author:      Steven Ball
-//
-// Purpose:
 //
 // Revision History:
 //   Initial Revision - 11/06/12
@@ -72,6 +70,7 @@ void InstanceManager::ClearInstanceObjects()
 	m_vpInstanceParentList.clear();
 }
 
+// Counters
 int InstanceManager::GetNumInstanceParents()
 {
 	int numInstanceParents = (int)m_vpInstanceParentList.size();
@@ -125,6 +124,7 @@ int InstanceManager::GetTotalNumInstanceRenderObjects()
 	return renderCounter;
 }
 
+// Setup
 void InstanceManager::SetupGLBuffers(InstanceParent *pInstanceParent)
 {
 	pInstanceParent->m_vertexArray = -1;
