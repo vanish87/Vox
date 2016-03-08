@@ -3,10 +3,6 @@
 // Project:     Vox
 // Author:      Steven Ball
 //
-// Purpose:
-//   A cube mapped skybox render. Support for 2 concurrent skyboxes and blending
-//   between the different skyboxes via the skybox cube shader.
-//
 // Revision History:
 //   Initial Revision - 22/09/14
 //
