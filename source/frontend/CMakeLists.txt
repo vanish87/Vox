@@ -6,8 +6,8 @@ set(FRONTEND_SRCS
    "${CMAKE_CURRENT_SOURCE_DIR}/FrontendScreens.h"
    PARENT_SCOPE)
 
-file(GLOB FRONTEND_PAGES pages/*.h  pages/*.cpp)
+file(GLOB FRONTEND_PAGES Pages/*.h  Pages/*.cpp)
 set(FRONTEND_PAGES ${FRONTEND_PAGES} PARENT_SCOPE)
 
 source_group("frontend" FILES ${FRONTEND_SRCS})
-source_group("frontend\\pages" FILES ${FRONTEND_PAGES})
+source_group("frontend\\Pages" FILES ${FRONTEND_PAGES})
