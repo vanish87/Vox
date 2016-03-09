@@ -335,6 +335,11 @@ void InventoryGUI::Unload()
 	m_loaded = false;
 }
 
+bool InventoryGUI::IsLoadDelayed()
+{
+	return (m_loadDelay == true && m_loadDelayTime > 0.0f);
+}
+
 void InventoryGUI::SetWindowDimensions(int windowWidth, int windowHeight)
 {
 	m_windowWidth = windowWidth;

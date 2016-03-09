@@ -383,6 +383,11 @@ void CraftingGUI::Unload()
 	}
 }
 
+bool CraftingGUI::IsLoadDelayed()
+{
+	return (m_loadDelay == true && m_loadDelayTime > 0.0f);
+}
+
 bool CraftingGUI::IsLoaded()
 {
 	return m_loaded;

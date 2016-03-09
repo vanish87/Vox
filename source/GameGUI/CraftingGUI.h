@@ -83,6 +83,7 @@ public:
 
 	void Load(bool loadDelay, float loadDelayTime);
 	void Unload();
+	bool IsLoadDelayed();
 
 	bool IsLoaded();
 

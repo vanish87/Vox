@@ -789,7 +789,7 @@ bool VoxGame::CheckInteractions()
 
 					if (m_pInventoryGUI->IsLoaded() == false)
 					{
-						m_pInventoryGUI->Load(true, 0.9f);
+						m_pInventoryGUI->Load(true, 1.2f);
 					}
 
 					m_pPlayer->StopMoving();
@@ -837,7 +837,7 @@ bool VoxGame::IsGUIWindowStillDisplayed()
 
 void VoxGame::CloseAllGUIWindows()
 {
-	if (m_pInventoryGUI->IsLoaded())
+	if (m_pInventoryGUI->IsLoaded() && m_pInventoryGUI->IsLoadDelayed() == false)
 	{
 		m_pInventoryGUI->Unload();
 	}
@@ -847,12 +847,12 @@ void VoxGame::CloseAllGUIWindows()
 		m_pCharacterGUI->Unload();
 	}
 
-	if (m_pLootGUI->IsLoaded())
+	if (m_pLootGUI->IsLoaded() && m_pLootGUI->IsLoadDelayed() == false)
 	{
 		m_pLootGUI->Unload();
 	}
 
-	if (m_pCraftingGUI->IsLoaded())
+	if (m_pCraftingGUI->IsLoaded() && m_pCraftingGUI->IsLoadDelayed() == false)
 	{
 		m_pCraftingGUI->Unload();
 	}

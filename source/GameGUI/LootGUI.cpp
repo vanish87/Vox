@@ -256,6 +256,11 @@ void LootGUI::Unload()
 	m_loaded = false;
 }
 
+bool LootGUI::IsLoadDelayed()
+{
+	return (m_loadDelay == true && m_loadDelayTime > 0.0f);
+}
+
 bool LootGUI::IsLoaded()
 {
 	return m_loaded;

@@ -72,7 +72,10 @@ void VoxGame::UpdateKeyboardControls(float dt)
 			{
 				CloseAllGUIWindows();
 
-				TurnCursorOff();
+				if (IsGUIWindowStillDisplayed() == false)
+				{
+					TurnCursorOff();
+				}
 			}
 			else
 			{
