@@ -156,6 +156,12 @@ void VoxGame::UpdatePlayerAlpha(float dt)
 	vec3 toPlayer = ((m_pPlayer->GetCenter() + Player::PLAYER_CENTER_OFFSET) - m_pGameCamera->GetPosition());
 	float distance = length(toPlayer);
 	float alpha = (distance) / 7.5f;
+
+	if (m_cameraMode == CameraMode_NPCDialog)
+	{
+		alpha = 1.0f;
+	}
+
 	m_pPlayer->SetPlayerAlpha(alpha);
 }
 
