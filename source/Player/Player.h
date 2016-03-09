@@ -236,6 +236,8 @@ public:
 	void RenderFirstPerson();
 	void RenderWeaponTrails();
 	void RenderFace();
+	void RenderPaperdoll();
+	void RenderPaperdollFace();
 	void RenderDebug();
 	void RenderProjectileHitboxDebug();
 

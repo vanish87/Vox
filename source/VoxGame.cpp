@@ -71,6 +71,12 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_deltaTime = 0.0f;
 	m_fps = 0.0f;
 
+	/* Paper doll viewport dimensions */
+	m_paperdollViewportX = 0;
+	m_paperdollViewportY = 0;
+	m_paperdollViewportWidth = 800;
+	m_paperdollViewportHeight = 800;
+
 	/* Setup the initial starting wait timing */
 	m_initialWaitTimer = 0.0f;
 	m_initialWaitTime = 0.5f;
@@ -101,6 +107,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 
 	/* Create viewports */
 	m_pRenderer->CreateViewport(0, 0, m_windowWidth, m_windowHeight, 60.0f, &m_defaultViewport);
+	m_pRenderer->CreateViewport(m_paperdollViewportY, m_paperdollViewportX, m_paperdollViewportWidth, m_paperdollViewportHeight, 60.0f, &m_paperdollViewport);
 
 	/* Create fonts */
 	m_pRenderer->CreateFreeTypeFont("media/fonts/arial.ttf", 12, &m_defaultFont);
@@ -124,6 +131,8 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	frameBufferCreated = m_pRenderer->CreateFrameBuffer(-1, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "FXAA", &m_FXAAFrameBuffer);
 	frameBufferCreated = m_pRenderer->CreateFrameBuffer(-1, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "FullScreen 1st Pass", &m_firstPassFullscreenBuffer);
 	frameBufferCreated = m_pRenderer->CreateFrameBuffer(-1, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "FullScreen 2nd Pass", &m_secondPassFullscreenBuffer);
+	frameBufferCreated = m_pRenderer->CreateFrameBuffer(-1, true, true, true, true, 800, 800, 1.0f, "Paperdoll", &m_paperdollBuffer);
+	frameBufferCreated = m_pRenderer->CreateFrameBuffer(-1, true, true, true, true, 800, 800, 1.0f, "Paperdoll SSAO Texture", &m_paperdollSSAOTextureBuffer);
 
 	/* Create the shaders */
 	bool shaderLoaded = false;
@@ -137,6 +146,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_fxaaShader = -1;
 	m_blurVerticalShader = -1;
 	m_blurHorizontalShader = -1;
+	m_paperdollShader = -1;
 	shaderLoaded = m_pRenderer->LoadGLSLShader("media/shaders/default.vertex", "media/shaders/default.pixel", &m_defaultShader);
 	shaderLoaded = m_pRenderer->LoadGLSLShader("media/shaders/phong.vertex", "media/shaders/phong.pixel", &m_phongShader);
 	shaderLoaded = m_pRenderer->LoadGLSLShader("media/shaders/shadow.vertex", "media/shaders/shadow.pixel", &m_shadowShader);
@@ -147,6 +157,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	shaderLoaded = m_pRenderer->LoadGLSLShader("media/shaders/cube_map.vertex", "media/shaders/cube_map.pixel", &m_cubeMapShader);
 	shaderLoaded = m_pRenderer->LoadGLSLShader("media/shaders/fullscreen/blur_vertical.vertex", "media/shaders/fullscreen/blur_vertical.pixel", &m_blurVerticalShader);
 	shaderLoaded = m_pRenderer->LoadGLSLShader("media/shaders/fullscreen/blur_horizontal.vertex", "media/shaders/fullscreen/blur_horizontal.pixel", &m_blurHorizontalShader);
+	shaderLoaded = m_pRenderer->LoadGLSLShader("media/shaders/paperdoll.vertex", "media/shaders/paperdoll.pixel", &m_paperdollShader);
 
 	/* Create the qubicle binary file manager */
 	m_pQubicleBinaryManager = new QubicleBinaryManager(m_pRenderer);
@@ -276,6 +287,9 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 
 	// Cinematic letterbox mode
 	m_letterBoxRatio = 0.0f;
+
+	// Paperdoll rendering
+	m_paperdollRenderRotation = 0.0f;
 
 	// Toggle flags
 	m_deferredRendering = true;
@@ -425,6 +439,22 @@ void VoxGame::CloseLetterBox()
 	Interpolator::GetInstance()->AddFloatInterpolation(&m_letterBoxRatio, m_letterBoxRatio, 0.0f, 0.25f, 100.0f);
 }
 
+// Paperdoll rendering
+void VoxGame::SetPaperdollRotation(float rotation)
+{
+	m_paperdollRenderRotation = rotation;
+}
+
+void VoxGame::RotatePaperdollModel(float rot)
+{
+	m_paperdollRenderRotation += rot;// * m_deltaTime;
+}
+
+unsigned int VoxGame::GetDynamicPaperdollTexture()
+{
+	return m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_paperdollSSAOTextureBuffer);
+}
+
 // Events
 void VoxGame::PollEvents()
 {
@@ -461,6 +491,7 @@ void VoxGame::ResizeWindow(int width, int height)
 
 		// Resize the main viewport
 		m_pRenderer->ResizeViewport(m_defaultViewport, 0, 0, m_windowWidth, m_windowHeight, 60.0f);
+		m_pRenderer->ResizeViewport(m_paperdollViewport, m_paperdollViewportY, m_paperdollViewportX, m_paperdollViewportWidth, m_paperdollViewportHeight, 60.0f);
 
 		// Resize the frame buffers
 		bool frameBufferResize = false;
@@ -471,7 +502,9 @@ void VoxGame::ResizeWindow(int width, int height)
 		frameBufferResize = m_pRenderer->CreateFrameBuffer(m_FXAAFrameBuffer, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "FXAA", &m_FXAAFrameBuffer);
 		frameBufferResize = m_pRenderer->CreateFrameBuffer(m_firstPassFullscreenBuffer, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "FullScreen 1st Pass", &m_firstPassFullscreenBuffer);
 		frameBufferResize = m_pRenderer->CreateFrameBuffer(m_secondPassFullscreenBuffer, true, true, true, true, m_windowWidth, m_windowHeight, 1.0f, "FullScreen 2nd Pass", &m_secondPassFullscreenBuffer);
-
+		frameBufferResize = m_pRenderer->CreateFrameBuffer(m_paperdollBuffer, true, true, true, true, 800, 800, 1.0f, "Paperdoll", &m_paperdollBuffer);
+		frameBufferResize = m_pRenderer->CreateFrameBuffer(m_paperdollSSAOTextureBuffer, true, true, true, true, 800, 800, 1.0f, "Paperdoll SSAO Texture", &m_paperdollSSAOTextureBuffer);
+		
 		// Give the new windows dimensions to the GUI components also
 		m_pMainWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 		m_pGameWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);

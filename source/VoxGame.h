@@ -93,6 +93,11 @@ public:
 	void OpenLetterBox();
 	void CloseLetterBox();
 
+	// Paperdoll rendering
+	void SetPaperdollRotation(float rotation);
+	void RotatePaperdollModel(float rot);
+	unsigned int GetDynamicPaperdollTexture();
+
 	// Events
 	void PollEvents();
 	bool ShouldClose();
@@ -181,6 +186,8 @@ public:
 	void RenderGUI();
 	void RenderCinematicLetterBox();
 	void RenderCrosshair();
+	void RenderPaperdollViewport();
+	void RenderDeferredRenderingPaperDoll();
 	void RenderDebugInformation();
 
 	// GUI Helper functions
@@ -336,6 +343,7 @@ private:
 
 	// View ports
 	unsigned int m_defaultViewport;
+	unsigned int m_paperdollViewport;
 
 	// Fonts
 	unsigned int m_defaultFont;
@@ -356,6 +364,8 @@ private:
 	unsigned int m_FXAAFrameBuffer;
 	unsigned int m_firstPassFullscreenBuffer;
 	unsigned int m_secondPassFullscreenBuffer;
+	unsigned int m_paperdollBuffer;
+	unsigned int m_paperdollSSAOTextureBuffer;
 
 	// Shaders
 	unsigned int m_defaultShader;
@@ -368,6 +378,13 @@ private:
 	unsigned int m_fxaaShader;
 	unsigned int m_blurVerticalShader;
 	unsigned int m_blurHorizontalShader;
+	unsigned int m_paperdollShader;
+
+	// Paperdoll viewport
+	int m_paperdollViewportX;
+	int m_paperdollViewportY;
+	int m_paperdollViewportWidth;
+	int m_paperdollViewportHeight;
 
 	// FPS and deltatime
 #ifdef _WIN32
@@ -447,6 +464,9 @@ private:
 
 	// Cinematic letterbox mode
 	float m_letterBoxRatio;
+
+	// Paperdoll rendering
+	float m_paperdollRenderRotation;
 
 	// Game GUI
 	InventoryGUI* m_pInventoryGUI;

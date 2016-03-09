@@ -525,8 +525,7 @@ void CharacterGUI::Load()
 	m_leftArrowPressed = false;
 	m_rightArrowPressed = false;
 
-	// TODO : Add me back in - character ragdoll
-	//m_pGameWindow->SetPaperdollRotation(0.0f);
+	VoxGame::GetInstance()->SetPaperdollRotation(0.0f);
 
 	m_loaded = true;
 }
@@ -1143,8 +1142,7 @@ void CharacterGUI::Update(float dt)
 {
 	UpdateToolTipAppear(dt);
 
-	// TODO : Add me back in - character ragdoll
-	//m_pDynamicPaperDollIcon->SetDynamicTexture(m_pGameWindow->GetDynamicPaperdollTexture());
+	m_pDynamicPaperDollIcon->SetDynamicTexture(VoxGame::GetInstance()->GetDynamicPaperdollTexture());
 
 	// Check if the character GUI needs update (we have equipped items, or quantity changed, etc)
 	if(m_pInventoryManager->CharacterGUINeedsUpdate() && IsLoaded() == true)
@@ -1168,15 +1166,14 @@ void CharacterGUI::Update(float dt)
 	// Update equip hover icon
 	UpdateEquipHover();
 
-	// TODO : Add me back in - character ragdoll
-	//if(m_rightArrowPressed)
-	//{
-	//	m_pGameWindow->RotatePaperdollModel(150.0f * dt);
-	//}
-	//if(m_leftArrowPressed)
-	//{
-	//	m_pGameWindow->RotatePaperdollModel(-150.0f * dt);
-	//}
+	if(m_rightArrowPressed)
+	{
+		VoxGame::GetInstance()->RotatePaperdollModel(150.0f * dt);
+	}
+	if(m_leftArrowPressed)
+	{
+		VoxGame::GetInstance()->RotatePaperdollModel(-150.0f * dt);
+	}
 
 	// Update the stats tab left and right sides
 	if(m_statsTabLeftSide)
