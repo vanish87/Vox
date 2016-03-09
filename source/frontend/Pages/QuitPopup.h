@@ -4,6 +4,9 @@
 // Author:      Steven Ball
 //
 // Purpose:
+//   A front-end page to show a confirm/cancel popup when the player goes to
+//   close the Vox application while in game. This happens for all types of
+//   close requests that the application receives.
 //
 // Revision History:
 //   Initial Revision - 12/10/14
