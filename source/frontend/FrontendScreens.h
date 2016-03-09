@@ -1,7 +1,7 @@
 // ******************************************************************************
-// Filename:	FrontendScreens.h
-// Project:	Game
-// Author:	Steven Ball
+// Filename:    FrontendScreens.h
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //

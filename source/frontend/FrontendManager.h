@@ -1,7 +1,7 @@
 // ******************************************************************************
-// Filename:	FrontendManager.h
-// Project:	Game
-// Author:	Steven Ball
+// Filename:    FrontendManager.h
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //   A manager class to contain all the common functionality for front-end pages

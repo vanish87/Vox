@@ -1,7 +1,7 @@
 // ******************************************************************************
-// Filename:	FrontendManager.cpp
-// Project:	Game
-// Author:	Steven Ball
+// Filename:    FrontendManager.cpp
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Revision History:
 //   Initial Revision - 01/11/15
