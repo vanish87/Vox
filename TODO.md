@@ -93,7 +93,19 @@
   * Allow input commands.
   * Clear log text functionality
   * Rendering of many log messages is slow, output to file?
-* Convert shaders over to be more unified.
+* ~~Add item manager.~~
+* ~~Add inventory GUI.~~
+* ~~Add character GUI.~~
+* ~~Tidy up inventory and item managers!~~
+  * ~~Add back in TODO code (TODO : Add me back in).~~
+  * ~~Test ALL functionality with player equipping items and weapons.~~
+  * ~~Add hooks to GUI.~~
+  * ~~Player stats.~~
+  * ~~Loot GUI chest interactions.~~
+  * ~~Crafting GUI functionality.~~
+  * ~~Character GUI paperdoll render.~~
+  * CharacterGUI particle effects.
+  * CharacterGUI player poses and animation stances.
 * Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
 * Add biome manager
@@ -103,11 +115,8 @@
   * Flower generation.
   * Poisson-disc sparation and generation for random placement of scenery.
   * Convert scenery manager to use instance rendering and the instance shader.
-* ~~Add item manager.~~
-* Create basic front-end.
-* ~~Add inventory GUI.~~
-* ~~Add character GUI.~~
 * Add Quest GUI.
+* Create basic front-end.
 * Create front end scene and character line up.
 * Character creation and customization.
 * Saving and loading chunks.
@@ -126,14 +135,6 @@
 * Fix camera glitching when going in and out of pause menu (also quit menu).
 * Allow for font changing on the fly, allow different font styles to go with the themes.
 * Add shadow receiving on instanced rendered objects. (Add texture matrix to shader??)
-* Tidy up inventory and item managers!
-  * ~~Add back in TODO code (TODO : Add me back in).~~
-  * ~~Test ALL functionality with player equipping items and weapons.~~
-  * ~~Add hooks to GUI.~~
-  * ~~Player stats.~~
-  * ~~Loot GUI chest interactions.~~
-  * ~~Crafting GUI functionality.~~
-  * Character GUI paperdoll render.
 * Player particle trail on walking.
 * Test out Baked AO models using MagikaVoxel.
 * Enemies.
