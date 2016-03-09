@@ -715,10 +715,9 @@ bool VoxGame::CheckInteractions()
 				m_targetCameraView_NPCDialog = (m_pInteractItem->GetInteractionPosition() + center*0.0f + crossRight*4.0f);
 			}
 
-			// TODO : Crafting mode camera - NPC dialog
 			// Player move to interaction point and look at interaction item
-			//m_pPlayer->SetMoveToTargetPosition(m_pInteractItem->GetInteractionPosition());
-			//m_pPlayer->SetLookAtTargetAfterMoveToPosition(m_pInteractItem->GetCenter());
+			m_pPlayer->SetMoveToTargetPosition(m_pInteractItem->GetInteractionPosition());
+			m_pPlayer->SetLookAtTargetAfterMoveToPosition(m_pInteractItem->GetCenter());
 
 			// Set player alpha to full opacity
 			m_pPlayer->SetPlayerAlpha(1.0f);

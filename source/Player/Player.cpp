@@ -118,6 +118,14 @@ void Player::ResetPlayer()
 	m_workingAnimationDelay = 0.55f;
 	m_createdAnvilHitParticleEffect = true;
 
+	// Look at point
+	m_bLookAtPoint = false;
+	m_bodyTurnSpeedMultiplier = 3.5f;
+	m_bodyTurnStopThreshold = 0.35f;
+
+	// Moving to target position, for item interaction points, and NPC dialog
+	m_moveToTargetPosition = false;
+
 	// Combat
 	m_bCanAttackLeft = true;
 	m_bCanAttackRight = true;
@@ -1210,6 +1218,22 @@ bool Player::CanJump()
 	return m_bCanJump;
 }
 
+void Player::SetMoveToTargetPosition(vec3 pos)
+{
+	m_moveToTargetPosition = true;
+	m_targetPosition = pos;
+}
+
+void Player::DisableMoveToTargetPosition()
+{
+	m_moveToTargetPosition = false;
+}
+
+void Player::SetLookAtTargetAfterMoveToPosition(vec3 lookAt)
+{
+	m_lookAtPositionAfterMoveToTarget = lookAt;
+}
+
 // Dead
 bool Player::IsDead()
 {
@@ -1439,8 +1463,7 @@ void Player::SetCraftingItem(bool crafting)
 
 		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BindPose", 0.1f);
 
-		// TODO : SetRandomLookMode
-		//SetRandomLookMode();
+		SetRandomLookMode();
 
 		InventoryItem* pInventoryItem = m_pInventoryManager->GetInventoryItemForEquipSlot(EquipSlot_RightHand);
 		if (pInventoryItem != NULL)
@@ -1452,6 +1475,31 @@ void Player::SetCraftingItem(bool crafting)
 			UnloadWeapon(false);
 		}
 	}
+}
+
+// Looking
+void Player::LookAtPoint(vec3 point)
+{
+	m_bLookAtPoint = true;
+	m_lookPoint = point;
+}
+
+void Player::SetRandomLookMode()
+{
+	m_pVoxelCharacter->SetFaceTargetDirection(m_pVoxelCharacter->GetFaceLookingDirection());
+	m_pVoxelCharacter->SetRandomLookDirection(true);
+	m_pVoxelCharacter->SetFaceLookToTargetSpeedMultiplier(1.0f);
+	m_bLookAtPoint = false;
+}
+
+void Player::SetBodyTurnStopThreshold(float threshold)
+{
+	m_bodyTurnStopThreshold = threshold;
+}
+
+void Player::SetBodyTurnSpeedMultiplier(float multiplier)
+{
+	m_bodyTurnSpeedMultiplier = multiplier;
 }
 
 // Player equipped attributes
@@ -1858,8 +1906,14 @@ void Player::Update(float dt)
 	// Update combat
 	UpdateCombat(dt);
 
+	// Update movement
+	UpdateMovement(dt);
+
 	// Update working
 	UpdateWorking(dt);
+
+	// Update look at point
+	UpdateLookingAndForwardTarget(dt);
 
 	// Update / Create weapon lights and particle effects
 	UpdateWeaponLights(dt);
@@ -1967,14 +2021,61 @@ void Player::UpdatePhysics(float dt)
 	m_previousPosition = GetCenter();
 }
 
+void Player::UpdateMovement(float dt)
+{
+	if (m_moveToTargetPosition)
+	{
+		vec3 targetPos = m_targetPosition;
+		vec3 toTarget = targetPos - GetCenter();
+		toTarget.y = 0.0f;
+		float lengthToTarget = length(toTarget);
+
+		bool lReachedTarget = (lengthToTarget < 0.1f);
+
+		if (lReachedTarget)
+		{
+			StopMoving();
+
+			SetBodyTurnStopThreshold(0.01f);
+			SetBodyTurnSpeedMultiplier(6.0f);
+
+			if (m_moveToTargetPosition)
+			{
+				LookAtPoint(m_lookAtPositionAfterMoveToTarget);
+
+				m_moveToTargetPosition = false;
+			}
+		}
+		else
+		{
+			LookAtPoint(targetPos);
+
+			vec3 toTarget = m_targetPosition - m_position;
+			vec3 movementDirection = toTarget;
+			movementDirection.y = 0.0f;
+			movementDirection = normalize(movementDirection);
+
+			float movementSpeed = (4.5f * dt);
+			float animationSpeed = 1.0f;
+
+			// TODO : Animation speeds
+			//for (int i = 0; i < AnimationSections_NUMSECTIONS; i++)
+			//{
+			//	SetAnimationSpeed(animationSpeed, false, (AnimationSections)i);
+			//}
+
+			MoveAbsolute(movementDirection, movementSpeed);
+		}
+	}
+}
+
 void Player::UpdateWorking(float dt)
 {
 	if (m_pVoxelCharacter->HasAnimationFinished(AnimationSections_Right_Arm_Hand))
 	{
 		if (m_createdAnvilHitParticleEffect == false)
 		{
-			// TODO : Look point
-			vec3 anvilHitPos;// = m_lookPoint + vec3(0.0f, 0.5f, 0.0f);
+			vec3 anvilHitPos = m_lookPoint + vec3(0.0f, 0.5f, 0.0f);
 
 			unsigned int effectId = -1;
 			BlockParticleEffect* pBlockParticleEffect = m_pBlockParticleManager->ImportParticleEffect("media/gamedata/particles/anvil_hit.effect", anvilHitPos, &effectId);
@@ -2027,6 +2128,67 @@ void Player::UpdateWorking(float dt)
 			{
 				m_workingAnimationWaitTimer -= dt;
 			}
+		}
+	}
+}
+
+void Player::UpdateLookingAndForwardTarget(float dt)
+{
+	// TODO : Target enemy
+	//if (m_pTargetEnemy != NULL)
+	//{
+	//	LookAtPoint(m_pTargetEnemy->GetCenter());
+	//}
+
+	vec3 toPoint = m_lookPoint - GetCenter();
+	toPoint = normalize(toPoint);
+
+	if (m_bLookAtPoint)
+	{
+		m_targetForward = toPoint;
+		m_targetForward.y = 0.0f;
+	}
+
+	m_targetForward = normalize(m_targetForward);
+
+	if (length(m_forward - m_targetForward) <= m_bodyTurnStopThreshold)
+	{
+	}
+	else
+	{
+		vec3 toTarget = m_targetForward - m_forward;
+		m_forward += (toTarget * dt) * m_bodyTurnSpeedMultiplier;
+		m_forward = normalize(m_forward);
+	}
+
+	if (m_pVoxelCharacter != NULL)
+	{
+		if (m_bLookAtPoint)
+		{
+			float angleMissing = dot(m_targetForward, m_forward);
+			float angle = acos(angleMissing);
+
+			if (RadToDeg(angle) > 80.0f)
+				angle = DegToRad(80.0f);
+
+			float tempX = (float)sin((angle));
+			float tempZ = (float)cos((angle));
+
+			vec3 crossProduct = cross(m_targetForward, m_forward);
+
+			if (crossProduct.y > 0.0f)
+				tempX = -tempX;
+
+			vec3 lookDirection = vec3(tempX, toPoint.y, tempZ);
+
+			m_pVoxelCharacter->SetFaceTargetDirection(lookDirection);
+			m_pVoxelCharacter->SetRandomLookDirection(false);
+			m_pVoxelCharacter->SetFaceLookToTargetSpeedMultiplier(4.0f);
+		}
+		else
+		{
+			m_pVoxelCharacter->SetRandomLookDirection(true);
+			m_pVoxelCharacter->SetFaceLookToTargetSpeedMultiplier(1.0f);
 		}
 	}
 }

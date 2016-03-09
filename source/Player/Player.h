@@ -117,6 +117,9 @@ public:
 	void StopMoving();
 	void Jump();
 	bool CanJump();
+	void SetMoveToTargetPosition(vec3 pos);
+	void DisableMoveToTargetPosition();
+	void SetLookAtTargetAfterMoveToPosition(vec3 lookAt);
 
 	// Dead
 	bool IsDead();
@@ -147,6 +150,12 @@ public:
 	// Crafting
 	void SetCrafting(bool crafting);
 	void SetCraftingItem(bool crafting);
+
+	// Looking
+	void LookAtPoint(vec3 point);
+	void SetRandomLookMode();
+	void SetBodyTurnStopThreshold(float threshold);
+	void SetBodyTurnSpeedMultiplier(float multiplier);
 
 	// Projectile hitbox
 	eProjectileHitboxType GetProjectileHitboxType();
@@ -213,7 +222,9 @@ public:
 	void Update(float dt);
 	void UpdateAnimations(float dt);
 	void UpdatePhysics(float dt);
+	void UpdateMovement(float dt);
 	void UpdateWorking(float dt);
+	void UpdateLookingAndForwardTarget(float dt);
 	void UpdateTimers(float dt);
 	void UpdateWeaponLights(float dt);
 	void UpdateWeaponParticleEffects(float dt);
@@ -326,6 +337,21 @@ private:
 	float m_workingAnimationWaitTimer;
 	float m_workingAnimationDelay;
 	bool m_createdAnvilHitParticleEffect;
+
+	// Moving to target position, for item interaction points, and NPC dialog
+	bool m_moveToTargetPosition;
+	vec3 m_targetPosition;
+	vec3 m_lookAtPositionAfterMoveToTarget;
+
+	// Look at point
+	bool m_bLookAtPoint;
+	vec3 m_lookPoint;
+
+	// Turn speed multiplier
+	float m_bodyTurnSpeedMultiplier;
+
+	// Turn stop threshold
+	float m_bodyTurnStopThreshold;
 
 	// Player stats
 	PlayerStats* m_pPlayerStats;

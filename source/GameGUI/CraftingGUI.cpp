@@ -348,8 +348,7 @@ void CraftingGUI::Unload()
 
 	m_pPlayer->SetCrafting(false);
 	m_pPlayer->SetCraftingItem(false);
-	// TODO : Add me back in - Crafting
-	//m_pPlayer->DisableMoveToTargetPosition();
+	m_pPlayer->DisableMoveToTargetPosition();
 
 	if(m_pInteractionItem != NULL)
 	{
