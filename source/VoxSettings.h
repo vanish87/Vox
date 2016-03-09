@@ -1,15 +1,16 @@
 // ******************************************************************************
-// Filename:	VoxApplication.h
-// Project:	Vox
-// Author:	Steven Ball
+// Filename:    VoxSettings.h
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
-//   Vox application class.
+//   Vox settings, initalized at the application creation and contains all of
+//   the run time settings and configuration that is loaded for Vox.
 // 
 // Revision History:
 //   Initial Revision - 27/10/15
 //
-// Copyright (c) 2005-2015, Steven Ball
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #pragma once
