@@ -293,11 +293,7 @@ void ActionBar::AddItemToActionBar(InventoryItem* pInventoryItem, int slotIndex,
 	pActionButton->m_equipSlot = pInventoryItem->m_equipSlot;
 	pActionButton->m_erase = false;
 
-	// TODO : REDO?
-	//if(m_pGameWindow->GetConfigurationManager()->GetRenderGUI() && m_pFrontendManager->GetFrontendScreen() != FrontendScreen_Loading)
-	{
-		CreateActionButtonIcon(pActionButton);
-	}
+	CreateActionButtonIcon(pActionButton);
 
 	m_vpActionSlotItems.push_back(pActionButton);
 }
