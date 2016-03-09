@@ -1,7 +1,7 @@
 // ******************************************************************************
-// Filename:	ChunkManager.h
-// Project:	Game
-// Author:	Steven Ball
+// Filename:    ChunkManager.h
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //   ChunkManager handles all the chunk operations and management of the
@@ -11,7 +11,7 @@
 // Revision History:
 //   Initial Revision - 01/11/15
 //
-// Copyright (c) 2005-2015, Steven Ball
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #pragma once

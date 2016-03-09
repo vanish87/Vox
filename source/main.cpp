@@ -1,7 +1,7 @@
 // ******************************************************************************
-// Filename:	main.cpp
-// Project:	Vox
-// Author:	Steven Ball
+// Filename:    main.cpp
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //   The main entry point for the application. Creates the initial instances of

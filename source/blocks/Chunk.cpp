@@ -1,12 +1,12 @@
 // ******************************************************************************
-// Filename:	ChunkManager.cpp
-// Project:	Game
-// Author:	Steven Ball
+// Filename:    ChunkManager.cpp
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Revision History:
 //   Initial Revision - 01/11/15
 //
-// Copyright (c) 2005-2015, Steven Ball
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #include <algorithm>

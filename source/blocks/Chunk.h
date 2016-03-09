@@ -1,7 +1,7 @@
 // ******************************************************************************
-// Filename:	Chunk.h
-// Project:	Game
-// Author:	Steven Ball
+// Filename:    Chunk.h
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //   A chunk is a collection of voxel blocks that are arranged together for
@@ -13,7 +13,7 @@
 // Revision History:
 //   Initial Revision - 01/11/15
 //
-// Copyright (c) 2005-2015, Steven Ball
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #pragma once

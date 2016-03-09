@@ -1,16 +1,14 @@
 // ******************************************************************************
-//
-// Filename:	QuitPopup.cpp
-// Project:		Game
-// Author:		Steven Ball
+// Filename:    QuitPopup.cpp
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //
 // Revision History:
 //   Initial Revision - 12/10/14
 //
-// Copyright (c) 2005-2011, Steven Ball
-//
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #include "QuitPopup.h"
