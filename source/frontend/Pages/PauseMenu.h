@@ -4,6 +4,9 @@
 // Author:      Steven Ball
 //
 // Purpose:
+//   A front-end page to show a pause menu from within the game. Allows the
+//   player access to the options/mod menu and also functionality to quit back
+//   to the front-end (main menu).
 //
 // Revision History:
 //   Initial Revision - 12/10/14
