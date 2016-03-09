@@ -28,6 +28,9 @@ public:
 
 	void SetWindowDimensions(int width, int height);
 
+	void SkinGUI();
+	void UnSkinGUI();
+
 	void Load();
 	void Unload();
 

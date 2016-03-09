@@ -80,6 +80,22 @@ void PauseMenu::SetWindowDimensions(int windowWidth, int windowHeight)
 	m_pQuitButton->SetDimensions((int)((m_windowWidth*0.5f)-(110*0.5f)), (int)((m_windowHeight*0.5f)+(265*0.5f)-275), 110, 47);
 }
 
+void PauseMenu::SkinGUI()
+{
+	m_pFrontendManager->SetButtonIcons(m_pResumeButton, ButtonSize_110x47);
+	m_pFrontendManager->SetButtonIcons(m_pModsButton, ButtonSize_110x47);
+	m_pFrontendManager->SetButtonIcons(m_pOptionsButton, ButtonSize_110x47);
+	m_pFrontendManager->SetButtonIcons(m_pQuitButton, ButtonSize_110x47);
+}
+
+void PauseMenu::UnSkinGUI()
+{
+	m_pResumeButton->SetDefaultIcons(m_pRenderer);
+	m_pModsButton->SetDefaultIcons(m_pRenderer);
+	m_pOptionsButton->SetDefaultIcons(m_pRenderer);
+	m_pQuitButton->SetDefaultIcons(m_pRenderer);
+}
+
 void PauseMenu::Load()
 {
 	m_pGUI->AddComponent(m_pResumeButton);

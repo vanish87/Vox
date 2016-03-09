@@ -121,6 +121,7 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 		int height = 0;
 		if (ButtonSize(i) == ButtonSize_85x25) { width = 85; height = 25; }
 		if (ButtonSize(i) == ButtonSize_65x25) { width = 65; height = 25; }
+		if (ButtonSize(i) == ButtonSize_110x47) { width = 110; height = 47; }
 
 		m_pButtonIcon[ButtonSize(i)] = new Icon(m_pRenderer, "", width, height);
 		m_pButtonIcon[ButtonSize(i)]->SetDepth(2.0f);
@@ -265,6 +266,23 @@ int FrontendManager::GetWindowHeight()
 	return m_windowHeight;
 }
 
+// Skinning the GUI
+void FrontendManager::SkinGUI()
+{
+	for (unsigned int i = 0; i < m_vpFrontendPages.size(); i++)
+	{
+		m_vpFrontendPages[i]->SkinGUI();
+	}
+}
+
+void FrontendManager::UnSkinGUI()
+{
+	for (unsigned int i = 0; i < m_vpFrontendPages.size(); i++)
+	{
+		m_vpFrontendPages[i]->UnSkinGUI();
+	}
+}
+
 // Frontend screen
 eFrontendScreen FrontendManager::GetFrontendScreen()
 {
@@ -376,6 +394,7 @@ void FrontendManager::LoadCommonGraphics(string themeName)
 		string sizeFolder = "";
 		if (ButtonSize(i) == ButtonSize_85x25) { sizeFolder = "85x25"; }
 		if (ButtonSize(i) == ButtonSize_65x25) { sizeFolder = "65x25"; }
+		if (ButtonSize(i) == ButtonSize_110x47) { sizeFolder = "110x47"; }
 
 		iconName = "media/textures/gui/" + themeName + "/common/buttons/" + sizeFolder + "/buttonDefault.tga";
 		m_pButtonIcon[ButtonSize(i)]->SetIcon(iconName);

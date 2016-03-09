@@ -329,6 +329,9 @@ void VoxGame::SkinGUI()
 	m_pFrontendManager->SetButtonIcons(m_pFullscreenButton, ButtonSize_85x25);
 	m_pFrontendManager->SetButtonIcons(m_pPlayAnimationButton, ButtonSize_85x25);
 	m_pFrontendManager->SetButtonIcons(m_pStepUpdateButton, ButtonSize_65x25);
+
+	// Also skin the frontend pages
+	m_pFrontendManager->SkinGUI();
 }
 
 void VoxGame::UnSkinGUI()
@@ -365,6 +368,9 @@ void VoxGame::UnSkinGUI()
 	m_pStepUpdateButton->SetDefaultIcons(m_pRenderer);
 
 	m_pConsoleScrollbar->SetDefaultIcons(m_pRenderer);
+
+	// Also unskin the frontend pages
+	m_pFrontendManager->UnSkinGUI();
 }
 
 void VoxGame::DestroyGUI()

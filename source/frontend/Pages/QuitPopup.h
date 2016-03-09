@@ -30,6 +30,9 @@ public:
 
 	void SetWindowDimensions(int width, int height);
 
+	void SkinGUI();
+	void UnSkinGUI();
+
 	void Load();
 	void Unload();
 
@@ -62,7 +65,7 @@ private:
 
 	Label* m_pQuitText;
 
-	//Icon* m_pBackgroundIcon;
+	Icon* m_pBackgroundIcon;
 
 	Button* m_pCancelButton;
 	Button* m_pConfirmButton;

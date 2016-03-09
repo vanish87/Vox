@@ -30,6 +30,7 @@ enum ButtonSize
 {
 	ButtonSize_85x25 = 0,
 	ButtonSize_65x25,
+	ButtonSize_110x47,
 
 	ButtonSize_NUM,
 };
@@ -47,6 +48,10 @@ public:
 	void SetWindowDimensions(int width, int height);
 	int GetWindowWidth();
 	int GetWindowHeight();
+
+	// Skinning the GUI
+	void SkinGUI();
+	void UnSkinGUI();
 
 	// Frontend screen
 	eFrontendScreen GetFrontendScreen();

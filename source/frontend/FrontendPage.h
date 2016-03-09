@@ -43,6 +43,9 @@ public:
 
 	virtual void Reset() = 0;
 
+	virtual void SkinGUI() = 0;
+	virtual void UnSkinGUI() = 0;
+
 	virtual void Load() = 0;
 	virtual void Unload() = 0;
 
