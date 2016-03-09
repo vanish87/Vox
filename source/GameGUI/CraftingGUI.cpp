@@ -217,6 +217,10 @@ CraftingGUI::CraftingGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 
 	m_pInteractionItem = NULL;
 
+	// Load delay
+	m_loadDelay = false;
+	m_loadDelayTime = 0.0f;
+
 	m_loaded = false;
 }
 
@@ -303,8 +307,11 @@ void CraftingGUI::SetWindowDimensions(int windowWidth, int windowHeight)
 	m_pSearchBox->SetDimensions(8, 282, 156, 24);
 }
 
-void CraftingGUI::Load()
+void CraftingGUI::Load(bool loadDelay, float loadDelayTime)
 {
+	m_loadDelay = loadDelay;
+	m_loadDelayTime = loadDelayTime;
+
 	m_pCraftingWindow->AddComponent(m_pResultsScrollbar);
 
 	m_crafting = false;
@@ -324,8 +331,11 @@ void CraftingGUI::Load()
 	UpdateCraftButton();
 
 	m_pCraftingWindow->DepthSortComponentChildren();
-	m_pGUI->AddWindow(m_pCraftingWindow);
-	m_pCraftingWindow->Show();
+	if (m_loadDelay == false)
+	{
+		m_pGUI->AddWindow(m_pCraftingWindow);
+		m_pCraftingWindow->Show();
+	}
 
 	m_toolTipVisible = false;
 	m_tooltipAppearDelayTimer = 0.0f;
@@ -337,6 +347,9 @@ void CraftingGUI::Load()
 
 void CraftingGUI::Unload()
 {
+	m_loadDelay = false;
+	m_loadDelayTime = 0.0f;
+
 	HideTooltip();
 
 	DeleteIngredientsButtons();
@@ -1082,6 +1095,20 @@ void CraftingGUI::HideTooltip()
 // Updating
 void CraftingGUI::Update(float dt)
 {
+	if (m_loadDelay == true)
+	{
+		if (m_loadDelayTime <= 0.0f)
+		{
+			m_loadDelay = false;
+			m_pGUI->AddWindow(m_pCraftingWindow);
+			m_pCraftingWindow->Show();
+		}
+		else
+		{
+			m_loadDelayTime -= dt;
+		}
+	}
+
 	UpdateToolTipAppear(dt);
 
 	if(VoxGame::GetInstance()->IsPaused() == false)

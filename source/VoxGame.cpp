@@ -718,7 +718,7 @@ bool VoxGame::CheckInteractions()
 			if (m_pCraftingGUI->IsLoaded() == false)
 			{
 				m_pCraftingGUI->SetCraftingRecipesForItem(m_pInteractItem->GetItemType());
-				m_pCraftingGUI->Load();
+				m_pCraftingGUI->Load(true, 0.9f);
 				m_pCraftingGUI->SetInteractionitem(m_pInteractItem);
 
 				SavePreviousCameraMode();
@@ -785,7 +785,7 @@ bool VoxGame::CheckInteractions()
 				{
 					m_pLootGUI->LoadItems(m_pInteractItem);
 
-					m_pLootGUI->Load(true, 0.9f);
+					m_pLootGUI->Load(true, 1.2f);
 
 					if (m_pInventoryGUI->IsLoaded() == false)
 					{

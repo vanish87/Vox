@@ -81,7 +81,7 @@ public:
 
 	void SetWindowDimensions(int windowWidth, int windowHeight);
 
-	void Load();
+	void Load(bool loadDelay, float loadDelayTime);
 	void Unload();
 
 	bool IsLoaded();
@@ -172,6 +172,10 @@ private:
 	int m_craftingProgressY;
 	int m_craftingProgressWidth;
 	int m_craftingProgressHeight;
+
+	// Load delay
+	bool m_loadDelay;
+	float m_loadDelayTime;
 
 	// GUI components
 	GUIWindow* m_pCraftingWindow;
