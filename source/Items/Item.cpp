@@ -434,6 +434,20 @@ void Item::SetAutoDisappear(float disappearTime)
 	m_autoDisappearTimer = disappearTime;
 }
 
+// Animation
+bool Item::IsStillAnimating()
+{
+	for (int animatedSectionsIndex = 0; animatedSectionsIndex < m_pVoxelItem->GetNumAimatedSections(); animatedSectionsIndex++)
+	{
+		if (m_pVoxelItem->HasSubSectionAnimationFinished(animatedSectionsIndex) == false)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 // Rendering helpers
 void Item::SetOutlineRender(bool outline)
 {

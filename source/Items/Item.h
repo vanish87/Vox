@@ -91,6 +91,9 @@ public:
 	// Auto disappear
 	void SetAutoDisappear(float disappearTime);
 
+	// Animation
+	bool IsStillAnimating();
+
 	// Rendering helpers
 	void SetOutlineRender(bool outline);
 	bool IsOutlineRender();

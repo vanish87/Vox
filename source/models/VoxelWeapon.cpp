@@ -809,6 +809,9 @@ void VoxelWeapon::Update(float dt)
 	{
 		if(m_pAnimatedSections[i].m_playingAnimation)
 		{
+			bool noChangeInAnimation = (m_pAnimatedSections[i].m_translateSpeedX == 0.0f && m_pAnimatedSections[i].m_translateSpeedY == 0.0f && m_pAnimatedSections[i].m_translateSpeedZ == 0.0f &&
+										m_pAnimatedSections[i].m_rotationSpeedX == 0.0f && m_pAnimatedSections[i].m_rotationSpeedY == 0.0f && m_pAnimatedSections[i].m_rotationSpeedZ == 0.0f);
+
 			// Translation
 			if(m_pAnimatedSections[i].m_translateXUp == true && m_pAnimatedSections[i].m_translateSpeedX < m_pAnimatedSections[i].m_translateMaxSpeedX)
 			{
@@ -1086,6 +1089,11 @@ void VoxelWeapon::Update(float dt)
 			m_pAnimatedSections[i].m_rotationX += m_pAnimatedSections[i].m_rotationSpeedX * dt;
 			m_pAnimatedSections[i].m_rotationY += m_pAnimatedSections[i].m_rotationSpeedY * dt;
 			m_pAnimatedSections[i].m_rotationZ += m_pAnimatedSections[i].m_rotationSpeedZ * dt;
+
+			if (noChangeInAnimation)
+			{
+				m_pAnimatedSections[i].m_playingAnimation = false;
+			}
 		}
 	}
 
