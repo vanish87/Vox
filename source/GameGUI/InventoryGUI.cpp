@@ -333,6 +333,16 @@ void InventoryGUI::Unload()
 	m_pInventoryWindow->RemoveComponent(m_pDropLabel);
 
 	m_loaded = false;
+
+	if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
+	{
+		VoxGame::GetInstance()->TurnCursorOff();
+		if (VoxGame::GetInstance()->ShouldRestorePreviousCameraMode())
+		{
+			VoxGame::GetInstance()->RestorePreviousCameraMode();
+			VoxGame::GetInstance()->InitializeCameraRotation();
+		}
+	}
 }
 
 bool InventoryGUI::IsLoadDelayed()
@@ -1476,16 +1486,6 @@ void InventoryGUI::_CloseExitPressed(void *pData)
 void InventoryGUI::CloseExitPressed()
 {
 	Unload();
-
-	if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
-	{
-		VoxGame::GetInstance()->TurnCursorOff();
-		if (VoxGame::GetInstance()->ShouldRestorePreviousCameraMode())
-		{
-			VoxGame::GetInstance()->RestorePreviousCameraMode();
-			VoxGame::GetInstance()->InitializeCameraRotation();
-		}
-	}
 }
 
 void InventoryGUI::_PopupConfirmPressed(void *apData)

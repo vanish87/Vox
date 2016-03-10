@@ -550,6 +550,16 @@ void CharacterGUI::Unload()
 	DeleteInventoryItems();
 
 	m_loaded = false;
+
+	if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
+	{
+		VoxGame::GetInstance()->TurnCursorOff();
+		if (VoxGame::GetInstance()->ShouldRestorePreviousCameraMode())
+		{
+			VoxGame::GetInstance()->RestorePreviousCameraMode();
+			VoxGame::GetInstance()->InitializeCameraRotation();
+		}
+	}
 }
 
 bool CharacterGUI::IsLoaded()
@@ -1639,16 +1649,6 @@ void CharacterGUI::_CloseExitPressed(void *pData)
 void CharacterGUI::CloseExitPressed()
 {
 	Unload();
-
-	if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
-	{
-		VoxGame::GetInstance()->TurnCursorOff();
-		if (VoxGame::GetInstance()->ShouldRestorePreviousCameraMode())
-		{
-			VoxGame::GetInstance()->RestorePreviousCameraMode();
-			VoxGame::GetInstance()->InitializeCameraRotation();
-		}
-	}
 }
 
 void CharacterGUI::_OpenCloseTabPressed(void *pData)
