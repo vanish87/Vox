@@ -148,12 +148,22 @@ void MainMenu::SetWindowDimensions(int width, int height)
 
 void MainMenu::SkinGUI()
 {
-
+	m_pFrontendManager->SetButtonIcons(m_pSinglePlayerButton, ButtonSize_225x75);
+	m_pFrontendManager->SetButtonIcons(m_pMultiPlayerButton, ButtonSize_225x75);
+	m_pFrontendManager->SetButtonIcons(m_pOptionsButton, ButtonSize_225x75);
+	m_pFrontendManager->SetButtonIcons(m_pModsButton, ButtonSize_225x75);
+	m_pFrontendManager->SetButtonIcons(m_pCreditsButton, ButtonSize_225x75);
+	m_pFrontendManager->SetButtonIcons(m_pQuitButton, ButtonSize_225x75);
 }
 
 void MainMenu::UnSkinGUI()
 {
-
+	m_pSinglePlayerButton->SetDefaultIcons(m_pRenderer);
+	m_pMultiPlayerButton->SetDefaultIcons(m_pRenderer);
+	m_pOptionsButton->SetDefaultIcons(m_pRenderer);
+	m_pModsButton->SetDefaultIcons(m_pRenderer);
+	m_pCreditsButton->SetDefaultIcons(m_pRenderer);
+	m_pQuitButton->SetDefaultIcons(m_pRenderer);
 }
 
 void MainMenu::Load()

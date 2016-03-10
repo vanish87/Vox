@@ -32,6 +32,7 @@ enum ButtonSize
 	ButtonSize_85x25 = 0,
 	ButtonSize_65x25,
 	ButtonSize_110x47,
+	ButtonSize_225x75,
 
 	ButtonSize_NUM,
 };

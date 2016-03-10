@@ -126,6 +126,7 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 		if (ButtonSize(i) == ButtonSize_85x25) { width = 85; height = 25; }
 		if (ButtonSize(i) == ButtonSize_65x25) { width = 65; height = 25; }
 		if (ButtonSize(i) == ButtonSize_110x47) { width = 110; height = 47; }
+		if (ButtonSize(i) == ButtonSize_225x75) { width = 225; height = 75; }
 
 		m_pButtonIcon[ButtonSize(i)] = new Icon(m_pRenderer, "", width, height);
 		m_pButtonIcon[ButtonSize(i)]->SetDepth(2.0f);
@@ -407,6 +408,7 @@ void FrontendManager::LoadCommonGraphics(string themeName)
 		if (ButtonSize(i) == ButtonSize_85x25) { sizeFolder = "85x25"; }
 		if (ButtonSize(i) == ButtonSize_65x25) { sizeFolder = "65x25"; }
 		if (ButtonSize(i) == ButtonSize_110x47) { sizeFolder = "110x47"; }
+		if (ButtonSize(i) == ButtonSize_225x75) { sizeFolder = "225x75"; }
 
 		iconName = "media/textures/gui/" + themeName + "/common/buttons/" + sizeFolder + "/buttonDefault.tga";
 		m_pButtonIcon[ButtonSize(i)]->SetIcon(iconName);
