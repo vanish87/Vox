@@ -40,6 +40,7 @@ add_subdirectory(Inventory)
 add_subdirectory(Items)
 add_subdirectory(GameGUI)
 add_subdirectory(Projectile)
+add_subdirectory(TextEffects)
 
 source_group("source" FILES ${SRCS})
 source_group("source\\utils" FILES ${UTIL_SRCS})
@@ -73,6 +74,7 @@ source_group("source\\Inventory" FILES ${INVENTORY_SRCS})
 source_group("source\\Items" FILES ${ITEMS_SRCS})
 source_group("source\\GameGUI" FILES ${GAMEGUI_SRCS})
 source_group("source\\Projectile" FILES ${PROJECTILE_SRCS})
+source_group("source\\TextEffects" FILES ${TEXTEFFECTS_SRCS})
 
 add_executable(Vox
                ${SRCS}
@@ -106,7 +108,8 @@ add_executable(Vox
                ${INVENTORY_SRCS}
                ${ITEMS_SRCS}
                ${GAMEGUI_SRCS}
-               ${PROJECTILE_SRCS})
+               ${PROJECTILE_SRCS}
+               ${TEXTEFFECTS_SRCS})
 
 include_directories(".")			   
 include_directories("glfw\\include")

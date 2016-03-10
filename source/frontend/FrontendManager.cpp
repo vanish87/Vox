@@ -48,6 +48,10 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 80, &m_frontendFont_80);
 	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 80, &m_frontendFont_80_Outline);
 
+	// Text effects fonts
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 34, &m_textEffectFontNormal);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 34, &m_textEffectFontOutline);
+
 	// Checkbox
 	m_pCheckboxIcon = new Icon(m_pRenderer, "", 16, 16);
 	m_pCheckboxIcon->SetDepth(2.0f);

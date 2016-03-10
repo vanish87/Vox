@@ -21,6 +21,7 @@
 #include "../models/VoxelCharacter.h"
 #include "../Lighting/LightingManager.h"
 #include "../Particles/BlockParticleManager.h"
+#include "../TextEffects/TextEffectsManager.h"
 #include "../Inventory/InventoryManager.h"
 #include "../Items/ItemManager.h"
 #include "../Projectile/ProjectileManager.h"
@@ -59,6 +60,7 @@ public:
 	void SetInventoryManager(InventoryManager* pInventoryManager);
 	void SetItemManager(ItemManager* pItemManager);
 	void SetProjectileManager(ProjectileManager* pProjectileManager);
+	void SetTextEffectsManager(TextEffectsManager* pTextEffectsManager);
 
 	// Get voxel character pointer
 	VoxelCharacter* GetVoxelCharacter();
@@ -269,6 +271,7 @@ private:
 	InventoryManager* m_pInventoryManager;
 	ItemManager* m_pItemManager;
 	ProjectileManager* m_pProjectileManager;
+	TextEffectsManager* m_pTextEffectsManager;
 
 	// Player position and movement variables
 	vec3 m_position;

@@ -89,6 +89,9 @@ void VoxGame::Update()
 		m_pProjectileManager->UpdateProjectileLights(m_deltaTime);
 		m_pProjectileManager->UpdateProjectileParticleEffects(m_deltaTime);
 
+		// Text effects manager
+		m_pTextEffectsManager->Update(m_deltaTime);
+
 		// Player
 		if (m_animationUpdate)
 		{
@@ -146,11 +149,14 @@ void VoxGame::Update()
 	}
 	UpdateGUI(m_deltaTime);
 
-	// Update game GUI
-	UpdateGameGUI(m_deltaTime);
+	if (m_bPaused == false && m_initialStartWait == false)
+	{
+		// Update game GUI
+		UpdateGameGUI(m_deltaTime);
 
-	// Update lights
-	UpdateLights(m_deltaTime);
+		// Update lights
+		UpdateLights(m_deltaTime);
+	}
 
 	// Update the application and window
 	m_pVoxApplication->Update(m_deltaTime);

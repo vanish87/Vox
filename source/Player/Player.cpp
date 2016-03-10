@@ -13,6 +13,7 @@
 #include "../utils/Interpolator.h"
 #include "../blocks/Chunk.h"
 #include "../VoxGame.h"
+#include "../utils/Random.h"
 #include <glm/detail/func_geometric.hpp>
 
 const vec3 Player::PLAYER_CENTER_OFFSET = vec3(0.0f, 1.525f, 0.0f);
@@ -64,6 +65,11 @@ void Player::SetItemManager(ItemManager* pItemManager)
 void Player::SetProjectileManager(ProjectileManager* pProjectileManager)
 {
 	m_pProjectileManager = pProjectileManager;
+}
+
+void Player::SetTextEffectsManager(TextEffectsManager* pTextEffectsManager)
+{
+	m_pTextEffectsManager = pTextEffectsManager;
 }
 
 // Get voxel character pointer
@@ -1250,7 +1256,6 @@ void Player::LevelUp()
 void Player::GiveHealth(float amount)
 {
 	// TODO : Player GiveHealth()
-
 	//m_health += amount;
 
 	//if (m_health >= m_maxHealth)
@@ -1258,30 +1263,24 @@ void Player::GiveHealth(float amount)
 	//	m_health = m_maxHealth;
 	//}
 
-	//// Do an animated text effect
-	//vec3 screenposition = GetCenter() + vec3(GetRandomNumber(-1, 1, 2)*0.25f, 0.0f, GetRandomNumber(-1, 1, 2)*0.25f);
-	//char healthText[32];
-	//sprintf(healthText, "%i", (int)amount);
-	//AnimatedText* lpTestTextEffect = m_pTextEffectsManager->CreateTextEffect(m_pGameWindow->GetTextEffectFont(), m_pGameWindow->GetTextEffectOutlineFont(), m_pGameWindow->GetMainViewport(), TextDrawMode_3D_Screen, TextEffect_FadeUp, TextDrawStyle_Outline, screenposition, Colour(0.0f, 1.0f, 0.0f), Colour(0.0f, 0.0f, 0.0f), healthText, 1.0f);
-	//lpTestTextEffect->SetAutoDelete(true);
-	//lpTestTextEffect->StartEffect();
-
-	//m_pGameWindow->GetHUD()->UpdatePlayerData();
+	// Do an animated text effect
+	vec3 screenposition = GetCenter() + vec3(GetRandomNumber(-1, 1, 2)*0.25f, 0.0f, GetRandomNumber(-1, 1, 2)*0.25f);
+	char healthText[32];
+	sprintf(healthText, "%i", (int)amount);
+	AnimatedText* lpTestTextEffect = m_pTextEffectsManager->CreateTextEffect(VoxGame::GetInstance()->GetFrontendManager()->GetTextEffectFont(), VoxGame::GetInstance()->GetFrontendManager()->GetTextEffectOutlineFont(), VoxGame::GetInstance()->GetDefaultViewport(), TextDrawMode_3D_Screen, TextEffect_FadeUp, TextDrawStyle_Outline, screenposition, Colour(0.0f, 1.0f, 0.0f), Colour(0.0f, 0.0f, 0.0f), healthText, 1.0f);
+	lpTestTextEffect->SetAutoDelete(true);
+	lpTestTextEffect->StartEffect();
 }
 
 void Player::GiveCoins(int amount)
 {
-	// TODO : Player GiveCoins()
-
 	// Do an animated text effect
-	//vec3 screenposition = GetCenter() + vec3(GetRandomNumber(-1, 1, 2)*0.25f, 0.0f, GetRandomNumber(-1, 1, 2)*0.25f);
-	//char healthText[32];
-	//sprintf(healthText,, "%i", (int)amount);
-	//AnimatedText* lpTestTextEffect = m_pTextEffectsManager->CreateTextEffect(m_pGameWindow->GetTextEffectFont(), m_pGameWindow->GetTextEffectOutlineFont(), m_pGameWindow->GetMainViewport(), TextDrawMode_3D_Screen, TextEffect_FadeUp, TextDrawStyle_Outline, screenposition, Colour(1.0f, 1.0f, 0.0f), Colour(0.0f, 0.0f, 0.0f), healthText, 1.0f);
-	//lpTestTextEffect->SetAutoDelete(true);
-	//lpTestTextEffect->StartEffect();
-
-	//m_pGameWindow->GetHUD()->UpdatePlayerData();
+	vec3 screenposition = GetCenter() + vec3(GetRandomNumber(-1, 1, 2)*0.25f, 0.0f, GetRandomNumber(-1, 1, 2)*0.25f);
+	char healthText[32];
+	sprintf(healthText, "%i", (int)amount);
+	AnimatedText* lpTestTextEffect = m_pTextEffectsManager->CreateTextEffect(VoxGame::GetInstance()->GetFrontendManager()->GetTextEffectFont(), VoxGame::GetInstance()->GetFrontendManager()->GetTextEffectOutlineFont(), VoxGame::GetInstance()->GetDefaultViewport(), TextDrawMode_3D_Screen, TextEffect_FadeUp, TextDrawStyle_Outline, screenposition, Colour(1.0f, 1.0f, 0.0f), Colour(0.0f, 0.0f, 0.0f), healthText, 1.0f);
+	lpTestTextEffect->SetAutoDelete(true);
+	lpTestTextEffect->StartEffect();
 }
 
 // Player stats

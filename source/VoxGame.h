@@ -28,6 +28,7 @@
 #include "scenery/SceneryManager.h"
 #include "Instance/InstanceManager.h"
 #include "Projectile/ProjectileManager.h"
+#include "TextEffects/TextEffectsManager.h"
 #include "VoxApplication.h"
 #include "VoxWindow.h"
 #include "VoxSettings.h"
@@ -214,6 +215,7 @@ public:
 
 	// Accessors
 	unsigned int GetDefaultViewport();
+	FrontendManager* GetFrontendManager();
 	BlockParticleManager* GetBlockParticleManager();
 	CharacterGUI* GetCharacterGUI();
 
@@ -310,6 +312,9 @@ private:
 
 	// Block particle manager
 	BlockParticleManager* m_pBlockParticleManager;
+
+	// Text effects
+	TextEffectsManager* m_pTextEffectsManager;
 
 	// Instance manager
 	InstanceManager* m_pInstanceManager;

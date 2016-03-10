@@ -97,6 +97,10 @@ public:
 	unsigned int GetFrontendFont_80() { return m_frontendFont_80; }
 	unsigned int GetFrontendFont_80_Outline() { return m_frontendFont_80_Outline; }
 
+	// Text effects fonts
+	unsigned int GetTextEffectFont() { return m_textEffectFontNormal; }
+	unsigned int GetTextEffectOutlineFont() { return m_textEffectFontOutline; }
+
 	// Checkbox
 	Icon* GetCheckboxIcon() { return m_pCheckboxIcon; };
 	Icon* GetCheckboxIconHover() { return m_pCheckboxIconHover; };
@@ -219,6 +223,10 @@ private:
 	unsigned int m_frontendFont_50_Outline;
 	unsigned int m_frontendFont_80;
 	unsigned int m_frontendFont_80_Outline;
+
+	// Text effects fonts
+	unsigned int m_textEffectFontNormal;
+	unsigned int m_textEffectFontOutline;
 
 	// Checkbox
 	Icon* m_pCheckboxIcon;

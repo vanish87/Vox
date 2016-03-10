@@ -204,20 +204,6 @@ void VoxGame::Render()
 			RenderDeferredLighting();
 		}
 
-		// ---------------------------------------
-		// Render 2d
-		// ---------------------------------------
-		m_pRenderer->PushMatrix();
-			// Crosshair
-			if (m_cameraMode == CameraMode_FirstPerson)
-			{
-				RenderCrosshair();
-			}
-
-			// Cinematic mode (letter box)
-			RenderCinematicLetterBox();
-		m_pRenderer->PopMatrix();
-
 		// SSAO frame buffer rendering stop
 		if (m_deferredRendering)
 		{
@@ -249,6 +235,23 @@ void VoxGame::Render()
 				RenderSecondPassFullScreen();
 			}
 		}
+
+		// ---------------------------------------
+		// Render 2d
+		// ---------------------------------------
+		m_pRenderer->PushMatrix();
+			// Crosshair
+			if (m_cameraMode == CameraMode_FirstPerson)
+			{
+				RenderCrosshair();
+			}
+
+			// Text effects
+			m_pTextEffectsManager->Render();
+
+			// Cinematic mode (letter box)
+			RenderCinematicLetterBox();
+		m_pRenderer->PopMatrix();
 
 		// Disable multisampling for 2d gui and text
 		m_pRenderer->DisableMultiSampling();

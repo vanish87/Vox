@@ -178,6 +178,10 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	/* Create the block particle manager */
 	m_pBlockParticleManager = new BlockParticleManager(m_pRenderer, m_pChunkManager);
 
+	/* Create the text effects manager */
+	m_pTextEffectsManager = new TextEffectsManager(m_pRenderer);
+	m_pTextEffectsManager->SetCamera(m_pGameCamera);
+
 	/* Create the instance manager */
 	m_pInstanceManager = new InstanceManager(m_pRenderer);
 
@@ -211,6 +215,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pPlayer->SetInventoryManager(m_pInventoryManager);
 	m_pPlayer->SetItemManager(m_pItemManager);
 	m_pPlayer->SetProjectileManager(m_pProjectileManager);
+	m_pPlayer->SetTextEffectsManager(m_pTextEffectsManager);
 	m_pInventoryManager->SetPlayer(m_pPlayer);
 	m_pInventoryManager->SetInventoryGUI(m_pInventoryGUI);
 	m_pInventoryManager->SetLootGUI(m_pLootGUI);
@@ -335,6 +340,7 @@ void VoxGame::Destroy()
 		delete m_pPlayer;
 		delete m_pSceneryManager;
 		delete m_pBlockParticleManager;
+		delete m_pTextEffectsManager;
 		delete m_pInstanceManager;
 		delete m_pChunkManager;
 		delete m_pQubicleBinaryManager;
@@ -893,6 +899,11 @@ void VoxGame::TurnCursorOff()
 unsigned int VoxGame::GetDefaultViewport()
 {
 	return m_defaultViewport;
+}
+
+FrontendManager* VoxGame::GetFrontendManager()
+{
+	return m_pFrontendManager;
 }
 
 BlockParticleManager* VoxGame::GetBlockParticleManager()
