@@ -200,7 +200,7 @@ void LootGUI::SetWindowDimensions(int windowWidth, int windowHeight)
 	m_titlebarWidth = 108;
 	m_titlebarHeight = 35;
 
-	m_pLootWindow->SetDimensions(190, 400, m_lootWindowWidth, m_lootWindowHeight);
+	m_pLootWindow->SetDimensions(m_windowWidth - 434, 450, m_lootWindowWidth, m_lootWindowHeight);
 	m_pLootWindow->SetTitleBarDimensions(0, 0, m_titlebarWidth, m_titlebarHeight);
 	m_pLootWindow->SetTitleOffset(50, 5);
 	m_pLootWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
