@@ -300,7 +300,7 @@ void MainMenu::_SinglePlayerPressed(void *apData)
 
 void MainMenu::SinglePlayerPressed()
 {
-	m_pFrontendManager->SetFrontendScreen(FrontendScreen_SelectCharacter);
+	VoxGame::GetInstance()->StartGameFromFrontEnd();
 }
 
 void MainMenu::_MultiPlayerPressed(void *apData)

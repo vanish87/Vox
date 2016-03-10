@@ -592,6 +592,13 @@ void VoxGame::SetupDataForFrontEnd()
 
 void VoxGame::StartGameFromFrontEnd()
 {
+	m_pFrontendManager->SetFrontendScreen(FrontendScreen_None);
+
+	m_previousCameraMode = CameraMode_MouseRotate;
+	m_pGameOptionBox->SetToggled(true);
+	m_pMouseRotateCameraOptionBox->SetToggled(true);
+	GameModeChanged();
+	CameraModeChanged();
 }
 
 void VoxGame::SetGameMode(GameMode mode)
