@@ -196,6 +196,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	/* Create the frontend manager */
 	m_pFrontendManager = new FrontendManager(m_pRenderer, m_pGUI);
 	m_pFrontendManager->SetWindowDimensions(m_windowWidth, m_windowHeight);
+	m_pFrontendManager->SetCamera(m_pGameCamera);
 
 	/* Create the game GUI pages */
 	m_pInventoryGUI = new InventoryGUI(m_pRenderer, m_pGUI, m_pFrontendManager, m_pChunkManager, m_pPlayer, m_pInventoryManager, m_windowWidth, m_windowHeight);
@@ -571,6 +572,9 @@ void VoxGame::QuitToFrontEnd()
 	m_pVoxWindow->Update(m_deltaTime);
 	GameModeChanged();
 	CameraModeChanged();
+
+	// Set front-end page to intro
+	m_pFrontendManager->SetFrontendScreen(FrontendScreen_MainMenu);
 }
 
 void VoxGame::SetupDataForGame()

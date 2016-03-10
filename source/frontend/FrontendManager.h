@@ -18,6 +18,7 @@
 #include "FrontendPage.h"
 #include "FrontendScreens.h"
 #include "../Renderer/Renderer.h"
+#include "../Renderer/camera.h"
 #include "../gui/icon.h"
 #include "../gui/checkbox.h"
 #include "../gui/optionbox.h"
@@ -48,6 +49,9 @@ public:
 	void SetWindowDimensions(int width, int height);
 	int GetWindowWidth();
 	int GetWindowHeight();
+
+	// Camera
+	void SetCamera(Camera* pCamera);
 
 	// Skinning the GUI
 	void SkinGUI();
@@ -152,9 +156,12 @@ public:
 
 	// Updating
 	void Update(float dt);
-	
+	void UpdateFrontEndCamera(float dt);
+
 	// Rendering
 	void Render();
+	void Render2D();
+	void RenderDebug();
 
 protected:
 	/* Protected methods */
@@ -176,6 +183,9 @@ private:
 	// Window params
 	int m_windowWidth;
 	int m_windowHeight;
+
+	// Camera
+	Camera* m_pCamera;
 
 	// Current frontend screen
 	eFrontendScreen m_currentScreen;

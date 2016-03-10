@@ -13,11 +13,15 @@
 #include "FrontendPage.h"
 #include "Pages/QuitPopup.h"
 #include "Pages/PauseMenu.h"
+#include "Pages/MainMenu.h"
+
 
 FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 {
 	m_pRenderer = pRenderer;
 	m_pGUI = pGUI;
+
+	m_pCamera = NULL;
 
 	// Fonts
 	m_pRenderer->CreateFreeTypeFont("media/fonts/pf_ronda_seven.ttf", 26, &m_frontendFont_Large);
@@ -165,9 +169,11 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 	int height = 800;
 	FrontendPage* pQuitPopup = new QuitPopup(m_pRenderer, m_pGUI, this, width, height);
 	FrontendPage* pPauseMenu = new PauseMenu(m_pRenderer, m_pGUI, this, width, height);
+	FrontendPage* pMainMenu = new MainMenu(m_pRenderer, m_pGUI, this, width, height);
 
 	m_vpFrontendPages.push_back(pQuitPopup);
 	m_vpFrontendPages.push_back(pPauseMenu);
+	m_vpFrontendPages.push_back(pMainMenu);
 
 	// Initial page
 	m_currentScreen = FrontendScreen_None;
@@ -264,6 +270,12 @@ int FrontendManager::GetWindowWidth()
 int FrontendManager::GetWindowHeight()
 {
 	return m_windowHeight;
+}
+
+// Camera
+void FrontendManager::SetCamera(Camera* pCamera)
+{
+	m_pCamera = pCamera;
 }
 
 // Skinning the GUI
@@ -491,11 +503,61 @@ void FrontendManager::SetButtonIcons(Button* pButton, ButtonSize size)
 // Updating
 void FrontendManager::Update(float dt)
 {
+	if (m_currentPage != NULL)
+	{
+		m_currentPage->Update(dt);
+	}
 
+	if (m_currentScreen != FrontendScreen_None && m_currentScreen != FrontendScreen_PauseMenu && m_currentScreen != FrontendScreen_OptionsMenu && m_currentScreen != FrontendScreen_ModMenu && m_currentScreen != FrontendScreen_QuitPopup)
+	{
+		UpdateFrontEndCamera(dt);
+	}
+}
+
+// Updating
+void FrontendManager::UpdateFrontEndCamera(float dt)
+{
+	if (m_currentPage != NULL)
+	{
+		if (m_pCamera != NULL)
+		{
+			// Position
+			m_pCamera->SetFakePosition(m_currentPage->GetCameraPosition());
+
+			// Forward
+			vec3 cameraLookAt = m_currentPage->GetCameraView();
+			vec3 cameraForward = normalize(cameraLookAt - m_pCamera->GetFakePosition());
+			m_pCamera->SetFacing(cameraForward);
+
+			// Right
+			vec3 cameraRight = normalize(cross(cameraForward, vec3(0.0f, 1.0f, 0.0f)));
+			m_pCamera->SetRight(cameraRight);
+
+			// Up
+			vec3 cameraUp = normalize(cross(cameraRight, cameraForward));
+			m_pCamera->SetUp(cameraUp);
+		}
+	}
 }
 
 // Rendering
 void FrontendManager::Render()
+{
+	if (m_currentPage != NULL)
+	{
+		m_currentPage->Render();
+	}
+}
+
+void FrontendManager::Render2D()
+{
+	if (m_currentPage != NULL)
+	{
+		m_currentPage->Render2D();
+	}
+}
+
+void FrontendManager::RenderDebug()
 {
 
 }

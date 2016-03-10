@@ -561,6 +561,9 @@
     <ClCompile Include="..\..\source\Player\PlayerStats.cpp">
       <Filter>source\Player</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\frontend\Pages\MainMenu.cpp">
+      <Filter>source\frontend\Pages</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\glew\include\GL\glew.h">
@@ -1480,6 +1483,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\frontend\FrontendScreens.h">
       <Filter>source\frontend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\frontend\Pages\MainMenu.h">
+      <Filter>source\frontend\Pages</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

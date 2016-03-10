@@ -190,6 +190,11 @@ void VoxGame::Render()
 				m_pChunkManager->RenderDebug();
 
 				m_pProjectileManager->RenderDebug();
+
+				if (m_gameMode == GameMode_FrontEnd)
+				{
+					m_pFrontendManager->RenderDebug();
+				}
 			}
 		m_pRenderer->PopMatrix();
 
@@ -259,6 +264,19 @@ void VoxGame::Render()
 		if (m_debugRender)
 		{
 			//m_pChunkManager->Render2D(m_pGameCamera, m_defaultViewport, m_defaultFont);
+		}
+
+		// Frontend 2D
+		if(m_gameMode == GameMode_FrontEnd)
+		{			
+			m_pRenderer->PushMatrix();
+				m_pRenderer->SetProjectionMode(PM_2D, m_defaultViewport);
+				m_pRenderer->SetCullMode(CM_BACK);
+
+				m_pRenderer->SetLookAtCamera(vec3(0.0f, 0.0f, 250.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+
+				m_pFrontendManager->Render2D();
+			m_pRenderer->PopMatrix();
 		}
 
 		// Render the GUI
@@ -687,7 +705,6 @@ void VoxGame::RenderGUI()
 	// Render the GUI
 	m_pRenderer->PushMatrix();
 		m_pRenderer->SetProjectionMode(PM_2D, m_defaultViewport);
-
 		m_pRenderer->SetCullMode(CM_BACK);
 
 		m_pRenderer->SetLookAtCamera(vec3(0.0f, 0.0f, 250.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
