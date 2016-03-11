@@ -2,8 +2,7 @@ dependencies:
     pre:
 test:
     pre:
-        - mkdir build;
+        - sudo apt-get install Xxf86vm;
         - cmake .
     override:
-        - cd build;
         - make;
