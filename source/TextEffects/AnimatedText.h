@@ -47,11 +47,13 @@ public:
 	void SetTextWidth(int lWidth);
 	int GetTextWidth() const;
 
+	// Playing effects
 	void StartEffect();
 	void StopEffect();
 	void PauseEffect();
 	void UnPauseEffect();
 
+	// Deletion
 	bool GetErased() const;
 	void SetErased(bool lErase);
 
