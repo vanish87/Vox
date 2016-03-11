@@ -3,7 +3,8 @@ dependencies:
 test:
     pre:
         - mkdir build;
-        - cmake build;
+        - cd build;
+        - cmake ../
     override:
         - cd build;
         - make;
