@@ -38,6 +38,7 @@ int AnimatedText::GetTextWidth() const
 	return mTextWidth;
 }
 
+// Playing effects
 void AnimatedText::StartEffect()
 {
 	m_bStarted = true;
@@ -58,6 +59,7 @@ void AnimatedText::UnPauseEffect()
 	m_bPaused = false;
 }
 
+// Deletion
 bool AnimatedText::GetErased() const
 {
 	return m_bErased;
