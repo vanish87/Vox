@@ -29,10 +29,6 @@ MainMenu::MainMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFront
 	m_pCreditLabel->SetOutline(true);
 
 	m_pSinglePlayerButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_50(), m_pFrontendManager->GetFrontendFont_50_Outline(), "Single Player", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pSinglePlayerButton->SetDefaultIcon(m_pFrontendManager->GetButtonIcon_Default_225());
-	//m_pSinglePlayerButton->SetHoverIcon(m_pFrontendManager->GetButtonIcon_Hover_225());
-	//m_pSinglePlayerButton->SetSelectedIcon(m_pFrontendManager->GetButtonIcon_Pressed_225());
-	//m_pSinglePlayerButton->SetDisabledIcon(m_pFrontendManager->GetButtonIcon_Disabled_225());
 	m_pSinglePlayerButton->SetLabelOffset(0, 5);
 	m_pSinglePlayerButton->SetPressedOffset(0, -4);
 	//m_pSinglePlayerButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
@@ -41,10 +37,6 @@ MainMenu::MainMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFront
 	m_pSinglePlayerButton->SetCallBackData(this);
 
 	m_pMultiPlayerButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_50(), m_pFrontendManager->GetFrontendFont_50_Outline(), "Multiplayer", Colour(0.75f, 0.75f, 0.75f, 1.0f), Colour(0.25f, 0.25f, 0.25f, 1.0f));
-	//m_pMultiPlayerButton->SetDefaultIcon(m_pFrontendManager->GetButtonIcon_Disabled_225());
-	//m_pMultiPlayerButton->SetHoverIcon(m_pFrontendManager->GetButtonIcon_Disabled_225());
-	//m_pMultiPlayerButton->SetSelectedIcon(m_pFrontendManager->GetButtonIcon_Disabled_225());
-	//m_pMultiPlayerButton->SetDisabledIcon(m_pFrontendManager->GetButtonIcon_Disabled_225());
 	m_pMultiPlayerButton->SetLabelOffset(0, 5);
 	//m_pMultiPlayerButton->SetPressedOffset(0, -4);
 	//m_pMultiPlayerButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
@@ -53,10 +45,6 @@ MainMenu::MainMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFront
 	m_pMultiPlayerButton->SetCallBackData(this);
 
 	m_pOptionsButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_50(), m_pFrontendManager->GetFrontendFont_50_Outline(), "Options", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pOptionsButton->SetDefaultIcon(m_pFrontendManager->GetButtonIcon_Default_225());
-	//m_pOptionsButton->SetHoverIcon(m_pFrontendManager->GetButtonIcon_Hover_225());
-	//m_pOptionsButton->SetSelectedIcon(m_pFrontendManager->GetButtonIcon_Pressed_225());
-	//m_pOptionsButton->SetDisabledIcon(m_pFrontendManager->GetButtonIcon_Disabled_225());
 	m_pOptionsButton->SetLabelOffset(0, 5);
 	m_pOptionsButton->SetPressedOffset(0, -4);
 	//m_pOptionsButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
@@ -65,10 +53,6 @@ MainMenu::MainMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFront
 	m_pOptionsButton->SetCallBackData(this);
 
 	m_pModsButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_50(), m_pFrontendManager->GetFrontendFont_50_Outline(), "Mods", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pModsButton->SetDefaultIcon(m_pFrontendManager->GetButtonIcon_Default_225());
-	//m_pModsButton->SetHoverIcon(m_pFrontendManager->GetButtonIcon_Hover_225());
-	//m_pModsButton->SetSelectedIcon(m_pFrontendManager->GetButtonIcon_Pressed_225());
-	//m_pModsButton->SetDisabledIcon(m_pFrontendManager->GetButtonIcon_Disabled_225());
 	m_pModsButton->SetLabelOffset(0, 5);
 	m_pModsButton->SetPressedOffset(0, -4);
 	//m_pModsButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
@@ -77,10 +61,6 @@ MainMenu::MainMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFront
 	m_pModsButton->SetCallBackData(this);
 
 	m_pCreditsButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_50(), m_pFrontendManager->GetFrontendFont_50_Outline(), "Credits", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pCreditsButton->SetDefaultIcon(m_pFrontendManager->GetButtonIcon_Default_225());
-	//m_pCreditsButton->SetHoverIcon(m_pFrontendManager->GetButtonIcon_Hover_225());
-	//m_pCreditsButton->SetSelectedIcon(m_pFrontendManager->GetButtonIcon_Pressed_225());
-	//m_pCreditsButton->SetDisabledIcon(m_pFrontendManager->GetButtonIcon_Disabled_225());
 	m_pCreditsButton->SetLabelOffset(0, 5);
 	m_pCreditsButton->SetPressedOffset(0, -4);
 	//m_pCreditsButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
@@ -89,10 +69,6 @@ MainMenu::MainMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFront
 	m_pCreditsButton->SetCallBackData(this);
 
 	m_pQuitButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_50(), m_pFrontendManager->GetFrontendFont_50_Outline(), "Quit", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pQuitButton->SetDefaultIcon(m_pFrontendManager->GetButtonIcon_Default_225());
-	//m_pQuitButton->SetHoverIcon(m_pFrontendManager->GetButtonIcon_Hover_225());
-	//m_pQuitButton->SetSelectedIcon(m_pFrontendManager->GetButtonIcon_Pressed_225());
-	//m_pQuitButton->SetDisabledIcon(m_pFrontendManager->GetButtonIcon_Disabled_225());
 	m_pQuitButton->SetLabelOffset(0, 5);
 	m_pQuitButton->SetPressedOffset(0, -4);
 	//m_pQuitButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
