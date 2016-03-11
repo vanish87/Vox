@@ -38,6 +38,14 @@
 #include "GameGUI/InventoryGUI.h"
 #include "GameGUI/LootGUI.h"
 
+#ifdef __linux__
+typedef struct POINT {
+  float x;
+  float y;
+} POINT;
+#endif //__linux__
+
+// Game modes
 enum GameMode
 {
 	GameMode_Debug = 0,
@@ -46,6 +54,7 @@ enum GameMode
 	GameMode_Game,
 };
 
+// Camera modes
 enum CameraMode
 {
 	CameraMode_Debug = 0,
@@ -54,14 +63,6 @@ enum CameraMode
 	CameraMode_FirstPerson,
 	CameraMode_NPCDialog,
 };
-
-#ifdef __linux__
-typedef struct POINT {
-  float x;
-  float y;
-} POINT;
-#endif //__linux__
-
 
 class VoxGame
 {
