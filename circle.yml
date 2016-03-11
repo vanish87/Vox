@@ -4,7 +4,7 @@ test:
     pre:
         - mkdir build;
         - cd build;
-        - cmake ../
+        - cmake
     override:
         - cd build;
         - make;
