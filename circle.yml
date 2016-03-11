@@ -2,6 +2,8 @@ dependencies:
     pre:
 test:
     pre:
+        - mkdir build;
         - cmake build;
     override:
-        - cd build; make
+        - cd build;
+        - make;
