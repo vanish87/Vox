@@ -2,7 +2,7 @@ dependencies:
     pre:
 test:
     pre:
-        - sudo apt-get install Xxf86vm;
+        - sudo apt-get install xxf86vm;
         - cmake .
     override:
         - make;
