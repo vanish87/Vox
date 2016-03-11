@@ -1,0 +1,7 @@
+dependencies:
+    pre:
+test:
+    pre:
+        - cmake build;
+    override:
+        - cd build; make
