@@ -166,6 +166,9 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pChunkManager = new ChunkManager(m_pRenderer, m_pVoxSettings, m_pQubicleBinaryManager);
 	m_pChunkManager->SetStepLockEnabled(m_pVoxSettings->m_stepUpdating);
 
+	/* Create the biome manager */
+	m_pBiomeManager = new BiomeManager(m_pRenderer);
+
 	/* Create the lighting manager */
 	m_pLightingManager = new LightingManager(m_pRenderer);
 
@@ -212,6 +215,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	/* Create module and manager linkage */
 	m_pChunkManager->SetPlayer(m_pPlayer);
 	m_pChunkManager->SetSceneryManager(m_pSceneryManager);
+	m_pChunkManager->SetBiomeManager(m_pBiomeManager);
 	m_pPlayer->SetInventoryManager(m_pInventoryManager);
 	m_pPlayer->SetItemManager(m_pItemManager);
 	m_pPlayer->SetProjectileManager(m_pProjectileManager);
@@ -343,6 +347,7 @@ void VoxGame::Destroy()
 		delete m_pTextEffectsManager;
 		delete m_pInstanceManager;
 		delete m_pChunkManager;
+		delete m_pBiomeManager;
 		delete m_pQubicleBinaryManager;
 		delete m_pFrontendManager;
 		delete m_pGameCamera;

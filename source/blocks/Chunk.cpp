@@ -13,6 +13,7 @@
 
 #include "Chunk.h"
 #include "ChunkManager.h"
+#include "BiomeManager.h"
 #include "../Player/Player.h"
 #include "../scenery/SceneryManager.h"
 #include "../models/QubicleBinary.h"
@@ -54,6 +55,12 @@ void Chunk::SetPlayer(Player* pPlayer)
 void Chunk::SetSceneryManager(SceneryManager* pSceneryManager)
 {
 	m_pSceneryManager = pSceneryManager;
+}
+
+// Biome manager
+void Chunk::SetBiomeManager(BiomeManager* pBiomeManager)
+{
+	m_pBiomeManager = pBiomeManager;
 }
 
 // Initialize
@@ -199,58 +206,15 @@ void Chunk::Setup()
 						float colorNoise = octave_noise_3d(4.0f, 0.3f, 0.005f, xPosition, yPosition, zPosition);
 						float colorNoiseNormalized = ((colorNoise + 1.0f) * 0.5f);
 
-						// TODO : Move all the colour code and block type below into the biome manager
-						float red1 = 0.65f;
-						float green1 = 0.80f;
-						float blue1 = 0.00f;
-						float red2 = 0.00f;
-						float green2 = 0.46f;
-						float blue2 = 0.16f;
-
-						if (noise < -0.5f) // Stone
-						{
-							red1 = 0.50f;
-							green1 = 0.50f;
-							blue1 = 0.50f;
-							red2 = 0.35f;
-							green2 = 0.40f;
-							blue2 = 0.35f;
-						}
-						else if (noise < -0.25f) // Dirt
-						{
-							red1 = 0.94f;
-							green1 = 0.74f;
-							blue1 = 0.34f;
-							red2 = 0.50f;
-							green2 = 0.29f;
-							blue2 = 0.20f;
-						}
-						else if (noise < 0.5f) // Grass
-						{
-							red1 = 0.65f;
-							green1 = 0.80f;
-							blue1 = 0.00f;
-							red2 = 0.00f;
-							green2 = 0.46f;
-							blue2 = 0.16f;
-						}
-						else if (noise < 1.0f) // Snow
-						{
-							red1 = 0.85f;
-							green1 = 0.85f;
-							blue1 = 0.85f;
-							red2 = 0.77f;
-							green2 = 0.65f;
-							blue2 = 0.80f;
-						}
-
+						float red = 0.65f;
+						float green = 0.80f;
+						float blue = 0.00f;
 						float alpha = 1.0f;
+						BlockType blockType = BlockType_Default;
 
-						float r = red1 + ((red2 - red1) * colorNoiseNormalized);
-						float g = green1 + ((green2 - green1) * colorNoiseNormalized);
-						float b = blue1 + ((blue2 - blue1) * colorNoiseNormalized);
-
-						SetColour(x, y, z, r, g, b, alpha);
+						m_pBiomeManager->GetChunkColourAndBlockType(xPosition, yPosition, zPosition, noise, colorNoiseNormalized, &red, &green, &blue, &blockType);
+						
+						SetColour(x, y, z, red, green, blue, alpha);
 					}
 				}
 			}

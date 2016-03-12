@@ -23,6 +23,7 @@
 #include "Inventory/InventoryManager.h"
 #include "Items/ItemManager.h"
 #include "blocks/ChunkManager.h"
+#include "blocks/BiomeManager.h"
 #include "frontend/FrontendManager.h"
 #include "Skybox/Skybox.h"
 #include "scenery/SceneryManager.h"
@@ -301,6 +302,9 @@ private:
 
 	// Chunk manager
 	ChunkManager* m_pChunkManager;
+
+	// Biome manager
+	BiomeManager* m_pBiomeManager;
 
 	// Scenery
 	SceneryManager* m_pSceneryManager;

@@ -31,6 +31,7 @@ class Player;
 class SceneryManager;
 class VoxSettings;
 class QubicleBinaryManager;
+class BiomeManager;
 
 struct ChunkCoordKeys {
 	int x;
@@ -154,6 +155,9 @@ public:
 	// Scenery manager pointer
 	void SetSceneryManager(SceneryManager* pSceneryManager);
 
+	// Biome manager
+	void SetBiomeManager(BiomeManager* pBiomeManager);
+
 	// Initial chunk creation
 	void InitializeChunkCreation();
 
@@ -227,6 +231,7 @@ private:
 	Renderer* m_pRenderer;
 	Player* m_pPlayer;
 	SceneryManager* m_pSceneryManager;
+	BiomeManager* m_pBiomeManager;
 	VoxSettings* m_pVoxSettings;
 	QubicleBinaryManager* m_pQubicleBinaryManager;
 

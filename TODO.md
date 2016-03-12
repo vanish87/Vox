@@ -93,6 +93,8 @@
   * Allow input commands.
   * Clear log text functionality
   * Rendering of many log messages is slow, output to file?
+* ~~Add biome manager~~
+  * ~~Add colour variation management to biome manager.~~
 * ~~Add item manager.~~
 * ~~Add inventory GUI.~~
 * ~~Add character GUI.~~
@@ -108,15 +110,13 @@
   * CharacterGUI player poses and animation stances.
 * Add VLD support to debug version, allow for memory leak detection.
 * Add audio and music playback.
-* Add biome manager
-  * Add colour variation management to biome manager
 * Add scenery manager.
   * Add scenery to work, generation based on point distribution, poisson disc, etc.
   * Flower generation.
   * Poisson-disc sparation and generation for random placement of scenery.
   * Convert scenery manager to use instance rendering and the instance shader.
 * Add Quest GUI.
-* Create basic front-end.
+* ~~Create basic front-end.~~
 * Create front end scene and character line up.
 * Character creation and customization.
 * Saving and loading chunks.
@@ -132,7 +132,7 @@
   * Low FPS causes bad physics and also bad step-up block functionality, investigate and fix.
 * Custom cursors - fingers.
 * Dont allow jumping multiple times by holding down the space (or joy button).
-* Fix camera glitching when going in and out of pause menu (also quit menu).
+* ~~Fix camera glitching when going in and out of pause menu (also quit menu).~~
 * Allow for font changing on the fly, allow different font styles to go with the themes.
 * Add shadow receiving on instanced rendered objects. (Add texture matrix to shader??)
 * Player particle trail on walking.

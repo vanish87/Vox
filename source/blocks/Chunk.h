@@ -32,6 +32,7 @@ class Player;
 class SceneryManager;
 class VoxSettings;
 class Item;
+class BiomeManager;
 
 typedef vector<Item*> ItemList;
 
@@ -47,6 +48,9 @@ public:
 
 	// Scenery manager pointer
 	void SetSceneryManager(SceneryManager* pSceneryManager);
+
+	// Biome manager
+	void SetBiomeManager(BiomeManager* pBiomeManager);
 
 	// Initialize
 	void Initialize();
@@ -161,11 +165,12 @@ protected:
 
 private:
 	/* Private members */
+	VoxSettings* m_pVoxSettings;
 	Renderer* m_pRenderer;
 	ChunkManager* m_pChunkManager;
 	Player* m_pPlayer;
 	SceneryManager* m_pSceneryManager;
-	VoxSettings* m_pVoxSettings;
+	BiomeManager* m_pBiomeManager;
 
 	// Chunk neighbours
 	int m_numNeighbours;

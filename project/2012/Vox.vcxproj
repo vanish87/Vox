@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\source\blocks\BiomeManager.cpp" />
     <ClCompile Include="..\..\source\blocks\Chunk.cpp" />
     <ClCompile Include="..\..\source\blocks\ChunkManager.cpp" />
     <ClCompile Include="..\..\source\freetype\freetypefont.cpp" />
@@ -176,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\blocks\Chunk.h" />
+    <ClInclude Include="..\..\source\blocks\BiomeManager.h" />
     <ClInclude Include="..\..\source\blocks\ChunkManager.h" />
     <ClInclude Include="..\..\source\freetype\freetypefont.h" />
     <ClInclude Include="..\..\source\frontend\FrontendManager.h" />

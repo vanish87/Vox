@@ -573,6 +573,9 @@
     <ClCompile Include="..\..\source\TextEffects\AnimatedText.cpp">
       <Filter>source\TextEffects</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\blocks\BiomeManager.cpp">
+      <Filter>source\blocks</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\glew\include\GL\glew.h">
@@ -1501,6 +1504,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\TextEffects\AnimatedText.h">
       <Filter>source\TextEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\blocks\BiomeManager.h">
+      <Filter>source\blocks</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
