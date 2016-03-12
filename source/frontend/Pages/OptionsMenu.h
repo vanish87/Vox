@@ -134,6 +134,7 @@ private:
 
 	// Controls
 
+	// Lists of components for each tab
 	ComponentList m_vpGameplayComponents;
 	ComponentList m_vpGraphicsComponents;
 	ComponentList m_vpSoundComponents;
