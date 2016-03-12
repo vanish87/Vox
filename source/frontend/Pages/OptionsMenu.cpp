@@ -551,12 +551,10 @@ void OptionsMenu::SetReturnToMainMenu(bool mainMenu)
 
 void OptionsMenu::SkinGUI()
 {
-
 }
 
 void OptionsMenu::UnSkinGUI()
 {
-
 }
 
 void OptionsMenu::Load()

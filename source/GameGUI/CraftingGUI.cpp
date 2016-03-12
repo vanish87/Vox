@@ -68,19 +68,7 @@ CraftingGUI::CraftingGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pResultsScrollbar->SetScrollSize(0.25f);
 	m_pResultsScrollbar->SetScrollPosition(1.0f);
 	m_pResultsScrollbar->SetDepth(2.0f);
-	m_pResultsScrollbar->SetRightArrowDefaultIcon(m_pFrontendManager->GetScrollbarArrowDownIcon());
-	m_pResultsScrollbar->SetRightArrowHoverIcon(m_pFrontendManager->GetScrollbarArrowDownHoverIcon());
-	m_pResultsScrollbar->SetRightArrowSelectedIcon(m_pFrontendManager->GetScrollbarArrowDownPressedIcon());
-	m_pResultsScrollbar->SetRightArrowDisabledIcon(m_pFrontendManager->GetScrollbarArrowDownDisabledIcon());
-	m_pResultsScrollbar->SetLeftArrowDefaultIcon(m_pFrontendManager->GetScrollbarArrowUpIcon());
-	m_pResultsScrollbar->SetLeftArrowHoverIcon(m_pFrontendManager->GetScrollbarArrowUpHoverIcon());
-	m_pResultsScrollbar->SetLeftArrowSelectedIcon(m_pFrontendManager->GetScrollbarArrowUpPressedIcon());
-	m_pResultsScrollbar->SetLeftArrowDisabledIcon(m_pFrontendManager->GetScrollbarArrowUpDisabledIcon());
-	m_pResultsScrollbar->SetBackbarIcon(m_pFrontendManager->GetScrollbarBackgroundIcon());
-	m_pResultsScrollbar->SetScrollbarDefaultIcon(m_pFrontendManager->GetScrollbarIcon());
-	m_pResultsScrollbar->SetScrollbarHoverIcon(m_pFrontendManager->GetScrollbarHoverIcon());
-	m_pResultsScrollbar->SetScrollbarSelectedIcon(m_pFrontendManager->GetScrollbarPressedIcon());
-	m_pResultsScrollbar->SetScrollbarDisabledIcon(m_pFrontendManager->GetScrollbarDisabledIcon());
+	m_pFrontendManager->SetScrollbarIcons(m_pResultsScrollbar);
 
 	m_pCraftButton_Icon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/craft_button.tga", 115, 32);
 	m_pCraftButton_Icon->SetDepth(2.0f);
