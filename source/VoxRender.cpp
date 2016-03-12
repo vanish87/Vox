@@ -910,7 +910,7 @@ void VoxGame::RenderDebugInformation()
 		m_pGameCamera->GetZoomAmount());
 
 	char lDrawingBuff[256];
-	sprintf(lDrawingBuff, "Vertices: %i, Faces: %i", 0, 0);
+	sprintf(lDrawingBuff, "Vertices: %i, Faces: %i", 0, 0); // TODO : Debug rendering Metrics
 	char lChunksBuff[256];
 	sprintf(lChunksBuff, "Chunks: %i, Render: %i", m_pChunkManager->GetNumChunksLoaded(), m_pChunkManager->GetNumChunksRender());
 	char lParticlesBuff[256];
