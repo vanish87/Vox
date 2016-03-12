@@ -19,6 +19,21 @@
 #include "../../gui/scrollbar.h"
 
 
+class ModMenu;
+
+class ModButtonData
+{
+public:
+	ModMenu* m_pModMenu;
+	Button* m_pModButton;
+	string m_modName;
+	bool m_gameplayButton;
+	bool m_graphicsButton;
+	bool m_soundButton;
+	bool m_HUDButton;
+	bool m_miscButton;
+};
+
 class ModMenu : public FrontendPage
 {
 public:
@@ -27,6 +42,8 @@ public:
 	~ModMenu();
 
 	void Reset();
+
+	void ClearModButtonData();
 
 	void SetWindowDimensions(int windowWidth, int windowHeight);
 
@@ -78,6 +95,9 @@ protected:
 	static void _MiscTabPressed(void *pData);
 	void MiscTabPressed();
 
+	static void _ModButtonPressed(void *apData);
+	void ModButtonPressed(ModButtonData* pModButtonData);
+
 private:
 	/* Private methods */
 
@@ -124,4 +144,6 @@ private:
 	std::vector<Button*> m_vpSoundModButtons;
 	std::vector<Button*> m_vpHUDModButtons;
 	std::vector<Button*> m_vpMiscModButtons;
+
+	std::vector<ModButtonData*> m_vpModButtonData;	
 };

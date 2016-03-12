@@ -152,6 +152,16 @@ void ModMenu::Reset()
 {
 }
 
+void ModMenu::ClearModButtonData()
+{
+	for (unsigned int i = 0; i < m_vpModButtonData.size(); i++)
+	{
+		delete m_vpModButtonData[i];
+		m_vpModButtonData[i] = 0;
+	}
+	m_vpModButtonData.clear();
+}
+
 void ModMenu::SetWindowDimensions(int windowWidth, int windowHeight)
 {
 	FrontendPage::SetWindowDimensions(windowWidth, windowHeight);
@@ -246,6 +256,8 @@ void ModMenu::Unload()
 
 	m_pGUI->RemoveWindow(m_pModWindow);
 
+	ClearModButtonData();
+
 	m_loaded = false;
 }
 
@@ -272,6 +284,21 @@ void ModMenu::CreateGameplayModButtons()
 			char buttonText[64];
 			sprintf(buttonText, "TestButton: %i,%i", x, y);
 			m_pNewButton->AddText(m_pRenderer, m_pFrontendManager->GetFrontendFont_18(), m_pFrontendManager->GetFrontendFont_18_Outline(), buttonText, Colour(1.0f, 1.0f, 1.0f, 1.0f), 7, buttonHeight - 20, true, Colour(0.0f, 0.0f, 0.0f, 1.0f));
+
+			ModButtonData* pModButtonData = new ModButtonData();
+			pModButtonData->m_pModMenu = this;
+			pModButtonData->m_pModButton = m_pNewButton;
+			pModButtonData->m_modName = buttonText;
+			pModButtonData->m_gameplayButton = true;
+			pModButtonData->m_graphicsButton = false;
+			pModButtonData->m_soundButton = false;
+			pModButtonData->m_HUDButton = false;
+			pModButtonData->m_miscButton = false;
+
+			m_pNewButton->SetCallBackFunction(_ModButtonPressed);
+			m_pNewButton->SetCallBackData(pModButtonData);
+
+			m_vpModButtonData.push_back(pModButtonData);
 
 			m_pModsScrollbar->AddScrollAreaItem(m_pNewButton);
 
@@ -366,6 +393,21 @@ void ModMenu::CreateHUDModButtons()
 			m_pNewButton->SetPressedOffset(0, -1);
 
 			m_pNewButton->AddText(m_pRenderer, m_pFrontendManager->GetFrontendFont_18(), m_pFrontendManager->GetFrontendFont_18_Outline(), listFiles[modButtonCounter].c_str(), Colour(1.0f, 1.0f, 1.0f, 1.0f), 7, buttonHeight - 20, true, Colour(0.0f, 0.0f, 0.0f, 1.0f));
+
+			ModButtonData* pModButtonData = new ModButtonData();
+			pModButtonData->m_pModMenu = this;
+			pModButtonData->m_pModButton = m_pNewButton;
+			pModButtonData->m_modName = listFiles[modButtonCounter];
+			pModButtonData->m_gameplayButton = false;
+			pModButtonData->m_graphicsButton = false;
+			pModButtonData->m_soundButton = false;
+			pModButtonData->m_HUDButton = true;
+			pModButtonData->m_miscButton = false;
+
+			m_pNewButton->SetCallBackFunction(_ModButtonPressed);
+			m_pNewButton->SetCallBackData(pModButtonData);
+
+			m_vpModButtonData.push_back(pModButtonData);
 
 			m_pModsScrollbar->AddScrollAreaItem(m_pNewButton);
 
@@ -652,6 +694,8 @@ void ModMenu::GameplayTabPressed()
 		m_pGUI->RemoveWindow(m_pModWindow);
 	}
 
+	ClearModButtonData();
+
 	RemoveGameplayModButtons();
 	RemoveGraphicsModButtons();
 	RemoveSoundModButtons();
@@ -679,6 +723,8 @@ void ModMenu::GraphicsTabPressed()
 	{
 		m_pGUI->RemoveWindow(m_pModWindow);
 	}
+
+	ClearModButtonData();
 
 	RemoveGameplayModButtons();
 	RemoveGraphicsModButtons();
@@ -708,6 +754,8 @@ void ModMenu::SoundTabPressed()
 		m_pGUI->RemoveWindow(m_pModWindow);
 	}
 
+	ClearModButtonData();
+
 	RemoveGameplayModButtons();
 	RemoveGraphicsModButtons();
 	RemoveSoundModButtons();
@@ -735,6 +783,8 @@ void ModMenu::GUITabPressed()
 	{
 		m_pGUI->RemoveWindow(m_pModWindow);
 	}
+
+	ClearModButtonData();
 
 	RemoveGameplayModButtons();
 	RemoveGraphicsModButtons();
@@ -764,6 +814,8 @@ void ModMenu::MiscTabPressed()
 		m_pGUI->RemoveWindow(m_pModWindow);
 	}
 
+	ClearModButtonData();
+
 	RemoveGameplayModButtons();
 	RemoveGraphicsModButtons();
 	RemoveSoundModButtons();
@@ -777,4 +829,56 @@ void ModMenu::MiscTabPressed()
 
 	m_pGUI->AddWindow(m_pModWindow);
 	m_pModWindow->Show();
+}
+
+void ModMenu::_ModButtonPressed(void *apData)
+{
+	ModButtonData* lpModButtonData = (ModButtonData*)apData;
+	lpModButtonData->m_pModMenu->ModButtonPressed(lpModButtonData);
+}
+
+void ModMenu::ModButtonPressed(ModButtonData* pModButtonData)
+{
+	int buttonWidth = m_modButtonWidth;
+
+	if (pModButtonData->m_gameplayButton)
+	{
+		for (unsigned int i = 0; i < m_vpGameplayModButtons.size(); i++)
+		{
+			m_vpGameplayModButtons[i]->RemoveIcon("media/textures/gui/Stonewash/common/tick.tga");
+		}
+	}
+	if (pModButtonData->m_graphicsButton)
+	{
+		for (unsigned int i = 0; i < m_vpGraphicsModButtons.size(); i++)
+		{
+			m_vpGraphicsModButtons[i]->RemoveIcon("media/textures/gui/Stonewash/common/tick.tga");
+		}
+	}
+	if (pModButtonData->m_soundButton)
+	{
+		for (unsigned int i = 0; i < m_vpSoundModButtons.size(); i++)
+		{
+			m_vpSoundModButtons[i]->RemoveIcon("media/textures/gui/Stonewash/common/tick.tga");
+		}
+	}
+	if (pModButtonData->m_HUDButton)
+	{
+		for (unsigned int i = 0; i < m_vpHUDModButtons.size(); i++)
+		{
+			m_vpHUDModButtons[i]->RemoveIcon("media/textures/gui/Stonewash/common/tick.tga");
+		}
+
+		m_pFrontendManager->LoadCommonGraphics(pModButtonData->m_modName);
+		VoxGame::GetInstance()->SkinGUI();
+	}
+	if (pModButtonData->m_miscButton)
+	{
+		for (unsigned int i = 0; i < m_vpMiscModButtons.size(); i++)
+		{
+			m_vpMiscModButtons[i]->RemoveIcon("media/textures/gui/Stonewash/common/tick.tga");
+		}
+	}
+
+	pModButtonData->m_pModButton->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/tick.tga", 32, 32, 32, 32, buttonWidth - 38, 4, 2.0f);
 }
