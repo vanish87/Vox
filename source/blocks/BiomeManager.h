@@ -14,8 +14,8 @@
 #pragma once
 
 #include "../Renderer/Renderer.h"
+#include "BlocksEnum.h"
 
-enum BlockType;
 
 enum Biome
 {

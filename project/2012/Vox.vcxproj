@@ -178,6 +178,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\source\blocks\Chunk.h" />
     <ClInclude Include="..\..\source\blocks\BiomeManager.h" />
+    <ClInclude Include="..\..\source\blocks\BlocksEnum.h" />
     <ClInclude Include="..\..\source\blocks\ChunkManager.h" />
     <ClInclude Include="..\..\source\freetype\freetypefont.h" />
     <ClInclude Include="..\..\source\frontend\FrontendManager.h" />

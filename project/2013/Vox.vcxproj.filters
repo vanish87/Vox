@@ -1508,6 +1508,9 @@
     <ClInclude Include="..\..\source\blocks\BiomeManager.h">
       <Filter>source\blocks</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\blocks\BlocksEnum.h">
+      <Filter>source\blocks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\source\glm\detail\type_mat3x4.inl">

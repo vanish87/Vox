@@ -14,6 +14,7 @@
 #include "Chunk.h"
 #include "ChunkManager.h"
 #include "BiomeManager.h"
+#include "BlocksEnum.h"
 #include "../Player/Player.h"
 #include "../scenery/SceneryManager.h"
 #include "../models/QubicleBinary.h"

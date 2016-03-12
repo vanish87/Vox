@@ -23,6 +23,7 @@ using namespace std;
 
 #include "Item.h"
 #include "../blocks/ChunkManager.h"
+#include "../blocks/BlocksEnum.h"
 #include "../Particles/BlockParticleManager.h"
 #include "../Inventory/InventoryManager.h"
 #include "../Player/Player.h"

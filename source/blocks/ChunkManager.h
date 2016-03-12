@@ -76,23 +76,6 @@ enum QubicleImportDirection
 	QubicleImportDirection_RotateZ270,
 };
 
-enum BlockType
-{
-	BlockType_Default = 0,
-	BlockType_Underground_Indestructable,
-	BlockType_Stone,
-	BlockType_Dirt,
-	BlockType_Grass,
-	BlockType_Rock,
-	BlockType_Snow,
-	BlockType_Wood,
-	BlockType_Sand,
-	BlockType_Cactus,
-	BlockType_Leaf,
-	BlockType_CustomColour,
-	BlockType_NumTypes,
-};
-
 
 class ChunkStorageLoader
 {
