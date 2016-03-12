@@ -1197,6 +1197,11 @@ void Player::Jump()
 		return;
 	}
 
+	if (m_bDoStepUpAnimation == true) // Don't allow jumping if we are doing a step up animation
+	{
+		return;
+	}
+
 	m_bCanJump = false;
 	m_jumpTimer = 0.3f;
 
