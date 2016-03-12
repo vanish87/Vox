@@ -156,6 +156,10 @@ public:
 	Icon* GetLeftRotateArrow_Hover() { return m_pArrowLeft_Icon_Hover; }
 	Icon* GetLeftRotateArrow_Pressed() { return m_pArrowLeft_Icon_Pressed; }
 
+	// Frontend functionality
+	void SetOptionsReturnToMainMenu(bool mainMenu);
+	void SetModsMenuReturnToMainMenu(bool mainMenu);
+
 	// Constants
 	float GetToolTipAppearDelay() { return m_tooltipAppearDelay; }
 

@@ -150,6 +150,8 @@ void PauseMenu::_OptionsPressed(void *apData)
 
 void PauseMenu::OptionsPressed()
 {
+	m_pFrontendManager->SetFrontendScreen(FrontendScreen_OptionsMenu);
+	m_pFrontendManager->SetOptionsReturnToMainMenu(false);
 }
 
 void PauseMenu::_ModsPressed(void *apData)
@@ -160,6 +162,8 @@ void PauseMenu::_ModsPressed(void *apData)
 
 void PauseMenu::ModsPressed()
 {
+	m_pFrontendManager->SetFrontendScreen(FrontendScreen_ModMenu);
+	m_pFrontendManager->SetModsMenuReturnToMainMenu(false);
 }
 
 void PauseMenu::_QuitPressed(void *apData)

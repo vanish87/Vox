@@ -298,6 +298,8 @@ void MainMenu::_OptionsPressed(void *apData)
 
 void MainMenu::OptionsPressed()
 {
+	m_pFrontendManager->SetFrontendScreen(FrontendScreen_OptionsMenu);
+	m_pFrontendManager->SetOptionsReturnToMainMenu(true);
 }
 
 void MainMenu::_ModsPressed(void *apData)
@@ -308,6 +310,8 @@ void MainMenu::_ModsPressed(void *apData)
 
 void MainMenu::ModsPressed()
 {
+	m_pFrontendManager->SetFrontendScreen(FrontendScreen_ModMenu);
+	m_pFrontendManager->SetModsMenuReturnToMainMenu(true);
 }
 
 void MainMenu::_CreditsPressed(void *apData)

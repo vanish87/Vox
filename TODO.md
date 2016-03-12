@@ -101,6 +101,8 @@
 * ~~Add item manager.~~
 * ~~Add inventory GUI.~~
 * ~~Add character GUI.~~
+* ~~Add options menu window to pause menu.~~
+* ~~Add mods menu window to pause menu.~~
 * ~~Tidy up inventory and item managers!~~
   * ~~Add back in TODO code (TODO : Add me back in).~~
   * ~~Test ALL functionality with player equipping items and weapons.~~
@@ -124,8 +126,6 @@
 * Saving and loading chunks.
   * Group together chunks for saving, loading. Not individual
 * Add character creator and customization from front-end.
-* Add options menu window to pause menu.
-* Add mods menu window to pause menu.
 * Add voxel editor.
 * Add texture support for voxel blocks.
 * Water, creating and manipulation, rendering, updating.

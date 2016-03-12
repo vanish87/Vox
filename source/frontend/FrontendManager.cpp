@@ -14,6 +14,8 @@
 #include "Pages/QuitPopup.h"
 #include "Pages/PauseMenu.h"
 #include "Pages/MainMenu.h"
+#include "Pages/ModMenu.h"
+#include "Pages/OptionsMenu.h"
 
 
 FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
@@ -175,10 +177,14 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 	FrontendPage* pQuitPopup = new QuitPopup(m_pRenderer, m_pGUI, this, width, height);
 	FrontendPage* pPauseMenu = new PauseMenu(m_pRenderer, m_pGUI, this, width, height);
 	FrontendPage* pMainMenu = new MainMenu(m_pRenderer, m_pGUI, this, width, height);
+	FrontendPage* pOptionsMenu = new OptionsMenu(m_pRenderer, m_pGUI, this, width, height);
+	FrontendPage* pModMenu = new ModMenu(m_pRenderer, m_pGUI, this, width, height);
 
 	m_vpFrontendPages.push_back(pQuitPopup);
 	m_vpFrontendPages.push_back(pPauseMenu);
 	m_vpFrontendPages.push_back(pMainMenu);
+	m_vpFrontendPages.push_back(pOptionsMenu);
+	m_vpFrontendPages.push_back(pModMenu);
 
 	// Initial page
 	m_currentScreen = FrontendScreen_None;
@@ -504,6 +510,29 @@ void FrontendManager::SetButtonIcons(Button* pButton, ButtonSize size)
 	pButton->SetHoverIcon(GetButtonIconHover(size));
 	pButton->SetSelectedIcon(GetButtonIconPressed(size));
 	pButton->SetDisabledIcon(GetButtonIconDisabled(size));
+}
+
+// Frontend functionality
+void FrontendManager::SetOptionsReturnToMainMenu(bool mainMenu)
+{
+	for (unsigned int i = 0; i < m_vpFrontendPages.size(); i++)
+	{
+		if (m_vpFrontendPages[i]->GetPageType() == FrontendScreen_OptionsMenu)
+		{
+			((OptionsMenu*)m_vpFrontendPages[i])->SetReturnToMainMenu(mainMenu);
+		}
+	}
+}
+
+void FrontendManager::SetModsMenuReturnToMainMenu(bool mainMenu)
+{
+	for (unsigned int i = 0; i < m_vpFrontendPages.size(); i++)
+	{
+		if (m_vpFrontendPages[i]->GetPageType() == FrontendScreen_ModMenu)
+		{
+			((ModMenu*)m_vpFrontendPages[i])->SetReturnToMainMenu(mainMenu);
+		}
+	}
 }
 
 // Updating

@@ -134,10 +134,7 @@ void VoxGame::Update()
 	}
 
 	// Update the frontend
-	if (m_gameMode == GameMode_FrontEnd)
-	{
-		m_pFrontendManager->Update(m_deltaTime);
-	}
+	m_pFrontendManager->Update(m_deltaTime);
 
 	// Update the GUI
 	int x = m_pVoxWindow->GetCursorX();
