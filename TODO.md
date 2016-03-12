@@ -93,6 +93,9 @@
   * Allow input commands.
   * Clear log text functionality
   * Rendering of many log messages is slow, output to file?
+* ~~Create basic front-end.~~
+* ~~Fix camera glitching when going in and out of pause menu (also quit menu).~~
+* ~~Animated text effects in the HUD, for pickups, combat, etc..~~
 * ~~Add biome manager~~
   * ~~Add colour variation management to biome manager.~~
 * ~~Add item manager.~~
@@ -116,7 +119,6 @@
   * Poisson-disc sparation and generation for random placement of scenery.
   * Convert scenery manager to use instance rendering and the instance shader.
 * Add Quest GUI.
-* ~~Create basic front-end.~~
 * Create front end scene and character line up.
 * Character creation and customization.
 * Saving and loading chunks.
@@ -132,7 +134,6 @@
   * Low FPS causes bad physics and also bad step-up block functionality, investigate and fix.
 * Custom cursors - fingers.
 * Dont allow jumping multiple times by holding down the space (or joy button).
-* ~~Fix camera glitching when going in and out of pause menu (also quit menu).~~
 * Allow for font changing on the fly, allow different font styles to go with the themes.
 * Add shadow receiving on instanced rendered objects. (Add texture matrix to shader??)
 * Player particle trail on walking.
@@ -140,5 +141,4 @@
 * Enemies.
 * NPCs.
 * Companion pets.
-* Animated text effects in the HUD, for pickups, combat, etc..
 * Add debug render metrics for all counters (i.e num chunks, particles, items, triangles, verts, etc).
