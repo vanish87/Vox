@@ -225,8 +225,8 @@ void ModMenu::UnSkinGUI()
 
 void ModMenu::Load()
 {
-	m_pGUI->AddWindow(m_pModWindow);
-	m_pModWindow->Show();
+	m_pGameplayMode->SetToggled(true);
+	GameplayTabPressed();
 
 	m_loaded = true;
 }

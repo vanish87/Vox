@@ -564,9 +564,6 @@ void OptionsMenu::Load()
 	m_pGameplayMode->SetToggled(true);
 	GameplayTabPressed();
 
-	//m_pGUI->AddWindow(m_pOptionsWindow);
-	//m_pOptionsWindow->Show();
-
 	m_loaded = true;
 }
 
