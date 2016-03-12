@@ -374,20 +374,23 @@ void VoxGame::MouseMiddleReleased()
 
 void VoxGame::MouseScroll(double x, double y)
 {
-	if (m_pVoxWindow->IsCursorOn() == false || !m_pGUI->IsMouseInteractingWithGUIComponent(false))
+	if (m_bPaused == false)
 	{
-		if (m_cameraMode != CameraMode_FirstPerson)
+		if (m_pVoxWindow->IsCursorOn() == false || !m_pGUI->IsMouseInteractingWithGUIComponent(false))
 		{
-			m_maxCameraDistance += (float)(-y*0.5f);
-
-			WrapCameraZoomValue();
-		}
-		else
-		{
-			if (y < 0.0f)
+			if (m_cameraMode != CameraMode_FirstPerson)
 			{
-				m_cameraDistance = 2.0f;
-				m_maxCameraDistance = 2.0f;
+				m_maxCameraDistance += (float)(-y*0.5f);
+
+				WrapCameraZoomValue();
+			}
+			else
+			{
+				if (y < 0.0f)
+				{
+					m_cameraDistance = 2.0f;
+					m_maxCameraDistance = 2.0f;
+				}
 			}
 		}
 	}
