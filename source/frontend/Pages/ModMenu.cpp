@@ -13,6 +13,7 @@
 #include "../../VoxGame.h"
 #include "../FrontendManager.h"
 #include "../../gui/openglgui.h"
+#include "../../utils/FileUtils.h"
 
 
 ModMenu::ModMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontPageManager, int windowWidth, int windowHeight)
@@ -82,13 +83,13 @@ ModMenu::ModMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontPa
 	//m_pSoundMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
 	//m_pSoundMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
-	m_pGUIMode = new OptionBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_18(), m_pFrontendManager->GetFrontendFont_18_Outline(), "HUD", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	m_pGUIMode->SetCallBackFunction(_GUITabPressed);
-	m_pGUIMode->SetCallBackData(this);
-	m_pGUIMode->SetDepth(2.3f);
-	m_pGUIMode->SetPressedOffset(0, -2);
-	//m_pGUIMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pGUIMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+	m_pHUDMode = new OptionBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_18(), m_pFrontendManager->GetFrontendFont_18_Outline(), "HUD", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	m_pHUDMode->SetCallBackFunction(_GUITabPressed);
+	m_pHUDMode->SetCallBackData(this);
+	m_pHUDMode->SetDepth(2.3f);
+	m_pHUDMode->SetPressedOffset(0, -2);
+	//m_pHUDMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	//m_pHUDMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pMiscMode = new OptionBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_18(), m_pFrontendManager->GetFrontendFont_18_Outline(), "Misc", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pMiscMode->SetCallBackFunction(_MiscTabPressed);
@@ -109,7 +110,7 @@ ModMenu::ModMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontPa
 	m_pModsModeController->Add(m_pGameplayMode);
 	m_pModsModeController->Add(m_pGraphicsMode);
 	m_pModsModeController->Add(m_pSoundMode);
-	m_pModsModeController->Add(m_pGUIMode);
+	m_pModsModeController->Add(m_pHUDMode);
 	m_pModsModeController->Add(m_pMiscMode);	
 	m_pGameplayMode->SetToggled(true);
 
@@ -140,7 +141,7 @@ ModMenu::~ModMenu()
 	delete m_pGameplayMode;
 	delete m_pGraphicsMode;
 	delete m_pSoundMode;
-	delete m_pGUIMode;
+	delete m_pHUDMode;
 	delete m_pMiscMode;
 
 	// Scrollbar
@@ -155,8 +156,12 @@ void ModMenu::SetWindowDimensions(int windowWidth, int windowHeight)
 {
 	FrontendPage::SetWindowDimensions(windowWidth, windowHeight);
 
+	m_modButtonWidth = 170;
+	m_modButtonheight = 150;
+	m_modButtonSpace = 15;
+
 	m_modWindowWidth = 600;
-	m_modWindowHeight = 475;
+	m_modWindowHeight = 510;
 	m_titlebarWidth = 118;
 	m_titlebarHeight = 35;
 
@@ -190,11 +195,11 @@ void ModMenu::SetWindowDimensions(int windowWidth, int windowHeight)
 	textWidth = m_pRenderer->GetFreeTypeTextWidth(m_pFrontendManager->GetFrontendFont_18_Outline(), "%s", m_pSoundMode->GetLabel().GetText().c_str());
 	m_pSoundMode->SetLabelPosition((int)(75*0.5f-textWidth*0.5f), 8);
 
-	m_pGUIMode->SetDisplayLabel(false);
-	m_pGUIMode->SetDimensions(m_modWindowWidth-32-150, 0, 75, 32);
-	m_pGUIMode->SetDisplayLabel(true);
-	textWidth = m_pRenderer->GetFreeTypeTextWidth(m_pFrontendManager->GetFrontendFont_18_Outline(), "%s", m_pGUIMode->GetLabel().GetText().c_str());
-	m_pGUIMode->SetLabelPosition((int)(75*0.5f-textWidth*0.5f), 8);
+	m_pHUDMode->SetDisplayLabel(false);
+	m_pHUDMode->SetDimensions(m_modWindowWidth-32-150, 0, 75, 32);
+	m_pHUDMode->SetDisplayLabel(true);
+	textWidth = m_pRenderer->GetFreeTypeTextWidth(m_pFrontendManager->GetFrontendFont_18_Outline(), "%s", m_pHUDMode->GetLabel().GetText().c_str());
+	m_pHUDMode->SetLabelPosition((int)(75*0.5f-textWidth*0.5f), 8);
 
 	m_pMiscMode->SetDisplayLabel(false);
 	m_pMiscMode->SetDimensions(m_modWindowWidth-32-75, 0, 75, 32);
@@ -215,12 +220,12 @@ void ModMenu::SetReturnToMainMenu(bool mainMenu)
 
 void ModMenu::SkinGUI()
 {
-
+	m_pFrontendManager->SetScrollbarIcons(m_pModsScrollbar);
 }
 
 void ModMenu::UnSkinGUI()
 {
-
+	m_pModsScrollbar->SetDefaultIcons(m_pRenderer);
 }
 
 void ModMenu::Load()
@@ -246,12 +251,48 @@ void ModMenu::Unload()
 
 void ModMenu::CreateGameplayModButtons()
 {
+	int buttonWidth = m_modButtonWidth;
+	int buttonHeight = m_modButtonheight;
+	int buttonSpacer = m_modButtonSpace;
+	int buttonAndSpacerWidth = buttonWidth + buttonSpacer;
+	int buttonAndSpacerHeight = buttonHeight + buttonSpacer;
 
+	int buttonX = -(m_modWindowWidth - 42);
+	int buttonY = m_modWindowHeight - buttonHeight - 17;
+	for (int y = 0; y < 4; y++)
+	{
+		buttonX = -(m_modWindowWidth - 42);
+
+		for (int x = 0; x < 3; x++)
+		{
+			Button* m_pNewButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_35(), "");
+			m_pNewButton->SetDimensions(buttonX, buttonY, buttonWidth, buttonHeight);
+			m_pNewButton->SetPressedOffset(0, -1);
+
+			char buttonText[64];
+			sprintf(buttonText, "TestButton: %i,%i", x, y);
+			m_pNewButton->AddText(m_pRenderer, m_pFrontendManager->GetFrontendFont_18(), m_pFrontendManager->GetFrontendFont_18_Outline(), buttonText, Colour(1.0f, 1.0f, 1.0f, 1.0f), 7, buttonHeight - 20, true, Colour(0.0f, 0.0f, 0.0f, 1.0f));
+
+			m_pModsScrollbar->AddScrollAreaItem(m_pNewButton);
+
+			m_vpGameplayModButtons.push_back(m_pNewButton);
+
+			buttonX += buttonAndSpacerWidth;
+		}
+
+		buttonY -= buttonAndSpacerHeight;
+	}
 }
 
 void ModMenu::RemoveGameplayModButtons()
 {
-
+	m_pModsScrollbar->ClearScrollAreaItems();
+	for (unsigned int i = 0; i < m_vpGameplayModButtons.size(); i++)
+	{
+		delete m_vpGameplayModButtons[i];
+		m_vpGameplayModButtons[i] = 0;
+	}
+	m_vpGameplayModButtons.clear();
 }
 
 void ModMenu::CreateGraphicsModButtons()
@@ -261,7 +302,13 @@ void ModMenu::CreateGraphicsModButtons()
 
 void ModMenu::RemoveGraphicsModButtons()
 {
-
+	m_pModsScrollbar->ClearScrollAreaItems();
+	for (unsigned int i = 0; i < m_vpGraphicsModButtons.size(); i++)
+	{
+		delete m_vpGraphicsModButtons[i];
+		m_vpGraphicsModButtons[i] = 0;
+	}
+	m_vpGraphicsModButtons.clear();
 }
 
 void ModMenu::CreateSoundModButtons()
@@ -271,38 +318,88 @@ void ModMenu::CreateSoundModButtons()
 
 void ModMenu::RemoveSoundModButtons()
 {
-
+	m_pModsScrollbar->ClearScrollAreaItems();
+	for (unsigned int i = 0; i < m_vpSoundModButtons.size(); i++)
+	{
+		delete m_vpSoundModButtons[i];
+		m_vpSoundModButtons[i] = 0;
+	}
+	m_vpSoundModButtons.clear();
 }
 
 void ModMenu::CreateHUDModButtons()
 {
-	int buttonWidth = 170;
-	int buttonHeight = 150;
-	int buttonSpacer = 15;
+	int buttonWidth = m_modButtonWidth;
+	int buttonHeight = m_modButtonheight;
+	int buttonSpacer = m_modButtonSpace;
 	int buttonAndSpacerWidth = buttonWidth + buttonSpacer;
 	int buttonAndSpacerHeight = buttonHeight + buttonSpacer;
 
 	int buttonX = -(m_modWindowWidth-42);
 	int buttonY = m_modWindowHeight - buttonHeight - 17;
-	for(int y = 0; y < 3; y++)
-	{
-		buttonX = -(m_modWindowWidth-42);
 
-		for(int x = 0; x < 3; x++)
+	char importDirectory[128];
+#ifdef _WIN32
+	sprintf(importDirectory, "media/textures/gui/*.*");
+#elif __linux__
+	sprintf(importDirectory, "media/textures/gui/*.*");
+#endif //_WIN32
+
+	vector<string> listFiles;
+	listFiles = listFilesInDirectory(importDirectory);
+	int modButtonCounter = 0;
+	int yCounter = 0;
+	while (modButtonCounter < listFiles.size())
+	{
+		if (strcmp(listFiles[modButtonCounter].c_str(), ".") == 0 || strcmp(listFiles[modButtonCounter].c_str(), "..") == 0)
+		{
+			modButtonCounter++;
+			continue;
+		}
+
+		buttonX = -(m_modWindowWidth - 42);
+
+		for (int x = 0; x < 3 && modButtonCounter < listFiles.size(); x++)
 		{
 			Button* m_pNewButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_35(), "");
 			m_pNewButton->SetDimensions(buttonX, buttonY, buttonWidth, buttonHeight);
-			m_pNewButton->SetPressedOffset(0, -4);
+			m_pNewButton->SetPressedOffset(0, -1);
+
+			m_pNewButton->AddText(m_pRenderer, m_pFrontendManager->GetFrontendFont_18(), m_pFrontendManager->GetFrontendFont_18_Outline(), listFiles[modButtonCounter].c_str(), Colour(1.0f, 1.0f, 1.0f, 1.0f), 7, buttonHeight - 20, true, Colour(0.0f, 0.0f, 0.0f, 1.0f));
 
 			m_pModsScrollbar->AddScrollAreaItem(m_pNewButton);
 
 			m_vpHUDModButtons.push_back(m_pNewButton);
 
 			buttonX += buttonAndSpacerWidth;
+
+			modButtonCounter++;
 		}
+
+		yCounter++;
 
 		buttonY -= buttonAndSpacerHeight;
 	}
+
+	//for(int y = 0; y < 3; y++)
+	//{
+	//	buttonX = -(m_modWindowWidth-42);
+
+	//	for(int x = 0; x < 3; x++)
+	//	{
+	//		Button* m_pNewButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_35(), "");
+	//		m_pNewButton->SetDimensions(buttonX, buttonY, buttonWidth, buttonHeight);
+	//		m_pNewButton->SetPressedOffset(0, -4);
+
+	//		m_pModsScrollbar->AddScrollAreaItem(m_pNewButton);
+
+	//		m_vpHUDModButtons.push_back(m_pNewButton);
+
+	//		buttonX += buttonAndSpacerWidth;
+	//	}
+
+	//	buttonY -= buttonAndSpacerHeight;
+	//}
 }
 
 void ModMenu::RemoveHUDModButtons()
@@ -323,7 +420,13 @@ void ModMenu::CreateMiscModButtons()
 
 void ModMenu::RemoveMiscModButtons()
 {
-
+	m_pModsScrollbar->ClearScrollAreaItems();
+	for (unsigned int i = 0; i < m_vpMiscModButtons.size(); i++)
+	{
+		delete m_vpMiscModButtons[i];
+		m_vpMiscModButtons[i] = 0;
+	}
+	m_vpMiscModButtons.clear();
 }
 
 void ModMenu::Update(float dt)
@@ -332,44 +435,199 @@ void ModMenu::Update(float dt)
 
 	VoxGame::GetInstance()->SetGlobalBlurAmount(0.00125f);
 
-	// HUD
-	int buttonWidth = 170;
-	int buttonHeight = 150;
-	int buttonSpacer = 15;
+	int buttonWidth = m_modButtonWidth;
+	int buttonHeight = m_modButtonheight;
+	int buttonSpacer = m_modButtonSpace;
 	int buttonAndSpacer = buttonHeight + buttonSpacer;
 
-	int visibleSize = m_pModsScrollbar->GetScrollArea().m_height;
-	int neededHeight = ((int)m_vpHUDModButtons.size() / 3) * buttonAndSpacer + 4;
-	int heightDiff = neededHeight - visibleSize;
-
-	if(heightDiff > 0)
+	// Gameplay
+	if (m_pGameplayMode->GetToggled())
 	{
-		m_pModsScrollbar->SetScrollSize((float)visibleSize / (float)neededHeight);
-		m_pModsScrollbar->SetDisabled(false);
-
-		float scrollRatio = m_pModsScrollbar->GetScrollRatio();
-		int offsetButtonY = (int)(heightDiff * scrollRatio);
-
-		int modButtonCounter = 0;
-		int yCounter = 0;
-		while(modButtonCounter < m_vpHUDModButtons.size())
+		int visibleSize = m_pModsScrollbar->GetScrollArea().m_height;
+		int numYLines = (int)ceil((float)m_vpGameplayModButtons.size() / 3.0f);
+		int neededHeight = numYLines * buttonAndSpacer + 4;
+		int heightDiff = neededHeight - visibleSize;
+		if (heightDiff > 0)
 		{
-			for(int x = 0; x < 3 && modButtonCounter < m_vpHUDModButtons.size(); x++)
+			m_pModsScrollbar->SetScrollSize((float)visibleSize / (float)neededHeight);
+			m_pModsScrollbar->SetDisabled(false);
+
+			float scrollRatio = m_pModsScrollbar->GetScrollRatio();
+			int offsetButtonY = (int)(heightDiff * scrollRatio);
+
+			int modButtonCounter = 0;
+			int yCounter = 0;
+			while (modButtonCounter < m_vpGameplayModButtons.size())
 			{
-				int yPos = m_modWindowHeight - buttonHeight - 17 - (buttonAndSpacer * yCounter);
-				Point position = m_vpHUDModButtons[modButtonCounter]->GetLocation();
-				m_vpHUDModButtons[modButtonCounter]->SetLocation(position.m_x, yPos + offsetButtonY);
+				for (int x = 0; x < 3 && modButtonCounter < m_vpGameplayModButtons.size(); x++)
+				{
+					int yPos = m_modWindowHeight - buttonHeight - 17 - (buttonAndSpacer * yCounter);
+					Point position = m_vpGameplayModButtons[modButtonCounter]->GetLocation();
+					m_vpGameplayModButtons[modButtonCounter]->SetLocation(position.m_x, yPos + offsetButtonY);
 
-				modButtonCounter++;
+					modButtonCounter++;
+				}
+
+				yCounter++;
 			}
-
-			yCounter++;
+		}
+		else
+		{
+			m_pModsScrollbar->SetScrollSize(0.0f);
+			m_pModsScrollbar->SetDisabled(true);
 		}
 	}
-	else
+
+	// Graphics
+	if (m_pGraphicsMode->GetToggled())
 	{
-		m_pModsScrollbar->SetScrollSize(0.0f);
-		m_pModsScrollbar->SetDisabled(true);
+		int visibleSize = m_pModsScrollbar->GetScrollArea().m_height;
+		int numYLines = (int)ceil((float)m_vpGraphicsModButtons.size() / 3.0f);
+		int neededHeight = numYLines * buttonAndSpacer + 4;
+		int heightDiff = neededHeight - visibleSize;
+		if (heightDiff > 0)
+		{
+			m_pModsScrollbar->SetScrollSize((float)visibleSize / (float)neededHeight);
+			m_pModsScrollbar->SetDisabled(false);
+
+			float scrollRatio = m_pModsScrollbar->GetScrollRatio();
+			int offsetButtonY = (int)(heightDiff * scrollRatio);
+
+			int modButtonCounter = 0;
+			int yCounter = 0;
+			while (modButtonCounter < m_vpGraphicsModButtons.size())
+			{
+				for (int x = 0; x < 3 && modButtonCounter < m_vpGraphicsModButtons.size(); x++)
+				{
+					int yPos = m_modWindowHeight - buttonHeight - 17 - (buttonAndSpacer * yCounter);
+					Point position = m_vpGraphicsModButtons[modButtonCounter]->GetLocation();
+					m_vpGraphicsModButtons[modButtonCounter]->SetLocation(position.m_x, yPos + offsetButtonY);
+
+					modButtonCounter++;
+				}
+
+				yCounter++;
+			}
+		}
+		else
+		{
+			m_pModsScrollbar->SetScrollSize(0.0f);
+			m_pModsScrollbar->SetDisabled(true);
+		}
+	}
+
+	// Sound
+	if (m_pSoundMode->GetToggled())
+	{
+		int visibleSize = m_pModsScrollbar->GetScrollArea().m_height;
+		int numYLines = (int)ceil((float)m_vpSoundModButtons.size() / 3.0f);
+		int neededHeight = numYLines * buttonAndSpacer + 4;
+		int heightDiff = neededHeight - visibleSize;
+		if (heightDiff > 0)
+		{
+			m_pModsScrollbar->SetScrollSize((float)visibleSize / (float)neededHeight);
+			m_pModsScrollbar->SetDisabled(false);
+
+			float scrollRatio = m_pModsScrollbar->GetScrollRatio();
+			int offsetButtonY = (int)(heightDiff * scrollRatio);
+
+			int modButtonCounter = 0;
+			int yCounter = 0;
+			while (modButtonCounter < m_vpSoundModButtons.size())
+			{
+				for (int x = 0; x < 3 && modButtonCounter < m_vpSoundModButtons.size(); x++)
+				{
+					int yPos = m_modWindowHeight - buttonHeight - 17 - (buttonAndSpacer * yCounter);
+					Point position = m_vpSoundModButtons[modButtonCounter]->GetLocation();
+					m_vpSoundModButtons[modButtonCounter]->SetLocation(position.m_x, yPos + offsetButtonY);
+
+					modButtonCounter++;
+				}
+
+				yCounter++;
+			}
+		}
+		else
+		{
+			m_pModsScrollbar->SetScrollSize(0.0f);
+			m_pModsScrollbar->SetDisabled(true);
+		}
+	}
+
+	// HUD
+	if (m_pHUDMode->GetToggled())
+	{
+		int visibleSize = m_pModsScrollbar->GetScrollArea().m_height;
+		int numYLines = (int)ceil((float)m_vpHUDModButtons.size() / 3.0f);
+		int neededHeight = numYLines * buttonAndSpacer + 4;
+		int heightDiff = neededHeight - visibleSize;
+		if (heightDiff > 0)
+		{
+			m_pModsScrollbar->SetScrollSize((float)visibleSize / (float)neededHeight);
+			m_pModsScrollbar->SetDisabled(false);
+
+			float scrollRatio = m_pModsScrollbar->GetScrollRatio();
+			int offsetButtonY = (int)(heightDiff * scrollRatio);
+
+			int modButtonCounter = 0;
+			int yCounter = 0;
+			while (modButtonCounter < m_vpHUDModButtons.size())
+			{
+				for (int x = 0; x < 3 && modButtonCounter < m_vpHUDModButtons.size(); x++)
+				{
+					int yPos = m_modWindowHeight - buttonHeight - 17 - (buttonAndSpacer * yCounter);
+					Point position = m_vpHUDModButtons[modButtonCounter]->GetLocation();
+					m_vpHUDModButtons[modButtonCounter]->SetLocation(position.m_x, yPos + offsetButtonY);
+
+					modButtonCounter++;
+				}
+
+				yCounter++;
+			}
+		}
+		else
+		{
+			m_pModsScrollbar->SetScrollSize(0.0f);
+			m_pModsScrollbar->SetDisabled(true);
+		}
+	}
+
+	// Misc
+	if (m_pMiscMode->GetToggled())
+	{
+		int visibleSize = m_pModsScrollbar->GetScrollArea().m_height;
+		int numYLines = (int)ceil((float)m_vpMiscModButtons.size() / 3.0f);
+		int neededHeight = numYLines * buttonAndSpacer + 4;
+		int heightDiff = neededHeight - visibleSize;
+		if (heightDiff > 0)
+		{
+			m_pModsScrollbar->SetScrollSize((float)visibleSize / (float)neededHeight);
+			m_pModsScrollbar->SetDisabled(false);
+
+			float scrollRatio = m_pModsScrollbar->GetScrollRatio();
+			int offsetButtonY = (int)(heightDiff * scrollRatio);
+
+			int modButtonCounter = 0;
+			int yCounter = 0;
+			while (modButtonCounter < m_vpMiscModButtons.size())
+			{
+				for (int x = 0; x < 3 && modButtonCounter < m_vpMiscModButtons.size(); x++)
+				{
+					int yPos = m_modWindowHeight - buttonHeight - 17 - (buttonAndSpacer * yCounter);
+					Point position = m_vpMiscModButtons[modButtonCounter]->GetLocation();
+					m_vpMiscModButtons[modButtonCounter]->SetLocation(position.m_x, yPos + offsetButtonY);
+
+					modButtonCounter++;
+				}
+
+				yCounter++;
+			}
+		}
+		else
+		{
+			m_pModsScrollbar->SetScrollSize(0.0f);
+			m_pModsScrollbar->SetDisabled(true);
+		}
 	}
 }
 
@@ -411,12 +669,16 @@ void ModMenu::GameplayTabPressed()
 {
 	m_pGUI->RemoveWindow(m_pModWindow);
 
+	RemoveGameplayModButtons();
 	RemoveGraphicsModButtons();
 	RemoveSoundModButtons();
 	RemoveHUDModButtons();
 	RemoveMiscModButtons();
 
 	CreateGameplayModButtons();
+
+	Update(0.0f);
+	m_pModsScrollbar->SetScrollPosition(1.0f);
 
 	m_pGUI->AddWindow(m_pModWindow);
 	m_pModWindow->Show();
@@ -433,11 +695,15 @@ void ModMenu::GraphicsTabPressed()
 	m_pGUI->RemoveWindow(m_pModWindow);
 
 	RemoveGameplayModButtons();
+	RemoveGraphicsModButtons();
 	RemoveSoundModButtons();
 	RemoveHUDModButtons();
 	RemoveMiscModButtons();
 
 	CreateGraphicsModButtons();
+
+	Update(0.0f);
+	m_pModsScrollbar->SetScrollPosition(1.0f);
 
 	m_pGUI->AddWindow(m_pModWindow);
 	m_pModWindow->Show();
@@ -455,10 +721,14 @@ void ModMenu::SoundTabPressed()
 
 	RemoveGameplayModButtons();
 	RemoveGraphicsModButtons();
+	RemoveSoundModButtons();
 	RemoveHUDModButtons();
 	RemoveMiscModButtons();
 
 	CreateSoundModButtons();
+
+	Update(0.0f);
+	m_pModsScrollbar->SetScrollPosition(1.0f);
 
 	m_pGUI->AddWindow(m_pModWindow);
 	m_pModWindow->Show();
@@ -477,9 +747,13 @@ void ModMenu::GUITabPressed()
 	RemoveGameplayModButtons();
 	RemoveGraphicsModButtons();
 	RemoveSoundModButtons();
+	RemoveHUDModButtons();
 	RemoveMiscModButtons();
 
 	CreateHUDModButtons();
+
+	Update(0.0f);
+	m_pModsScrollbar->SetScrollPosition(1.0f);
 
 	m_pGUI->AddWindow(m_pModWindow);
 	m_pModWindow->Show();
@@ -499,8 +773,12 @@ void ModMenu::MiscTabPressed()
 	RemoveGraphicsModButtons();
 	RemoveSoundModButtons();
 	RemoveHUDModButtons();
+	RemoveMiscModButtons();
 
 	CreateMiscModButtons();
+
+	Update(0.0f);
+	m_pModsScrollbar->SetScrollPosition(1.0f);
 
 	m_pGUI->AddWindow(m_pModWindow);
 	m_pModWindow->Show();

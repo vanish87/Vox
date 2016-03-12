@@ -99,6 +99,10 @@ private:
 	// Are we in the front-end or in the game
 	bool m_returnToMainMenu;
 
+	int m_modButtonWidth;
+	int m_modButtonheight;
+	int m_modButtonSpace;
+
 	// Mod window
 	GUIWindow* m_pModWindow;
 	Icon* m_pTitleBarIcon;
@@ -111,9 +115,13 @@ private:
 	OptionBox* m_pGameplayMode;
 	OptionBox* m_pGraphicsMode;
 	OptionBox* m_pSoundMode;
-	OptionBox* m_pGUIMode;
+	OptionBox* m_pHUDMode;
 	OptionBox* m_pMiscMode;
 
 	ScrollBar* m_pModsScrollbar;
+	std::vector<Button*> m_vpGameplayModButtons;
+	std::vector<Button*> m_vpGraphicsModButtons;
+	std::vector<Button*> m_vpSoundModButtons;
 	std::vector<Button*> m_vpHUDModButtons;
+	std::vector<Button*> m_vpMiscModButtons;
 };
