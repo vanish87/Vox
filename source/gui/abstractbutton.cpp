@@ -82,6 +82,24 @@ void AbstractButton::RemoveIcon(RenderRectangle *pRemoveIcon)
 	}
 }
 
+void AbstractButton::RemoveIcon(const std::string &fileName)
+{
+	bool removed = false;
+	for (int i = 0; i < GetNumberOfChildren() && removed == false; i++)
+	{
+		if (GetChild(i)->GetComponentType() == EComponentType_Icon)
+		{
+			Icon* pIcon = (Icon*)GetChild(i);
+			if (pIcon->GetFileName() == fileName)
+			{
+				Remove(pIcon);
+
+				removed = true;
+			}
+		}
+	}
+}
+
 void AbstractButton::SetDefaultIcons(Renderer* pRenderer)
 {
 	RemoveIcon(m_pDefaultIcon);

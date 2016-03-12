@@ -38,6 +38,7 @@ public:
 	void SetLabel(const string &label);
 
 	virtual void RemoveIcon(RenderRectangle *pRemoveIcon);
+	virtual void RemoveIcon(const std::string &fileName);
 	virtual void SetDefaultIcons(Renderer* pRenderer);
 	void SetDefaultIcon(RenderRectangle *icon);
 	void SetSelectedIcon(RenderRectangle *icon);
