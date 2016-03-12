@@ -380,26 +380,6 @@ void ModMenu::CreateHUDModButtons()
 
 		buttonY -= buttonAndSpacerHeight;
 	}
-
-	//for(int y = 0; y < 3; y++)
-	//{
-	//	buttonX = -(m_modWindowWidth-42);
-
-	//	for(int x = 0; x < 3; x++)
-	//	{
-	//		Button* m_pNewButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_35(), "");
-	//		m_pNewButton->SetDimensions(buttonX, buttonY, buttonWidth, buttonHeight);
-	//		m_pNewButton->SetPressedOffset(0, -4);
-
-	//		m_pModsScrollbar->AddScrollAreaItem(m_pNewButton);
-
-	//		m_vpHUDModButtons.push_back(m_pNewButton);
-
-	//		buttonX += buttonAndSpacerWidth;
-	//	}
-
-	//	buttonY -= buttonAndSpacerHeight;
-	//}
 }
 
 void ModMenu::RemoveHUDModButtons()
@@ -667,7 +647,10 @@ void ModMenu::_GameplayTabPressed(void *pData)
 
 void ModMenu::GameplayTabPressed()
 {
-	m_pGUI->RemoveWindow(m_pModWindow);
+	if (m_loaded)
+	{
+		m_pGUI->RemoveWindow(m_pModWindow);
+	}
 
 	RemoveGameplayModButtons();
 	RemoveGraphicsModButtons();
@@ -692,7 +675,10 @@ void ModMenu::_GraphicsTabPressed(void *pData)
 
 void ModMenu::GraphicsTabPressed()
 {
-	m_pGUI->RemoveWindow(m_pModWindow);
+	if (m_loaded)
+	{
+		m_pGUI->RemoveWindow(m_pModWindow);
+	}
 
 	RemoveGameplayModButtons();
 	RemoveGraphicsModButtons();
@@ -717,7 +703,10 @@ void ModMenu::_SoundTabPressed(void *pData)
 
 void ModMenu::SoundTabPressed()
 {
-	m_pGUI->RemoveWindow(m_pModWindow);
+	if (m_loaded)
+	{
+		m_pGUI->RemoveWindow(m_pModWindow);
+	}
 
 	RemoveGameplayModButtons();
 	RemoveGraphicsModButtons();
@@ -742,7 +731,10 @@ void ModMenu::_GUITabPressed(void *pData)
 
 void ModMenu::GUITabPressed()
 {
-	m_pGUI->RemoveWindow(m_pModWindow);
+	if (m_loaded)
+	{
+		m_pGUI->RemoveWindow(m_pModWindow);
+	}
 
 	RemoveGameplayModButtons();
 	RemoveGraphicsModButtons();
@@ -767,7 +759,10 @@ void ModMenu::_MiscTabPressed(void *pData)
 
 void ModMenu::MiscTabPressed()
 {
-	m_pGUI->RemoveWindow(m_pModWindow);
+	if (m_loaded)
+	{
+		m_pGUI->RemoveWindow(m_pModWindow);
+	}
 
 	RemoveGameplayModButtons();
 	RemoveGraphicsModButtons();
