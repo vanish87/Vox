@@ -43,7 +43,7 @@ enum InventoryType
 
 	InventoryType_Clothing,
 
-    	InventoryType_Weapon_Sword,
+	InventoryType_Weapon_Sword,
 	InventoryType_Weapon_Axe,
 	InventoryType_Weapon_Hammer,
 	InventoryType_Weapon_Mace,
@@ -53,11 +53,11 @@ enum InventoryType
 	InventoryType_Weapon_Shield,
 	InventoryType_Weapon_Boomerang,
 	InventoryType_Weapon_Bomb,
-    	InventoryType_Weapon_Bow,
-    	InventoryType_Weapon_Staff,
+	InventoryType_Weapon_Bow,
+	InventoryType_Weapon_Staff,
 	InventoryType_Weapon_Wand,
-    	InventoryType_Weapon_Pickaxe,
-    	InventoryType_Weapon_Torch,
+	InventoryType_Weapon_Pickaxe,
+	InventoryType_Weapon_Torch,
 	InventoryType_Weapon_SpellHands,
 
 	InventoryType_Consumable,
