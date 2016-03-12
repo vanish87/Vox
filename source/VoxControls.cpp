@@ -87,6 +87,14 @@ void VoxGame::UpdateKeyboardControls(float dt)
 				{
 					UnsetPauseMenu();
 				}
+				else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_OptionsMenu)
+				{
+					m_pFrontendManager->SetFrontendScreen(FrontendScreen_PauseMenu);
+				}
+				else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_ModMenu)
+				{
+					m_pFrontendManager->SetFrontendScreen(FrontendScreen_PauseMenu);
+				}
 			}
 		}
 
