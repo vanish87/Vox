@@ -867,7 +867,7 @@ void VoxGame::CloseAllGUIWindows()
 		m_pInventoryGUI->Unload();
 	}
 
-	if (m_pCharacterGUI->IsLoaded())
+	if (m_pCharacterGUI->IsLoaded() && m_pCharacterGUI->IsLoadDelayed() == false)
 	{
 		m_pCharacterGUI->Unload();
 	}

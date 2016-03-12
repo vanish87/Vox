@@ -54,8 +54,9 @@ public:
 
 	void SetWindowDimensions(int windowWidth, int windowHeight);
 
-	void Load();
+	void Load(bool loadDelay = false, float loadDelayTime = 0.0f);
 	void Unload();
+	bool IsLoadDelayed();
 
 	bool IsLoaded();
 
@@ -170,6 +171,10 @@ private:
 	int m_windowHeight;
 
 	bool m_loaded;
+
+	// Load delay
+	bool m_loadDelay;
+	float m_loadDelayTime;
 
 	int m_characterWindowWidth;
 	int m_characterWindowHeight;

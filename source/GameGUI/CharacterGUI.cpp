@@ -368,6 +368,10 @@ CharacterGUI::CharacterGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager
 
 	m_addedStatIncreaseButtons = false;
 
+	// Load delay
+	m_loadDelay = false;
+	m_loadDelayTime = 0.0f;
+
 	m_loaded = false;
 }
 
@@ -481,8 +485,11 @@ void CharacterGUI::SetWindowDimensions(int windowWidth, int windowHeight)
 	m_pArrowRightButton->SetDimensions(189, 87, 32, 32);
 }
 
-void CharacterGUI::Load()
+void CharacterGUI::Load(bool loadDelay, float loadDelayTime)
 {
+	m_loadDelay = loadDelay;
+	m_loadDelayTime = loadDelayTime;
+
 	CreateInventoryItems();
 
 	for(unsigned int i = 0; i < m_vpInventorySlotItems.size(); i++)
@@ -503,8 +510,11 @@ void CharacterGUI::Load()
 	}
 
 	m_pCharacterWindow->DepthSortComponentChildren();
-	m_pGUI->AddWindow(m_pCharacterWindow);
-	m_pCharacterWindow->Show();
+	if (m_loadDelay == false)
+	{
+		m_pGUI->AddWindow(m_pCharacterWindow);
+		m_pCharacterWindow->Show();
+	}
 
 	UpdatePlayerStats();
 
@@ -532,6 +542,9 @@ void CharacterGUI::Load()
 
 void CharacterGUI::Unload()
 {
+	m_loadDelay = false;
+	m_loadDelayTime = 0.0f;
+
 	HideTooltip();
 
 	HideEquipHover();
@@ -560,6 +573,11 @@ void CharacterGUI::Unload()
 			VoxGame::GetInstance()->InitializeCameraRotation();
 		}
 	}
+}
+
+bool CharacterGUI::IsLoadDelayed()
+{
+	return (m_loadDelay == true && m_loadDelayTime > 0.0f);
 }
 
 bool CharacterGUI::IsLoaded()
@@ -792,6 +810,20 @@ void CharacterGUI::StopEquipHoverAnimation()
 // Tooltips
 void CharacterGUI::UpdateToolTipAppear(float dt)
 {
+	if (m_loadDelay == true)
+	{
+		if (m_loadDelayTime <= 0.0f)
+		{
+			m_loadDelay = false;
+			m_pGUI->AddWindow(m_pCharacterWindow);
+			m_pCharacterWindow->Show();
+		}
+		else
+		{
+			m_loadDelayTime -= dt;
+		}
+	}
+
 	if(m_toolTipVisible)
 	{
 		if(m_tooltipAppearDelayTimer <= 0.0f)
