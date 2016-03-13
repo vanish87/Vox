@@ -159,6 +159,10 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	shaderLoaded = m_pRenderer->LoadGLSLShader("media/shaders/fullscreen/blur_horizontal.vertex", "media/shaders/fullscreen/blur_horizontal.pixel", &m_blurHorizontalShader);
 	shaderLoaded = m_pRenderer->LoadGLSLShader("media/shaders/paperdoll.vertex", "media/shaders/paperdoll.pixel", &m_paperdollShader);
 
+	/* Create the mods manager */
+	m_pModsManager = new ModsManager();
+	m_pModsManager->LoadMods();
+
 	/* Create the qubicle binary file manager */
 	m_pQubicleBinaryManager = new QubicleBinaryManager(m_pRenderer);
 
@@ -350,6 +354,7 @@ void VoxGame::Destroy()
 		delete m_pBiomeManager;
 		delete m_pQubicleBinaryManager;
 		delete m_pFrontendManager;
+		delete m_pModsManager;
 		delete m_pGameCamera;
 		delete m_pInventoryGUI;
 		delete m_pCharacterGUI;

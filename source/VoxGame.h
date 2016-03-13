@@ -30,6 +30,7 @@
 #include "Instance/InstanceManager.h"
 #include "Projectile/ProjectileManager.h"
 #include "TextEffects/TextEffectsManager.h"
+#include "Mods/ModsManager.h"
 #include "VoxApplication.h"
 #include "VoxWindow.h"
 #include "VoxSettings.h"
@@ -326,6 +327,9 @@ private:
 
 	// Frontend manager
 	FrontendManager* m_pFrontendManager;
+
+	// Mods manager
+	ModsManager* m_pModsManager;
 
 	// Game mode
 	GameMode m_gameMode;

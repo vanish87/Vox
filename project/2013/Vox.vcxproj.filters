@@ -106,6 +106,9 @@
     <Filter Include="source\TextEffects">
       <UniqueIdentifier>{5e03b59e-1136-42e2-8551-f2fc906ab24d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\Mods">
+      <UniqueIdentifier>{7fdcc03f-20d4-4586-be32-f4996c4a6506}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\glew\src\glew.c">
@@ -575,6 +578,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\blocks\BiomeManager.cpp">
       <Filter>source\blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Mods\ModsManager.cpp">
+      <Filter>source\Mods</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1510,6 +1516,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\blocks\BlocksEnum.h">
       <Filter>source\blocks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Mods\ModsManager.h">
+      <Filter>source\Mods</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

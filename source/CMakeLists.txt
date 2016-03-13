@@ -41,6 +41,7 @@ add_subdirectory(Items)
 add_subdirectory(GameGUI)
 add_subdirectory(Projectile)
 add_subdirectory(TextEffects)
+add_subdirectory(Mods)
 
 source_group("source" FILES ${SRCS})
 source_group("source\\utils" FILES ${UTIL_SRCS})
@@ -75,6 +76,7 @@ source_group("source\\Items" FILES ${ITEMS_SRCS})
 source_group("source\\GameGUI" FILES ${GAMEGUI_SRCS})
 source_group("source\\Projectile" FILES ${PROJECTILE_SRCS})
 source_group("source\\TextEffects" FILES ${TEXTEFFECTS_SRCS})
+source_group("source\\Mods" FILES ${MODS_SRCS})
 
 add_executable(Vox
                ${SRCS}
