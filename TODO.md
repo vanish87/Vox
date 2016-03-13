@@ -103,6 +103,7 @@
 * ~~Add character GUI.~~
 * ~~Add options menu window to pause menu.~~
 * ~~Add mods menu window to pause menu.~~
+  * Select mods that are already loaded and 'tick' their buttons. SelectLoadedMods() function called on each tab.
 * ~~Tidy up inventory and item managers!~~
   * ~~Add back in TODO code (TODO : Add me back in).~~
   * ~~Test ALL functionality with player equipping items and weapons.~~
