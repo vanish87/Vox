@@ -289,6 +289,8 @@ void ModMenu::CreateGameplayModButtons()
 			pModButtonData->m_pModMenu = this;
 			pModButtonData->m_pModButton = m_pNewButton;
 			pModButtonData->m_modName = buttonText;
+			pModButtonData->m_toggled = false;
+			pModButtonData->m_allowToggleOff = true;
 			pModButtonData->m_gameplayButton = true;
 			pModButtonData->m_graphicsButton = false;
 			pModButtonData->m_soundButton = false;
@@ -398,6 +400,8 @@ void ModMenu::CreateHUDModButtons()
 			pModButtonData->m_pModMenu = this;
 			pModButtonData->m_pModButton = m_pNewButton;
 			pModButtonData->m_modName = listFiles[modButtonCounter];
+			pModButtonData->m_toggled = false;
+			pModButtonData->m_allowToggleOff = false;
 			pModButtonData->m_gameplayButton = false;
 			pModButtonData->m_graphicsButton = false;
 			pModButtonData->m_soundButton = false;
@@ -841,44 +845,38 @@ void ModMenu::ModButtonPressed(ModButtonData* pModButtonData)
 {
 	int buttonWidth = m_modButtonWidth;
 
-	if (pModButtonData->m_gameplayButton)
+	// Un-toggle and unset all the other mod buttons
+	for (unsigned int i = 0; i < m_vpModButtonData.size(); i++)
 	{
-		for (unsigned int i = 0; i < m_vpGameplayModButtons.size(); i++)
+		if (pModButtonData == m_vpModButtonData[i])
 		{
-			m_vpGameplayModButtons[i]->RemoveIcon("media/textures/gui/Stonewash/common/tick.tga");
+			if (m_vpModButtonData[i]->m_toggled && m_vpModButtonData[i]->m_allowToggleOff)
+			{
+				m_vpModButtonData[i]->m_toggled = false;
+			}
+			else
+			{
+				pModButtonData->m_toggled = true;
+			}
 		}
-	}
-	if (pModButtonData->m_graphicsButton)
-	{
-		for (unsigned int i = 0; i < m_vpGraphicsModButtons.size(); i++)
+		else
 		{
-			m_vpGraphicsModButtons[i]->RemoveIcon("media/textures/gui/Stonewash/common/tick.tga");
-		}
-	}
-	if (pModButtonData->m_soundButton)
-	{
-		for (unsigned int i = 0; i < m_vpSoundModButtons.size(); i++)
-		{
-			m_vpSoundModButtons[i]->RemoveIcon("media/textures/gui/Stonewash/common/tick.tga");
-		}
-	}
-	if (pModButtonData->m_HUDButton)
-	{
-		for (unsigned int i = 0; i < m_vpHUDModButtons.size(); i++)
-		{
-			m_vpHUDModButtons[i]->RemoveIcon("media/textures/gui/Stonewash/common/tick.tga");
+			m_vpModButtonData[i]->m_toggled = false;
 		}
 
+		m_vpModButtonData[i]->m_pModButton->RemoveIcon("media/textures/gui/Stonewash/common/tick.tga");
+	}
+
+	// HUD graphics
+	if (pModButtonData->m_HUDButton)
+	{
 		m_pFrontendManager->LoadCommonGraphics(pModButtonData->m_modName);
 		VoxGame::GetInstance()->SkinGUI();
 	}
-	if (pModButtonData->m_miscButton)
-	{
-		for (unsigned int i = 0; i < m_vpMiscModButtons.size(); i++)
-		{
-			m_vpMiscModButtons[i]->RemoveIcon("media/textures/gui/Stonewash/common/tick.tga");
-		}
-	}
 
-	pModButtonData->m_pModButton->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/tick.tga", 32, 32, 32, 32, buttonWidth - 38, 4, 2.0f);
+	// If we are toggled, add the tick
+	if (pModButtonData->m_toggled)
+	{
+		pModButtonData->m_pModButton->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/tick.tga", 32, 32, 32, 32, buttonWidth - 38, 4, 2.0f);
+	}
 }
