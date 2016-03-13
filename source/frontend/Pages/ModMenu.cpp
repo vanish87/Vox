@@ -291,6 +291,7 @@ void ModMenu::CreateGameplayModButtons()
 			pModButtonData->m_modName = buttonText;
 			pModButtonData->m_toggled = false;
 			pModButtonData->m_allowToggleOff = true;
+			pModButtonData->m_allowMultipleSelection = true;
 			pModButtonData->m_gameplayButton = true;
 			pModButtonData->m_graphicsButton = false;
 			pModButtonData->m_soundButton = false;
@@ -402,6 +403,7 @@ void ModMenu::CreateHUDModButtons()
 			pModButtonData->m_modName = listFiles[modButtonCounter];
 			pModButtonData->m_toggled = false;
 			pModButtonData->m_allowToggleOff = false;
+			pModButtonData->m_allowMultipleSelection = false;
 			pModButtonData->m_gameplayButton = false;
 			pModButtonData->m_graphicsButton = false;
 			pModButtonData->m_soundButton = false;
@@ -845,26 +847,34 @@ void ModMenu::ModButtonPressed(ModButtonData* pModButtonData)
 {
 	int buttonWidth = m_modButtonWidth;
 
-	// Un-toggle and unset all the other mod buttons
+	// 
+	bool addTick = false;
 	for (unsigned int i = 0; i < m_vpModButtonData.size(); i++)
 	{
 		if (pModButtonData == m_vpModButtonData[i])
 		{
-			if (m_vpModButtonData[i]->m_toggled && m_vpModButtonData[i]->m_allowToggleOff)
+			if (m_vpModButtonData[i]->m_toggled)
 			{
-				m_vpModButtonData[i]->m_toggled = false;
+				if (m_vpModButtonData[i]->m_allowToggleOff)
+				{
+					m_vpModButtonData[i]->m_toggled = false;
+					m_vpModButtonData[i]->m_pModButton->RemoveIcon("media/textures/gui/Stonewash/common/tick.tga");
+				}
 			}
 			else
 			{
+				addTick = true;
 				pModButtonData->m_toggled = true;
 			}
 		}
 		else
 		{
-			m_vpModButtonData[i]->m_toggled = false;
+			if (pModButtonData->m_allowMultipleSelection == false || m_vpModButtonData[i]->m_allowMultipleSelection == false)
+			{
+				m_vpModButtonData[i]->m_toggled = false;
+				m_vpModButtonData[i]->m_pModButton->RemoveIcon("media/textures/gui/Stonewash/common/tick.tga");
+			}
 		}
-
-		m_vpModButtonData[i]->m_pModButton->RemoveIcon("media/textures/gui/Stonewash/common/tick.tga");
 	}
 
 	// HUD graphics
@@ -874,8 +884,8 @@ void ModMenu::ModButtonPressed(ModButtonData* pModButtonData)
 		VoxGame::GetInstance()->SkinGUI();
 	}
 
-	// If we are toggled, add the tick
-	if (pModButtonData->m_toggled)
+	// If we need to add the tick
+	if (addTick)
 	{
 		pModButtonData->m_pModButton->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/tick.tga", 32, 32, 32, 32, buttonWidth - 38, 4, 2.0f);
 	}

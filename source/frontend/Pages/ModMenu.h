@@ -29,6 +29,7 @@ public:
 	string m_modName;
 	bool m_toggled;
 	bool m_allowToggleOff;
+	bool m_allowMultipleSelection;
 	bool m_gameplayButton;
 	bool m_graphicsButton;
 	bool m_soundButton;
