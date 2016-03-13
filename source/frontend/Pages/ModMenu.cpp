@@ -162,6 +162,11 @@ void ModMenu::ClearModButtonData()
 	m_vpModButtonData.clear();
 }
 
+void ModMenu::SelectLoadedMods()
+{
+	// TODO : SelectLoadedMods()
+}
+
 void ModMenu::SetWindowDimensions(int windowWidth, int windowHeight)
 {
 	FrontendPage::SetWindowDimensions(windowWidth, windowHeight);
@@ -710,6 +715,8 @@ void ModMenu::GameplayTabPressed()
 
 	CreateGameplayModButtons();
 
+	SelectLoadedMods();
+
 	Update(0.0f);
 	m_pModsScrollbar->SetScrollPosition(1.0f);
 
@@ -739,6 +746,8 @@ void ModMenu::GraphicsTabPressed()
 	RemoveMiscModButtons();
 
 	CreateGraphicsModButtons();
+
+	SelectLoadedMods();
 
 	Update(0.0f);
 	m_pModsScrollbar->SetScrollPosition(1.0f);
@@ -770,6 +779,8 @@ void ModMenu::SoundTabPressed()
 
 	CreateSoundModButtons();
 
+	SelectLoadedMods();
+
 	Update(0.0f);
 	m_pModsScrollbar->SetScrollPosition(1.0f);
 
@@ -800,6 +811,8 @@ void ModMenu::GUITabPressed()
 
 	CreateHUDModButtons();
 
+	SelectLoadedMods();
+
 	Update(0.0f);
 	m_pModsScrollbar->SetScrollPosition(1.0f);
 
@@ -829,6 +842,8 @@ void ModMenu::MiscTabPressed()
 	RemoveMiscModButtons();
 
 	CreateMiscModButtons();
+
+	SelectLoadedMods();
 
 	Update(0.0f);
 	m_pModsScrollbar->SetScrollPosition(1.0f);

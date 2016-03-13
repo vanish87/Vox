@@ -48,6 +48,8 @@ public:
 
 	void ClearModButtonData();
 
+	void SelectLoadedMods();
+
 	void SetWindowDimensions(int windowWidth, int windowHeight);
 
 	void SetReturnToMainMenu(bool mainMenu);
