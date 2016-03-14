@@ -16,6 +16,7 @@
 #include "Pages/MainMenu.h"
 #include "Pages/ModMenu.h"
 #include "Pages/OptionsMenu.h"
+#include "../VoxGame.h"
 
 
 FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
@@ -169,7 +170,7 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 	// Constants
 	m_tooltipAppearDelay = 0.25f;
 
-	LoadCommonGraphics("Stonewash");
+	LoadCommonGraphics(VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme());
 
 	// Pages
 	int width = 800;

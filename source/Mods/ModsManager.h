@@ -46,6 +46,9 @@ public:
 	int GetNumMods();
 	Mod* GetMod(int index);
 
+	// HUD Theme
+	string GetHUDTextureTheme();
+
 protected:
 	/* Protected methods */
 

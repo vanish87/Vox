@@ -246,7 +246,7 @@ void VoxGame::CreateGUI()
 	m_pCharacterPulldown->SetSelectedItem("Steve");
 	m_pWeaponsPulldown->SetSelectedItem("None");
 	m_pAnimationsPulldown->SetSelectedItem("BindPose");
-	m_pGUIThemePulldown->SetSelectedItem("Stonewash");
+	m_pGUIThemePulldown->SetSelectedItem(m_pModsManager->GetHUDTextureTheme());
 
 	m_GUICreated = true;
 }
