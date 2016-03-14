@@ -22,8 +22,11 @@ class Mod
 {
 public:
 	string m_modName;
-	string m_modDescription;
-
+	bool m_gameplayMod;
+	bool m_graphicsMod;
+	bool m_soundMod;
+	bool m_HUDMod;
+	bool m_miscMod;
 };
 
 class ModsManager

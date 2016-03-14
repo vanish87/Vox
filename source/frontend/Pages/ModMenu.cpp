@@ -14,6 +14,7 @@
 #include "../FrontendManager.h"
 #include "../../gui/openglgui.h"
 #include "../../utils/FileUtils.h"
+#include "../../Mods/ModsManager.h"
 
 
 ModMenu::ModMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontPageManager, int windowWidth, int windowHeight)
@@ -164,7 +165,30 @@ void ModMenu::ClearModButtonData()
 
 void ModMenu::SelectLoadedMods()
 {
-	// TODO : SelectLoadedMods()
+	int buttonWidth = m_modButtonWidth;
+
+	ModsManager* pModsManager = VoxGame::GetInstance()->GetModsManager();
+
+	for (int i = 0; i < pModsManager->GetNumMods(); i++)
+	{
+		Mod* pMod = pModsManager->GetMod(i);
+
+		for (int j = 0; j < m_vpModButtonData.size(); j++)
+		{
+			if (pMod->m_gameplayMod && m_vpModButtonData[j]->m_gameplayButton ||
+				pMod->m_graphicsMod && m_vpModButtonData[j]->m_graphicsButton ||
+				pMod->m_soundMod && m_vpModButtonData[j]->m_soundButton ||
+				pMod->m_HUDMod && m_vpModButtonData[j]->m_HUDButton ||
+				pMod->m_miscMod && m_vpModButtonData[j]->m_miscButton)
+			{
+				if (pMod->m_modName == m_vpModButtonData[j]->m_modName)
+				{
+					m_vpModButtonData[j]->m_toggled = true;
+					m_vpModButtonData[j]->m_pModButton->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/tick.tga", 32, 32, 32, 32, buttonWidth - 38, 4, 2.0f);
+				}
+			}
+		}
+	}
 }
 
 void ModMenu::SetWindowDimensions(int windowWidth, int windowHeight)
@@ -862,7 +886,7 @@ void ModMenu::ModButtonPressed(ModButtonData* pModButtonData)
 {
 	int buttonWidth = m_modButtonWidth;
 
-	// 
+	// Decide on the state of the toggle flag for each existing mod button and also the one we pressed
 	bool addTick = false;
 	for (unsigned int i = 0; i < m_vpModButtonData.size(); i++)
 	{
@@ -892,12 +916,20 @@ void ModMenu::ModButtonPressed(ModButtonData* pModButtonData)
 		}
 	}
 
-	// HUD graphics
+	// Gameplay
+
+	// Graphics
+
+	// Sound
+
+	// HUD
 	if (pModButtonData->m_HUDButton)
 	{
 		m_pFrontendManager->LoadCommonGraphics(pModButtonData->m_modName);
 		VoxGame::GetInstance()->SkinGUI();
 	}
+
+	// Misc
 
 	// If we need to add the tick
 	if (addTick)

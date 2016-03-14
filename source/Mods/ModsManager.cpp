@@ -35,7 +35,15 @@ void ModsManager::ClearMods()
 // Loading
 void ModsManager::LoadMods()
 {
-
+	// Load the HUD textures mod
+	Mod* pNewMod = new Mod();
+	pNewMod->m_modName = "Stonewash";
+	pNewMod->m_gameplayMod = false;
+	pNewMod->m_graphicsMod = false;
+	pNewMod->m_soundMod = false;
+	pNewMod->m_HUDMod = true;
+	pNewMod->m_miscMod = false;
+	m_vpMods.push_back(pNewMod);
 }
 
 // Accessors

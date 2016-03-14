@@ -921,6 +921,11 @@ BlockParticleManager* VoxGame::GetBlockParticleManager()
 	return m_pBlockParticleManager;
 }
 
+ModsManager* VoxGame::GetModsManager()
+{
+	return m_pModsManager;
+}
+
 CharacterGUI* VoxGame::GetCharacterGUI()
 {
 	return m_pCharacterGUI;
