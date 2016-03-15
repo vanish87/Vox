@@ -27,33 +27,33 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 	m_pCamera = NULL;
 
 	// Fonts
-	m_pRenderer->CreateFreeTypeFont("media/fonts/pf_ronda_seven.ttf", 26, &m_frontendFont_Large);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/pf_ronda_seven.ttf", 18, &m_frontendFont_Medium);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/pf_ronda_seven.ttf", 12, &m_frontendFont_Small);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 14, &m_frontendFont_14);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 14, &m_frontendFont_14_Outline);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 18, &m_frontendFont_18);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 18, &m_frontendFont_18_Outline);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 20, &m_frontendFont_20);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 20, &m_frontendFont_20_Outline);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 22, &m_frontendFont_22);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 22, &m_frontendFont_22_Outline);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 25, &m_frontendFont_25);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 25, &m_frontendFont_25_Outline);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 30, &m_frontendFont_30);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 30, &m_frontendFont_30_Outline);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 35, &m_frontendFont_35);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 35, &m_frontendFont_35_Outline);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 40, &m_frontendFont_40);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 40, &m_frontendFont_40_Outline);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 50, &m_frontendFont_50);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 50, &m_frontendFont_50_Outline);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 80, &m_frontendFont_80);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 80, &m_frontendFont_80_Outline);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/pf_ronda_seven.ttf", 26, &m_frontendFont_Large, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/pf_ronda_seven.ttf", 18, &m_frontendFont_Medium, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/pf_ronda_seven.ttf", 12, &m_frontendFont_Small, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 14, &m_frontendFont_14, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 14, &m_frontendFont_14_Outline, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 18, &m_frontendFont_18, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 18, &m_frontendFont_18_Outline, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 20, &m_frontendFont_20, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 20, &m_frontendFont_20_Outline, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 22, &m_frontendFont_22, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 22, &m_frontendFont_22_Outline, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 25, &m_frontendFont_25, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 25, &m_frontendFont_25_Outline, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 30, &m_frontendFont_30, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 30, &m_frontendFont_30_Outline, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 35, &m_frontendFont_35, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 35, &m_frontendFont_35_Outline, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 40, &m_frontendFont_40, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 40, &m_frontendFont_40_Outline, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 50, &m_frontendFont_50, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 50, &m_frontendFont_50_Outline, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 80, &m_frontendFont_80, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 80, &m_frontendFont_80_Outline, true);
 
 	// Text effects fonts
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 34, &m_textEffectFontNormal);
-	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 34, &m_textEffectFontOutline);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 34, &m_textEffectFontNormal, true);
+	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 34, &m_textEffectFontOutline, true);
 
 	// Checkbox
 	m_pCheckboxIcon = new Icon(m_pRenderer, "", 16, 16);

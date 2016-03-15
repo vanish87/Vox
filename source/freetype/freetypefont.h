@@ -31,7 +31,7 @@ public:
 	FreeTypeFont();
 	~FreeTypeFont();
 
-	void BuildFont(const char* fontName, int size);
+	void BuildFont(const char* fontName, int size, bool noAutoHint = false);
 	void DrawString(const char *text, float scale);
 
 	int GetTextWidth(const char *text);
@@ -41,7 +41,7 @@ public:
 	int GetDescent();
 
 protected:
-	void MakeDisplayList(FT_Face face, unsigned char ch, GLuint list_base, GLuint * tex_base);
+	void MakeDisplayList(FT_Face face, unsigned char ch, GLuint list_base, GLuint * tex_base, bool noAutoHint = false);
 
 private:
 

@@ -259,7 +259,7 @@ public:
 	void DrawSphericalSector(float lRadius, float angle, int lSectors, int lPoints);
 
 	// Text rendering
-	bool CreateFreeTypeFont(char *fontName, int fontSize, unsigned int *pID);
+	bool CreateFreeTypeFont(char *fontName, int fontSize, unsigned int *pID, bool noAutoHint = false);
 	bool RenderFreeTypeText(unsigned int fontID, float x, float y, float z, Colour colour, float scale, char *inText, ...);
 	int GetFreeTypeTextWidth(unsigned int fontID, char *inText, ...);
 	int GetFreeTypeTextHeight(unsigned int fontID, char *inText, ...);

@@ -54,7 +54,7 @@ FreeTypeFont::~FreeTypeFont()
 	}
 }
 
-void FreeTypeFont::BuildFont(const char* fontName, int size)
+void FreeTypeFont::BuildFont(const char* fontName, int size, bool noAutoHint)
 {
 	if (FT_Init_FreeType( &m_library )) 
 	{
@@ -88,19 +88,19 @@ void FreeTypeFont::BuildFont(const char* fontName, int size)
 
 	for(unsigned char i = 0; i < 128; i++)
 	{
-		MakeDisplayList(m_face, i, m_base, m_textures);
+		MakeDisplayList(m_face, i, m_base, m_textures, noAutoHint);
 	}
 
 	m_inited = true;
 }
 
-void FreeTypeFont::MakeDisplayList(FT_Face face, unsigned char ch, GLuint list_base, GLuint * tex_base)
+void FreeTypeFont::MakeDisplayList(FT_Face face, unsigned char ch, GLuint list_base, GLuint * tex_base, bool noAutoHint)
 {
 	//The first thing we do is get FreeType to render our character
 	//into a bitmap.  This actually requires a couple of FreeType commands:
 
 	//Load the Glyph for our character.
-	if(FT_Load_Glyph( face, FT_Get_Char_Index( face, ch ), FT_LOAD_NO_HINTING ))
+	if(FT_Load_Glyph( face, FT_Get_Char_Index( face, ch ), noAutoHint ? FT_LOAD_NO_AUTOHINT : FT_LOAD_NO_HINTING))
 	{
 		// Load glyph failed
 		assert(0);

@@ -986,12 +986,12 @@ void Renderer::DrawSphericalSector(float lRadius, float angle, int lSectors, int
 }
 
 // Text rendering
-bool Renderer::CreateFreeTypeFont(char *fontName, int fontSize, unsigned int *pID)
+bool Renderer::CreateFreeTypeFont(char *fontName, int fontSize, unsigned int *pID, bool noAutoHint)
 {
 	FreeTypeFont* font = new FreeTypeFont();
 
 	// Build the new freetype font
-	font->BuildFont(fontName, fontSize);
+	font->BuildFont(fontName, fontSize, noAutoHint);
 
 	// Push this font onto the list of fonts and return the id
 	m_freetypeFonts.push_back(font);
