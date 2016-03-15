@@ -1,145 +1,145 @@
 # TODO List
 
-* ~~Create VoxGame VoxWindow and VoxApplication classes.~~
-* ~~Refactor windows functionality into discrete files and using the VoxWindow class.~~
-* ~~Add camera controls and movement to mouse and keyboard controls.~~
-* ~~Window and renderer resize functionality.~~
-* ~~Add proper license.~~
-* ~~Add Shader support to renderer.~~
-* ~~Add frame buffer support to renderer.~~
-* ~~Add selection of shaders to toggle different render modes for testing.~~
-* ~~Add ability to camera class to rotate around point (rotate position around view).~~
-* ~~Deferred lighting support.~~
-* ~~Lighting effects.~~
-* ~~Particle effects.~~
-* ~~Add weapon trails.~~
-* ~~Remove any GL calls from VoxGame - Add InitZeroTexture() functionality to renderer.~~
-* ~~Use Cmake for build management.~~
-* ~~Add fullscreen support and toggle.~~
-* ~~Enable x64 build configurations.~~
-* ~~Phong lighting shader.~~
-* ~~Add basic lighting to scene - OpenGL lighting.~~
-* ~~Add pre-built release exe to root of git, so people can run exe without compiling - VoxGame.exe~~
-* ~~Better SSAO shader.~~
-  * ~~Make deferred lighting and SSAO optional toggles separate.~~
-  * ~~Allow for phong shading and deferred lighting together.~~
-* ~~Shadow shader.~~
-* ~~Decouple shadow rendering from SSAO shader.~~
-* ~~Decouple dynamic lighting from SSAO shader.~~
-* ~~Better readme file.~~
-* ~~Split up VoxGame file into VoxRender, VoxUpdate, VoxSetup(?), etc.~~
-* ~~App player class and put voxel character functionality in player class.~~
-* ~~Add ability to switch voxel character model.~~
-* ~~Rebuild vs2013 libs using non-dll version of linking~~
-* ~~Fix up cmake for the different visual studio versions and also for the different lib linking.~~
-* ~~Weapon trails controlled by the animation file.~~
-* ~~Create vs2012 libs and VS2012 project files~~
-* ~~Add blur shader.~~
-* ~~Implement MSAA (or other AA) in glsl shader.~~
-* ~~Convert shadow rendering calls to use renderer - remove GL from gamecode.~~
-* ~~Add LUA bindings.~~
-* ~~Make weapons trails time based, rather than "numpoints" based, better weapon trail alpha rendering.~~
-* ~~Switch over to using glm maths lib.~~
-* ~~Solution to allow for running the exe from Visual studio, because atm the working directory needs to be ../~~
-* ~~Textures on GUI.~~
-* ~~Frontend manager for textures and common GUI objects.~~
-* ~~Allow camera rotations around world coordinates, so 'upside down' doesnt happen.~~
-* ~~Add full GUI skin textures and control to change 'theme' on GUI.~~
-* ~~Add limits to rotation so we dont go over and under the max/min up-axis.~~
-* ~~Add different camera modes, option toggle on GUI.~~
-* ~~Add player camera controls.~~
-* ~~Enable cross platform compiling and support, linux, mac~~
-* ~~Convert all data, media, folders to lowercase to fix Linux issues.~~
-* ~~When in auto-camera mode, slowly orient to behind the player, after a time.~~
-* ~~Add gamepad support.~~
-* ~~Fix up auto-camera mode for gamepad and remove hacks for storing the up, right, forward target camera vectors.~~
-  * ~~Store a camera-to-player vector in the player class and use this for camera offsets in auto-mode.~~
-  * ~~Only use the x, z components when working out the offset camera position, plus the players up from the facing.~~
-* ~~Proper first person mode camera.~~
-* ~~Implement mouse rotation camera mode for when in game mode.~~
-* ~~Turn cursor on/off and fix cursor in position when doing mouse rotations in game mode.~~
-* ~~Make camera auto-mode rotate to behind the player after a short delay.~~
-* ~~Settings file loading at startup, change options and rendering based on settings.~~
-* ~~Player alpha when camera zooms in.~~
-* ~~Add proper ini reader functionality - add other startup params to ini, resolution, fullscreen etc.~~
-* ~~Camera clipping mode.~~
-* ~~Add ability to create and render the Voxel objects/characters without merging, 2 vertex arrays, or rebuild?~~
-* ~~Terrain generation via chunks.~~
-  * ~~Chunk loading and unloading based on player position~~
-* ~~Create Vox EXE launcher. (C# app)~~
-* ~~Debug settings option to toggle the Debug GUI from the settings ini file.~~
-* ~~Settings in ini to run straight into game, with player and camera controls - or run into front-end etc.~~
-* ~~Ordering of the chunk loading based on the camera/player position, so that loading filters outwards from player.~~
-* ~~Add back in skyboxes and support tweeningblending from one skybox to the other.~~
-* ~~Wait before spawning player in world, until world is generated.~~
-* ~~Better physics response and detection when jumping and from above~~
-* ~~Add version string to config ini file and display on GUI.~~
-* ~~Add DEBUG/RELEASE switch depending on what build was made, display on GUI.~~
-* ~~Player movement on voxel world and terrain.~~
-  * ~~Walking up single block steps automatically.~~
-  * ~~Smooth out camera when doing single 1-size block step up animation. (Was because of different interpolator values)~~ 
-* ~~Add exit/quit popup when the game is closed or quit using various exit methods.~~
-* ~~Add pause menu when ESC is pressed, and add popup in center of screen.~~
-* ~~Add back in frustum culling for chunk rendering.~~
-* ~~Player collision with items.~~
-* ~~Player interaction with items.~~
-* ~~Cinematic letterbox mode.~~
-* ~~Add console and logger to the in-game gui for output and logging information.~~
-  * ~~Log when loading/saving model files.~~
-  * Log to output file and log files as well as console GUI.
-  * Remove old log messages, only allow a certain nunber of log messages to be shown.
-  * Add debug log information for model loading and rendering - num verts, tris, faces, etc.
-  * Log on errors.
-  * Allow input commands.
-  * Clear log text functionality
-  * Rendering of many log messages is slow, output to file?
-* ~~Create basic front-end.~~
-* ~~Fix camera glitching when going in and out of pause menu (also quit menu).~~
-* ~~Animated text effects in the HUD, for pickups, combat, etc..~~
-* ~~Add biome manager~~
-  * ~~Add colour variation management to biome manager.~~
-* ~~Add item manager.~~
-* ~~Add inventory GUI.~~
-* ~~Add character GUI.~~
-* ~~Add options menu window to pause menu.~~
-* ~~Add mods menu window to pause menu.~~
-  * Select mods that are already loaded and 'tick' their buttons. SelectLoadedMods() function called on each tab.
-* ~~Tidy up inventory and item managers!~~
-  * ~~Add back in TODO code (TODO : Add me back in).~~
-  * ~~Test ALL functionality with player equipping items and weapons.~~
-  * ~~Add hooks to GUI.~~
-  * ~~Player stats.~~
-  * ~~Loot GUI chest interactions.~~
-  * ~~Crafting GUI functionality.~~
-  * ~~Character GUI paperdoll render.~~
-  * CharacterGUI particle effects.
-  * CharacterGUI player poses and animation stances.
-* Add VLD support to debug version, allow for memory leak detection.
-* Add audio and music playback.
-* Add scenery manager.
-  * Add scenery to work, generation based on point distribution, poisson disc, etc.
-  * Flower generation.
-  * Poisson-disc sparation and generation for random placement of scenery.
-  * Convert scenery manager to use instance rendering and the instance shader.
-* Add Quest GUI.
-* Create front end scene and character line up.
-* Character creation and customization.
-* Saving and loading chunks.
-  * Group together chunks for saving, loading. Not individual
-* Add character creator and customization from front-end.
-* Add voxel editor.
-* Add texture support for voxel blocks.
-* Water, creating and manipulation, rendering, updating.
-* Investigate continuous automatic builds on github when files are submitted to depot, using cmake and make.
-* Add mode to play in reduced and low FPS.
-  * Low FPS causes bad physics and also bad step-up block functionality, investigate and fix.
-* Custom cursors - fingers.
-* Dont allow jumping multiple times by holding down the space (or joy button).
-* Allow for font changing on the fly, allow different font styles to go with the themes.
-* Add shadow receiving on instanced rendered objects. (Add texture matrix to shader??)
-* Player particle trail on walking.
-* Test out Baked AO models using MagikaVoxel.
-* Enemies.
-* NPCs.
-* Companion pets.
-* Add debug render metrics for all counters (i.e num chunks, particles, items, triangles, verts, etc).
+- [x] Create VoxGame VoxWindow and VoxApplication classes.
+- [x] Refactor windows functionality into discrete files and using the VoxWindow class.
+- [x] Add camera controls and movement to mouse and keyboard controls.
+- [x] Window and renderer resize functionality.
+- [x] Add proper license.
+- [x] Add Shader support to renderer.
+- [x] Add frame buffer support to renderer.
+- [x] Add selection of shaders to toggle different render modes for testing.
+- [x] Add ability to camera class to rotate around point (rotate position around view).
+- [x] Deferred lighting support.
+- [x] Lighting effects.
+- [x] Particle effects.
+- [x] Add weapon trails.
+- [x] Remove any GL calls from VoxGame - Add InitZeroTexture() functionality to renderer.
+- [x] Use Cmake for build management.
+- [x] Add fullscreen support and toggle.
+- [x] Enable x64 build configurations.
+- [x] Phong lighting shader.
+- [x] Add basic lighting to scene - OpenGL lighting.
+- [x] Add pre-built release exe to root of git, so people can run exe without compiling - VoxGame.exe
+- [x] Better SSAO shader.
+  - [x] Make deferred lighting and SSAO optional toggles separate.
+  - [x] Allow for phong shading and deferred lighting together.
+- [x] Shadow shader.
+- [x] Decouple shadow rendering from SSAO shader.
+- [x] Decouple dynamic lighting from SSAO shader.
+- [x] Better readme file.
+- [x] Split up VoxGame file into VoxRender, VoxUpdate, VoxSetup(?), etc.
+- [x] App player class and put voxel character functionality in player class.
+- [x] Add ability to switch voxel character model.
+- [x] Rebuild vs2013 libs using non-dll version of linking
+- [x] Fix up cmake for the different visual studio versions and also for the different lib linking.
+- [x] Weapon trails controlled by the animation file.
+- [x] Create vs2012 libs and VS2012 project files
+- [x] Add blur shader.
+- [x] Implement MSAA (or other AA) in glsl shader.
+- [x] Convert shadow rendering calls to use renderer - remove GL from gamecode.
+- [x] Add LUA bindings.
+- [x] Make weapons trails time based, rather than "numpoints" based, better weapon trail alpha rendering.
+- [x] Switch over to using glm maths lib.
+- [x] Solution to allow for running the exe from Visual studio, because atm the working directory needs to be ../
+- [x] Textures on GUI.
+- [x] Frontend manager for textures and common GUI objects.
+- [x] Allow camera rotations around world coordinates, so 'upside down' doesnt happen.
+- [x] Add full GUI skin textures and control to change 'theme' on GUI.
+- [x] Add limits to rotation so we dont go over and under the max/min up-axis.
+- [x] Add different camera modes, option toggle on GUI.
+- [x] Add player camera controls.
+- [x] Enable cross platform compiling and support, linux, mac
+- [x] Convert all data, media, folders to lowercase to fix Linux issues.
+- [x] When in auto-camera mode, slowly orient to behind the player, after a time.
+- [x] Add gamepad support.
+- [x] Fix up auto-camera mode for gamepad and remove hacks for storing the up, right, forward target camera vectors.
+  - [x] Store a camera-to-player vector in the player class and use this for camera offsets in auto-mode.
+  - [x] Only use the x, z components when working out the offset camera position, plus the players up from the facing.
+- [x] Proper first person mode camera.
+- [x] Implement mouse rotation camera mode for when in game mode.
+- [x] Turn cursor on/off and fix cursor in position when doing mouse rotations in game mode.
+- [x] Make camera auto-mode rotate to behind the player after a short delay.
+- [x] Settings file loading at startup, change options and rendering based on settings.
+- [x] Player alpha when camera zooms in.
+- [x] Add proper ini reader functionality - add other startup params to ini, resolution, fullscreen etc.
+- [x] Camera clipping mode.
+- [x] Add ability to create and render the Voxel objects/characters without merging, 2 vertex arrays, or rebuild?
+- [x] Terrain generation via chunks.
+  - [x] Chunk loading and unloading based on player position
+- [x] Create Vox EXE launcher. (C# app)
+- [x] Debug settings option to toggle the Debug GUI from the settings ini file.
+- [x] Settings in ini to run straight into game, with player and camera controls - or run into front-end etc.
+- [x] Ordering of the chunk loading based on the camera/player position, so that loading filters outwards from player.
+- [x] Add back in skyboxes and support tweeningblending from one skybox to the other.
+- [x] Wait before spawning player in world, until world is generated.
+- [x] Better physics response and detection when jumping and from above
+- [x] Add version string to config ini file and display on GUI.
+- [x] Add DEBUG/RELEASE switch depending on what build was made, display on GUI.
+- [x] Player movement on voxel world and terrain.
+  - [x] Walking up single block steps automatically.
+  - [x] Smooth out camera when doing single 1-size block step up animation. (Was because of different interpolator values) 
+- [x] Add exit/quit popup when the game is closed or quit using various exit methods.
+- [x] Add pause menu when ESC is pressed, and add popup in center of screen.
+- [x] Add back in frustum culling for chunk rendering.
+- [x] Player collision with items.
+- [x] Player interaction with items.
+- [x] Cinematic letterbox mode.
+- [x] Add console and logger to the in-game gui for output and logging information.
+  - [x] Log when loading/saving model files.
+  - [ ]  Log to output file and log files as well as console GUI.
+  - [ ]  Remove old log messages, only allow a certain nunber of log messages to be shown.
+  - [ ]  Add debug log information for model loading and rendering - num verts, tris, faces, etc.
+  - [ ]  Log on errors.
+  - [ ]  Allow input commands.
+  - [ ]  Clear log text functionality
+  - [ ]  Rendering of many log messages is slow, output to file?
+- [x] Create basic front-end.
+- [x] Fix camera glitching when going in and out of pause menu (also quit menu).
+- [x] Animated text effects in the HUD, for pickups, combat, etc..
+- [x] Add biome manager
+  - [x] Add colour variation management to biome manager.
+- [x] Add item manager.
+- [x] Add inventory GUI.
+- [x] Add character GUI.
+- [x] Add options menu window to pause menu.
+- [x] Add mods menu window to pause menu.
+  - [ ]  Select mods that are already loaded and 'tick' their buttons. SelectLoadedMods() function called on each tab.
+- [x] Tidy up inventory and item managers!
+  - [x] Add back in TODO code (TODO : Add me back in).
+  - [x] Test ALL functionality with player equipping items and weapons.
+  - [x] Add hooks to GUI.
+  - [x] Player stats.
+  - [x] Loot GUI chest interactions.
+  - [x] Crafting GUI functionality.
+  - [x] Character GUI paperdoll render.
+  - [ ]  CharacterGUI particle effects.
+  - [ ]  CharacterGUI player poses and animation stances.
+- [ ]  Add VLD support to debug version, allow for memory leak detection.
+- [ ]  Add audio and music playback.
+- [ ]  Add scenery manager.
+  - [ ]  Add scenery to work, generation based on point distribution, poisson disc, etc.
+  - [ ]  Flower generation.
+  - [ ]  Poisson-disc sparation and generation for random placement of scenery.
+  - [ ]  Convert scenery manager to use instance rendering and the instance shader.
+- [ ]  Add Quest GUI.
+- [ ]  Create front end scene and character line up.
+- [ ]  Character creation and customization.
+- [ ]  Saving and loading chunks.
+  - [ ]  Group together chunks for saving, loading. Not individual
+- [ ]  Add character creator and customization from front-end.
+- [ ]  Add voxel editor.
+- [ ]  Add texture support for voxel blocks.
+- [ ]  Water, creating and manipulation, rendering, updating.
+- [ ]  Investigate continuous automatic builds on github when files are submitted to depot, using cmake and make.
+- [ ]  Add mode to play in reduced and low FPS.
+  - [ ]  Low FPS causes bad physics and also bad step-up block functionality, investigate and fix.
+- [ ]  Custom cursors - fingers.
+- [ ]  Dont allow jumping multiple times by holding down the space (or joy button).
+- [ ]  Allow for font changing on the fly, allow different font styles to go with the themes.
+- [ ]  Add shadow receiving on instanced rendered objects. (Add texture matrix to shader??)
+- [ ]  Player particle trail on walking.
+- [ ]  Test out Baked AO models using MagikaVoxel.
+- [ ]  Enemies.
+- [ ]  NPCs.
+- [ ]  Companion pets.
+- [ ]  Add debug render metrics for all counters (i.e num chunks, particles, items, triangles, verts, etc).
