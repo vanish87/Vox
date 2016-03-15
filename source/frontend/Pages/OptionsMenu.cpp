@@ -33,13 +33,13 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pOptionsWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 	m_pOptionsWindow->Hide();
 
-	m_pTitleBarIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/OptionsMenu/options_title_icon.tga", 44, 44);
+	m_pTitleBarIcon = new Icon(m_pRenderer, "", 44, 44);
 	m_pTitleBarIcon->SetDepth(4.0f);
 
-	m_pOptionsWindowBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/OptionsMenu/options_window_background.tga", 600, 475);
+	m_pOptionsWindowBackgroundIcon = new Icon(m_pRenderer, "", 600, 475);
 	m_pOptionsWindowBackgroundIcon->SetDepth(1.0f);
 
-	m_pTitleBarBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/OptionsMenu/titlebar_background.tga", 86, 35);
+	m_pTitleBarBackgroundIcon = new Icon(m_pRenderer, "", 86, 35);
 	m_pTitleBarBackgroundIcon->SetDepth(1.0f);
 
 	m_pCloseExitButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_30(), m_pFrontendManager->GetFrontendFont_30_Outline(), "", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
@@ -183,9 +183,9 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pGamepadSensativitySlider->SetRenderBackgroundBar(false);
 	m_pGamepadSensativitySlider->SetDepth(2.0f);
 
-	m_pSliderBackgroundIcon_MouseSensativity = new Icon(m_pRenderer, "media/textures/gui/Stonewash/OptionsMenu/slider_background.tga", 207, 31);
+	m_pSliderBackgroundIcon_MouseSensativity = new Icon(m_pRenderer, "", 207, 31);
 	m_pSliderBackgroundIcon_MouseSensativity->SetDepth(1.5f);
-	m_pSliderBackgroundIcon_GamepadSensativity = new Icon(m_pRenderer, "media/textures/gui/Stonewash/OptionsMenu/slider_background.tga", 207, 31);
+	m_pSliderBackgroundIcon_GamepadSensativity = new Icon(m_pRenderer, "", 207, 31);
 	m_pSliderBackgroundIcon_GamepadSensativity->SetDepth(1.5f);
 
 	m_vpGameplayComponents.push_back(m_pInvertedMouseMode);
@@ -248,9 +248,9 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pMusicVolume->SetRenderBackgroundBar(false);
 	m_pMusicVolume->SetDepth(2.0f);
 
-	m_pSliderBackgroundIcon_Sound = new Icon(m_pRenderer, "media/textures/gui/Stonewash/OptionsMenu/slider_background.tga", 207, 31);
+	m_pSliderBackgroundIcon_Sound = new Icon(m_pRenderer, "", 207, 31);
 	m_pSliderBackgroundIcon_Sound->SetDepth(1.5f);
-	m_pSliderBackgroundIcon_Music = new Icon(m_pRenderer, "media/textures/gui/Stonewash/OptionsMenu/slider_background.tga", 207, 31);
+	m_pSliderBackgroundIcon_Music = new Icon(m_pRenderer, "", 207, 31);
 	m_pSliderBackgroundIcon_Music->SetDepth(1.5f);
 
 	m_vpSoundComponents.push_back(m_pSoundEffects);
@@ -551,6 +551,27 @@ void OptionsMenu::SetReturnToMainMenu(bool mainMenu)
 
 void OptionsMenu::SkinGUI()
 {
+	string themeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
+
+	string iconName = "media/textures/gui/" + themeName + "/OptionsMenu/slider_background.tga";
+	m_pSliderBackgroundIcon_MouseSensativity->SetIcon(iconName);
+	m_pSliderBackgroundIcon_GamepadSensativity->SetIcon(iconName);
+	m_pSliderBackgroundIcon_Sound->SetIcon(iconName);
+	m_pSliderBackgroundIcon_Music->SetIcon(iconName);
+
+	iconName = "media/textures/gui/" + themeName + "/OptionsMenu/options_title_icon.tga";
+	m_pTitleBarIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/OptionsMenu/options_window_background.tga";
+	m_pOptionsWindowBackgroundIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/OptionsMenu/titlebar_background.tga";
+	m_pTitleBarBackgroundIcon->SetIcon(iconName);
+
+	m_pOptionsWindow->SetBackgroundIcon(m_pOptionsWindowBackgroundIcon);
+	m_pOptionsWindow->SetTitlebarBackgroundIcon(m_pTitleBarBackgroundIcon);
+
+	Point location = m_pOptionsWindow->GetLocation();
+	m_pOptionsWindow->SetDimensions(location.m_x, location.m_y, m_optionsWindowWidth, m_optionsWindowHeight);
+	m_pOptionsWindow->SetTitleBarDimensions(0, 0, m_titlebarWidth, m_titlebarHeight);
 }
 
 void OptionsMenu::UnSkinGUI()

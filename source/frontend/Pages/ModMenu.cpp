@@ -31,13 +31,13 @@ ModMenu::ModMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontPa
 	m_pModWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 	m_pModWindow->Hide();
 
-	m_pTitleBarIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/ModMenu/mod_title_icon.tga", 44, 44);
+	m_pTitleBarIcon = new Icon(m_pRenderer, "", 44, 44);
 	m_pTitleBarIcon->SetDepth(4.0f);
 
-	m_pModWindowBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/ModMenu/mod_window_background.tga", 600, 475);
+	m_pModWindowBackgroundIcon = new Icon(m_pRenderer, "", 600, 475);
 	m_pModWindowBackgroundIcon->SetDepth(1.0f);
 
-	m_pTitleBarBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/ModMenu/titlebar_background.tga", 86, 35);
+	m_pTitleBarBackgroundIcon = new Icon(m_pRenderer, "", 86, 35);
 	m_pTitleBarBackgroundIcon->SetDepth(1.0f);
 
 	m_pCloseExitButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_30(), m_pFrontendManager->GetFrontendFont_30_Outline(), "", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
@@ -48,9 +48,6 @@ ModMenu::ModMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontPa
 	m_pCloseExitButton->SetLabelOffset(0, 5);
 	m_pCloseExitButton->SetCallBackFunction(_CloseExitPressed);
 	m_pCloseExitButton->SetCallBackData(this);
-
-	m_pModWindow->SetBackgroundIcon(m_pModWindowBackgroundIcon);
-	m_pModWindow->SetTitlebarBackgroundIcon(m_pTitleBarBackgroundIcon);
 
 	m_pModWindow->AddComponent(m_pTitleBarIcon);
 	m_pModWindow->AddComponent(m_pCloseExitButton);
@@ -259,6 +256,22 @@ void ModMenu::SetReturnToMainMenu(bool mainMenu)
 
 void ModMenu::SkinGUI()
 {
+	string themeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
+
+	string iconName = "media/textures/gui/" + themeName + "/ModMenu/mod_title_icon.tga";
+	m_pTitleBarIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/ModMenu/mod_window_background.tga";
+	m_pModWindowBackgroundIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/ModMenu/titlebar_background.tga";
+	m_pTitleBarBackgroundIcon->SetIcon(iconName);
+
+	m_pModWindow->SetBackgroundIcon(m_pModWindowBackgroundIcon);
+	m_pModWindow->SetTitlebarBackgroundIcon(m_pTitleBarBackgroundIcon);
+
+	Point location = m_pModWindow->GetLocation();
+	m_pModWindow->SetDimensions(location.m_x, location.m_y, m_modWindowWidth, m_modWindowHeight);
+	m_pModWindow->SetTitleBarDimensions(0, 0, m_titlebarWidth, m_titlebarHeight);
+
 	m_pFrontendManager->SetScrollbarIcons(m_pModsScrollbar);
 }
 
