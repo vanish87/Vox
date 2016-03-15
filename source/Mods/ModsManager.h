@@ -22,6 +22,7 @@ class Mod
 {
 public:
 	string m_modName;
+	bool m_erase;
 	bool m_gameplayMod;
 	bool m_graphicsMod;
 	bool m_soundMod;
@@ -41,6 +42,10 @@ public:
 
 	// Loading
 	void LoadMods();
+
+	// Adding and removing active mods
+	void AddMod(string modName, bool gameplayMod, bool graphicsMod,	bool soundMod, bool HUDMod, bool miscMod);
+	void RemoveMod(string modName, bool gameplayMod, bool graphicsMod, bool soundMod, bool HUDMod, bool miscMod);
 
 	// Accessors
 	int GetNumMods();

@@ -898,12 +898,14 @@ void ModMenu::ModButtonPressed(ModButtonData* pModButtonData)
 				{
 					m_vpModButtonData[i]->m_toggled = false;
 					m_vpModButtonData[i]->m_pModButton->RemoveIcon("media/textures/gui/Stonewash/common/tick.tga");
+					VoxGame::GetInstance()->GetModsManager()->RemoveMod(m_vpModButtonData[i]->m_modName, m_vpModButtonData[i]->m_gameplayButton, m_vpModButtonData[i]->m_graphicsButton, m_vpModButtonData[i]->m_soundButton, m_vpModButtonData[i]->m_HUDButton, m_vpModButtonData[i]->m_miscButton);
 				}
 			}
 			else
 			{
 				addTick = true;
 				pModButtonData->m_toggled = true;
+				VoxGame::GetInstance()->GetModsManager()->AddMod(m_vpModButtonData[i]->m_modName, m_vpModButtonData[i]->m_gameplayButton, m_vpModButtonData[i]->m_graphicsButton, m_vpModButtonData[i]->m_soundButton, m_vpModButtonData[i]->m_HUDButton, m_vpModButtonData[i]->m_miscButton);
 			}
 		}
 		else
@@ -912,6 +914,7 @@ void ModMenu::ModButtonPressed(ModButtonData* pModButtonData)
 			{
 				m_vpModButtonData[i]->m_toggled = false;
 				m_vpModButtonData[i]->m_pModButton->RemoveIcon("media/textures/gui/Stonewash/common/tick.tga");
+				VoxGame::GetInstance()->GetModsManager()->RemoveMod(m_vpModButtonData[i]->m_modName, m_vpModButtonData[i]->m_gameplayButton, m_vpModButtonData[i]->m_graphicsButton, m_vpModButtonData[i]->m_soundButton, m_vpModButtonData[i]->m_HUDButton, m_vpModButtonData[i]->m_miscButton);
 			}
 		}
 	}

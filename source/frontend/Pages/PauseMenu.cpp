@@ -18,7 +18,7 @@
 PauseMenu::PauseMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontendManager, int windowWidth, int windowHeight)
 	: FrontendPage(pRenderer, pGUI, pFrontendManager, FrontendScreen_PauseMenu, windowWidth, windowHeight)
 {
-	m_pBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/PauseMenu/pause_background.tga", 230, 265);
+	m_pBackgroundIcon = new Icon(m_pRenderer, "", 230, 265);
 	m_pBackgroundIcon->SetDepth(1.5f);
 
 	m_pResumeButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_30(), m_pFrontendManager->GetFrontendFont_30_Outline(), "Resume", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
@@ -80,6 +80,11 @@ void PauseMenu::SetWindowDimensions(int windowWidth, int windowHeight)
 
 void PauseMenu::SkinGUI()
 {
+	string themeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
+
+	string iconName = "media/textures/gui/" + themeName + "/PauseMenu/pause_background.tga";
+	m_pBackgroundIcon->SetIcon(iconName);
+
 	m_pFrontendManager->SetButtonIcons(m_pResumeButton, ButtonSize_110x47);
 	m_pFrontendManager->SetButtonIcons(m_pModsButton, ButtonSize_110x47);
 	m_pFrontendManager->SetButtonIcons(m_pOptionsButton, ButtonSize_110x47);

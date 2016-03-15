@@ -25,7 +25,7 @@ QuitPopup::QuitPopup(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFro
 	m_pQuitText->SetOutlineFont(pFrontendManager->GetFrontendFont_40_Outline());
 	m_pQuitText->SetDepth(3.0f);
 
-	m_pBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/QuitPopup/background.tga", 400, 200);
+	m_pBackgroundIcon = new Icon(m_pRenderer, "", 400, 200);
 	m_pBackgroundIcon->SetDepth(2.0f);
 
 	m_pConfirmButton = new Button(m_pRenderer, pFrontendManager->GetFrontendFont_30(), pFrontendManager->GetFrontendFont_30_Outline(), "Yes", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
@@ -75,6 +75,11 @@ void QuitPopup::SetWindowDimensions(int windowWidth, int windowHeight)
 
 void QuitPopup::SkinGUI()
 {
+	string themeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
+
+	string iconName = "media/textures/gui/" + themeName + "/QuitPopup/background.tga";
+	m_pBackgroundIcon->SetIcon(iconName);
+
 	m_pFrontendManager->SetButtonIcons(m_pConfirmButton, ButtonSize_110x47);
 	m_pFrontendManager->SetButtonIcons(m_pCancelButton, ButtonSize_110x47);
 }
