@@ -49,9 +49,53 @@ void ModsManager::LoadMods()
 	string modsIniFile = "media/config/mods.ini";
 	INIReader reader(modsIniFile);
 
+	// Gameplay mods
+	string gameplayMods = reader.Get("Gameplay", "LoadedGameplayMods", "");
+	char * pch = strtok(&gameplayMods[0], ";");
+	while (pch != NULL)
+	{
+		AddMod(pch, true, false, false, false, false);
+		pch = strtok(NULL, ";");
+	}
+
 	// Load the HUD textures mod
 	string HUDTheme = reader.Get("HUD", "HUDTextures", "Default");
 	AddMod(HUDTheme, false, false, false, true, false);
+}
+
+// Saving
+void ModsManager::SaveMods()
+{
+	ofstream file;
+
+	// Open the file
+	string modsIniFile = "media/config/mods.ini";
+	file.open(modsIniFile.c_str(), ios::out);
+
+	file << "[Gameplay]\n";
+	file << "LoadedGameplayMods=";
+	for (unsigned int i = 0; i < m_vpMods.size(); i++)
+	{
+		Mod* pMod = m_vpMods[i];
+		if (pMod->m_gameplayMod == true)
+		{
+			file << pMod->m_modName.c_str() << ";";
+		}
+	}
+	file << "\n\n";
+
+	file << "[Graphics]\n";
+	file << "\n";
+
+	file << "[Sound]\n";
+	file << "\n";
+
+	file << "[HUD]\n";
+	file << "HUDTextures=" << GetHUDTextureTheme().c_str() << "\n";
+	file << "\n";
+
+	file << "[Misc]\n";
+	file << "\n";
 }
 
 // Adding and removing active mods

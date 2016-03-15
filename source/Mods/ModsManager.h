@@ -43,6 +43,9 @@ public:
 	// Loading
 	void LoadMods();
 
+	// Saving
+	void SaveMods();
+
 	// Adding and removing active mods
 	void AddMod(string modName, bool gameplayMod, bool graphicsMod,	bool soundMod, bool HUDMod, bool miscMod);
 	void RemoveMod(string modName, bool gameplayMod, bool graphicsMod, bool soundMod, bool HUDMod, bool miscMod);

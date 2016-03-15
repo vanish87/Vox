@@ -291,6 +291,8 @@ void ModMenu::Load()
 
 void ModMenu::Unload()
 {
+	VoxGame::GetInstance()->GetModsManager()->SaveMods();
+
 	RemoveGameplayModButtons();
 	RemoveGraphicsModButtons();
 	RemoveSoundModButtons();
