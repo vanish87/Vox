@@ -60,9 +60,26 @@ void ModsManager::LoadMods()
 		pch = strtok(NULL, ";");
 	}
 
+	// Graphics pack
+	string graphicsPack = reader.Get("Graphics", "GraphicsPack", "Default");
+	AddMod(graphicsPack, false, true, false, false, false);
+
+	// Sound pack
+	string soundPack = reader.Get("Sound", "SoundPack", "Default");
+	AddMod(soundPack, false, false, true, false, false);
+
 	// Load the HUD textures mod
 	string HUDTheme = reader.Get("HUD", "HUDTextures", "Default");
 	AddMod(HUDTheme, false, false, false, true, false);
+
+	// Misc mods
+	string miscMods = reader.Get("Misc", "LoadedMiscMods", "");
+	pch = strtok(&miscMods[0], ";");
+	while (pch != NULL)
+	{
+		AddMod(pch, false, false, false, false, true);
+		pch = strtok(NULL, ";");
+	}
 }
 
 // Saving
@@ -87,9 +104,11 @@ void ModsManager::SaveMods()
 	file << "\n\n";
 
 	file << "[Graphics]\n";
+	file << "GraphicsPack=" << GetGraphicsPack().c_str() << "\n";
 	file << "\n";
 
 	file << "[Sound]\n";
+	file << "SoundPack=" << GetSoundPack().c_str() << "\n";
 	file << "\n";
 
 	file << "[HUD]\n";
@@ -97,7 +116,16 @@ void ModsManager::SaveMods()
 	file << "\n";
 
 	file << "[Misc]\n";
-	file << "\n";
+	file << "LoadedMiscMods=";
+	for (unsigned int i = 0; i < m_vpMods.size(); i++)
+	{
+		Mod* pMod = m_vpMods[i];
+		if (pMod->m_miscMod == true)
+		{
+			file << pMod->m_modName.c_str() << ";";
+		}
+	}
+	file << "\n\n";
 }
 
 // Adding and removing active mods
@@ -155,6 +183,34 @@ int ModsManager::GetNumMods()
 Mod* ModsManager::GetMod(int index)
 {
 	return m_vpMods[index];
+}
+
+// Graphics pack
+string ModsManager::GetGraphicsPack()
+{
+	for (unsigned int i = 0; i < m_vpMods.size(); i++)
+	{
+		if (m_vpMods[i]->m_graphicsMod == true)
+		{
+			return m_vpMods[i]->m_modName;
+		}
+	}
+
+	return "";
+}
+
+// Sound pack
+string ModsManager::GetSoundPack()
+{
+	for (unsigned int i = 0; i < m_vpMods.size(); i++)
+	{
+		if (m_vpMods[i]->m_soundMod == true)
+		{
+			return m_vpMods[i]->m_modName;
+		}
+	}
+
+	return "";
 }
 
 // HUD Theme

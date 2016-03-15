@@ -372,7 +372,75 @@ void ModMenu::RemoveGameplayModButtons()
 
 void ModMenu::CreateGraphicsModButtons()
 {
+	int buttonWidth = m_modButtonWidth;
+	int buttonHeight = m_modButtonheight;
+	int buttonSpacer = m_modButtonSpace;
+	int buttonAndSpacerWidth = buttonWidth + buttonSpacer;
+	int buttonAndSpacerHeight = buttonHeight + buttonSpacer;
 
+	int buttonX = -(m_modWindowWidth - 42);
+	int buttonY = m_modWindowHeight - buttonHeight - 17;
+
+	char importDirectory[128];
+#ifdef _WIN32
+	sprintf(importDirectory, "media/graphics/*.*");
+#elif __linux__
+	sprintf(importDirectory, "media/graphics/*.*");
+#endif //_WIN32
+
+	vector<string> listFiles;
+	listFiles = listFilesInDirectory(importDirectory);
+	int modButtonCounter = 0;
+	int yCounter = 0;
+	while (modButtonCounter < listFiles.size())
+	{
+		if (strcmp(listFiles[modButtonCounter].c_str(), ".") == 0 || strcmp(listFiles[modButtonCounter].c_str(), "..") == 0)
+		{
+			modButtonCounter++;
+			continue;
+		}
+
+		buttonX = -(m_modWindowWidth - 42);
+
+		for (int x = 0; x < 3 && modButtonCounter < listFiles.size(); x++)
+		{
+			Button* m_pNewButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_35(), "");
+			m_pNewButton->SetDimensions(buttonX, buttonY, buttonWidth, buttonHeight);
+			m_pNewButton->SetPressedOffset(0, -1);
+
+			m_pNewButton->AddText(m_pRenderer, m_pFrontendManager->GetFrontendFont_18(), m_pFrontendManager->GetFrontendFont_18_Outline(), listFiles[modButtonCounter].c_str(), Colour(1.0f, 1.0f, 1.0f, 1.0f), 7, buttonHeight - 20, true, Colour(0.0f, 0.0f, 0.0f, 1.0f));
+
+			ModButtonData* pModButtonData = new ModButtonData();
+			pModButtonData->m_pModMenu = this;
+			pModButtonData->m_pModButton = m_pNewButton;
+			pModButtonData->m_modName = listFiles[modButtonCounter];
+			pModButtonData->m_toggled = false;
+			pModButtonData->m_allowToggleOff = false;
+			pModButtonData->m_allowMultipleSelection = false;
+			pModButtonData->m_gameplayButton = false;
+			pModButtonData->m_graphicsButton = true;
+			pModButtonData->m_soundButton = false;
+			pModButtonData->m_HUDButton = false;
+			pModButtonData->m_miscButton = false;
+
+			m_pNewButton->SetCallBackFunction(_ModButtonPressed);
+			m_pNewButton->SetCallBackData(pModButtonData);
+
+			m_vpModButtonData.push_back(pModButtonData);
+
+			m_pModsScrollbar->AddScrollAreaItem(m_pNewButton);
+
+			m_vpGraphicsModButtons.push_back(m_pNewButton);
+
+			buttonX += buttonAndSpacerWidth;
+
+			modButtonCounter++;
+		}
+
+		yCounter++;
+
+		buttonY -= buttonAndSpacerHeight;
+	}
 }
 
 void ModMenu::RemoveGraphicsModButtons()
@@ -388,7 +456,75 @@ void ModMenu::RemoveGraphicsModButtons()
 
 void ModMenu::CreateSoundModButtons()
 {
+	int buttonWidth = m_modButtonWidth;
+	int buttonHeight = m_modButtonheight;
+	int buttonSpacer = m_modButtonSpace;
+	int buttonAndSpacerWidth = buttonWidth + buttonSpacer;
+	int buttonAndSpacerHeight = buttonHeight + buttonSpacer;
 
+	int buttonX = -(m_modWindowWidth - 42);
+	int buttonY = m_modWindowHeight - buttonHeight - 17;
+
+	char importDirectory[128];
+#ifdef _WIN32
+	sprintf(importDirectory, "media/audio/*.*");
+#elif __linux__
+	sprintf(importDirectory, "media/audio/*.*");
+#endif //_WIN32
+
+	vector<string> listFiles;
+	listFiles = listFilesInDirectory(importDirectory);
+	int modButtonCounter = 0;
+	int yCounter = 0;
+	while (modButtonCounter < listFiles.size())
+	{
+		if (strcmp(listFiles[modButtonCounter].c_str(), ".") == 0 || strcmp(listFiles[modButtonCounter].c_str(), "..") == 0)
+		{
+			modButtonCounter++;
+			continue;
+		}
+
+		buttonX = -(m_modWindowWidth - 42);
+
+		for (int x = 0; x < 3 && modButtonCounter < listFiles.size(); x++)
+		{
+			Button* m_pNewButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_35(), "");
+			m_pNewButton->SetDimensions(buttonX, buttonY, buttonWidth, buttonHeight);
+			m_pNewButton->SetPressedOffset(0, -1);
+
+			m_pNewButton->AddText(m_pRenderer, m_pFrontendManager->GetFrontendFont_18(), m_pFrontendManager->GetFrontendFont_18_Outline(), listFiles[modButtonCounter].c_str(), Colour(1.0f, 1.0f, 1.0f, 1.0f), 7, buttonHeight - 20, true, Colour(0.0f, 0.0f, 0.0f, 1.0f));
+
+			ModButtonData* pModButtonData = new ModButtonData();
+			pModButtonData->m_pModMenu = this;
+			pModButtonData->m_pModButton = m_pNewButton;
+			pModButtonData->m_modName = listFiles[modButtonCounter];
+			pModButtonData->m_toggled = false;
+			pModButtonData->m_allowToggleOff = false;
+			pModButtonData->m_allowMultipleSelection = false;
+			pModButtonData->m_gameplayButton = false;
+			pModButtonData->m_graphicsButton = false;
+			pModButtonData->m_soundButton = true;
+			pModButtonData->m_HUDButton = false;
+			pModButtonData->m_miscButton = false;
+
+			m_pNewButton->SetCallBackFunction(_ModButtonPressed);
+			m_pNewButton->SetCallBackData(pModButtonData);
+
+			m_vpModButtonData.push_back(pModButtonData);
+
+			m_pModsScrollbar->AddScrollAreaItem(m_pNewButton);
+
+			m_vpSoundModButtons.push_back(m_pNewButton);
+
+			buttonX += buttonAndSpacerWidth;
+
+			modButtonCounter++;
+		}
+
+		yCounter++;
+
+		buttonY -= buttonAndSpacerHeight;
+	}
 }
 
 void ModMenu::RemoveSoundModButtons()
@@ -488,7 +624,55 @@ void ModMenu::RemoveHUDModButtons()
 
 void ModMenu::CreateMiscModButtons()
 {
+	int buttonWidth = m_modButtonWidth;
+	int buttonHeight = m_modButtonheight;
+	int buttonSpacer = m_modButtonSpace;
+	int buttonAndSpacerWidth = buttonWidth + buttonSpacer;
+	int buttonAndSpacerHeight = buttonHeight + buttonSpacer;
 
+	int buttonX = -(m_modWindowWidth - 42);
+	int buttonY = m_modWindowHeight - buttonHeight - 17;
+	for (int y = 0; y < 4; y++)
+	{
+		buttonX = -(m_modWindowWidth - 42);
+
+		for (int x = 0; x < 3; x++)
+		{
+			Button* m_pNewButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_35(), "");
+			m_pNewButton->SetDimensions(buttonX, buttonY, buttonWidth, buttonHeight);
+			m_pNewButton->SetPressedOffset(0, -1);
+
+			char buttonText[64];
+			sprintf(buttonText, "TestButton: %i,%i", x, y);
+			m_pNewButton->AddText(m_pRenderer, m_pFrontendManager->GetFrontendFont_18(), m_pFrontendManager->GetFrontendFont_18_Outline(), buttonText, Colour(1.0f, 1.0f, 1.0f, 1.0f), 7, buttonHeight - 20, true, Colour(0.0f, 0.0f, 0.0f, 1.0f));
+
+			ModButtonData* pModButtonData = new ModButtonData();
+			pModButtonData->m_pModMenu = this;
+			pModButtonData->m_pModButton = m_pNewButton;
+			pModButtonData->m_modName = buttonText;
+			pModButtonData->m_toggled = false;
+			pModButtonData->m_allowToggleOff = true;
+			pModButtonData->m_allowMultipleSelection = true;
+			pModButtonData->m_gameplayButton = false;
+			pModButtonData->m_graphicsButton = false;
+			pModButtonData->m_soundButton = false;
+			pModButtonData->m_HUDButton = false;
+			pModButtonData->m_miscButton = true;
+
+			m_pNewButton->SetCallBackFunction(_ModButtonPressed);
+			m_pNewButton->SetCallBackData(pModButtonData);
+
+			m_vpModButtonData.push_back(pModButtonData);
+
+			m_pModsScrollbar->AddScrollAreaItem(m_pNewButton);
+
+			m_vpMiscModButtons.push_back(m_pNewButton);
+
+			buttonX += buttonAndSpacerWidth;
+		}
+
+		buttonY -= buttonAndSpacerHeight;
+	}
 }
 
 void ModMenu::RemoveMiscModButtons()

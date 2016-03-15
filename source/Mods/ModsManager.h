@@ -54,6 +54,12 @@ public:
 	int GetNumMods();
 	Mod* GetMod(int index);
 
+	// Graphics pack
+	string GetGraphicsPack();
+
+	// Sound pack
+	string GetSoundPack();
+
 	// HUD Theme
 	string GetHUDTextureTheme();
 
