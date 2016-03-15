@@ -103,7 +103,7 @@
 - [x] Add character GUI.
 - [x] Add options menu window to pause menu.
 - [x] Add mods menu window to pause menu.
-  - [ ]  Select mods that are already loaded and 'tick' their buttons. SelectLoadedMods() function called on each tab.
+  - [x]  Select mods that are already loaded and 'tick' their buttons. SelectLoadedMods() function called on each tab.
 - [x] Tidy up inventory and item managers!
   - [x] Add back in TODO code (TODO : Add me back in).
   - [x] Test ALL functionality with player equipping items and weapons.
