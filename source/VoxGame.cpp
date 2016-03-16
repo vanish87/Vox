@@ -12,7 +12,7 @@
 #include "glew/include/GL/glew.h"
 
 #include "VoxGame.h"
-#include "../utils/Interpolator.h"
+#include "utils/Interpolator.h"
 #include <glm/detail/func_geometric.hpp>
 
 #ifdef __linux__
