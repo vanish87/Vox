@@ -485,10 +485,10 @@ void VoxGame::RenderTransparency()
 			if (m_cameraMode != CameraMode_FirstPerson)
 			{
 				m_pPlayer->RenderFace();
-			}
 
-			// Render the player's weapon trails
-			m_pPlayer->RenderWeaponTrails();
+				// Render the player's weapon trails
+				m_pPlayer->RenderWeaponTrails();
+			}
 		}
 
 		// Projectile trails
