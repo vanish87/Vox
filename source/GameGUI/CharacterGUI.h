@@ -54,10 +54,14 @@ public:
 
 	void SetWindowDimensions(int windowWidth, int windowHeight);
 
+	// Skinning the GUI
+	void SkinGUI();
+	void UnSkinGUI();
+
+	// Loading
 	void Load(bool loadDelay = false, float loadDelayTime = 0.0f);
 	void Unload();
 	bool IsLoadDelayed();
-
 	bool IsLoaded();
 
 	GUIWindow* GetCharacterWindow();

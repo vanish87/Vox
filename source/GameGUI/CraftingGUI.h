@@ -81,10 +81,14 @@ public:
 
 	void SetWindowDimensions(int windowWidth, int windowHeight);
 
+	// Skinning the GUI
+	void SkinGUI();
+	void UnSkinGUI();
+
+	// Loading
 	void Load(bool loadDelay, float loadDelayTime);
 	void Unload();
 	bool IsLoadDelayed();
-
 	bool IsLoaded();
 
 	void CraftingComplete();

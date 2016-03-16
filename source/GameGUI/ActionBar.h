@@ -61,9 +61,13 @@ public:
 	void SetCharacterGUI(CharacterGUI* pCharacterGUI);
 	void SetLootGUI(LootGUI* pLootGUI);
 
+	// Skinning the GUI
+	void SkinGUI();
+	void UnSkinGUI();
+
+	// Loading
 	void Load();
 	void Unload();
-
 	bool IsLoaded();
 
 	void SetWindowDimensions(int windowWidth, int windowHeight);

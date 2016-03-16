@@ -332,6 +332,13 @@ void VoxGame::SkinGUI()
 
 	// Also skin the frontend pages
 	m_pFrontendManager->SkinGUI();
+
+	// Also skin the gameGUI pages
+	m_pInventoryGUI->SkinGUI();
+	m_pCharacterGUI->SkinGUI();
+	m_pCraftingGUI->SkinGUI();
+	m_pLootGUI->SkinGUI();
+	m_pActionBar->SkinGUI();
 }
 
 void VoxGame::UnSkinGUI()
@@ -371,6 +378,13 @@ void VoxGame::UnSkinGUI()
 
 	// Also unskin the frontend pages
 	m_pFrontendManager->UnSkinGUI();
+
+	// Also unskin the gameGUI pages
+	m_pInventoryGUI->UnSkinGUI();
+	m_pCharacterGUI->UnSkinGUI();
+	m_pCraftingGUI->UnSkinGUI();
+	m_pLootGUI->UnSkinGUI();
+	m_pActionBar->UnSkinGUI();
 }
 
 void VoxGame::DestroyGUI()

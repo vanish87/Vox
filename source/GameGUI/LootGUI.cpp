@@ -72,35 +72,35 @@ LootGUI::LootGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFronten
 	m_pLootWindow->AddComponent(m_pTitleBarIcon);
 	m_pLootWindow->AddComponent(m_pCloseExitButton);
 
-	m_pLootButtonBackgroundSlotBorder_Common = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_common.tga", 64, 64);
+	m_pLootButtonBackgroundSlotBorder_Common = new Icon(m_pRenderer, "", 64, 64);
 	m_pLootButtonBackgroundSlotBorder_Common->SetDepth(2.0f);
 
-	m_pLootButtonBackgroundSlotBorder_Uncommon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_uncommon.tga", 64, 64);
+	m_pLootButtonBackgroundSlotBorder_Uncommon = new Icon(m_pRenderer, "", 64, 64);
 	m_pLootButtonBackgroundSlotBorder_Uncommon->SetDepth(2.0f);
 
-	m_pLootButtonBackgroundSlotBorder_Magical = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_magical.tga", 64, 64);
+	m_pLootButtonBackgroundSlotBorder_Magical = new Icon(m_pRenderer, "", 64, 64);
 	m_pLootButtonBackgroundSlotBorder_Magical->SetDepth(2.0f);
 
-	m_pLootButtonBackgroundSlotBorder_Rare = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_rare.tga", 64, 64);
+	m_pLootButtonBackgroundSlotBorder_Rare = new Icon(m_pRenderer, "", 64, 64);
 	m_pLootButtonBackgroundSlotBorder_Rare->SetDepth(2.0f);
 
-	m_pLootButtonBackgroundSlotBorder_Epic = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_epic.tga", 64, 64);
+	m_pLootButtonBackgroundSlotBorder_Epic = new Icon(m_pRenderer, "", 64, 64);
 	m_pLootButtonBackgroundSlotBorder_Epic->SetDepth(2.0f);
 
 	// Tooltip
-	m_pTooltipBackground_Common = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/Tooltips/tooltip_background_common.tga", 200, 220);
+	m_pTooltipBackground_Common = new Icon(m_pRenderer, "", 200, 220);
 	m_pTooltipBackground_Common->SetDepth(5.5f);
 
-	m_pTooltipBackground_Uncommon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/Tooltips/tooltip_background_uncommon.tga", 200, 220);
+	m_pTooltipBackground_Uncommon = new Icon(m_pRenderer, "", 200, 220);
 	m_pTooltipBackground_Uncommon->SetDepth(5.5f);
 
-	m_pTooltipBackground_Magical = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/Tooltips/tooltip_background_magical.tga", 200, 220);
+	m_pTooltipBackground_Magical = new Icon(m_pRenderer, "", 200, 220);
 	m_pTooltipBackground_Magical->SetDepth(5.5f);
 
-	m_pTooltipBackground_Rare = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/Tooltips/tooltip_background_rare.tga", 200, 220);
+	m_pTooltipBackground_Rare = new Icon(m_pRenderer, "", 200, 220);
 	m_pTooltipBackground_Rare->SetDepth(5.5f);
 
-	m_pTooltipBackground_Epic = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/Tooltips/tooltip_background_epic.tga", 200, 220);
+	m_pTooltipBackground_Epic = new Icon(m_pRenderer, "", 200, 220);
 	m_pTooltipBackground_Epic->SetDepth(5.5f);
 
 	char nameText[] = "[ITEM]";
@@ -211,6 +211,39 @@ void LootGUI::SetWindowDimensions(int windowWidth, int windowHeight)
 	m_pCloseExitButton->SetDimensions(m_lootWindowWidth-32, m_lootWindowHeight, 32, 32);
 }
 
+// Skinning the GUI
+void LootGUI::SkinGUI()
+{
+	string themeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
+
+	string iconName = "media/textures/gui/" + themeName + "/common/items/border_common.tga";
+	m_pLootButtonBackgroundSlotBorder_Common->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/items/border_uncommon.tga";
+	m_pLootButtonBackgroundSlotBorder_Uncommon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/items/border_magical.tga";
+	m_pLootButtonBackgroundSlotBorder_Magical->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/items/border_rare.tga";
+	m_pLootButtonBackgroundSlotBorder_Rare->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/items/border_epic.tga";
+	m_pLootButtonBackgroundSlotBorder_Epic->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/Tooltips/tooltip_background_common.tga";
+	m_pTooltipBackground_Common->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/Tooltips/tooltip_background_uncommon.tga";
+	m_pTooltipBackground_Uncommon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/Tooltips/tooltip_background_magical.tga";
+	m_pTooltipBackground_Magical->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/Tooltips/tooltip_background_rare.tga";
+	m_pTooltipBackground_Rare->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/Tooltips/tooltip_background_epic.tga";
+	m_pTooltipBackground_Epic->SetIcon(iconName);
+}
+
+void LootGUI::UnSkinGUI()
+{
+
+}
+
+// Loading
 void LootGUI::Load(bool loadDelay, float loadDelayTime)
 {
 	m_loadDelay = loadDelay;
@@ -454,13 +487,40 @@ void LootGUI::CreateLootItems()
 			char lItemTexture[128];
 			sprintf(lItemTexture, "%s", pItem->m_Iconfilename.c_str());
 			pNewSlotItem->AddIcon(m_pRenderer, lItemTexture, 64, 64, 56, 56, 4, 4, 1.5f);
-			switch(pItem->m_itemQuality)
+
+			string themeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
+			switch (pItem->m_itemQuality)
 			{
-			case ItemQuality_Common: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_common.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
-			case ItemQuality_Uncommon: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_uncommon.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
-			case ItemQuality_Magical: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_magical.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
-			case ItemQuality_Rare: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_rare.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
-			case ItemQuality_Epic: { pNewSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_epic.tga", 64, 64, 64, 64, 0, 0, 1.0f); break; }
+				case ItemQuality_Common:
+				{
+					string itemBackgroundIcon = "media/textures/gui/" + themeName + "/common/items/item_background_common.tga";
+					pNewSlotItem->AddIcon(m_pRenderer, itemBackgroundIcon.c_str(), 64, 64, 64, 64, 0, 0, 1.0f);
+					break;
+				}
+				case ItemQuality_Uncommon:
+				{
+					string itemBackgroundIcon = "media/textures/gui/" + themeName + "/common/items/item_background_uncommon.tga";
+					pNewSlotItem->AddIcon(m_pRenderer, itemBackgroundIcon.c_str(), 64, 64, 64, 64, 0, 0, 1.0f);
+					break;
+				}
+				case ItemQuality_Magical:
+				{
+					string itemBackgroundIcon = "media/textures/gui/" + themeName + "/common/items/item_background_magical.tga";
+					pNewSlotItem->AddIcon(m_pRenderer, itemBackgroundIcon.c_str(), 64, 64, 64, 64, 0, 0, 1.0f);
+					break;
+				}
+				case ItemQuality_Rare:
+				{
+					string itemBackgroundIcon = "media/textures/gui/" + themeName + "/common/items/item_background_rare.tga";
+					pNewSlotItem->AddIcon(m_pRenderer, itemBackgroundIcon.c_str(), 64, 64, 64, 64, 0, 0, 1.0f);
+					break;
+				}
+				case ItemQuality_Epic:
+				{
+					string itemBackgroundIcon = "media/textures/gui/" + themeName + "/common/items/item_background_epic.tga";
+					pNewSlotItem->AddIcon(m_pRenderer, itemBackgroundIcon.c_str(), 64, 64, 64, 64, 0, 0, 1.0f);
+					break;
+				}
 			}
 
 			if(pItem->m_quantity != -1)
@@ -719,7 +779,9 @@ void LootGUI::LootItemPressed(LootSlotItem* pLootItem)
     // Temporarily increase the depth of the dragged icon
     m_pPressedLootSlotItem->m_pInventoryIcon->SetDepth(5.0f);
 	//m_pPressedLootSlotItem->m_pInventoryIcon->SetLocation(m_pressedX - 4, m_pressedY + 4);
-	m_pPressedLootSlotItem->m_pInventoryIcon->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/drop_shadow.tga", 64, 64, 64, 64, 4, -4, 0.5f);
+	string themeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
+	string dropShadowIcon = "media/textures/gui/" + themeName + "/common/items/drop_shadow.tga";
+	m_pPressedLootSlotItem->m_pInventoryIcon->AddIcon(m_pRenderer, dropShadowIcon.c_str(), 64, 64, 64, 64, 4, -4, 0.5f);
 	m_pLootWindow->DepthSortComponentChildren();
 
 	HideTooltip();
@@ -986,14 +1048,18 @@ void LootGUI::LootItemReleased(LootSlotItem* pLootItem)
 	if(switched == false && equipped == false)
 	{
 		pLootItem->m_pInventoryIcon->SetLocation(m_pressedX, m_pressedY);
-		pLootItem->m_pInventoryIcon->RemoveIcon("media/textures/gui/Stonewash/common/items/drop_shadow.tga");
+		string themeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
+		string dropShadowIcon = "media/textures/gui/" + themeName + "/common/items/drop_shadow.tga";
+		pLootItem->m_pInventoryIcon->RemoveIcon(dropShadowIcon.c_str());
 	}
 
 	if(sameSlot == false && equipped == false && draggedToInventory == false)
 	{
 		// Revert depth back to normal for loot icons
 		pLootItem->m_pInventoryIcon->SetDepth(3.0f);
-		pLootItem->m_pInventoryIcon->RemoveIcon("media/textures/gui/Stonewash/common/items/drop_shadow.tga");
+		string themeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
+		string dropShadowIcon = "media/textures/gui/" + themeName + "/common/items/drop_shadow.tga";
+		pLootItem->m_pInventoryIcon->RemoveIcon(dropShadowIcon.c_str());
 		m_pLootWindow->DepthSortComponentChildren();
 	}
 }

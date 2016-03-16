@@ -125,35 +125,35 @@ CraftingGUI::CraftingGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pRecipeButton_Selected_Icon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/recipe_item_selected_button.tga", 152, 32);
 	m_pRecipeButton_Selected_Icon->SetDepth(1.0f);
 
-	m_pInventoryBackgroundSlotBorder_Common = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_common.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Common = new Icon(m_pRenderer, "", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Common->SetDepth(2.0f);
 
-	m_pInventoryBackgroundSlotBorder_Uncommon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_uncommon.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Uncommon = new Icon(m_pRenderer, "", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Uncommon->SetDepth(2.0f);
 
-	m_pInventoryBackgroundSlotBorder_Magical = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_magical.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Magical = new Icon(m_pRenderer, "", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Magical->SetDepth(2.0f);
 
-	m_pInventoryBackgroundSlotBorder_Rare = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_rare.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Rare = new Icon(m_pRenderer, "", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Rare->SetDepth(2.0f);
 
-	m_pInventoryBackgroundSlotBorder_Epic = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/items/border_epic.tga", 64, 64);
+	m_pInventoryBackgroundSlotBorder_Epic = new Icon(m_pRenderer, "", 64, 64);
 	m_pInventoryBackgroundSlotBorder_Epic->SetDepth(2.0f);
 
 	// Tooltip
-	m_pTooltipBackground_Common = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/Tooltips/tooltip_background_common.tga", 200, 220);
+	m_pTooltipBackground_Common = new Icon(m_pRenderer, "", 200, 220);
 	m_pTooltipBackground_Common->SetDepth(7.5f);
 
-	m_pTooltipBackground_Uncommon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/Tooltips/tooltip_background_uncommon.tga", 200, 220);
+	m_pTooltipBackground_Uncommon = new Icon(m_pRenderer, "", 200, 220);
 	m_pTooltipBackground_Uncommon->SetDepth(7.5f);
 
-	m_pTooltipBackground_Magical = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/Tooltips/tooltip_background_magical.tga", 200, 220);
+	m_pTooltipBackground_Magical = new Icon(m_pRenderer, "", 200, 220);
 	m_pTooltipBackground_Magical->SetDepth(7.5f);
 
-	m_pTooltipBackground_Rare = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/Tooltips/tooltip_background_rare.tga", 200, 220);
+	m_pTooltipBackground_Rare = new Icon(m_pRenderer, "", 200, 220);
 	m_pTooltipBackground_Rare->SetDepth(7.5f);
 
-	m_pTooltipBackground_Epic = new Icon(m_pRenderer, "media/textures/gui/Stonewash/common/Tooltips/tooltip_background_epic.tga", 200, 220);
+	m_pTooltipBackground_Epic = new Icon(m_pRenderer, "", 200, 220);
 	m_pTooltipBackground_Epic->SetDepth(7.5f);
 
 	char nameText[] = "[ITEM]";
@@ -295,6 +295,39 @@ void CraftingGUI::SetWindowDimensions(int windowWidth, int windowHeight)
 	m_pSearchBox->SetDimensions(8, 282, 156, 24);
 }
 
+// Skinning the GUI
+void CraftingGUI::SkinGUI()
+{
+	string themeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
+
+	string iconName = "media/textures/gui/" + themeName + "/common/items/border_common.tga";
+	m_pInventoryBackgroundSlotBorder_Common->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/items/border_uncommon.tga";
+	m_pInventoryBackgroundSlotBorder_Uncommon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/items/border_magical.tga";
+	m_pInventoryBackgroundSlotBorder_Magical->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/items/border_rare.tga";
+	m_pInventoryBackgroundSlotBorder_Rare->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/items/border_epic.tga";
+	m_pInventoryBackgroundSlotBorder_Epic->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/Tooltips/tooltip_background_common.tga";
+	m_pTooltipBackground_Common->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/Tooltips/tooltip_background_uncommon.tga";
+	m_pTooltipBackground_Uncommon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/Tooltips/tooltip_background_magical.tga";
+	m_pTooltipBackground_Magical->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/Tooltips/tooltip_background_rare.tga";
+	m_pTooltipBackground_Rare->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/Tooltips/tooltip_background_epic.tga";
+	m_pTooltipBackground_Epic->SetIcon(iconName);
+}
+
+void CraftingGUI::UnSkinGUI()
+{
+
+}
+
+// Loading
 void CraftingGUI::Load(bool loadDelay, float loadDelayTime)
 {
 	m_loadDelay = loadDelay;
@@ -695,13 +728,39 @@ void CraftingGUI::CreateIngredientsButtons()
 		sprintf(lItemTexture, "%s", pInventoryItem->m_Iconfilename.c_str());
 		pNewCraftingItem->AddIcon(m_pRenderer, lItemTexture, 64, 64, 50, 50, 2, 2, 1.5f);
 
-		switch(pInventoryItem->m_itemQuality)
+		string themeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
+		switch (pInventoryItem->m_itemQuality)
 		{
-		case ItemQuality_Common: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_common.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
-		case ItemQuality_Uncommon: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_uncommon.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
-		case ItemQuality_Magical: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_magical.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
-		case ItemQuality_Rare: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_rare.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
-		case ItemQuality_Epic: { pNewCraftingItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_background_epic.tga", 64, 64, 54, 54, 0, 0, 1.0f); break; }
+			case ItemQuality_Common:
+			{
+				string itemBackgroundIcon = "media/textures/gui/" + themeName + "/common/items/item_background_common.tga";
+				pNewCraftingItem->AddIcon(m_pRenderer, itemBackgroundIcon.c_str(), 64, 64, 54, 54, 0, 0, 1.0f);
+				break;
+			}
+			case ItemQuality_Uncommon:
+			{
+				string itemBackgroundIcon = "media/textures/gui/" + themeName + "/common/items/item_background_uncommon.tga";
+				pNewCraftingItem->AddIcon(m_pRenderer, itemBackgroundIcon.c_str(), 64, 64, 54, 54, 0, 0, 1.0f);
+				break;
+			}
+			case ItemQuality_Magical:
+			{
+				string itemBackgroundIcon = "media/textures/gui/" + themeName + "/common/items/item_background_magical.tga";
+				pNewCraftingItem->AddIcon(m_pRenderer, itemBackgroundIcon.c_str(), 64, 64, 54, 54, 0, 0, 1.0f);
+				break;
+			}
+			case ItemQuality_Rare:
+			{
+				string itemBackgroundIcon = "media/textures/gui/" + themeName + "/common/items/item_background_rare.tga";
+				pNewCraftingItem->AddIcon(m_pRenderer, itemBackgroundIcon.c_str(), 64, 64, 54, 54, 0, 0, 1.0f);
+				break;
+			}
+			case ItemQuality_Epic:
+			{
+				string itemBackgroundIcon = "media/textures/gui/" + themeName + "/common/items/item_background_epic.tga";
+				pNewCraftingItem->AddIcon(m_pRenderer, itemBackgroundIcon.c_str(), 64, 64, 54, 54, 0, 0, 1.0f);
+				break;
+			}
 		}
 
 		if(pInventoryItem->m_quantity != -1)
