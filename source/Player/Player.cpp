@@ -1038,6 +1038,16 @@ void Player::SetCameraForward(vec3 cameraForward)
 	m_cameraForward = cameraForward;
 }
 
+void Player::SetCameraUp(vec3 up)
+{
+	m_cameraUp = up;
+}
+
+void Player::SetCameraRight(vec3 right)
+{
+	m_cameraRight = right;
+}
+
 // Movement
 vec3 Player::GetPositionMovementAmount()
 {

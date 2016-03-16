@@ -109,6 +109,8 @@ public:
 	// Camera
 	void SetCameraPosition(vec3 cameraPos);
 	void SetCameraForward(vec3 cameraForward);
+	void SetCameraUp(vec3 up);
+	void SetCameraRight(vec3 right);
 
 	// Movement
 	vec3 GetPositionMovementAmount();
@@ -322,6 +324,8 @@ private:
 	// Camera variables
 	vec3 m_cameraPosition;
 	vec3 m_cameraForward;
+	vec3 m_cameraUp;
+	vec3 m_cameraRight;
 
 	// Ground flag
 	bool m_bIsOnGround;
