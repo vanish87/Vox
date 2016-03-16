@@ -159,11 +159,7 @@ void VoxGame::Render()
 				if (m_gameMode != GameMode_FrontEnd)
 				{
 					// Render the player
-					if (m_cameraMode == CameraMode_FirstPerson)
-					{
-						m_pPlayer->RenderFirstPerson();
-					}
-					else
+					if (m_cameraMode != CameraMode_FirstPerson)
 					{
 						m_pPlayer->Render();
 					}
@@ -197,6 +193,14 @@ void VoxGame::Render()
 				}
 			}
 		m_pRenderer->PopMatrix();
+
+		if (m_gameMode != GameMode_FrontEnd)
+		{
+			if (m_cameraMode == CameraMode_FirstPerson)
+			{
+				RenderFirstPersonViewport();
+			}
+		}
 
 		// Render the deferred lighting pass
 		if (m_dynamicLighting)
@@ -832,6 +836,31 @@ void VoxGame::RenderPaperdollViewport()
 
 		m_pRenderer->StopRenderingToFrameBuffer(m_paperdollBuffer);
 	}
+}
+
+void VoxGame::RenderFirstPersonViewport()
+{
+	m_pRenderer->PushMatrix();
+		glLoadIdentity();
+
+		m_pRenderer->SetProjectionMode(PM_PERSPECTIVE, m_firstpersonViewport);
+
+		m_pRenderer->SetLookAtCamera(vec3(0.0f, 1.3f, -0.5f), vec3(0.0f, 1.3f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+
+		// Render the player first person mode - only hands and weapons
+		m_pRenderer->PushMatrix();
+			m_pRenderer->StartMeshRender();
+
+			BeginShaderRender();
+			{
+				m_pPlayer->RenderFirstPerson();
+			}
+			EndShaderRender();
+
+			m_pRenderer->EndMeshRender();
+
+		m_pRenderer->PopMatrix();
+	m_pRenderer->PopMatrix();
 }
 
 void VoxGame::RenderDeferredRenderingPaperDoll()

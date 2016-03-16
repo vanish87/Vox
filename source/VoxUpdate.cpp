@@ -170,7 +170,14 @@ void VoxGame::UpdatePlayerAlpha(float dt)
 
 	if (m_cameraMode == CameraMode_NPCDialog)
 	{
+		// Dialog and crafting camera alpha
 		alpha = 1.0f;
+	}
+
+	if (m_cameraMode == CameraMode_FirstPerson)
+	{
+		// First person alpha
+		alpha = 0.45f;
 	}
 
 	m_pPlayer->SetPlayerAlpha(alpha);

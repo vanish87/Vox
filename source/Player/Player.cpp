@@ -614,6 +614,12 @@ void Player::EquipItem(InventoryItem* pItem)
 	break;
 	}
 
+	if (VoxGame::GetInstance()->GetCameraMode() == CameraMode_FirstPerson)
+	{
+		// Make sure we set (force) the initial weapons alpha if we equip while in first person mode.
+		m_pVoxelCharacter->SetMeshAlpha(0.45f, true);
+	}
+
 	// Refresh stat modifier cache since we have equipped an item
 	RefreshStatModifierCacheValues();
 }
@@ -2396,7 +2402,14 @@ void Player::UpdateChargingAttack(float dt)
 
 		m_chargeSpawnVelocity = (m_forward * powerAmount) + (GetUpVector() * liftAmount) + (vec3(0.0f, 1.0f, 0.0f) * (m_cameraForward.y*cameraMultiplier) * m_chargeAmount);
 
-		m_pVoxelCharacter->SetHeadAndUpperBodyLookRotation(-m_cameraForward.y*20.0f, 0.5f);
+		if (VoxGame::GetInstance()->GetCameraMode() == CameraMode_FirstPerson)
+		{
+			m_pVoxelCharacter->SetHeadAndUpperBodyLookRotation(0.0f, 0.0f);
+		}
+		else
+		{
+			m_pVoxelCharacter->SetHeadAndUpperBodyLookRotation(-m_cameraForward.y*20.0f, 0.5f);
+		}
 	}
 	else
 	{
@@ -2424,19 +2437,26 @@ void Player::Render()
 	Colour OulineColour(1.0f, 1.0f, 0.0f, 1.0f);
 	m_pRenderer->PushMatrix();
 		m_pRenderer->MultiplyWorldMatrix(m_worldMatrix);
-		m_pVoxelCharacter->RenderWeapons(false, false, false, OulineColour);
+
+		m_pRenderer->PushMatrix();
+			if (m_bIsChargingAttack)
+			{
+				m_pRenderer->RotateWorldMatrix(-m_cameraForward.y*20.0f, 0.0f, 0.0f);
+			}
+			m_pVoxelCharacter->RenderWeapons(false, false, false, OulineColour);
+		m_pRenderer->PopMatrix();
+
 		m_pVoxelCharacter->Render(false, false, false, OulineColour, false);
 	m_pRenderer->PopMatrix();
 }
 
 void Player::RenderFirstPerson()
 {
-	m_pVoxelCharacter->SetMeshAlpha(1.0f);
-
 	Colour OulineColour(1.0f, 1.0f, 0.0f, 1.0f);
 	m_pRenderer->PushMatrix();
-		m_pRenderer->MultiplyWorldMatrix(m_worldMatrix);
 		m_pVoxelCharacter->RenderWeapons(false, false, false, OulineColour);
+		m_pVoxelCharacter->RenderSubSelection("Left_Hand", false, false, OulineColour);
+		m_pVoxelCharacter->RenderSubSelection("Right_Hand", false, false, OulineColour);
 	m_pRenderer->PopMatrix();
 }
 

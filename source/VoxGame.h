@@ -191,6 +191,7 @@ public:
 	void RenderCinematicLetterBox();
 	void RenderCrosshair();
 	void RenderPaperdollViewport();
+	void RenderFirstPersonViewport();
 	void RenderDeferredRenderingPaperDoll();
 	void RenderDebugInformation();
 
@@ -358,6 +359,7 @@ private:
 
 	// View ports
 	unsigned int m_defaultViewport;
+	unsigned int m_firstpersonViewport;
 	unsigned int m_paperdollViewport;
 
 	// Fonts
