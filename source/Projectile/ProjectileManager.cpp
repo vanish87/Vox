@@ -247,7 +247,9 @@ void ProjectileManager::Render()
 		//	continue;
 		//}
 
-		if(m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), pProjectile->GetCenter(), pProjectile->GetRadius()))
+		// NOTE : We should always render the projectiles, even when outisde of frustum, else the explosion particles dont appear in correct place.
+		// This is due to the model matrix only being updated properly in the render call, for the qubicle binary, that the explode function uses.
+		//if(m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), pProjectile->GetCenter(), pProjectile->GetRadius()))
 		{
 			pProjectile->Render();
 
