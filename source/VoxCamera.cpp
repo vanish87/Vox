@@ -49,6 +49,7 @@ void VoxGame::UpdateCameraModeSwitching()
 			SavePreviousCameraMode();
 			SetCameraMode(CameraMode_FirstPerson);
 			m_pFirstPersonCameraOptionBox->SetToggled(true);
+			m_pPlayer->SetFirstPersonMode(); // Enter first person mode
 			m_pGameCamera->SetZoomAmount(1.5f);
 		}
 	}
@@ -67,6 +68,8 @@ void VoxGame::UpdateCameraModeSwitching()
 
 			m_cameraDistance = 1.5f;
 			m_maxCameraDistance = 1.5f;
+
+			m_pPlayer->SetThirdPersonMode(); // Enter third person mode
 
 			RestorePreviousCameraMode();
 			InitializeCameraRotation();

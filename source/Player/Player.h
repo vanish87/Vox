@@ -217,6 +217,8 @@ public:
 	// Rendering modes
 	void SetWireFrameRender(bool wireframe);
 	void SetPlayerAlpha(float alpha);
+	void SetFirstPersonMode();
+	void SetThirdPersonMode();
 
 	// Rendering Helpers
 	void CalculateWorldTransformMatrix();

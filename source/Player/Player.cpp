@@ -1878,6 +1878,21 @@ void Player::SetPlayerAlpha(float alpha)
 	m_pVoxelCharacter->SetMeshAlpha(alpha);
 }
 
+void Player::SetFirstPersonMode()
+{
+	m_pVoxelCharacter->SetBreathingAnimationEnabled(false);
+	m_pVoxelCharacter->SetRandomLookDirection(false);
+
+	m_pVoxelCharacter->SetFaceLookingDirection(vec3(0.0f, 0.0f, 1.0f));
+	m_pVoxelCharacter->SetFaceTargetDirection(m_pVoxelCharacter->GetFaceLookingDirection());
+}
+
+void Player::SetThirdPersonMode()
+{
+	m_pVoxelCharacter->SetBreathingAnimationEnabled(true);
+	m_pVoxelCharacter->SetRandomLookDirection(true);
+}
+
 // Rendering Helpers
 void Player::CalculateWorldTransformMatrix()
 {
@@ -2201,7 +2216,10 @@ void Player::UpdateLookingAndForwardTarget(float dt)
 		}
 		else
 		{
-			m_pVoxelCharacter->SetRandomLookDirection(true);
+			if (VoxGame::GetInstance()->GetCameraMode() != CameraMode_FirstPerson)
+			{
+				m_pVoxelCharacter->SetRandomLookDirection(true);
+			}
 			m_pVoxelCharacter->SetFaceLookToTargetSpeedMultiplier(1.0f);
 		}
 	}
