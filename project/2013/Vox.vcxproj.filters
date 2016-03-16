@@ -582,6 +582,12 @@
     <ClCompile Include="..\..\source\Mods\ModsManager.cpp">
       <Filter>source\Mods</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\frontend\Pages\ModMenu.cpp">
+      <Filter>source\frontend\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\frontend\Pages\OptionsMenu.cpp">
+      <Filter>source\frontend\Pages</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\glew\include\GL\glew.h">
@@ -1519,6 +1525,12 @@
     </ClInclude>
     <ClInclude Include="..\..\source\Mods\ModsManager.h">
       <Filter>source\Mods</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\frontend\Pages\ModMenu.h">
+      <Filter>source\frontend\Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\frontend\Pages\OptionsMenu.h">
+      <Filter>source\frontend\Pages</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
