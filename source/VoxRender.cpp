@@ -241,7 +241,7 @@ void VoxGame::Render()
 		// ---------------------------------------
 		m_pRenderer->PushMatrix();
 			// Crosshair
-			if (m_cameraMode == CameraMode_FirstPerson)
+			if (m_cameraMode == CameraMode_FirstPerson && m_bPaused == false)
 			{
 				RenderCrosshair();
 			}
