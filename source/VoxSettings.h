@@ -52,6 +52,12 @@ public:
 	// Gameplay
 	bool m_invertedMouse;
 
+	// Sound
+	bool m_audio;
+	float m_audioVolume;
+	bool m_music;
+	float m_musicVolume;
+
 	// Graphics
 	int m_windowWidth;
 	int m_windowHeight;

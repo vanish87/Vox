@@ -586,14 +586,28 @@ void OptionsMenu::LoadOptions()
 {
 	VoxSettings* pSettings = VoxGame::GetInstance()->GetVoxSettings();
 
+	// Gameplay
 	m_pInvertedMouseMode->SetToggled(pSettings->m_invertedMouse);
+
+	// Sound
+	m_pSoundEffects->SetToggled(pSettings->m_audio);
+	m_pSoundEffectsVolume->SetCurrentValue(pSettings->m_audioVolume);
+	m_pMusic->SetToggled(pSettings->m_music);
+	m_pMusicVolume->SetCurrentValue(pSettings->m_musicVolume);
 }
 
 void OptionsMenu::SaveOptions()
 {
 	VoxSettings* pSettings = VoxGame::GetInstance()->GetVoxSettings();
 
+	// Gameplay
 	pSettings->m_invertedMouse = m_pInvertedMouseMode->GetToggled();
+
+	// Sound
+	pSettings->m_audio = m_pSoundEffects->GetToggled();
+	pSettings->m_audioVolume = m_pSoundEffectsVolume->GetCurrentValue();
+	pSettings->m_music = m_pMusic->GetToggled();
+	pSettings->m_musicVolume= m_pMusicVolume->GetCurrentValue();
 
 	// Save the options file
 	pSettings->SaveOptions();

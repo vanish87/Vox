@@ -93,6 +93,12 @@ void VoxSettings::LoadOptions()
 
 	// Gameplay 
 	m_invertedMouse = reader.GetBoolean("Gameplay", "InvertedMouse", false);
+
+	// Sound
+	m_audio = reader.GetBoolean("Sound", "AudioEnabled", true);
+	m_audioVolume = (float)reader.GetReal("Sound", "AudioVolume", 0.5f);
+	m_music = reader.GetBoolean("Sound", "MusicEnabled", true);
+	m_musicVolume = (float)reader.GetReal("Sound", "MusicVolume", 0.5f);
 }
 
 // Save options
@@ -111,7 +117,11 @@ void VoxSettings::SaveOptions()
 	file << "[Graphics]\n";
 	file << "\n";
 
-	file << "[Audio]\n";
+	file << "[Sound]\n";
+	file << "AudioEnabled=" << (m_audio ? "True" : "False") << "\n";
+	file << "AudioVolume=" << m_audioVolume << "\n";
+	file << "MusicEnabled=" << (m_music ? "True" : "False") << "\n";
+	file << "MusicVolume=" << m_musicVolume << "\n";
 	file << "\n";
 
 	file << "[Interface]\n";
