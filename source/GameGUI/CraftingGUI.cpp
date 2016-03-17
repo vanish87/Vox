@@ -76,10 +76,6 @@ CraftingGUI::CraftingGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pCraftButton_Icon_Disabled->SetDepth(2.0f);
 
 	m_pCraftButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_25(), m_pFrontendManager->GetFrontendFont_25_Outline(), "Craft", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	m_pCraftButton->SetDefaultIcon(m_pCraftButton_Icon);
-	m_pCraftButton->SetHoverIcon(m_pCraftButton_Icon_Hover);
-	m_pCraftButton->SetSelectedIcon(m_pCraftButton_Icon_Pressed);
-	m_pCraftButton->SetDisabledIcon(m_pCraftButton_Icon_Disabled);
 	m_pCraftButton->SetLabelOffset(0, 3);
 	m_pCraftButton->SetCallBackFunction(_CraftPressed);
 	m_pCraftButton->SetCallBackData(this);
@@ -325,6 +321,10 @@ void CraftingGUI::SkinGUI()
 	m_pCraftButton_Icon_Pressed->SetIcon(iconName);
 	iconName = "media/textures/gui/" + themeName + "/CraftingGUI/craft_button_disabled.tga";
 	m_pCraftButton_Icon_Disabled->SetIcon(iconName);
+	m_pCraftButton->SetDefaultIcon(m_pCraftButton_Icon);
+	m_pCraftButton->SetHoverIcon(m_pCraftButton_Icon_Hover);
+	m_pCraftButton->SetSelectedIcon(m_pCraftButton_Icon_Pressed);
+	m_pCraftButton->SetDisabledIcon(m_pCraftButton_Icon_Disabled);
 
 	iconName = "media/textures/gui/" + themeName + "/CraftingGUI/craft_progress_filler.tga";
 	m_pCraftingProgressBarFiller->SetIcon(iconName);;
