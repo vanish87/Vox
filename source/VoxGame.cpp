@@ -638,6 +638,12 @@ void VoxGame::SetGameMode(GameMode mode)
 			// Clear the items
 			m_pItemManager->ClearItems();
 
+			// Unload actionbar
+			if (m_pActionBar->IsLoaded())
+			{
+				m_pActionBar->Unload();
+			}
+
 			// Setup the gamedata since we have just loaded fresh into the frontend.
 			SetupDataForFrontEnd();
 		}
@@ -658,6 +664,12 @@ void VoxGame::SetGameMode(GameMode mode)
 
 			// Load default inventory
 			m_pInventoryManager->LoadDefaultInventory("Steve");
+
+			// Load action bar
+			if (m_pActionBar->IsLoaded() == false)
+			{
+				m_pActionBar->Load();
+			}
 
 			// Setup the gamedata since we have just loaded fresh into a game.
 			SetupDataForGame();

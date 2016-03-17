@@ -265,6 +265,58 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 			}
 			break;
 		}
+
+		// Number keys
+		case GLFW_KEY_1:
+		{
+			m_pActionBar->UseActionBarslot(0);
+			break;
+		}		
+		case GLFW_KEY_2:
+		{
+			m_pActionBar->UseActionBarslot(1);
+			break;
+		}
+		case GLFW_KEY_3:
+		{
+			m_pActionBar->UseActionBarslot(2);
+			break;
+		}
+		case GLFW_KEY_4:
+		{
+			m_pActionBar->UseActionBarslot(3);
+			break;
+		}
+		case GLFW_KEY_5:
+		{
+			m_pActionBar->UseActionBarslot(4);
+			break;
+		}
+		case GLFW_KEY_6:
+		{
+			m_pActionBar->UseActionBarslot(5);
+			break;
+		}
+		case GLFW_KEY_7:
+		{
+			m_pActionBar->UseActionBarslot(6);
+			break;
+		}
+		case GLFW_KEY_8:
+		{
+			m_pActionBar->UseActionBarslot(7);
+			break;
+		}
+		case GLFW_KEY_9:
+		{
+			m_pActionBar->UseActionBarslot(8);
+			break;
+		}
+		case GLFW_KEY_0:
+		{
+			m_pActionBar->UseActionBarslot(9);
+			break;
+		}
 	}
 }
 
