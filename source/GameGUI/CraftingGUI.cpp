@@ -45,20 +45,16 @@ CraftingGUI::CraftingGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pCraftingWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 	m_pCraftingWindow->Hide();
 
-	m_pTitleBarIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/crafting_title_icon.tga", 44, 44);
+	m_pTitleBarIcon = new Icon(m_pRenderer, "", 44, 44);
 	m_pTitleBarIcon->SetDepth(4.0f);
 
-	m_pCraftingWindowBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/crafting_window_background.tga", 408, 314);
+	m_pCraftingWindowBackgroundIcon = new Icon(m_pRenderer, "", 408, 314);
 	m_pCraftingWindowBackgroundIcon->SetDepth(1.0f);
 
-	m_pTitleBarBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/titlebar_background.tga", 133, 35);
+	m_pTitleBarBackgroundIcon = new Icon(m_pRenderer, "", 133, 35);
 	m_pTitleBarBackgroundIcon->SetDepth(1.0f);
 
 	m_pCloseExitButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_30(), m_pFrontendManager->GetFrontendFont_30_Outline(), "", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	m_pCloseExitButton->SetDefaultIcon(m_pFrontendManager->GetCloseExitButtonIcon());
-	m_pCloseExitButton->SetHoverIcon(m_pFrontendManager->GetCloseExitButtonIcon_Hover());
-	m_pCloseExitButton->SetSelectedIcon(m_pFrontendManager->GetCloseExitButtonIcon_Pressed());
-	m_pCloseExitButton->SetDisabledIcon(m_pFrontendManager->GetCloseExitButtonIcon());
 	m_pCloseExitButton->SetLabelOffset(0, 5);
 	m_pCloseExitButton->SetCallBackFunction(_CloseExitPressed);
 	m_pCloseExitButton->SetCallBackData(this);
@@ -70,13 +66,13 @@ CraftingGUI::CraftingGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pResultsScrollbar->SetDepth(2.0f);
 	m_pFrontendManager->SetScrollbarIcons(m_pResultsScrollbar);
 
-	m_pCraftButton_Icon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/craft_button.tga", 115, 32);
+	m_pCraftButton_Icon = new Icon(m_pRenderer, "", 115, 32);
 	m_pCraftButton_Icon->SetDepth(2.0f);
-	m_pCraftButton_Icon_Hover = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/craft_button_hover.tga", 115, 32);
+	m_pCraftButton_Icon_Hover = new Icon(m_pRenderer, "", 115, 32);
 	m_pCraftButton_Icon_Hover->SetDepth(2.0f);
-	m_pCraftButton_Icon_Pressed = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/craft_button_pressed.tga", 115, 32);
+	m_pCraftButton_Icon_Pressed = new Icon(m_pRenderer, "", 115, 32);
 	m_pCraftButton_Icon_Pressed->SetDepth(2.0f);
-	m_pCraftButton_Icon_Disabled = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/craft_button_disabled.tga", 115, 32);
+	m_pCraftButton_Icon_Disabled = new Icon(m_pRenderer, "", 115, 32);
 	m_pCraftButton_Icon_Disabled->SetDepth(2.0f);
 
 	m_pCraftButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_25(), m_pFrontendManager->GetFrontendFont_25_Outline(), "Craft", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
@@ -92,17 +88,17 @@ CraftingGUI::CraftingGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	//m_pCraftButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
 	//m_pCraftButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
-	m_pCraftingProgressBarFiller = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/craft_progress_filler.tga", 96, 14);
+	m_pCraftingProgressBarFiller = new Icon(m_pRenderer, "", 96, 14);
 	m_pCraftingProgressBarFiller->SetDepth(1.0f);
 
-	m_pCraftingProgressBarBackgroundFiller = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/craft_progress_filler_background.tga", 53, 14);
+	m_pCraftingProgressBarBackgroundFiller = new Icon(m_pRenderer, "", 53, 14);
 	m_pCraftingProgressBarBackgroundFiller->SetDepth(1.5f);
 
 	m_pCraftingProgressBar = new ProgressBar(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), 0.0f, 100.0f);
 	m_pCraftingProgressBar->SetProgressFiller(m_pCraftingProgressBarFiller);
 	m_pCraftingProgressBar->SetProgressBackground(m_pCraftingProgressBarBackgroundFiller);
 
-	m_pSearchTextboxIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/search_textbox.tga", 156, 24);
+	m_pSearchTextboxIcon = new Icon(m_pRenderer, "", 156, 24);
 	m_pSearchTextboxIcon->SetDepth(1.0f);
 
 	m_pSearchBox = new TextBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_Medium(), "", "");
@@ -113,16 +109,16 @@ CraftingGUI::CraftingGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pSearchBox->SetTextColour(Colour(1.0f, 1.0f, 1.0f));
 	m_pSearchBox->SetDepth(2.0f);
 
-	m_pRecipeButton_Icon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/recipe_item_button.tga", 152, 32);
+	m_pRecipeButton_Icon = new Icon(m_pRenderer, "", 152, 32);
 	m_pRecipeButton_Icon->SetDepth(1.0f);
 
-	m_pRecipeButton_Hover_Icon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/recipe_item_hover_button.tga", 152, 32);
+	m_pRecipeButton_Hover_Icon = new Icon(m_pRenderer, "", 152, 32);
 	m_pRecipeButton_Hover_Icon->SetDepth(1.0f);
 
-	m_pRecipeButton_Pressed_Icon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/recipe_item_pressed_button.tga", 152, 32);
+	m_pRecipeButton_Pressed_Icon = new Icon(m_pRenderer, "", 152, 32);
 	m_pRecipeButton_Pressed_Icon->SetDepth(1.0f);
 
-	m_pRecipeButton_Selected_Icon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CraftingGUI/recipe_item_selected_button.tga", 152, 32);
+	m_pRecipeButton_Selected_Icon = new Icon(m_pRenderer, "", 152, 32);
 	m_pRecipeButton_Selected_Icon->SetDepth(1.0f);
 
 	m_pInventoryBackgroundSlotBorder_Common = new Icon(m_pRenderer, "", 64, 64);
@@ -320,6 +316,56 @@ void CraftingGUI::SkinGUI()
 	m_pTooltipBackground_Rare->SetIcon(iconName);
 	iconName = "media/textures/gui/" + themeName + "/common/Tooltips/tooltip_background_epic.tga";
 	m_pTooltipBackground_Epic->SetIcon(iconName);
+
+	iconName = "media/textures/gui/" + themeName + "/CraftingGUI/craft_button.tga";
+	m_pCraftButton_Icon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CraftingGUI/craft_button_hover.tga";
+	m_pCraftButton_Icon_Hover->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CraftingGUI/craft_button_pressed.tga";
+	m_pCraftButton_Icon_Pressed->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CraftingGUI/craft_button_disabled.tga";
+	m_pCraftButton_Icon_Disabled->SetIcon(iconName);
+
+	iconName = "media/textures/gui/" + themeName + "/CraftingGUI/craft_progress_filler.tga";
+	m_pCraftingProgressBarFiller->SetIcon(iconName);;
+	iconName = "media/textures/gui/" + themeName + "/CraftingGUI/craft_progress_filler_background.tga";
+	m_pCraftingProgressBarBackgroundFiller->SetIcon(iconName);
+
+	m_pCraftingProgressBar->SetProgressFiller(m_pCraftingProgressBarFiller);
+	m_pCraftingProgressBar->SetProgressBackground(m_pCraftingProgressBarBackgroundFiller);
+
+	iconName = "media/textures/gui/" + themeName + "/CraftingGUI/search_textbox.tga";
+	m_pSearchTextboxIcon->SetIcon(iconName);
+
+	m_pSearchBox->SetBackgroundIcon(m_pSearchTextboxIcon);
+
+	iconName = "media/textures/gui/" + themeName + "/CraftingGUI/recipe_item_button.tga";
+	m_pRecipeButton_Icon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CraftingGUI/recipe_item_hover_button.tga";
+	m_pRecipeButton_Hover_Icon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CraftingGUI/recipe_item_pressed_button.tga";
+	m_pRecipeButton_Pressed_Icon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CraftingGUI/recipe_item_selected_button.tga";
+	m_pRecipeButton_Selected_Icon->SetIcon(iconName);
+
+	iconName = "media/textures/gui/" + themeName + "/CraftingGUI/crafting_title_icon.tga";
+	m_pTitleBarIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CraftingGUI/crafting_window_background.tga";
+	m_pCraftingWindowBackgroundIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CraftingGUI/titlebar_background.tga";
+	m_pTitleBarBackgroundIcon->SetIcon(iconName);
+
+	m_pCraftingWindow->SetBackgroundIcon(m_pCraftingWindowBackgroundIcon);
+	m_pCraftingWindow->SetTitlebarBackgroundIcon(m_pTitleBarBackgroundIcon);
+
+	Point location = m_pCraftingWindow->GetLocation();
+	m_pCraftingWindow->SetDimensions(location.m_x, location.m_y, m_craftingWindowWidth, m_craftingWindowHeight);
+	m_pCraftingWindow->SetTitleBarDimensions(0, 0, m_titlebarWidth, m_titlebarHeight);
+
+	m_pCloseExitButton->SetDefaultIcon(m_pFrontendManager->GetCloseExitButtonIcon());
+	m_pCloseExitButton->SetHoverIcon(m_pFrontendManager->GetCloseExitButtonIcon_Hover());
+	m_pCloseExitButton->SetSelectedIcon(m_pFrontendManager->GetCloseExitButtonIcon_Pressed());
+	m_pCloseExitButton->SetDisabledIcon(m_pFrontendManager->GetCloseExitButtonIcon());
 }
 
 void CraftingGUI::UnSkinGUI()

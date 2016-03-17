@@ -48,13 +48,13 @@ LootGUI::LootGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFronten
 	m_pLootWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 	m_pLootWindow->Hide();
 
-	m_pTitleBarIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/LootGUI/loot_title_icon.tga", 44, 44);
+	m_pTitleBarIcon = new Icon(m_pRenderer, "", 44, 44);
 	m_pTitleBarIcon->SetDepth(4.0f);
 
-	m_pLootWindowBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/LootGUI/loot_window_background.tga", 400, 211);
+	m_pLootWindowBackgroundIcon = new Icon(m_pRenderer, "", 400, 211);
 	m_pLootWindowBackgroundIcon->SetDepth(1.0f);
 
-	m_pTitleBarBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/LootGUI/titlebar_background.tga", 108, 35);
+	m_pTitleBarBackgroundIcon = new Icon(m_pRenderer, "", 108, 35);
 	m_pTitleBarBackgroundIcon->SetDepth(1.0f);
 
 	m_pCloseExitButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_30(), m_pFrontendManager->GetFrontendFont_30_Outline(), "", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
@@ -236,6 +236,20 @@ void LootGUI::SkinGUI()
 	m_pTooltipBackground_Rare->SetIcon(iconName);
 	iconName = "media/textures/gui/" + themeName + "/common/Tooltips/tooltip_background_epic.tga";
 	m_pTooltipBackground_Epic->SetIcon(iconName);
+
+	iconName = "media/textures/gui/" + themeName + "/LootGUI/loot_title_icon.tga";
+	m_pTitleBarIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/LootGUI/loot_window_background.tga";
+	m_pLootWindowBackgroundIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/LootGUI/titlebar_background.tga";
+	m_pTitleBarBackgroundIcon->SetIcon(iconName);
+
+	m_pLootWindow->SetBackgroundIcon(m_pLootWindowBackgroundIcon);
+	m_pLootWindow->SetTitlebarBackgroundIcon(m_pTitleBarBackgroundIcon);
+
+	Point location = m_pLootWindow->GetLocation();
+	m_pLootWindow->SetDimensions(location.m_x, location.m_y, m_lootWindowWidth, m_lootWindowHeight);
+	m_pLootWindow->SetTitleBarDimensions(0, 0, m_titlebarWidth, m_titlebarHeight);
 }
 
 void LootGUI::UnSkinGUI()

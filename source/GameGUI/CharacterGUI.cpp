@@ -51,46 +51,42 @@ CharacterGUI::CharacterGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager
 	m_pDynamicPaperDollIcon = new Icon(m_pRenderer);
 	m_pDynamicPaperDollIcon->SetDepth(2.5f);
 
-	m_pTitleBarIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CharacterGUI/character_title_icon.tga", 44, 44);
+	m_pTitleBarIcon = new Icon(m_pRenderer, "", 44, 44);
 	m_pTitleBarIcon->SetDepth(4.0f);
 
-	m_pCharacterWindowBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CharacterGUI/character_window_background.tga", 304, 281);
+	m_pCharacterWindowBackgroundIcon = new Icon(m_pRenderer, "", 304, 281);
 	m_pCharacterWindowBackgroundIcon->SetDepth(1.0f);
 
-	m_pTitleBarBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CharacterGUI/titlebar_background.tga", 133, 35);
+	m_pTitleBarBackgroundIcon = new Icon(m_pRenderer, "", 133, 35);
 	m_pTitleBarBackgroundIcon->SetDepth(1.0f);
 
 	m_pCloseExitButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_30(), m_pFrontendManager->GetFrontendFont_30_Outline(), "", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	m_pCloseExitButton->SetDefaultIcon(m_pFrontendManager->GetCloseExitButtonIcon());
-	m_pCloseExitButton->SetHoverIcon(m_pFrontendManager->GetCloseExitButtonIcon_Hover());
-	m_pCloseExitButton->SetSelectedIcon(m_pFrontendManager->GetCloseExitButtonIcon_Pressed());
-	m_pCloseExitButton->SetDisabledIcon(m_pFrontendManager->GetCloseExitButtonIcon());
 	m_pCloseExitButton->SetLabelOffset(0, 5);
 	m_pCloseExitButton->SetCallBackFunction(_CloseExitPressed);
 	m_pCloseExitButton->SetCallBackData(this);
 
-	m_pTabOpenCloseButton_Icon_Left = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CharacterGUI/tab_openclose_left.tga", 12, 80);
+	m_pTabOpenCloseButton_Icon_Left = new Icon(m_pRenderer, "", 12, 80);
 	m_pTabOpenCloseButton_Icon_Left->SetDepth(0.5f);
 
-	m_pTabOpenCloseButton_Icon_Left_Hover = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CharacterGUI/tab_openclose_left_hover.tga", 12, 80);
+	m_pTabOpenCloseButton_Icon_Left_Hover = new Icon(m_pRenderer, "", 12, 80);
 	m_pTabOpenCloseButton_Icon_Left_Hover->SetDepth(0.5f);
 
-	m_pTabOpenCloseButton_Icon_Left_Pressed = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CharacterGUI/tab_openclose_left_pressed.tga", 12, 80);
+	m_pTabOpenCloseButton_Icon_Left_Pressed = new Icon(m_pRenderer, "", 12, 80);
 	m_pTabOpenCloseButton_Icon_Left_Pressed->SetDepth(0.5f);
 
-	m_pTabOpenCloseButton_Icon_Right = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CharacterGUI/tab_openclose_right.tga", 12, 80);
+	m_pTabOpenCloseButton_Icon_Right = new Icon(m_pRenderer, "", 12, 80);
 	m_pTabOpenCloseButton_Icon_Right->SetDepth(0.5f);
 
-	m_pTabOpenCloseButton_Icon_Right_Hover = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CharacterGUI/tab_openclose_right_hover.tga", 12, 80);
+	m_pTabOpenCloseButton_Icon_Right_Hover = new Icon(m_pRenderer, "", 12, 80);
 	m_pTabOpenCloseButton_Icon_Right_Hover->SetDepth(0.5f);
 
-	m_pTabOpenCloseButton_Icon_Right_Pressed = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CharacterGUI/tab_openclose_right_pressed.tga", 12, 80);
+	m_pTabOpenCloseButton_Icon_Right_Pressed = new Icon(m_pRenderer, "", 12, 80);
 	m_pTabOpenCloseButton_Icon_Right_Pressed->SetDepth(0.5f);
 
-	m_pStatsTab_Icon_Left = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CharacterGUI/stats_tab_left.tga", 164, 198);
+	m_pStatsTab_Icon_Left = new Icon(m_pRenderer, "", 164, 198);
 	m_pStatsTab_Icon_Left->SetDepth(1.0f);
 
-	m_pStatsTab_Icon_Right = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CharacterGUI/stats_tab_right.tga", 164, 198);
+	m_pStatsTab_Icon_Right = new Icon(m_pRenderer, "", 164, 198);
 	m_pStatsTab_Icon_Right->SetDepth(0.5f);
 
 	m_pCharacterTitleLabel = new Label(m_pRenderer, m_pFrontendManager->GetFrontendFont_Medium(), "[NAME]", Colour(1.0f, 1.0f, 1.0f, 1.0f));
@@ -235,10 +231,6 @@ CharacterGUI::CharacterGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager
 	m_pTabOpenCloseButton->SetCallBackData(this);
 
 	m_pArrowLeftButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_30(), m_pFrontendManager->GetFrontendFont_30_Outline(), "", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	m_pArrowLeftButton->SetDefaultIcon(m_pFrontendManager->GetLeftRotateArrow());
-	m_pArrowLeftButton->SetHoverIcon(m_pFrontendManager->GetLeftRotateArrow_Hover());
-	m_pArrowLeftButton->SetSelectedIcon(m_pFrontendManager->GetLeftRotateArrow_Pressed());
-	m_pArrowLeftButton->SetDisabledIcon(m_pFrontendManager->GetLeftRotateArrow());
 	m_pArrowLeftButton->SetLabelOffset(0, 5);
 	m_pArrowLeftButton->SetCallBackFunction_Pressed(_ArrowLeftPressed);
 	m_pArrowLeftButton->SetCallBackData_Pressed(this);
@@ -247,10 +239,6 @@ CharacterGUI::CharacterGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager
 	m_pArrowLeftButton->SetDepth(3.0f);
 
 	m_pArrowRightButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_30(), m_pFrontendManager->GetFrontendFont_30_Outline(), "", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	m_pArrowRightButton->SetDefaultIcon(m_pFrontendManager->GetRightRotateArrow());
-	m_pArrowRightButton->SetHoverIcon(m_pFrontendManager->GetRightRotateArrow_Hover());
-	m_pArrowRightButton->SetSelectedIcon(m_pFrontendManager->GetRightRotateArrow_Pressed());
-	m_pArrowRightButton->SetDisabledIcon(m_pFrontendManager->GetRightRotateArrow());
 	m_pArrowRightButton->SetLabelOffset(0, 5);
 	m_pArrowRightButton->SetCallBackFunction_Pressed(_ArrowRightPressed);
 	m_pArrowRightButton->SetCallBackData_Pressed(this);
@@ -258,7 +246,7 @@ CharacterGUI::CharacterGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager
 	m_pArrowRightButton->SetCallBackData_Released(this);
 	m_pArrowRightButton->SetDepth(3.0f);
 
-	m_pEquipHoverIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CharacterGUI/equip_hover_highlight.tga", 80, 80);
+	m_pEquipHoverIcon = new Icon(m_pRenderer, "", 80, 80);
 	m_pEquipHoverIcon->SetDepth(2.0f);
 
 	m_pCharacterWindow->SetBackgroundIcon(m_pCharacterWindowBackgroundIcon);
@@ -510,6 +498,55 @@ void CharacterGUI::SkinGUI()
 	m_pTooltipBackground_Rare->SetIcon(iconName);
 	iconName = "media/textures/gui/" + themeName + "/common/Tooltips/tooltip_background_epic.tga";
 	m_pTooltipBackground_Epic->SetIcon(iconName);
+
+	iconName = "media/textures/gui/" + themeName + "/CharacterGUI/tab_openclose_left.tga";
+	m_pTabOpenCloseButton_Icon_Left->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CharacterGUI/tab_openclose_left_hover.tga";
+	m_pTabOpenCloseButton_Icon_Left_Hover->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CharacterGUI/tab_openclose_left_pressed.tga";
+	m_pTabOpenCloseButton_Icon_Left_Pressed->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CharacterGUI/tab_openclose_right.tga";
+	m_pTabOpenCloseButton_Icon_Right->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CharacterGUI/tab_openclose_right_hover.tga";
+	m_pTabOpenCloseButton_Icon_Right_Hover->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CharacterGUI/tab_openclose_right_pressed.tga";
+	m_pTabOpenCloseButton_Icon_Right_Pressed->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CharacterGUI/stats_tab_left.tga";
+	m_pStatsTab_Icon_Left->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CharacterGUI/stats_tab_right.tga";
+	m_pStatsTab_Icon_Right->SetIcon(iconName);
+
+	iconName = "media/textures/gui/" + themeName + "/CharacterGUI/equip_hover_highlight.tga";
+	m_pEquipHoverIcon->SetIcon(iconName);
+
+	iconName = "media/textures/gui/" + themeName + "/CharacterGUI/character_title_icon.tga";
+	m_pTitleBarIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CharacterGUI/character_window_background.tga";
+	m_pCharacterWindowBackgroundIcon->SetIcon(iconName);
+	m_pCharacterWindowBackgroundIcon->SetDepth(2.0f);
+	iconName = "media/textures/gui/" + themeName + "/CharacterGUI/titlebar_background.tga";
+	m_pTitleBarBackgroundIcon->SetIcon(iconName);
+
+	m_pCharacterWindow->SetBackgroundIcon(m_pCharacterWindowBackgroundIcon);
+	m_pCharacterWindow->SetTitlebarBackgroundIcon(m_pTitleBarBackgroundIcon);
+
+	Point location = m_pCharacterWindow->GetLocation();
+	m_pCharacterWindow->SetDimensions(location.m_x, location.m_y, m_characterWindowWidth, m_characterWindowHeight);
+	m_pCharacterWindow->SetTitleBarDimensions(0, 0, m_titlebarWidth, m_titlebarHeight);
+
+	m_pCloseExitButton->SetDefaultIcon(m_pFrontendManager->GetCloseExitButtonIcon());
+	m_pCloseExitButton->SetHoverIcon(m_pFrontendManager->GetCloseExitButtonIcon_Hover());
+	m_pCloseExitButton->SetSelectedIcon(m_pFrontendManager->GetCloseExitButtonIcon_Pressed());
+	m_pCloseExitButton->SetDisabledIcon(m_pFrontendManager->GetCloseExitButtonIcon());
+
+	m_pArrowLeftButton->SetDefaultIcon(m_pFrontendManager->GetLeftRotateArrow());
+	m_pArrowLeftButton->SetHoverIcon(m_pFrontendManager->GetLeftRotateArrow_Hover());
+	m_pArrowLeftButton->SetSelectedIcon(m_pFrontendManager->GetLeftRotateArrow_Pressed());
+	m_pArrowLeftButton->SetDisabledIcon(m_pFrontendManager->GetLeftRotateArrow());
+	m_pArrowRightButton->SetDefaultIcon(m_pFrontendManager->GetRightRotateArrow());
+	m_pArrowRightButton->SetHoverIcon(m_pFrontendManager->GetRightRotateArrow_Hover());
+	m_pArrowRightButton->SetSelectedIcon(m_pFrontendManager->GetRightRotateArrow_Pressed());
+	m_pArrowRightButton->SetDisabledIcon(m_pFrontendManager->GetRightRotateArrow());
 }
 
 void CharacterGUI::UnSkinGUI()
@@ -748,7 +785,9 @@ void CharacterGUI::CreateInventoryItems()
 
 				pBlockSlotItem = new Icon(m_pRenderer);
 				pBlockSlotItem->SetIcon(m_pInventoryBackgroundSlotBorder_Common);
-				pBlockSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_foreground_alpha.tga", 64, 64, 64, 64, 0, 0, 3.0f);
+				string themeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
+				string itemForegroundIcon = "media/textures/gui/" + themeName + "/common/items/item_foreground_alpha.tga";
+				pBlockSlotItem->AddIcon(m_pRenderer, itemForegroundIcon.c_str(), 64, 64, 64, 64, 0, 0, 3.0f);
 
 				char lItemTexture[128];
 				sprintf(lItemTexture, "%s", pItem->m_Iconfilename.c_str());
@@ -769,7 +808,9 @@ void CharacterGUI::CreateInventoryItems()
 
 				pBlockSlotItem = new Icon(m_pRenderer);
 				pBlockSlotItem->SetIcon(m_pInventoryBackgroundSlotBorder_Common);
-				pBlockSlotItem->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/common/items/item_foreground_alpha.tga", 64, 64, 64, 64, 0, 0, 3.0f);
+				string themeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
+				string itemForegroundIcon = "media/textures/gui/" + themeName + "/common/items/item_foreground_alpha.tga";
+				pBlockSlotItem->AddIcon(m_pRenderer, itemForegroundIcon.c_str(), 64, 64, 64, 64, 0, 0, 3.0f);
 
 				char lItemTexture[128];
 				sprintf(lItemTexture, "%s", pItem->m_Iconfilename.c_str());

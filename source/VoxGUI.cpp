@@ -1010,6 +1010,9 @@ void VoxGame::GUIThemePullDownChanged()
 		}
 		else
 		{
+			string currentThemeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
+			VoxGame::GetInstance()->GetModsManager()->RemoveMod(currentThemeName, false, false, false, true, false);
+			VoxGame::GetInstance()->GetModsManager()->AddMod(pMenuItem->GetLabel().GetText().c_str(), false, false, false, true, false);
 			m_pFrontendManager->LoadCommonGraphics(pMenuItem->GetLabel().GetText().c_str());
 			SkinGUI();
 		}
