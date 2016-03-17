@@ -51,6 +51,8 @@ public:
 	
 	// Gameplay
 	bool m_invertedMouse;
+	float m_mouseSensitivity;
+	float m_gamepadSensitivity;
 
 	// Sound
 	bool m_audio;

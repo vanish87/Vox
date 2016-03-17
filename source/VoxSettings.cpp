@@ -93,6 +93,8 @@ void VoxSettings::LoadOptions()
 
 	// Gameplay 
 	m_invertedMouse = reader.GetBoolean("Gameplay", "InvertedMouse", false);
+	m_mouseSensitivity = (float)reader.GetReal("Gameplay", "MouseSensitivity", 50.0f);
+	m_gamepadSensitivity = (float)reader.GetReal("Gameplay", "GamepadSensitivity", 50.0f);
 
 	// Sound
 	m_audio = reader.GetBoolean("Sound", "AudioEnabled", true);
@@ -112,6 +114,8 @@ void VoxSettings::SaveOptions()
 
 	file << "[Gameplay]\n";
 	file << "InvertedMouse=" << (m_invertedMouse ? "True" : "False") << "\n";	
+	file << "MouseSensitivity=" << m_mouseSensitivity << "\n";
+	file << "GamepadSensitivity=" << m_gamepadSensitivity << "\n";
 	file << "\n";
 
 	file << "[Graphics]\n";

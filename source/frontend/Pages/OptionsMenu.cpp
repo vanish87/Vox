@@ -588,6 +588,8 @@ void OptionsMenu::LoadOptions()
 
 	// Gameplay
 	m_pInvertedMouseMode->SetToggled(pSettings->m_invertedMouse);
+	m_pMouseSensativitySlider->SetCurrentValue(pSettings->m_mouseSensitivity);
+	m_pGamepadSensativitySlider->SetCurrentValue(pSettings->m_gamepadSensitivity);
 
 	// Sound
 	m_pSoundEffects->SetToggled(pSettings->m_audio);
@@ -602,6 +604,8 @@ void OptionsMenu::SaveOptions()
 
 	// Gameplay
 	pSettings->m_invertedMouse = m_pInvertedMouseMode->GetToggled();
+	pSettings->m_mouseSensitivity = m_pMouseSensativitySlider->GetCurrentValue();
+	pSettings->m_gamepadSensitivity = m_pGamepadSensativitySlider->GetCurrentValue();
 
 	// Sound
 	pSettings->m_audio = m_pSoundEffects->GetToggled();
