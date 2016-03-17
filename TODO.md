@@ -143,3 +143,4 @@
 - [ ]  NPCs.
 - [ ]  Companion pets.
 - [ ]  Add debug render metrics for all counters (i.e num chunks, particles, items, triangles, verts, etc).
+- [ ]  Use mouse and gamepad sensativity in the looking and camera rotation functions.
