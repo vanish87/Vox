@@ -87,12 +87,14 @@ Renderer::~Renderer()
 	unsigned int i;
 
 	// Delete the vertex arrays
+	m_vertexArraysMutex.lock();
 	for (i = 0; i < m_vertexArrays.size(); i++)
 	{
 		delete m_vertexArrays[i];
 		m_vertexArrays[i] = 0;
 	}
 	m_vertexArrays.clear();
+	m_vertexArraysMutex.unlock();
 
 	// Delete the viewports
 	for (i = 0; i < m_viewports.size(); i++)
@@ -1471,16 +1473,20 @@ bool Renderer::CreateStaticBuffer(VertexType type, unsigned int materialID, unsi
 	memcpy(pVertexArray->pIndices, pIndices, sizeof(unsigned int)*nIndices);
 
 	// Push the vertex array onto the list
+	m_vertexArraysMutex.lock();
 	m_vertexArrays.push_back(pVertexArray);
 
 	// Return the vertex array id
 	*pID = (int)m_vertexArrays.size() - 1;
+	m_vertexArraysMutex.unlock();
 
 	return true;
 }
 
 bool Renderer::RecreateStaticBuffer(unsigned int ID, VertexType type, unsigned int materialID, unsigned int textureID, int nVerts, int nTextureCoordinates, int nIndices, const void *pVerts, const void *pTextureCoordinates, const unsigned int *pIndices)
 {
+	m_vertexArraysMutex.lock();
+
 	// Create a new vertex array
 	m_vertexArrays[ID] = new VertexArray();
 
@@ -1534,7 +1540,6 @@ bool Renderer::RecreateStaticBuffer(unsigned int ID, VertexType type, unsigned i
 		}
 	}
 
-
 	// If we have indices, create the indices array to hold the information
 	if (nIndices)
 	{
@@ -1549,29 +1554,31 @@ bool Renderer::RecreateStaticBuffer(unsigned int ID, VertexType type, unsigned i
 
 	// Copy the indices into the vertex array
 	memcpy(pVertexArray->pIndices, pIndices, sizeof(unsigned int)*nIndices);
+	
+	m_vertexArraysMutex.unlock();
 
 	return true;
 }
 
 void Renderer::DeleteStaticBuffer(unsigned int id)
 {
+	m_vertexArraysMutex.lock();
 	if (m_vertexArrays[id])
 	{
 		delete m_vertexArrays[id];
 		m_vertexArrays[id] = 0;
 	}
+	m_vertexArraysMutex.unlock();
 }
 
 bool Renderer::RenderStaticBuffer(unsigned int id)
 {
-	if (id >= m_vertexArrays.size())
-	{
-		return false;  // We have supplied an invalid id
-	}
+	m_vertexArraysMutex.lock();
 
 	// Find the vertex array from the list
 	VertexArray *pVertexArray = m_vertexArrays[id];
 
+	bool rendered = false;
 	if (pVertexArray != NULL)
 	{
 		if ((pVertexArray->type != VT_POSITION_DIFFUSE_ALPHA) && (pVertexArray->type != VT_POSITION_DIFFUSE))
@@ -1640,22 +1647,22 @@ bool Renderer::RenderStaticBuffer(unsigned int id)
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		glDisableClientState(GL_COLOR_ARRAY);
 
-		return true;
+		rendered =  true;
 	}
 
-	return false;
+	m_vertexArraysMutex.unlock();
+
+	return rendered;
 }
 
 bool Renderer::RenderStaticBuffer_NoColour(unsigned int id)
 {
-	if (id >= m_vertexArrays.size())
-	{
-		return false;  // We have supplied an invalid id
-	}
+	m_vertexArraysMutex.lock();
 
 	// Find the vertex array from the list
 	VertexArray *pVertexArray = m_vertexArrays[id];
 
+	bool rendered = false;
 	if (pVertexArray != NULL)
 	{
 		if ((pVertexArray->type != VT_POSITION_DIFFUSE_ALPHA) && (pVertexArray->type != VT_POSITION_DIFFUSE))
@@ -1724,10 +1731,12 @@ bool Renderer::RenderStaticBuffer_NoColour(unsigned int id)
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		//glDisableClientState(GL_COLOR_ARRAY);
 
-		return true;
+		rendered = true;
 	}
 
-	return false;
+	m_vertexArraysMutex.unlock();
+
+	return rendered;
 }
 
 bool Renderer::RenderFromArray(VertexType type, unsigned int materialID, unsigned int textureID, int nVerts, int nTextureCoordinates, int nIndices, const void *pVerts, const void *pTextureCoordinates, const unsigned int *pIndices)
@@ -1950,6 +1959,7 @@ unsigned int Renderer::AddTriangleToMesh(unsigned int vertexId1, unsigned int ve
 
 void Renderer::ModifyMeshAlpha(float alpha, OpenGLTriangleMesh* pMesh)
 {
+	m_vertexArraysMutex.lock();
 	VertexArray* pArray = m_vertexArrays[pMesh->m_staticMeshId];
 
 	GLsizei totalStride = GetStride(pArray->type) / 4;
@@ -1961,10 +1971,12 @@ void Renderer::ModifyMeshAlpha(float alpha, OpenGLTriangleMesh* pMesh)
 
 		alphaIndex += totalStride;
 	}
+	m_vertexArraysMutex.unlock();
 }
 
 void Renderer::ModifyMeshColour(float r, float g, float b, OpenGLTriangleMesh* pMesh)
 {
+	m_vertexArraysMutex.lock();
 	VertexArray* pArray = m_vertexArrays[pMesh->m_staticMeshId];
 
 	GLsizei totalStride = GetStride(pArray->type) / 4;
@@ -1982,6 +1994,7 @@ void Renderer::ModifyMeshColour(float r, float g, float b, OpenGLTriangleMesh* p
 		gIndex += totalStride;
 		bIndex += totalStride;
 	}
+	m_vertexArraysMutex.unlock();
 }
 
 void Renderer::FinishMesh(unsigned int textureID, unsigned int materialID, OpenGLTriangleMesh* pMesh)
@@ -2115,74 +2128,77 @@ bool Renderer::MeshStaticBufferRender(OpenGLTriangleMesh* pMesh)
 	SetPrimativeMode(PM_TRIANGLES);
 	//SetRenderMode(RM_SOLID);
 
+	m_vertexArraysMutex.lock();
+
 	VertexArray *pVertexArray = m_vertexArrays[pMesh->m_staticMeshId];
 
+	bool rendered = false;
 	if (pVertexArray != NULL)
 	{
-		if (pVertexArray->nVerts == 0)
+		if (pVertexArray->nVerts != 0)
 		{
-			return false;
-		}
-
-		if ((pVertexArray->type != VT_POSITION_DIFFUSE_ALPHA) && (pVertexArray->type != VT_POSITION_DIFFUSE))
-		{
-			if (pVertexArray->materialID != -1)
+			if ((pVertexArray->type != VT_POSITION_DIFFUSE_ALPHA) && (pVertexArray->type != VT_POSITION_DIFFUSE))
 			{
-				m_materials[pVertexArray->materialID]->Apply();
+				if (pVertexArray->materialID != -1)
+				{
+					m_materials[pVertexArray->materialID]->Apply();
+				}
 			}
-		}
 
-		if (pVertexArray->type == VT_POSITION_NORMAL_UV || pVertexArray->type == VT_POSITION_NORMAL_UV_COLOUR)
-		{
-			if (pVertexArray->textureID != -1)
+			if (pVertexArray->type == VT_POSITION_NORMAL_UV || pVertexArray->type == VT_POSITION_NORMAL_UV_COLOUR)
 			{
-				BindTexture(pVertexArray->textureID);
+				if (pVertexArray->textureID != -1)
+				{
+					BindTexture(pVertexArray->textureID);
+				}
 			}
+
+			// Calculate the stride
+			GLsizei totalStride = GetStride(pVertexArray->type);
+
+			glVertexPointer(3, GL_FLOAT, totalStride, pVertexArray->pVA);
+
+			if (pVertexArray->type == VT_POSITION_NORMAL || pVertexArray->type == VT_POSITION_NORMAL_UV || pVertexArray->type == VT_POSITION_NORMAL_UV_COLOUR || pVertexArray->type == VT_POSITION_NORMAL_COLOUR)
+			{
+				glNormalPointer(GL_FLOAT, totalStride, &pVertexArray->pVA[3]);
+			}
+
+			if (pVertexArray->type == VT_POSITION_NORMAL_UV || pVertexArray->type == VT_POSITION_NORMAL_UV_COLOUR)
+			{
+				glTexCoordPointer(2, GL_FLOAT, 0, pVertexArray->pTextureCoordinates);
+			}
+
+			if (pVertexArray->type == VT_POSITION_DIFFUSE_ALPHA)
+			{
+				glColorPointer(4, GL_FLOAT, totalStride, &pVertexArray->pVA[3]);
+			}
+
+			if (pVertexArray->type == VT_POSITION_DIFFUSE)
+			{
+				glColorPointer(3, GL_FLOAT, totalStride, &pVertexArray->pVA[3]);
+			}
+
+			if (pVertexArray->type == VT_POSITION_NORMAL_UV_COLOUR || pVertexArray->type == VT_POSITION_NORMAL_COLOUR)
+			{
+				glColorPointer(4, GL_FLOAT, totalStride, &pVertexArray->pVA[6]);
+			}
+
+			if (pVertexArray->nIndices != 0)
+			{
+				glDrawElements(m_primativeMode, pVertexArray->nIndices, GL_UNSIGNED_INT, pVertexArray->pIndices);
+			}
+			else
+			{
+				glDrawArrays(m_primativeMode, 0, pVertexArray->nVerts);
+			}
+
+			rendered = true;
 		}
-
-		// Calculate the stride
-		GLsizei totalStride = GetStride(pVertexArray->type);
-
-		glVertexPointer(3, GL_FLOAT, totalStride, pVertexArray->pVA);
-
-		if (pVertexArray->type == VT_POSITION_NORMAL || pVertexArray->type == VT_POSITION_NORMAL_UV || pVertexArray->type == VT_POSITION_NORMAL_UV_COLOUR || pVertexArray->type == VT_POSITION_NORMAL_COLOUR)
-		{
-			glNormalPointer(GL_FLOAT, totalStride, &pVertexArray->pVA[3]);
-		}
-
-		if (pVertexArray->type == VT_POSITION_NORMAL_UV || pVertexArray->type == VT_POSITION_NORMAL_UV_COLOUR)
-		{
-			glTexCoordPointer(2, GL_FLOAT, 0, pVertexArray->pTextureCoordinates);
-		}
-
-		if (pVertexArray->type == VT_POSITION_DIFFUSE_ALPHA)
-		{
-			glColorPointer(4, GL_FLOAT, totalStride, &pVertexArray->pVA[3]);
-		}
-
-		if (pVertexArray->type == VT_POSITION_DIFFUSE)
-		{
-			glColorPointer(3, GL_FLOAT, totalStride, &pVertexArray->pVA[3]);
-		}
-
-		if (pVertexArray->type == VT_POSITION_NORMAL_UV_COLOUR || pVertexArray->type == VT_POSITION_NORMAL_COLOUR)
-		{
-			glColorPointer(4, GL_FLOAT, totalStride, &pVertexArray->pVA[6]);
-		}
-
-		if (pVertexArray->nIndices != 0)
-		{
-			glDrawElements(m_primativeMode, pVertexArray->nIndices, GL_UNSIGNED_INT, pVertexArray->pIndices);
-		}
-		else
-		{
-			glDrawArrays(m_primativeMode, 0, pVertexArray->nVerts);
-		}
-
-		return true;
 	}
 
-	return false;
+	m_vertexArraysMutex.unlock();
+
+	return rendered;
 }
 
 // Name rendering and name picking
