@@ -962,12 +962,6 @@ void InventoryGUI::Update(float dt)
 		CreateInventoryItems();
 		UpdateActionBar();
 
-		// TODO : Coins?
-		//int numCoins = m_pInventoryManager->GetNumCoins();
-		//char CoinsText[32];
-		//sprintf(CoinsText, "%i", numCoins);
-		//m_pGoldCoinsLabel->SetText(CoinsText);
-
 		for(unsigned int i = 0; i < m_vpInventorySlotItems.size(); i++)
 		{
 			m_pInventoryWindow->AddComponent(m_vpInventorySlotItems[i]->m_pInventoryIcon);
