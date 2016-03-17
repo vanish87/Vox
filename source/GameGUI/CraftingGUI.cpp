@@ -480,10 +480,13 @@ void CraftingGUI::CraftingComplete()
 			// Add to inventory
 			m_pInventoryManager->AddInventoryItem(m_pRecipeSlotItemSelected->m_pInventoryItem, -1, -1);
 		}
+		else
+		{
+			// TODO : Create a dropped item if we can't fit inside the inventory
+		}
 	}
 	else
 	{
-
 	}
 
 	for(unsigned int i = 0; i < m_vpRecipeSlotItem.size(); i++)
