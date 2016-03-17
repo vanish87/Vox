@@ -502,9 +502,15 @@ void VoxGame::MouseCameraRotate()
 	{
 		changeX = -changeX;
 	}
-	
+
 	// First person mode
 	if (m_cameraMode == CameraMode_FirstPerson)
+	{
+		changeY = -changeY;
+	}
+
+	// Inverted mouse
+	if (m_pVoxSettings->m_invertedMouse == true)
 	{
 		changeY = -changeY;
 	}
@@ -583,6 +589,12 @@ void VoxGame::JoystickCameraRotate(float dt)
 
 	// First person mode
 	if (m_cameraMode == CameraMode_FirstPerson)
+	{
+		changeY = -changeY;
+	}
+
+	// Inverted mouse
+	if (m_pVoxSettings->m_invertedMouse == true)
 	{
 		changeY = -changeY;
 	}

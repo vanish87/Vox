@@ -34,6 +34,12 @@ public:
 	// Save settings
 	void SaveSettings();
 
+	// Load options
+	void LoadOptions();
+
+	// Save options
+	void SaveOptions();
+
 protected:
 	/* Protected methods */
 
@@ -42,6 +48,9 @@ private:
 
 public:
 	/* Public members */
+	
+	// Gameplay
+	bool m_invertedMouse;
 
 	// Graphics
 	int m_windowWidth;

@@ -33,16 +33,25 @@ public:
 
 	void SetWindowDimensions(int windowWidth, int windowHeight);
 
+	// Are we returning to the main menu, or are we in the game?
 	void SetReturnToMainMenu(bool mainMenu);
 
+	// Skinning
 	void SkinGUI();
 	void UnSkinGUI();
 
+	// Loading and saving options to file
+	void LoadOptions();
+	void SaveOptions();
+
+	// Load unload
 	void Load();
 	void Unload();
 
+	// Update
 	void Update(float dt);
 
+	// Render
 	void Render();
 	void Render2D();
 

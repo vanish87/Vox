@@ -223,6 +223,7 @@ public:
 	BlockParticleManager* GetBlockParticleManager();
 	ModsManager* GetModsManager();
 	CharacterGUI* GetCharacterGUI();
+	VoxSettings* GetVoxSettings();
 
 protected:
 	/* Protected methods */

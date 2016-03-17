@@ -78,3 +78,45 @@ void VoxSettings::LoadSettings()
 void VoxSettings::SaveSettings()
 {
 }
+
+// Load options
+void VoxSettings::LoadOptions()
+{
+	string optionsIniFile = "media/config/options.ini";
+	INIReader reader(optionsIniFile);
+
+	if (reader.ParseError() < 0)
+	{
+		cout << "Can't load '" << optionsIniFile << "'\n";
+		return;
+	}
+
+	// Gameplay 
+	m_invertedMouse = reader.GetBoolean("Gameplay", "InvertedMouse", false);
+}
+
+// Save options
+void VoxSettings::SaveOptions()
+{
+	ofstream file;
+
+	// Open the file
+	string optionsIniFile = "media/config/options.ini";
+	file.open(optionsIniFile.c_str(), ios::out);
+
+	file << "[Gameplay]\n";
+	file << "InvertedMouse=" << (m_invertedMouse ? "True" : "False") << "\n";	
+	file << "\n";
+
+	file << "[Graphics]\n";
+	file << "\n";
+
+	file << "[Audio]\n";
+	file << "\n";
+
+	file << "[Interface]\n";
+	file << "\n";
+
+	file << "[Controls]\n";
+	file << "\n";
+}

@@ -48,15 +48,19 @@ public:
 
 	void ClearModButtonData();
 
-	void SelectLoadedMods();
-
 	void SetWindowDimensions(int windowWidth, int windowHeight);
 
+	// Pre-tick the already loaded mods and set them as toggled
+	void SelectLoadedMods();
+
+	// Are we returning to the main menu, or are we in the game?
 	void SetReturnToMainMenu(bool mainMenu);
 
+	// Skinning
 	void SkinGUI();
 	void UnSkinGUI();
 
+	// Load unload
 	void Load();
 	void Unload();
 
@@ -75,8 +79,10 @@ public:
 	void CreateMiscModButtons();
 	void RemoveMiscModButtons();
 
+	// Update
 	void Update(float dt);
 
+	// Render
 	void Render();
 	void Render2D();
 

@@ -540,11 +540,13 @@ void OptionsMenu::SetWindowDimensions(int windowWidth, int windowHeight)
 	// Controls
 }
 
+// Are we returning to the main menu, or are we in the game?
 void OptionsMenu::SetReturnToMainMenu(bool mainMenu)
 {
 	m_returnToMainMenu = mainMenu;
 }
 
+// Skinning
 void OptionsMenu::SkinGUI()
 {
 	string themeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
@@ -579,8 +581,30 @@ void OptionsMenu::UnSkinGUI()
 {
 }
 
+// Loading and saving options to file
+void OptionsMenu::LoadOptions()
+{
+	VoxSettings* pSettings = VoxGame::GetInstance()->GetVoxSettings();
+
+	m_pInvertedMouseMode->SetToggled(pSettings->m_invertedMouse);
+}
+
+void OptionsMenu::SaveOptions()
+{
+	VoxSettings* pSettings = VoxGame::GetInstance()->GetVoxSettings();
+
+	pSettings->m_invertedMouse = m_pInvertedMouseMode->GetToggled();
+
+	// Save the options file
+	pSettings->SaveOptions();
+}
+
+// Load unload
 void OptionsMenu::Load()
 {
+	// Load options to GUI
+	LoadOptions();
+
 	m_pGameplayMode->SetToggled(true);
 	GameplayTabPressed();
 
@@ -589,6 +613,9 @@ void OptionsMenu::Load()
 
 void OptionsMenu::Unload()
 {
+	// Save GUI to options
+	SaveOptions();
+
 	// Remove ALL tab sections
 	for(int i = 0; i < m_vpGameplayComponents.size(); i++)
 	{
@@ -616,6 +643,7 @@ void OptionsMenu::Unload()
 	m_loaded = false;
 }
 
+// Update
 void OptionsMenu::Update(float dt)
 {
 	FrontendPage::Update(dt);
@@ -623,6 +651,7 @@ void OptionsMenu::Update(float dt)
 	VoxGame::GetInstance()->SetGlobalBlurAmount(0.00125f);
 }
 
+// Render
 void OptionsMenu::Render()
 {
 	FrontendPage::Render();
@@ -633,6 +662,7 @@ void OptionsMenu::Render2D()
 	FrontendPage::Render2D();
 }
 
+// Static functionality
 void OptionsMenu::_CloseExitPressed(void *pData)
 {
 	OptionsMenu* lpOptionsMenu = (OptionsMenu*)pData;

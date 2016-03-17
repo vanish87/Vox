@@ -21,6 +21,7 @@ int main(void)
 	/* Load the settings */
 	VoxSettings* m_pVoxSettings = new VoxSettings();
 	m_pVoxSettings->LoadSettings();
+	m_pVoxSettings->LoadOptions();
 
 	/* Initialize and create the VoxGame object */
 	VoxGame* pVoxGame = VoxGame::GetInstance();

@@ -156,36 +156,6 @@ void ModMenu::ClearModButtonData()
 	m_vpModButtonData.clear();
 }
 
-void ModMenu::SelectLoadedMods()
-{
-	int buttonWidth = m_modButtonWidth;
-
-	ModsManager* pModsManager = VoxGame::GetInstance()->GetModsManager();
-
-	for (int i = 0; i < pModsManager->GetNumMods(); i++)
-	{
-		Mod* pMod = pModsManager->GetMod(i);
-
-		for (int j = 0; j < m_vpModButtonData.size(); j++)
-		{
-			if (pMod->m_gameplayMod && m_vpModButtonData[j]->m_gameplayButton ||
-				pMod->m_graphicsMod && m_vpModButtonData[j]->m_graphicsButton ||
-				pMod->m_soundMod && m_vpModButtonData[j]->m_soundButton ||
-				pMod->m_HUDMod && m_vpModButtonData[j]->m_HUDButton ||
-				pMod->m_miscMod && m_vpModButtonData[j]->m_miscButton)
-			{
-				if (pMod->m_modName == m_vpModButtonData[j]->m_modName)
-				{
-					m_vpModButtonData[j]->m_toggled = true;
-					string themeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
-					string tickIcon = "media/textures/gui/" + themeName + "/common/tick.tga";
-					m_vpModButtonData[j]->m_pModButton->AddIcon(m_pRenderer, tickIcon.c_str(), 32, 32, 32, 32, buttonWidth - 38, 4, 2.0f);
-				}
-			}
-		}
-	}
-}
-
 void ModMenu::SetWindowDimensions(int windowWidth, int windowHeight)
 {
 	FrontendPage::SetWindowDimensions(windowWidth, windowHeight);
@@ -247,11 +217,44 @@ void ModMenu::SetWindowDimensions(int windowWidth, int windowHeight)
 	m_pModsScrollbar->SetScrollArea(-(m_modWindowWidth-40), 0, m_modWindowWidth-40, scrollbarHeight);
 }
 
+// Pre-tick the already loaded mods and set them as toggled
+void ModMenu::SelectLoadedMods()
+{
+	int buttonWidth = m_modButtonWidth;
+
+	ModsManager* pModsManager = VoxGame::GetInstance()->GetModsManager();
+
+	for (int i = 0; i < pModsManager->GetNumMods(); i++)
+	{
+		Mod* pMod = pModsManager->GetMod(i);
+
+		for (int j = 0; j < m_vpModButtonData.size(); j++)
+		{
+			if (pMod->m_gameplayMod && m_vpModButtonData[j]->m_gameplayButton ||
+				pMod->m_graphicsMod && m_vpModButtonData[j]->m_graphicsButton ||
+				pMod->m_soundMod && m_vpModButtonData[j]->m_soundButton ||
+				pMod->m_HUDMod && m_vpModButtonData[j]->m_HUDButton ||
+				pMod->m_miscMod && m_vpModButtonData[j]->m_miscButton)
+			{
+				if (pMod->m_modName == m_vpModButtonData[j]->m_modName)
+				{
+					m_vpModButtonData[j]->m_toggled = true;
+					string themeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
+					string tickIcon = "media/textures/gui/" + themeName + "/common/tick.tga";
+					m_vpModButtonData[j]->m_pModButton->AddIcon(m_pRenderer, tickIcon.c_str(), 32, 32, 32, 32, buttonWidth - 38, 4, 2.0f);
+				}
+			}
+		}
+	}
+}
+
+// Are we returning to the main menu, or are we in the game?
 void ModMenu::SetReturnToMainMenu(bool mainMenu)
 {
 	m_returnToMainMenu = mainMenu;
 }
 
+// Skinning
 void ModMenu::SkinGUI()
 {
 	string themeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
@@ -283,6 +286,7 @@ void ModMenu::UnSkinGUI()
 	m_pModsScrollbar->SetDefaultIcons(m_pRenderer);
 }
 
+// Load unload
 void ModMenu::Load()
 {
 	m_pGameplayMode->SetToggled(true);
@@ -688,6 +692,7 @@ void ModMenu::RemoveMiscModButtons()
 	m_vpMiscModButtons.clear();
 }
 
+// Update
 void ModMenu::Update(float dt)
 {
 	FrontendPage::Update(dt);
@@ -890,6 +895,7 @@ void ModMenu::Update(float dt)
 	}
 }
 
+// Render
 void ModMenu::Render()
 {
 	FrontendPage::Render();
@@ -900,6 +906,7 @@ void ModMenu::Render2D()
 	FrontendPage::Render2D();
 }
 
+// Static functionality
 void ModMenu::_CloseExitPressed(void *pData)
 {
 	ModMenu* lpModMenu = (ModMenu*)pData;

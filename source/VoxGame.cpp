@@ -944,3 +944,8 @@ CharacterGUI* VoxGame::GetCharacterGUI()
 {
 	return m_pCharacterGUI;
 }
+
+VoxSettings* VoxGame::GetVoxSettings()
+{
+	return m_pVoxSettings;
+}
