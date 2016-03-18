@@ -185,21 +185,21 @@ NPC::NPC(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, Ligh
 
 	if(characterSelectScreen)
 	{
-		sprintf_s(characterBaseFolder, 128, "media/gamedata/models");
-		sprintf_s(qbFilename, 128, "media/models/%s/%s.qb", modelName.c_str(), modelName.c_str());
-		sprintf_s(ms3dFilename, 128, "media/gamedata/models/%s/%s.ms3d", m_type.c_str(), m_type.c_str());
-		sprintf_s(animListFilename, 128, "media/gamedata/models/%s/%s.animlist", m_type.c_str(), m_type.c_str());
-		sprintf_s(facesFilename, 128, "saves/characters/%s/%s.faces", modelName.c_str(), modelName.c_str());
-		sprintf_s(characterFilename, 128, "saves/characters/%s/%s.character", modelName.c_str(), modelName.c_str());
+		sprintf(characterBaseFolder, "media/gamedata/models");
+		sprintf(qbFilename, "media/models/%s/%s.qb", modelName.c_str(), modelName.c_str());
+		sprintf(ms3dFilename, "media/gamedata/models/%s/%s.ms3d", m_type.c_str(), m_type.c_str());
+		sprintf(animListFilename, "media/gamedata/models/%s/%s.animlist", m_type.c_str(), m_type.c_str());
+		sprintf(facesFilename, "saves/characters/%s/%s.faces", modelName.c_str(), modelName.c_str());
+		sprintf(characterFilename, "saves/characters/%s/%s.character", modelName.c_str(), modelName.c_str());
 	}
 	else
 	{
-		sprintf_s(characterBaseFolder, 128, "media/gamedata/models");
-		sprintf_s(qbFilename, 128, "media/gamedata/models/%s/%s.qb", m_type.c_str(), modelName.c_str());
-		sprintf_s(ms3dFilename, 128, "media/gamedata/models/%s/%s.ms3d", m_type.c_str(), m_type.c_str());
-		sprintf_s(animListFilename, 128, "media/gamedata/models/%s/%s.animlist", m_type.c_str(), m_type.c_str());
-		sprintf_s(facesFilename, 128, "media/gamedata/models/%s/%s.faces", m_type.c_str(), modelName.c_str());
-		sprintf_s(characterFilename, 128, "media/gamedata/models/%s/%s.character", m_type.c_str(), modelName.c_str());
+		sprintf(characterBaseFolder, "media/gamedata/models");
+		sprintf(qbFilename, "media/gamedata/models/%s/%s.qb", m_type.c_str(), modelName.c_str());
+		sprintf(ms3dFilename, "media/gamedata/models/%s/%s.ms3d", m_type.c_str(), m_type.c_str());
+		sprintf(animListFilename, "media/gamedata/models/%s/%s.animlist", m_type.c_str(), m_type.c_str());
+		sprintf(facesFilename, "media/gamedata/models/%s/%s.faces", m_type.c_str(), modelName.c_str());
+		sprintf(characterFilename, "media/gamedata/models/%s/%s.character", m_type.c_str(), modelName.c_str());
 	}
 
 	m_pVoxelCharacter->UnloadCharacter();
@@ -1029,7 +1029,7 @@ void NPC::UnequipItem(EquipSlot equipSlot)
 			m_pVoxelCharacter->AddQubicleMatrix(pBodyMatrix, false);
 
 			char characterFilename[128];
-			sprintf_s(characterFilename, 128, "media/gamedata/characters/%s/%s.character", m_type.c_str(), m_modelName.c_str());
+			sprintf(characterFilename, "media/gamedata/characters/%s/%s.character", m_type.c_str(), m_modelName.c_str());
 			m_pVoxelCharacter->ResetMatrixParamsFromCharacterFile(characterFilename, "Body");
 		}
 		break;
@@ -1040,7 +1040,7 @@ void NPC::UnequipItem(EquipSlot equipSlot)
 			m_pVoxelCharacter->AddQubicleMatrix(pLegsMatrix, false);
 
 			char characterFilename[128];
-			sprintf_s(characterFilename, 128, "media/gamedata/characters/%s/%s.character", m_type.c_str(), m_modelName.c_str());
+			sprintf(characterFilename, "media/gamedata/characters/%s/%s.character", m_type.c_str(), m_modelName.c_str());
 			m_pVoxelCharacter->ResetMatrixParamsFromCharacterFile(characterFilename, "Legs");
 		}
 		break;
@@ -1055,7 +1055,7 @@ void NPC::UnequipItem(EquipSlot equipSlot)
 			m_pVoxelCharacter->AddQubicleMatrix(pLeftHandMatrix, false);
 
 			char characterFilename[128];
-			sprintf_s(characterFilename, 128, "media/gamedata/characters/%s/%s.character", m_type.c_str(), m_modelName.c_str());
+			sprintf(characterFilename, "media/gamedata/characters/%s/%s.character", m_type.c_str(), m_modelName.c_str());
 			m_pVoxelCharacter->ResetMatrixParamsFromCharacterFile(characterFilename, "Right_Hand");
 			m_pVoxelCharacter->ResetMatrixParamsFromCharacterFile(characterFilename, "Left_Hand");
 		}
@@ -1071,7 +1071,7 @@ void NPC::UnequipItem(EquipSlot equipSlot)
 			m_pVoxelCharacter->AddQubicleMatrix(pLeftFootMatrix, false);
 
 			char characterFilename[128];
-			sprintf_s(characterFilename, 128, "media/gamedata/characters/%s/%s.character", m_type.c_str(), m_modelName.c_str());
+			sprintf(characterFilename, "media/gamedata/characters/%s/%s.character", m_type.c_str(), m_modelName.c_str());
 			m_pVoxelCharacter->ResetMatrixParamsFromCharacterFile(characterFilename, "Right_Foot");
 			m_pVoxelCharacter->ResetMatrixParamsFromCharacterFile(characterFilename, "Left_Foot");
 		}
@@ -1451,7 +1451,7 @@ void NPC::DoDamage(float amount, Colour textColour, vec3 knockbackDirection, flo
 		// Do an animated text effect
 		vec3 screenposition = GetCenter() + vec3(GetRandomNumber(-1, 1, 2)*0.25f, 0.0f, GetRandomNumber(-1, 1, 2)*0.25f);
 		char damageText[32];
-		sprintf_s(damageText, 32, "%i", (int)amount);
+		sprintf(damageText, "%i", (int)amount);
 		AnimatedText* lpTestTextEffect = m_pTextEffectsManager->CreateTextEffect(VoxGame::GetInstance()->GetFrontendManager()->GetTextEffectFont(), VoxGame::GetInstance()->GetFrontendManager()->GetTextEffectOutlineFont(), VoxGame::GetInstance()->GetDefaultViewport(), TextDrawMode_3D_Screen, TextEffect_FadeUp, TextDrawStyle_Outline, screenposition, textColour, Colour(0.0f, 0.0f, 0.0f), damageText, 1.0f);
 		lpTestTextEffect->SetAutoDelete(true);
 		lpTestTextEffect->StartEffect();
