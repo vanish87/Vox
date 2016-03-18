@@ -954,6 +954,11 @@ BlockParticleManager* VoxGame::GetBlockParticleManager()
 	return m_pBlockParticleManager;
 }
 
+ItemManager* VoxGame::GetItemManager()
+{
+	return m_pItemManager;
+}
+
 ModsManager* VoxGame::GetModsManager()
 {
 	return m_pModsManager;

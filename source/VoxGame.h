@@ -222,6 +222,7 @@ public:
 	unsigned int GetDefaultViewport();
 	FrontendManager* GetFrontendManager();
 	BlockParticleManager* GetBlockParticleManager();
+	ItemManager* GetItemManager();
 	ModsManager* GetModsManager();
 	CharacterGUI* GetCharacterGUI();
 	VoxSettings* GetVoxSettings();

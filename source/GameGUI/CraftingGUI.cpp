@@ -482,7 +482,32 @@ void CraftingGUI::CraftingComplete()
 		}
 		else
 		{
-			// TODO : Create a dropped item if we can't fit inside the inventory
+			// Drop the item in the world
+			vec3 vel = vec3(GetRandomNumber(-1, 1, 2), 0.0f, GetRandomNumber(-1, 1, 2)) * GetRandomNumber(2, 3, 2);
+
+			Item* pItem = VoxGame::GetInstance()->GetItemManager()->CreateItem(m_pInteractionItem->GetCenter(), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), m_pRecipeSlotItemSelected->m_pInventoryItem->m_filename.c_str(), eItem_DroppedItem, m_pRecipeSlotItemSelected->m_pInventoryItem->m_title.c_str(), true, false, 0.08f);
+			if (pItem != NULL)
+			{
+				pItem->SetGravityDirection(vec3(0.0f, -1.0f, 0.0f));
+				pItem->SetVelocity(normalize(vel)*4.5f + vec3(0.0f, 9.5f + GetRandomNumber(3, 6, 2), 0.0f));
+				pItem->SetRotation(vec3(0.0f, GetRandomNumber(0, 360, 2), 0.0f));
+				pItem->SetAngularVelocity(vec3(0.0f, 90.0f, 0.0f));
+				pItem->SetDroppedItem(m_pRecipeSlotItemSelected->m_pInventoryItem->m_filename.c_str(), m_pRecipeSlotItemSelected->m_pInventoryItem->m_Iconfilename.c_str(),
+					m_pRecipeSlotItemSelected->m_pInventoryItem->m_itemType, m_pRecipeSlotItemSelected->m_pInventoryItem->m_item, m_pRecipeSlotItemSelected->m_pInventoryItem->m_status,
+					m_pRecipeSlotItemSelected->m_pInventoryItem->m_equipSlot, m_pRecipeSlotItemSelected->m_pInventoryItem->m_itemQuality, m_pRecipeSlotItemSelected->m_pInventoryItem->m_left,
+					m_pRecipeSlotItemSelected->m_pInventoryItem->m_right, m_pRecipeSlotItemSelected->m_pInventoryItem->m_title.c_str(), m_pRecipeSlotItemSelected->m_pInventoryItem->m_description.c_str(),
+					m_pRecipeSlotItemSelected->m_pInventoryItem->m_placementR, m_pRecipeSlotItemSelected->m_pInventoryItem->m_placementG, m_pRecipeSlotItemSelected->m_pInventoryItem->m_placementB,
+					m_pRecipeSlotItemSelected->m_pInventoryItem->m_quantity);
+				pItem->SetCollisionEnabled(false);
+
+				for (int i = 0; i < (int)m_pRecipeSlotItemSelected->m_pInventoryItem->m_vpStatAttributes.size(); i++)
+				{
+					pItem->GetDroppedInventoryItem()->AddStatAttribute(m_pRecipeSlotItemSelected->m_pInventoryItem->m_vpStatAttributes[i]->GetType(), m_pRecipeSlotItemSelected->m_pInventoryItem->m_vpStatAttributes[i]->GetModifyAmount());
+				}
+
+				int numY = pItem->GetVoxelItem()->GetAnimatedSection(0)->m_pVoxelObject->GetQubicleModel()->GetQubicleMatrix(0)->m_matrixSizeY;
+				pItem->GetVoxelItem()->SetRenderOffset(vec3(0.0f, numY*0.5f, 0.0f));
+			}
 		}
 	}
 	else
