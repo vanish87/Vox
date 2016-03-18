@@ -497,6 +497,9 @@ void NPCManager::Update(float dt)
 	// Update weapon lights
 	UpdateWeaponLights(dt);
 
+	// Update weapon particle effects
+	UpdateWeaponParticleEffects(dt);
+
 	// Check the projectile collisions
 	UpdateNPCProjectileCheck(dt);
 }
