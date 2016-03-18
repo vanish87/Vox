@@ -1,5 +1,5 @@
 # Vox
-[![Build Status](http://circleci-badges-max.herokuapp.com/img/AlwaysGeeky/Vox/master?token=cf7352c6949877a9b363a72e88f9ad1ebbc213c4)](https://circleci.com/gh/AlwaysGeeky/Vox/tree/master)
+[![Build Status](https://circleci.com/gh/AlwaysGeeky/Vox.svg?style=shield&circle-token=cf7352c6949877a9b363a72e88f9ad1ebbc213c4)](https://circleci.com/gh/AlwaysGeeky/Vox/tree/master)
 [![License](https://img.shields.io/badge/Licence-GNU-blue.svg)](https://github.com/AlwaysGeeky/Vox/blob/master/LICENSE.md)
 [![Stories in progress](https://badge.waffle.io/AlwaysGeeky/Vox.png?label=in progress&title=In Progress)](https://waffle.io/AlwaysGeeky/Vox)
 
