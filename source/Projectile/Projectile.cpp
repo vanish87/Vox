@@ -20,6 +20,7 @@
 
 #include "../Lighting/LightingManager.h"
 #include "../Player/Player.h"
+#include "../NPC/NPCManager.h"
 
 
 Projectile::Projectile(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryManager* pQubicleBinaryManager, const char* objectFilename, float scale)
@@ -69,8 +70,8 @@ Projectile::Projectile(Renderer* pRenderer, ChunkManager* pChunkManager, Qubicle
 	m_returningDirectToPlayer = false;
 
 	m_pOwnedPlayer = NULL;
-	// TODO : Add me back in - NPC and enemy
-	//m_pOwnedNPC = NULL;
+	m_pOwnedNPC = NULL;
+	// TODO : Add me back in - enemy
 	//m_pOwnedEnemy = NULL;
 
 	m_pVoxeProjectile->StartWeaponTrails();
@@ -405,8 +406,8 @@ void Projectile::SetExplodingProjectile(bool exploding, float radius)
 void Projectile::SetOwner(Player* pPlayer, NPC* pNPC, Enemy* pEnemy)
 {
 	m_pOwnedPlayer = pPlayer;
-	// TODO : Add me back in - NPC and enemy
-	//m_pOwnedNPC = pNPC;
+	m_pOwnedNPC = pNPC;
+	// TODO : Add me back in - enemy
 	//m_pOwnedEnemy = pEnemy;
 }
 
@@ -415,12 +416,12 @@ Player* Projectile::GetPlayerOwner()
 	return m_pOwnedPlayer;
 }
 
-// TODO : Add me back in - NPC and enemy
-//NPC* Projectile::GetNPCOwner()
-//{
-//	return m_pOwnedNPC;
-//}
-//
+NPC* Projectile::GetNPCOwner()
+{
+	return m_pOwnedNPC;
+}
+
+// TODO : Add me back in - enemy
 //Enemy* Projectile::GetEnemyOwner()
 //{
 //	return m_pOwnedEnemy;

@@ -82,8 +82,8 @@ public:
 
 	void SetOwner(Player* pPlayer, NPC* pNPC, Enemy* pEnemy);
 	Player* GetPlayerOwner();
-	// TODO : Add me back in - NPC and enemy
-	//NPC* GetNPCOwner();
+	NPC* GetNPCOwner();
+	// TODO : Add me back in - enemy
 	//Enemy* GetEnemyOwner();
 
 	// Catching
@@ -195,7 +195,7 @@ private:
 	vec3 m_bezierControl_Left;
 
 	Player* m_pOwnedPlayer;
-	//NPC* m_pOwnedNPC;
+	NPC* m_pOwnedNPC;
 	//Enemy* m_pOwnedEnemy;
 
 	// Voxel projectile
