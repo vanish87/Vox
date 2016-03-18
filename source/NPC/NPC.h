@@ -18,7 +18,7 @@
 #include "../models/modelloader.h"
 
 #include "../Inventory/InventoryManager.h"
-#include "../Blocks/ChunkManager.h"
+#include "../blocks/ChunkManager.h"
 
 class LightingManager;
 class BlockParticleManager;
