@@ -4,6 +4,9 @@
 // Author:      Steven Ball
 //
 // Purpose:
+//   An NPC is like a player, but not human controlled. Can be set to have
+//   different behaviours and different sub-types of NPCs, interacts with
+//   the player and also attacks enemies.
 //
 // Revision History:
 //   Initial Revision - 27/09/14
@@ -19,6 +22,7 @@
 
 #include "../Inventory/InventoryManager.h"
 #include "../blocks/ChunkManager.h"
+#include "../Projectile/ProjectileManager.h"
 
 class LightingManager;
 class BlockParticleManager;
@@ -26,9 +30,7 @@ class TextEffectsManager;
 class ItemManager;
 //class Enemy; // TODO : ENEMY
 //class EnemyManager; // TODO : ENEMY
-class ProjectileManager;
-class Projectile;
-enum eProjectileHitboxType;
+
 
 enum eNPCState
 {

@@ -4,6 +4,8 @@
 // Author:      Steven Ball
 //
 // Purpose:
+//   Manager class to control all of the NPC creation, updating, rendering and
+//   general management of NPC characters.
 //
 // Revision History:
 //   Initial Revision - 27/09/14
