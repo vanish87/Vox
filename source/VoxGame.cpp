@@ -355,10 +355,10 @@ void VoxGame::Destroy()
 	{
 		delete m_pSkybox;
 		delete m_pItemManager;
-		delete m_pLightingManager;
 		delete m_pInventoryManager;
 		delete m_pPlayer;
 		delete m_pNPCManager;
+		delete m_pLightingManager;
 		delete m_pSceneryManager;
 		delete m_pBlockParticleManager;
 		delete m_pTextEffectsManager;
