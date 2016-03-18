@@ -209,6 +209,7 @@ void VoxGame::Render()
 			}
 		m_pRenderer->PopMatrix();
 
+		// Render player first person viewport
 		if (m_gameMode != GameMode_FrontEnd)
 		{
 			if (m_cameraMode == CameraMode_FirstPerson)
@@ -282,7 +283,7 @@ void VoxGame::Render()
 		// Render debug information and text
 		RenderDebugInformation();
 
-		// Render the chunks 2d
+		// Render the chunks 2d (debug text information)
 		if (m_debugRender)
 		{
 			//m_pChunkManager->Render2D(m_pGameCamera, m_defaultViewport, m_defaultFont);
@@ -657,6 +658,10 @@ void VoxGame::RenderFirstPassFullScreen()
 		m_pRenderer->BeginGLSLShader(m_blurHorizontalShader);
 		glShader* pShader = m_pRenderer->GetShader(m_blurHorizontalShader);
 
+		unsigned int textureId0 = glGetUniformLocationARB(pShader->GetProgramObject(), "texture");
+		m_pRenderer->PrepareShaderTexture(0, textureId0);
+		m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_firstPassFullscreenBuffer));
+
 		float blurSize = 0.0015f;
 
 		// Override any blur amount if we have global blur set
@@ -664,11 +669,7 @@ void VoxGame::RenderFirstPassFullScreen()
 		{
 			blurSize = m_globalBlurAmount;
 		}
-
-		unsigned int textureId0 = glGetUniformLocationARB(pShader->GetProgramObject(), "texture");
-		m_pRenderer->PrepareShaderTexture(0, textureId0);
-		m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_firstPassFullscreenBuffer));
-
+		
 		pShader->setUniform1f("blurSize", blurSize);
 
 		m_pRenderer->SetRenderMode(RM_TEXTURED);
@@ -700,12 +701,18 @@ void VoxGame::RenderSecondPassFullScreen()
 		m_pRenderer->BeginGLSLShader(m_blurVerticalShader);
 		glShader* pShader = m_pRenderer->GetShader(m_blurVerticalShader);
 
-		float blurSize = 0.0015f;
-
 		unsigned int textureId0 = glGetUniformLocationARB(pShader->GetProgramObject(), "texture");
 		m_pRenderer->PrepareShaderTexture(0, textureId0);
 		m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_secondPassFullscreenBuffer));
 
+		float blurSize = 0.0015f;
+
+		// Override any blur amount if we have global blur set
+		if (m_globalBlurAmount > 0.0f)
+		{
+			blurSize = m_globalBlurAmount;
+		}
+		
 		pShader->setUniform1f("blurSize", blurSize);
 
 		m_pRenderer->SetRenderMode(RM_TEXTURED);
