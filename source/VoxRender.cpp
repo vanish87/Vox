@@ -366,7 +366,7 @@ void VoxGame::RenderShadows()
 			}
 
 			// NPCs
-			m_pNPCManager->Render(false, false, false, false, false, false);
+			m_pNPCManager->Render(false, false, false, false, false, true);
 
 			// Projectiles
 			m_pProjectileManager->Render();
@@ -967,6 +967,8 @@ void VoxGame::RenderDebugInformation()
 	sprintf(lParticlesBuff, "Particles: %i, Render: %i, Emitters: %i, Effects: %i", m_pBlockParticleManager->GetNumBlockParticles(), m_pBlockParticleManager->GetNumRenderableParticles(), m_pBlockParticleManager->GetNumBlockParticleEmitters(), m_pBlockParticleManager->GetNumBlockParticleEffects());
 	char lItemsBuff[256];
 	sprintf(lItemsBuff, "Items: %i, Render: %i", m_pItemManager->GetNumItems(), m_pItemManager->GetNumRenderItems());
+	char lNPCBuff[256];
+	sprintf(lNPCBuff, "NPCs: %i, Render: %i", m_pNPCManager->GetNumNPCs(), m_pNPCManager->GetNumRenderNPCs());
 	char lProjectilesBuff[256];
 	sprintf(lProjectilesBuff, "Projectiles: %i, Render: %i", m_pProjectileManager->GetNumProjectiles(), m_pProjectileManager->GetNumRenderProjectiles());
 	char lInstancesBuff[256];
@@ -1006,8 +1008,9 @@ void VoxGame::RenderDebugInformation()
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight * 3) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lChunksBuff);
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight * 4) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lParticlesBuff);
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight * 5) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lItemsBuff);
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight * 6) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lProjectilesBuff);
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight * 7) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lInstancesBuff);
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight * 6) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lNPCBuff);
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight * 7) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lProjectilesBuff);
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight * 8) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lInstancesBuff);
 		}
 
 		m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth-fpsWidthOffset, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lFPSBuff);
