@@ -494,6 +494,9 @@ void NPCManager::Update(float dt)
 	}
 	m_NPCMutex.unlock();
 
+	// Update weapon lights
+	UpdateWeaponLights(dt);
+
 	// Check the projectile collisions
 	UpdateNPCProjectileCheck(dt);
 }
