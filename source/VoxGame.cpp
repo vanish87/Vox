@@ -196,6 +196,9 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	/* Create the player */
 	m_pPlayer = new Player(m_pRenderer, m_pChunkManager, m_pQubicleBinaryManager, m_pLightingManager, m_pBlockParticleManager);
 
+	/* Create the NPC manager */
+	m_pNPCManager = new NPCManager(m_pRenderer, m_pChunkManager);
+
 	/* Create the inventory manager */
 	m_pInventoryManager = new InventoryManager();
 
@@ -225,6 +228,14 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pPlayer->SetItemManager(m_pItemManager);
 	m_pPlayer->SetProjectileManager(m_pProjectileManager);
 	m_pPlayer->SetTextEffectsManager(m_pTextEffectsManager);
+	m_pNPCManager->SetPlayer(m_pPlayer);
+	m_pNPCManager->SetLightingManager(m_pLightingManager);
+	m_pNPCManager->SetBlockParticleManager(m_pBlockParticleManager);
+	m_pNPCManager->SetTextEffectsManager(m_pTextEffectsManager);
+	m_pNPCManager->SetItemManager(m_pItemManager);
+	m_pNPCManager->SetQubicleBinaryManager(m_pQubicleBinaryManager);
+	m_pNPCManager->SetProjectileManager(m_pProjectileManager);
+	//m_pNPCManager->SetEnemyManager(m_pEnemyManager); // TODO : ENEMY
 	m_pInventoryManager->SetPlayer(m_pPlayer);
 	m_pInventoryManager->SetInventoryGUI(m_pInventoryGUI);
 	m_pInventoryManager->SetLootGUI(m_pLootGUI);
@@ -347,6 +358,7 @@ void VoxGame::Destroy()
 		delete m_pLightingManager;
 		delete m_pInventoryManager;
 		delete m_pPlayer;
+		delete m_pNPCManager;
 		delete m_pSceneryManager;
 		delete m_pBlockParticleManager;
 		delete m_pTextEffectsManager;
@@ -597,11 +609,18 @@ void VoxGame::QuitToFrontEnd()
 
 void VoxGame::SetupDataForGame()
 {
+	// Items
 	Item* pFurnace = m_pItemManager->CreateItem(vec3(25.0f, 10.0f, -5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Furnace/Furnace.item", eItem_Furnace, "Furnace", true, false, 0.16f);
 	pFurnace->SetInteractionPositionOffset(vec3(0.0f, 0.0f, -2.0f));
 	Item* pAnvil = m_pItemManager->CreateItem(vec3(32.0f, 9.0f, -1.5f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Anvil/Anvil.item", eItem_Anvil, "Anvil", true, false, 0.14f);
 	pAnvil->SetInteractionPositionOffset(vec3(0.0f, 0.0f, -1.5f));
 	Item* pChest = m_pItemManager->CreateItem(vec3(24.0f, 12.0f, 13.5f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 180.0f, 0.0f), "media/gamedata/items/Chest/Chest.item", eItem_Chest, "Chest", true, false, 0.08f);
+
+	// Npcs
+	NPC* pCharacter1 = m_pNPCManager->CreateNPC("Mage", "Human", "Mage", vec3(21.0f, 8.5f, 20.0f), 0.08f, false, true);
+	pCharacter1->SetTargetForwards(vec3(0.0f, 0.0f, -1.0f));
+	pCharacter1->SetNPCCombatType(eNPCCombatType_Staff, true);
+	//pCharacter1->SetMoveToPlayer(true);
 }
 
 void VoxGame::SetupDataForFrontEnd()

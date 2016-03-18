@@ -19,6 +19,7 @@ void VoxGame::PreRender()
 {
 	// Update matrices for game objects
 	m_pPlayer->CalculateWorldTransformMatrix();
+	m_pNPCManager->CalculateWorldTransformMatrix();
 	m_pItemManager->CalculateWorldTransformMatrix();
 	m_pProjectileManager->CalculateWorldTransformMatrix();
 }
@@ -131,6 +132,10 @@ void VoxGame::Render()
 			m_pItemManager->Render(true, false, false, false);
 			m_pItemManager->Render(false, false, true, false);
 
+			// NPCs (only non outline and hover)
+			m_pNPCManager->RenderOutlineNPCs();
+			m_pNPCManager->Render(false, false, true, false, false, false);
+
 			BeginShaderRender();
 			{
 				// Scenery
@@ -141,6 +146,14 @@ void VoxGame::Render()
 
 				// Items
 				m_pItemManager->Render(false, false, false, false);
+
+				// NPCs
+				m_pNPCManager->ResetNumRenderNPCs();
+				m_pNPCManager->Render(false, false, false, false, true, false);
+
+				// NPCs (only outline and hover)
+				m_pNPCManager->Render(false, false, false, true, false, false);
+				m_pNPCManager->RenderSubSelectionOverlayNPCs();
 			}
 			EndShaderRender();
 
@@ -178,6 +191,8 @@ void VoxGame::Render()
 				{
 					m_pPlayer->RenderDebug();
 				}
+
+				m_pNPCManager->RenderDebug();
 
 				m_pSceneryManager->RenderDebug();
 
@@ -350,6 +365,9 @@ void VoxGame::RenderShadows()
 				m_pPlayer->Render();
 			}
 
+			// NPCs
+			m_pNPCManager->Render(false, false, false, false, false, false);
+
 			// Projectiles
 			m_pProjectileManager->Render();
 
@@ -490,6 +508,9 @@ void VoxGame::RenderTransparency()
 				m_pPlayer->RenderWeaponTrails();
 			}
 		}
+
+		// NPC Faces
+		m_pNPCManager->RenderFaces();
 
 		// Projectile trails
 		m_pProjectileManager->RenderWeaponTrails();

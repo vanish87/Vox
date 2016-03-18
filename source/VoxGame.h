@@ -20,6 +20,7 @@
 #include "Lighting/LightingManager.h"
 #include "Particles/BlockParticleManager.h"
 #include "Player/Player.h"
+#include "NPC/NPCManager.h"
 #include "Inventory/InventoryManager.h"
 #include "Items/ItemManager.h"
 #include "blocks/ChunkManager.h"
@@ -294,6 +295,9 @@ private:
 
 	// Player
 	Player* m_pPlayer;
+
+	// NPC Manager
+	NPCManager* m_pNPCManager;
 
 	// Inventory
 	InventoryManager* m_pInventoryManager;

@@ -109,6 +109,9 @@
     <Filter Include="source\Mods">
       <UniqueIdentifier>{b86d770b-879f-4d1d-b3db-0703813c1922}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\NPC">
+      <UniqueIdentifier>{743c10ea-e762-4ca1-8b89-ddc7f6fc28fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\glew\src\glew.c">
@@ -584,6 +587,12 @@
     </ClCompile>
     <ClCompile Include="..\..\source\Mods\ModsManager.cpp">
       <Filter>source\Mods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\NPC\NPC.cpp">
+      <Filter>source\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\NPC\NPCManager.cpp">
+      <Filter>source\NPC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1531,6 +1540,12 @@
     </ClInclude>
     <ClInclude Include="..\..\source\Mods\ModsManager.h">
       <Filter>source\Mods</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\NPC\NPC.h">
+      <Filter>source\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\NPC\NPCManager.h">
+      <Filter>source\NPC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -71,6 +71,7 @@ public:
 	// Accessors / Setters
 	void SetName(string name);
 	string GetName();
+	vec3 GetPosition();
 	vec3 GetCenter();
 	vec3 GetForwardVector();
 	vec3 GetRightVector();

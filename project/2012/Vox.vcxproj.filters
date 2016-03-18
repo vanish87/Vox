@@ -109,6 +109,9 @@
     <Filter Include="source\Mods">
       <UniqueIdentifier>{7df28351-4312-4b74-addf-0af436560169}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\NPC">
+      <UniqueIdentifier>{6db0af85-86fd-4493-b3fc-2db9c8b35387}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\glew\src\glew.c">
@@ -587,6 +590,12 @@
     </ClCompile>
     <ClCompile Include="..\..\source\frontend\Pages\OptionsMenu.cpp">
       <Filter>source\frontend\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\NPC\NPC.cpp">
+      <Filter>source\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\NPC\NPCManager.cpp">
+      <Filter>source\NPC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1531,6 +1540,12 @@
     </ClInclude>
     <ClInclude Include="..\..\source\frontend\Pages\OptionsMenu.h">
       <Filter>source\frontend\Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\NPC\NPC.h">
+      <Filter>source\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\NPC\NPCManager.h">
+      <Filter>source\NPC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

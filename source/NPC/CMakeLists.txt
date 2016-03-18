@@ -1,0 +1,8 @@
+set(NPC_SRCS
+    "${CMAKE_CURRENT_SOURCE_DIR}/NPC.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/NPC.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/NPCManager.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/NPCManager.h"
+    PARENT_SCOPE)
+
+source_group("NPC" FILES ${NPC_SRCS})

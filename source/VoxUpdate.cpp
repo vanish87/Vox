@@ -92,6 +92,9 @@ void VoxGame::Update()
 		// Text effects manager
 		m_pTextEffectsManager->Update(m_deltaTime);
 
+		// Update the NPC manager
+		m_pNPCManager->Update(m_deltaTime);
+
 		// Player
 		if (m_animationUpdate)
 		{
