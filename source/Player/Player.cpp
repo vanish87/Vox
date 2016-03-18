@@ -42,6 +42,8 @@ Player::Player(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryMa
 
 Player::~Player()
 {
+	ResetPlayer();
+
 	delete m_pPlayerStats;
 
 	delete m_pVoxelCharacter;
