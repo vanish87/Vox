@@ -117,7 +117,7 @@
 - [x]  Investigate continuous automatic builds on github when files are submitted to depot, using cmake and make.
 - [x]  NPCs.
 - [x]  Enemies.
-- [ ]  Enemy spawners.
+  - [ ]  Enemy spawners.
 - [ ]  Add VLD support to debug version, allow for memory leak detection.
 - [ ]  Add audio and music playback.
 - [ ]  Add scenery manager.
