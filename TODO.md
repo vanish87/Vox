@@ -116,6 +116,8 @@
   - [ ]  CharacterGUI player poses and animation stances.
 - [x]  Investigate continuous automatic builds on github when files are submitted to depot, using cmake and make.
 - [x]  NPCs.
+- [x]  Enemies.
+- [ ]  Enemy spawners.
 - [ ]  Add VLD support to debug version, allow for memory leak detection.
 - [ ]  Add audio and music playback.
 - [ ]  Add scenery manager.
@@ -140,7 +142,6 @@
 - [ ]  Add shadow receiving on instanced rendered objects. (Add texture matrix to shader??)
 - [ ]  Player particle trail on walking.
 - [ ]  Test out Baked AO models using MagikaVoxel.
-- [ ]  Enemies.
 - [ ]  Companion pets.
 - [ ]  Add debug render metrics for all counters (i.e num chunks, particles, items, triangles, verts, etc).
 - [ ]  Use mouse and gamepad sensativity in the looking and camera rotation functions.

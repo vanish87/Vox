@@ -23,7 +23,7 @@ class BlockParticleManager;
 class TextEffectsManager;
 class ItemManager;
 class ProjectileManager;
-//class EnemyManager; // TODO : ENEMY
+class EnemyManager;
 
 class NPCManager
 {
@@ -38,7 +38,7 @@ public:
 	void SetTextEffectsManager(TextEffectsManager* pTextEffectsManager);
 	void SetItemManager(ItemManager* pItemManager);
 	void SetProjectileManager(ProjectileManager* pProjectileManager);
-	//void SetEnemyManager(EnemyManager* pEnemyManager);  // TODO : ENEMY
+	void SetEnemyManager(EnemyManager* pEnemyManager);
 	void SetQubicleBinaryManager(QubicleBinaryManager* pQubicleBinaryManager);
 
 	// Clearing
@@ -56,7 +56,8 @@ public:
 	int GetNumRenderNPCs();
 	void ResetNumRenderNPCs();
 
-	//void SetEnemyDied(Enemy* pEnemy);  // TODO : ENEMY
+	// Enemy Died
+	void SetEnemyDied(Enemy* pEnemy);
 
 	// Collision
 	void PushCollisions(NPC* pPushingNPC, vec3 position, float radius);
@@ -116,7 +117,7 @@ private:
 	ItemManager* m_pItemManager;
 	ProjectileManager* m_pProjectileManager;
 	QubicleBinaryManager* m_pQubicleBinaryManager;
-	//EnemyManager* m_pEnemyManager;  // TODO : ENEMY
+	EnemyManager* m_pEnemyManager;
 
 	int m_numRenderNPCs;
 

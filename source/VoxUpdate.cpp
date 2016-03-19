@@ -95,6 +95,9 @@ void VoxGame::Update()
 		// Update the NPC manager
 		m_pNPCManager->Update(m_deltaTime);
 
+		// Update the enemy manager
+		m_pEnemyManager->Update(m_deltaTime);
+
 		// Player
 		if (m_animationUpdate)
 		{

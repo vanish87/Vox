@@ -21,6 +21,7 @@
 #include "Particles/BlockParticleManager.h"
 #include "Player/Player.h"
 #include "NPC/NPCManager.h"
+#include "Enemy/EnemyManager.h"
 #include "Inventory/InventoryManager.h"
 #include "Items/ItemManager.h"
 #include "blocks/ChunkManager.h"
@@ -299,6 +300,9 @@ private:
 
 	// NPC Manager
 	NPCManager* m_pNPCManager;
+
+	// Enemy manager
+	EnemyManager* m_pEnemyManager;
 
 	// Inventory
 	InventoryManager* m_pInventoryManager;

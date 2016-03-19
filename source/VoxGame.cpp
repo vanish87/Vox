@@ -199,6 +199,9 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	/* Create the NPC manager */
 	m_pNPCManager = new NPCManager(m_pRenderer, m_pChunkManager);
 
+	/* Create the enemy manager */
+	m_pEnemyManager = new EnemyManager(m_pRenderer, m_pChunkManager, m_pPlayer);
+
 	/* Create the inventory manager */
 	m_pInventoryManager = new InventoryManager();
 
@@ -224,10 +227,12 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pChunkManager->SetPlayer(m_pPlayer);
 	m_pChunkManager->SetSceneryManager(m_pSceneryManager);
 	m_pChunkManager->SetBiomeManager(m_pBiomeManager);
+	//m_pChunkManager->SetEnemyManager(m_pEnemyManager); // TODO : Chunk Enemy manager
 	m_pPlayer->SetInventoryManager(m_pInventoryManager);
 	m_pPlayer->SetItemManager(m_pItemManager);
 	m_pPlayer->SetProjectileManager(m_pProjectileManager);
 	m_pPlayer->SetTextEffectsManager(m_pTextEffectsManager);
+	//m_pPlayer->SetEnemyManager(m_pEnemyManager); // TODO : Player Enemy manager
 	m_pNPCManager->SetPlayer(m_pPlayer);
 	m_pNPCManager->SetLightingManager(m_pLightingManager);
 	m_pNPCManager->SetBlockParticleManager(m_pBlockParticleManager);
@@ -235,7 +240,15 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pNPCManager->SetItemManager(m_pItemManager);
 	m_pNPCManager->SetQubicleBinaryManager(m_pQubicleBinaryManager);
 	m_pNPCManager->SetProjectileManager(m_pProjectileManager);
-	//m_pNPCManager->SetEnemyManager(m_pEnemyManager); // TODO : ENEMY
+	m_pNPCManager->SetEnemyManager(m_pEnemyManager);
+	m_pEnemyManager->SetLightingManager(m_pLightingManager);
+	m_pEnemyManager->SetBlockParticleManager(m_pBlockParticleManager);
+	m_pEnemyManager->SetTextEffectsManager(m_pTextEffectsManager);
+	m_pEnemyManager->SetItemManager(m_pItemManager);
+	m_pEnemyManager->SetProjectileManager(m_pProjectileManager);
+	//m_pEnemyManager->SetHUD(m_pHUD); // TODO : HUD
+	m_pEnemyManager->SetQubicleBinaryManager(m_pQubicleBinaryManager);
+	m_pEnemyManager->SetNPCManager(m_pNPCManager);
 	m_pInventoryManager->SetPlayer(m_pPlayer);
 	m_pInventoryManager->SetInventoryGUI(m_pInventoryGUI);
 	m_pInventoryManager->SetLootGUI(m_pLootGUI);
@@ -358,6 +371,7 @@ void VoxGame::Destroy()
 		delete m_pInventoryManager;
 		delete m_pPlayer;
 		delete m_pNPCManager;
+		delete m_pEnemyManager;
 		delete m_pLightingManager;
 		delete m_pSceneryManager;
 		delete m_pBlockParticleManager;
@@ -624,6 +638,9 @@ void VoxGame::SetupDataForGame()
 	pCharacter1->SetTargetForwards(vec3(0.0f, 0.0f, -1.0f));
 	pCharacter1->SetNPCCombatType(eNPCCombatType_Staff, true);
 	//pCharacter1->SetMoveToPlayer(true);
+
+	// Enemies
+	Enemy* pEnemy0 = m_pEnemyManager->CreateEnemy(vec3(35.5f, 12.0f, 5.5f), eEnemyType_TargetDummy, 0.08f);
 }
 
 void VoxGame::SetupDataForFrontEnd()
@@ -663,6 +680,10 @@ void VoxGame::SetGameMode(GameMode mode)
 			// Clear the NPCs
 			m_pNPCManager->ClearNPCs();
 
+			// Clear the enemies and enemy spawners
+			m_pEnemyManager->ClearEnemies();
+			m_pEnemyManager->ClearEnemySpawners();
+
 			// Reset the player
 			m_pPlayer->ResetPlayer();
 
@@ -689,6 +710,10 @@ void VoxGame::SetGameMode(GameMode mode)
 
 			// Clear the NPCs
 			m_pNPCManager->ClearNPCs();
+
+			// Clear the enemies and enemy spawners
+			m_pEnemyManager->ClearEnemies();
+			m_pEnemyManager->ClearEnemySpawners();
 
 			// Reset the player
 			m_pPlayer->ResetPlayer();

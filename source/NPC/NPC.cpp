@@ -20,8 +20,8 @@
 #include "../Particles/BlockParticleManager.h"
 #include "../TextEffects/TextEffectsManager.h"
 #include "../Items/ItemManager.h"
-//#include "../Enemy/Enemy.h" // TODO : ENEMY
-//#include "../Enemy/EnemyManager.h" // TODO : ENEMY
+#include "../Enemy/Enemy.h"
+#include "../Enemy/EnemyManager.h"
 #include "../Projectile/ProjectileManager.h"
 #include "../Projectile/Projectile.h"
 #include "../VoxGame.h"
@@ -33,7 +33,7 @@
 using namespace std;
 
 
-NPC::NPC(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, LightingManager* pLightingManager, BlockParticleManager* pBlockParticleManager, TextEffectsManager* pTextEffectsManager, ItemManager* pItemManager, ProjectileManager* pProjectileManager, /*EnemyManager* pEnemyManager, // TODO : ENEMY*/ QubicleBinaryManager* pQubicleBinaryManager, string name, string typeName, string modelName, bool characterSelectScreen, bool useQubicleManager)
+NPC::NPC(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, LightingManager* pLightingManager, BlockParticleManager* pBlockParticleManager, TextEffectsManager* pTextEffectsManager, ItemManager* pItemManager, ProjectileManager* pProjectileManager, EnemyManager* pEnemyManager, QubicleBinaryManager* pQubicleBinaryManager, string name, string typeName, string modelName, bool characterSelectScreen, bool useQubicleManager)
 {
 	m_pRenderer = pRenderer;
 	m_pChunkManager = pChunkManager;
@@ -44,7 +44,7 @@ NPC::NPC(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, Ligh
 	m_pItemManager = pItemManager;
 	m_pQubicleBinaryManager = pQubicleBinaryManager;
 	m_pProjectileManager = pProjectileManager;
-	//m_pEnemyManager = pEnemyManager; // TODO : ENEMY
+	m_pEnemyManager = pEnemyManager;
 
 	m_erase = false;
 
@@ -174,7 +174,7 @@ NPC::NPC(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, Ligh
 
 	m_isCreditsNPC = false;
 
-	//m_pTargetEnemy = NULL; // TODO : ENEMY
+	m_pTargetEnemy = NULL;
 		
 	char characterBaseFolder[128];
 	char qbFilename[128];
@@ -1442,7 +1442,7 @@ void NPC::DoDamage(float amount, Colour textColour, vec3 knockbackDirection, flo
 		}
 
 		// Update HUD player data
-		// TODO : Add back in
+		// TODO : Add back in - HUD
 		//m_pGameWindow->GetHUD()->UpdatePlayerData();
 
 		// Play a hit response animation
@@ -1476,57 +1476,56 @@ void NPC::DoDamage(float amount, Colour textColour, vec3 knockbackDirection, flo
 	}
 }
 
-// TODO : ENEMY
-//void NPC::CheckEnemyDamageRadius()
-//{
-//	int numEnemies = m_pEnemyManager->GetNumEnemies();
-//
-//	for(int i = 0; i < numEnemies; i++)
-//	{
-//		Enemy *pEnemy = m_pEnemyManager->GetEnemy(i);
-//
-//		if(pEnemy->GetErase() == true)
-//		{
-//			continue;
-//		}
-//
-//		if(pEnemy->GetAttackEnabled() == false)
-//		{
-//			continue;
-//		}
-//
-//		vec3 distance = GetCenter() - pEnemy->GetCenter();
-//		float lengthToEnemy = length(distance);
-//		if(lengthToEnemy <= m_radius + pEnemy->GetAttackRadius())
-//		{
-//			vec3 distance_minus_y = distance;
-//			distance_minus_y.y = 0.0f;
-//			vec3 direction = normalize(distance_minus_y);
-//			direction = normalize(direction);
-//
-//			// Figure out the attack vector, based on the attack rotation
-//			float enemyRotation = pEnemy->GetRotation();
-//			float attackRotation = pEnemy->GetAttackRotation();
-//			float angle = DegToRad(enemyRotation + attackRotation);
-//			vec3 attackDirection = vec3(sin(angle), 0.0f, cos(angle));
-//			float dotProduct = dot(direction, attackDirection);
-//
-//			if(dotProduct > pEnemy->GetAttackSegmentAngle()) // Check if we are within the attack segment
-//			{	
-//				vec3 knockbackDirection = (direction*2.0f) + vec3(0.0f, 1.0f, 0.0f);
-//
-//				knockbackDirection = normalize(knockbackDirection);
-//				Colour damageColour = Colour(1.0f, 1.0f, 1.0f);
-//
-//				// Set NPC target as attacker
-//				SetTargetEnemy(pEnemy);
-//
-//				float knockbackAmount = 16.0f;
-//				DoDamage(20.0f, damageColour, knockbackDirection, knockbackAmount, true);
-//			}
-//		}
-//	}
-//}
+void NPC::CheckEnemyDamageRadius()
+{
+	int numEnemies = m_pEnemyManager->GetNumEnemies();
+
+	for(int i = 0; i < numEnemies; i++)
+	{
+		Enemy *pEnemy = m_pEnemyManager->GetEnemy(i);
+
+		if(pEnemy->GetErase() == true)
+		{
+			continue;
+		}
+
+		if(pEnemy->GetAttackEnabled() == false)
+		{
+			continue;
+		}
+
+		vec3 distance = GetCenter() - pEnemy->GetCenter();
+		float lengthToEnemy = length(distance);
+		if(lengthToEnemy <= m_radius + pEnemy->GetAttackRadius())
+		{
+			vec3 distance_minus_y = distance;
+			distance_minus_y.y = 0.0f;
+			vec3 direction = normalize(distance_minus_y);
+			direction = normalize(direction);
+
+			// Figure out the attack vector, based on the attack rotation
+			float enemyRotation = pEnemy->GetRotation();
+			float attackRotation = pEnemy->GetAttackRotation();
+			float angle = DegToRad(enemyRotation + attackRotation);
+			vec3 attackDirection = vec3(sin(angle), 0.0f, cos(angle));
+			float dotProduct = dot(direction, attackDirection);
+
+			if(dotProduct > pEnemy->GetAttackSegmentAngle()) // Check if we are within the attack segment
+			{	
+				vec3 knockbackDirection = (direction*2.0f) + vec3(0.0f, 1.0f, 0.0f);
+
+				knockbackDirection = normalize(knockbackDirection);
+				Colour damageColour = Colour(1.0f, 1.0f, 1.0f);
+
+				// Set NPC target as attacker
+				SetTargetEnemy(pEnemy);
+
+				float knockbackAmount = 16.0f;
+				DoDamage(20.0f, damageColour, knockbackDirection, knockbackAmount, true);
+			}
+		}
+	}
+}
 
 void NPC::CheckProjectileDamageRadius(Projectile* pProjectile)
 {
@@ -1595,12 +1594,11 @@ void NPC::CheckProjectileDamageRadius(Projectile* pProjectile)
 		knockbackDirection = normalize(knockbackDirection);
 		Colour damageColour = Colour(1.0f, 1.0f, 1.0f);
 
-		// TODO : ENEMY
-		//if(pProjectile->GetEnemyOwner() != NULL)
-		//{
-		//	// Set NPC target as attacker
-		//	SetTargetEnemy(pProjectile->GetEnemyOwner());
-		//}
+		if(pProjectile->GetEnemyOwner() != NULL)
+		{
+			// Set NPC target as attacker
+			SetTargetEnemy(pProjectile->GetEnemyOwner());
+		}
 
 		float knockbackAmount = 16.0f;
 		DoDamage(15.0f, damageColour, knockbackDirection, knockbackAmount, false);
@@ -1824,54 +1822,53 @@ float NPC::GetAttackSegmentAngle()
 	return m_attackSegmentAngle;
 }
 
-// TODO : ENEMY
-//void NPC::SetEnemyDied(Enemy* pEnemy)
-//{
-//	if(m_pTargetEnemy == pEnemy)
-//	{
-//		SetTargetEnemy(NULL);
-//	}
-//}
-//
-//void NPC::SetTargetEnemy(Enemy* pEnemy)
-//{
-//	m_pTargetEnemy = pEnemy;
-//
-//	if(m_pTargetEnemy != NULL)
-//	{
-//		if(m_eNPCCombatType == eNPCCombatType_Archer || m_eNPCCombatType == eNPCCombatType_Staff || m_eNPCCombatType == eNPCCombatType_FireballHands)
-//		{
-//			StopMoving();
-//		}
-//
-//		if(m_eNPCState != eNPCState_Combat)
-//		{
-//			m_ePreviousNPCState = m_eNPCState;
-//			m_eNPCState = eNPCState_Combat;
-//		}
-//	}
-//	else
-//	{
-//		m_eNPCState = m_ePreviousNPCState;
-//
-//		if(m_eNPCCombatType == eNPCCombatType_Archer)
-//		{
-//			m_bIsChargingAttack = false;
-//			m_chargeAmount = 0.0f;
-//
-//			UnloadWeapon(false);
-//		}
-//
-//		if(m_eNPCState == eNPCState_MovingToWayPoint)
-//		{
-//			StartWaypointNavigation(m_currentWaypointIndex);
-//		}
-//		else if(m_moveToPlayer == false)
-//		{
-//			SetTargetPosition(m_moveBackToPosition);
-//		}
-//	}
-//}
+void NPC::SetEnemyDied(Enemy* pEnemy)
+{
+	if(m_pTargetEnemy == pEnemy)
+	{
+		SetTargetEnemy(NULL);
+	}
+}
+
+void NPC::SetTargetEnemy(Enemy* pEnemy)
+{
+	m_pTargetEnemy = pEnemy;
+
+	if(m_pTargetEnemy != NULL)
+	{
+		if(m_eNPCCombatType == eNPCCombatType_Archer || m_eNPCCombatType == eNPCCombatType_Staff || m_eNPCCombatType == eNPCCombatType_FireballHands)
+		{
+			StopMoving();
+		}
+
+		if(m_eNPCState != eNPCState_Combat)
+		{
+			m_ePreviousNPCState = m_eNPCState;
+			m_eNPCState = eNPCState_Combat;
+		}
+	}
+	else
+	{
+		m_eNPCState = m_ePreviousNPCState;
+
+		if(m_eNPCCombatType == eNPCCombatType_Archer)
+		{
+			m_bIsChargingAttack = false;
+			m_chargeAmount = 0.0f;
+
+			UnloadWeapon(false);
+		}
+
+		if(m_eNPCState == eNPCState_MovingToWayPoint)
+		{
+			StartWaypointNavigation(m_currentWaypointIndex);
+		}
+		else if(m_moveToPlayer == false)
+		{
+			SetTargetPosition(m_moveBackToPosition);
+		}
+	}
+}
 
 // Looking
 void NPC::SetTargetForwardToLookAtPoint(vec3 point)
@@ -2641,20 +2638,19 @@ void NPC::UpdateMeleeCombat(float dt)
 	m_lookPoint = m_targetPosition;
 	m_bLookAtPoint = true;
 
-	// TODO : ENEMY
-	//if(lengthToTarget <= m_attackRadius + m_pTargetEnemy->GetRadius())
-	//{
-	//	m_insideAttackRadius = true;
+	if(lengthToTarget <= m_attackRadius + m_pTargetEnemy->GetRadius())
+	{
+		m_insideAttackRadius = true;
 
-	//	if(m_bCanAttack)
-	//	{
-	//		Attack();
-	//	}
-	//}
-	//else
-	//{
-	//	m_insideAttackRadius = false;
-	//}
+		if(m_bCanAttack)
+		{
+			Attack();
+		}
+	}
+	else
+	{
+		m_insideAttackRadius = false;
+	}
 }
 
 void NPC::UpdateRangedCombat(float dt)
@@ -2692,13 +2688,12 @@ void NPC::UpdateMovement(float dt)
 	else
 	{
 		float radius = 0.0f;
-		// TODO : ENEMY
-		//if(m_pTargetEnemy != NULL)
-		//{
-		//	SetTargetPosition(m_pTargetEnemy->GetCenter());
-		//	radius = m_pTargetEnemy->GetRadius();
-		//}
-		//else
+		if(m_pTargetEnemy != NULL)
+		{
+			SetTargetPosition(m_pTargetEnemy->GetCenter());
+			radius = m_pTargetEnemy->GetRadius();
+		}
+		else
 		{
 			if(m_moveToPlayer)
 			{
@@ -2772,7 +2767,7 @@ void NPC::UpdateMovement(float dt)
 		{
 			if(m_movementWaitAfterAttackTimer <= 0.0f)
 			{
-				if((m_eNPCCombatType != eNPCCombatType_Archer && m_eNPCCombatType != eNPCCombatType_Staff && m_eNPCCombatType != eNPCCombatType_FireballHands) /*|| m_pTargetEnemy == NULL TODO : ENEMY*/)
+				if((m_eNPCCombatType != eNPCCombatType_Archer && m_eNPCCombatType != eNPCCombatType_Staff && m_eNPCCombatType != eNPCCombatType_FireballHands) || m_pTargetEnemy == NULL)
 				{
 					vec3 toTarget = m_targetPosition - m_position;
 					vec3 movementDirection = toTarget;
@@ -2865,8 +2860,7 @@ void NPC::Update(float dt)
 	}	
 
 	// Check for enemy attack damage
-	// TODO : ENEMY
-	//CheckEnemyDamageRadius();
+	CheckEnemyDamageRadius();
 
 	// Update timers
 	UpdateTimers(dt);
@@ -2912,23 +2906,22 @@ void NPC::Update(float dt)
 		}
 	}
 
-	// TODO : ENEMY
-	//if(m_eNPCCombatType == eNPCCombatType_Archer && m_pTargetEnemy != NULL)
-	//{
-	//	m_chargeSpawnPosition = GetCenter() + (m_forward*0.75f) + (GetUpVector()*0.5f);
+	if(m_eNPCCombatType == eNPCCombatType_Archer && m_pTargetEnemy != NULL)
+	{
+		m_chargeSpawnPosition = GetCenter() + (m_forward*0.75f) + (GetUpVector()*0.5f);
 
-	//	float liftAmount = 1.75f * m_chargeAmount;
-	//	float powerAmount = 45.0f * m_chargeAmount;
+		float liftAmount = 1.75f * m_chargeAmount;
+		float powerAmount = 45.0f * m_chargeAmount;
 
-	//	//if(m_pTargetEnemy)
-	//	{
-	//		// Player target
-	//		vec3 toTarget = m_pTargetEnemy->GetCenter() - GetCenter();
-	//		float toTargetDistance = length(toTarget);
-	//		liftAmount += toTargetDistance * 0.20f;
-	//		m_chargeSpawnVelocity = (normalize(toTarget) * powerAmount) + vec3(0.0f, liftAmount, 0.0f);
-	//	}
-	//}
+		//if(m_pTargetEnemy)
+		{
+			// Player target
+			vec3 toTarget = m_pTargetEnemy->GetCenter() - GetCenter();
+			float toTargetDistance = length(toTarget);
+			liftAmount += toTargetDistance * 0.20f;
+			m_chargeSpawnVelocity = (normalize(toTarget) * powerAmount) + vec3(0.0f, liftAmount, 0.0f);
+		}
+	}
 
 	if(IsFrontEndNPC() == false) // Dont do gravity in front-end
 	{
@@ -2980,7 +2973,7 @@ void NPC::UpdateSubSelectionNamePicking(int pickingId, bool mousePressed)
 		if(mousePressed)
 		{
 			m_subSelectionSelected = m_pVoxelCharacter->GetSubSelectionName(pickingId);
-			// TODO : Add back in
+			// TODO : Add back in - Character SubSelection
 			//m_pGameWindow->GetGUIHelper()->SetSelectedBoneMatrixForCharacter(m_subSelectionSelected);
 			//m_pGameWindow->GetFrontEndManager()->SetCharacterSubSelection(m_subSelectionSelected);
 		}
@@ -2993,41 +2986,39 @@ void NPC::UpdateSubSelectionNamePicking(int pickingId, bool mousePressed)
 
 void NPC::UpdateAggroRadius(float dt)
 {
-	// TODO : ENEMY
-	//if(m_pTargetEnemy != NULL)
-	//{
-	//	return;
-	//}
+	if(m_pTargetEnemy != NULL)
+	{
+		return;
+	}
 
 	Enemy* pClosestEnemy = NULL;
 	float closestDistance = 999.9f;
 
-	// TODO : ENEMY
-	//int numEnemies = m_pEnemyManager->GetNumEnemies();
-	//for(int i = 0; i < numEnemies; i++)
-	//{
-	//	Enemy* pEnemy = m_pEnemyManager->GetEnemy(i);
+	int numEnemies = m_pEnemyManager->GetNumEnemies();
+	for(int i = 0; i < numEnemies; i++)
+	{
+		Enemy* pEnemy = m_pEnemyManager->GetEnemy(i);
 
-	//	if(pEnemy->GetErase())
-	//	{
-	//		continue;
-	//	}
+		if(pEnemy->GetErase())
+		{
+			continue;
+		}
 
-	//	float distance = length(GetCenter() - pEnemy->GetCenter());
-	//	if(distance < m_aggroRadius)
-	//	{
-	//		if(distance < closestDistance)
-	//		{
-	//			closestDistance = distance;
-	//			pClosestEnemy = pEnemy;
-	//		}
-	//	}
-	//}
+		float distance = length(GetCenter() - pEnemy->GetCenter());
+		if(distance < m_aggroRadius)
+		{
+			if(distance < closestDistance)
+			{
+				closestDistance = distance;
+				pClosestEnemy = pEnemy;
+			}
+		}
+	}
 
-	//if(pClosestEnemy != NULL)
-	//{
-	//	SetTargetEnemy(pClosestEnemy);
-	//}
+	if(pClosestEnemy != NULL)
+	{
+		SetTargetEnemy(pClosestEnemy);
+	}
 }
 
 void NPC::UpdateTimers(float dt)
@@ -3476,49 +3467,47 @@ void NPC::AttackEnabledDelayTimerFinished()
 		return;
 	}
 
-	// TODO : ENEMY
-	//if(m_pTargetEnemy == NULL)
-	//{
-	//	return;
-	//}
+	if(m_pTargetEnemy == NULL)
+	{
+		return;
+	}
 
-	// TODO : ENEMY
-	//if(m_eNPCCombatType == eNPCCombatType_Staff)
-	//{
-	//	vec3 fireballSpawnPosition = GetCenter() + (m_forward*0.75f) + (GetRightVector()*-0.4f) + (GetUpVector()*0.5f);
+	if(m_eNPCCombatType == eNPCCombatType_Staff)
+	{
+		vec3 fireballSpawnPosition = GetCenter() + (m_forward*0.75f) + (GetRightVector()*-0.4f) + (GetUpVector()*0.5f);
 
-	//	float powerAmount = 25.0f;
-	//	vec3 toTarget = m_pTargetEnemy->GetCenter() - GetCenter();
+		float powerAmount = 25.0f;
+		vec3 toTarget = m_pTargetEnemy->GetCenter() - GetCenter();
 
-	//	vec3 fireballSpawnVelocity = (normalize(toTarget) * powerAmount);
+		vec3 fireballSpawnVelocity = (normalize(toTarget) * powerAmount);
 
-	//	Projectile* pProjectile = m_pProjectileManager->CreateProjectile(fireballSpawnPosition, fireballSpawnVelocity, 0.0f, "media/gamedata/items/Fireball/Fireball.item", 0.04f);	
-	//	pProjectile->SetProjectileType(true, false, false);
-	//	pProjectile->SetOwner(NULL, this, NULL);
-	//	pProjectile->SetGravityMultiplier(0.0f);
-	//}
-	//else if(m_eNPCCombatType == eNPCCombatType_FireballHands)
-	//{
-	//	float powerAmount = 25.0f;
-	//	float cameraMultiplier = 25.0f;
+		Projectile* pProjectile = m_pProjectileManager->CreateProjectile(fireballSpawnPosition, fireballSpawnVelocity, 0.0f, "media/gamedata/items/Fireball/Fireball.item", 0.04f);	
+		pProjectile->SetProjectileType(true, false, false);
+		pProjectile->SetOwner(NULL, this, NULL);
+		pProjectile->SetGravityMultiplier(0.0f);
+	}
+	else if(m_eNPCCombatType == eNPCCombatType_FireballHands)
+	{
+		float powerAmount = 25.0f;
+		float cameraMultiplier = 25.0f;
 
-	//	vec3 spellSpawnPosition = GetCenter() + (m_forward*0.5f) + (GetUpVector()*0.0f);
+		vec3 spellSpawnPosition = GetCenter() + (m_forward*0.5f) + (GetUpVector()*0.0f);
 
-	//	if(m_attackCounter == 1)
-	//	{
-	//		spellSpawnPosition += -(GetRightVector()*0.4f);
-	//	}
-	//	else
-	//	{
-	//		spellSpawnPosition += (GetRightVector()*0.4f);
-	//	}
+		if(m_attackCounter == 1)
+		{
+			spellSpawnPosition += -(GetRightVector()*0.4f);
+		}
+		else
+		{
+			spellSpawnPosition += (GetRightVector()*0.4f);
+		}
 
-	//	vec3 toTarget = m_pTargetEnemy->GetProjectileHitboxCenter() - GetCenter();
-	//	vec3 spellSpawnVelocity = (normalize(toTarget) * powerAmount);
+		vec3 toTarget = m_pTargetEnemy->GetProjectileHitboxCenter() - GetCenter();
+		vec3 spellSpawnVelocity = (normalize(toTarget) * powerAmount);
 
-	//	Projectile* pProjectile = m_pProjectileManager->CreateProjectile(spellSpawnPosition, spellSpawnVelocity, 0.0f, "media/gamedata/items/Fireball/FireballBlue.item", 0.05f);	
-	//	pProjectile->SetProjectileType(true, false, false);
-	//	pProjectile->SetOwner(NULL, this, NULL);
-	//	pProjectile->SetGravityMultiplier(0.0f);
-	//}
+		Projectile* pProjectile = m_pProjectileManager->CreateProjectile(spellSpawnPosition, spellSpawnVelocity, 0.0f, "media/gamedata/items/Fireball/FireballBlue.item", 0.05f);	
+		pProjectile->SetProjectileType(true, false, false);
+		pProjectile->SetOwner(NULL, this, NULL);
+		pProjectile->SetGravityMultiplier(0.0f);
+	}
 }

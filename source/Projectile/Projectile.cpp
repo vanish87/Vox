@@ -71,8 +71,7 @@ Projectile::Projectile(Renderer* pRenderer, ChunkManager* pChunkManager, Qubicle
 
 	m_pOwnedPlayer = NULL;
 	m_pOwnedNPC = NULL;
-	// TODO : Add me back in - enemy
-	//m_pOwnedEnemy = NULL;
+	m_pOwnedEnemy = NULL;
 
 	m_pVoxeProjectile->StartWeaponTrails();
 }
@@ -407,8 +406,7 @@ void Projectile::SetOwner(Player* pPlayer, NPC* pNPC, Enemy* pEnemy)
 {
 	m_pOwnedPlayer = pPlayer;
 	m_pOwnedNPC = pNPC;
-	// TODO : Add me back in - enemy
-	//m_pOwnedEnemy = pEnemy;
+	m_pOwnedEnemy = pEnemy;
 }
 
 Player* Projectile::GetPlayerOwner()
@@ -421,11 +419,10 @@ NPC* Projectile::GetNPCOwner()
 	return m_pOwnedNPC;
 }
 
-// TODO : Add me back in - enemy
-//Enemy* Projectile::GetEnemyOwner()
-//{
-//	return m_pOwnedEnemy;
-//}
+Enemy* Projectile::GetEnemyOwner()
+{
+	return m_pOwnedEnemy;
+}
 
 // Catching
 bool Projectile::CanCatch()

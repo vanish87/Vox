@@ -15,7 +15,7 @@
 #include "../TextEffects/TextEffectsManager.h"
 #include "../Items/ItemManager.h"
 #include "../Projectile/ProjectileManager.h"
-//#include "../Enemy/EnemyManager.h"  // TODO : ENEMY
+#include "../Enemy/EnemyManager.h"
 #include "../utils/Random.h"
 #include "../VoxGame.h"
 
@@ -75,11 +75,10 @@ void NPCManager::SetProjectileManager(ProjectileManager* pProjectileManager)
 	m_pProjectileManager = pProjectileManager;
 }
 
-// TODO : ENEMY
-//void NPCManager::SetEnemyManager(EnemyManager* pEnemyManager)
-//{
-//	m_pEnemyManager = pEnemyManager;
-//}
+void NPCManager::SetEnemyManager(EnemyManager* pEnemyManager)
+{
+	m_pEnemyManager = pEnemyManager;
+}
 
 void NPCManager::SetQubicleBinaryManager(QubicleBinaryManager* pQubicleBinaryManager)
 {
@@ -124,7 +123,7 @@ NPC* NPCManager::CreateNPC(const char* name, string typeName, string modelName, 
 	}
 	m_NPCMutex.unlock();
 
-	NPC* pNewNPC = new NPC(m_pRenderer, m_pChunkManager, m_pPlayer, m_pLightingManager, m_pBlockParticleManager, m_pTextEffectsManager, m_pItemManager, m_pProjectileManager, /*m_pEnemyManager,  // TODO : ENEMY*/ m_pQubicleBinaryManager, name, typeName, modelName, characterSelectScreen, useQubicleManager);
+	NPC* pNewNPC = new NPC(m_pRenderer, m_pChunkManager, m_pPlayer, m_pLightingManager, m_pBlockParticleManager, m_pTextEffectsManager, m_pItemManager, m_pProjectileManager, m_pEnemyManager, m_pQubicleBinaryManager, name, typeName, modelName, characterSelectScreen, useQubicleManager);
 
 	pNewNPC->SetLightingManager(m_pLightingManager);
 	pNewNPC->SetPosition(position);
@@ -216,18 +215,18 @@ void NPCManager::ResetNumRenderNPCs()
 	m_numRenderNPCs = 0;
 }
 
-// TODO : ENEMY
-//void NPCManager::SetEnemyDied(Enemy* pEnemy)
-//{
-//	m_NPCMutex.lock();
-//	for(unsigned int i = 0; i < m_vpNPCList.size(); i++)
-//	{
-//		NPC* pNPC = m_vpNPCList[i];
-//
-//		pNPC->SetEnemyDied(pEnemy);
-//	}
-//	m_NPCMutex.unlock();
-//}
+// Enemy Died
+void NPCManager::SetEnemyDied(Enemy* pEnemy)
+{
+	m_NPCMutex.lock();
+	for(unsigned int i = 0; i < m_vpNPCList.size(); i++)
+	{
+		NPC* pNPC = m_vpNPCList[i];
+
+		pNPC->SetEnemyDied(pEnemy);
+	}
+	m_NPCMutex.unlock();
+}
 
 // Collision
 void NPCManager::PushCollisions(NPC* pPushingNPC, vec3 position, float radius)
@@ -642,8 +641,8 @@ void NPCManager::Render(bool outline, bool reflection, bool silhouette, bool ren
 			//	continue;
 			//}
 
-			// TODO : Add back in
-			//float toCamera = (m_pGameWindow->GetGameCamera()->GetPosition() - pNPC->GetCenter()).GetLength();
+			// TODO : Add back in - Culling
+			//float toCamera = length(m_pGameWindow->GetGameCamera()->GetPosition() - pNPC->GetCenter());
 			//if(toCamera > m_pGameWindow->GetGUIHelper()->GetFogRadius() + (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*5.0f))
 			//{
 			//	continue;

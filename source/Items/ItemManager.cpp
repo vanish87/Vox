@@ -484,7 +484,7 @@ void ItemManager::Render(bool outline, bool reflection, bool silhouette, bool sh
 		}
 
 		// TODO : Add me back in - Fog rendering
-		//float toCamera = (m_pGameWindow->GetGameCamera()->GetPosition() - pItem->GetCenter()).GetLength();
+		//float toCamera = length(m_pGameWindow->GetGameCamera()->GetPosition() - pItem->GetCenter());
 		//if(toCamera > m_pGameWindow->GetGUIHelper()->GetFogRadius() + (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*5.0f))
 		//{
 		//	continue;

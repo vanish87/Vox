@@ -263,9 +263,9 @@ void BlockParticle::Update(float dt)
 				m_tangentialVelocityXY += m_tangentialAccelerationXY * dt;
 				m_tangentialVelocityXZ += m_tangentialAccelerationXZ * dt;
 				m_tangentialVelocityYZ += m_tangentialAccelerationYZ * dt;
-				vec3 velTangentXY = (cross_z/* * toPoint.GetLength()*/) * m_tangentialVelocityXY;
-				vec3 velTangentXZ = (cross_y/* * toPoint.GetLength()*/) * m_tangentialVelocityXZ;
-				vec3 velTangentYZ = (cross_x/* * toPoint.GetLength()*/) * m_tangentialVelocityYZ;
+				vec3 velTangentXY = (cross_z/* * length(toPoint)*/) * m_tangentialVelocityXY;
+				vec3 velTangentXZ = (cross_y/* * length(toPoint)*/) * m_tangentialVelocityXZ;
+				vec3 velTangentYZ = (cross_x/* * length(toPoint)*/) * m_tangentialVelocityYZ;
 				
 				m_tangentialVelocity = velTangentXY+velTangentXZ+velTangentYZ;
 			}

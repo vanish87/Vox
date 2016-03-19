@@ -20,6 +20,7 @@ void VoxGame::PreRender()
 	// Update matrices for game objects
 	m_pPlayer->CalculateWorldTransformMatrix();
 	m_pNPCManager->CalculateWorldTransformMatrix();
+	m_pEnemyManager->CalculateWorldTransformMatrix();
 	m_pItemManager->CalculateWorldTransformMatrix();
 	m_pProjectileManager->CalculateWorldTransformMatrix();
 }
@@ -136,6 +137,10 @@ void VoxGame::Render()
 			m_pNPCManager->RenderOutlineNPCs();
 			m_pNPCManager->Render(false, false, true, false, false, false);
 
+			// Enemies outline
+			m_pEnemyManager->RenderOutlineEnemies();
+			m_pEnemyManager->Render(false, false, true, false);
+
 			BeginShaderRender();
 			{
 				// Scenery
@@ -150,6 +155,9 @@ void VoxGame::Render()
 				// NPCs
 				m_pNPCManager->ResetNumRenderNPCs();
 				m_pNPCManager->Render(false, false, false, false, true, false);
+
+				// Enemies
+				m_pEnemyManager->Render(false, false, false, false);
 
 				// NPCs (only outline and hover)
 				m_pNPCManager->Render(false, false, false, true, false, false);
@@ -193,6 +201,8 @@ void VoxGame::Render()
 				}
 
 				m_pNPCManager->RenderDebug();
+
+				m_pEnemyManager->RenderDebug();
 
 				m_pSceneryManager->RenderDebug();
 
@@ -369,6 +379,9 @@ void VoxGame::RenderShadows()
 			// NPCs
 			m_pNPCManager->Render(false, false, false, false, false, true);
 
+			// Enemies
+			m_pEnemyManager->Render(false, true, false, true);
+
 			// Projectiles
 			m_pProjectileManager->Render();
 
@@ -512,6 +525,11 @@ void VoxGame::RenderTransparency()
 
 		// NPC Faces
 		m_pNPCManager->RenderFaces();
+		m_pNPCManager->RenderWeaponTrails();
+
+		// Enemy Faces
+		m_pEnemyManager->RenderFaces();
+		m_pEnemyManager->RenderWeaponTrails();
 
 		// Projectile trails
 		m_pProjectileManager->RenderWeaponTrails();
@@ -976,6 +994,8 @@ void VoxGame::RenderDebugInformation()
 	sprintf(lItemsBuff, "Items: %i, Render: %i", m_pItemManager->GetNumItems(), m_pItemManager->GetNumRenderItems());
 	char lNPCBuff[256];
 	sprintf(lNPCBuff, "NPCs: %i, Render: %i", m_pNPCManager->GetNumNPCs(), m_pNPCManager->GetNumRenderNPCs());
+	char lEnemiesBuff[256];
+	sprintf(lEnemiesBuff, "Enemies: %i, Render: %i", m_pEnemyManager->GetNumEnemies(), m_pEnemyManager->GetNumRenderEnemies());
 	char lProjectilesBuff[256];
 	sprintf(lProjectilesBuff, "Projectiles: %i, Render: %i", m_pProjectileManager->GetNumProjectiles(), m_pProjectileManager->GetNumRenderProjectiles());
 	char lInstancesBuff[256];
@@ -1016,8 +1036,9 @@ void VoxGame::RenderDebugInformation()
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight * 4) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lParticlesBuff);
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight * 5) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lItemsBuff);
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight * 6) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lNPCBuff);
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight * 7) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lProjectilesBuff);
-			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight * 8) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lInstancesBuff);
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight * 7) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lEnemiesBuff);
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight * 8) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lProjectilesBuff);
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight * 9) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lInstancesBuff);
 		}
 
 		m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth-fpsWidthOffset, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lFPSBuff);

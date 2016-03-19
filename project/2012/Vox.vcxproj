@@ -22,6 +22,9 @@
     <ClCompile Include="..\..\source\blocks\BiomeManager.cpp" />
     <ClCompile Include="..\..\source\blocks\Chunk.cpp" />
     <ClCompile Include="..\..\source\blocks\ChunkManager.cpp" />
+    <ClCompile Include="..\..\source\Enemy\Enemy.cpp" />
+    <ClCompile Include="..\..\source\Enemy\EnemyManager.cpp" />
+    <ClCompile Include="..\..\source\Enemy\EnemySpawner.cpp" />
     <ClCompile Include="..\..\source\freetype\freetypefont.cpp" />
     <ClCompile Include="..\..\source\frontend\FrontendManager.cpp" />
     <ClCompile Include="..\..\source\frontend\FrontendPage.cpp" />
@@ -185,6 +188,9 @@
     <ClInclude Include="..\..\source\blocks\BiomeManager.h" />
     <ClInclude Include="..\..\source\blocks\BlocksEnum.h" />
     <ClInclude Include="..\..\source\blocks\ChunkManager.h" />
+    <ClInclude Include="..\..\source\Enemy\Enemy.h" />
+    <ClInclude Include="..\..\source\Enemy\EnemyManager.h" />
+    <ClInclude Include="..\..\source\Enemy\EnemySpawner.h" />
     <ClInclude Include="..\..\source\freetype\freetypefont.h" />
     <ClInclude Include="..\..\source\frontend\FrontendManager.h" />
     <ClInclude Include="..\..\source\frontend\FrontendPage.h" />

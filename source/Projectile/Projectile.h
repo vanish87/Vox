@@ -83,8 +83,7 @@ public:
 	void SetOwner(Player* pPlayer, NPC* pNPC, Enemy* pEnemy);
 	Player* GetPlayerOwner();
 	NPC* GetNPCOwner();
-	// TODO : Add me back in - enemy
-	//Enemy* GetEnemyOwner();
+	Enemy* GetEnemyOwner();
 
 	// Catching
 	bool CanCatch();
@@ -155,7 +154,7 @@ private:
 	// Forward vector
 	vec3 m_forward;
 
-	// Enemy's world matrix
+	// World matrix
 	Matrix4x4 m_worldMatrix;
 
 	// Grid position
@@ -196,7 +195,7 @@ private:
 
 	Player* m_pOwnedPlayer;
 	NPC* m_pOwnedNPC;
-	//Enemy* m_pOwnedEnemy;
+	Enemy* m_pOwnedEnemy;
 
 	// Voxel projectile
 	VoxelWeapon* m_pVoxeProjectile;

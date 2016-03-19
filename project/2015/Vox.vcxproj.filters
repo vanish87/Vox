@@ -112,6 +112,9 @@
     <Filter Include="source\NPC">
       <UniqueIdentifier>{743c10ea-e762-4ca1-8b89-ddc7f6fc28fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\Enemy">
+      <UniqueIdentifier>{d6f94681-5b11-4af0-b428-9653f91539dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\glew\src\glew.c">
@@ -593,6 +596,15 @@
     </ClCompile>
     <ClCompile Include="..\..\source\NPC\NPCManager.cpp">
       <Filter>source\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Enemy\Enemy.cpp">
+      <Filter>source\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Enemy\EnemyManager.cpp">
+      <Filter>source\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Enemy\EnemySpawner.cpp">
+      <Filter>source\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1546,6 +1558,15 @@
     </ClInclude>
     <ClInclude Include="..\..\source\NPC\NPCManager.h">
       <Filter>source\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Enemy\Enemy.h">
+      <Filter>source\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Enemy\EnemyManager.h">
+      <Filter>source\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Enemy\EnemySpawner.h">
+      <Filter>source\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

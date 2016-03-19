@@ -28,8 +28,8 @@ class LightingManager;
 class BlockParticleManager;
 class TextEffectsManager;
 class ItemManager;
-//class Enemy; // TODO : ENEMY
-//class EnemyManager; // TODO : ENEMY
+class Enemy;
+class EnemyManager;
 
 
 enum eNPCState
@@ -66,7 +66,7 @@ class NPC
 {
 public:
 	/* Public methods */
-	NPC(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, LightingManager* pLightingManager, BlockParticleManager* pBlockParticleManager, TextEffectsManager* pTextEffectsManager, ItemManager* pItemManager, ProjectileManager* pProjectileManager, /*EnemyManager* pEnemyManager, // TODO : ENEMY*/ QubicleBinaryManager* pQubicleBinaryManager, string name, string typeName, string modelName, bool characterSelectScreen, bool useQubicleManager);
+	NPC(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, LightingManager* pLightingManager, BlockParticleManager* pBlockParticleManager, TextEffectsManager* pTextEffectsManager, ItemManager* pItemManager, ProjectileManager* pProjectileManager, EnemyManager* pEnemyManager, QubicleBinaryManager* pQubicleBinaryManager, string name, string typeName, string modelName, bool characterSelectScreen, bool useQubicleManager);
 	~NPC();
 
 	void SetLightingManager(LightingManager* pLightingManager);
@@ -152,8 +152,7 @@ public:
 
 	// Combat
 	void DoDamage(float amount, Colour textColour, vec3 knockbackDirection, float knockbackAmount, bool createParticleHit);
-	// TODO : ENEMY
-	//void CheckEnemyDamageRadius();
+	void CheckEnemyDamageRadius();
 	void CheckProjectileDamageRadius(Projectile* pProjectile);
 
 	// Attacking
@@ -165,9 +164,8 @@ public:
 	void SetAttackRadius(float attackRadius);
 	float GetAttackRotation();
 	float GetAttackSegmentAngle();
-	// TODO : ENEMY
-	//void SetEnemyDied(Enemy* pEnemy);
-	//void SetTargetEnemy(Enemy* pEnemy);
+	void SetEnemyDied(Enemy* pEnemy);
+	void SetTargetEnemy(Enemy* pEnemy);
 
 	// Looking
 	void SetTargetForwardToLookAtPoint(vec3 point);
@@ -270,7 +268,7 @@ private:
 	ItemManager* m_pItemManager;
 	QubicleBinaryManager* m_pQubicleBinaryManager;
 	ProjectileManager* m_pProjectileManager;
-	//EnemyManager* m_pEnemyManager; // TODO : ENEMY
+	EnemyManager* m_pEnemyManager;
 
 	// Erase flag
 	bool m_erase;
@@ -439,7 +437,7 @@ private:
 	float m_animationTimer;
 
 	// Target enemy
-	//Enemy* m_pTargetEnemy; // TODO : ENEMY
+	Enemy* m_pTargetEnemy;
 
 	// Voxel character
 	VoxelCharacter* m_pVoxelCharacter;
