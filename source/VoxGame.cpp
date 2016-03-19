@@ -770,6 +770,13 @@ bool VoxGame::CheckInteractions()
 		return false;
 	}
 
+	// TODO : Player enemy target
+	//if (m_pPlayer->GetTargetEnemy() != NULL)
+	//{
+	//	// Don't allow interactions while we are in target mode
+	//	return false;
+	//}
+
 	// Check item interactions
 	m_interactItemMutex.lock();
 	if (interaction == false && m_pInteractItem != NULL)
