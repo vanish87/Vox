@@ -319,7 +319,7 @@ Item* ItemManager::CheckItemPlayerInteraction()
 
 bool needs_erasing(Item* aI)
 {
-	bool needsErase = aI->NeedsErasing(); // TODO : REDO && aI->IsSaved();
+	bool needsErase = aI->NeedsErasing();
 
 	if(needsErase == true)
 	{
