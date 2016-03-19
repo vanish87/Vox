@@ -370,7 +370,7 @@ void Player::DoDamage(float amount, Colour textColour, vec3 knockbackDirection, 
 		// Do an animated text effect
 		vec3 screenposition = GetCenter() + vec3(GetRandomNumber(-1, 1, 2)*0.25f, 0.0f, GetRandomNumber(-1, 1, 2)*0.25f);
 		char damageText[32];
-		sprintf_s(damageText, 32, "%i", (int)amount);
+		sprintf(damageText, "%i", (int)amount);
 		AnimatedText* lpTestTextEffect = m_pTextEffectsManager->CreateTextEffect(VoxGame::GetInstance()->GetFrontendManager()->GetTextEffectFont(), VoxGame::GetInstance()->GetFrontendManager()->GetTextEffectOutlineFont(), VoxGame::GetInstance()->GetDefaultViewport(), TextDrawMode_3D_Screen, TextEffect_FadeUp, TextDrawStyle_Outline, screenposition, textColour, Colour(0.0f, 0.0f, 0.0f), damageText, 1.0f);
 		lpTestTextEffect->SetAutoDelete(true);
 		lpTestTextEffect->StartEffect();
@@ -479,11 +479,11 @@ void Player::Explode()
 	char tombstoneFilename[64];
 	if (GetRandomNumber(0, 100) > 35)
 	{
-		sprintf_s(tombstoneFilename, 64, "media/gamedata/items/Tombstone/tombstone1.item");
+		sprintf(tombstoneFilename, "media/gamedata/items/Tombstone/tombstone1.item");
 	}
 	else
 	{
-		sprintf_s(tombstoneFilename, 64, "media/gamedata/items/Tombstone/tombstone2.item");
+		sprintf(tombstoneFilename, "media/gamedata/items/Tombstone/tombstone2.item");
 	}
 	Item* pTombstone = m_pItemManager->CreateItem(GetCenter(), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), tombstoneFilename, eItem_Tombstone, "Tombstone", false, false, 0.08f);
 	pTombstone->SetVelocity(vec3(0.0f, 10.0f, 0.0f));
