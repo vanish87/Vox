@@ -120,7 +120,7 @@
   - [ ]  Enemy spawners.
 - [ ]  Add VLD support to debug version, allow for memory leak detection.
 - [ ]  Add audio and music playback.
-- [ ]  Add scenery manager.
+- [x]  Add scenery manager.
   - [ ]  Add scenery to work, generation based on point distribution, poisson disc, etc.
   - [ ]  Flower generation.
   - [ ]  Poisson-disc sparation and generation for random placement of scenery.
