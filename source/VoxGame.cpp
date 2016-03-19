@@ -603,6 +603,9 @@ void VoxGame::QuitToFrontEnd()
 	GameModeChanged();
 	CameraModeChanged();
 
+	// Make sure that movement speed drag is reset, so that we dont carry on moving after quitting and restarting game
+	m_movementSpeed = 0.0f;
+
 	// Set front-end page to intro
 	m_pFrontendManager->SetFrontendScreen(FrontendScreen_MainMenu);
 }
@@ -657,6 +660,12 @@ void VoxGame::SetGameMode(GameMode mode)
 			// Clear the items
 			m_pItemManager->ClearItems();
 
+			// Clear the NPCs
+			m_pNPCManager->ClearNPCs();
+
+			// Reset the player
+			m_pPlayer->ResetPlayer();
+
 			// Unload actionbar
 			if (m_pActionBar->IsLoaded())
 			{
@@ -677,6 +686,9 @@ void VoxGame::SetGameMode(GameMode mode)
 
 			// Clear the items
 			m_pItemManager->ClearItems();
+
+			// Clear the NPCs
+			m_pNPCManager->ClearNPCs();
 
 			// Reset the player
 			m_pPlayer->ResetPlayer();
