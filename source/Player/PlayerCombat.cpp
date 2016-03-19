@@ -420,7 +420,7 @@ void Player::Explode()
 	// TODO : Player died
 	//m_pGameWindow->ReleaseEnemyTarget();
 	//m_pGameWindow->GetHUD()->PlayerDied();
-	//m_pGameWindow->CloseAllGUIWindows();
+	VoxGame::GetInstance()->CloseAllGUIWindows();
 
 	CalculateWorldTransformMatrix();
 

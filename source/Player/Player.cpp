@@ -2531,6 +2531,11 @@ void Player::UpdateCombat(float dt)
 // Rendering
 void Player::Render()
 {
+	if (IsDead())
+	{
+		return;
+	}
+
 	Colour OulineColour(1.0f, 1.0f, 0.0f, 1.0f);
 	m_pRenderer->PushMatrix();
 		m_pRenderer->MultiplyWorldMatrix(m_worldMatrix);
@@ -2549,6 +2554,11 @@ void Player::Render()
 
 void Player::RenderFirstPerson()
 {
+	if (IsDead())
+	{
+		return;
+	}
+
 	Colour OulineColour(1.0f, 1.0f, 0.0f, 1.0f);
 	m_pRenderer->PushMatrix();
 		m_pVoxelCharacter->RenderWeapons(false, false, false, OulineColour);
@@ -2566,6 +2576,11 @@ void Player::RenderWeaponTrails()
 
 void Player::RenderFace()
 {
+	if (IsDead())
+	{
+		return;
+	}
+
 	m_pRenderer->PushMatrix();
 		m_pRenderer->MultiplyWorldMatrix(m_worldMatrix);
 		m_pRenderer->EmptyTextureIndex(0);

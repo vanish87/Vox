@@ -221,22 +221,25 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 		{
 			if (GetGameMode() == GameMode_Game)
 			{
-				if (m_pInventoryGUI->IsLoaded())
+				if (m_pPlayer->IsDead() == false)
 				{
-					m_pInventoryGUI->Unload();
-
-					if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
+					if (m_pInventoryGUI->IsLoaded())
 					{
-						TurnCursorOff();
+						m_pInventoryGUI->Unload();
+
+						if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
+						{
+							TurnCursorOff();
+						}
 					}
-				}
-				else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_None)
-				{
-					m_pInventoryGUI->Load();
+					else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_None)
+					{
+						m_pInventoryGUI->Load();
 
-					m_pPlayer->StopMoving();
+						m_pPlayer->StopMoving();
 
-					TurnCursorOn(true);
+						TurnCursorOn(true);
+					}
 				}
 			}
 			break;
@@ -245,22 +248,25 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 		{
 			if (GetGameMode() == GameMode_Game)
 			{
-				if (m_pCharacterGUI->IsLoaded())
+				if (m_pPlayer->IsDead() == false)
 				{
-					m_pCharacterGUI->Unload();
-
-					if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
+					if (m_pCharacterGUI->IsLoaded())
 					{
-						TurnCursorOff();
+						m_pCharacterGUI->Unload();
+
+						if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
+						{
+							TurnCursorOff();
+						}
 					}
-				}
-				else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_None)
-				{
-					m_pCharacterGUI->Load();
+					else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_None)
+					{
+						m_pCharacterGUI->Load();
 
-					m_pPlayer->StopMoving();
+						m_pPlayer->StopMoving();
 
-					TurnCursorOn(true);
+						TurnCursorOn(true);
+					}
 				}
 			}
 			break;
@@ -426,22 +432,27 @@ void VoxGame::MouseMiddleReleased()
 
 void VoxGame::MouseScroll(double x, double y)
 {
-	if (m_bPaused == false)
-	{
-		if (m_pVoxWindow->IsCursorOn() == false || !m_pGUI->IsMouseInteractingWithGUIComponent(false))
-		{
-			if (m_cameraMode != CameraMode_FirstPerson)
-			{
-				m_maxCameraDistance += (float)(-y*0.5f);
+	GameMode gameMode = GetGameMode();
 
-				WrapCameraZoomValue();
-			}
-			else
+	if (m_pPlayer->IsDead() == false || (gameMode == GameMode_Debug || m_cameraMode == CameraMode_Debug))
+	{
+		if (m_bPaused == false)
+		{
+			if (m_pVoxWindow->IsCursorOn() == false || !m_pGUI->IsMouseInteractingWithGUIComponent(false))
 			{
-				if (y < 0.0f)
+				if (m_cameraMode != CameraMode_FirstPerson)
 				{
-					m_cameraDistance = 2.0f;
-					m_maxCameraDistance = 2.0f;
+					m_maxCameraDistance += (float)(-y*0.5f);
+
+					WrapCameraZoomValue();
+				}
+				else
+				{
+					if (y < 0.0f)
+					{
+						m_cameraDistance = 2.0f;
+						m_maxCameraDistance = 2.0f;
+					}
 				}
 			}
 		}
