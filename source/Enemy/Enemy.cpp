@@ -3497,11 +3497,13 @@ void Enemy::UpdateTouchCombat(float dt)
 		float knockbackAmount = 16.0f;
 		if(m_pTargetNPC != NULL)
 		{
+			// Collision damage for NPC
 			m_pTargetNPC->SetTargetEnemy(this);
 			m_pTargetNPC->DoDamage(15.0f, damageColour, knockbackDirection, knockbackAmount, false);
 		}
 		else
 		{
+			// Collision damage for player
 			m_pPlayer->DoDamage(15.0f, damageColour, knockbackDirection, knockbackAmount, false);
 		}
 
