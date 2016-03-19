@@ -640,7 +640,7 @@ void VoxGame::SetupDataForGame()
 	//pCharacter1->SetMoveToPlayer(true);
 
 	// Enemies
-	Enemy* pEnemy0 = m_pEnemyManager->CreateEnemy(vec3(35.5f, 12.0f, 5.5f), eEnemyType_TargetDummy, 0.08f);
+	Enemy* pEnemy0 = m_pEnemyManager->CreateEnemy(vec3(35.5f, 12.0f, 5.5f), eEnemyType_RedSlime, 0.08f);
 }
 
 void VoxGame::SetupDataForFrontEnd()
