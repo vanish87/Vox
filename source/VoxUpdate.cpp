@@ -115,6 +115,12 @@ void VoxGame::Update()
 	// Update the chunk manager
 	m_pChunkManager->Update(m_deltaTime);
 
+	// Update name picking
+	if (m_pGUI->IsMouseInteractingWithGUIComponent(false) == false)
+	{
+		UpdateNamePicking();
+	}
+
 	// Update controls
 	UpdateControls(m_deltaTime);
 
@@ -166,6 +172,47 @@ void VoxGame::Update()
 	// Update the application and window
 	m_pVoxApplication->Update(m_deltaTime);
 	m_pVoxWindow->Update(m_deltaTime);
+}
+
+void VoxGame::UpdateNamePicking()
+{
+	POINT lMouse = { VoxGame::GetInstance()->GetWindowCursorX(), (m_windowHeight - VoxGame::GetInstance()->GetWindowCursorY()) };
+
+	glPushAttrib(GL_LIST_BIT | GL_CURRENT_BIT | GL_ENABLE_BIT | GL_TRANSFORM_BIT);
+	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);  // Disabled rendering
+
+	//m_pRenderer->PushMatrix();
+		// Set the projection mode
+		m_pRenderer->SetProjectionMode(PM_PERSPECTIVE, m_defaultViewport);
+
+		m_pRenderer->StartNamePicking(m_defaultViewport, lMouse.x, lMouse.y);
+
+		// Set the lookat camera
+		m_pGameCamera->Look();
+
+		// Init name picking
+		m_pRenderer->InitNameStack();
+
+		m_pNPCManager->RenderNamePicking();
+
+		// End name stack
+		m_pRenderer->EndNameStack();
+
+		// End the name picking
+		m_pickedObject = m_pRenderer->GetPickedObject();
+	//m_pRenderer->PopMatrix();
+
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);   // Enable rendering
+	glPopAttrib();
+
+	if (m_pickedObject != -1)
+	{
+		m_bNamePickingSelected = true;
+	}
+	else
+	{
+		m_bNamePickingSelected = false;
+	}
 }
 
 void VoxGame::UpdatePlayerAlpha(float dt)

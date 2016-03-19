@@ -360,6 +360,19 @@ void VoxGame::MouseLeftPressed()
 			m_bAttackPressed_Mouse = true;
 		}
 	}
+
+	// For front-end character selection
+	if (m_gameMode == GameMode_FrontEnd && !m_pGUI->IsMouseInteractingWithGUIComponent(false))
+	{
+		if (m_bNamePickingSelected) 
+		{
+			m_pNPCManager->UpdateNamePickingSelection(m_pickedObject);
+		}
+		else
+		{
+			m_pNPCManager->UpdateNamePickingSelection(-1);
+		}
+	}
 }
 
 void VoxGame::MouseLeftReleased()

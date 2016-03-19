@@ -17,6 +17,7 @@
 
 #include "FrontendPage.h"
 #include "FrontendScreens.h"
+#include "../NPC/NPCManager.h"
 #include "../Renderer/Renderer.h"
 #include "../Renderer/camera.h"
 #include "../gui/icon.h"
@@ -159,6 +160,8 @@ public:
 	// Frontend functionality
 	void SetOptionsReturnToMainMenu(bool mainMenu);
 	void SetModsMenuReturnToMainMenu(bool mainMenu);
+	void SetHoverNPC(NPC* pHoverNPC);
+	void SetSelectedNPC(NPC* pSelectedNPC);
 
 	// Constants
 	float GetToolTipAppearDelay() { return m_tooltipAppearDelay; }

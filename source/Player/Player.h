@@ -74,6 +74,10 @@ public:
 	// Accessors / Setters
 	void SetName(string name);
 	string GetName();
+	void SetType(string typeName);
+	string GetType();
+	void SetModelname(string modelName);
+	string GetModelName();
 	void SetRespawnPosition(vec3 pos);
 	vec3 GetRespawnPosition();
 	vec3 GetCenter();
@@ -278,6 +282,8 @@ private:
 public:
 	/* Public members */
 	static const vec3 PLAYER_CENTER_OFFSET;
+
+	static const int PLAYER_NAME_PICKING = 1;
 
 protected:
 	/* Protected members */

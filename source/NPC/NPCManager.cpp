@@ -308,110 +308,105 @@ void NPCManager::SetWireFrameRender(bool wireframe)
 }
 
 // Updating
-// TODO : NPC Name picking
-//void NPCManager::UpdateNamePickingSelection(int pickingId)
-//{
-//	m_NPCMutex.lock();
-//	for(unsigned int i = 0; i < m_vpNPCList.size(); i++)
-//	{
-//		NPC* pNPC = m_vpNPCList[i];
-//
-//		if(pNPC->IsCreditsNPC())
-//		{
-//			// Don't allow selection of credits NPCs for credits screen
-//			continue;
-//		}
-//
-//		if(pNPC->GetSubSelectionRender())
-//		{
-//			pNPC->UpdateSubSelectionNamePicking(pickingId, true);
-//		}
-//		else
-//		{
-//			if(pickingId == Player::PLAYER_NAME_PICKING + 100 + i)
-//			{
-//				if(pNPC->HasReachedTargetPosition())
-//				{
-//					pNPC->SetOutlineRender(true);
-//
-//					m_NPCMutex.unlock(); // Needs to unlock for Set selection function
-//					m_pGUIHelper->SetSelection(SelectedObjectType_NPC, pNPC->GetName());
-//					m_NPCMutex.lock(); // Lock again
-//
-//					// Character selection and creation screens
-//					if(m_pGameWindow->GetGameMode() == GameMode_FrontEnd)
-//					{
-//						m_pGameWindow->GetFrontEndManager()->SetSelectedNPC(pNPC);
-//					}
-//				}
-//			}
-//			else
-//			{
-//				pNPC->SetOutlineRender(false);
-//			}
-//		}
-//	}
-//	m_NPCMutex.unlock();
-//
-//	if(pickingId == -1)
-//	{
-//		// Character selection and creation screens
-//		if(m_pGameWindow->GetGameMode() == GameMode_FrontEnd)
-//		{
-//			m_pGameWindow->GetFrontEndManager()->SetSelectedNPC(NULL);
-//		}
-//	}
-//}
-//
-//void NPCManager::UpdateHoverNamePickingSelection(int pickingId)
-//{
-//	m_NPCMutex.lock();
-//	for(unsigned int i = 0; i < m_vpNPCList.size(); i++)
-//	{
-//		NPC* pNPC = m_vpNPCList[i];
-//
-//		if(pNPC->IsCreditsNPC())
-//		{
-//			// Don't allow hover of credits NPCs for credits screen
-//			continue;
-//		}
-//
-//		if(pNPC->GetSubSelectionRender())
-//		{
-//			pNPC->UpdateSubSelectionNamePicking(pickingId, false);
-//		}
-//		else
-//		{
-//			if(pickingId == Player::PLAYER_NAME_PICKING + 100 + i)
-//			{
-//				if(pNPC->HasReachedTargetPosition())
-//				{
-//					pNPC->SetHoverRender(true);
-//
-//					// Character selection and creation screens
-//					if(m_pGameWindow->GetGameMode() == GameMode_FrontEnd)
-//					{
-//						m_pGameWindow->GetFrontEndManager()->SetHoverNPC(pNPC);
-//					}
-//				}
-//			}
-//			else
-//			{
-//				pNPC->SetHoverRender(false);
-//			}
-//		}
-//	}
-//	m_NPCMutex.unlock();
-//
-//	if(pickingId == -1)
-//	{
-//		// Character selection and creation screens
-//		if(m_pGameWindow->GetGameMode() == GameMode_FrontEnd)
-//		{
-//			m_pGameWindow->GetFrontEndManager()->SetHoverNPC(NULL);
-//		}
-//	}
-//}
+void NPCManager::UpdateNamePickingSelection(int pickingId)
+{
+	m_NPCMutex.lock();
+	for(unsigned int i = 0; i < m_vpNPCList.size(); i++)
+	{
+		NPC* pNPC = m_vpNPCList[i];
+
+		if(pNPC->IsCreditsNPC())
+		{
+			// Don't allow selection of credits NPCs for credits screen
+			continue;
+		}
+
+		if(pNPC->GetSubSelectionRender())
+		{
+			pNPC->UpdateSubSelectionNamePicking(pickingId, true);
+		}
+		else
+		{
+			if(pickingId == Player::PLAYER_NAME_PICKING + 100 + i)
+			{
+				if(pNPC->HasReachedTargetPosition())
+				{
+					pNPC->SetOutlineRender(true);
+
+					// Character selection and creation screens
+					if(VoxGame::GetInstance()->GetGameMode() == GameMode_FrontEnd)
+					{
+						VoxGame::GetInstance()->GetFrontendManager()->SetSelectedNPC(pNPC);
+					}
+				}
+			}
+			else
+			{
+				pNPC->SetOutlineRender(false);
+			}
+		}
+	}
+	m_NPCMutex.unlock();
+
+	if(pickingId == -1)
+	{
+		// Character selection and creation screens
+		if(VoxGame::GetInstance()->GetGameMode() == GameMode_FrontEnd)
+		{
+			VoxGame::GetInstance()->GetFrontendManager()->SetSelectedNPC(NULL);
+		}
+	}
+}
+
+void NPCManager::UpdateHoverNamePickingSelection(int pickingId)
+{
+	m_NPCMutex.lock();
+	for(unsigned int i = 0; i < m_vpNPCList.size(); i++)
+	{
+		NPC* pNPC = m_vpNPCList[i];
+
+		if(pNPC->IsCreditsNPC())
+		{
+			// Don't allow hover of credits NPCs for credits screen
+			continue;
+		}
+
+		if(pNPC->GetSubSelectionRender())
+		{
+			pNPC->UpdateSubSelectionNamePicking(pickingId, false);
+		}
+		else
+		{
+			if(pickingId == Player::PLAYER_NAME_PICKING + 100 + i)
+			{
+				if(pNPC->HasReachedTargetPosition())
+				{
+					pNPC->SetHoverRender(true);
+
+					// Character selection and creation screens
+					if(VoxGame::GetInstance()->GetGameMode() == GameMode_FrontEnd)
+					{
+						VoxGame::GetInstance()->GetFrontendManager()->SetHoverNPC(pNPC);
+					}
+				}
+			}
+			else
+			{
+				pNPC->SetHoverRender(false);
+			}
+		}
+	}
+	m_NPCMutex.unlock();
+
+	if(pickingId == -1)
+	{
+		// Character selection and creation screens
+		if(VoxGame::GetInstance()->GetGameMode() == GameMode_FrontEnd)
+		{
+			VoxGame::GetInstance()->GetFrontendManager()->SetHoverNPC(NULL);
+		}
+	}
+}
 
 void NPCManager::UpdateWeaponLights(float dt)
 {
@@ -710,39 +705,39 @@ void NPCManager::RenderWeaponTrails()
 	m_NPCMutex.unlock();
 }
 
-// TODO : NPC Name picking
-//void NPCManager::RenderNamePicking()
-//{
-//	m_NPCMutex.lock();
-//	for(unsigned int i = 0; i < m_vpNPCList.size(); i++)
-//	{
-//		NPC* pNPC = m_vpNPCList[i];
-//
-//		if(m_pChunkManager->IsInsideLoader(pNPC->GetCenter()) == false)
-//		{
-//			continue;
-//		}
-//
-//		if(pNPC->GetSubSelectionRender())
-//		{
-//			// If we are sub selecting this NPC parts, render the name picking seperately
-//			if(m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), pNPC->GetCenter(), pNPC->GetRadius()))
-//			{
-//				pNPC->RenderSubSelectionNamePicking();
-//			}
-//		}
-//		else
-//		{
-//			if(m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), pNPC->GetCenter(), pNPC->GetRadius()))
-//			{
-//				m_pRenderer->LoadNameOntoStack(Player::PLAYER_NAME_PICKING + 100 + i);
-//				pNPC->Render(false, false, false);
-//				m_pRenderer->EndNameStack();
-//			}
-//		}
-//	}
-//	m_NPCMutex.unlock();
-//}
+void NPCManager::RenderNamePicking()
+{
+	m_NPCMutex.lock();
+	for(unsigned int i = 0; i < m_vpNPCList.size(); i++)
+	{
+		NPC* pNPC = m_vpNPCList[i];
+
+		// TODO : Loader radius culling
+		//if(m_pChunkManager->IsInsideLoader(pNPC->GetCenter()) == false)
+		//{
+		//	continue;
+		//}
+
+		if(pNPC->GetSubSelectionRender())
+		{
+			// If we are sub selecting this NPC parts, render the name picking seperately
+			if(m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), pNPC->GetCenter(), pNPC->GetRadius()))
+			{
+				pNPC->RenderSubSelectionNamePicking();
+			}
+		}
+		else
+		{
+			if(m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), pNPC->GetCenter(), pNPC->GetRadius()))
+			{
+				m_pRenderer->LoadNameOntoStack(Player::PLAYER_NAME_PICKING + 100 + i);
+				pNPC->Render(false, false, false);
+				m_pRenderer->EndNameStack();
+			}
+		}
+	}
+	m_NPCMutex.unlock();
+}
 
 void NPCManager::RenderOutlineNPCs()
 {

@@ -71,6 +71,10 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_deltaTime = 0.0f;
 	m_fps = 0.0f;
 
+	/* Mouse name picking */
+	m_pickedObject = -1;
+	m_bNamePickingSelected = false;
+
 	/* Paper doll viewport dimensions */
 	m_paperdollViewportX = 0;
 	m_paperdollViewportY = 0;

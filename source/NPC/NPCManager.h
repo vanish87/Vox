@@ -69,9 +69,8 @@ public:
 	void SetWireFrameRender(bool wireframe);
 
 	// Updating
-	// TODO : NPC Name picking
-	//void UpdateNamePickingSelection(int pickingId);
-	//void UpdateHoverNamePickingSelection(int pickingId);
+	void UpdateNamePickingSelection(int pickingId);
+	void UpdateHoverNamePickingSelection(int pickingId);
 	void UpdateWeaponLights(float dt);
 	void UpdateWeaponParticleEffects(float dt);
 	void Update(float dt);
@@ -84,8 +83,7 @@ public:
 	void Render(bool outline, bool reflection, bool silhouette, bool renderOnlyOutline, bool renderOnlyNormal, bool shadow);
 	void RenderFaces();
 	void RenderWeaponTrails();
-	// TODO : NPC Name picking
-	//void RenderNamePicking();
+	void RenderNamePicking();
 	void RenderOutlineNPCs();
 	void RenderSubSelectionNPCs();
 	void RenderSubSelectionNormalNPCs();

@@ -217,6 +217,26 @@ string Player::GetName()
 	return m_name;
 }
 
+void Player::SetType(string typeName)
+{
+	m_type = typeName;
+}
+
+string Player::GetType()
+{
+	return m_type;
+}
+
+void Player::SetModelname(string modelName)
+{
+	m_modelName = modelName;
+}
+
+string Player::GetModelName()
+{
+	return m_modelName;
+}
+
 void Player::SetRespawnPosition(vec3 pos)
 {
 	m_respawnPosition = pos;

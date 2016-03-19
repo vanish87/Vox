@@ -177,6 +177,7 @@ public:
 
 	// Updating
 	void Update();
+	void UpdateNamePicking();
 	void UpdatePlayerAlpha(float dt);
 	void UpdateLights(float dt);
 	void UpdateGUI(float dt);
@@ -348,6 +349,10 @@ private:
 
 	// Mods manager
 	ModsManager* m_pModsManager;
+
+	// Mouse picking
+	int m_pickedObject;
+	bool m_bNamePickingSelected;
 
 	// Game mode
 	GameMode m_gameMode;

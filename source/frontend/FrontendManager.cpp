@@ -536,6 +536,34 @@ void FrontendManager::SetModsMenuReturnToMainMenu(bool mainMenu)
 	}
 }
 
+void FrontendManager::SetHoverNPC(NPC* pHoverNPC)
+{
+	if (m_currentScreen == FrontendScreen_SelectCharacter)
+	{
+		// TODO : SetHoverNPC()
+		//((SelectCharacter*)m_currentPage)->SetHoverNPC(pHoverNPC);
+	}
+	else if (m_currentScreen == FrontendScreen_CreateCharacter)
+	{
+		// TODO : SetHoverNPC()
+		//((CreateCharacter*)m_currentPage)->SetHoverNPC(pHoverNPC);
+	}
+}
+
+void FrontendManager::SetSelectedNPC(NPC* pSelectedNPC)
+{
+	if (m_currentScreen == FrontendScreen_SelectCharacter)
+	{
+		// TODO : SetSelectedNPC()
+		//((SelectCharacter*)m_currentPage)->SetSelectedNPC(pSelectedNPC);
+	}
+	else if (m_currentScreen == FrontendScreen_CreateCharacter)
+	{
+		// TODO : SetSelectedNPC()
+		//((CreateCharacter*)m_currentPage)->SetSelectedNPC(pSelectedNPC);
+	}
+}
+
 // Updating
 void FrontendManager::Update(float dt)
 {

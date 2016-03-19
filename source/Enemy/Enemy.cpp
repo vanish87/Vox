@@ -474,9 +474,8 @@ void Enemy::SetupEnemyForType()
 		break;
 	case eEnemyType_Doppelganger:
 		{
-			// TODO : eEnemyType_Doppelganger
-			//m_typeString = m_pPlayer->GetType();
-			//m_modelNameString = m_pPlayer->GetModelName();
+			m_typeString = m_pPlayer->GetType();
+			m_modelNameString = m_pPlayer->GetModelName();
 		}
 		break;
 
