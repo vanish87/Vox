@@ -231,7 +231,7 @@ bool Player::CanAttackRight()
 
 void Player::CheckProjectileDamageRadius(Projectile* pProjectile)
 {
-	if (m_dead == true)
+	if (IsDead())
 	{
 		return;
 	}
@@ -339,7 +339,7 @@ void Player::CheckProjectileDamageRadius(Projectile* pProjectile)
 
 void Player::DoDamage(float amount, Colour textColour, vec3 knockbackDirection, float knockbackAmount, bool createParticleHit)
 {
-	if (m_dead == true)
+	if (IsDead())
 	{
 		return;
 	}
@@ -392,7 +392,7 @@ void Player::DoDamage(float amount, Colour textColour, vec3 knockbackDirection, 
 		m_damageTimer = m_damageTime;
 	}
 
-	if (m_dead == true)
+	if (IsDead())
 	{
 		return;
 	}
@@ -407,7 +407,7 @@ void Player::DoDamage(float amount, Colour textColour, vec3 knockbackDirection, 
 
 void Player::Explode()
 {
-	if (m_dead == true)
+	if (IsDead())
 	{
 		return;
 	}
@@ -496,7 +496,7 @@ void Player::Explode()
 
 void Player::Respawn()
 {
-	if (m_dead == false)
+	if (IsDead() == false)
 	{
 		return;
 	}
