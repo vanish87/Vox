@@ -163,6 +163,11 @@ public:
 	void Explode();
 	void Respawn();
 
+	// Enemy target
+	void SetEnemyDied(Enemy* pEnemy);
+	void SetTargetEnemy(Enemy* pTargetEnemy);
+	Enemy* GetTargetEnemy();
+
 	// Crafting
 	void SetCrafting(bool crafting);
 	void SetCraftingItem(bool crafting);
@@ -408,6 +413,9 @@ private:
 	bool m_bCanInteruptCombatAnim;
 	bool m_bCanThrowWeapon;
 	float m_bowAttackDelay;
+
+	// Target enemy pointer, used for target camera
+	Enemy* m_pTargetEnemy;
 
 	// Projectile hitbox
 	eProjectileHitboxType m_eProjectileHitboxType;

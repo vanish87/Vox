@@ -397,6 +397,11 @@ void VoxGame::MouseRightPressed()
 		m_pGUI->MousePressed(MOUSE_BUTTON2);
 	}
 
+	if (m_gameMode == GameMode_Game && m_cameraMode != CameraMode_FirstPerson)
+	{
+		SetEnemyTarget();
+	}
+
 	if (m_pVoxWindow->IsCursorOn() == false || !m_pGUI->IsMouseInteractingWithGUIComponent(false))
 	{
 		m_currentX = m_pVoxWindow->GetCursorX();
@@ -412,6 +417,8 @@ void VoxGame::MouseRightReleased()
 	{
 		m_pGUI->MouseReleased(MOUSE_BUTTON2);
 	}
+
+	ReleaseEnemyTarget();
 }
 
 void VoxGame::MouseMiddlePressed()
@@ -438,20 +445,23 @@ void VoxGame::MouseScroll(double x, double y)
 	{
 		if (m_bPaused == false)
 		{
-			if (m_pVoxWindow->IsCursorOn() == false || !m_pGUI->IsMouseInteractingWithGUIComponent(false))
+			if (m_pPlayer->GetTargetEnemy() == NULL) // Don't allow mouse zooming when we are an enemy target.
 			{
-				if (m_cameraMode != CameraMode_FirstPerson)
+				if (m_pVoxWindow->IsCursorOn() == false || !m_pGUI->IsMouseInteractingWithGUIComponent(false))
 				{
-					m_maxCameraDistance += (float)(-y*0.5f);
-
-					WrapCameraZoomValue();
-				}
-				else
-				{
-					if (y < 0.0f)
+					if (m_cameraMode != CameraMode_FirstPerson)
 					{
-						m_cameraDistance = 2.0f;
-						m_maxCameraDistance = 2.0f;
+						m_maxCameraDistance += (float)(-y*0.5f);
+
+						WrapCameraZoomValue();
+					}
+					else
+					{
+						if (y < 0.0f)
+						{
+							m_cameraDistance = 2.0f;
+							m_maxCameraDistance = 2.0f;
+						}
 					}
 				}
 			}

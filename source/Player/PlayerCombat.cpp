@@ -417,9 +417,9 @@ void Player::Explode()
 	m_bIsChargingAttack = false;
 	m_chargeAmount = 0.0f;
 
-	// TODO : Player died
-	//m_pGameWindow->ReleaseEnemyTarget();
+	// TODO : HUD
 	//m_pGameWindow->GetHUD()->PlayerDied();
+	VoxGame::GetInstance()->ReleaseEnemyTarget();
 	VoxGame::GetInstance()->CloseAllGUIWindows();
 
 	CalculateWorldTransformMatrix();
@@ -519,6 +519,65 @@ void Player::Respawn()
 	}
 
 	m_dead = false;
+}
+
+// Enemy target
+void Player::SetEnemyDied(Enemy* pEnemy)
+{
+	if (m_pTargetEnemy == pEnemy)
+	{
+		SetTargetEnemy(NULL);
+	}
+}
+
+void Player::SetTargetEnemy(Enemy* pTargetEnemy)
+{
+	m_pTargetEnemy = pTargetEnemy;
+
+	if (m_pTargetEnemy != NULL)
+	{
+		vec3 toTarget = m_pTargetEnemy->GetCenter() - GetCenter();
+		toTarget.y = 0.0f;
+		m_forward = normalize(toTarget);
+
+		CalculateWorldTransformMatrix();
+
+		if (IsBow())
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BowStance", 0.2f);
+		}
+		else if (Is2HandedSword())
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "2HandedSwordPose", 0.2f);
+		}
+		else
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "TargetPose", 0.2f);
+		}
+	}
+	else
+	{
+		SetRandomLookMode();
+
+		if (IsStaff())
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "StaffPose", 0.15f);
+		}
+		else if (IsSpellHands())
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "HandSpellCastPose", 0.15f);
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "HandSpellCastPose", 0.15f);
+		}
+		else if (m_bIsChargingAttack == false)
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BindPose", 0.2f);
+		}
+	}
+}
+
+Enemy* Player::GetTargetEnemy()
+{
+	return m_pTargetEnemy;
 }
 
 // Projectile hitbox

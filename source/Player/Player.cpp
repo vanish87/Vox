@@ -141,6 +141,9 @@ void Player::ResetPlayer()
 	m_hitFacialExpressionTime = 0.4f;
 	m_hitFacialExpressionTimer = m_hitFacialExpressionTime;
 
+	// Target enemy
+	m_pTargetEnemy = NULL;
+
 	// Idle flag
 	m_bIsIdle = true;
 
@@ -1181,10 +1184,34 @@ vec3 Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeFo
 
 void Player::Move(const float speed)
 {
+	vec3 movement = m_worldMatrix.GetForwardVector();
+
+	float movementSpeed = speed;
+
+	if (speed < 0.0f)
+	{
+		movement = -movement;
+		movementSpeed = -movementSpeed;
+	}
+
+	MoveAbsolute(movement, movementSpeed, false);
 }
 
 void Player::Strafe(const float speed)
 {
+	vec3 crossResult;
+	crossResult = cross(m_worldMatrix.GetUpVector(), m_worldMatrix.GetForwardVector());
+	crossResult = normalize(crossResult);
+
+	float movementSpeed = speed;
+
+	if (movementSpeed < 0.0f)
+	{
+		crossResult = -crossResult;
+		movementSpeed = -movementSpeed;
+	}
+
+	MoveAbsolute(crossResult, movementSpeed, false);
 }
 
 void Player::Levitate(const float speed)
@@ -2226,11 +2253,15 @@ void Player::UpdateWorking(float dt)
 
 void Player::UpdateLookingAndForwardTarget(float dt)
 {
-	// TODO : Target enemy
-	//if (m_pTargetEnemy != NULL)
-	//{
-	//	LookAtPoint(m_pTargetEnemy->GetCenter());
-	//}
+	if (m_pTargetEnemy != NULL)
+	{
+		LookAtPoint(m_pTargetEnemy->GetCenter());
+
+		vec3 toTarget = m_pTargetEnemy->GetCenter() - GetCenter();
+		toTarget.y = 0.0f;
+		m_forward = normalize(toTarget);
+		m_targetForward = m_forward;
+	}
 
 	vec3 toPoint = m_lookPoint - GetCenter();
 	toPoint = normalize(toPoint);
@@ -2502,7 +2533,18 @@ void Player::UpdateChargingAttack(float dt)
 			cameraMultiplier = 107.0f;
 		}
 
-		m_chargeSpawnVelocity = (m_forward * powerAmount) + (GetUpVector() * liftAmount) + (vec3(0.0f, 1.0f, 0.0f) * (m_cameraForward.y*cameraMultiplier) * m_chargeAmount);
+		if (m_pTargetEnemy)
+		{
+			// Enemy target
+			vec3 toTarget = m_pTargetEnemy->GetCenter() - GetCenter();
+			float toTargetDistance = length(toTarget);
+			liftAmount += toTargetDistance * 0.04f;
+			m_chargeSpawnVelocity = (normalize(toTarget) * powerAmount) + vec3(0.0f, liftAmount, 0.0f);
+		}
+		else
+		{
+			m_chargeSpawnVelocity = (m_forward * powerAmount) + (GetUpVector() * liftAmount) + (vec3(0.0f, 1.0f, 0.0f) * (m_cameraForward.y*cameraMultiplier) * m_chargeAmount);
+		}
 
 		if (VoxGame::GetInstance()->GetCameraMode() == CameraMode_FirstPerson)
 		{

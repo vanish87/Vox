@@ -161,6 +161,7 @@ void VoxGame::UpdateKeyboardControls(float dt)
 						}
 					}
 
+					// Forwards, backwards, strafe, left, right directional movement
 					if (m_bKeyboardForward)
 					{
 						if (resetMovementVector == false)
@@ -169,10 +170,17 @@ void VoxGame::UpdateKeyboardControls(float dt)
 							resetMovementVector = true;
 						}
 
-						vec3 cameraRight = m_pGameCamera->GetRight();
-						vec3 playerUp = m_pPlayer->GetUpVector();
-						vec3 moveDirection = normalize(cross(cameraRight, playerUp));
-						m_movementDirection -= moveDirection;
+						if (m_pPlayer->GetTargetEnemy() == NULL)
+						{
+							vec3 cameraRight = m_pGameCamera->GetRight();
+							vec3 playerUp = m_pPlayer->GetUpVector();
+							vec3 moveDirection = normalize(cross(cameraRight, playerUp));
+							m_movementDirection -= moveDirection;
+						}
+						else
+						{
+							m_pPlayer->Move(m_movementSpeed * dt);
+						}
 					}
 
 					if (m_bKeyboardBackward)
@@ -183,10 +191,17 @@ void VoxGame::UpdateKeyboardControls(float dt)
 							resetMovementVector = true;
 						}
 
-						vec3 cameraRight = m_pGameCamera->GetRight();
-						vec3 playerUp = m_pPlayer->GetUpVector();
-						vec3 moveDirection = normalize(cross(cameraRight, playerUp));
-						m_movementDirection += moveDirection;
+						if (m_pPlayer->GetTargetEnemy() == NULL)
+						{
+							vec3 cameraRight = m_pGameCamera->GetRight();
+							vec3 playerUp = m_pPlayer->GetUpVector();
+							vec3 moveDirection = normalize(cross(cameraRight, playerUp));
+							m_movementDirection += moveDirection;
+						}
+						else
+						{
+							m_pPlayer->Move(-m_movementSpeed * dt);
+						}
 					}
 
 					if (m_bKeyboardStrafeLeft)
@@ -197,9 +212,22 @@ void VoxGame::UpdateKeyboardControls(float dt)
 							resetMovementVector = true;
 						}
 
-						vec3 cameraRight = m_pGameCamera->GetRight();
-						vec3 moveDirection = -cameraRight;
-						m_movementDirection += moveDirection;
+						if (m_pPlayer->GetTargetEnemy() == NULL)
+						{
+							vec3 cameraRight = m_pGameCamera->GetRight();
+							vec3 moveDirection = -cameraRight;
+							m_movementDirection += moveDirection;
+						}
+						else
+						{
+							m_targetCameraXAxisAmount_Target += (0.75f * dt);
+							if (m_targetCameraXAxisAmount_Target > 1.0f)
+							{
+								m_targetCameraXAxisAmount_Target = 1.0f;
+							}
+
+							m_pPlayer->Strafe(m_movementSpeed * dt);
+						}
 					}
 
 					if (m_bKeyboardStrafeRight)
@@ -210,9 +238,22 @@ void VoxGame::UpdateKeyboardControls(float dt)
 							resetMovementVector = true;
 						}
 
-						vec3 cameraRight = m_pGameCamera->GetRight();
-						vec3 moveDirection = -cameraRight;
-						m_movementDirection -= moveDirection;
+						if (m_pPlayer->GetTargetEnemy() == NULL)
+						{
+							vec3 cameraRight = m_pGameCamera->GetRight();
+							vec3 moveDirection = -cameraRight;
+							m_movementDirection -= moveDirection;
+						}
+						else
+						{
+							m_targetCameraXAxisAmount_Target -= (0.75f * dt);
+							if (m_targetCameraXAxisAmount_Target < -1.0f)
+							{
+								m_targetCameraXAxisAmount_Target = -1.0f;
+							}
+
+							m_pPlayer->Strafe(-m_movementSpeed * dt);
+						}
 					}
 
 					if (length(m_movementDirection) > 0.001f && m_movementSpeed > m_movementStopThreshold)
@@ -277,6 +318,9 @@ void VoxGame::UpdateGamePadControls(float dt)
 	}
 	m_bAttackPressed_Joystick = m_pVoxWindow->GetJoystickAxisValue(0, 2) <= -0.75f;
 
+	m_bTargetEnemyPressed_Joystick = false; // TODO : Need to get newer version of glfw to support different triggers for LT, RT
+	m_bTargetEnemyReleased_Joystick = false; // TODO : Need to get newer version of glfw to support different triggers for LT, RT
+
 	GameMode gameMode = GetGameMode();
 	if (gameMode == GameMode_Debug || m_cameraMode == CameraMode_Debug)
 	{
@@ -313,6 +357,25 @@ void VoxGame::UpdateGamePadControls(float dt)
 					if (m_bJoystickJump)
 					{
 						m_pPlayer->Jump();
+					}
+
+					// Enemy targetting
+					if (m_cameraMode != CameraMode_FirstPerson)
+					{
+						if (m_bTargetEnemyPressed_Joystick)
+						{
+							if(m_pPlayer->GetTargetEnemy() == NULL)
+							{
+								SetEnemyTarget();
+							}
+						}
+						if (m_bTargetEnemyReleased_Joystick)
+						{
+							if (m_pPlayer->GetTargetEnemy() != NULL)
+							{
+								ReleaseEnemyTarget();
+							}
+						}
 					}
 
 					// Attacking
@@ -372,19 +435,37 @@ void VoxGame::UpdateGamePadControls(float dt)
 						}
 					}
 
-					vec3 cameraRight = m_pGameCamera->GetRight();
-					vec3 playerUp = m_pPlayer->GetUpVector();
-					vec3 moveDirection = normalize(cross(cameraRight, playerUp));
-					m_movementDirection += moveDirection * axisY;
-					m_movementDirection += cameraRight * axisX;
-
-					if (length(m_movementDirection) > 0.001f && m_movementSpeed > m_movementStopThreshold)
+					if (m_pPlayer->GetTargetEnemy() == NULL)
 					{
-						bool shouldChangePlayerFacing = (m_cameraMode != CameraMode_FirstPerson);
+						vec3 cameraRight = m_pGameCamera->GetRight();
+						vec3 playerUp = m_pPlayer->GetUpVector();
+						vec3 moveDirection = normalize(cross(cameraRight, playerUp));
+						m_movementDirection += moveDirection * axisY;
+						m_movementDirection += cameraRight * axisX;
 
-						m_movementDirection = normalize(m_movementDirection);
-						vec3 amountMoved = m_pPlayer->MoveAbsolute(m_movementDirection, m_movementSpeed * dt, shouldChangePlayerFacing);
-						m_pGameCamera->SetFakePosition(m_pGameCamera->GetFakePosition() + amountMoved);
+						if (length(m_movementDirection) > 0.001f && m_movementSpeed > m_movementStopThreshold)
+						{
+							bool shouldChangePlayerFacing = (m_cameraMode != CameraMode_FirstPerson);
+
+							m_movementDirection = normalize(m_movementDirection);
+							vec3 amountMoved = m_pPlayer->MoveAbsolute(m_movementDirection, m_movementSpeed * dt, shouldChangePlayerFacing);
+							m_pGameCamera->SetFakePosition(m_pGameCamera->GetFakePosition() + amountMoved);
+						}
+					}
+					else
+					{
+						m_targetCameraXAxisAmount_Target -= (axisX * dt);
+						if (m_targetCameraXAxisAmount_Target > 1.0f)
+						{
+							m_targetCameraXAxisAmount_Target = 1.0f;
+						}
+						if (m_targetCameraXAxisAmount_Target < -1.0f)
+						{
+							m_targetCameraXAxisAmount_Target = -1.0f;
+						}
+
+						m_pPlayer->Move(-axisY * 10.0f * dt);
+						m_pPlayer->Strafe(-axisX * 10.0f * dt);
 					}
 				}
 			}

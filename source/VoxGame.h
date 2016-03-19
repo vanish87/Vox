@@ -66,6 +66,7 @@ enum CameraMode
 	CameraMode_AutoCamera,
 	CameraMode_FirstPerson,
 	CameraMode_NPCDialog,
+	CameraMode_EnemyTarget,
 };
 
 class VoxGame
@@ -128,6 +129,7 @@ public:
 	void UpdateCameraAutoCamera(float dt, bool updateCameraPosition);
 	void UpdateCameraFirstPerson(float dt);
 	void UpdateCameraNPCDialog(float dt);
+	void UpdateCameraEnemyTarget(float dt);
 	void UpdateCameraClipping(float dt);
 	void UpdateCameraZoom(float dt);
 	bool ShouldRestorePreviousCameraMode();
@@ -168,6 +170,10 @@ public:
 	// Interactions
 	bool CheckInteractions();
 	Item* GetInteractItem();
+
+	// Enemy Targeting
+	void SetEnemyTarget();
+	void ReleaseEnemyTarget();
 
 	// Updating
 	void Update();
@@ -452,6 +458,8 @@ private:
 	bool m_bAttackPressed_Joystick;
 	bool m_bAttackReleased_Joystick;
 	bool m_bCanDoAttack_Joystick;
+	bool m_bTargetEnemyPressed_Joystick;
+	bool m_bTargetEnemyReleased_Joystick;
 
 	// Camera movement
 	bool m_bCameraRotate;
@@ -471,6 +479,12 @@ private:
 	// NPC dialog camera mode
 	vec3 m_targetCameraView_NPCDialog;
 	vec3 m_targetCameraPosition_NPCDialog;
+
+	// Enemy target camera mode
+	float m_targetCameraXAxisAmount;
+	float m_targetCameraXAxisAmount_Target;
+	float m_targetCameraYRatio;
+	float m_targetCameraForwardRatio;
 
 	// Camera clipping
 	vec3 m_targetCameraPositionBeforeClipping;

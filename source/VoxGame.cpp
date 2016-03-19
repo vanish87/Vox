@@ -303,6 +303,8 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_bAttackReleased_Joystick = false;
 	m_bCanDoAttack_Mouse = true;
 	m_bCanDoAttack_Joystick = true;
+	m_bTargetEnemyPressed_Joystick = false;
+	m_bTargetEnemyReleased_Joystick = false;
 
 	// Camera movement
 	m_bCameraRotate = false;
@@ -312,7 +314,15 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_currentY = 0;
 	m_cameraDistance = m_pGameCamera->GetZoomAmount();
 	m_maxCameraDistance = m_cameraDistance;
+
+	// Auto camera mode
 	m_autoCameraMovingModifier = 1.0f;
+
+	// Enemy target camera mode
+	m_targetCameraXAxisAmount = 0.0f;
+	m_targetCameraXAxisAmount_Target = 0.0f;
+	m_targetCameraYRatio = 0.0f;
+	m_targetCameraForwardRatio = 0.0f;
 
 	// Player movement
 	m_keyboardMovement = false;
@@ -772,12 +782,11 @@ bool VoxGame::CheckInteractions()
 		return false;
 	}
 
-	// TODO : Player enemy target
-	//if (m_pPlayer->GetTargetEnemy() != NULL)
-	//{
-	//	// Don't allow interactions while we are in target mode
-	//	return false;
-	//}
+	if (m_pPlayer->GetTargetEnemy() != NULL)
+	{
+		// Don't allow interactions while we are in target mode
+		return false;
+	}
 
 	// Check item interactions
 	m_interactItemMutex.lock();
@@ -916,6 +925,60 @@ bool VoxGame::CheckInteractions()
 Item* VoxGame::GetInteractItem()
 {
 	return m_pInteractItem;
+}
+
+// Enemy Targeting
+void VoxGame::SetEnemyTarget()
+{
+	if (m_pPlayer->IsDead() == false && m_pPlayer->GetTargetEnemy() == NULL)
+	{
+		// Get the enemy based on the cursor
+		int cursorX = (int)(m_windowWidth*0.5f);
+		int cursorY = (int)(m_windowHeight*0.5f);
+
+		Enemy* pEnemy = NULL;
+		pEnemy = m_pEnemyManager->GetCursorEnemy(m_pGameCamera, cursorX, cursorY);
+
+		if (pEnemy != NULL && pEnemy->GetErase() == false)
+		{
+			// Set the player's enemy pointer
+			m_pPlayer->SetTargetEnemy(pEnemy);
+			pEnemy->SetOutlineRender(true);
+
+			// Set player alpha
+			m_pPlayer->SetPlayerAlpha(0.6f);
+
+			// Set target camera
+			SavePreviousCameraMode();
+			m_shouldRestorePreviousCameraMode = true;
+			SetCameraMode(CameraMode_EnemyTarget);
+
+			// Open cinematic letter box
+			OpenLetterBox();
+		}
+	}
+}
+
+void VoxGame::ReleaseEnemyTarget()
+{
+	if (m_pPlayer->GetTargetEnemy() != NULL)
+	{
+		m_pPlayer->GetTargetEnemy()->SetOutlineRender(false);
+		m_pPlayer->SetTargetEnemy(NULL);
+
+		// Reset player alpha
+		m_pPlayer->SetPlayerAlpha(1.0f);
+
+		// Return back to the previous camera state
+		if (ShouldRestorePreviousCameraMode())
+		{
+			RestorePreviousCameraMode();
+			InitializeCameraRotation();
+		}
+
+		// Close cinematic letter box
+		CloseLetterBox();
+	}
 }
 
 // GUI Helper functions

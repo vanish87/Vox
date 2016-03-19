@@ -1806,11 +1806,10 @@ void Enemy::DoDamage(float amount, Colour textColour, vec3 knockbackDirection, f
 				SpawnLootItems();
 
 				// If we are the players target enemy, reset players target
-				// TODO : Player Target Enemy
-				//if(m_pPlayer->GetTargetEnemy() == this)
-				//{
-				//	m_pGameWindow->ReleaseEnemyTarget();
-				//}
+				if(m_pPlayer->GetTargetEnemy() == this)
+				{
+					VoxGame::GetInstance()->ReleaseEnemyTarget();
+				}
 			}
 			else
 			{

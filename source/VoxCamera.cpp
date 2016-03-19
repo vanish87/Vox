@@ -34,6 +34,10 @@ void VoxGame::UpdateCamera(float dt)
 			{
 				UpdateCameraNPCDialog(dt);
 			}
+			else if (m_cameraMode == CameraMode_EnemyTarget)
+			{
+				UpdateCameraEnemyTarget(dt);
+			}			
 		}
 
 		if (m_gameMode == GameMode_Game && m_cameraMode != CameraMode_Debug)
@@ -191,6 +195,99 @@ void VoxGame::UpdateCameraNPCDialog(float dt)
 	// Forward
 	diff = m_targetCameraView_NPCDialog - m_pGameCamera->GetView();
 	vec3 cameraLookAt = m_pGameCamera->GetView() + ((diff * 5.0f) * dt);
+	vec3 cameraForward = normalize(cameraLookAt - m_pGameCamera->GetFakePosition());
+	m_pGameCamera->SetFacing(cameraForward);
+
+	// Right
+	vec3 cameraRight = normalize(cross(cameraForward, m_pPlayer->GetUpVector()));
+	m_pGameCamera->SetRight(cameraRight);
+
+	// Up
+	vec3 cameraUp = normalize(cross(cameraRight, cameraForward));
+	m_pGameCamera->SetUp(cameraUp);
+}
+
+void VoxGame::UpdateCameraEnemyTarget(float dt)
+{
+	// Target camera position
+	vec3 TargetCameraPosition = m_pPlayer->GetCenter();
+	TargetCameraPosition += m_pPlayer->GetRightVector() * (-2.0f * m_targetCameraXAxisAmount);
+	TargetCameraPosition += m_pPlayer->GetForwardVector() * (-1.0f * m_targetCameraForwardRatio);
+	TargetCameraPosition += m_pPlayer->GetUpVector() * (0.75f * m_targetCameraYRatio);
+
+	// Target camera view
+	vec3 toTarget = m_pPlayer->GetTargetEnemy()->GetProjectileHitboxCenter() - m_pPlayer->GetCenter();
+	vec3 TargetCameraView = m_pPlayer->GetCenter() + toTarget*0.65f;
+
+	float toTargetDistance = length(toTarget);
+	float ratio = (toTargetDistance - 5.0f) / 15.0f;
+	if (ratio < 0.0f)
+	{
+		ratio = 0.0f;
+	}
+	if (ratio > 1.0f)
+	{
+		ratio = 1.0f;
+	}
+
+	float lUpVectorRatioTarget = 0.0f;
+	if (toTarget.y > 2.0f && toTarget.y > toTargetDistance*0.25f)
+	{
+		lUpVectorRatioTarget = -0.1f * ratio;
+	}
+	else
+	{
+		lUpVectorRatioTarget = 2.0f + (1.5f * (1.0f - ratio));
+	}
+
+	m_targetCameraYRatio = lUpVectorRatioTarget;
+
+	// Lag on the y Ratio updating
+	float yRatioDiff = fabs(lUpVectorRatioTarget - m_targetCameraYRatio);
+	if (m_targetCameraYRatio > lUpVectorRatioTarget)
+	{
+		m_targetCameraYRatio -= (yRatioDiff * 3.0f) * dt;
+	}
+	else if (m_targetCameraYRatio < lUpVectorRatioTarget)
+	{
+		m_targetCameraYRatio += (yRatioDiff * 3.0f) * dt;
+	}
+
+	// Lag the forward vector ratio
+	float lForwardVectorRatioTarget = (2.0f + (1.5f * (1.0f - ratio))) * 0.75f;
+	float forwardRatioDiff = fabs(lForwardVectorRatioTarget - m_targetCameraForwardRatio);
+	if (m_targetCameraForwardRatio > lForwardVectorRatioTarget)
+	{
+		m_targetCameraForwardRatio -= (forwardRatioDiff * 3.0f) * dt;
+	}
+	else if (m_targetCameraForwardRatio < lForwardVectorRatioTarget)
+	{
+		m_targetCameraForwardRatio += (forwardRatioDiff * 3.0f) * dt;
+	}
+
+	// Lag on the X amount
+	float XAxisDiff = fabs(m_targetCameraXAxisAmount_Target - m_targetCameraXAxisAmount);
+	if (m_targetCameraXAxisAmount > m_targetCameraXAxisAmount_Target)
+	{
+		m_targetCameraXAxisAmount -= (XAxisDiff * 3.0f) * dt;
+	}
+	else if (m_targetCameraXAxisAmount < m_targetCameraXAxisAmount_Target)
+	{
+		m_targetCameraXAxisAmount += (XAxisDiff * 3.0f) * dt;
+	}
+
+
+	vec3 targetPosition = TargetCameraPosition;
+	vec3 targetView = TargetCameraView;
+
+	vec3 diffPos = targetPosition - m_pGameCamera->GetPosition();
+	vec3 diffView = targetView - m_pGameCamera->GetView();
+
+	// Position
+	m_pGameCamera->SetFakePosition(m_pGameCamera->GetPosition() + ((diffPos * 3.0f) * dt));
+
+	// Forward
+	vec3 cameraLookAt = m_pGameCamera->GetView() + ((diffView * 3.0f) * dt);
 	vec3 cameraForward = normalize(cameraLookAt - m_pGameCamera->GetFakePosition());
 	m_pGameCamera->SetFacing(cameraForward);
 
