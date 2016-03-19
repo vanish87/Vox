@@ -81,11 +81,10 @@ void ProjectileManager::ClearProjectileOwnerForEnemy(Enemy* pEnemy)
 	m_projectileMutex.lock();
 	for(unsigned int i = 0; i < m_vpProjectileList.size(); i++)
 	{
-		// TODO : Add me back in - NPC and enemy
-		//if(m_vpProjectileList[i]->GetEnemyOwner() == pEnemy)
-		//{
-		//	m_vpProjectileList[i]->SetOwner(NULL, NULL, NULL);
-		//}
+		if(m_vpProjectileList[i]->GetEnemyOwner() == pEnemy)
+		{
+			m_vpProjectileList[i]->SetOwner(NULL, NULL, NULL);
+		}
 	}
 	m_projectileMutex.unlock();
 }
