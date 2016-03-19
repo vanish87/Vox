@@ -375,6 +375,37 @@ Chunk* ChunkManager::GetChunk(int aX, int aY, int aZ)
 	return NULL;
 }
 
+bool ChunkManager::FindClosestFloor(vec3 position, vec3* floorPosition)
+{
+	int blockX, blockY, blockZ;
+	vec3 blockPos;
+
+	bool collides = false;
+	int iterations = 1;
+	while (collides == false && iterations < 100)
+	{
+		vec3 testPos = position - (vec3(0.0f, Chunk::BLOCK_RENDER_SIZE, 0.0f) * (float)iterations);
+
+		Chunk* pChunk = NULL;
+		bool active = GetBlockActiveFrom3DPosition(testPos.x, testPos.y, testPos.z, &blockPos, &blockX, &blockY, &blockZ, &pChunk);
+
+		if (pChunk != NULL && pChunk->IsSetup() && pChunk->NeedsRebuild() == false && active == true)
+		{
+			collides = true;
+
+			*floorPosition = blockPos + vec3(0.0f, Chunk::BLOCK_RENDER_SIZE, 0.0f);
+			(*floorPosition).x = position.x;
+			(*floorPosition).z = position.z;
+
+			return true;
+		}
+
+		iterations++;
+	}
+
+	return collides;
+}
+
 // Getting the active block state given a position and chunk information
 bool ChunkManager::GetBlockActiveFrom3DPosition(float x, float y, float z, vec3 *blockPos, int* blockX, int* blockY, int* blockZ, Chunk** pChunk)
 {

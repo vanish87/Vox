@@ -168,6 +168,7 @@ public:
 	void GetGridFromPosition(vec3 position, int* gridX, int* gridY, int* gridZ);
 	Chunk* GetChunkFromPosition(float posX, float posY, float posZ);
 	Chunk* GetChunk(int aX, int aY, int aZ);
+	bool FindClosestFloor(vec3 position, vec3* floorPosition);
 
 	// Getting the active block state given a position and chunk information
 	bool GetBlockActiveFrom3DPosition(float x, float y, float z, vec3 *blockPos, int* blockX, int* blockY, int* blockZ, Chunk** pChunk);

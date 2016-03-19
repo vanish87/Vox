@@ -2343,15 +2343,13 @@ void Player::UpdateTimers(float dt)
 			vec3 GhostSpawn = GetCenter();
 			vec3 floorPosition;
 
-			// TODO : FindClosestFloor for ghost spawning
-			//if (m_pChunkManager->FindClosestFloor(GhostSpawn, &floorPosition))
-			//{
-			//	GhostSpawn = floorPosition + vec3(0.0f, 0.01f, 0.0f);
-			//}
-			// TODO : Create ghost
-			//Enemy* pGhost = m_pEnemyManager->CreateEnemy(GhostSpawn, eEnemyType_Doppelganger, 0.08f);
-			//pGhost->SetSpawningParams(GhostSpawn - vec3(0.0f, 0.0f, 0.0f), GhostSpawn + vec3(-m_cameraForward.x*1.5f, 1.5f, -m_cameraForward.z*1.5f), 1.5f);
-			//m_createGhost = false;
+			if (m_pChunkManager->FindClosestFloor(GhostSpawn, &floorPosition))
+			{
+				GhostSpawn = floorPosition + vec3(0.0f, 0.01f, 0.0f);
+			}
+			Enemy* pGhost = m_pEnemyManager->CreateEnemy(GhostSpawn, eEnemyType_Doppelganger, 0.08f);
+			pGhost->SetSpawningParams(GhostSpawn - vec3(0.0f, 0.0f, 0.0f), GhostSpawn + vec3(-m_cameraForward.x*1.5f, 1.5f, -m_cameraForward.z*1.5f), 1.5f);
+			m_createGhost = false;
 		}
 	}
 }

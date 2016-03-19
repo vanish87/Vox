@@ -156,12 +156,11 @@ vec3 EnemySpawner::GetSpawnPosition()
 
 	if(m_shouldSpawnOnGround)
 	{
-		// TODO : Find closest floor
-		//vec3 floorPosition;
-		//if(m_pChunkManager->FindClosestFloor(spawnPos, &floorPosition))
-		//{
-		//	spawnPos = floorPosition + vec3(0.0f, 0.01f, 0.0f);
-		//}
+		vec3 floorPosition;
+		if(m_pChunkManager->FindClosestFloor(spawnPos, &floorPosition))
+		{
+			spawnPos = floorPosition + vec3(0.0f, 0.01f, 0.0f);
+		}
 
 		spawnPos += m_groundSpawnOffset;
 	}
