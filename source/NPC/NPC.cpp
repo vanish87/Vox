@@ -1437,7 +1437,7 @@ void NPC::DoDamage(float amount, Colour textColour, vec3 knockbackDirection, flo
 		{
 			m_health = 0.0f;
 
-			// Explode the voxel model
+			// Explode the voxel model // TODO
 			//Explode();
 		}
 
@@ -2520,7 +2520,7 @@ void NPC::UpdateLookingAndForwardTarget(float dt)
 		}
 		else
 		{
-			// TODO : Add back in
+			// TODO : Add back in RandomLook
 			//if(m_pGameWindow->GetGUIHelper()->GetRandomLook())
 			//{
 			//	m_pVoxelCharacter->SetRandomLookDirection(true);
@@ -2758,7 +2758,7 @@ void NPC::UpdateMovement(float dt)
 	}
 	else
 	{
-		LookAtPoint(m_targetPosition);
+ 		LookAtPoint(m_targetPosition);
 
 		bool shouldStopMovingUntilJump = false;
 		if(IsBlockInFront())
@@ -2776,43 +2776,42 @@ void NPC::UpdateMovement(float dt)
 		{
 			if(m_movementWaitAfterAttackTimer <= 0.0f)
 			{
-				// TODO : ENEMY
-				//if((m_eNPCCombatType != eNPCCombatType_Archer && m_eNPCCombatType != eNPCCombatType_Staff && m_eNPCCombatType != eNPCCombatType_FireballHands) || m_pTargetEnemy == NULL)
-				//{
-				//	vec3 toTarget = m_targetPosition - m_position;
-				//	vec3 movementDirection = toTarget;
-				//	movementDirection.y = 0.0f;
-				//	movementDirection = normalize(movementDirection);
+				if((m_eNPCCombatType != eNPCCombatType_Archer && m_eNPCCombatType != eNPCCombatType_Staff && m_eNPCCombatType != eNPCCombatType_FireballHands) /*|| m_pTargetEnemy == NULL TODO : ENEMY*/)
+				{
+					vec3 toTarget = m_targetPosition - m_position;
+					vec3 movementDirection = toTarget;
+					movementDirection.y = 0.0f;
+					movementDirection = normalize(movementDirection);
 
-				//	if(m_eNPCState == eNPCState_MovingToWayPoint)
-				//	{
-				//		m_movementSpeed = 3.75f;
-				//	}
-				//	else
-				//	{
-				//		vec3 movementDistance = toTarget;
-				//		movementDistance.y = 0.0f;
-				//		m_movementSpeed = ((length(movementDistance) + 1.5f) / 8.0f) * m_maxMovementSpeed;
+					if(m_eNPCState == eNPCState_MovingToWayPoint)
+					{
+						m_movementSpeed = 3.75f;
+					}
+					else
+					{
+						vec3 movementDistance = toTarget;
+						movementDistance.y = 0.0f;
+						m_movementSpeed = ((length(movementDistance) + 1.5f) / 8.0f) * m_maxMovementSpeed;
 
-				//		if(m_movementSpeed > m_maxMovementSpeed)
-				//			m_movementSpeed = m_maxMovementSpeed;
-				//		if(m_movementSpeed < m_minMovementSpeed)
-				//			m_movementSpeed = m_minMovementSpeed;
-				//	}
+						if(m_movementSpeed > m_maxMovementSpeed)
+							m_movementSpeed = m_maxMovementSpeed;
+						if(m_movementSpeed < m_minMovementSpeed)
+							m_movementSpeed = m_minMovementSpeed;
+					}
 
-				//	float movementSpeed = m_movementSpeed * dt;
-				//	float animationSpeed = (m_movementSpeed / m_maxMovementSpeed);
+					float movementSpeed = m_movementSpeed * dt;
+					float animationSpeed = (m_movementSpeed / m_maxMovementSpeed);
 
-				//	if(m_bCanJump && m_bCanInteruptCombatAnim == false)
-				//	{
-				//		for(int i = 0; i < AnimationSections_NUMSECTIONS; i++)
-				//		{
-				//			SetAnimationSpeed(animationSpeed, true, (AnimationSections)i);
-				//		}
-				//	}
+					if(m_bCanJump && m_bCanInteruptCombatAnim == false)
+					{
+						for(int i = 0; i < AnimationSections_NUMSECTIONS; i++)
+						{
+							SetAnimationSpeed(animationSpeed, true, (AnimationSections)i);
+						}
+					}
 
-				//	MoveAbsolute(movementDirection, movementSpeed);	
-				//}
+					MoveAbsolute(movementDirection, movementSpeed);	
+				}
 			}
 		}
 	}
