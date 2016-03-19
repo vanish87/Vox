@@ -2520,12 +2520,8 @@ void NPC::UpdateLookingAndForwardTarget(float dt)
 		}
 		else
 		{
-			// TODO : Add back in RandomLook
-			//if(m_pGameWindow->GetGUIHelper()->GetRandomLook())
-			//{
-			//	m_pVoxelCharacter->SetRandomLookDirection(true);
-			//	m_pVoxelCharacter->SetFaceLookToTargetSpeedMultiplier(1.0f);
-			//}
+			m_pVoxelCharacter->SetRandomLookDirection(true);
+			m_pVoxelCharacter->SetFaceLookToTargetSpeedMultiplier(1.0f);
 		}
 	}
 }
