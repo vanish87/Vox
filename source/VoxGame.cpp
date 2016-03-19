@@ -232,7 +232,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pPlayer->SetItemManager(m_pItemManager);
 	m_pPlayer->SetProjectileManager(m_pProjectileManager);
 	m_pPlayer->SetTextEffectsManager(m_pTextEffectsManager);
-	//m_pPlayer->SetEnemyManager(m_pEnemyManager); // TODO : Player Enemy manager
+	m_pPlayer->SetEnemyManager(m_pEnemyManager);
 	m_pNPCManager->SetPlayer(m_pPlayer);
 	m_pNPCManager->SetLightingManager(m_pLightingManager);
 	m_pNPCManager->SetBlockParticleManager(m_pBlockParticleManager);

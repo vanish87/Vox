@@ -25,6 +25,8 @@
 #include "../Inventory/InventoryManager.h"
 #include "../Items/ItemManager.h"
 #include "../Projectile/ProjectileManager.h"
+#include "../Enemy/EnemyManager.h"
+#include "../Enemy/Enemy.h"
 
 
 static const int PlayerEquippedProperties_None = 0;
@@ -61,6 +63,7 @@ public:
 	void SetItemManager(ItemManager* pItemManager);
 	void SetProjectileManager(ProjectileManager* pProjectileManager);
 	void SetTextEffectsManager(TextEffectsManager* pTextEffectsManager);
+	void SetEnemyManager(EnemyManager* pEnemyManager);
 
 	// Get voxel character pointer
 	VoxelCharacter* GetVoxelCharacter();
@@ -285,6 +288,7 @@ private:
 	ItemManager* m_pItemManager;
 	ProjectileManager* m_pProjectileManager;
 	TextEffectsManager* m_pTextEffectsManager;
+	EnemyManager* m_pEnemyManager;
 
 	// Player position and movement variables
 	vec3 m_position;
