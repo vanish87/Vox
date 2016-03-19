@@ -227,7 +227,9 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pChunkManager->SetPlayer(m_pPlayer);
 	m_pChunkManager->SetSceneryManager(m_pSceneryManager);
 	m_pChunkManager->SetBiomeManager(m_pBiomeManager);
-	//m_pChunkManager->SetEnemyManager(m_pEnemyManager); // TODO : Chunk Enemy manager
+	m_pChunkManager->SetEnemyManager(m_pEnemyManager);
+	m_pChunkManager->SetNPCManager(m_pNPCManager);
+	m_pChunkManager->SetBlockParticleManager(m_pBlockParticleManager);
 	m_pPlayer->SetInventoryManager(m_pInventoryManager);
 	m_pPlayer->SetItemManager(m_pItemManager);
 	m_pPlayer->SetProjectileManager(m_pProjectileManager);

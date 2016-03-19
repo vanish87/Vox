@@ -28,6 +28,9 @@ using namespace std;
 using namespace tthread;
 
 class Player;
+class NPCManager;
+class EnemyManager;
+class BlockParticleManager;
 class SceneryManager;
 class VoxSettings;
 class QubicleBinaryManager;
@@ -132,8 +135,11 @@ public:
 	ChunkManager(Renderer* pRenderer, VoxSettings* pVoxSettings, QubicleBinaryManager* pQubicleBinaryManager);
 	~ChunkManager();
 
-	// Player pointer
+	// Linkage
 	void SetPlayer(Player* pPlayer);
+	void SetNPCManager(NPCManager* pNPCManager);
+	void SetEnemyManager(EnemyManager* pEnemyManager);
+	void SetBlockParticleManager(BlockParticleManager* pBlockParticleManager);
 
 	// Scenery manager pointer
 	void SetSceneryManager(SceneryManager* pSceneryManager);
@@ -218,6 +224,9 @@ private:
 	BiomeManager* m_pBiomeManager;
 	VoxSettings* m_pVoxSettings;
 	QubicleBinaryManager* m_pQubicleBinaryManager;
+	BlockParticleManager* m_pBlockParticleManager;
+	EnemyManager* m_pEnemyManager;
+	NPCManager* m_pNPCManager;
 
 	// Chunk Material
 	unsigned int m_chunkMaterialID;

@@ -144,6 +144,14 @@ void BlockParticleManager::RemoveEmitterLinkage(BlockParticleEmitter* pEmitter)
 	}
 }
 
+void BlockParticleManager::ClearParticleChunkCacheForChunk(Chunk* pChunk)
+{
+	for (unsigned int i = 0; i < m_vpBlockParticlesList.size(); i++)
+	{
+		m_vpBlockParticlesList[i]->ClearParticleChunkCacheForChunk(pChunk);
+	}
+}
+
 unsigned int BlockParticleManager::GetInstanceShaderIndex()
 {
 	return m_instanceShader;

@@ -12,6 +12,9 @@
 #include "ChunkManager.h"
 #include "BiomeManager.h"
 #include "../Player/Player.h"
+#include "../NPC/NPCManager.h"
+#include "../Enemy/EnemyManager.h"
+#include "../Particles/BlockParticleManager.h"
 #include "../VoxSettings.h"
 #include "../VoxGame.h"
 #include "../models/QubicleBinaryManager.h"
@@ -71,10 +74,25 @@ ChunkManager::~ChunkManager()
 #endif
 }
 
-// Player pointer
+// Linkage
 void ChunkManager::SetPlayer(Player* pPlayer)
 {
 	m_pPlayer = pPlayer;
+}
+
+void ChunkManager::SetNPCManager(NPCManager* pNPCManager)
+{
+	m_pNPCManager = pNPCManager;
+}
+
+void ChunkManager::SetEnemyManager(EnemyManager* pEnemyManager)
+{
+	m_pEnemyManager = pEnemyManager;
+}
+
+void ChunkManager::SetBlockParticleManager(BlockParticleManager* pBlockParticleManager)
+{
+	m_pBlockParticleManager = pBlockParticleManager;
 }
 
 // Scenery manager pointer
@@ -317,6 +335,18 @@ void ChunkManager::UnloadChunk(Chunk* pChunk)
 	if (m_pPlayer != NULL)
 	{
 		m_pPlayer->ClearChunkCacheForChunk(pChunk);
+	}
+	if (m_pNPCManager != NULL)
+	{
+		m_pNPCManager->ClearNPCChunkCacheForChunk(pChunk);
+	}
+	if (m_pEnemyManager)
+	{
+		m_pEnemyManager->ClearEnemyChunkCacheForChunk(pChunk);
+	}
+	if (m_pBlockParticleManager)
+	{
+		m_pBlockParticleManager->ClearParticleChunkCacheForChunk(pChunk);
 	}
 
 	// Unload and delete

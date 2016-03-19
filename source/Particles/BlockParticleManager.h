@@ -42,6 +42,8 @@ public:
 
 	void RemoveEmitterLinkage(BlockParticleEmitter* pEmitter);
 
+	void ClearParticleChunkCacheForChunk(Chunk* pChunk);
+
 	unsigned int GetInstanceShaderIndex();
 
 	void SetupGLBuffers();
