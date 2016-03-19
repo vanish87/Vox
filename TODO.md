@@ -114,6 +114,8 @@
   - [x] Character GUI paperdoll render.
   - [ ]  CharacterGUI particle effects.
   - [ ]  CharacterGUI player poses and animation stances.
+- [x]  Investigate continuous automatic builds on github when files are submitted to depot, using cmake and make.
+- [x]  NPCs.
 - [ ]  Add VLD support to debug version, allow for memory leak detection.
 - [ ]  Add audio and music playback.
 - [ ]  Add scenery manager.
@@ -130,7 +132,6 @@
 - [ ]  Add voxel editor.
 - [ ]  Add texture support for voxel blocks.
 - [ ]  Water, creating and manipulation, rendering, updating.
-- [ ]  Investigate continuous automatic builds on github when files are submitted to depot, using cmake and make.
 - [ ]  Add mode to play in reduced and low FPS.
   - [ ]  Low FPS causes bad physics and also bad step-up block functionality, investigate and fix.
 - [ ]  Custom cursors - fingers.
@@ -140,7 +141,6 @@
 - [ ]  Player particle trail on walking.
 - [ ]  Test out Baked AO models using MagikaVoxel.
 - [ ]  Enemies.
-- [ ]  NPCs.
 - [ ]  Companion pets.
 - [ ]  Add debug render metrics for all counters (i.e num chunks, particles, items, triangles, verts, etc).
 - [ ]  Use mouse and gamepad sensativity in the looking and camera rotation functions.
