@@ -90,6 +90,7 @@ void Player::ResetPlayer()
 	m_targetForward = m_forward;
 
 	m_position = vec3(8.0f, 8.0f, 8.0f);
+	m_respawnPosition = m_position + vec3(0.0f, 0.1f, 0.0f);
 	m_gravityDirection = vec3(0.0f, -1.0f, 0.0f);
 
 	// Stepping up single world blocks by walking into them
@@ -116,6 +117,24 @@ void Player::ResetPlayer()
 
 	// Dead flag
 	m_dead = false;
+
+	// Ghost
+	m_createGhost = false;
+	m_createGhostTimer = 0.0f;
+
+	// Health
+	m_maxHealth = 100.0f;
+	m_health = m_maxHealth;
+	m_maxMagic = 100.0f;
+	m_magic = m_maxMagic;
+
+	// Damage
+	m_damageTime = 0.4f;
+	m_damageTimer = m_damageTime;
+	m_knockbackTime = 0.4f;
+	m_knockbackTimer = m_knockbackTime;
+	m_hitFacialExpressionTime = 0.4f;
+	m_hitFacialExpressionTimer = m_hitFacialExpressionTime;
 
 	// Idle flag
 	m_bIsIdle = true;
@@ -173,6 +192,8 @@ void Player::ResetPlayer()
 	}
 	m_animationTimer = 0.0f;
 
+	m_pVoxelCharacter->PlayAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BindPose");
+
 	UnloadWeapon(true);
 	UnloadWeapon(false);
 }
@@ -186,6 +207,16 @@ void Player::SetName(string name)
 string Player::GetName()
 {
 	return m_name;
+}
+
+void Player::SetRespawnPosition(vec3 pos)
+{
+	m_respawnPosition = pos;
+}
+
+vec3 Player::GetRespawnPosition()
+{
+	return m_respawnPosition;
 }
 
 vec3 Player::GetCenter()
@@ -1276,15 +1307,34 @@ void Player::LevelUp()
 }
 
 // Gameplay
+float Player::GetHealth()
+{
+	return m_health;
+}
+
+float Player::GetMaxHealth()
+{
+	return m_maxHealth;
+}
+
+float Player::GetMagic()
+{
+	return m_magic;
+}
+
+float Player::GetMaxMagic()
+{
+	return m_maxMagic;
+}
+
 void Player::GiveHealth(float amount)
 {
-	// TODO : Player GiveHealth()
-	//m_health += amount;
+	m_health += amount;
 
-	//if (m_health >= m_maxHealth)
-	//{
-	//	m_health = m_maxHealth;
-	//}
+	if (m_health >= m_maxHealth)
+	{
+		m_health = m_maxHealth;
+	}
 
 	// Do an animated text effect
 	vec3 screenposition = GetCenter() + vec3(GetRandomNumber(-1, 1, 2)*0.25f, 0.0f, GetRandomNumber(-1, 1, 2)*0.25f);
@@ -2252,6 +2302,51 @@ void Player::UpdateTimers(float dt)
 	{
 		m_bowAttackDelay -= dt;
 	}
+
+	// Damage and knockback timers
+	if (m_damageTimer > 0.0f)
+	{
+		m_damageTimer -= dt;
+	}
+	if (m_knockbackTimer > 0.0f)
+	{
+		m_knockbackTimer -= dt;
+	}
+	if (m_hitFacialExpressionTimer > 0.0f)
+	{
+		m_hitFacialExpressionTimer -= dt;
+	}
+	else
+	{
+		if (m_returnToNormalFacialExpressionAfterHit == false)
+		{
+			// Revert back to normal facial expression
+			m_pVoxelCharacter->PlayFacialExpression("Normal");
+			m_returnToNormalFacialExpressionAfterHit = true;
+		}
+	}
+
+	// Ghost timer
+	if (m_createGhost)
+	{
+		if (m_createGhostTimer > 0.0f)
+		{
+			m_createGhostTimer -= dt;
+		}
+		else
+		{
+			// TODO : Ghost creation on player death
+			//vec3 GhostSpawn = GetCenter();
+			//vec3 floorPosition;
+			//if (m_pChunkManager->FindClosestFloor(GhostSpawn, &floorPosition))
+			//{
+			//	GhostSpawn = floorPosition + vec3(0.0f, 0.01f, 0.0f);
+			//}
+			//Enemy* pGhost = m_pEnemyManager->CreateEnemy(GhostSpawn, eEnemyType_Doppelganger, 0.08f);
+			//pGhost->SetSpawningParams(GhostSpawn - vec3(0.0f, 0.0f, 0.0f), GhostSpawn + vec3(-m_cameraForward.x*1.5f, 1.5f, -m_cameraForward.z*1.5f), 1.5f);
+			//m_createGhost = false;
+		}
+	}
 }
 
 void Player::UpdateWeaponLights(float dt)
@@ -2480,7 +2575,7 @@ void Player::RenderFace()
 
 void Player::RenderPaperdoll()
 {
-	m_pRenderer->PushMatrix();	
+	m_pRenderer->PushMatrix();
 		m_pVoxelCharacter->RenderPaperdoll();
 		m_pVoxelCharacter->RenderWeaponsPaperdoll();
 	m_pRenderer->PopMatrix();

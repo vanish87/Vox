@@ -71,7 +71,8 @@ public:
 	// Accessors / Setters
 	void SetName(string name);
 	string GetName();
-	vec3 GetPosition();
+	void SetRespawnPosition(vec3 pos);
+	vec3 GetRespawnPosition();
 	vec3 GetCenter();
 	vec3 GetForwardVector();
 	vec3 GetRightVector();
@@ -133,6 +134,10 @@ public:
 	void LevelUp();
 
 	// Gameplay
+	float GetHealth();
+	float GetMaxHealth();
+	float GetMagic();
+	float GetMaxMagic();
 	void GiveHealth(float amount);
 	void GiveCoins(int amount);
 
@@ -151,6 +156,9 @@ public:
 	bool CanAttackLeft();
 	bool CanAttackRight();
 	void CheckProjectileDamageRadius(Projectile* pProjectile);
+	void DoDamage(float amount, Colour textColour, vec3 knockbackDirection, float knockbackAmount, bool createParticleHit);
+	void Explode();
+	void Respawn();
 
 	// Crafting
 	void SetCrafting(bool crafting);
@@ -287,6 +295,9 @@ private:
 	// Used for collision and other movement calculations
 	vec3 m_previousPosition;
 
+	// Players respawn position
+	vec3 m_respawnPosition;
+
 	// The direction of gravity for the player
 	vec3 m_gravityDirection;
 
@@ -343,6 +354,25 @@ private:
 
 	// Dead flag
 	bool m_dead;
+
+	// Create a ghost after we have died.
+	bool m_createGhost;
+	float m_createGhostTimer;
+
+	// Game properties
+	float m_maxHealth;
+	float m_health;
+	float m_maxMagic;
+	float m_magic;
+
+	// Damage and knockback timers
+	float m_damageTime;
+	float m_damageTimer;
+	float m_knockbackTime;
+	float m_knockbackTimer;
+	float m_hitFacialExpressionTime;
+	float m_hitFacialExpressionTimer;
+	bool m_returnToNormalFacialExpressionAfterHit;
 
 	// Crafting
 	bool m_crafting;

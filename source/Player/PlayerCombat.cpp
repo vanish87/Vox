@@ -329,12 +329,196 @@ void Player::CheckProjectileDamageRadius(Projectile* pProjectile)
 			knockbackDirection = normalize(knockbackDirection);
 			Colour damageColour = Colour(1.0f, 1.0f, 1.0f);
 
-			//float knockbackAmount = 16.0f;
-			//DoDamage(15.0f, damageColour, knockbackDirection, knockbackAmount, false);
+			float knockbackAmount = 16.0f;
+			DoDamage(15.0f, damageColour, knockbackDirection, knockbackAmount, false);
 
 			pProjectile->Explode();
 		}
 	}
+}
+
+void Player::DoDamage(float amount, Colour textColour, vec3 knockbackDirection, float knockbackAmount, bool createParticleHit)
+{
+	if (m_dead == true)
+	{
+		return;
+	}
+
+	if (m_damageTimer <= 0.0f)
+	{
+		float healthBefore = m_health;
+		float damageDone = healthBefore - m_health;
+
+		m_health -= amount;
+
+		// Figure out if we are dead yet
+		if (m_health <= 0.0f)
+		{
+			m_health = 0.0f;
+
+			// Explode the voxel model
+			Explode();
+		}
+
+		// Update HUD player data
+		// TODO : Player HUD
+		//m_pGameWindow->GetHUD()->UpdatePlayerData();
+
+		// Play a hit response animation
+		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "HitResponse", 0.01f);
+
+		// Do an animated text effect
+		vec3 screenposition = GetCenter() + vec3(GetRandomNumber(-1, 1, 2)*0.25f, 0.0f, GetRandomNumber(-1, 1, 2)*0.25f);
+		char damageText[32];
+		sprintf_s(damageText, 32, "%i", (int)amount);
+		AnimatedText* lpTestTextEffect = m_pTextEffectsManager->CreateTextEffect(VoxGame::GetInstance()->GetFrontendManager()->GetTextEffectFont(), VoxGame::GetInstance()->GetFrontendManager()->GetTextEffectOutlineFont(), VoxGame::GetInstance()->GetDefaultViewport(), TextDrawMode_3D_Screen, TextEffect_FadeUp, TextDrawStyle_Outline, screenposition, textColour, Colour(0.0f, 0.0f, 0.0f), damageText, 1.0f);
+		lpTestTextEffect->SetAutoDelete(true);
+		lpTestTextEffect->StartEffect();
+
+		if (createParticleHit && m_health > 0.0f)
+		{
+			// Do a hit particle effect
+			vec3 hitParticlePos = GetCenter() - (normalize(knockbackDirection) * m_radius);
+			unsigned int effectId = -1;
+			BlockParticleEffect* pBlockParticleEffect = VoxGame::GetInstance()->GetBlockParticleManager()->ImportParticleEffect("media/gamedata/particles/combat_hit.effect", hitParticlePos, &effectId);
+			pBlockParticleEffect->PlayEffect();
+		}
+
+		// Set face to sad for a short while (until facial hit timer resets);
+		m_pVoxelCharacter->PlayFacialExpression("Sad");
+		m_hitFacialExpressionTimer = m_hitFacialExpressionTime;
+		m_returnToNormalFacialExpressionAfterHit = false;
+
+		m_damageTimer = m_damageTime;
+	}
+
+	if (m_dead == true)
+	{
+		return;
+	}
+
+	if (m_knockbackTimer <= 0.0f)
+	{
+		m_velocity += knockbackDirection * knockbackAmount;
+
+		m_knockbackTimer = m_knockbackTime;
+	}
+}
+
+void Player::Explode()
+{
+	if (m_dead == true)
+	{
+		return;
+	}
+
+	m_dead = true;
+
+	m_bIsChargingAttack = false;
+	m_chargeAmount = 0.0f;
+
+	// TODO : Player died
+	//m_pGameWindow->ReleaseEnemyTarget();
+	//m_pGameWindow->GetHUD()->PlayerDied();
+	//m_pGameWindow->CloseAllGUIWindows();
+
+	CalculateWorldTransformMatrix();
+
+	// Explode the qubicle binary voxel file
+	for (int explodeCounter = 0; explodeCounter < 3; explodeCounter++)
+	{
+		QubicleBinary* pQubicleModel = NULL;
+		int spawnChance = 100;
+		if (explodeCounter == 0)
+		{
+			pQubicleModel = m_pVoxelCharacter->GetQubicleModel();
+			spawnChance = 50;
+		}
+		else if (explodeCounter == 1)
+		{
+			if (m_pVoxelCharacter->GetRightWeapon() != NULL)
+			{
+				if (m_pVoxelCharacter->IsRightWeaponLoaded())
+				{
+					for (int animatedSectionsIndex = 0; animatedSectionsIndex < m_pVoxelCharacter->GetRightWeapon()->GetNumAimatedSections(); animatedSectionsIndex++)
+					{
+						AnimatedSection* pAnimatedSection = m_pVoxelCharacter->GetRightWeapon()->GetAnimatedSection(animatedSectionsIndex);
+						pQubicleModel = pAnimatedSection->m_pVoxelObject->GetQubicleModel();
+						spawnChance = 100;
+					}
+				}
+			}
+		}
+		else if (explodeCounter == 2)
+		{
+			if (m_pVoxelCharacter->GetLeftWeapon() != NULL)
+			{
+				if (m_pVoxelCharacter->IsLeftWeaponLoaded())
+				{
+					for (int animatedSectionsIndex = 0; animatedSectionsIndex < m_pVoxelCharacter->GetLeftWeapon()->GetNumAimatedSections(); animatedSectionsIndex++)
+					{
+						AnimatedSection* pAnimatedSection = m_pVoxelCharacter->GetLeftWeapon()->GetAnimatedSection(animatedSectionsIndex);
+						pQubicleModel = pAnimatedSection->m_pVoxelObject->GetQubicleModel();
+						spawnChance = 100;
+					}
+				}
+			}
+		}
+
+		if (pQubicleModel != NULL)
+		{
+			m_pBlockParticleManager->ExplodeQubicleBinary(pQubicleModel, m_pVoxelCharacter->GetCharacterScale(), spawnChance);
+		}
+	}
+
+	// Unload weapons
+	UnloadWeapon(true);
+	UnloadWeapon(false);
+
+	// Create tombstone
+	char tombstoneFilename[64];
+	if (GetRandomNumber(0, 100) > 35)
+	{
+		sprintf_s(tombstoneFilename, 64, "media/gamedata/items/Tombstone/tombstone1.item");
+	}
+	else
+	{
+		sprintf_s(tombstoneFilename, 64, "media/gamedata/items/Tombstone/tombstone2.item");
+	}
+	Item* pTombstone = m_pItemManager->CreateItem(GetCenter(), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), tombstoneFilename, eItem_Tombstone, "Tombstone", false, false, 0.08f);
+	pTombstone->SetVelocity(vec3(0.0f, 10.0f, 0.0f));
+	pTombstone->SetRotation(vec3(0.0f, GetRandomNumber(0, 360, 1), 0.0f));
+
+	// Create a ghost
+	m_createGhost = true;
+	m_createGhostTimer = 1.5f;
+}
+
+void Player::Respawn()
+{
+	if (m_dead == false)
+	{
+		return;
+	}
+
+	m_position = m_respawnPosition;
+
+	m_health = m_maxHealth;
+
+	// TODO : Player HUD
+	//m_pGameWindow->GetHUD()->UpdatePlayerData();
+
+	// Also go through all the equipped items and equip them
+	for (int i = 0; i < EquipSlot_NumSlots; i++)
+	{
+		InventoryItem* pItem = m_pInventoryManager->GetInventoryItemForEquipSlot((EquipSlot)i);
+		if (pItem != NULL)
+		{
+			EquipItem(pItem);
+		}
+	}
+
+	m_dead = false;
 }
 
 // Projectile hitbox
