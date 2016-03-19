@@ -182,13 +182,13 @@ Enemy::Enemy(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, 
 	if(m_eEnemyType == eEnemyType_Doppelganger)
 	{
 		char playerFolder[128];
-		sprintf(playerFolder, "media/characters/%s", m_modelNameString.c_str());
+		sprintf(playerFolder, "saves/characters/%s", m_modelNameString.c_str());
 
 		//if(dirExists(playerFolder)) // TODO : dirExists
 		{
-			sprintf(qbFilename, "media/characters/%s/%s.qb", m_modelNameString.c_str(), m_modelNameString.c_str());
-			sprintf(facesFilename, "media/characters/%s/%s.faces", m_modelNameString.c_str(), m_modelNameString.c_str());
-			sprintf(characterFilename, "media/characters/%s/%s.character", m_modelNameString.c_str(), m_modelNameString.c_str());
+			sprintf(qbFilename, "saves/characters/%s/%s.qb", m_modelNameString.c_str(), m_modelNameString.c_str());
+			sprintf(facesFilename, "saves/characters/%s/%s.faces", m_modelNameString.c_str(), m_modelNameString.c_str());
+			sprintf(characterFilename, "saves/characters/%s/%s.character", m_modelNameString.c_str(), m_modelNameString.c_str());
 		}
 	}
 
@@ -2204,13 +2204,13 @@ void Enemy::ConvertIntoOtherEnemyType(eEnemyType newEnemyType, float scale)
 	if(m_eEnemyType == eEnemyType_Doppelganger)
 	{
 		char playerFolder[128];
-		sprintf(playerFolder, "media/characters/%s", m_modelNameString.c_str());
+		sprintf(playerFolder, "saves/characters/%s", m_modelNameString.c_str());
 
 		//if(dirExists(playerFolder)) // TODO: dirExists
 		{
-			sprintf(qbFilename, "media/characters/%s/%s.qb", m_modelNameString.c_str(), m_modelNameString.c_str());
-			sprintf(facesFilename, "media/characters/%s/%s.faces", m_modelNameString.c_str(), m_modelNameString.c_str());
-			sprintf(characterFilename, "media/characters/%s/%s.character", m_modelNameString.c_str(), m_modelNameString.c_str());
+			sprintf(qbFilename, "saves/characters/%s/%s.qb", m_modelNameString.c_str(), m_modelNameString.c_str());
+			sprintf(facesFilename, "saves/characters/%s/%s.faces", m_modelNameString.c_str(), m_modelNameString.c_str());
+			sprintf(characterFilename, "saves/characters/%s/%s.character", m_modelNameString.c_str(), m_modelNameString.c_str());
 		}
 	}
 
