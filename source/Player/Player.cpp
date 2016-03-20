@@ -518,7 +518,7 @@ void Player::EquipItem(InventoryItem* pItem)
 		case InventoryType_Scenery: { SetSceneryPlacing(true); } break;
 		case InventoryType_Block: { SetBlockPlacing(true); } break;
 		case InventoryType_Weapon_Sword: { SetSword(true); } break;
-		case InventoryType_Weapon_Dagger: { SetDagger(true); /*SetStealth(true);*/ } break;
+		case InventoryType_Weapon_Dagger: { SetDagger(true); } break;
 		case InventoryType_Weapon_Axe: { SetAxe(true); } break;
 		case InventoryType_Weapon_Hammer: { SetHammer(true); } break;
 		case InventoryType_Weapon_Mace: { SetMace(true); } break;
@@ -743,8 +743,6 @@ void Player::UnequipItem(EquipSlot equipSlot)
 		}
 
 		m_pVoxelCharacter->SetQubicleMatrixRender("Right_Hand", true);
-
-		/*SetStealth(false);*/
 
 		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "BindPose", 0.25f);
 	}

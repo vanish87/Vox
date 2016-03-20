@@ -186,13 +186,9 @@ Enemy::Enemy(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, 
 	{
 		char playerFolder[128];
 		sprintf(playerFolder, "saves/characters/%s", m_modelNameString.c_str());
-
-		//if(dirExists(playerFolder)) // TODO : dirExists
-		{
-			sprintf(qbFilename, "saves/characters/%s/%s.qb", m_modelNameString.c_str(), m_modelNameString.c_str());
-			sprintf(facesFilename, "saves/characters/%s/%s.faces", m_modelNameString.c_str(), m_modelNameString.c_str());
-			sprintf(characterFilename, "saves/characters/%s/%s.character", m_modelNameString.c_str(), m_modelNameString.c_str());
-		}
+		sprintf(qbFilename, "saves/characters/%s/%s.qb", m_modelNameString.c_str(), m_modelNameString.c_str());
+		sprintf(facesFilename, "saves/characters/%s/%s.faces", m_modelNameString.c_str(), m_modelNameString.c_str());
+		sprintf(characterFilename, "saves/characters/%s/%s.character", m_modelNameString.c_str(), m_modelNameString.c_str());
 
 		m_pLightingManager->AddLight(vec3(0.0f, 0.0f, 0.0f), 10.0f, 1.0f, Colour(0.0f, 0.0f, 1.0f, 1.0f), &m_enemyLightId);
 	}
@@ -2218,13 +2214,9 @@ void Enemy::ConvertIntoOtherEnemyType(eEnemyType newEnemyType, float scale)
 	{
 		char playerFolder[128];
 		sprintf(playerFolder, "saves/characters/%s", m_modelNameString.c_str());
-
-		//if(dirExists(playerFolder)) // TODO: dirExists
-		{
-			sprintf(qbFilename, "saves/characters/%s/%s.qb", m_modelNameString.c_str(), m_modelNameString.c_str());
-			sprintf(facesFilename, "saves/characters/%s/%s.faces", m_modelNameString.c_str(), m_modelNameString.c_str());
-			sprintf(characterFilename, "saves/characters/%s/%s.character", m_modelNameString.c_str(), m_modelNameString.c_str());
-		}
+		sprintf(qbFilename, "saves/characters/%s/%s.qb", m_modelNameString.c_str(), m_modelNameString.c_str());
+		sprintf(facesFilename, "saves/characters/%s/%s.faces", m_modelNameString.c_str(), m_modelNameString.c_str());
+		sprintf(characterFilename, "saves/characters/%s/%s.character", m_modelNameString.c_str(), m_modelNameString.c_str());
 	}
 
 	m_pVoxelCharacter->UnloadCharacter();
