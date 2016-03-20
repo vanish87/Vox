@@ -520,13 +520,15 @@ void SelectCharacter::SelectCharacterPressed()
 {
 	string characterName = m_pSelectedNPC->GetName();
 
-	// TODO : Loading selected player
-	//m_pFrontendManager->GetGameWindow()->GetPlayer()->LoadCharacter(characterName.c_str(), "Human", characterName.c_str(), true);
-	//m_pFrontendManager->GetGameWindow()->GetPlayer()->SetScale(0.08f);
+	VoxGame::GetInstance()->GetPlayer()->ResetPlayer();
+	VoxGame::GetInstance()->GetPlayer()->SetName(characterName.c_str());
+	VoxGame::GetInstance()->GetPlayer()->LoadCharacter(characterName.c_str(), true);
 
 	m_pSelectedNPC = NULL;
 
-	m_pFrontendManager->SetFrontendScreen(FrontendScreen_SelectWorld);
+	//m_pFrontendManager->SetFrontendScreen(FrontendScreen_SelectWorld);
+
+	VoxGame::GetInstance()->StartGameFromFrontEnd();
 }
 
 void SelectCharacter::_DeleteCharacterPressed(void *apData)

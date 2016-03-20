@@ -890,7 +890,7 @@ void VoxGame::CharacterPullDownChanged()
 		m_pPlayer->UnloadWeapon(false);
 		m_pPlayer->UnloadWeapon(true);
 
-		m_pPlayer->LoadCharacter(pMenuItem->GetLabel().GetText().c_str());
+		m_pPlayer->LoadCharacter(pMenuItem->GetLabel().GetText().c_str(), false);
 
 		WeaponPullDownChanged();
 		AnimationPullDownChanged();

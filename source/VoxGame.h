@@ -229,7 +229,7 @@ public:
 
 	// Accessors
 	unsigned int GetDefaultViewport();
-	Player* GetPlayer()
+	Player* GetPlayer();
 	FrontendManager* GetFrontendManager();
 	BlockParticleManager* GetBlockParticleManager();
 	NPCManager* GetNPCManager();

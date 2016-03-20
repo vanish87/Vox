@@ -91,7 +91,7 @@ public:
 	float GetRotation();
 
 	// Loading
-	void LoadCharacter(string characterName);
+	void LoadCharacter(string characterName, bool fromCharacterSelectScreen);
 
 	// Unloading
 	void LoadWeapon(bool left, string weaponFile);
