@@ -58,7 +58,9 @@ ChunkManager::~ChunkManager()
 {
 	m_stepLockEnabled = false;
 	m_updateStepLock = true;
+	m_updateThreadFlagLock.lock();
 	m_updateThreadActive = false;
+	m_updateThreadFlagLock.unlock();
 	while (m_updateThreadFinished == false)
 	{
 #ifdef _WIN32
@@ -332,6 +334,7 @@ void ChunkManager::UnloadChunk(Chunk* pChunk)
 	m_ChunkMapMutexLock.unlock();
 
 	// Clear chunk linkage
+	m_updateThreadFlagLock.lock();
 	if (m_updateThreadActive)
 	{
 		if (m_pPlayer != NULL)
@@ -351,6 +354,7 @@ void ChunkManager::UnloadChunk(Chunk* pChunk)
 			m_pBlockParticleManager->ClearParticleChunkCacheForChunk(pChunk);
 		}
 	}
+	m_updateThreadFlagLock.unlock();
 
 	// Unload and delete
 	pChunk->Unload();
