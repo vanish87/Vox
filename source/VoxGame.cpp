@@ -1059,6 +1059,11 @@ unsigned int VoxGame::GetDefaultViewport()
 	return m_defaultViewport;
 }
 
+Player* VoxGame::GetPlayer()
+{
+	return m_pPlayer;
+}
+
 FrontendManager* VoxGame::GetFrontendManager()
 {
 	return m_pFrontendManager;
