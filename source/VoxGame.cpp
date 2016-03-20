@@ -1067,6 +1067,11 @@ BlockParticleManager* VoxGame::GetBlockParticleManager()
 	return m_pBlockParticleManager;
 }
 
+NPCManager* VoxGame::GetNPCManager()
+{
+	return m_pNPCManager;
+}
+
 ItemManager* VoxGame::GetItemManager()
 {
 	return m_pItemManager;

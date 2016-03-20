@@ -230,6 +230,7 @@ public:
 	unsigned int GetDefaultViewport();
 	FrontendManager* GetFrontendManager();
 	BlockParticleManager* GetBlockParticleManager();
+	NPCManager* GetNPCManager();
 	ItemManager* GetItemManager();
 	ModsManager* GetModsManager();
 	CharacterGUI* GetCharacterGUI();
