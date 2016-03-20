@@ -191,31 +191,31 @@ void VoxGame::UpdateNamePicking()
 {
 	POINT lMouse = { VoxGame::GetInstance()->GetWindowCursorX(), (m_windowHeight - VoxGame::GetInstance()->GetWindowCursorY()) };
 
+	// Push attribs
 	glPushAttrib(GL_LIST_BIT | GL_CURRENT_BIT | GL_ENABLE_BIT | GL_TRANSFORM_BIT);
 	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);  // Disabled rendering
 
-	m_pRenderer->PushMatrix();
-		// Set the projection mode
-		m_pRenderer->SetProjectionMode(PM_PERSPECTIVE, m_defaultViewport);
+	// Set the projection mode
+	m_pRenderer->SetProjectionMode(PM_PERSPECTIVE, m_defaultViewport);
 
-		// Start name picking
-		m_pRenderer->StartNamePicking(m_defaultViewport, lMouse.x, lMouse.y);
+	// Init name picking
+	m_pRenderer->InitNameStack();
 
-		// Set the lookat camera
-		m_pGameCamera->Look();
+	// Start name picking
+	m_pRenderer->StartNamePicking(m_defaultViewport, lMouse.x, lMouse.y);
 
-		// Init name picking
-		m_pRenderer->InitNameStack();
+	// Set the lookat camera
+	m_pGameCamera->Look();
 
+	// Different sub-systems render name picking
+	{
 		m_pNPCManager->RenderNamePicking();
+	}
 
-		// End name stack
-		m_pRenderer->EndNameStack();
+	// End the name picking
+	m_pickedObject = m_pRenderer->GetPickedObject();
 
-		// End the name picking
-		m_pickedObject = m_pRenderer->GetPickedObject();
-	m_pRenderer->PopMatrix();
-
+	// Pop attribs
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);   // Enable rendering
 	glPopAttrib();
 

@@ -2205,13 +2205,10 @@ bool Renderer::MeshStaticBufferRender(OpenGLTriangleMesh* pMesh)
 void Renderer::InitNameStack()
 {
 	glInitNames();
-
-	glPushName(-1);
 }
 
 void Renderer::LoadNameOntoStack(int lName)
 {
-	glPopName();
 	glPushName(lName);
 	//glLoadName(lName);
 }
