@@ -318,6 +318,9 @@ void VoxGame::Render()
 		// Render the GUI
 		RenderGUI();
 
+		// Update the NPC screen positions for select character screen
+		m_pNPCManager->UpdateScreenCoordinates2d(m_pGameCamera);
+
 	// End rendering
 	m_pRenderer->EndScene();
 
