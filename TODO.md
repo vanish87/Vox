@@ -126,7 +126,7 @@
   - [ ]  Poisson-disc sparation and generation for random placement of scenery.
   - [ ]  Convert scenery manager to use instance rendering and the instance shader.
 - [ ]  Add Quest GUI.
-- [ ]  Create front end scene and character line up.
+- [x]  Create front end scene and character line up.
 - [ ]  Character creation and customization.
 - [ ]  Saving and loading chunks.
   - [ ]  Group together chunks for saving, loading. Not individual
