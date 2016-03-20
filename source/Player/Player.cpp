@@ -167,6 +167,13 @@ void Player::ResetPlayer()
 	m_bCanInteruptCombatAnim = true;
 	m_bCanThrowWeapon = true;
 	m_bowAttackDelay = 0.0f;
+	m_attackEnabled = false;
+	m_attackEnabledTimer = 0.0f;
+	m_attackEnabledDelayTimer = 0.0f;
+	m_attackSegmentAngle = 0.75f;
+	m_attackRadius = 1.75f;
+	m_attackRotation = 0.0f;
+	m_bCanThrowWeapon = true;
 
 	// Projectile hitbox
 	m_eProjectileHitboxType = eProjectileHitboxType_Cube;
@@ -2715,6 +2722,37 @@ void Player::RenderDebug()
 					m_pRenderer->ImmediateVertex(m_forward.x*15.0f, m_forward.y*15.0f, m_forward.z*15.0f);	
 				m_pRenderer->DisableImmediateMode();
 			m_pRenderer->PopMatrix();
+
+			// NPC interaction sector
+			m_pRenderer->PushMatrix();
+				m_pRenderer->SetLineWidth(1.0f);
+				m_pRenderer->ImmediateColourAlpha(1.0f, 1.0f, 1.0f, 1.0f);
+				float angle = acos(NPCManager::NPC_INERACCTION_RADIUS_CHECK);
+				m_pRenderer->RotateWorldMatrix(0.0f, GetRotation()-90.0f, 0.0f);
+				m_pRenderer->DrawCircleSector(NPCManager::NPC_INTERACTION_DISTANCE, angle, 10);
+			m_pRenderer->PopMatrix();
+
+			// Item interaction sector
+			m_pRenderer->PushMatrix();
+				m_pRenderer->SetLineWidth(1.0f);
+				m_pRenderer->ImmediateColourAlpha(0.0f, 0.5f, 1.0f, 1.0f);
+				angle = acos(ItemManager::ITEM_INERACCTION_RADIUS_CHECK);
+				m_pRenderer->RotateWorldMatrix(0.0f, GetRotation()-90.0f, 0.0f);
+				m_pRenderer->DrawCircleSector(ItemManager::ITEM_INTERACTION_DISTANCE, angle, 10);
+			m_pRenderer->PopMatrix();
+
+			// Attack segment
+			if (m_attackEnabled && (m_attackEnabledDelayTimer <= 0.0f))
+			{
+				m_pRenderer->PushMatrix();
+					m_pRenderer->SetLineWidth(1.0f);
+					m_pRenderer->ImmediateColourAlpha(1.0f, 0.15f, 0.05f, 1.0f);
+					angle = acos(m_attackSegmentAngle);
+					m_pRenderer->RotateWorldMatrix(0.0f, GetRotation() - 90.0f + m_attackRotation, 0.0f);
+					m_pRenderer->TranslateWorldMatrix(0.0f, 0.25f, 0.0f);
+					m_pRenderer->DrawCircleSector(m_attackRadius, angle, 10);
+				m_pRenderer->PopMatrix();
+			}
 		m_pRenderer->PopMatrix();
 
 		// Projectile hitbox

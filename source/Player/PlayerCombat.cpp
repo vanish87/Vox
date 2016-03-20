@@ -129,12 +129,32 @@ void Player::PressAttack()
 			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "2HandedSwordAttack", 0.01f);
 
 			m_bCanAttackRight = false;
+
+			m_attackEnabledDelayTimer = 0.175f;
+			m_attackSegmentAngle = 0.60f;
+			float attackTime = 0.6f;
+			float startRotation = 240.0f;
+			float endRotation = -60.0f;
+			float easingRotation = -50.0f;
+
+			m_attackEnabled = true;
+			m_attackEnabledTimer = 0.0f;
+			m_attackRotation = startRotation;
+			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackEnabledTimer, 0.0f, attackTime, attackTime, 0.0f, NULL, _AttackEnabledTimerFinished, this);
+			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackEnabledDelayTimer, m_attackEnabledDelayTimer, 0.0f, m_attackEnabledDelayTimer, 0.0f, NULL, _AttackEnabledDelayTimerFinished, this);
+			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackRotation, startRotation, endRotation, attackTime, easingRotation);
+
 		}
 	}
 	else if (IsSword())
 	{
 		if (CanAttackRight())
 		{
+			float attackTime = 0.0f;
+			float startRotation = 0.0f;
+			float endRotation = 0.0f;
+			float easingRotation = 0.0f;
+
 			int randomAttack = GetRandomNumber(1, 3);
 			if (randomAttack == 1)
 			{
@@ -144,6 +164,13 @@ void Player::PressAttack()
 				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "SwordAttack1", 0.01f);
 
 				m_bCanInteruptCombatAnim = true;
+
+				m_attackEnabledDelayTimer = 0.1f;
+				m_attackSegmentAngle = 0.75f;
+				attackTime = 0.4f;
+				startRotation = -20.0f;
+				endRotation = -20.0f;
+				easingRotation = 0.0f;
 			}
 			else if (randomAttack == 2)
 			{
@@ -153,15 +180,36 @@ void Player::PressAttack()
 				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "SwordAttack1", 0.01f);
 
 				m_bCanInteruptCombatAnim = true;
+
+				m_attackEnabledDelayTimer = 0.2f;
+				m_attackSegmentAngle = 0.75f;
+				attackTime = 0.4f;
+				startRotation = -10.0f;
+				endRotation = -10.0f;
+				easingRotation = 0.0f;
 			}
 			else if (randomAttack == 3)
 			{
 				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "SwordAttack3", 0.01f);
 
 				m_bCanInteruptCombatAnim = false;
+
+				m_attackEnabledDelayTimer = 0.0f;
+				m_attackSegmentAngle = 0.60f;
+				attackTime = 0.6f;
+				startRotation = 360.0f;
+				endRotation = -45.0f;
+				easingRotation = -75.0f;
 			}
 
 			m_bCanAttackRight = false;
+
+			m_attackEnabled = true;
+			m_attackEnabledTimer = 0.0f;
+			m_attackRotation = startRotation;
+			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackEnabledTimer, 0.0f, attackTime, attackTime, 0.0f, NULL, _AttackEnabledTimerFinished, this);
+			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackEnabledDelayTimer, m_attackEnabledDelayTimer, 0.0f, m_attackEnabledDelayTimer, 0.0f, NULL, _AttackEnabledDelayTimerFinished, this);
+			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackRotation, startRotation, endRotation, attackTime, easingRotation);
 		}
 	}
 	else if (IsBlockPlacing())
@@ -227,6 +275,26 @@ bool Player::CanAttackLeft()
 bool Player::CanAttackRight()
 {
 	return m_bCanAttackRight;
+}
+
+bool Player::GetAttackEnabled()
+{
+	return m_attackEnabled && (m_attackEnabledDelayTimer <= 0.0f);
+}
+
+float Player::GetAttackRadius()
+{
+	return m_attackRadius;
+}
+
+float Player::GetAttackRotation()
+{
+	return m_attackRotation;
+}
+
+float Player::GetAttackSegmentAngle()
+{
+	return m_attackSegmentAngle;
 }
 
 void Player::CheckProjectileDamageRadius(Projectile* pProjectile)
@@ -609,6 +677,28 @@ float Player::GetProjectileHitboxZLength()
 vec3 Player::GetProjectileHitboxCenter()
 {
 	return GetCenter() + m_projectileHitboxCenterOffset;
+}
+
+void Player::_AttackEnabledTimerFinished(void *apData)
+{
+	Player* lpPlayer = (Player*)apData;
+	lpPlayer->AttackEnabledTimerFinished();
+}
+
+void Player::AttackEnabledTimerFinished()
+{
+	m_attackEnabled = false;
+}
+
+void Player::_AttackEnabledDelayTimerFinished(void *apData)
+{
+	Player* lpPlayer = (Player*)apData;
+	lpPlayer->AttackEnabledDelayTimerFinished();
+}
+
+void Player::AttackEnabledDelayTimerFinished()
+{
+	m_attackEnabledDelayTimer = 0.0f;
 }
 
 void Player::_AttackAnimationTimerFinished(void *apData)

@@ -162,6 +162,10 @@ public:
 	void ReleaseAttack();
 	bool CanAttackLeft();
 	bool CanAttackRight();
+	bool GetAttackEnabled();
+	float GetAttackRadius();
+	float GetAttackRotation();
+	float GetAttackSegmentAngle();
 	void CheckProjectileDamageRadius(Projectile* pProjectile);
 	void DoDamage(float amount, Colour textColour, vec3 knockbackDirection, float knockbackAmount, bool createParticleHit);
 	void Explode();
@@ -272,6 +276,12 @@ protected:
 	/* Protected methods */
 	static void _StepUpAnimationFinished(void *apData);
 	void StepUpAnimationFinished();
+
+	static void _AttackEnabledTimerFinished(void *apData);
+	void AttackEnabledTimerFinished();
+
+	static void _AttackEnabledDelayTimerFinished(void *apData);
+	void AttackEnabledDelayTimerFinished();
 
 	static void _AttackAnimationTimerFinished(void *apData);
 	void AttackAnimationTimerFinished();
@@ -419,6 +429,12 @@ private:
 	bool m_bCanInteruptCombatAnim;
 	bool m_bCanThrowWeapon;
 	float m_bowAttackDelay;
+	bool m_attackEnabled;
+	float m_attackEnabledTimer;
+	float m_attackEnabledDelayTimer;
+	float m_attackSegmentAngle;
+	float m_attackRadius;
+	float m_attackRotation;
 
 	// Target enemy pointer, used for target camera
 	Enemy* m_pTargetEnemy;

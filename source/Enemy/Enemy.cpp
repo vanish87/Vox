@@ -1891,60 +1891,59 @@ void Enemy::DoDamage(float amount, Colour textColour, vec3 knockbackDirection, f
 
 void Enemy::CheckPlayerDamageRadius()
 {
-	// TODO : Player Attack
-	//if(m_pPlayer->GetAttackEnabled() == false)
-	//{
-	//	// If attack is not enabled, just return
-	//	return;
-	//}
+	if(m_pPlayer->GetAttackEnabled() == false)
+	{
+		// If attack is not enabled, just return
+		return;
+	}
 
 	vec3 distance = GetCenter() - m_pPlayer->GetCenter();
 	float lengthToPlayer = length(distance);
-	// TODO : Player Attack
-	//if(lengthToPlayer <= m_radius + m_pPlayer->GetAttackRadius())
-	//{
-	//	vec3 distance_minus_y = distance;
-	//	distance_minus_y.y = 0.0f;
-	//	vec3 direction = normalize(distance_minus_y);
-	//	direction = normalize(direction);
-	//	
-	//	// Figure out the attack vector, based on the attack rotation
-	//	float playerRotation = m_pPlayer->GetRotation();
-	//	float attackRotation = m_pPlayer->GetAttackRotation();
-	//	float angle = DegToRad(playerRotation + attackRotation);
-	//	vec3 attackDirection = vec3(sin(angle), 0.0f, cos(angle));
-	//	float dotProduct = dot(direction, attackDirection);
 
-	//	if(dotProduct > m_pPlayer->GetAttackSegmentAngle()) // Check if we are within the attack segment
-	//	{	
-	//		if(m_pPlayer->IsDagger())
-	//		{
-	//			// Remove sapping from all other enemies
-	//			m_pEnemyManager->RemoveSappedFromEnemies(this);
+	if(lengthToPlayer <= m_radius + m_pPlayer->GetAttackRadius())
+	{
+		vec3 distance_minus_y = distance;
+		distance_minus_y.y = 0.0f;
+		vec3 direction = normalize(distance_minus_y);
+		direction = normalize(direction);
+		
+		// Figure out the attack vector, based on the attack rotation
+		float playerRotation = m_pPlayer->GetRotation();
+		float attackRotation = m_pPlayer->GetAttackRotation();
+		float angle = DegToRad(playerRotation + attackRotation);
+		vec3 attackDirection = vec3(sin(angle), 0.0f, cos(angle));
+		float dotProduct = dot(direction, attackDirection);
 
-	//			// Set sapped
-	//			SetSapped(true);
-	//		}
-	//		else
-	//		{
-	//			vec3 knockbackDirection;
-	//			if(m_eEnemyType == eEnemyType_Bee || m_eEnemyType == eEnemyType_Bat || m_eEnemyType == eEnemyType_Ghost || m_eEnemyType == eEnemyType_Doppelganger)
-	//			{
-	//				knockbackDirection = (direction*2.0f);
-	//			}
-	//			else
-	//			{
-	//				knockbackDirection = (direction*2.0f) + vec3(0.0f, 1.0f, 0.0f);
-	//			}
+		if(dotProduct > m_pPlayer->GetAttackSegmentAngle()) // Check if we are within the attack segment
+		{	
+			if(m_pPlayer->IsDagger())
+			{
+				// Remove sapping from all other enemies
+				m_pEnemyManager->RemoveSappedFromEnemies(this);
 
-	//			knockbackDirection = normalize(knockbackDirection);
-	//			Colour damageColour = Colour(1.0f, 1.0f, 1.0f);
+				// Set sapped
+				SetSapped(true);
+			}
+			else
+			{
+				vec3 knockbackDirection;
+				if(m_eEnemyType == eEnemyType_Bee || m_eEnemyType == eEnemyType_Bat || m_eEnemyType == eEnemyType_Ghost || m_eEnemyType == eEnemyType_Doppelganger)
+				{
+					knockbackDirection = (direction*2.0f);
+				}
+				else
+				{
+					knockbackDirection = (direction*2.0f) + vec3(0.0f, 1.0f, 0.0f);
+				}
 
-	//			float knockbackAmount = 16.0f;
-	//			DoDamage(20.0f, damageColour, knockbackDirection, knockbackAmount, true, true);
-	//		}
-	//	}
-	//}
+				knockbackDirection = normalize(knockbackDirection);
+				Colour damageColour = Colour(1.0f, 1.0f, 1.0f);
+
+				float knockbackAmount = 16.0f;
+				DoDamage(20.0f, damageColour, knockbackDirection, knockbackAmount, true, true);
+			}
+		}
+	}
 }
 
 void Enemy::CheckNPCDamageRadius()
@@ -3249,7 +3248,7 @@ void Enemy::UpdateCombat(float dt)
 	}
 	else
 	{
-		aggroCancel = m_pPlayer->IsDead(); /*|| m_pPlayer->IsStealth() // TODO : Player Stealth;*/
+		aggroCancel = m_pPlayer->IsDead();
 		radius = m_pPlayer->GetRadius();
 		center = m_pPlayer->GetCenter();
 	}
