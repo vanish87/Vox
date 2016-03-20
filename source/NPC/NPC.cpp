@@ -2627,6 +2627,25 @@ void NPC::UpdateCombat(float dt)
 	{
 		UpdateRangedCombat(dt);
 	}
+
+	// Reset the canAttack flag if our weapon arm animation is completed
+	if (m_bCanAttack == false && (m_animationFinished[AnimationSections_Right_Arm_Hand] == true))
+	{
+		// Stop weapon trails
+		if (m_pVoxelCharacter != NULL)
+		{
+			if (m_pVoxelCharacter->GetRightWeapon())
+			{
+				if (m_pVoxelCharacter->IsRightWeaponLoaded())
+				{
+					m_pVoxelCharacter->GetRightWeapon()->StopWeaponTrails();
+				}
+			}
+		}
+
+		m_bCanAttack = true;
+		m_bCanInteruptCombatAnim = true;
+	}
 }
 
 void NPC::UpdateMeleeCombat(float dt)
@@ -2667,6 +2686,34 @@ void NPC::UpdateRangedCombat(float dt)
 		if(m_chargeAmount >= 1.0f)
 		{
 			ReleaseAttack();
+		}
+	}
+
+	// Charging - figure out trajectory and velocity for projectile
+	if (m_bIsChargingAttack)
+	{
+		m_chargeAmount += dt / m_chargeTime;
+
+		if (m_chargeAmount > 1.0f)
+		{
+			m_chargeAmount = 1.0f;
+		}
+	}
+
+	if (m_eNPCCombatType == eNPCCombatType_Archer && m_pTargetEnemy != NULL)
+	{
+		m_chargeSpawnPosition = GetCenter() + (m_forward*0.75f) + (GetUpVector()*0.5f);
+
+		float liftAmount = 1.75f * m_chargeAmount;
+		float powerAmount = 45.0f * m_chargeAmount;
+
+		//if(m_pTargetEnemy)
+		{
+			// Player target
+			vec3 toTarget = m_pTargetEnemy->GetCenter() - GetCenter();
+			float toTargetDistance = length(toTarget);
+			liftAmount += toTargetDistance * 0.20f;
+			m_chargeSpawnVelocity = (normalize(toTarget) * powerAmount) + vec3(0.0f, liftAmount, 0.0f);
 		}
 	}
 }
@@ -2838,6 +2885,56 @@ void NPC::UpdateNPCState(float dt)
 	}
 }
 
+void NPC::UpdatePhysics(float dt)
+{
+	vec3 acceleration;
+	if (IsFrontEndNPC() == false) // Don't do gravity in front-end
+	{
+		acceleration = (m_gravityDirection * 9.81f) * 5.0f;
+	}
+
+	// Integrate velocity
+	m_velocity += acceleration * dt;
+
+	// Check collision
+	{
+		vec3 velocityToUse = m_velocity;
+		vec3 velAmount = velocityToUse*dt;
+		vec3 pNormal;
+		int numberDivision = 1;
+		while (length(velAmount) >= 1.0f)
+		{
+			numberDivision++;
+			velAmount = velocityToUse*(dt / numberDivision);
+		}
+		for (int i = 0; i < numberDivision; i++)
+		{
+			float dtToUse = (dt / numberDivision) + ((dt / numberDivision) * i);
+			vec3 posToCheck = GetCenter() + velocityToUse*dtToUse;
+			bool stepUp = false;
+			if (CheckCollisions(posToCheck, m_previousPosition, &pNormal, &velAmount))
+			{
+				// Reset velocity, we don't have any bounce
+				m_velocity = vec3(0.0f, 0.0f, 0.0f);
+				velocityToUse = vec3(0.0f, 0.0f, 0.0f);
+
+				if (velocityToUse.y <= 0.0f)
+				{
+					if (m_bCanJump == false)
+					{
+						m_bCanJump = true;
+					}
+				}
+			}
+		}
+
+		// Integrate position
+		m_position += velocityToUse * dt;
+	}
+
+	m_previousPosition = GetCenter();
+}
+
 void NPC::Update(float dt)
 {
 	// Update grid position
@@ -2876,79 +2973,8 @@ void NPC::Update(float dt)
 		}
 	}
 
-	// Reset the canAttack flag if our weapon arm animation is completed
-	if(m_bCanAttack == false && (m_animationFinished[AnimationSections_Right_Arm_Hand] == true))
-	{
-		// Stop weapon trails
-		if(m_pVoxelCharacter != NULL)
-		{
-			if(m_pVoxelCharacter->GetRightWeapon())
-			{
-				if(m_pVoxelCharacter->IsRightWeaponLoaded())
-				{
-					m_pVoxelCharacter->GetRightWeapon()->StopWeaponTrails();
-				}
-			}
-		}
-
-		m_bCanAttack = true;
-		m_bCanInteruptCombatAnim = true;
-	}
-
-	// Charging - figure out trajectory and velocity for projectile
-	if(m_bIsChargingAttack)
-	{
-		m_chargeAmount += dt / m_chargeTime;
-
-		if(m_chargeAmount > 1.0f)
-		{
-			m_chargeAmount = 1.0f;
-		}
-	}
-
-	if(m_eNPCCombatType == eNPCCombatType_Archer && m_pTargetEnemy != NULL)
-	{
-		m_chargeSpawnPosition = GetCenter() + (m_forward*0.75f) + (GetUpVector()*0.5f);
-
-		float liftAmount = 1.75f * m_chargeAmount;
-		float powerAmount = 45.0f * m_chargeAmount;
-
-		//if(m_pTargetEnemy)
-		{
-			// Player target
-			vec3 toTarget = m_pTargetEnemy->GetCenter() - GetCenter();
-			float toTargetDistance = length(toTarget);
-			liftAmount += toTargetDistance * 0.20f;
-			m_chargeSpawnVelocity = (normalize(toTarget) * powerAmount) + vec3(0.0f, liftAmount, 0.0f);
-		}
-	}
-
-	if(IsFrontEndNPC() == false) // Dont do gravity in front-end
-	{
-		vec3 acceleration = (m_gravityDirection * 9.81f) * 5.0f;
-
-		// Integrate velocity and position
-		m_velocity += acceleration * dt;
-	}
-
-	vec3 pNormal;
-	if(CheckCollisions(GetCenter() + m_velocity*dt, m_previousPosition, &pNormal, &m_velocity))
-	{
-		if(m_velocity.y <= 0.0f)
-		{
-			// Reset velocity, we don't have any bounce
-			m_velocity = vec3(0.0f, 0.0f, 0.0f);
-
-			if(m_bCanJump == false)
-			{
-				m_bCanJump = true;
-			}
-		}
-	}
-
-	m_position += m_velocity * dt;
-
-	m_previousPosition = GetCenter();
+	// Update physics
+	UpdatePhysics(dt);
 }
 
 void NPC::UpdateScreenCoordinates2d(Camera* pCamera)

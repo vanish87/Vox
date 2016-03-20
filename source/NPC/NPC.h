@@ -220,6 +220,7 @@ public:
 	void UpdateRangedCombat(float dt);
 	void UpdateMovement(float dt);
 	void UpdateNPCState(float dt);
+	void UpdatePhysics(float dt);
 	void Update(float dt);
 	void UpdateScreenCoordinates2d(Camera* pCamera);
 	void UpdateSubSelectionNamePicking(int pickingId, bool mousePressed);

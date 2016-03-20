@@ -125,7 +125,7 @@ public:
 
 	// World collision
 	void SetWorldCollide(bool collide);
-	
+
 	// Bounding collision region
 	void CreateBoundingRegion(vec3 origin, BoundingRegionType boundingType, float radius, float xWidth, float yWidth, float zWidth, float scale);
 	void UpdateBoundingRegion(int index, vec3 origin, BoundingRegionType boundingType, float radius, float xWidth, float yWidth, float zWidth, float scale);
@@ -153,6 +153,7 @@ public:
 
 	// Update
 	void Update(float dt);
+	void UpdatePhysics(float dt);
 	void UpdateTimers(float dt);
 	void UpdatePlayerMagnet(float dt);
 	void UpdateItemLights(float dt);
@@ -202,6 +203,9 @@ private:
 
 	// Position
 	vec3 m_position;
+
+	// Previous position
+	vec3 m_previousPosition;
 
 	// Velocity
 	vec3 m_velocity;

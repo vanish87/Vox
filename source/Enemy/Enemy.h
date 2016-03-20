@@ -190,6 +190,7 @@ public:
 	void UpdateWeaponLights(float dt);
 	void UpdateWeaponParticleEffects(float dt);
 	void Update(float dt);
+	void UpdatePhysics(float dt);
 	void UpdateLookingAndForwardTarget(float dt);
 	void UpdateCombat(float dt);
 	void UpdateGameplay(float dt);

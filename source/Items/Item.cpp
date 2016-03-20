@@ -1237,6 +1237,12 @@ void Item::Update(float dt)
 		}
 	}
 
+	// Update physics
+	UpdatePhysics(dt);
+}
+
+void Item::UpdatePhysics(float dt)
+{
 	vec3 acceleration = (m_gravityDirection * 9.81f) * 4.0f;
 
 	// Integrate velocity and position
@@ -1248,17 +1254,17 @@ void Item::Update(float dt)
 	m_angularVelocity += angularAcceleration * dt;
 	m_rotation += m_angularVelocity * dt;
 
-	if(m_worldCollide)
+	if (m_worldCollide)
 	{
 		int blockX, blockY, blockZ;
 		vec3 blockPos;
-		
-		if(m_pOwningChunk != NULL && m_pOwningChunk->IsSetup() && m_pOwningChunk->IsInsideChunk(m_position))
+
+		if (m_pOwningChunk != NULL && m_pOwningChunk->IsSetup() && m_pOwningChunk->IsInsideChunk(m_position))
 		{
 			Chunk* pChunk = GetCachedGridChunkOrFromPosition(m_position);
 			bool active = m_pChunkManager->GetBlockActiveFrom3DPosition(m_position.x, m_position.y, m_position.z, &blockPos, &blockX, &blockY, &blockZ, &pChunk);
 
-			if(active == true)
+			if (active == true)
 			{
 				// Roll back the integration, since we will intersect the block otherwise
 				m_position -= m_velocity * dt;
@@ -1268,19 +1274,19 @@ void Item::Update(float dt)
 		}
 		else
 		{
-			if(m_pOwningChunk != NULL)
+			if (m_pOwningChunk != NULL)
 			{
 				m_pOwningChunk->RemoveItem(this);
 			}
 
 			m_pOwningChunk = m_pChunkManager->GetChunkFromPosition(m_position.x, m_position.y, m_position.z);
 
-			if(m_pOwningChunk != NULL)
+			if (m_pOwningChunk != NULL)
 			{
 				m_pOwningChunk->AddItem(this);
 			}
 
-			if(m_pOwningChunk == NULL)
+			if (m_pOwningChunk == NULL)
 			{
 				m_position -= m_velocity * dt;
 				m_velocity = vec3(0.0f, 0.0f, 0.0f);

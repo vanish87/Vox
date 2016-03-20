@@ -3033,54 +3033,80 @@ void Enemy::Update(float dt)
 		}
 	}
 
+	// Update physics
+	UpdatePhysics(dt);
+}
+
+void Enemy::UpdatePhysics(float dt)
+{
 	// Gravity modifications for flying creatures
 	vec3 acceleration;
-	if(m_eEnemyType != eEnemyType_Bee && m_eEnemyType != eEnemyType_Bat && m_eEnemyType != eEnemyType_Ghost && m_eEnemyType != eEnemyType_Doppelganger)
+	if (m_eEnemyType != eEnemyType_Bee && m_eEnemyType != eEnemyType_Bat && m_eEnemyType != eEnemyType_Ghost && m_eEnemyType != eEnemyType_Doppelganger)
 	{
-		if(m_spawning == false)
+		if (m_spawning == false)
 		{
 			acceleration += (m_gravityDirection * 9.81f) * 5.0f;
 		}
 	}
 
-	// Integrate velocity and position
+	// Integrate velocity
 	m_velocity += acceleration * dt;
 
-	if(m_eEnemyType != eEnemyType_Ghost && m_eEnemyType != eEnemyType_Doppelganger)
+	if (m_eEnemyType != eEnemyType_Ghost && m_eEnemyType != eEnemyType_Doppelganger)
 	{
-		if(m_spawning == false)
+		if (m_spawning == false)
 		{
-			vec3 pNormal;
-			if(CheckCollisions(GetCenter() + m_velocity*dt, m_previousPosition, &pNormal, &m_velocity))
+			// Check collision
 			{
-				if(m_velocity.y <= 0.0f)
+				vec3 velocityToUse = m_velocity;
+				vec3 velAmount = velocityToUse*dt;
+				vec3 pNormal;
+				int numberDivision = 1;
+				while (length(velAmount) >= 1.0f)
 				{
-					// Reset velocity, we don't have any bounce
-					m_velocity = vec3(0.0f, 0.0f, 0.0f);
-
-					if(m_bCanJump == false)
+					numberDivision++;
+					velAmount = velocityToUse*(dt / numberDivision);
+				}
+				for (int i = 0; i < numberDivision; i++)
+				{
+					float dtToUse = (dt / numberDivision) + ((dt / numberDivision) * i);
+					vec3 posToCheck = GetCenter() + velocityToUse*dtToUse;
+					bool stepUp = false;
+					if (CheckCollisions(posToCheck, m_previousPosition, &pNormal, &velAmount))
 					{
-						m_bCanJump = true;
+						// Reset velocity, we don't have any bounce
+						m_velocity = vec3(0.0f, 0.0f, 0.0f);
+						velocityToUse = vec3(0.0f, 0.0f, 0.0f);
+
+						if (velocityToUse.y <= 0.0f)
+						{
+							if (m_bCanJump == false)
+							{
+								m_bCanJump = true;
+							}
+						}
 					}
 				}
+
+				// Integrate position
+				m_position += velocityToUse * dt;
 			}
 		}
 	}
 
-	m_position += m_velocity * dt;
-
-	if(m_eEnemyType == eEnemyType_Bee || m_eEnemyType == eEnemyType_Bat || m_eEnemyType == eEnemyType_Ghost || m_eEnemyType == eEnemyType_Doppelganger)
+	// Drag for flying enemies
+	if (m_eEnemyType == eEnemyType_Bee || m_eEnemyType == eEnemyType_Bat || m_eEnemyType == eEnemyType_Ghost || m_eEnemyType == eEnemyType_Doppelganger)
 	{
 		m_velocity *= 0.9975f;
 	}
 
-	if(m_eEnemyType != eEnemyType_TargetDummy && m_eEnemyType != eEnemyType_Mimic)
+	if (m_eEnemyType != eEnemyType_TargetDummy && m_eEnemyType != eEnemyType_Mimic)
 	{
 		vec3 currentPos = m_position;
 		vec3 difference = (currentPos - m_previousPosition);
 		difference.y = 0.0f;
 		float lengthResult = length(difference);
-		if(lengthResult <= 0.025f)
+		if (lengthResult <= 0.025f)
 		{
 			m_bUpdateStuckTimer = true;
 		}
