@@ -332,21 +332,24 @@ void ChunkManager::UnloadChunk(Chunk* pChunk)
 	m_ChunkMapMutexLock.unlock();
 
 	// Clear chunk linkage
-	if (m_pPlayer != NULL)
+	if (m_updateThreadActive)
 	{
-		m_pPlayer->ClearChunkCacheForChunk(pChunk);
-	}
-	if (m_pNPCManager != NULL)
-	{
-		m_pNPCManager->ClearNPCChunkCacheForChunk(pChunk);
-	}
-	if (m_pEnemyManager)
-	{
-		m_pEnemyManager->ClearEnemyChunkCacheForChunk(pChunk);
-	}
-	if (m_pBlockParticleManager)
-	{
-		m_pBlockParticleManager->ClearParticleChunkCacheForChunk(pChunk);
+		if (m_pPlayer != NULL)
+		{
+			m_pPlayer->ClearChunkCacheForChunk(pChunk);
+		}
+		if (m_pNPCManager != NULL)
+		{
+			m_pNPCManager->ClearNPCChunkCacheForChunk(pChunk);
+		}
+		if (m_pEnemyManager)
+		{
+			m_pEnemyManager->ClearEnemyChunkCacheForChunk(pChunk);
+		}
+		if (m_pBlockParticleManager)
+		{
+			m_pBlockParticleManager->ClearParticleChunkCacheForChunk(pChunk);
+		}
 	}
 
 	// Unload and delete
