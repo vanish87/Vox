@@ -380,6 +380,9 @@ private:
 	bool m_bStuck;
 	float m_stuckTimer;
 
+	// Enemy light
+	unsigned int m_enemyLightId;
+
 	// Grid position
 	int m_gridPositionX;
 	int m_gridPositionY;

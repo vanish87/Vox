@@ -120,6 +120,9 @@ Enemy::Enemy(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, 
 	m_bStuck = false;
 	m_stuckTimer = 5.0f;
 
+	// Enemy light
+	m_enemyLightId = -1;
+
 	// Charging attacks
 	m_bIsChargingAttack = false;
 	m_chargeAmount = 0.0f;
@@ -190,6 +193,8 @@ Enemy::Enemy(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, 
 			sprintf(facesFilename, "saves/characters/%s/%s.faces", m_modelNameString.c_str(), m_modelNameString.c_str());
 			sprintf(characterFilename, "saves/characters/%s/%s.character", m_modelNameString.c_str(), m_modelNameString.c_str());
 		}
+
+		m_pLightingManager->AddLight(vec3(0.0f, 0.0f, 0.0f), 10.0f, 1.0f, Colour(0.0f, 0.0f, 1.0f, 1.0f), &m_enemyLightId);
 	}
 
 	m_pVoxelCharacter = new VoxelCharacter(m_pRenderer, m_pQubicleBinaryManager);
@@ -226,6 +231,16 @@ Enemy::~Enemy()
 	UnloadWeapon(false);
 
 	m_pVoxelCharacter->RemoveQubicleMatrix("Quiver");
+
+	if (m_eEnemyType == eEnemyType_Doppelganger)
+	{
+		// Remove enemy light
+		m_pLightingManager->RemoveLight(m_enemyLightId);
+
+		// Create dying light
+		unsigned int lId;
+		m_pLightingManager->AddDyingLight(GetCenter(), 10.0f, 1.0f, Colour(0.0f, 0.0f, 1.0f, 1.0f), 2.0f, &lId);
+	}
 
 	delete m_pVoxelCharacter;
 }
@@ -3035,6 +3050,12 @@ void Enemy::Update(float dt)
 
 	// Update physics
 	UpdatePhysics(dt);
+
+	// Update the enemy light
+	if (m_eEnemyType == eEnemyType_Doppelganger)
+	{
+		m_pLightingManager->UpdateLightPosition(m_enemyLightId, GetCenter());
+	}
 }
 
 void Enemy::UpdatePhysics(float dt)
