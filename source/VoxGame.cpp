@@ -383,6 +383,7 @@ void VoxGame::Destroy()
 	if (c_instance)
 	{
 		delete m_pSkybox;
+		delete m_pChunkManager;
 		delete m_pItemManager;
 		delete m_pInventoryManager;
 		delete m_pPlayer;
@@ -393,7 +394,6 @@ void VoxGame::Destroy()
 		delete m_pBlockParticleManager;
 		delete m_pTextEffectsManager;
 		delete m_pInstanceManager;
-		delete m_pChunkManager;
 		delete m_pBiomeManager;
 		delete m_pQubicleBinaryManager;
 		delete m_pFrontendManager;
