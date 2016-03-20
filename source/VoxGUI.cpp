@@ -177,10 +177,10 @@ void VoxGame::CreateGUI()
 	m_pAutoCameraOptionBox->SetDimensions(10, 30, 14, 14);
 	m_pAutoCameraOptionBox->SetCallBackFunction(_CameraModeChanged);
 	m_pAutoCameraOptionBox->SetCallBackData(this);
-	m_pFirstPersonCameraOptionBox = new OptionBox(m_pRenderer, m_defaultFont, "First Person");
-	m_pFirstPersonCameraOptionBox->SetDimensions(10, 10, 14, 14);
-	m_pFirstPersonCameraOptionBox->SetCallBackFunction(_CameraModeChanged);
-	m_pFirstPersonCameraOptionBox->SetCallBackData(this);
+	m_pFrontendCameraOptionBox = new OptionBox(m_pRenderer, m_defaultFont, "Frontend");
+	m_pFrontendCameraOptionBox->SetDimensions(10, 10, 14, 14);
+	m_pFrontendCameraOptionBox->SetCallBackFunction(_CameraModeChanged);
+	m_pFrontendCameraOptionBox->SetCallBackData(this);
 	m_pCameraModeOptionController = new OptionController(m_pRenderer, m_defaultFont, "Camera");
 	m_pCameraModeOptionController->SetDisplayLabel(true);
 	m_pCameraModeOptionController->SetDisplayBorder(true);
@@ -188,11 +188,11 @@ void VoxGame::CreateGUI()
 	m_pCameraModeOptionController->Add(m_pDebugCameraOptionBox);
 	m_pCameraModeOptionController->Add(m_pMouseRotateCameraOptionBox);
 	m_pCameraModeOptionController->Add(m_pAutoCameraOptionBox);
-	m_pCameraModeOptionController->Add(m_pFirstPersonCameraOptionBox);
+	m_pCameraModeOptionController->Add(m_pFrontendCameraOptionBox);
 	m_pDebugCameraOptionBox->SetToggled(true);
 	m_pMouseRotateCameraOptionBox->SetDisabled(true);
 	m_pAutoCameraOptionBox->SetDisabled(true);
-	m_pFirstPersonCameraOptionBox->SetDisabled(true);
+	m_pFrontendCameraOptionBox->SetDisabled(true);
 
 	m_pGameWindow->AddComponent(m_pGameModeOptionController);
 	m_pGameWindow->AddComponent(m_pGUIThemePulldown);
@@ -317,7 +317,7 @@ void VoxGame::SkinGUI()
 	m_pFrontendManager->SetOptionboxIcons(m_pDebugCameraOptionBox);
 	m_pFrontendManager->SetOptionboxIcons(m_pMouseRotateCameraOptionBox);
 	m_pFrontendManager->SetOptionboxIcons(m_pAutoCameraOptionBox);
-	m_pFrontendManager->SetOptionboxIcons(m_pFirstPersonCameraOptionBox);
+	m_pFrontendManager->SetOptionboxIcons(m_pFrontendCameraOptionBox);
 
 	m_pFrontendManager->SetPulldownMenuIcons(m_pAnimationsPulldown);
 	m_pFrontendManager->SetPulldownMenuIcons(m_pWeaponsPulldown);
@@ -368,7 +368,7 @@ void VoxGame::UnSkinGUI()
 	m_pDebugCameraOptionBox->SetDefaultIcons(m_pRenderer);
 	m_pMouseRotateCameraOptionBox->SetDefaultIcons(m_pRenderer);
 	m_pAutoCameraOptionBox->SetDefaultIcons(m_pRenderer);
-	m_pFirstPersonCameraOptionBox->SetDefaultIcons(m_pRenderer);
+	m_pFrontendCameraOptionBox->SetDefaultIcons(m_pRenderer);
 
 	m_pFullscreenButton->SetDefaultIcons(m_pRenderer);
 	m_pPlayAnimationButton->SetDefaultIcons(m_pRenderer);
@@ -417,7 +417,7 @@ void VoxGame::DestroyGUI()
 	delete m_pDebugCameraOptionBox;
 	delete m_pMouseRotateCameraOptionBox;
 	delete m_pAutoCameraOptionBox;
-	delete m_pFirstPersonCameraOptionBox;
+	delete m_pFrontendCameraOptionBox;
 	delete m_pCameraModeOptionController;
 	delete m_pConsoleWindow;
 	delete m_pConsoleTextbox;
@@ -942,7 +942,7 @@ void VoxGame::GameModeChanged()
 
 		m_pMouseRotateCameraOptionBox->SetDisabled(true);
 		m_pAutoCameraOptionBox->SetDisabled(true);
-		m_pFirstPersonCameraOptionBox->SetDisabled(true);
+		m_pFrontendCameraOptionBox->SetDisabled(true);
 		
 		// Decide if we came into debug mode from either game or front-end and then only allow to go back to that previous mode
 		// This prevents us getting into a weird state were we go something like: game -> debug -> frontend.
@@ -987,11 +987,11 @@ void VoxGame::CameraModeChanged()
 
 		TurnCursorOff();
 	}
-	else if (m_pFirstPersonCameraOptionBox->GetToggled())
+	else if (m_pFrontendCameraOptionBox->GetToggled())
 	{
-		SetCameraMode(CameraMode_FirstPerson);
+		SetCameraMode(CameraMode_Frontend);
 
-		TurnCursorOff();
+		TurnCursorOn(true);
 	}
 }
 

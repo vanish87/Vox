@@ -55,7 +55,6 @@ void VoxGame::UpdateCameraModeSwitching()
 		{
 			SavePreviousCameraMode();
 			SetCameraMode(CameraMode_FirstPerson);
-			m_pFirstPersonCameraOptionBox->SetToggled(true);
 			m_pPlayer->SetFirstPersonMode(); // Enter first person mode
 			m_pGameCamera->SetZoomAmount(1.5f);
 		}

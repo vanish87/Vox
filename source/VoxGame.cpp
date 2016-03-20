@@ -625,10 +625,11 @@ void VoxGame::QuitToFrontEnd()
 	SetGameMode(GameMode_FrontEnd);
 
 	m_pFrontEndOptionBox->SetToggled(true);
-	m_pDebugCameraOptionBox->SetToggled(true);
+	m_pFrontendCameraOptionBox->SetToggled(true);
 	m_pMouseRotateCameraOptionBox->SetDisabled(true);
 	m_pAutoCameraOptionBox->SetDisabled(true);
-	m_pFirstPersonCameraOptionBox->SetDisabled(true);
+	m_pFrontendCameraOptionBox->SetDisabled(false);
+	m_pDebugCameraOptionBox->SetDisabled(false);
 	m_pVoxWindow->Update(m_deltaTime);
 	GameModeChanged();
 	CameraModeChanged();
@@ -670,6 +671,7 @@ void VoxGame::StartGameFromFrontEnd()
 	m_previousCameraMode = CameraMode_MouseRotate;
 	m_pGameOptionBox->SetToggled(true);
 	m_pMouseRotateCameraOptionBox->SetToggled(true);
+	m_pFrontendCameraOptionBox->SetDisabled(true);
 	GameModeChanged();
 	CameraModeChanged();
 }

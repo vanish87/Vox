@@ -62,6 +62,7 @@ enum GameMode
 enum CameraMode
 {
 	CameraMode_Debug = 0,
+	CameraMode_Frontend,
 	CameraMode_MouseRotate,
 	CameraMode_AutoCamera,
 	CameraMode_FirstPerson,
@@ -549,7 +550,7 @@ private:
 	OptionBox* m_pDebugCameraOptionBox;
 	OptionBox* m_pMouseRotateCameraOptionBox;
 	OptionBox* m_pAutoCameraOptionBox;
-	OptionBox* m_pFirstPersonCameraOptionBox;
+	OptionBox* m_pFrontendCameraOptionBox;
 	OptionController* m_pCameraModeOptionController;
 	CheckBox* m_pFaceMergingCheckbox;
 	CheckBox* m_pStepUpdateCheckbox;
