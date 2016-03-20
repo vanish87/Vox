@@ -121,6 +121,19 @@ void VoxGame::Update()
 		UpdateNamePicking();
 	}
 
+	// Update the NPC hover selection based on the mouse name picking
+	if (m_gameMode == GameMode_FrontEnd)
+	{
+		if (m_bNamePickingSelected)
+		{
+			m_pNPCManager->UpdateHoverNamePickingSelection(m_pickedObject);
+		}
+		else
+		{
+			m_pNPCManager->UpdateHoverNamePickingSelection(-1);
+		}
+	}
+
 	// Update controls
 	UpdateControls(m_deltaTime);
 
@@ -181,10 +194,11 @@ void VoxGame::UpdateNamePicking()
 	glPushAttrib(GL_LIST_BIT | GL_CURRENT_BIT | GL_ENABLE_BIT | GL_TRANSFORM_BIT);
 	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);  // Disabled rendering
 
-	//m_pRenderer->PushMatrix();
+	m_pRenderer->PushMatrix();
 		// Set the projection mode
 		m_pRenderer->SetProjectionMode(PM_PERSPECTIVE, m_defaultViewport);
 
+		// Start name picking
 		m_pRenderer->StartNamePicking(m_defaultViewport, lMouse.x, lMouse.y);
 
 		// Set the lookat camera
@@ -200,7 +214,7 @@ void VoxGame::UpdateNamePicking()
 
 		// End the name picking
 		m_pickedObject = m_pRenderer->GetPickedObject();
-	//m_pRenderer->PopMatrix();
+	m_pRenderer->PopMatrix();
 
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);   // Enable rendering
 	glPopAttrib();

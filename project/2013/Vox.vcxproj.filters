@@ -609,6 +609,9 @@
     <ClCompile Include="..\..\source\Enemy\EnemySpawner.cpp">
       <Filter>source\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\frontend\Pages\SelectCharacter.cpp">
+      <Filter>source\frontend\Pages</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\glew\include\GL\glew.h">
@@ -1567,6 +1570,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\Enemy\EnemySpawner.h">
       <Filter>source\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\frontend\Pages\SelectCharacter.h">
+      <Filter>source\frontend\Pages</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

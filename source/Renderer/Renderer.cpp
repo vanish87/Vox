@@ -2211,7 +2211,7 @@ void Renderer::InitNameStack()
 
 void Renderer::LoadNameOntoStack(int lName)
 {
-	//glPopName();
+	glPopName();
 	glPushName(lName);
 	//glLoadName(lName);
 }

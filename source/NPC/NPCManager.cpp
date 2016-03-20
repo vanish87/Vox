@@ -463,6 +463,7 @@ void NPCManager::Update(float dt)
 	m_vpNPCList.erase( remove_if(m_vpNPCList.begin(), m_vpNPCList.end(), npc_needs_erasing), m_vpNPCList.end() );
 	m_NPCMutex.unlock();
 
+	// Update the mouse hover NPC selection
 	UpdateHoverNPCs();
 
 	// Update all NPCS

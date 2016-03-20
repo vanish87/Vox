@@ -11,9 +11,10 @@
 
 #include "FrontendManager.h"
 #include "FrontendPage.h"
+#include "Pages/MainMenu.h"
+#include "Pages/SelectCharacter.h"
 #include "Pages/QuitPopup.h"
 #include "Pages/PauseMenu.h"
-#include "Pages/MainMenu.h"
 #include "Pages/ModMenu.h"
 #include "Pages/OptionsMenu.h"
 #include "../VoxGame.h"
@@ -175,15 +176,17 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 	// Pages
 	int width = 800;
 	int height = 800;
+	FrontendPage* pMainMenu = new MainMenu(m_pRenderer, m_pGUI, this, width, height);
+	FrontendPage* pSelectCharacter = new SelectCharacter(m_pRenderer, m_pGUI, this, width, height);
 	FrontendPage* pQuitPopup = new QuitPopup(m_pRenderer, m_pGUI, this, width, height);
 	FrontendPage* pPauseMenu = new PauseMenu(m_pRenderer, m_pGUI, this, width, height);
-	FrontendPage* pMainMenu = new MainMenu(m_pRenderer, m_pGUI, this, width, height);
 	FrontendPage* pOptionsMenu = new OptionsMenu(m_pRenderer, m_pGUI, this, width, height);
 	FrontendPage* pModMenu = new ModMenu(m_pRenderer, m_pGUI, this, width, height);
 
+	m_vpFrontendPages.push_back(pMainMenu);
+	m_vpFrontendPages.push_back(pSelectCharacter);
 	m_vpFrontendPages.push_back(pQuitPopup);
 	m_vpFrontendPages.push_back(pPauseMenu);
-	m_vpFrontendPages.push_back(pMainMenu);
 	m_vpFrontendPages.push_back(pOptionsMenu);
 	m_vpFrontendPages.push_back(pModMenu);
 
@@ -540,8 +543,7 @@ void FrontendManager::SetHoverNPC(NPC* pHoverNPC)
 {
 	if (m_currentScreen == FrontendScreen_SelectCharacter)
 	{
-		// TODO : SetHoverNPC()
-		//((SelectCharacter*)m_currentPage)->SetHoverNPC(pHoverNPC);
+		((SelectCharacter*)m_currentPage)->SetHoverNPC(pHoverNPC);
 	}
 	else if (m_currentScreen == FrontendScreen_CreateCharacter)
 	{
@@ -554,8 +556,7 @@ void FrontendManager::SetSelectedNPC(NPC* pSelectedNPC)
 {
 	if (m_currentScreen == FrontendScreen_SelectCharacter)
 	{
-		// TODO : SetSelectedNPC()
-		//((SelectCharacter*)m_currentPage)->SetSelectedNPC(pSelectedNPC);
+		((SelectCharacter*)m_currentPage)->SetSelectedNPC(pSelectedNPC);
 	}
 	else if (m_currentScreen == FrontendScreen_CreateCharacter)
 	{
