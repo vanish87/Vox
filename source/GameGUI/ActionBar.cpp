@@ -188,7 +188,7 @@ void ActionBar::ExportActionBar(string playerName)
 {
 	ofstream exportFile;
 	char lfilename[128];
-	sprintf(lfilename, "media/characters/%s/%s.actionbar", playerName.c_str(), playerName.c_str());
+	sprintf(lfilename, "saves/characters/%s/%s.actionbar", playerName.c_str(), playerName.c_str());
 	exportFile.open(lfilename, ios_base::binary);
 
 	if(exportFile.is_open())
@@ -223,7 +223,7 @@ void ActionBar::ImportActionBar(string playerName)
 {
 	ifstream importFile;
 	char lfilename[128];
-	sprintf(lfilename, "media/characters/%s/%s.actionbar", playerName.c_str(), playerName.c_str());
+	sprintf(lfilename, "saves/characters/%s/%s.actionbar", playerName.c_str(), playerName.c_str());
 	importFile.open(lfilename, ios_base::binary);
 
 	if(importFile.is_open())

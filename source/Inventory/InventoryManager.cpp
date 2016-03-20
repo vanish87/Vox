@@ -209,7 +209,7 @@ void InventoryManager::ExportInventory(string playerName)
 {
     ofstream exportFile;
     char lfilename[128];
-    sprintf(lfilename, "media/characters/%s/%s.inv", playerName.c_str(), playerName.c_str());
+    sprintf(lfilename, "saves/characters/%s/%s.inv", playerName.c_str(), playerName.c_str());
     exportFile.open(lfilename, ios_base::binary);
 
     if(exportFile.is_open())
@@ -316,7 +316,7 @@ void InventoryManager::ImportInventory(string playerName)
 
     ifstream importFile;
     char lfilename[128];
-    sprintf(lfilename, "media/characters/%s/%s.inv", playerName.c_str(), playerName.c_str());
+    sprintf(lfilename, "saves/characters/%s/%s.inv", playerName.c_str(), playerName.c_str());
     importFile.open(lfilename, ios_base::binary);
 
     if(importFile.is_open())
