@@ -174,6 +174,9 @@ void VoxGame::Render()
 				m_pInstanceManager->Render();
 			}
 
+			// Frontend
+			m_pFrontendManager->Render();
+
 			BeginShaderRender();
 			{
 
