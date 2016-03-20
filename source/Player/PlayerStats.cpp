@@ -26,6 +26,8 @@ PlayerStats::PlayerStats(Player* pPlayer)
 {
 	m_pPlayer = pPlayer;	
 
+	m_supressExport = false;
+
 	ResetStats();
 }
 
@@ -33,6 +35,7 @@ PlayerStats::~PlayerStats()
 {
 }
 
+// Reset
 void PlayerStats::ResetStats()
 {
 	m_level = 1;
@@ -48,6 +51,12 @@ void PlayerStats::ResetStats()
 	m_vitalityStat = 1;
 	m_armorStat = 1;
 	m_luckStat = 1;
+}
+
+// Supress export
+void PlayerStats::SetSupressExport(bool supress)
+{
+	m_supressExport = supress;
 }
 
 // Loading / Saving
@@ -87,6 +96,11 @@ void PlayerStats::ImportStats(string playerName)
 
 void PlayerStats::ExportStats(string playerName)
 {
+	if (m_supressExport)
+	{
+		return;
+	}
+
 	if(playerName == "")
 	{
 		return;

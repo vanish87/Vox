@@ -56,6 +56,8 @@ InventoryManager::InventoryManager()
     m_numCoins = 0;
 	m_coinsUpdated = true;
 
+	m_supressExport = false;
+
 	m_InventoryGUINeedsUpdate = false;
 	m_CharacterGUINeedsUpdate = false;
 }
@@ -126,7 +128,7 @@ void InventoryManager::ClearOtherCreatedItems()
 	m_vpOtherInventoryItemList.clear();
 }
 
-void InventoryManager::LoadDefaultInventory(string playerName)
+void InventoryManager::LoadDefaultInventory(string playerName, bool exportInventoryFile)
 {
 	ClearInventory();
 	ClearEquipped();
@@ -134,7 +136,7 @@ void InventoryManager::LoadDefaultInventory(string playerName)
 	m_playerName = playerName;
 
 	m_numCoins = 0;
-
+	
 	InventoryItem* pPickaxe = AddInventoryItem("media/gamedata/weapons/Pickaxe/Pickaxe.weapon", "media/textures/items/pickaxe.tga", InventoryType_Weapon_Pickaxe, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Pickaxe", "Used for mining and digging the world", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
 	InventoryItem* pTorch = AddInventoryItem("media/gamedata/weapons/Torch/Torch.weapon", "media/textures/items/torch.tga", InventoryType_Weapon_Torch, eItem_None, ItemStatus_None, EquipSlot_LeftHand, ItemQuality_Common, false, false, "Torch", "A torch to light up the darkness", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
 	InventoryItem* pSword = AddInventoryItem("media/gamedata/weapons/Sword/Sword.weapon", "media/textures/items/sword.tga", InventoryType_Weapon_Sword, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Uncommon, false, false, "Sword", "Just a standard sword, very useful for killing enemies", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
@@ -182,7 +184,10 @@ void InventoryManager::LoadDefaultInventory(string playerName)
 	pLegs->AddStatAttribute(AttributeType_Armor, 1);
 	*/
 
-	ExportInventory(m_playerName);
+	if (exportInventoryFile)
+	{
+		ExportInventory(m_playerName);
+	}
 }
 
 void InventoryManager::SetInventoryGUINeedsUpdate(bool update)
@@ -205,8 +210,20 @@ bool InventoryManager::CharacterGUINeedsUpdate()
 	return m_CharacterGUINeedsUpdate;
 }
 
+// Supress export
+void InventoryManager::SetSupressExport(bool supress)
+{
+	m_supressExport = supress;
+}
+
+// Import / Export inventory
 void InventoryManager::ExportInventory(string playerName)
 {
+	if (m_supressExport)
+	{
+		return;
+	}
+
     ofstream exportFile;
     char lfilename[128];
     sprintf(lfilename, "saves/characters/%s/%s.inv", playerName.c_str(), playerName.c_str());
@@ -975,13 +992,13 @@ InventoryItem* InventoryManager::GetInventoryItemForSlot(int xPos, int yPos)
 
 InventoryItem* InventoryManager::GetInventoryItemWithTitle(string title)
 {
-	for(int i = 0; i < MAX_NUM_INVENTORY_SLOTS; i++)
+	for(int i = 0; i < (int)m_vpInventoryItemList.size(); i++)
 	{
-		if(m_ItemSlotMapping[i] != NULL)
+		if(m_vpInventoryItemList[i] != NULL)
 		{
-			if(strcmp(m_ItemSlotMapping[i]->m_title.c_str(), title.c_str()) == 0)
+			if(strcmp(m_vpInventoryItemList[i]->m_title.c_str(), title.c_str()) == 0)
 			{
-				return m_ItemSlotMapping[i];
+				return m_vpInventoryItemList[i];
 			}
 		}
 	}

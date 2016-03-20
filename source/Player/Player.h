@@ -28,6 +28,11 @@
 #include "../Enemy/EnemyManager.h"
 #include "../Enemy/Enemy.h"
 
+class InventoryGUI;
+class CharacterGUI;
+class CraftingGUI;
+class LootGUI;
+class ActionBar;
 
 static const int PlayerEquippedProperties_None = 0;
 static const int PlayerEquippedProperties_Sword = 1;
@@ -64,6 +69,11 @@ public:
 	void SetProjectileManager(ProjectileManager* pProjectileManager);
 	void SetTextEffectsManager(TextEffectsManager* pTextEffectsManager);
 	void SetEnemyManager(EnemyManager* pEnemyManager);
+	void SetInventoryGUI(InventoryGUI* pInventoryGUI);
+	void SetCharacterGUI(CharacterGUI* pCharacterGUI);
+	void SetCraftingGUI(CraftingGUI* pCraftingGUI);
+	void SetLootGUI(LootGUI* pLootGUI);
+	void SetActionBar(ActionBar* pActionBar);
 
 	// Get voxel character pointer
 	VoxelCharacter* GetVoxelCharacter();
@@ -121,6 +131,10 @@ public:
 	void SetCameraUp(vec3 up);
 	void SetCameraRight(vec3 right);
 
+	// Loading configuration and settings for the game
+	void LoadDefaultCharacterSettings();
+	void StartGame();
+
 	// Movement
 	vec3 GetPositionMovementAmount();
 	vec3 MoveAbsolute(vec3 direction, const float speed, bool shouldChangeForward = true);
@@ -149,6 +163,7 @@ public:
 	void GiveCoins(int amount);
 
 	// Player stats
+	void SetSupressStatsExport(bool supress);
 	PlayerStats* GetPlayerStats();
 	string GetStrengthModifierString();
 	string GetDexterityModifierString();
@@ -310,6 +325,11 @@ private:
 	ProjectileManager* m_pProjectileManager;
 	TextEffectsManager* m_pTextEffectsManager;
 	EnemyManager* m_pEnemyManager;
+	InventoryGUI* m_pInventoryGUI;
+	CharacterGUI* m_pCharacterGUI;
+	CraftingGUI* m_pCraftingGUI;
+	LootGUI* m_pLootGUI;
+	ActionBar* m_pActionBar;
 
 	// Player position and movement variables
 	vec3 m_position;

@@ -42,6 +42,8 @@ ActionBar::ActionBar(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFro
 
 	m_loaded = false;
 
+	m_supressExport = false;
+
 	m_windowWidth = windowWidth;
 	m_windowHeight = windowHeight;
 
@@ -183,9 +185,20 @@ void ActionBar::SetWindowDimensions(int windowWidth, int windowHeight)
 	RepositionActionSlots();
 }
 
+// Supress export
+void ActionBar::SetSupressExport(bool supress)
+{
+	m_supressExport = supress;
+}
 
+// Import / Export action bar
 void ActionBar::ExportActionBar(string playerName)
 {
+	if (m_supressExport)
+	{
+		return;
+	}
+
 	ofstream exportFile;
 	char lfilename[128];
 	sprintf(lfilename, "saves/characters/%s/%s.actionbar", playerName.c_str(), playerName.c_str());

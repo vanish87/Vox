@@ -243,7 +243,7 @@ public:
 	void ClearInventory();
 	void ClearEquipped();
 	void ClearOtherCreatedItems();
-	void LoadDefaultInventory(string playerName);
+	void LoadDefaultInventory(string playerName, bool exportInventoryFile);
 
 	void SetInventoryGUINeedsUpdate(bool update);
 	bool InventoryGUINeedsUpdate();
@@ -251,6 +251,10 @@ public:
 	void SetCharacterGUINeedsUpdate(bool update);
 	bool CharacterGUINeedsUpdate();
 
+	// Supress export
+	void SetSupressExport(bool supress);
+
+	// Import / Export inventory
 	void ExportInventory(string playerName);
 	void ImportInventory(string playerName);
 
@@ -274,11 +278,10 @@ public:
 
 	InventoryItem* GetInventoryItemForSlot(int slotIndex);
 	InventoryItem* GetInventoryItemForSlot(int xPos, int yPos);
-
 	InventoryItem* GetInventoryItemWithTitle(string title);
 
 	void SwitchInventoryItems(int slot1, int slot2);
-    	void SwitchInventoryItems(int x1, int y1, int x2, int y2);
+    void SwitchInventoryItems(int x1, int y1, int x2, int y2);
 
 	void SwitchEquippedSlots(EquipSlot equipSlotSrc, EquipSlot equipSlotDst);
 
@@ -332,7 +335,7 @@ private:
 	InventoryItemList m_vpInventoryItemList;
 
 	// Slot mapping for inventory
-    	InventoryItem* m_ItemSlotMapping[MAX_NUM_INVENTORY_SLOTS];
+    InventoryItem* m_ItemSlotMapping[MAX_NUM_INVENTORY_SLOTS];
 
 	// SLot mapping for equipped items
 	InventoryItem* m_equippedSlots[EquipSlot_NumSlots];
@@ -341,8 +344,11 @@ private:
 	InventoryItemList m_vpOtherInventoryItemList;
 
 	// Coins
-    	int m_numCoins;
+    int m_numCoins;
 	bool m_coinsUpdated;
+
+	// Force to stop export inventory file
+	bool m_supressExport;
 
 	Player* m_pPlayer;
 	InventoryGUI* m_pInventoryGUI;

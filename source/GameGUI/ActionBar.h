@@ -72,6 +72,10 @@ public:
 
 	void SetWindowDimensions(int windowWidth, int windowHeight);
 
+	// Supress export
+	void SetSupressExport(bool supress);
+
+	// Import / Export action bar
 	void ExportActionBar(string playerName);
 	void ImportActionBar(string playerName);
 
@@ -137,6 +141,9 @@ private:
 
 	int m_windowWidth;
 	int m_windowHeight;
+
+	// Force to stop export action bar file
+	bool m_supressExport;
 
 	int m_actionSlotSize;
 	int m_actionSlotSpacer;

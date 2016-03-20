@@ -285,6 +285,13 @@ void VoxGame::SetupGUI()
 		m_previousCameraMode = CameraMode_MouseRotate;
 		m_pGameOptionBox->SetToggled(true);
 		m_pMouseRotateCameraOptionBox->SetToggled(true);
+
+		// Supress exporting of files, since we are loading into a DEBUG configuration direct from bootstrap
+		m_pInventoryManager->SetSupressExport(true);
+		m_pActionBar->SetSupressExport(true);
+		m_pPlayer->SetSupressStatsExport(true);
+		// Load default inventory since we are loading directly into the game
+		m_pInventoryManager->LoadDefaultInventory("", false);
 	}
 	else if (strcmp(m_pVoxSettings->m_gameMode.c_str(), "FrontEnd") == 0)
 	{

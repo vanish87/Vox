@@ -239,6 +239,11 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pPlayer->SetProjectileManager(m_pProjectileManager);
 	m_pPlayer->SetTextEffectsManager(m_pTextEffectsManager);
 	m_pPlayer->SetEnemyManager(m_pEnemyManager);
+	m_pPlayer->SetInventoryGUI(m_pInventoryGUI);
+	m_pPlayer->SetCharacterGUI(m_pCharacterGUI);
+	m_pPlayer->SetCraftingGUI(m_pCraftingGUI);
+	m_pPlayer->SetLootGUI(m_pLootGUI);
+	m_pPlayer->SetActionBar(m_pActionBar);
 	m_pNPCManager->SetPlayer(m_pPlayer);
 	m_pNPCManager->SetLightingManager(m_pLightingManager);
 	m_pNPCManager->SetBlockParticleManager(m_pBlockParticleManager);
@@ -674,6 +679,9 @@ void VoxGame::StartGameFromFrontEnd()
 	m_pFrontendCameraOptionBox->SetDisabled(true);
 	GameModeChanged();
 	CameraModeChanged();
+
+	// Start game from player
+	m_pPlayer->StartGame();
 }
 
 void VoxGame::SetGameMode(GameMode mode)
@@ -701,6 +709,9 @@ void VoxGame::SetGameMode(GameMode mode)
 			// Clear the enemies and enemy spawners
 			m_pEnemyManager->ClearEnemies();
 			m_pEnemyManager->ClearEnemySpawners();
+
+			// Reset the inventory manager
+			m_pInventoryManager->Reset();
 
 			// Reset the player
 			m_pPlayer->ResetPlayer();
@@ -735,9 +746,6 @@ void VoxGame::SetGameMode(GameMode mode)
 
 			// Reset the player
 			m_pPlayer->ResetPlayer();
-
-			// Load default inventory
-			m_pInventoryManager->LoadDefaultInventory("Steve");
 
 			// Load action bar
 			if (m_pActionBar->IsLoaded() == false)

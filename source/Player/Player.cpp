@@ -28,6 +28,11 @@ Player::Player(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryMa
 	m_pBlockParticleManager = pBlockParticleManager;
 	m_pInventoryManager = NULL;
 	m_pItemManager = NULL;
+	m_pInventoryGUI = NULL;
+	m_pCharacterGUI = NULL;
+	m_pCraftingGUI = NULL;
+	m_pLootGUI = NULL;
+	m_pActionBar = NULL;
 
 	// Create voxel character
 	m_pVoxelCharacter = new VoxelCharacter(m_pRenderer, m_pQubicleBinaryManager);
@@ -78,6 +83,31 @@ void Player::SetTextEffectsManager(TextEffectsManager* pTextEffectsManager)
 void Player::SetEnemyManager(EnemyManager* pEnemyManager)
 {
 	m_pEnemyManager = pEnemyManager;
+}
+
+void Player::SetInventoryGUI(InventoryGUI* pInventoryGUI)
+{
+	m_pInventoryGUI = pInventoryGUI;
+}
+
+void Player::SetCharacterGUI(CharacterGUI* pCharacterGUI)
+{
+	m_pCharacterGUI = pCharacterGUI;
+}
+
+void Player::SetCraftingGUI(CraftingGUI* pCraftingGUI)
+{
+	m_pCraftingGUI = pCraftingGUI;
+}
+
+void Player::SetLootGUI(LootGUI* pLootGUI)
+{
+	m_pLootGUI = pLootGUI;
+}
+
+void Player::SetActionBar(ActionBar* pActionBar)
+{
+	m_pActionBar = pActionBar;
 }
 
 // Get voxel character pointer
@@ -1135,6 +1165,49 @@ void Player::SetCameraRight(vec3 right)
 	m_cameraRight = right;
 }
 
+// Loading configuration and settings for the game
+void Player::LoadDefaultCharacterSettings()
+{
+	// Remove supress export
+	m_pInventoryManager->SetSupressExport(false);
+	m_pActionBar->SetSupressExport(false);
+	m_pPlayerStats->SetSupressExport(false);
+
+	m_pInventoryManager->LoadDefaultInventory(m_name, true);
+	m_pInventoryManager->ExportInventory(m_name);
+	m_pActionBar->ExportActionBar(m_name);
+
+	m_pPlayerStats->ResetStats();
+	m_pPlayerStats->ExportStats(m_name);
+}
+
+void Player::StartGame()
+{
+	// Remove supress export
+	m_pInventoryManager->SetSupressExport(false);
+	m_pActionBar->SetSupressExport(false);
+	m_pPlayerStats->SetSupressExport(false);
+
+	// Load inventory from the character's inventory file
+	m_pInventoryManager->ImportInventory(m_name);
+	m_pInventoryGUI->DeleteInventoryItems();
+	m_pInventoryGUI->CreateInventoryItems();
+	m_pInventoryManager->SetInventoryGUINeedsUpdate(true);
+	m_pInventoryManager->SetCharacterGUINeedsUpdate(true);
+
+	// Load the actionbar
+	m_pActionBar->ImportActionBar(m_name);
+
+	// Import the player stats
+	m_pPlayerStats->ImportStats(m_name);
+
+	// Make sure to set the chunk loading from the player position
+	int gridX;
+	int gridY;
+	int gridZ;
+	m_pChunkManager->GetGridFromPosition(m_position, &gridX, &gridY, &gridZ);
+}
+
 // Movement
 vec3 Player::GetPositionMovementAmount()
 {
@@ -1429,6 +1502,11 @@ void Player::GiveCoins(int amount)
 }
 
 // Player stats
+void Player::SetSupressStatsExport(bool supress)
+{
+	m_pPlayerStats->SetSupressExport(supress);
+}
+
 PlayerStats* Player::GetPlayerStats()
 {
 	return m_pPlayerStats;

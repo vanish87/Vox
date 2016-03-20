@@ -26,7 +26,11 @@ public:
 	PlayerStats(Player* pPlayer);
 	~PlayerStats();
 
+	// Reset
 	void ResetStats();
+
+	// Supress export
+	void SetSupressExport(bool supress);
 
 	// Loading / Saving
 	void ImportStats(string playerName);
@@ -86,4 +90,7 @@ private:
 	int m_vitalityStat;
 	int m_armorStat;
 	int m_luckStat;
+
+	// Force to stop export player stats
+	bool m_supressExport;
 };
