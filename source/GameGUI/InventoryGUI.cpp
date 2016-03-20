@@ -165,6 +165,7 @@ InventoryGUI::InventoryGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager
 	m_popupText->SetOutlineFont(m_pFrontendManager->GetFrontendFont_25_Outline());
 	m_popupText->SetDepth(9.0f);
 	m_popupText->SetWordWrap(true);
+	m_popupText->SetHorizontalAlignment(eHorizontalAlignment_Center);
 
 	m_pPopupBackgroundIcon = new Icon(m_pRenderer, "", 270, 200);
 	m_pPopupBackgroundIcon->SetDepth(2.0f);
