@@ -18,6 +18,7 @@
 #include "../Items/ItemManager.h"
 #include "../Inventory/InventoryManager.h"
 #include "../NPC/NPCManager.h"
+#include "../VoxGame.h"
 
 #include <algorithm>
 #include <fstream>
@@ -548,8 +549,7 @@ void Quest::Update()
 		// SB REDO m_pNPC->SetOverHeadMarkerStatus(OverHeadMarkerStatus_Question);
 	}
 
-	// TODO : Refresh quest buttons
-	//m_pGameWindow->GetQuestGUI()->RefreshQuestButtons();
+	VoxGame::GetInstance()->GetQuestGUI()->RefreshQuestButtons();
 }
 
 bool Quest::GetCompleted()
