@@ -113,24 +113,24 @@
   - [x] Crafting GUI functionality.
   - [x] Character GUI paperdoll render.
   - [ ]  CharacterGUI particle effects.
+  - [ ]  CharacterGUI dynamic lighting.
   - [ ]  CharacterGUI player poses and animation stances.
 - [x]  Investigate continuous automatic builds on github when files are submitted to depot, using cmake and make.
 - [x]  NPCs.
 - [x]  Enemies.
-  - [ ]  Enemy spawners.
+  - [x]  Enemy spawners.
 - [ ]  Add VLD support to debug version, allow for memory leak detection.
 - [ ]  Add audio and music playback.
 - [x]  Add scenery manager.
-  - [ ]  Add scenery to work, generation based on point distribution, poisson disc, etc.
   - [ ]  Flower generation.
-  - [ ]  Poisson-disc sparation and generation for random placement of scenery.
+  - [ ]  Poisson-disc separation and generation for random placement of scenery.
   - [ ]  Convert scenery manager to use instance rendering and the instance shader.
 - [x]  Add Quest GUI.
 - [x]  Create front end scene and character line up.
 - [ ]  Character creation and customization.
+- [ ]  Add character creator and customization from front-end.
 - [ ]  Saving and loading chunks.
   - [ ]  Group together chunks for saving, loading. Not individual
-- [ ]  Add character creator and customization from front-end.
 - [ ]  Add voxel editor.
 - [ ]  Add texture support for voxel blocks.
 - [ ]  Water, creating and manipulation, rendering, updating.

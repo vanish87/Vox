@@ -4,7 +4,11 @@
 // Author:      Steven Ball
 //
 // Purpose:
-//   Vox game class.
+//   The Vox game class houses all the game functionality and logic that directly
+//   interfaces with the game subsystems. Also this game class is the container
+//   for all the renderer objects that are required to draw the scene, such as
+//   shaders, viewports, frame buffers, etc. Finally this class also owns all
+//   the GUI components that are created to handle user input.
 //
 // Revision History:
 //   Initial Revision - 27/10/15

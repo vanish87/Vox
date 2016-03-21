@@ -1124,14 +1124,6 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 	if(switched)
 	{
 		ShowTooltip(pInventoryItem);
-
-		// TODO: SOUND EFFECTS
-		//if(m_pGameWindow->GetConfigurationManager()->GetSoundEffects())
-		//{
-		//	FMOD::Channel* pChannel = NULL;
-		//	FMOD::Sound* pSound = AudioManager::GetInstance()->PlaySound2D(&pChannel, "media/audio/equip_move.wav", false);
-		//	pChannel->setVolume(1.0f * m_pGameWindow->GetConfigurationManager()->GetSoundVolume());
-		//}
 	}
 
 
@@ -1323,57 +1315,11 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 
 								switched = true;
 								deleted = true;
-
-								// TODO: SOUND EFFECTS
-								//if(m_pGameWindow->GetConfigurationManager()->GetSoundEffects())
-								//{
-								//	FMOD::Channel* pChannel = NULL;
-								//	FMOD::Sound* pSound = AudioManager::GetInstance()->PlaySound2D(&pChannel, "media/audio/equip_move.wav", false);
-								//	pChannel->setVolume(1.0f * m_pGameWindow->GetConfigurationManager()->GetSoundVolume());
-								//}
 							}
 						}
 					}
 				}
 			}
-
-
-		// TODO : REDO - Shop GUI
-		//	// Check if we need to sell the item after dropping on the shop GUI
-		//	if(m_pShopGUI->IsLoaded())
-		//	{
-		//		GUIWindow* pShopWindow = m_pShopGUI->GetShopWindow();
-		//		if(lMouse.x > pShopWindow->GetDimensions().m_x && lMouse.x < pShopWindow->GetDimensions().m_x + pShopWindow->GetDimensions().m_width && lMouse.y > pShopWindow->GetDimensions().m_y && lMouse.y < pShopWindow->GetDimensions().m_y + pShopWindow->GetDimensions().m_height)
-		//		{
-		//			// Sell for coins
-		//			int coinAmount = m_pShopGUI->GetSellCoinAmount(pInventoryItem->m_pInventoryItem);
-
-		//			m_pInventoryManager->GiveCoins(coinAmount);
-
-		//			m_pInventoryManager->RemoveInventoryItem(pInventoryItem->m_slotX, pInventoryItem->m_slotY);
-
-		//			m_pActionBar->RemoveInventoryItemFromActionBar(pInventoryItem->m_pInventoryItem->m_title);
-
-		//			m_pInventoryWindow->RemoveComponent(pInventoryItem->m_pInventoryIcon);
-
-		//			pInventoryItem->m_erase = true;
-		//			m_vpInventorySlotItems.erase( remove_if(m_vpInventorySlotItems.begin(), m_vpInventorySlotItems.end(), needs_erasing), m_vpInventorySlotItems.end() );
-
-		//			m_pCharacterGUI->HideEquipHover();
-
-		//			// Show a sell text effect
-		//			vec3 screenposition = m_pPlayer->GetCenter();
-		//			char coinText[32];
-		//			sprintf(coinText, "+%i", coinAmount);
-		//			AnimatedText* lpTestTextEffect = m_pGameWindow->GetTextEffectsManager()->CreateTextEffect(m_pGameWindow->GetTextEffectFont(), m_pGameWindow->GetTextEffectOutlineFont(), m_pGameWindow->GetMainViewport(), TextDrawMode_3D_Screen, TextEffect_FadeUp, TextDrawStyle_Outline, screenposition, Colour(1.0f, 1.0f, 0.0f), Colour(0.0f, 0.0f, 0.0f), coinText, 2.0f);
-		//			lpTestTextEffect->SetAutoDelete(true);
-		//			lpTestTextEffect->StartEffect();
-
-		//			switched = true;
-		//			deleted = true;
-		//		}
-		//	}
-
 
 			// Check if we released on a actionbar slot
 			if(m_pActionBar->IsLoaded())

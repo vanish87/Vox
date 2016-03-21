@@ -3,10 +3,6 @@
 // Project:     Vox
 // Author:      Steven Ball
 //
-// Purpose:
-//	 An interpolator helper class that will manage all the interpolations for
-//   your variables.
-//
 // Revision History:
 //   Initial Revision - 23/02/12
 //

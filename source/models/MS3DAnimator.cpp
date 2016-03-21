@@ -781,7 +781,6 @@ void MS3DAnimator::Update(float dt)
 		pJointAnimation->currentBlendTrans[0] = transform.GetTranslationVector().x;
 		pJointAnimation->currentBlendTrans[1] = transform.GetTranslationVector().y;
 		pJointAnimation->currentBlendTrans[2] = transform.GetTranslationVector().z;
-		//transform.GetEuler(&pJointAnimation->currentBlendRot[0], &pJointAnimation->currentBlendRot[1], &pJointAnimation->currentBlendRot[2]); // TODO : Currently broken
 		pJointAnimation->currentBlendRot[0] = rotVec[0];
 		pJointAnimation->currentBlendRot[1] = rotVec[1];
 		pJointAnimation->currentBlendRot[2] = rotVec[2];
@@ -851,7 +850,6 @@ void MS3DAnimator::UpdateBlending(float dt)
 		pJointAnimation->currentBlendTrans[0] = transform.GetTranslationVector().x;
 		pJointAnimation->currentBlendTrans[1] = transform.GetTranslationVector().y;
 		pJointAnimation->currentBlendTrans[2] = transform.GetTranslationVector().z;
-		//transform.GetEuler(&pJointAnimation->currentBlendRot[0], &pJointAnimation->currentBlendRot[1], &pJointAnimation->currentBlendRot[2]); // TODO : Currently broken
 		pJointAnimation->currentBlendRot[0] = rotVec[0];
 		pJointAnimation->currentBlendRot[1] = rotVec[1];
 		pJointAnimation->currentBlendRot[2] = rotVec[2];

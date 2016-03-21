@@ -860,14 +860,6 @@ void LootGUI::LootItemReleased(LootSlotItem* pLootItem)
 				pLootItem->m_pInventoryItem->m_lootSlotY = i;
 				pLootItem->m_pInventoryIcon->SetLocation(x, y);
 
-				// TODO: SOUND EFFECTS
-				//if(m_pGameWindow->GetConfigurationManager()->GetSoundEffects())
-				//{
-				//	FMOD::Channel* pChannel = NULL;
-				//	FMOD::Sound* pSound = AudioManager::GetInstance()->PlaySound2D(&pChannel, "media/audio/equip_move.wav", false);
-				//	pChannel->setVolume(1.0f * m_pGameWindow->GetConfigurationManager()->GetSoundVolume());
-				//}
-
 				switched = true;
 			}
 		}
@@ -1013,14 +1005,6 @@ void LootGUI::LootItemReleased(LootSlotItem* pLootItem)
 							m_pStorageItem->RemoveLootItem(pLootItem->m_pInventoryItem);
 
 							RemoveLootItem(pLootItem);
-
-							// TODO: SOUND EFFECTS
-							//if(m_pGameWindow->GetConfigurationManager()->GetSoundEffects())
-							//{
-							//	FMOD::Channel* pChannel = NULL;
-							//	FMOD::Sound* pSound = AudioManager::GetInstance()->PlaySound2D(&pChannel, "media/audio/equip_move.wav", false);
-							//	pChannel->setVolume(1.0f * m_pGameWindow->GetConfigurationManager()->GetSoundVolume());
-							//}
 
 							switched = true;
 							draggedToInventory = true;

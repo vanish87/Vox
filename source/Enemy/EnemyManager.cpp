@@ -360,28 +360,25 @@ bool needs_erasing(Enemy* aE)
 void EnemyManager::Update(float dt)
 {
 	// Update all enemy spawners
-	//if(m_pGameWindow->GetGUIHelper()->GetUpdateEnemySpawnersObjects() == true) // TODO : Add back in enemy spawner GUI toggle?
+	m_enemySpawnerMutex.lock();
+	for(unsigned int i = 0; i < m_vpEnemySpawnerList.size(); i++)
 	{
-		m_enemySpawnerMutex.lock();
-		for(unsigned int i = 0; i < m_vpEnemySpawnerList.size(); i++)
+		EnemySpawner* pEnemySpawner = m_vpEnemySpawnerList[i];
+
+		if(pEnemySpawner->ShouldFollowPlayer())
 		{
-			EnemySpawner* pEnemySpawner = m_vpEnemySpawnerList[i];
-
-			if(pEnemySpawner->ShouldFollowPlayer())
-			{
-				pEnemySpawner->SetPosition(m_pPlayer->GetCenter() + pEnemySpawner->GetInitialPosition());
-			}
-
-			// TODO : Loader radius culling
-			//if(m_pChunkManager->IsInsideLoader(pEnemySpawner->GetPosition()) == false)
-			//{
-			//	continue;
-			//}
-
-			pEnemySpawner->Update(dt);
+			pEnemySpawner->SetPosition(m_pPlayer->GetCenter() + pEnemySpawner->GetInitialPosition());
 		}
-		m_enemySpawnerMutex.unlock();
+
+		// TODO : Loader radius culling
+		//if(m_pChunkManager->IsInsideLoader(pEnemySpawner->GetPosition()) == false)
+		//{
+		//	continue;
+		//}
+
+		pEnemySpawner->Update(dt);
 	}
+	m_enemySpawnerMutex.unlock();
 
 	// Add any enemies on the create list to the main list and then clear the create list
 	EnemyList::iterator add_iterator;

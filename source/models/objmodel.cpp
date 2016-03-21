@@ -443,7 +443,7 @@ void OBJModel::RenderMesh()
 {
 	mpRenderer->PushMatrix();
 
-	// TODO : Lighting isnt supported yet!
+	// NOTE : Lighting isnt supported yet!
 
 		if(m_texture != -1)
 		{

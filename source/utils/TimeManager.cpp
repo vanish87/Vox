@@ -3,11 +3,6 @@
 // Project:     Vox
 // Author:      Steven Ball
 //
-// Purpose:
-//	 A Manager class to handle all time related functionality. Can be used
-//	 to get elapsed time, current tick count and also for a change in time
-//	 on a frame by frame basis, to allow for time based animations.
-//
 // Revision History:
 //   Initial Revision - 15/07/08
 //

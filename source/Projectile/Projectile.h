@@ -78,7 +78,6 @@ public:
 	bool CanAttackNPCs();
 	void SetReturnToPlayer(bool returnToPlayer);
 	bool IsReturnToPlayer();
-	void SetExplodingProjectile(bool exploding, float radius);
 
 	void SetOwner(Player* pPlayer, NPC* pNPC, Enemy* pEnemy);
 	Player* GetPlayerOwner();
@@ -172,10 +171,6 @@ private:
 
 	// World collision flag
 	bool m_worldCollisionEnabled;
-
-	// Explosion
-	bool m_explodeWorld;
-	float m_explosionRadius;
 
 	// Return to player flag
 	bool m_returnToPlayer;

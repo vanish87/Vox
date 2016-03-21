@@ -3,11 +3,6 @@
 // Project:     Vox
 // Author:      Steven Ball
 //
-// Purpose:
-//	 A Countdown timer that triggers a function callback upon reaching the
-//	 countdown time specified. Can also be a looping timer so that the callback
-//	 happens every 'n' amount of time.
-//
 // Revision History:
 //   Initial Revision - 15/07/08
 //

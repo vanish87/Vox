@@ -623,8 +623,7 @@ void SelectCharacter::PopupConfirmPressed()
 		int error = _rmdir(characterBaseFolder);
 #else
 		int error = rmdir(characterBaseFolder);
-#endif //_WIN32
-		
+#endif //_WIN32		
 	}
 
 	NPCList::iterator iter = std::find(m_vpCharacterLineUp.begin(), m_vpCharacterLineUp.end(), m_pSelectedNPC);

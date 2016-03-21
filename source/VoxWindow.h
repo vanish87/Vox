@@ -4,7 +4,10 @@
 // Author:	Steven Ball
 //
 // Purpose:
-//   Vox window class.
+//   The Vox window class is an interface and wrapper around the glfw windows
+//   library and adds common functionality to bind this to the Vox application.
+//   The window class handles most 'window' functionality that isnt directly
+//   part of the game, stuff like window resizing, fullscreen, cursors, etc.
 // 
 // Revision History:
 //   Initial Revision - 27/10/15

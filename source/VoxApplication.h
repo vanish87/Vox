@@ -4,7 +4,8 @@
 // Author:	Steven Ball
 //
 // Purpose:
-//   Vox application class.
+//   The Vox application class is the base level class for an application,
+//   contains an instance of the Vox window and also the Vox game.
 // 
 // Revision History:
 //   Initial Revision - 27/10/15
