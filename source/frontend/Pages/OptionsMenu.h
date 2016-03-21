@@ -1,8 +1,7 @@
 // ******************************************************************************
-//
-// Filename:	OptionsMenu.h
-// Project:		Game
-// Author:		Steven Ball
+// Filename:    OptionsMenu.h
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //
@@ -10,7 +9,6 @@
 //   Initial Revision - 12/10/14
 //
 // Copyright (c) 2005-2011, Steven Ball
-//
 // ******************************************************************************
 
 #pragma once

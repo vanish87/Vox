@@ -1,6 +1,6 @@
 // ******************************************************************************
 // Filename:    CraftingGUI.h
-// Project:     Game
+// Project:     Vox
 // Author:      Steven Ball
 //
 // Purpose:

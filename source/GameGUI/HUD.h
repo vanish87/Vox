@@ -4,6 +4,11 @@
 // Author:      Steven Ball
 //
 // Purpose:
+//   The HUD is the on-screen display of components and interface objects that
+//   display certain information for the player. For example the character's
+//   health and mana, or the current enemy name and health points.
+//   Also functionality for finite life HUD elements, such as level up text, or
+//   'death' text and respawn button.
 //
 // Revision History:
 //   Initial Revision - 03/03/15

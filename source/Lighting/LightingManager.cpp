@@ -1,8 +1,7 @@
 // ******************************************************************************
-//
-// Filename:	LightingManager.cpp
-// Project:		Game
-// Author:		Steven Ball
+// Filename:    LightingManager.cpp
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //
@@ -10,7 +9,6 @@
 //   Initial Revision - 20/01/13
 //
 // Copyright (c) 2005-2011, Steven Ball
-//
 // ******************************************************************************
 
 #include "LightingManager.h"

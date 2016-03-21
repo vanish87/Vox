@@ -1,8 +1,7 @@
 // ******************************************************************************
-//
-// Filename:	OptionsMenu.cpp
-// Project:		Game
-// Author:		Steven Ball
+// Filename:    OptionsMenu.cpp
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //
@@ -10,7 +9,6 @@
 //   Initial Revision - 12/10/14
 //
 // Copyright (c) 2005-2011, Steven Ball
-//
 // ******************************************************************************
 
 #include "OptionsMenu.h"

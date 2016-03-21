@@ -1,8 +1,7 @@
 // ******************************************************************************
-//
-// Filename:	VoxelCharacter.cpp
-// Project:		Game
-// Author:		Steven Ball
+// Filename:    VoxelCharacter.cpp
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //
@@ -10,7 +9,6 @@
 //   Initial Revision - 24/07/14
 //
 // Copyright (c) 2005-2015, Steven Ball
-//
 // ******************************************************************************
 
 #include "VoxelCharacter.h"

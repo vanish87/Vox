@@ -1,7 +1,7 @@
 // ******************************************************************************
 //
 // Filename:	dimensions.cpp
-// Project:		OpenGLGUI
+// Project:     Vox
 // Author:		Steven Ball
 //
 // Purpose:

@@ -1,6 +1,6 @@
 // ******************************************************************************
 // Filename:    LootGUI.h
-// Project:     Game
+// Project:     Vox
 // Author:      Steven Ball
 //
 // Purpose:
