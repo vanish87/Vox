@@ -15,7 +15,7 @@ Scale: 1
 Offset: 0 0 0
 
 boneName: Right_Hand
-Scale: 1
+Scale: 0.95
 Offset: 0 0 0
 
 boneName: Left_Shoulder
@@ -23,7 +23,7 @@ Scale: 1
 Offset: 0 0 0
 
 boneName: Left_Hand
-Scale: 1
+Scale: 0.95
 Offset: 0 0 0
 
 boneName: Legs
