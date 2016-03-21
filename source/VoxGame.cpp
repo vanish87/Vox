@@ -47,6 +47,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pCraftingGUI = NULL;
 	m_pQuestGUI = NULL;
 	m_pActionBar = NULL;
+	m_pHUD = NULL;
 
 	m_GUICreated = false;
 
@@ -234,6 +235,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pCraftingGUI = new CraftingGUI(m_pRenderer, m_pGUI, m_pFrontendManager, m_pChunkManager, m_pPlayer, m_pInventoryManager, m_windowWidth, m_windowHeight);
 	m_pQuestGUI = new QuestGUI(m_pRenderer, m_pGUI, m_pFrontendManager, m_pChunkManager, m_pPlayer, m_pInventoryManager, m_windowWidth, m_windowHeight);
 	m_pActionBar = new ActionBar(m_pRenderer, m_pGUI, m_pFrontendManager, m_pChunkManager, m_pPlayer, m_pInventoryManager, m_windowWidth, m_windowHeight);
+	m_pHUD = new HUD(m_pRenderer, m_pGUI, m_pFrontendManager, m_pChunkManager, m_pPlayer, m_pInventoryManager, m_windowWidth, m_windowHeight);
 
 	/* Create module and manager linkage */
 	m_pChunkManager->SetPlayer(m_pPlayer);
@@ -265,7 +267,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pEnemyManager->SetTextEffectsManager(m_pTextEffectsManager);
 	m_pEnemyManager->SetItemManager(m_pItemManager);
 	m_pEnemyManager->SetProjectileManager(m_pProjectileManager);
-	//m_pEnemyManager->SetHUD(m_pHUD); // TODO : HUD
+	m_pEnemyManager->SetHUD(m_pHUD);
 	m_pEnemyManager->SetQubicleBinaryManager(m_pQubicleBinaryManager);
 	m_pEnemyManager->SetNPCManager(m_pNPCManager);
 	m_pInventoryManager->SetPlayer(m_pPlayer);
@@ -298,6 +300,10 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pActionBar->SetCharacterGUI(m_pCharacterGUI);
 	m_pActionBar->SetLootGUI(m_pLootGUI);
 	m_pQuestGUI->SetQuestJournal(m_pQuestJournal);
+	m_pHUD->SetInventoryGUI(m_pInventoryGUI);
+	m_pHUD->SetCharacterGUI(m_pCharacterGUI);
+	m_pHUD->SetQuestGUI(m_pQuestGUI);
+	m_pHUD->SetCraftingGUI(m_pCraftingGUI);
 
 	/* Initial chunk creation (Must be after player pointer sent to chunks) */
 	m_pChunkManager->InitializeChunkCreation();
@@ -619,6 +625,10 @@ void VoxGame::ResizeWindow(int width, int height)
 	{
 		m_pActionBar->SetWindowDimensions(m_windowWidth, m_windowHeight);
 	}
+	if (m_pHUD)
+	{
+		m_pHUD->SetWindowDimensions(m_windowWidth, m_windowHeight);
+	}
 }
 
 void VoxGame::CloseWindow()
@@ -721,6 +731,12 @@ void VoxGame::StartGameFromFrontEnd()
 	m_pPlayer->StartGame();
 }
 
+void VoxGame::PlayerRespawned()
+{
+	// Stop any movement drag when we respawn
+	m_movementSpeed = 0.0f;
+}
+
 void VoxGame::SetGameMode(GameMode mode)
 {
 	GameMode previousgameMode = m_gameMode;
@@ -759,6 +775,12 @@ void VoxGame::SetGameMode(GameMode mode)
 				m_pActionBar->Unload();
 			}
 
+			// Unload the HUD
+			if (m_pHUD->IsLoaded())
+			{
+				m_pHUD->Unload();
+			}
+
 			// Setup the gamedata since we have just loaded fresh into the frontend.
 			SetupDataForFrontEnd();
 		}
@@ -788,6 +810,12 @@ void VoxGame::SetGameMode(GameMode mode)
 			if (m_pActionBar->IsLoaded() == false)
 			{
 				m_pActionBar->Load();
+			}
+
+			// Load the HUD
+			if (m_pHUD->IsLoaded() == false)
+			{
+				m_pHUD->Load();
 			}
 
 			// Setup the gamedata since we have just loaded fresh into a game.
@@ -1152,6 +1180,11 @@ CharacterGUI* VoxGame::GetCharacterGUI()
 QuestGUI* VoxGame::GetQuestGUI()
 {
 	return m_pQuestGUI;
+}
+
+HUD* VoxGame::GetHUD()
+{
+	return m_pHUD;
 }
 
 VoxSettings* VoxGame::GetVoxSettings()

@@ -429,8 +429,7 @@ void Player::DoDamage(float amount, Colour textColour, vec3 knockbackDirection, 
 		}
 
 		// Update HUD player data
-		// TODO : Player HUD
-		//m_pGameWindow->GetHUD()->UpdatePlayerData();
+		VoxGame::GetInstance()->GetHUD()->UpdatePlayerData();
 
 		// Play a hit response animation
 		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "HitResponse", 0.01f);
@@ -485,8 +484,7 @@ void Player::Explode()
 	m_bIsChargingAttack = false;
 	m_chargeAmount = 0.0f;
 
-	// TODO : HUD
-	//m_pGameWindow->GetHUD()->PlayerDied();
+	VoxGame::GetInstance()->GetHUD()->PlayerDied();
 	VoxGame::GetInstance()->ReleaseEnemyTarget();
 	VoxGame::GetInstance()->CloseAllGUIWindows();
 
@@ -573,8 +571,7 @@ void Player::Respawn()
 
 	m_health = m_maxHealth;
 
-	// TODO : Player HUD
-	//m_pGameWindow->GetHUD()->UpdatePlayerData();
+	VoxGame::GetInstance()->GetHUD()->UpdatePlayerData();
 
 	// Also go through all the equipped items and equip them
 	for (int i = 0; i < EquipSlot_NumSlots; i++)

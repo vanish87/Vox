@@ -23,13 +23,13 @@
 #include "../Items/ItemManager.h"
 #include "../Projectile/ProjectileManager.h"
 #include "../Projectile/Projectile.h"
-//#include "../GUI/HUD.h" // TODO : HUD
+#include "../GameGUI/HUD.h"
 #include "../NPC/NPCManager.h"
 #include "../NPC/NPC.h"
 #include "../VoxGame.h"
 
 
-Enemy::Enemy(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, LightingManager* pLightingManager, BlockParticleManager* pBlockParticleManager, TextEffectsManager* pTextEffectsManager, ItemManager* pItemManager, ProjectileManager* pProjectileManager, /*HUD* pHUD, TODO : HUD*/ EnemyManager* pEnemyManager, NPCManager* pNPCManager, QubicleBinaryManager* pQubicleBinaryManager, eEnemyType enemyType)
+Enemy::Enemy(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, LightingManager* pLightingManager, BlockParticleManager* pBlockParticleManager, TextEffectsManager* pTextEffectsManager, ItemManager* pItemManager, ProjectileManager* pProjectileManager, HUD* pHUD, EnemyManager* pEnemyManager, NPCManager* pNPCManager, QubicleBinaryManager* pQubicleBinaryManager, eEnemyType enemyType)
 {
 	m_pRenderer = pRenderer;
 	m_pChunkManager = pChunkManager;
@@ -40,7 +40,7 @@ Enemy::Enemy(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, 
 	m_pTextEffectsManager = pTextEffectsManager;
 	m_pItemManager = pItemManager;
 	m_pProjectileManager = pProjectileManager;
-	//m_pHUD = pHUD; // TODO : HUD
+	m_pHUD = pHUD;
 	m_pQubicleBinaryManager = pQubicleBinaryManager;
 	m_pNPCManager = pNPCManager;
 
@@ -1840,12 +1840,11 @@ void Enemy::DoDamage(float amount, Colour textColour, vec3 knockbackDirection, f
 		}
 
 		// Update the HUD
-		// TODO : HUD
-		//if(shouldUpdateGUI)
-		//{
-		//	m_pHUD->SetEnemyHealth(m_health, m_maxHealth, damageDone);
-		//	m_pHUD->SetEnemyName(m_enemyName.c_str());
-		//}
+		if(shouldUpdateGUI)
+		{
+			m_pHUD->SetEnemyHealth(m_health, m_maxHealth, damageDone);
+			m_pHUD->SetEnemyName(m_enemyName.c_str());
+		}
 
 		if(finalDeathHit == false)
 		{
@@ -2182,8 +2181,7 @@ void Enemy::Explode()
 	}
 
 	// Signal to the player and NPC manager that this enemy died, clear linkage
-	// TODO : Player ENEMY died
-	//m_pPlayer->SetEnemyDied(this);
+	m_pPlayer->SetEnemyDied(this);
 	m_pNPCManager->SetEnemyDied(this);
 
 	// Signal to the projectile manager that this enemy died, clear linkage

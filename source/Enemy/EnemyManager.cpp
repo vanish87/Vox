@@ -18,7 +18,7 @@
 #include "../Items/ItemManager.h"
 #include "../Projectile/ProjectileManager.h"
 #include "../VoxGame.h"
-//#include "../GUI/HUD.h" // TODO : HUD
+#include "../GameGUI/HUD.h"
 
 
 EnemyManager::EnemyManager(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer)
@@ -55,11 +55,10 @@ void EnemyManager::SetProjectileManager(ProjectileManager* pProjectileManager)
 	m_pProjectileManager = pProjectileManager;
 }
 
-// TODO : HUD
-//void EnemyManager::SetHUD(HUD* pHUD)
-//{
-//	m_pHUD = pHUD;
-//}
+void EnemyManager::SetHUD(HUD* pHUD)
+{
+	m_pHUD = pHUD;
+}
 
 void EnemyManager::SetQubicleBinaryManager(QubicleBinaryManager* pQubicleBinaryManager)
 {
@@ -138,7 +137,7 @@ void EnemyManager::RemoveEnemySpawnerFromEnemies(EnemySpawner* pSpawner)
 // Creation
 Enemy* EnemyManager::CreateEnemy(vec3 position, eEnemyType enemyType, float scale)
 {
-	Enemy* pNewEnemy = new Enemy(m_pRenderer, m_pChunkManager, m_pPlayer, m_pLightingManager, m_pBlockParticleManager, m_pTextEffectsManager, m_pItemManager, m_pProjectileManager, /*m_pHUD // TODO : HUD,*/ this, m_pNPCManager, m_pQubicleBinaryManager, enemyType);
+	Enemy* pNewEnemy = new Enemy(m_pRenderer, m_pChunkManager, m_pPlayer, m_pLightingManager, m_pBlockParticleManager, m_pTextEffectsManager, m_pItemManager, m_pProjectileManager, m_pHUD, this, m_pNPCManager, m_pQubicleBinaryManager, enemyType);
 
 	pNewEnemy->SetPosition(position);
 	pNewEnemy->SetLeashParameters(position, 15.0f);

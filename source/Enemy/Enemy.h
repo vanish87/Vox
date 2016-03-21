@@ -28,7 +28,7 @@ class ItemManager;
 class NPCManager;
 class NPC;
 class EnemySpawner;
-//class HUD; TODO : HUD
+class HUD;
 
 enum eEnemyType
 {
@@ -67,7 +67,7 @@ class Enemy
 {
 public:
 	/* Public methods */
-	Enemy(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, LightingManager* pLightingManager, BlockParticleManager* pBlockParticleManager, TextEffectsManager* pTextEffectsManager, ItemManager* pItemManager, ProjectileManager* pProjectileManager, /*HUD* pHUD,*/ EnemyManager* pEnemyManager, NPCManager* pNPCManager, QubicleBinaryManager* pQubicleBinaryManager, eEnemyType enemyType);
+	Enemy(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, LightingManager* pLightingManager, BlockParticleManager* pBlockParticleManager, TextEffectsManager* pTextEffectsManager, ItemManager* pItemManager, ProjectileManager* pProjectileManager, HUD* pHUD, EnemyManager* pEnemyManager, NPCManager* pNPCManager, QubicleBinaryManager* pQubicleBinaryManager, eEnemyType enemyType);
 	~Enemy();
 
 	// Erase flag
@@ -240,7 +240,7 @@ private:
 	TextEffectsManager* m_pTextEffectsManager;
 	ItemManager* m_pItemManager;
 	ProjectileManager* m_pProjectileManager;
-	//HUD* m_pHUD; TODO : HUD
+	HUD* m_pHUD;
 	QubicleBinaryManager* m_pQubicleBinaryManager;
 	NPCManager* m_pNPCManager;
 

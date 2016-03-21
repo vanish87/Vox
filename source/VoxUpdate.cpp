@@ -276,5 +276,9 @@ void VoxGame::UpdateGameGUI(float dt)
 	if (m_pQuestGUI->IsLoaded())
 	{
 		m_pQuestGUI->Update(dt);
-	}	
+	}
+	if (m_pHUD->IsLoaded())
+	{
+		m_pHUD->Update(dt);
+	}
 }

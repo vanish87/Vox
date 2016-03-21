@@ -24,7 +24,7 @@ class BlockParticleManager;
 class TextEffectsManager;
 class ItemManager;
 class ProjectileManager;
-//class HUD; // TODO : HUD
+class HUD;
 class NPCManager;
 
 typedef std::vector<Enemy*> EnemyList;
@@ -43,7 +43,7 @@ public:
 	void SetTextEffectsManager(TextEffectsManager* pTextEffectsManager);
 	void SetItemManager(ItemManager* pItemManager);
 	void SetProjectileManager(ProjectileManager* pProjectileManager);
-	//void SetHUD(HUD* pHUD); // TODO : HUD
+	void SetHUD(HUD* pHUD);
 	void SetQubicleBinaryManager(QubicleBinaryManager* pQubicleBinaryManager);
 	void SetNPCManager(NPCManager* pNPCManager);
 
@@ -113,7 +113,7 @@ private:
 	TextEffectsManager* m_pTextEffectsManager;
 	ItemManager* m_pItemManager;
 	ProjectileManager* m_pProjectileManager;
-	//HUD* m_pHUD; // TODO : HUD
+	HUD* m_pHUD;
 	QubicleBinaryManager* m_pQubicleBinaryManager;
 	NPCManager* m_pNPCManager;
 

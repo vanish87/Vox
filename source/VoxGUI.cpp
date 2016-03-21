@@ -347,6 +347,7 @@ void VoxGame::SkinGUI()
 	m_pQuestGUI->SkinGUI();
 	m_pLootGUI->SkinGUI();
 	m_pActionBar->SkinGUI();
+	m_pHUD->SkinGUI();
 }
 
 void VoxGame::UnSkinGUI()
@@ -394,6 +395,7 @@ void VoxGame::UnSkinGUI()
 	m_pQuestGUI->UnSkinGUI();
 	m_pLootGUI->UnSkinGUI();
 	m_pActionBar->UnSkinGUI();
+	m_pHUD->UnSkinGUI();
 }
 
 void VoxGame::DestroyGUI()

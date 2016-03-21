@@ -1215,6 +1215,9 @@ void Player::StartGame()
 	int gridY;
 	int gridZ;
 	m_pChunkManager->GetGridFromPosition(m_position, &gridX, &gridY, &gridZ);
+
+	// Update initial HUD for player
+	VoxGame::GetInstance()->GetHUD()->UpdatePlayerData();
 }
 
 // Movement
@@ -1457,7 +1460,7 @@ bool Player::IsDead()
 // Level up
 void Player::LevelUp()
 {
-	// TODO : Player LevelUp()
+	VoxGame::GetInstance()->GetHUD()->LevelUp();
 }
 
 // Gameplay
@@ -1497,6 +1500,8 @@ void Player::GiveHealth(float amount)
 	AnimatedText* lpTestTextEffect = m_pTextEffectsManager->CreateTextEffect(VoxGame::GetInstance()->GetFrontendManager()->GetTextEffectFont(), VoxGame::GetInstance()->GetFrontendManager()->GetTextEffectOutlineFont(), VoxGame::GetInstance()->GetDefaultViewport(), TextDrawMode_3D_Screen, TextEffect_FadeUp, TextDrawStyle_Outline, screenposition, Colour(0.0f, 1.0f, 0.0f), Colour(0.0f, 0.0f, 0.0f), healthText, 1.0f);
 	lpTestTextEffect->SetAutoDelete(true);
 	lpTestTextEffect->StartEffect();
+
+	VoxGame::GetInstance()->GetHUD()->UpdatePlayerData();
 }
 
 void Player::GiveCoins(int amount)
@@ -1508,6 +1513,8 @@ void Player::GiveCoins(int amount)
 	AnimatedText* lpTestTextEffect = m_pTextEffectsManager->CreateTextEffect(VoxGame::GetInstance()->GetFrontendManager()->GetTextEffectFont(), VoxGame::GetInstance()->GetFrontendManager()->GetTextEffectOutlineFont(), VoxGame::GetInstance()->GetDefaultViewport(), TextDrawMode_3D_Screen, TextEffect_FadeUp, TextDrawStyle_Outline, screenposition, Colour(1.0f, 1.0f, 0.0f), Colour(0.0f, 0.0f, 0.0f), healthText, 1.0f);
 	lpTestTextEffect->SetAutoDelete(true);
 	lpTestTextEffect->StartEffect();
+
+	VoxGame::GetInstance()->GetHUD()->UpdatePlayerData();
 }
 
 // Player stats

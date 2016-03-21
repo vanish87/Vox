@@ -37,6 +37,7 @@
     <ClCompile Include="..\..\source\GameGUI\ActionBar.cpp" />
     <ClCompile Include="..\..\source\GameGUI\CharacterGUI.cpp" />
     <ClCompile Include="..\..\source\GameGUI\CraftingGUI.cpp" />
+    <ClCompile Include="..\..\source\GameGUI\HUD.cpp" />
     <ClCompile Include="..\..\source\GameGUI\InventoryGUI.cpp" />
     <ClCompile Include="..\..\source\GameGUI\LootGUI.cpp" />
     <ClCompile Include="..\..\source\GameGUI\QuestGUI.cpp" />
@@ -209,6 +210,7 @@
     <ClInclude Include="..\..\source\GameGUI\ActionBar.h" />
     <ClInclude Include="..\..\source\GameGUI\CharacterGUI.h" />
     <ClInclude Include="..\..\source\GameGUI\CraftingGUI.h" />
+    <ClInclude Include="..\..\source\GameGUI\HUD.h" />
     <ClInclude Include="..\..\source\GameGUI\InventoryGUI.h" />
     <ClInclude Include="..\..\source\GameGUI\LootGUI.h" />
     <ClInclude Include="..\..\source\GameGUI\QuestGUI.h" />

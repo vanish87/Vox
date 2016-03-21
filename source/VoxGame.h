@@ -44,6 +44,8 @@
 #include "GameGUI/InventoryGUI.h"
 #include "GameGUI/LootGUI.h"
 #include "GameGUI/QuestGUI.h"
+#include "GameGUI/HUD.h"
+
 
 #ifdef __linux__
 typedef struct POINT {
@@ -166,6 +168,7 @@ public:
 	void SetupDataForGame();
 	void SetupDataForFrontEnd();
 	void StartGameFromFrontEnd();
+	void PlayerRespawned();
 	void SetGameMode(GameMode mode);
 	GameMode GetGameMode();
 	void SetCameraMode(CameraMode mode);
@@ -201,6 +204,7 @@ public:
 	void RenderFirstPassFullScreen();
 	void RenderSecondPassFullScreen();
 	void RenderGUI();
+	void RenderHUD();
 	void RenderCinematicLetterBox();
 	void RenderCrosshair();
 	void RenderPaperdollViewport();
@@ -240,6 +244,7 @@ public:
 	ModsManager* GetModsManager();
 	CharacterGUI* GetCharacterGUI();
 	QuestGUI* GetQuestGUI();
+	HUD* GetHUD();
 	VoxSettings* GetVoxSettings();
 
 protected:
@@ -534,6 +539,7 @@ private:
 	CraftingGUI* m_pCraftingGUI;
 	QuestGUI* m_pQuestGUI;
 	ActionBar* m_pActionBar;
+	HUD* m_pHUD;
 
 	// GUI Components
 	bool m_GUICreated;

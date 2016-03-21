@@ -284,6 +284,9 @@ void VoxGame::Render()
 
 			// Cinematic mode (letter box)
 			RenderCinematicLetterBox();
+
+			// Render the HUD
+			RenderHUD();
 		m_pRenderer->PopMatrix();
 
 		// Disable multisampling for 2d gui and text
@@ -770,6 +773,15 @@ void VoxGame::RenderGUI()
 
 		m_pGUI->Render();
 	m_pRenderer->PopMatrix();
+}
+
+void VoxGame::RenderHUD()
+{
+	// Render the HUD
+	if (m_gameMode == GameMode_Game)
+	{
+		m_pHUD->Render();
+	}
 }
 
 void VoxGame::RenderCinematicLetterBox()

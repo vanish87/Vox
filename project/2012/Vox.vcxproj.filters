@@ -627,6 +627,9 @@
     <ClCompile Include="..\..\source\Quests\QuestManager.cpp">
       <Filter>source\Quests</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\GameGUI\HUD.cpp">
+      <Filter>source\GameGUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\glew\include\GL\glew.h">
@@ -1600,6 +1603,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\Quests\QuestManager.h">
       <Filter>source\Quests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameGUI\HUD.h">
+      <Filter>source\GameGUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

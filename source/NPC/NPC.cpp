@@ -1442,8 +1442,7 @@ void NPC::DoDamage(float amount, Colour textColour, vec3 knockbackDirection, flo
 		}
 
 		// Update HUD player data
-		// TODO : Add back in - HUD
-		//m_pGameWindow->GetHUD()->UpdatePlayerData();
+		VoxGame::GetInstance()->GetHUD()->UpdatePlayerData();
 
 		// Play a hit response animation
 		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "HitResponse", 0.01f);
