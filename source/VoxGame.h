@@ -239,6 +239,7 @@ public:
 	ItemManager* GetItemManager();
 	ModsManager* GetModsManager();
 	CharacterGUI* GetCharacterGUI();
+	QuestGUI* GetQuestGUI();
 	VoxSettings* GetVoxSettings();
 
 protected:

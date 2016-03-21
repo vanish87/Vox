@@ -1149,6 +1149,11 @@ CharacterGUI* VoxGame::GetCharacterGUI()
 	return m_pCharacterGUI;
 }
 
+QuestGUI* VoxGame::GetQuestGUI()
+{
+	return m_pQuestGUI;
+}
+
 VoxSettings* VoxGame::GetVoxSettings()
 {
 	return m_pVoxSettings;
