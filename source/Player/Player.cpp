@@ -917,150 +917,159 @@ bool Player::CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pN
 	// World collision
 	bool worldCollision = false;
 
-	int blockX, blockY, blockZ;
-	vec3 blockPos;
-	int blockXAbove, blockYAbove, blockZAbove;
-	vec3 blockPosAbove;
-	int numChecks = 1 + (int)(radius / (Chunk::BLOCK_RENDER_SIZE* 2.0f));
-	bool canAllStepUp = false;
-	bool firstStepUp = true;
-	for (int x = -numChecks; x <= numChecks; x++)
+	vec3 floorPosition;
+	if (m_pChunkManager->FindClosestFloor(positionCheck, &floorPosition) == false)
 	{
-		for (int y = -numChecks; y <= numChecks; y++)
+		*pMovement = vec3(0.0f, 0.0f, 0.0f);
+		return true;
+	}
+	else
+	{
+		int blockX, blockY, blockZ;
+		vec3 blockPos;
+		int blockXAbove, blockYAbove, blockZAbove;
+		vec3 blockPosAbove;
+		int numChecks = 1 + (int)(radius / (Chunk::BLOCK_RENDER_SIZE* 2.0f));
+		bool canAllStepUp = false;
+		bool firstStepUp = true;
+		for (int x = -numChecks; x <= numChecks; x++)
 		{
-			for (int z = -numChecks; z <= numChecks; z++)
+			for (int y = -numChecks; y <= numChecks; y++)
 			{
-				bool isStepUp = false;
-				*pNormal = vec3(0.0f, 0.0f, 0.0f);
-
-				Chunk* pChunk = GetCachedGridChunkOrFromPosition(positionCheck + vec3((Chunk::BLOCK_RENDER_SIZE*2.0f)*x, (Chunk::BLOCK_RENDER_SIZE*2.0f)*y, (Chunk::BLOCK_RENDER_SIZE*2.0f)*z));
-				bool active = m_pChunkManager->GetBlockActiveFrom3DPosition(positionCheck.x + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*x), positionCheck.y + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*y), positionCheck.z + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*z), &blockPos, &blockX, &blockY, &blockZ, &pChunk);
-				bool activeAbove = false;
-				bool activeAbove2 = false;
-
-				if (active == false)
+				for (int z = -numChecks; z <= numChecks; z++)
 				{
-					if (pChunk == NULL || pChunk->IsSetup() == false)
+					bool isStepUp = false;
+					*pNormal = vec3(0.0f, 0.0f, 0.0f);
+
+					Chunk* pChunk = GetCachedGridChunkOrFromPosition(positionCheck + vec3((Chunk::BLOCK_RENDER_SIZE*2.0f)*x, (Chunk::BLOCK_RENDER_SIZE*2.0f)*y, (Chunk::BLOCK_RENDER_SIZE*2.0f)*z));
+					bool active = m_pChunkManager->GetBlockActiveFrom3DPosition(positionCheck.x + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*x), positionCheck.y + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*y), positionCheck.z + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*z), &blockPos, &blockX, &blockY, &blockZ, &pChunk);
+					bool activeAbove = false;
+					bool activeAbove2 = false;
+
+					if (active == false)
 					{
-						*pMovement = vec3(0.0f, 0.0f, 0.0f);
-						worldCollision = true;
-					}
-				}
-				else if (active == true)
-				{
-					Plane3D planes[6];
-					planes[0] = Plane3D(vec3(-1.0f, 0.0f, 0.0f), vec3(Chunk::BLOCK_RENDER_SIZE, 0.0f, 0.0f));
-					planes[1] = Plane3D(vec3(1.0f, 0.0f, 0.0f), vec3(-Chunk::BLOCK_RENDER_SIZE, 0.0f, 0.0f));
-					planes[2] = Plane3D(vec3(0.0f, -1.0f, 0.0f), vec3(0.0f, Chunk::BLOCK_RENDER_SIZE, 0.0f));
-					planes[3] = Plane3D(vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, -Chunk::BLOCK_RENDER_SIZE, 0.0f));
-					planes[4] = Plane3D(vec3(0.0f, 0.0f, -1.0f), vec3(0.0f, 0.0f, Chunk::BLOCK_RENDER_SIZE));
-					planes[5] = Plane3D(vec3(0.0f, 0.0f, 1.0f), vec3(0.0f, 0.0f, -Chunk::BLOCK_RENDER_SIZE));
-
-					float distance;
-					int inside = 0;
-					bool insideCache[6];
-
-					for (int i = 0; i < 6; i++)
-					{
-						vec3 pointToCheck = blockPos - previousPosition;
-						distance = planes[i].GetPointDistance(pointToCheck);
-
-						if (distance < -radius)
+						if (pChunk == NULL || pChunk->IsSetup() == false)
 						{
-							// Outside...
-							insideCache[i] = false;
-						}
-						else if (distance < radius)
-						{
-							// Intersecting..
-							insideCache[i] = true;
-						}
-						else
-						{
-							// Inside...
-							insideCache[i] = true;
+							*pMovement = vec3(0.0f, 0.0f, 0.0f);
+							worldCollision = true;
 						}
 					}
-
-					for (int i = 0; i < 6; i++)
+					else if (active == true)
 					{
-						vec3 pointToCheck = blockPos - positionCheck;
-						distance = planes[i].GetPointDistance(pointToCheck);
+						Plane3D planes[6];
+						planes[0] = Plane3D(vec3(-1.0f, 0.0f, 0.0f), vec3(Chunk::BLOCK_RENDER_SIZE, 0.0f, 0.0f));
+						planes[1] = Plane3D(vec3(1.0f, 0.0f, 0.0f), vec3(-Chunk::BLOCK_RENDER_SIZE, 0.0f, 0.0f));
+						planes[2] = Plane3D(vec3(0.0f, -1.0f, 0.0f), vec3(0.0f, Chunk::BLOCK_RENDER_SIZE, 0.0f));
+						planes[3] = Plane3D(vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, -Chunk::BLOCK_RENDER_SIZE, 0.0f));
+						planes[4] = Plane3D(vec3(0.0f, 0.0f, -1.0f), vec3(0.0f, 0.0f, Chunk::BLOCK_RENDER_SIZE));
+						planes[5] = Plane3D(vec3(0.0f, 0.0f, 1.0f), vec3(0.0f, 0.0f, -Chunk::BLOCK_RENDER_SIZE));
 
-						if (distance < -radius)
+						float distance;
+						int inside = 0;
+						bool insideCache[6];
+
+						for (int i = 0; i < 6; i++)
 						{
-							// Outside...
-						}
-						else if (distance < radius)
-						{
-							// Intersecting..
-							inside++;
-							if (insideCache[i] == false)
+							vec3 pointToCheck = blockPos - previousPosition;
+							distance = planes[i].GetPointDistance(pointToCheck);
+
+							if (distance < -radius)
 							{
-								*pNormal += planes[i].mNormal;
+								// Outside...
+								insideCache[i] = false;
 							}
-						}
-						else
-						{
-							// Inside...
-							inside++;
-							if (insideCache[i] == false)
+							else if (distance < radius)
 							{
-								*pNormal += planes[i].mNormal;
-							}
-						}
-					}
-
-					if (inside == 6)
-					{
-						if (y == 0) // We only want to check on the same y-level as the players position.
-						{
-							vec3 posCheck1 = vec3(positionCheck.x + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*x), positionCheck.y + (Chunk::BLOCK_RENDER_SIZE*2.0f), positionCheck.z + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*z));
-							vec3 posCheck2 = vec3(positionCheck.x + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*x), positionCheck.y + (Chunk::BLOCK_RENDER_SIZE*4.0f), positionCheck.z + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*z));
-
-							Chunk* pChunkAbove = GetCachedGridChunkOrFromPosition(vec3(posCheck1.x, posCheck1.y, posCheck1.z));
-							activeAbove = m_pChunkManager->GetBlockActiveFrom3DPosition(posCheck1.x, posCheck1.y, posCheck1.z, &blockPosAbove, &blockXAbove, &blockYAbove, &blockZAbove, &pChunkAbove);
-							Chunk* pChunkAbove2 = GetCachedGridChunkOrFromPosition(vec3(posCheck2.x, posCheck2.y, posCheck2.z));
-							activeAbove2 = m_pChunkManager->GetBlockActiveFrom3DPosition(posCheck2.x, posCheck2.y, posCheck2.z, &blockPosAbove, &blockXAbove, &blockYAbove, &blockZAbove, &pChunkAbove2);
-
-							if ((activeAbove == false) && (activeAbove2 == false))
-							{
-								if (firstStepUp)
-								{
-									canAllStepUp = true;
-								}
-
-								isStepUp = true;
+								// Intersecting..
+								insideCache[i] = true;
 							}
 							else
 							{
-								canAllStepUp = false;
+								// Inside...
+								insideCache[i] = true;
 							}
-
-							firstStepUp = false;
 						}
 
-						if (length(*pNormal) <= 1.0f)
+						for (int i = 0; i < 6; i++)
 						{
-							if (length(*pNormal) > 0.0f)
+							vec3 pointToCheck = blockPos - positionCheck;
+							distance = planes[i].GetPointDistance(pointToCheck);
+
+							if (distance < -radius)
 							{
-								*pNormal = normalize(*pNormal);
+								// Outside...
+							}
+							else if (distance < radius)
+							{
+								// Intersecting..
+								inside++;
+								if (insideCache[i] == false)
+								{
+									*pNormal += planes[i].mNormal;
+								}
+							}
+							else
+							{
+								// Inside...
+								inside++;
+								if (insideCache[i] == false)
+								{
+									*pNormal += planes[i].mNormal;
+								}
+							}
+						}
+
+						if (inside == 6)
+						{
+							if (y == 0) // We only want to check on the same y-level as the players position.
+							{
+								vec3 posCheck1 = vec3(positionCheck.x + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*x), positionCheck.y + (Chunk::BLOCK_RENDER_SIZE*2.0f), positionCheck.z + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*z));
+								vec3 posCheck2 = vec3(positionCheck.x + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*x), positionCheck.y + (Chunk::BLOCK_RENDER_SIZE*4.0f), positionCheck.z + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*z));
+
+								Chunk* pChunkAbove = GetCachedGridChunkOrFromPosition(vec3(posCheck1.x, posCheck1.y, posCheck1.z));
+								activeAbove = m_pChunkManager->GetBlockActiveFrom3DPosition(posCheck1.x, posCheck1.y, posCheck1.z, &blockPosAbove, &blockXAbove, &blockYAbove, &blockZAbove, &pChunkAbove);
+								Chunk* pChunkAbove2 = GetCachedGridChunkOrFromPosition(vec3(posCheck2.x, posCheck2.y, posCheck2.z));
+								activeAbove2 = m_pChunkManager->GetBlockActiveFrom3DPosition(posCheck2.x, posCheck2.y, posCheck2.z, &blockPosAbove, &blockXAbove, &blockYAbove, &blockZAbove, &pChunkAbove2);
+
+								if ((activeAbove == false) && (activeAbove2 == false))
+								{
+									if (firstStepUp)
+									{
+										canAllStepUp = true;
+									}
+
+									isStepUp = true;
+								}
+								else
+								{
+									canAllStepUp = false;
+								}
+
+								firstStepUp = false;
 							}
 
-							float dotResult = dot(*pNormal, *pMovement);
-							*pNormal *= dotResult;
+							if (length(*pNormal) <= 1.0f)
+							{
+								if (length(*pNormal) > 0.0f)
+								{
+									*pNormal = normalize(*pNormal);
+								}
 
-							*pMovement -= *pNormal;
+								float dotResult = dot(*pNormal, *pMovement);
+								*pNormal *= dotResult;
 
-							worldCollision = true;
+								*pMovement -= *pNormal;
+
+								worldCollision = true;
+							}
 						}
 					}
 				}
 			}
 		}
-	}
 
-	*pStepUpBlock = canAllStepUp;
+		*pStepUpBlock = canAllStepUp;
+	}
 
 	if (itemCollision)
 		return true;

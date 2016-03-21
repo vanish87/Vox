@@ -571,13 +571,6 @@ void Projectile::Update(float dt)
 	// Update grid position
 	UpdateGridPosition();
 
-	// If we don't belong to a chunk
-	if(m_pCachedGridChunk == NULL)
-	{
-		UnloadEffectsAndLights();
-		return;
-	}
-
 	vec3 acceleration = (m_gravityDirection * 9.81f) * m_gravityMultiplier;
 
 	if(m_returnToPlayer)
@@ -612,17 +605,12 @@ void Projectile::Update(float dt)
 
 	if(m_worldCollisionEnabled)
 	{
-		int blockX, blockY, blockZ;
-		vec3 blockPos;
-
-		Chunk* pChunk = GetCachedGridChunkOrFromPosition(m_position);
-		bool active = m_pChunkManager->GetBlockActiveFrom3DPosition(m_position.x, m_position.y, m_position.z, &blockPos, &blockX, &blockY, &blockZ, &pChunk);
-
-		if(active == true)
+		vec3 floorPosition;
+		if (m_pChunkManager->FindClosestFloor(GetCenter(), &floorPosition) == false)
 		{
-			if(m_returnToPlayer)
+			if (m_returnToPlayer)
 			{
-				if(m_returningDirectToPlayer == false)
+				if (m_returningDirectToPlayer == false)
 				{
 					Interpolator::GetInstance()->RemoveFloatInterpolationByVariable(&m_curveTimer);
 
@@ -640,12 +628,46 @@ void Projectile::Update(float dt)
 			}
 			else
 			{
-				// Roll back the integration, since we will intersect the block otherwise
-				m_position -= m_velocity * dt;
-
-				m_velocity = vec3(0.0f, 0.0f, 0.0f);
-
 				Explode();
+			}
+		}
+		else
+		{
+			int blockX, blockY, blockZ;
+			vec3 blockPos;
+
+			Chunk* pChunk = GetCachedGridChunkOrFromPosition(m_position);
+			bool active = m_pChunkManager->GetBlockActiveFrom3DPosition(m_position.x, m_position.y, m_position.z, &blockPos, &blockX, &blockY, &blockZ, &pChunk);
+
+			if (pChunk != false && active == true)
+			{
+				if (m_returnToPlayer)
+				{
+					if (m_returningDirectToPlayer == false)
+					{
+						Interpolator::GetInstance()->RemoveFloatInterpolationByVariable(&m_curveTimer);
+
+						// Go straight back to player
+						m_bezierStart_Left = m_pPlayer->GetCenter();
+						m_bezierEnd_Left = m_position;
+						m_bezierControl_Left = m_position;
+						m_curveTime = 1.0f;
+						m_curveTimer = 0.0f;
+						m_rightCurve = false;
+						Interpolator::GetInstance()->AddFloatInterpolation(&m_curveTimer, 0.0f, m_curveTime, m_curveTime, 0.0f);
+
+						m_returningDirectToPlayer = true;
+					}
+				}
+				else
+				{
+					// Roll back the integration, since we will intersect the block otherwise
+					m_position -= m_velocity * dt;
+
+					m_velocity = vec3(0.0f, 0.0f, 0.0f);
+
+					Explode();
+				}
 			}
 		}
 	}
@@ -656,11 +678,6 @@ void Projectile::Update(float dt)
 void Projectile::UpdateProjectileLights(float dt)
 {
 	if(m_erase)
-	{
-		return;
-	}
-
-	if(m_pCachedGridChunk == NULL)
 	{
 		return;
 	}
@@ -712,11 +729,6 @@ void Projectile::UpdateProjectileLights(float dt)
 void Projectile::UpdateProjectileParticleEffects(float dt)
 {
 	if(m_erase)
-	{
-		return;
-	}
-
-	if(m_pCachedGridChunk == NULL)
 	{
 		return;
 	}

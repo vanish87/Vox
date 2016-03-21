@@ -1352,109 +1352,117 @@ bool Enemy::CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pNo
 	// World collisions
 	bool worldCollision = false;
 
-	int blockX, blockY, blockZ;
-	vec3 blockPos;
-
-	int numChecks = 1 + (int)(radius / (Chunk::BLOCK_RENDER_SIZE* 2.0f));
-	for(int x = -numChecks; x <= numChecks; x++)
+	vec3 floorPosition;
+	if (m_pChunkManager->FindClosestFloor(positionCheck, &floorPosition) == false)
 	{
-		for(int y = -numChecks; y <= numChecks; y++)
+		*pMovement = vec3(0.0f, 0.0f, 0.0f);
+		return true;
+	}
+	else
+	{
+		int blockX, blockY, blockZ;
+		vec3 blockPos;
+		int numChecks = 1 + (int)(radius / (Chunk::BLOCK_RENDER_SIZE* 2.0f));
+		for (int x = -numChecks; x <= numChecks; x++)
 		{
-			for(int z = -numChecks; z <= numChecks; z++)
+			for (int y = -numChecks; y <= numChecks; y++)
 			{
-				*pNormal = vec3(0.0f, 0.0f, 0.0f);
-
-				Chunk* pChunk = GetCachedGridChunkOrFromPosition(positionCheck + vec3((Chunk::BLOCK_RENDER_SIZE*2.0f)*x, (Chunk::BLOCK_RENDER_SIZE*2.0f)*y, (Chunk::BLOCK_RENDER_SIZE*2.0f)*z));
-				bool active = m_pChunkManager->GetBlockActiveFrom3DPosition(positionCheck.x + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*x), positionCheck.y + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*y), positionCheck.z + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*z), &blockPos, &blockX, &blockY, &blockZ, &pChunk);
-
-				if(active == false)
+				for (int z = -numChecks; z <= numChecks; z++)
 				{
-					if(pChunk == NULL || pChunk->IsSetup() == false)
+					*pNormal = vec3(0.0f, 0.0f, 0.0f);
+
+					Chunk* pChunk = GetCachedGridChunkOrFromPosition(positionCheck + vec3((Chunk::BLOCK_RENDER_SIZE*2.0f)*x, (Chunk::BLOCK_RENDER_SIZE*2.0f)*y, (Chunk::BLOCK_RENDER_SIZE*2.0f)*z));
+					bool active = m_pChunkManager->GetBlockActiveFrom3DPosition(positionCheck.x + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*x), positionCheck.y + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*y), positionCheck.z + ((Chunk::BLOCK_RENDER_SIZE*2.0f)*z), &blockPos, &blockX, &blockY, &blockZ, &pChunk);
+
+					if (active == false)
 					{
-						*pMovement = vec3(0.0f, 0.0f, 0.0f);
-						worldCollision = false;
-					}
-				}
-				else if(active == true)
-				{
-					Plane3D planes[6];
-					planes[0] = Plane3D(vec3(-1.0f, 0.0f, 0.0f), vec3(Chunk::BLOCK_RENDER_SIZE, 0.0f, 0.0f));
-					planes[1] = Plane3D(vec3(1.0f, 0.0f, 0.0f), vec3(-Chunk::BLOCK_RENDER_SIZE , 0.0f, 0.0f));
-					planes[2] = Plane3D(vec3(0.0f, -1.0f, 0.0f), vec3(0.0f, Chunk::BLOCK_RENDER_SIZE, 0.0f));
-					planes[3] = Plane3D(vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, -Chunk::BLOCK_RENDER_SIZE, 0.0f));
-					planes[4] = Plane3D(vec3(0.0f, 0.0f, -1.0f), vec3(0.0f, 0.0f, Chunk::BLOCK_RENDER_SIZE));
-					planes[5] = Plane3D(vec3(0.0f, 0.0f, 1.0f), vec3(0.0f, 0.0f, -Chunk::BLOCK_RENDER_SIZE));
-
-					float distance;
-					int inside = 0;
-					bool insideCache[6];
-
-					for(int i = 0; i < 6; i++)
-					{
-						vec3 pointToCheck = blockPos - previousPosition;
-						distance = planes[i].GetPointDistance(pointToCheck);
-
-						if (distance < -radius)
+						if (pChunk == NULL || pChunk->IsSetup() == false)
 						{
-							// Outside...
-							insideCache[i] = false;
-						}
-						else if (distance < radius)
-						{
-							// Intersecting..
-							insideCache[i] = true;
-						}
-						else
-						{
-							// Inside...
-							insideCache[i] = true;
+							*pMovement = vec3(0.0f, 0.0f, 0.0f);
+							worldCollision = false;
 						}
 					}
-
-					for(int i = 0; i < 6; i++)
+					else if (active == true)
 					{
-						vec3 pointToCheck = blockPos - positionCheck;
-						distance = planes[i].GetPointDistance(pointToCheck);
+						Plane3D planes[6];
+						planes[0] = Plane3D(vec3(-1.0f, 0.0f, 0.0f), vec3(Chunk::BLOCK_RENDER_SIZE, 0.0f, 0.0f));
+						planes[1] = Plane3D(vec3(1.0f, 0.0f, 0.0f), vec3(-Chunk::BLOCK_RENDER_SIZE, 0.0f, 0.0f));
+						planes[2] = Plane3D(vec3(0.0f, -1.0f, 0.0f), vec3(0.0f, Chunk::BLOCK_RENDER_SIZE, 0.0f));
+						planes[3] = Plane3D(vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, -Chunk::BLOCK_RENDER_SIZE, 0.0f));
+						planes[4] = Plane3D(vec3(0.0f, 0.0f, -1.0f), vec3(0.0f, 0.0f, Chunk::BLOCK_RENDER_SIZE));
+						planes[5] = Plane3D(vec3(0.0f, 0.0f, 1.0f), vec3(0.0f, 0.0f, -Chunk::BLOCK_RENDER_SIZE));
 
-						if (distance < -radius)
+						float distance;
+						int inside = 0;
+						bool insideCache[6];
+
+						for (int i = 0; i < 6; i++)
 						{
-							// Outside...
-						}
-						else if (distance < radius)
-						{
-							// Intersecting..
-							inside++;
-							if(insideCache[i] == false)
+							vec3 pointToCheck = blockPos - previousPosition;
+							distance = planes[i].GetPointDistance(pointToCheck);
+
+							if (distance < -radius)
 							{
-								*pNormal += planes[i].mNormal;
+								// Outside...
+								insideCache[i] = false;
+							}
+							else if (distance < radius)
+							{
+								// Intersecting..
+								insideCache[i] = true;
+							}
+							else
+							{
+								// Inside...
+								insideCache[i] = true;
 							}
 						}
-						else
+
+						for (int i = 0; i < 6; i++)
 						{
-							// Inside...
-							inside++;
-							if(insideCache[i] == false)
+							vec3 pointToCheck = blockPos - positionCheck;
+							distance = planes[i].GetPointDistance(pointToCheck);
+
+							if (distance < -radius)
 							{
-								*pNormal += planes[i].mNormal;
+								// Outside...
+							}
+							else if (distance < radius)
+							{
+								// Intersecting..
+								inside++;
+								if (insideCache[i] == false)
+								{
+									*pNormal += planes[i].mNormal;
+								}
+							}
+							else
+							{
+								// Inside...
+								inside++;
+								if (insideCache[i] == false)
+								{
+									*pNormal += planes[i].mNormal;
+								}
 							}
 						}
-					}
 
-					if(inside == 6)
-					{
-						if (length(*pNormal) <= 1.0f)
+						if (inside == 6)
 						{
-							if (length(*pNormal) > 0.0f)
+							if (length(*pNormal) <= 1.0f)
 							{
-								*pNormal = normalize(*pNormal);
+								if (length(*pNormal) > 0.0f)
+								{
+									*pNormal = normalize(*pNormal);
+								}
+
+								float dotResult = dot(*pNormal, *pMovement);
+								*pNormal *= dotResult;
+
+								*pMovement -= *pNormal;
+
+								worldCollision = true;
 							}
-
-							float dotResult = dot(*pNormal, *pMovement);
-							*pNormal *= dotResult;
-
-							*pMovement -= *pNormal;
-
-							worldCollision = true;
 						}
 					}
 				}
