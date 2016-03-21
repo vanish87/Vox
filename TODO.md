@@ -125,7 +125,7 @@
   - [ ]  Flower generation.
   - [ ]  Poisson-disc sparation and generation for random placement of scenery.
   - [ ]  Convert scenery manager to use instance rendering and the instance shader.
-- [ ]  Add Quest GUI.
+- [x]  Add Quest GUI.
 - [x]  Create front end scene and character line up.
 - [ ]  Character creation and customization.
 - [ ]  Saving and loading chunks.
