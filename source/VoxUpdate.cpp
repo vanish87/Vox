@@ -183,7 +183,6 @@ void VoxGame::Update()
 	}
 
 	// Update the application and window
-	m_pVoxApplication->Update(m_deltaTime);
 	m_pVoxWindow->Update(m_deltaTime);
 }
 

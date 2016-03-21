@@ -2,8 +2,6 @@ set(SRCS
     "main.cpp"
     "VoxGame.h"
     "VoxGame.cpp"
-    "VoxApplication.h"
-    "VoxApplication.cpp"
     "VoxWindow.h"
     "VoxWindow.cpp"
     "VoxInput.cpp"

@@ -52,11 +52,9 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_GUICreated = false;
 
 	m_pVoxSettings = pVoxSettings;
-	m_pVoxApplication = new VoxApplication(this, m_pVoxSettings);
 	m_pVoxWindow = new VoxWindow(this, m_pVoxSettings);
 
-	// Create application and window
-	m_pVoxApplication->Create();
+	// Create the window
 	m_pVoxWindow->Create();
 
 	/* Setup the FPS and deltatime counters */
@@ -435,10 +433,8 @@ void VoxGame::Destroy()
 		delete m_pRenderer;
 
 		m_pVoxWindow->Destroy();
-		m_pVoxApplication->Destroy();
 
 		delete m_pVoxWindow;
-		delete m_pVoxApplication;
 
 		delete c_instance;
 	}

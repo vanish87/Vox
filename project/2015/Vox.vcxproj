@@ -178,7 +178,6 @@
     <ClCompile Include="..\..\source\utils\FileUtils.cpp" />
     <ClCompile Include="..\..\source\utils\Interpolator.cpp" />
     <ClCompile Include="..\..\source\utils\TimeManager.cpp" />
-    <ClCompile Include="..\..\source\VoxApplication.cpp" />
     <ClCompile Include="..\..\source\VoxCamera.cpp" />
     <ClCompile Include="..\..\source\VoxControls.cpp" />
     <ClCompile Include="..\..\source\VoxGame.cpp" />
@@ -512,7 +511,6 @@
     <ClInclude Include="..\..\source\utils\Interpolator.h" />
     <ClInclude Include="..\..\source\utils\Random.h" />
     <ClInclude Include="..\..\source\utils\TimeManager.h" />
-    <ClInclude Include="..\..\source\VoxApplication.h" />
     <ClInclude Include="..\..\source\VoxGame.h" />
     <ClInclude Include="..\..\source\VoxSettings.h" />
     <ClInclude Include="..\..\source\VoxWindow.h" />

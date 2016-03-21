@@ -141,8 +141,6 @@
 		<Unit filename="../../source/Renderer/viewport.h" />
 		<Unit filename="../../source/Skybox/Skybox.cpp" />
 		<Unit filename="../../source/Skybox/Skybox.h" />
-		<Unit filename="../../source/VoxApplication.cpp" />
-		<Unit filename="../../source/VoxApplication.h" />
 		<Unit filename="../../source/VoxCamera.cpp" />
 		<Unit filename="../../source/VoxControls.cpp" />
 		<Unit filename="../../source/VoxGUI.cpp" />

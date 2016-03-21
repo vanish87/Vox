@@ -39,7 +39,6 @@
 #include "Projectile/ProjectileManager.h"
 #include "TextEffects/TextEffectsManager.h"
 #include "Mods/ModsManager.h"
-#include "VoxApplication.h"
 #include "VoxWindow.h"
 #include "VoxSettings.h"
 #include "GameGUI/ActionBar.h"
@@ -302,7 +301,6 @@ protected:
 
 private:
 	/* Private members */
-	VoxApplication* m_pVoxApplication;
 	VoxWindow* m_pVoxWindow;
 	VoxSettings* m_pVoxSettings;
 

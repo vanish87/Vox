@@ -201,9 +201,6 @@
     <ClCompile Include="..\..\source\VoxGame.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\VoxApplication.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\VoxWindow.cpp">
       <Filter>source</Filter>
     </ClCompile>
@@ -717,9 +714,6 @@
       <Filter>source\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\VoxGame.h">
-      <Filter>source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\VoxApplication.h">
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\VoxWindow.h">
