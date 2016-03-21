@@ -11,7 +11,7 @@
 
 #include "QuestGUI.h"
 
-#include "../Frontend/FrontendManager.h"
+#include "../frontend/FrontendManager.h"
 #include "../Player/Player.h"
 #include "../Quests/Quest.h"
 #include "../Quests/QuestJournal.h"
