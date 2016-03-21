@@ -666,6 +666,27 @@ void OptionsMenu::Update(float dt)
 {
 	FrontendPage::Update(dt);
 
+	if (VoxGame::GetInstance()->IsPaused() == false)
+	{
+		float orbitTimer = m_pFrontendManager->GetCameraOrbitTimer();
+		orbitTimer += dt;
+
+		float orbitTime = 120.0f;
+		if (orbitTimer >= orbitTime)
+		{
+			orbitTimer = 0.0f;
+		}
+		m_pFrontendManager->SetCameraOrbitTimer(orbitTimer);
+
+		float ratio = orbitTimer / orbitTime;
+		float radius = 125.0f;
+		float angle = DegToRad((ratio * 360.0f));
+		vec3 position = vec3(cos(angle) * radius, radius*0.75f, sin(angle) * radius);
+
+		m_cameraPosition = position;
+		m_cameraView = vec3(0.0f, 8.0f, 0.0f);
+	}
+
 	VoxGame::GetInstance()->SetGlobalBlurAmount(0.00125f);
 }
 

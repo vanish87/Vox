@@ -157,6 +157,10 @@ public:
 	Icon* GetLeftRotateArrow_Hover() { return m_pArrowLeft_Icon_Hover; }
 	Icon* GetLeftRotateArrow_Pressed() { return m_pArrowLeft_Icon_Pressed; }
 
+	// Common, shared frontend page params
+	float GetCameraOrbitTimer();
+	void SetCameraOrbitTimer(float orbit);
+
 	// Frontend functionality
 	void SetOptionsReturnToMainMenu(bool mainMenu);
 	void SetModsMenuReturnToMainMenu(bool mainMenu);
@@ -289,6 +293,9 @@ private:
 	Icon* m_pArrowRight_Icon;
 	Icon* m_pArrowRight_Icon_Hover;
 	Icon* m_pArrowRight_Icon_Pressed;
+
+	// Common, shared frontend page params
+	float m_cameraOrbitTimer;
 
 	// Constants
 	float m_tooltipAppearDelay;

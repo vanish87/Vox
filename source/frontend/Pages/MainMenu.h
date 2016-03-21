@@ -74,8 +74,6 @@ protected:
 
 private:
 	/* Private members */
-	float m_cameraOrbitTimer;
-
 	// Vox logo texture
 	int m_logoWidth;
 	int m_logoHeight;

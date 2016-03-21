@@ -76,8 +76,6 @@ MainMenu::MainMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFront
 	m_pQuitButton->SetCallBackFunction(_QuitPressed);
 	m_pQuitButton->SetCallBackData(this);
 
-	m_cameraOrbitTimer = 15.0f;
-
 	m_blurAmount = 0.0f;
 
 	Reset();
@@ -151,8 +149,6 @@ void MainMenu::Load()
 	//m_pCreditsButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
 	//m_pQuitButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
 
-	m_cameraOrbitTimer = 15.0f;
-
 	//m_blurAmount = 0.0f;
 	//Interpolator::GetInstance()->AddFloatInterpolation(&m_blurAmount, 0.0f, 0.00125f, 3.0f, 0.0f);
 	//VoxGame::GetInstance()->SetLightingShader(false);
@@ -186,25 +182,27 @@ void MainMenu::Update(float dt)
 {
 	FrontendPage::Update(dt);
 
+	VoxGame::GetInstance()->SetGlobalBlurAmount(0.00125f);
+
 	if(VoxGame::GetInstance()->IsPaused() == false)
 	{
-		m_cameraOrbitTimer += dt;
+		float orbitTimer = m_pFrontendManager->GetCameraOrbitTimer();
+		orbitTimer += dt;
 
 		float orbitTime = 120.0f;
-		if(m_cameraOrbitTimer >= orbitTime)
+		if(orbitTimer >= orbitTime)
 		{
-			m_cameraOrbitTimer = 0.0f;
+			orbitTimer = 0.0f;
 		}
+		m_pFrontendManager->SetCameraOrbitTimer(orbitTimer);
 
-		float ratio = m_cameraOrbitTimer / orbitTime;
+		float ratio = orbitTimer / orbitTime;
 		float radius = 125.0f;
 		float angle = DegToRad((ratio * 360.0f));
 		vec3 position = vec3(cos(angle) * radius, radius*0.75f, sin(angle) * radius);
 
 		m_cameraPosition = position;
 		m_cameraView = vec3(0.0f, 8.0f, 0.0f);
-
-		VoxGame::GetInstance()->SetGlobalBlurAmount(0.00125f);
 
 		// Text fade in
 		if(m_textFadeInTimer >= 0.0f)

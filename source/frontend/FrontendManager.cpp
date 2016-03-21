@@ -168,9 +168,13 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 	m_pArrowRight_Icon_Pressed = new Icon(m_pRenderer, "", 32, 32);
 	m_pArrowRight_Icon_Pressed->SetDepth(2.0f);
 
+	// Common, shared frontend page params
+	m_cameraOrbitTimer = 15.0f;
+
 	// Constants
 	m_tooltipAppearDelay = 0.25f;
 
+	// Load the common graphics that are set as the currently loaded mod
 	LoadCommonGraphics(VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme());
 
 	// Pages
@@ -516,6 +520,17 @@ void FrontendManager::SetButtonIcons(Button* pButton, ButtonSize size)
 	pButton->SetDisabledIcon(GetButtonIconDisabled(size));
 }
 
+// Common, shared frontend page params
+float FrontendManager::GetCameraOrbitTimer()
+{
+	return m_cameraOrbitTimer;
+}
+
+void FrontendManager::SetCameraOrbitTimer(float orbit)
+{
+	m_cameraOrbitTimer = orbit;
+}
+
 // Frontend functionality
 void FrontendManager::SetOptionsReturnToMainMenu(bool mainMenu)
 {
@@ -573,9 +588,12 @@ void FrontendManager::Update(float dt)
 		m_currentPage->Update(dt);
 	}
 
-	if (m_currentScreen != FrontendScreen_None && m_currentScreen != FrontendScreen_PauseMenu && m_currentScreen != FrontendScreen_OptionsMenu && m_currentScreen != FrontendScreen_ModMenu && m_currentScreen != FrontendScreen_QuitPopup)
+	if (m_currentScreen != FrontendScreen_None && m_currentScreen != FrontendScreen_PauseMenu && m_currentScreen != FrontendScreen_QuitPopup)
 	{
-		UpdateFrontEndCamera(dt);
+		if (VoxGame::GetInstance()->GetGameMode() == GameMode_FrontEnd && VoxGame::GetInstance()->GetCameraMode() == CameraMode_Frontend)
+		{
+			UpdateFrontEndCamera(dt);
+		}
 	}
 }
 
