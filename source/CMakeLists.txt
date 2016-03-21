@@ -44,6 +44,7 @@ add_subdirectory(TextEffects)
 add_subdirectory(Mods)
 add_subdirectory(NPC)
 add_subdirectory(Enemy)
+add_subdirectory(Quests)
 
 source_group("source" FILES ${SRCS})
 source_group("source\\utils" FILES ${UTIL_SRCS})
@@ -81,6 +82,7 @@ source_group("source\\TextEffects" FILES ${TEXTEFFECTS_SRCS})
 source_group("source\\Mods" FILES ${MODS_SRCS})
 source_group("source\\NPC" FILES ${NPC_SRCS})
 source_group("source\\Enemy" FILES ${ENEMY_SRCS})
+source_group("source\\Quests" FILES ${QUESTS_SRCS})
 
 add_executable(Vox
                ${SRCS}
@@ -118,7 +120,8 @@ add_executable(Vox
                ${TEXTEFFECTS_SRCS}
 			   ${MODS_SRCS}
 			   ${NPC_SRCS}
-			   ${ENEMY_SRCS})
+			   ${ENEMY_SRCS}
+			   ${QUESTS_SRCS})
 
 include_directories(".")			   
 include_directories("glfw\\include")

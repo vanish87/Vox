@@ -86,7 +86,7 @@ public:
 	void UnSkinGUI();
 
 	// Loading
-	void Load(bool loadDelay, float loadDelayTime);
+	void Load(bool loadDelay = false, float loadDelayTime = 0.0f);
 	void Unload();
 	bool IsLoadDelayed();
 	bool IsLoaded();

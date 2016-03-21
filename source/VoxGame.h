@@ -24,6 +24,8 @@
 #include "Enemy/EnemyManager.h"
 #include "Inventory/InventoryManager.h"
 #include "Items/ItemManager.h"
+#include "Quests/QuestManager.h"
+#include "Quests/QuestJournal.h"
 #include "blocks/ChunkManager.h"
 #include "blocks/BiomeManager.h"
 #include "frontend/FrontendManager.h"
@@ -41,6 +43,7 @@
 #include "GameGUI/CraftingGUI.h"
 #include "GameGUI/InventoryGUI.h"
 #include "GameGUI/LootGUI.h"
+#include "GameGUI/QuestGUI.h"
 
 #ifdef __linux__
 typedef struct POINT {
@@ -323,6 +326,12 @@ private:
 	// Projectile manager
 	ProjectileManager* m_pProjectileManager;
 
+	// Quest manager
+	QuestManager* m_pQuestManager;
+
+	// Quest journal
+	QuestJournal* m_pQuestJournal;
+
 	// Chunk manager
 	ChunkManager* m_pChunkManager;
 
@@ -522,6 +531,7 @@ private:
 	CharacterGUI* m_pCharacterGUI;
 	LootGUI* m_pLootGUI;
 	CraftingGUI* m_pCraftingGUI;
+	QuestGUI* m_pQuestGUI;
 	ActionBar* m_pActionBar;
 
 	// GUI Components

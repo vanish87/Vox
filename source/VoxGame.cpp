@@ -45,6 +45,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pCharacterGUI = NULL;
 	m_pLootGUI = NULL;
 	m_pCraftingGUI = NULL;
+	m_pQuestGUI = NULL;
 	m_pActionBar = NULL;
 
 	m_GUICreated = false;
@@ -206,6 +207,12 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	/* Create the enemy manager */
 	m_pEnemyManager = new EnemyManager(m_pRenderer, m_pChunkManager, m_pPlayer);
 
+	/* Create the quest manager */
+	m_pQuestManager = new QuestManager();
+
+	/* Create the quest journal */
+	m_pQuestJournal = new QuestJournal(m_pQuestManager);
+
 	/* Create the inventory manager */
 	m_pInventoryManager = new InventoryManager();
 
@@ -225,6 +232,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pCharacterGUI = new CharacterGUI(m_pRenderer, m_pGUI, m_pFrontendManager, m_pChunkManager, m_pPlayer, m_pInventoryManager, m_windowWidth, m_windowHeight);
 	m_pLootGUI = new LootGUI(m_pRenderer, m_pGUI, m_pFrontendManager, m_pChunkManager, m_pPlayer, m_pInventoryManager, m_windowWidth, m_windowHeight);
 	m_pCraftingGUI = new CraftingGUI(m_pRenderer, m_pGUI, m_pFrontendManager, m_pChunkManager, m_pPlayer, m_pInventoryManager, m_windowWidth, m_windowHeight);
+	m_pQuestGUI = new QuestGUI(m_pRenderer, m_pGUI, m_pFrontendManager, m_pChunkManager, m_pPlayer, m_pInventoryManager, m_windowWidth, m_windowHeight);
 	m_pActionBar = new ActionBar(m_pRenderer, m_pGUI, m_pFrontendManager, m_pChunkManager, m_pPlayer, m_pInventoryManager, m_windowWidth, m_windowHeight);
 
 	/* Create module and manager linkage */
@@ -272,6 +280,10 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pProjectileManager->SetBlockParticleManager(m_pBlockParticleManager);
 	m_pProjectileManager->SetPlayer(m_pPlayer);
 	m_pProjectileManager->SetQubicleBinaryManager(m_pQubicleBinaryManager);
+	m_pQuestManager->SetNPCManager(m_pNPCManager);
+	m_pQuestManager->SetInventoryManager(m_pInventoryManager);
+	m_pQuestManager->SetQuestJournal(m_pQuestJournal);
+	m_pQuestJournal->SetPlayer(m_pPlayer);
 	m_pInventoryGUI->SetCharacterGUI(m_pCharacterGUI);
 	m_pInventoryGUI->SetLootGUI(m_pLootGUI);
 	m_pInventoryGUI->SetActionBar(m_pActionBar);
@@ -285,7 +297,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pActionBar->SetInventoryGUI(m_pInventoryGUI);
 	m_pActionBar->SetCharacterGUI(m_pCharacterGUI);
 	m_pActionBar->SetLootGUI(m_pLootGUI);
-
+	m_pQuestGUI->SetQuestJournal(m_pQuestJournal);
 
 	/* Initial chunk creation (Must be after player pointer sent to chunks) */
 	m_pChunkManager->InitializeChunkCreation();
@@ -404,10 +416,13 @@ void VoxGame::Destroy()
 		delete m_pFrontendManager;
 		delete m_pModsManager;
 		delete m_pGameCamera;
+		delete m_pQuestManager;
+		delete m_pQuestJournal;
 		delete m_pInventoryGUI;
 		delete m_pCharacterGUI;
 		delete m_pLootGUI;
 		delete m_pCraftingGUI;
+		delete m_pQuestGUI;
 		delete m_pActionBar;
 		DestroyGUI();  // Destroy the GUI components before we delete the GUI manager object.
 		delete m_pGUI;
@@ -659,10 +674,32 @@ void VoxGame::SetupDataForGame()
 	NPC* pCharacter1 = m_pNPCManager->CreateNPC("Mage", "Human", "Mage", vec3(21.0f, 8.5f, 20.0f), 0.08f, false, true);
 	pCharacter1->SetTargetForwards(vec3(0.0f, 0.0f, -1.0f));
 	pCharacter1->SetNPCCombatType(eNPCCombatType_Staff, true);
-	//pCharacter1->SetMoveToPlayer(true);
 
 	// Enemies
 	Enemy* pEnemy0 = m_pEnemyManager->CreateEnemy(vec3(35.5f, 12.0f, 5.5f), eEnemyType_RedSlime, 0.08f);
+
+	// Quests
+	// Quest 1
+	string startText1 = "Hello there brave adventurer, my name is [C=Custom(00A2E8)]Melinda The Witch[C=White] and I have stumbled across a 'valuable treasure'. I can give you this treasure if you will do a quest for me...\nI need you to kill these pesky [C=Red]slimes[C=White] that are overrunning this place. If you do this for me, the treasure is yours. What do you say?";
+	string completedText1 = "You have completed the quest, and destroyed the sliminess of these lands, well done!";
+	string denyText1 = "You are already on a quest, come back to me once you have finished.";
+	Quest* pSlimeQuest = m_pQuestManager->CreateQuest("A Simple Task", startText1, completedText1, denyText1);
+	pSlimeQuest->AddQuestObjective("Kill 5 Slimes", QuestType_KillX, 5, eEnemyType_GreenSlime, eItem_None, NULL, "", NULL);
+	InventoryItem* pQuestReward1 = m_pInventoryManager->CreateInventoryItem("media/gamedata/weapons/Sword/Sword.weapon", "media/textures/items/sword.tga", InventoryType_Weapon_Sword, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Sword", "Attacking enemies.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+	pSlimeQuest->SetQuestReward(pQuestReward1);
+	pSlimeQuest->ExportQuest();
+	// Quest 2
+	string startText2 = "You look like the type of adventurer who really needs some copper, Please could you be a good fella and collect some copper nuggets for me, they are required for refining into copper bars.";
+	string completedText2 = "Wow... thank you for collecting the copper nuggets, you can keep it as a reward.";
+	string denyText2 = "You are already on a quest, come back to me once you have finished.";
+	Quest* pCollectQuest = m_pQuestManager->CreateQuest("A Simple Collection", startText2, completedText2, denyText2);
+	pCollectQuest->AddQuestObjective("Collect 5 Copper Nuggets", QuestType_CollectX, 5, eEnemyType_None, eItem_CopperOre, NULL, "", NULL);
+	InventoryItem* pQuestReward2 = m_pInventoryManager->CreateInventoryItem("media/gamedata/items/CopperOre/CopperOre.item", "media/textures/items/copper_ore.tga", InventoryType_Item, eItem_CopperOre, ItemStatus_None, EquipSlot_LeftHand, ItemQuality_Common, false, false, "Copper Nugget", "", 1.0f, 1.0f, 1.0f, 5, -1, -1, -1, -1);
+	pCollectQuest->SetQuestReward(pQuestReward2);
+	pCollectQuest->ExportQuest();
+
+	m_pQuestJournal->AddQuestJournalEntry(pSlimeQuest);
+	m_pQuestJournal->AddQuestJournalEntry(pCollectQuest);
 }
 
 void VoxGame::SetupDataForFrontEnd()
@@ -1018,6 +1055,11 @@ bool VoxGame::IsGUIWindowStillDisplayed()
 		return true;
 	}
 
+	if (m_pQuestGUI->IsLoaded())
+	{
+		return true;
+	}
+
 	return false;
 }
 
@@ -1043,6 +1085,11 @@ void VoxGame::CloseAllGUIWindows()
 		m_pCraftingGUI->Unload();
 	}
 
+	if (m_pQuestGUI->IsLoaded() && m_pQuestGUI->IsLoadDelayed() == false)
+	{
+		m_pQuestGUI->Unload();
+	}
+	
 	// Reset focus, also resets any text entry that we might have been doing.
 	m_pGUI->ResetFocus();
 }

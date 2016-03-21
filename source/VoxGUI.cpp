@@ -344,6 +344,7 @@ void VoxGame::SkinGUI()
 	m_pInventoryGUI->SkinGUI();
 	m_pCharacterGUI->SkinGUI();
 	m_pCraftingGUI->SkinGUI();
+	m_pQuestGUI->SkinGUI();
 	m_pLootGUI->SkinGUI();
 	m_pActionBar->SkinGUI();
 }
@@ -390,6 +391,7 @@ void VoxGame::UnSkinGUI()
 	m_pInventoryGUI->UnSkinGUI();
 	m_pCharacterGUI->UnSkinGUI();
 	m_pCraftingGUI->UnSkinGUI();
+	m_pQuestGUI->UnSkinGUI();
 	m_pLootGUI->UnSkinGUI();
 	m_pActionBar->UnSkinGUI();
 }

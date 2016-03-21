@@ -273,4 +273,8 @@ void VoxGame::UpdateGameGUI(float dt)
 	{
 		m_pCraftingGUI->Update(dt);
 	}
+	if (m_pQuestGUI->IsLoaded())
+	{
+		m_pQuestGUI->Update(dt);
+	}	
 }

@@ -64,7 +64,6 @@ CraftingGUI::CraftingGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pResultsScrollbar->SetScrollSize(0.25f);
 	m_pResultsScrollbar->SetScrollPosition(1.0f);
 	m_pResultsScrollbar->SetDepth(2.0f);
-	m_pFrontendManager->SetScrollbarIcons(m_pResultsScrollbar);
 
 	m_pCraftButton_Icon = new Icon(m_pRenderer, "", 115, 32);
 	m_pCraftButton_Icon->SetDepth(2.0f);
@@ -278,6 +277,8 @@ void CraftingGUI::SetWindowDimensions(int windowWidth, int windowHeight)
 
 	m_pResultsScrollbar->SetDimensions(175, 36, 24, m_craftingResultsScrollAreaHeight-8);
 	m_pResultsScrollbar->SetScrollArea(m_craftingResultsScrollAreaX, m_craftingResultsScrollAreaY, m_craftingResultsScrollAreaWidth, m_craftingResultsScrollAreaHeight);
+
+	m_pFrontendManager->SetScrollbarIcons(m_pResultsScrollbar);
 
 	m_pCraftButton->SetDimensions(284, 41, 115, 32);
 

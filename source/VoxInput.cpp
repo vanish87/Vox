@@ -271,6 +271,33 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 			}
 			break;
 		}
+		case GLFW_KEY_K:
+		{
+			if (GetGameMode() == GameMode_Game)
+			{
+				if (m_pPlayer->IsDead() == false)
+				{
+					if (m_pQuestGUI->IsLoaded())
+					{
+						m_pQuestGUI->Unload();
+
+						if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
+						{
+							TurnCursorOff();
+						}
+					}
+					else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_None)
+					{
+						m_pQuestGUI->Load();
+
+						m_pPlayer->StopMoving();
+
+						TurnCursorOn(true);
+					}
+				}
+			}
+			break;
+		}
 
 		// Number keys
 		case GLFW_KEY_1:

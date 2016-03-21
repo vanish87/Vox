@@ -39,6 +39,7 @@
     <ClCompile Include="..\..\source\GameGUI\CraftingGUI.cpp" />
     <ClCompile Include="..\..\source\GameGUI\InventoryGUI.cpp" />
     <ClCompile Include="..\..\source\GameGUI\LootGUI.cpp" />
+    <ClCompile Include="..\..\source\GameGUI\QuestGUI.cpp" />
     <ClCompile Include="..\..\source\glew\src\glew.c" />
     <ClCompile Include="..\..\source\glm\detail\dummy.cpp" />
     <ClCompile Include="..\..\source\glm\detail\glm.cpp" />
@@ -154,6 +155,9 @@
     <ClCompile Include="..\..\source\Player\PlayerStats.cpp" />
     <ClCompile Include="..\..\source\Projectile\Projectile.cpp" />
     <ClCompile Include="..\..\source\Projectile\ProjectileManager.cpp" />
+    <ClCompile Include="..\..\source\Quests\Quest.cpp" />
+    <ClCompile Include="..\..\source\Quests\QuestJournal.cpp" />
+    <ClCompile Include="..\..\source\Quests\QuestManager.cpp" />
     <ClCompile Include="..\..\source\Renderer\camera.cpp" />
     <ClCompile Include="..\..\source\Renderer\colour.cpp" />
     <ClCompile Include="..\..\source\Renderer\frustum.cpp" />
@@ -207,6 +211,7 @@
     <ClInclude Include="..\..\source\GameGUI\CraftingGUI.h" />
     <ClInclude Include="..\..\source\GameGUI\InventoryGUI.h" />
     <ClInclude Include="..\..\source\GameGUI\LootGUI.h" />
+    <ClInclude Include="..\..\source\GameGUI\QuestGUI.h" />
     <ClInclude Include="..\..\source\glew\include\GL\glew.h" />
     <ClInclude Include="..\..\source\glew\include\GL\glxew.h" />
     <ClInclude Include="..\..\source\glew\include\GL\wglew.h" />
@@ -453,6 +458,9 @@
     <ClInclude Include="..\..\source\Player\PlayerStats.h" />
     <ClInclude Include="..\..\source\Projectile\Projectile.h" />
     <ClInclude Include="..\..\source\Projectile\ProjectileManager.h" />
+    <ClInclude Include="..\..\source\Quests\Quest.h" />
+    <ClInclude Include="..\..\source\Quests\QuestJournal.h" />
+    <ClInclude Include="..\..\source\Quests\QuestManager.h" />
     <ClInclude Include="..\..\source\Renderer\camera.h" />
     <ClInclude Include="..\..\source\Renderer\colour.h" />
     <ClInclude Include="..\..\source\Renderer\framebuffer.h" />

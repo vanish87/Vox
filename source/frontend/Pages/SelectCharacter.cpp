@@ -30,7 +30,7 @@ SelectCharacter::SelectCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 	m_toolTipVisible = false;
 
 	// Tooltip
-	m_pTooltipBackground = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/Tooltips/tooltip_background_common.tga", 200, 220);
+	m_pTooltipBackground = new Icon(m_pRenderer, "", 200, 220);
 	m_pTooltipBackground->SetDepth(5.5f);
 
 	char nameText[] = "[NAME]";
@@ -67,7 +67,7 @@ SelectCharacter::SelectCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 	m_popupText->SetWordWrap(true);
 	m_popupText->SetHorizontalAlignment(eHorizontalAlignment_Center);
 
-	m_pPopupBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/StoneWash/Common/popup_background.tga", 270, 200);
+	m_pPopupBackgroundIcon = new Icon(m_pRenderer, "", 270, 200);
 	m_pPopupBackgroundIcon->SetDepth(2.0f);
 
 	m_pPopupConfirmButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_30(), m_pFrontendManager->GetFrontendFont_30_Outline(), "Yes", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
@@ -170,6 +170,13 @@ void SelectCharacter::SetWindowDimensions(int windowWidth, int windowHeight)
 
 void SelectCharacter::SkinGUI()
 {
+	string themeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
+
+	string iconName = "media/textures/gui/" + themeName + "/common/popup_background.tga";
+	m_pPopupBackgroundIcon->SetIcon(iconName);
+
+	iconName = "media/textures/gui/" + themeName + "/common/Tooltips/tooltip_background_common.tga";
+	m_pTooltipBackground->SetIcon(iconName);
 }
 
 void SelectCharacter::UnSkinGUI()

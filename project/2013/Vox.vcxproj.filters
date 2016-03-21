@@ -115,6 +115,9 @@
     <Filter Include="source\Enemy">
       <UniqueIdentifier>{00797e60-af4f-4d89-a950-d044c0471f56}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\Quests">
+      <UniqueIdentifier>{d2530371-4cb2-485d-814a-9b409ea0e675}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\glew\src\glew.c">
@@ -611,6 +614,18 @@
     </ClCompile>
     <ClCompile Include="..\..\source\frontend\Pages\SelectCharacter.cpp">
       <Filter>source\frontend\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\GameGUI\QuestGUI.cpp">
+      <Filter>source\GameGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Quests\Quest.cpp">
+      <Filter>source\Quests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Quests\QuestJournal.cpp">
+      <Filter>source\Quests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Quests\QuestManager.cpp">
+      <Filter>source\Quests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1573,6 +1588,18 @@
     </ClInclude>
     <ClInclude Include="..\..\source\frontend\Pages\SelectCharacter.h">
       <Filter>source\frontend\Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameGUI\QuestGUI.h">
+      <Filter>source\GameGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Quests\Quest.h">
+      <Filter>source\Quests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Quests\QuestJournal.h">
+      <Filter>source\Quests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Quests\QuestManager.h">
+      <Filter>source\Quests</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
