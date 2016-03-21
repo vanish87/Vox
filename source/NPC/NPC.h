@@ -154,6 +154,8 @@ public:
 	void DoDamage(float amount, Colour textColour, vec3 knockbackDirection, float knockbackAmount, bool createParticleHit);
 	void CheckEnemyDamageRadius();
 	void CheckProjectileDamageRadius(Projectile* pProjectile);
+	void Explode();
+	void Respawn();
 
 	// Attacking
 	void Attack();

@@ -1163,6 +1163,7 @@ void NPC::SetLookAtPositionWhenReachedTarget(bool enabled, vec3 lookAtPosition)
 // Dead
 bool NPC::IsDead()
 {
+	// TODO : IsDead()
 	return false;
 }
 
@@ -1437,8 +1438,7 @@ void NPC::DoDamage(float amount, Colour textColour, vec3 knockbackDirection, flo
 		{
 			m_health = 0.0f;
 
-			// Explode the voxel model // TODO
-			//Explode();
+			Explode();
 		}
 
 		// Update HUD player data
@@ -1605,6 +1605,78 @@ void NPC::CheckProjectileDamageRadius(Projectile* pProjectile)
 
 		pProjectile->Explode();
 	}
+}
+
+void NPC::Explode()
+{
+	if (IsDead())
+	{
+		return;
+	}
+
+	// TODO : NPC Dead
+	//m_dead = true;
+
+	m_bIsChargingAttack = false;
+	m_chargeAmount = 0.0f;
+
+	CalculateWorldTransformMatrix();
+
+	// Explode the qubicle binary voxel file
+	for (int explodeCounter = 0; explodeCounter < 3; explodeCounter++)
+	{
+		QubicleBinary* pQubicleModel = NULL;
+		int spawnChance = 100;
+		if (explodeCounter == 0)
+		{
+			pQubicleModel = m_pVoxelCharacter->GetQubicleModel();
+			spawnChance = 50;
+		}
+		else if (explodeCounter == 1)
+		{
+			if (m_pVoxelCharacter->GetRightWeapon() != NULL)
+			{
+				if (m_pVoxelCharacter->IsRightWeaponLoaded())
+				{
+					for (int animatedSectionsIndex = 0; animatedSectionsIndex < m_pVoxelCharacter->GetRightWeapon()->GetNumAimatedSections(); animatedSectionsIndex++)
+					{
+						AnimatedSection* pAnimatedSection = m_pVoxelCharacter->GetRightWeapon()->GetAnimatedSection(animatedSectionsIndex);
+						pQubicleModel = pAnimatedSection->m_pVoxelObject->GetQubicleModel();
+						spawnChance = 100;
+					}
+				}
+			}
+		}
+		else if (explodeCounter == 2)
+		{
+			if (m_pVoxelCharacter->GetLeftWeapon() != NULL)
+			{
+				if (m_pVoxelCharacter->IsLeftWeaponLoaded())
+				{
+					for (int animatedSectionsIndex = 0; animatedSectionsIndex < m_pVoxelCharacter->GetLeftWeapon()->GetNumAimatedSections(); animatedSectionsIndex++)
+					{
+						AnimatedSection* pAnimatedSection = m_pVoxelCharacter->GetLeftWeapon()->GetAnimatedSection(animatedSectionsIndex);
+						pQubicleModel = pAnimatedSection->m_pVoxelObject->GetQubicleModel();
+						spawnChance = 100;
+					}
+				}
+			}
+		}
+
+		if (pQubicleModel != NULL)
+		{
+			m_pBlockParticleManager->ExplodeQubicleBinary(pQubicleModel, m_pVoxelCharacter->GetCharacterScale(), spawnChance);
+		}
+	}
+
+	// Unload weapons
+	UnloadWeapon(true);
+	UnloadWeapon(false);
+}
+
+void NPC::Respawn()
+{
+	// TODO : NPC Respawn()
 }
 
 // Attacking

@@ -635,8 +635,7 @@ void SelectCharacter::PopupConfirmPressed()
 
 	m_updateCreateButton = true;
 
-	m_pSelectedNPC->UnloadWeapon(true);
-	m_pSelectedNPC->UnloadWeapon(false);
+	m_pSelectedNPC->Explode();
 	VoxGame::GetInstance()->GetNPCManager()->DeleteNPC(m_pSelectedNPC->GetName());
 	m_pSelectedNPC = NULL;
 
