@@ -750,6 +750,12 @@ void Player::AttackAnimationTimerFinished()
 
 		vec3 spellSpawnVelocity = m_forward * powerAmount + vec3(0.0f, 1.0f, 0.0f) * (m_cameraForward.y*cameraMultiplier);
 
+		if (m_pTargetEnemy != NULL)
+		{
+			vec3 toTarget = m_pTargetEnemy->GetProjectileHitboxCenter() - GetCenter();
+			spellSpawnVelocity = (normalize(toTarget) * powerAmount);
+		}
+
 		Projectile* pProjectile = m_pProjectileManager->CreateProjectile(spellSpawnPosition, spellSpawnVelocity, 0.0f, "media/gamedata/items/Fireball/Fireball.item", 0.05f);
 		pProjectile->SetProjectileType(true, false, false);
 		pProjectile->SetOwner(this, NULL, NULL);
