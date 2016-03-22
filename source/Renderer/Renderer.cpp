@@ -1575,6 +1575,12 @@ bool Renderer::RenderStaticBuffer(unsigned int id)
 {
 	m_vertexArraysMutex.lock();
 
+	if (id >= m_vertexArrays.size())
+	{
+		m_vertexArraysMutex.unlock();
+		return false;  // We have supplied an invalid id		
+	}
+
 	// Find the vertex array from the list
 	VertexArray *pVertexArray = m_vertexArrays[id];
 
@@ -1658,6 +1664,12 @@ bool Renderer::RenderStaticBuffer(unsigned int id)
 bool Renderer::RenderStaticBuffer_NoColour(unsigned int id)
 {
 	m_vertexArraysMutex.lock();
+
+	if (id >= m_vertexArrays.size())
+	{
+		m_vertexArraysMutex.unlock();
+		return false;  // We have supplied an invalid id		
+	}
 
 	// Find the vertex array from the list
 	VertexArray *pVertexArray = m_vertexArrays[id];
@@ -2129,6 +2141,12 @@ bool Renderer::MeshStaticBufferRender(OpenGLTriangleMesh* pMesh)
 	//SetRenderMode(RM_SOLID);
 
 	m_vertexArraysMutex.lock();
+
+	if (pMesh->m_staticMeshId >= m_vertexArrays.size())
+	{
+		m_vertexArraysMutex.unlock();
+		return false;  // We have supplied an invalid id		
+	}
 
 	VertexArray *pVertexArray = m_vertexArrays[pMesh->m_staticMeshId];
 
