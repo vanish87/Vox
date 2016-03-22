@@ -39,7 +39,7 @@ CreateCharacter::CreateCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 
 	m_toolTipVisible = false;
 
-	m_pTooltipBackground = new Icon(m_pRenderer, "media/textures/gui/Stonewash/Common/Tooltips/tooltip_background_common.tga", 200, 220);
+	m_pTooltipBackground = new Icon(m_pRenderer, "", 200, 220);
 	m_pTooltipBackground->SetDepth(5.5f);
 
 	char nameText[] = "[NAME]";
@@ -100,13 +100,13 @@ CreateCharacter::CreateCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 	m_pPresetScrollbar->SetDepth(4.0f);
 	m_pPresetScrollbar->SetScissorEnabled(true);
 
-	m_pPresetTitleBarIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/preset_title_icon.tga", 44, 44);
+	m_pPresetTitleBarIcon = new Icon(m_pRenderer, "", 44, 44);
 	m_pPresetTitleBarIcon->SetDepth(4.0f);
 
-	m_pPresetTitleBarBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/titlebar_background.tga", 133, 35);
+	m_pPresetTitleBarBackgroundIcon = new Icon(m_pRenderer, "", 133, 35);
 	m_pPresetTitleBarBackgroundIcon->SetDepth(1.0f);
 
-	m_pPresetWindowBackgroundIcon= new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/preset_window_background.tga", 350, 150);
+	m_pPresetWindowBackgroundIcon= new Icon(m_pRenderer, "", 350, 150);
 	m_pPresetWindowBackgroundIcon->SetDepth(1.0f);
 
 	m_pPresetsWindow->SetBackgroundIcon(m_pPresetWindowBackgroundIcon);
@@ -115,47 +115,43 @@ CreateCharacter::CreateCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 	m_pPresetsWindow->AddComponent(m_pPresetTitleBarIcon);
 	m_pPresetsWindow->AddComponent(m_pPresetScrollbar);
 
-	m_pPresetButtonBorderDefault = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/preset_button_default.tga", 64, 64);
+	m_pPresetButtonBorderDefault = new Icon(m_pRenderer, "", 64, 64);
 	m_pPresetButtonBorderDefault->SetDepth(2.0f);
-	m_pPresetButtonBorderHover = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/preset_button_hover.tga", 64, 64);
+	m_pPresetButtonBorderHover = new Icon(m_pRenderer, "", 64, 64);
 	m_pPresetButtonBorderHover->SetDepth(2.0f);
-	m_pPresetButtonBorderPressed = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/preset_button_pressed.tga", 64, 64);
+	m_pPresetButtonBorderPressed = new Icon(m_pRenderer, "", 64, 64);
 	m_pPresetButtonBorderPressed->SetDepth(2.0f);
-	m_pPresetButtonBorderDisabled = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/preset_button_disabled.tga", 64, 64);
+	m_pPresetButtonBorderDisabled = new Icon(m_pRenderer, "", 64, 64);
 	m_pPresetButtonBorderDisabled->SetDepth(2.0f);
 
-	m_pCustomButtonBorderDefault = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/custom_button_default.tga", 64, 64);
+	m_pCustomButtonBorderDefault = new Icon(m_pRenderer, "", 64, 64);
 	m_pCustomButtonBorderDefault->SetDepth(2.0f);
-	m_pCustomButtonBorderHover = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/custom_button_hover.tga", 64, 64);
+	m_pCustomButtonBorderHover = new Icon(m_pRenderer, "", 64, 64);
 	m_pCustomButtonBorderHover->SetDepth(2.0f);
-	m_pCustomButtonBorderPressed = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/custom_button_pressed.tga", 64, 64);
+	m_pCustomButtonBorderPressed = new Icon(m_pRenderer, "", 64, 64);
 	m_pCustomButtonBorderPressed->SetDepth(2.0f);
-	m_pCustomButtonBorderDisabled = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/custom_button_disabled.tga", 64, 64);
+	m_pCustomButtonBorderDisabled = new Icon(m_pRenderer, "", 64, 64);
 	m_pCustomButtonBorderDisabled->SetDepth(2.0f);
 
-	m_pDeleteCustomButtonBorderDefault = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/delete_default.tga", 24, 24);
+	m_pDeleteCustomButtonBorderDefault = new Icon(m_pRenderer, "", 24, 24);
 	m_pDeleteCustomButtonBorderDefault->SetDepth(6.0f);
-	m_pDeleteCustomButtonBorderHover = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/delete_hover.tga", 24, 24);
+	m_pDeleteCustomButtonBorderHover = new Icon(m_pRenderer, "", 24, 24);
 	m_pDeleteCustomButtonBorderHover->SetDepth(6.0f);
-	m_pDeleteCustomButtonBorderPressed = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/delete_pressed.tga", 24, 24);
+	m_pDeleteCustomButtonBorderPressed = new Icon(m_pRenderer, "", 24, 24);
 	m_pDeleteCustomButtonBorderPressed->SetDepth(6.0f);
-	m_pDeleteCustomButtonBorderDisabled = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/delete_disabled.tga", 24, 24);
+	m_pDeleteCustomButtonBorderDisabled = new Icon(m_pRenderer, "", 24, 24);
 	m_pDeleteCustomButtonBorderDisabled->SetDepth(6.0f);
 
-	m_pAddNewButtonBorderDefault = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/add_new_button_default.tga", 24, 24);
+	m_pAddNewButtonBorderDefault = new Icon(m_pRenderer, "", 24, 24);
 	m_pAddNewButtonBorderDefault->SetDepth(6.0f);
-	m_pAddNewButtonBorderHover = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/add_new_button_hover.tga", 24, 24);
+	m_pAddNewButtonBorderHover = new Icon(m_pRenderer, "", 24, 24);
 	m_pAddNewButtonBorderHover->SetDepth(6.0f);
-	m_pAddNewButtonBorderPressed = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/add_new_button_pressed.tga", 24, 24);
+	m_pAddNewButtonBorderPressed = new Icon(m_pRenderer, "", 24, 24);
 	m_pAddNewButtonBorderPressed->SetDepth(6.0f);
-	m_pAddNewButtonBorderDisabled = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/add_new_button_disabled.tga", 24, 24);
+	m_pAddNewButtonBorderDisabled = new Icon(m_pRenderer, "", 24, 24);
 	m_pAddNewButtonBorderDisabled->SetDepth(6.0f);
 
 	m_pCreateCustomPresetButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_30(), m_pFrontendManager->GetFrontendFont_30_Outline(), "", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	m_pCreateCustomPresetButton->SetDefaultIcon(m_pAddNewButtonBorderDefault);
-	m_pCreateCustomPresetButton->SetHoverIcon(m_pAddNewButtonBorderHover);
-	m_pCreateCustomPresetButton->SetSelectedIcon(m_pAddNewButtonBorderPressed);
-	m_pCreateCustomPresetButton->SetDisabledIcon(m_pAddNewButtonBorderDisabled);
 	m_pCreateCustomPresetButton->SetLabelOffset(0, 3);
 	m_pCreateCustomPresetButton->SetPressedOffset(0, -4);
 	//m_pCreateCustomPresetButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
@@ -175,18 +171,19 @@ CreateCharacter::CreateCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 	m_pCustomizeWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 	m_pCustomizeWindow->Hide();
 
-	m_pCustomizeTitleBarIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/customize_title_icon.tga", 44, 44);
+	m_pCustomizeTitleBarIcon = new Icon(m_pRenderer, "", 44, 44);
 	m_pCustomizeTitleBarIcon->SetDepth(4.0f);
 
-	m_pCustomizeTitleBarBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/titlebar_background.tga", 133, 35);
+	m_pCustomizeTitleBarBackgroundIcon = new Icon(m_pRenderer, "", 133, 35);
 	m_pCustomizeTitleBarBackgroundIcon->SetDepth(1.0f);
 	
-	m_pCustomizeWindowBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/customize_window_background.tga", 350, 225);
+	m_pCustomizeWindowBackgroundIcon = new Icon(m_pRenderer, "", 350, 225);
 	m_pCustomizeWindowBackgroundIcon->SetDepth(1.0f);
 
 	m_pNameTextBox = new TextBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_Medium(), "", "Name");
 	m_pNameTextBox->SetPipHeight(20);
 	m_pNameTextBox->SetMaxTextLength(10);
+	m_pNameTextBox->SetDepth(2.0f);
 
 	m_pCharacterSizeSlider = new Slider(m_pRenderer, m_pFrontendManager->GetFrontendFont_25(), m_pFrontendManager->GetFrontendFont_25_Outline(), "Size", 0.75f, 1.25f, 1.0f, Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), true, 0.01f);
 	m_pCharacterSizeSlider->SetIncrementButtonsOffset(2, 0);
@@ -194,6 +191,7 @@ CreateCharacter::CreateCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 	m_pCharacterSizeSlider->SetRenderBackgroundBar(false);
 	m_pCharacterSizeSlider->SetValuePrecision(2);
 	m_pCharacterSizeSlider->SetSliderParams(25, 10, ESliderDirection_Horizontal);
+	m_pCharacterSizeSlider->SetDepth(2.0f);
 
 	m_pEyesTexturesPulldown = new PulldownMenu(m_pRenderer, m_pFrontendManager->GetFrontendFont_25(), m_pFrontendManager->GetFrontendFont_25_Outline(), "Eyes", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pEyesTexturesPulldown->SetDepth(4.0f);
@@ -221,13 +219,13 @@ CreateCharacter::CreateCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 	m_pScaleWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 	m_pScaleWindow->Hide();
 
-	m_pScaleTitleBarIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/scale_title_icon.tga", 44, 44);
+	m_pScaleTitleBarIcon = new Icon(m_pRenderer, "", 44, 44);
 	m_pScaleTitleBarIcon->SetDepth(4.0f);
 
-	m_pScaleTitleBarBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/titlebar_background.tga", 133, 35);
+	m_pScaleTitleBarBackgroundIcon = new Icon(m_pRenderer, "", 133, 35);
 	m_pScaleTitleBarBackgroundIcon->SetDepth(1.0f);
 
-	m_pScaleWindowBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/scale_window_background.tga", 350, 125);
+	m_pScaleWindowBackgroundIcon = new Icon(m_pRenderer, "", 350, 125);
 	m_pScaleWindowBackgroundIcon->SetDepth(1.0f);
 
 	m_pPresetScaleSlider = new Slider(m_pRenderer, m_pFrontendManager->GetFrontendFont_25(), m_pFrontendManager->GetFrontendFont_25_Outline(), "Scale", 0.75f, 1.25f, 1.0f, Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), true, 0.01f);
@@ -236,6 +234,7 @@ CreateCharacter::CreateCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 	m_pPresetScaleSlider->SetRenderBackgroundBar(false);
 	m_pPresetScaleSlider->SetValuePrecision(2);
 	m_pPresetScaleSlider->SetSliderParams(25, 10, ESliderDirection_Horizontal);
+	m_pPresetScaleSlider->SetDepth(2.0f);
 
 	m_pEyesSizeSlider = new Slider(m_pRenderer, m_pFrontendManager->GetFrontendFont_25(), m_pFrontendManager->GetFrontendFont_25_Outline(), "Eyes", 0.75f, 1.25f, 1.0f, Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), true, 0.01f);
 	m_pEyesSizeSlider->SetIncrementButtonsOffset(2, 0);
@@ -243,6 +242,7 @@ CreateCharacter::CreateCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 	m_pEyesSizeSlider->SetRenderBackgroundBar(false);
 	m_pEyesSizeSlider->SetValuePrecision(2);
 	m_pEyesSizeSlider->SetSliderParams(25, 10, ESliderDirection_Horizontal);
+	m_pEyesSizeSlider->SetDepth(2.0f);
 
 	m_pMouthSizeSlider = new Slider(m_pRenderer, m_pFrontendManager->GetFrontendFont_25(), m_pFrontendManager->GetFrontendFont_25_Outline(), "Mouth", 0.75f, 1.25f, 1.0f, Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), true, 0.01f);
 	m_pMouthSizeSlider->SetIncrementButtonsOffset(2, 0);
@@ -250,6 +250,7 @@ CreateCharacter::CreateCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 	m_pMouthSizeSlider->SetRenderBackgroundBar(false);
 	m_pMouthSizeSlider->SetValuePrecision(2);
 	m_pMouthSizeSlider->SetSliderParams(25, 10, ESliderDirection_Horizontal);
+	m_pMouthSizeSlider->SetDepth(2.0f);
 
 	m_pScaleWindow->SetBackgroundIcon(m_pScaleWindowBackgroundIcon);
 	m_pScaleWindow->SetTitlebarBackgroundIcon(m_pScaleTitleBarBackgroundIcon);
@@ -270,13 +271,13 @@ CreateCharacter::CreateCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 	m_pDefaultsWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
 	m_pDefaultsWindow->Hide();
 
-	m_pDefaultsTitleBarIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/scale_title_icon.tga", 44, 44);
+	m_pDefaultsTitleBarIcon = new Icon(m_pRenderer, "", 44, 44);
 	m_pDefaultsTitleBarIcon->SetDepth(4.0f);
 
-	m_pDefaultsTitleBarBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/titlebar_background.tga", 133, 35);
+	m_pDefaultsTitleBarBackgroundIcon = new Icon(m_pRenderer, "", 133, 35);
 	m_pDefaultsTitleBarBackgroundIcon->SetDepth(1.0f);
 
-	m_pDefaultsWindowBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/defaults_window_background.tga", 350, 125);
+	m_pDefaultsWindowBackgroundIcon = new Icon(m_pRenderer, "", 350, 125);
 	m_pDefaultsWindowBackgroundIcon->SetDepth(1.0f);
 
 	m_pDefaultsWindow->SetBackgroundIcon(m_pDefaultsWindowBackgroundIcon);
@@ -288,6 +289,7 @@ CreateCharacter::CreateCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 	m_pXOffsetSlider->SetRenderBackgroundBar(false);
 	m_pXOffsetSlider->SetValuePrecision(2);
 	m_pXOffsetSlider->SetSliderParams(25, 10, ESliderDirection_Horizontal);
+	m_pXOffsetSlider->SetDepth(2.0f);
 
 	m_pYOffsetSlider = new Slider(m_pRenderer, m_pFrontendManager->GetFrontendFont_25(), m_pFrontendManager->GetFrontendFont_25_Outline(), "Y", -10.0f, 10.0f, 0.0f, Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), true, 0.5f);
 	m_pYOffsetSlider->SetIncrementButtonsOffset(2, 0);
@@ -295,6 +297,7 @@ CreateCharacter::CreateCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 	m_pYOffsetSlider->SetRenderBackgroundBar(false);
 	m_pYOffsetSlider->SetValuePrecision(2);
 	m_pYOffsetSlider->SetSliderParams(25, 10, ESliderDirection_Horizontal);
+	m_pYOffsetSlider->SetDepth(2.0f);
 
 	m_pZOffsetSlider = new Slider(m_pRenderer, m_pFrontendManager->GetFrontendFont_25(), m_pFrontendManager->GetFrontendFont_25_Outline(), "Z", -10.0f, 10.0f, 0.0f, Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), true, 0.5f);
 	m_pZOffsetSlider->SetIncrementButtonsOffset(2, 0);
@@ -302,6 +305,7 @@ CreateCharacter::CreateCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 	m_pZOffsetSlider->SetRenderBackgroundBar(false);
 	m_pZOffsetSlider->SetValuePrecision(2);
 	m_pZOffsetSlider->SetSliderParams(25, 10, ESliderDirection_Horizontal);
+	m_pZOffsetSlider->SetDepth(2.0f);
 
 	m_pSaveDefaultsButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_25(), m_pFrontendManager->GetFrontendFont_25_Outline(), "", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pSaveDefaultsButton->SetLabelOffset(0, 5);
@@ -310,7 +314,6 @@ CreateCharacter::CreateCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 	//m_pSaveDefaultsButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 	m_pSaveDefaultsButton->SetCallBackFunction(_SaveDefaultsPressed);
 	m_pSaveDefaultsButton->SetCallBackData(this);
-	m_pSaveDefaultsButton->AddIcon(m_pRenderer, "media/textures/gui/Stonewash/CreateCharacter/save_icon.tga", 48, 48, 34, 34, 7, 7, 3.0f);
 
 	m_pDefaultsWindow->AddComponent(m_pDefaultsTitleBarIcon);
 	m_pDefaultsWindow->AddComponent(m_pXOffsetSlider);
@@ -493,7 +496,126 @@ void CreateCharacter::SetWindowDimensions(int windowWidth, int windowHeight)
 // Skinning the GUI
 void CreateCharacter::SkinGUI()
 {
+	string themeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
 
+	string iconName = "media/textures/gui/" + themeName + "/common/Tooltips/tooltip_background_common.tga";
+	m_pTooltipBackground->SetIcon(iconName);
+
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/preset_title_icon.tga";
+	m_pPresetTitleBarIcon->SetIcon(iconName);
+
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/titlebar_background.tga";
+	m_pPresetTitleBarBackgroundIcon->SetIcon(iconName);
+
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/preset_window_background.tga";
+	m_pPresetWindowBackgroundIcon->SetIcon(iconName);
+
+	m_pPresetsWindow->SetBackgroundIcon(m_pPresetWindowBackgroundIcon);
+	m_pPresetsWindow->SetTitlebarBackgroundIcon(m_pPresetTitleBarBackgroundIcon);
+
+	Point location = m_pPresetsWindow->GetLocation();
+	m_pPresetsWindow->SetDimensions(location.m_x, location.m_y, m_presetsWindowWidth, m_presetsWindowHeight);
+	m_pPresetsWindow->SetTitleBarDimensions(0, 0, m_titlebarWidth, m_titlebarHeight);
+
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/preset_button_default.tga";
+	m_pPresetButtonBorderDefault->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/preset_button_hover.tga";
+	m_pPresetButtonBorderHover->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/preset_button_pressed.tga";
+	m_pPresetButtonBorderPressed->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/preset_button_disabled.tga";
+	m_pPresetButtonBorderDisabled->SetIcon(iconName);
+
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/custom_button_default.tga";
+	m_pCustomButtonBorderDefault->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/custom_button_hover.tga";
+	m_pCustomButtonBorderHover->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/custom_button_pressed.tga";
+	m_pCustomButtonBorderPressed->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/custom_button_disabled.tga";
+	m_pCustomButtonBorderDisabled->SetIcon(iconName);
+
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/delete_default.tga";
+	m_pDeleteCustomButtonBorderDefault->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/delete_hover.tga";
+	m_pDeleteCustomButtonBorderHover->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/delete_pressed.tga";
+	m_pDeleteCustomButtonBorderPressed->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/delete_disabled.tga";
+	m_pDeleteCustomButtonBorderDisabled->SetIcon(iconName);
+
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/add_new_button_default.tga";
+	m_pAddNewButtonBorderDefault->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/add_new_button_hover.tga";
+	m_pAddNewButtonBorderHover->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/add_new_button_pressed.tga";
+	m_pAddNewButtonBorderPressed->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/add_new_button_disabled.tga";
+	m_pAddNewButtonBorderDisabled->SetIcon(iconName);
+
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/customize_title_icon.tga";
+	m_pCustomizeTitleBarIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/titlebar_background.tga";
+	m_pCustomizeTitleBarBackgroundIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/customize_window_background.tga";
+	m_pCustomizeWindowBackgroundIcon->SetIcon(iconName);
+
+	m_pCustomizeWindow->SetBackgroundIcon(m_pCustomizeWindowBackgroundIcon);
+	m_pCustomizeWindow->SetTitlebarBackgroundIcon(m_pCustomizeTitleBarBackgroundIcon);
+
+	location = m_pCustomizeWindow->GetLocation();
+	m_pCustomizeWindow->SetDimensions(location.m_x, location.m_y, m_customizeWindowWidth, m_customizeWindowHeight);
+	m_pCustomizeWindow->SetTitleBarDimensions(0, 0, m_titlebarWidth, m_titlebarHeight);
+
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/scale_title_icon.tga";
+	m_pScaleTitleBarIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/titlebar_background.tga";
+	m_pScaleTitleBarBackgroundIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/scale_window_background.tga";
+	m_pScaleWindowBackgroundIcon->SetIcon(iconName);
+
+	m_pScaleWindow->SetBackgroundIcon(m_pScaleWindowBackgroundIcon);
+	m_pScaleWindow->SetTitlebarBackgroundIcon(m_pScaleTitleBarBackgroundIcon);
+
+	location = m_pScaleWindow->GetLocation();
+	m_pScaleWindow->SetDimensions(location.m_x, location.m_y, m_scaleWindowWidth, m_scaleWindowHeight);
+	m_pScaleWindow->SetTitleBarDimensions(0, 0, m_titlebarWidth, m_titlebarHeight);
+
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/scale_title_icon.tga";
+	m_pDefaultsTitleBarIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/titlebar_background.tga";
+	m_pDefaultsTitleBarBackgroundIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/defaults_window_background.tga";
+	m_pDefaultsWindowBackgroundIcon->SetIcon(iconName);
+
+	m_pDefaultsWindow->SetBackgroundIcon(m_pDefaultsWindowBackgroundIcon);
+	m_pDefaultsWindow->SetTitlebarBackgroundIcon(m_pDefaultsTitleBarBackgroundIcon);
+
+	location = m_pDefaultsWindow->GetLocation();
+	m_pDefaultsWindow->SetDimensions(location.m_x, location.m_y, m_defaultsWindowWidth, m_defaultsWindowHeight);
+	m_pDefaultsWindow->SetTitleBarDimensions(0, 0, m_titlebarWidth, m_titlebarHeight);
+
+	iconName = "media/textures/gui/" + themeName + "/CreateCharacter/save_icon.tga";
+	m_pSaveDefaultsButton->AddIcon(m_pRenderer, iconName.c_str(), 48, 48, 34, 34, 7, 7, 3.0f);
+
+	m_pCreateCustomPresetButton->SetDefaultIcon(m_pAddNewButtonBorderDefault);
+	m_pCreateCustomPresetButton->SetHoverIcon(m_pAddNewButtonBorderHover);
+	m_pCreateCustomPresetButton->SetSelectedIcon(m_pAddNewButtonBorderPressed);
+	m_pCreateCustomPresetButton->SetDisabledIcon(m_pAddNewButtonBorderDisabled);
+
+	m_pCreateCustomPresetButton->SetDimensions(0, 0, 64, 64);
+
+	m_pArrowLeftButton->SetDefaultIcon(m_pFrontendManager->GetLeftRotateArrow());
+	m_pArrowLeftButton->SetHoverIcon(m_pFrontendManager->GetLeftRotateArrow_Hover());
+	m_pArrowLeftButton->SetSelectedIcon(m_pFrontendManager->GetLeftRotateArrow_Pressed());
+	m_pArrowLeftButton->SetDisabledIcon(m_pFrontendManager->GetLeftRotateArrow());
+	m_pArrowRightButton->SetDefaultIcon(m_pFrontendManager->GetRightRotateArrow());
+	m_pArrowRightButton->SetHoverIcon(m_pFrontendManager->GetRightRotateArrow_Hover());
+	m_pArrowRightButton->SetSelectedIcon(m_pFrontendManager->GetRightRotateArrow_Pressed());
+	m_pArrowRightButton->SetDisabledIcon(m_pFrontendManager->GetRightRotateArrow());
+
+	m_pArrowLeftButton->SetDimensions((int)((m_pFrontendManager->GetWindowWidth()*0.5f) - 350), 105, 48, 48);
+	m_pArrowRightButton->SetDimensions((int)((m_pFrontendManager->GetWindowWidth()*0.5f) - 130), 105, 48, 48);
 }
 
 void CreateCharacter::UnSkinGUI()
