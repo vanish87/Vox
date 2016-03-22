@@ -52,19 +52,28 @@ vector<string> listFilesInDirectory(string directoryName)
 {
 #ifdef _WIN32
 	WIN32_FIND_DATA FindFileData;
-	wchar_t * FileName = string2wchar_t(directoryName);
+	std::wstring widestr = std::wstring(directoryName.begin(), directoryName.end());
+	const wchar_t * FileName = widestr.c_str();
 	HANDLE hFind = FindFirstFile(FileName, &FindFileData);
-
 	vector<string> listFileNames;
-	if (GetLastError() != ERROR_FILE_NOT_FOUND)
+
+	if (hFind != INVALID_HANDLE_VALUE)
 	{
-		listFileNames.push_back(wchar_t2string(FindFileData.cFileName));
+		if (GetLastError() != ERROR_FILE_NOT_FOUND)
+		{
+			listFileNames.push_back(wchar_t2string(FindFileData.cFileName));
+		}
+
+		while (FindNextFile(hFind, &FindFileData))
+			listFileNames.push_back(wchar_t2string(FindFileData.cFileName));
+
+		FindClose(hFind);
 	}
-
-	while (FindNextFile(hFind, &FindFileData))
-		listFileNames.push_back(wchar_t2string(FindFileData.cFileName));
-
-	FindClose(hFind);
+	else
+	{
+		DWORD errorCode = GetLastError();
+		cerr << "listFilesInDirectory() failed with error: " << errorCode << endl;
+	}
 
 	return listFileNames;
 #elif __linux__
