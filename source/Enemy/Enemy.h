@@ -383,6 +383,10 @@ private:
 	// Enemy light
 	unsigned int m_enemyLightId;
 
+	// Enemy particle effect
+	unsigned int m_enemyParticleEffectId;
+	BlockParticleEffect* m_pEnemyParticleEffect;
+
 	// Grid position
 	int m_gridPositionX;
 	int m_gridPositionY;

@@ -123,6 +123,9 @@ Enemy::Enemy(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, 
 	// Enemy light
 	m_enemyLightId = -1;
 
+	// Enemy particle effect
+	m_pEnemyParticleEffect = NULL;
+
 	// Charging attacks
 	m_bIsChargingAttack = false;
 	m_chargeAmount = 0.0f;
@@ -191,6 +194,9 @@ Enemy::Enemy(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, 
 		sprintf(characterFilename, "saves/characters/%s/%s.character", m_modelNameString.c_str(), m_modelNameString.c_str());
 
 		m_pLightingManager->AddLight(vec3(0.0f, 0.0f, 0.0f), 10.0f, 1.0f, Colour(0.0f, 0.0f, 1.0f, 1.0f), &m_enemyLightId);
+
+		m_pEnemyParticleEffect = m_pBlockParticleManager->ImportParticleEffect("media/gamedata/particles/ghost_rain.effect", m_position, &m_enemyParticleEffectId);
+		m_pEnemyParticleEffect->PlayEffect();
 	}
 
 	m_pVoxelCharacter = new VoxelCharacter(m_pRenderer, m_pQubicleBinaryManager);
@@ -236,6 +242,9 @@ Enemy::~Enemy()
 		// Create dying light
 		unsigned int lId;
 		m_pLightingManager->AddDyingLight(GetCenter(), 10.0f, 1.0f, Colour(0.0f, 0.0f, 1.0f, 1.0f), 2.0f, &lId);
+
+		m_pEnemyParticleEffect->StopEffect();
+		m_pEnemyParticleEffect->m_erase = true;
 	}
 
 	delete m_pVoxelCharacter;
@@ -3052,6 +3061,8 @@ void Enemy::Update(float dt)
 	if (m_eEnemyType == eEnemyType_Doppelganger)
 	{
 		m_pLightingManager->UpdateLightPosition(m_enemyLightId, GetCenter());
+
+		m_pEnemyParticleEffect->SetPosition(GetCenter() + vec3(0.0f, 0.75f, 0.0f));
 	}
 }
 
