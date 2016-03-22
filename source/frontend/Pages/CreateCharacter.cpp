@@ -592,7 +592,7 @@ void CreateCharacter::Unload()
 bool CreateCharacter::LoadDefaultSettings(string defaultFile, PresetSection m_section)
 {
 	ifstream importFile;
-	importFile.open(defaultFile);
+	importFile.open(defaultFile, ios::in);
 
 	float scale;
 	float offsetX;
@@ -1569,7 +1569,7 @@ void CreateCharacter::CreatePressed()
 #ifdef _WIN32
 			_mkdir(characterBaseFolder);
 #else
-			mkdir(characterBaseFolder);
+			mkdir(characterBaseFolder, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 #endif //_WIN32
 
 			char qbFilename[128];
