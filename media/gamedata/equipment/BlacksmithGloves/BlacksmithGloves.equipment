@@ -10,22 +10,22 @@ loopingAnimation: 0
 translateXSpeed: 0
 translateYSpeed: 0
 translateZSpeed: 0
-translateXRange 0 0
-translateYRange 0 0
-translateZRange 0 0
-translateXTurnSpeed 0
-translateYTurnSpeed 0
-translateZTurnSpeed 0
+translateXRange: 0 0
+translateYRange: 0 0
+translateZRange: 0 0
+translateXTurnSpeed: 0
+translateYTurnSpeed: 0
+translateZTurnSpeed: 0
 rotationPoint: 0 0 0
-rotationXSpeed 0
-rotationYSpeed 0
-rotationZSpeed 0
-rotationXRange 0 0
-rotationYRange 0 0
-rotationZRange 0 0
-rotationXTurnSpeed 0
-rotationYTurnSpeed 0
-rotationZTurnSpeed 0
+rotationXSpeed: 0
+rotationYSpeed: 0
+rotationZSpeed: 0
+rotationXRange: 0 0
+rotationYRange: 0 0
+rotationZRange: 0 0
+rotationXTurnSpeed: 0
+rotationYTurnSpeed: 0
+rotationZTurnSpeed: 0
 
 qubicleFile: media/gamedata/equipment/BlacksmithGloves/left_glove.qb
 renderScale: 0.7
@@ -35,22 +35,22 @@ loopingAnimation: 0
 translateXSpeed: 0
 translateYSpeed: 0
 translateZSpeed: 0
-translateXRange 0 0
-translateYRange 0 0
-translateZRange 0 0
-translateXTurnSpeed 0
-translateYTurnSpeed 0
-translateZTurnSpeed 0
+translateXRange: 0 0
+translateYRange: 0 0
+translateZRange: 0 0
+translateXTurnSpeed: 0
+translateYTurnSpeed: 0
+translateZTurnSpeed: 0
 rotationPoint: 0 0 0
-rotationXSpeed 0
-rotationYSpeed 0
-rotationZSpeed 0
-rotationXRange 0 0
-rotationYRange 0 0
-rotationZRange 0 0
-rotationXTurnSpeed 0
-rotationYTurnSpeed 0
-rotationZTurnSpeed 0
+rotationXSpeed: 0
+rotationYSpeed: 0
+rotationZSpeed: 0
+rotationXRange: 0 0
+rotationYRange: 0 0
+rotationZRange: 0 0
+rotationXTurnSpeed: 0
+rotationYTurnSpeed: 0
+rotationZTurnSpeed: 0
 
 numLights: 0
 
