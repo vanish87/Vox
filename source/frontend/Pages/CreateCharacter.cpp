@@ -1715,6 +1715,9 @@ void CreateCharacter::_CreateCustomPressed(void *pData)
 
 void CreateCharacter::CreateCustomPressed()
 {
+	// TODO : Custom body parts via the Voxel editor GUI
+	return;
+
 	// Body part name is uppercase
 	string presetName;
 	switch(m_selectedPresetSection)
