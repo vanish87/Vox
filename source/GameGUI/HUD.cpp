@@ -56,7 +56,7 @@ HUD::HUD(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontendManager
 	m_pLevelUpLabel->SetOutlineFont(m_pFrontendManager->GetFrontendFont_80_Outline());
 
 	// Player portrait
-	m_pPortraitBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/HUD/portrait_background.tga", 72, 72);
+	m_pPortraitBackgroundIcon = new Icon(m_pRenderer, "", 72, 72);
 	m_pPortraitBackgroundIcon->SetDepth(2.0f);
 
 	// Player health
@@ -67,13 +67,13 @@ HUD::HUD(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontendManager
 	m_pHealthLabel->SetOutlineFont(m_pFrontendManager->GetFrontendFont_20_Outline());
 	m_pHealthLabel->SetDepth(2.0f);
 
-	m_pHealthContainerIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/HUD/health_container.tga", 72, 64);
+	m_pHealthContainerIcon = new Icon(m_pRenderer, "", 72, 64);
 	m_pHealthContainerIcon->SetDepth(2.0f);
 
-	m_pHealthFillerIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/HUD/health_filler.tga", 103, 21);
+	m_pHealthFillerIcon = new Icon(m_pRenderer, "", 103, 21);
 	m_pHealthFillerIcon->SetDepth(1.75f);
 
-	m_pHealthFillerBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/HUD/health_filler_background.tga", 53, 21);
+	m_pHealthFillerBackgroundIcon = new Icon(m_pRenderer, "", 53, 21);
 	m_pHealthFillerBackgroundIcon->SetDepth(1.7f);
 
 	// Player magic
@@ -84,10 +84,10 @@ HUD::HUD(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontendManager
 	m_pMagicLabel->SetOutlineFont(m_pFrontendManager->GetFrontendFont_14_Outline());
 	m_pMagicLabel->SetDepth(2.0f);
 
-	m_pManaFillerIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/HUD/mana_filler.tga", 84, 11);
+	m_pManaFillerIcon = new Icon(m_pRenderer, "", 84, 11);
 	m_pManaFillerIcon->SetDepth(1.75f);
 
-	m_pManaFillerBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/HUD/mana_filler_background.tga", 53, 11);
+	m_pManaFillerBackgroundIcon = new Icon(m_pRenderer, "", 53, 11);
 	m_pManaFillerBackgroundIcon->SetDepth(1.7f);
 
 	// Player experience
@@ -98,13 +98,13 @@ HUD::HUD(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontendManager
 	m_pExperienceLabel->SetOutlineFont(m_pFrontendManager->GetFrontendFont_18_Outline());
 	m_pExperienceLabel->SetDepth(2.0f);
 
-	m_pExperienceContainerIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/HUD/experience_container.tga", 328, 26);
+	m_pExperienceContainerIcon = new Icon(m_pRenderer, "", 328, 26);
 	m_pExperienceContainerIcon->SetDepth(2.0f);
 
-	m_pExperienceFillerIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/HUD/experience_filler.tga", 320, 14);
+	m_pExperienceFillerIcon = new Icon(m_pRenderer, "", 320, 14);
 	m_pExperienceFillerIcon->SetDepth(1.75f);
 
-	m_pExperienceFillerBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/HUD/experience_filler_background.tga", 53, 14);
+	m_pExperienceFillerBackgroundIcon = new Icon(m_pRenderer, "", 53, 14);
 	m_pExperienceFillerBackgroundIcon->SetDepth(1.7f);
 
 	// Enemy health
@@ -115,13 +115,14 @@ HUD::HUD(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontendManager
 	m_pEnemyHealthLabel->SetOutlineFont(m_pFrontendManager->GetFrontendFont_20_Outline());
 	m_pEnemyHealthLabel->SetDepth(2.0f);
 
-	m_pEnemyHealthContainerIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/HUD/enemy_health_container.tga", 300, 33);
+
+	m_pEnemyHealthContainerIcon = new Icon(m_pRenderer, "", 300, 33);
 	m_pEnemyHealthContainerIcon->SetDepth(2.0f);
 
-	m_pEnemyHealthFillerIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/HUD/enemy_health_filler.tga", 103, 21);
+	m_pEnemyHealthFillerIcon = new Icon(m_pRenderer, "", 103, 21);
 	m_pEnemyHealthFillerIcon->SetDepth(1.75f);
 
-	m_pEnemyHealthFillerBackgroundIcon = new Icon(m_pRenderer, "media/textures/gui/Stonewash/HUD/enemy_health_filler_background.tga", 53, 21);
+	m_pEnemyHealthFillerBackgroundIcon = new Icon(m_pRenderer, "", 53, 21);
 	m_pEnemyHealthFillerBackgroundIcon->SetDepth(1.7f);
 
 	// Enemy name
@@ -425,7 +426,36 @@ void HUD::SetWindowDimensions(int windowWidth, int windowHeight)
 // Skinning the GUI
 void HUD::SkinGUI()
 {
+	string themeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
 
+	string iconName = "media/textures/gui/" + themeName + "/HUD/portrait_background.tga";
+	m_pPortraitBackgroundIcon->SetIcon(iconName);
+
+	iconName = "media/textures/gui/" + themeName + "/HUD/health_container.tga";
+	m_pHealthContainerIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/HUD/health_filler.tga";
+	m_pHealthFillerIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/HUD/health_filler_background.tga";
+	m_pHealthFillerBackgroundIcon->SetIcon(iconName);
+
+	iconName = "media/textures/gui/" + themeName + "/HUD/mana_filler.tga";
+	m_pManaFillerIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/HUD/mana_filler_background.tga";
+	m_pManaFillerBackgroundIcon->SetIcon(iconName);
+
+	iconName = "media/textures/gui/" + themeName + "/HUD/experience_container.tga";
+	m_pExperienceContainerIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/HUD/experience_filler.tga";
+	m_pExperienceFillerIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/HUD/experience_filler_background.tga";
+	m_pExperienceFillerBackgroundIcon->SetIcon(iconName);
+
+	iconName = "media/textures/gui/" + themeName + "/HUD/enemy_health_container.tga";
+	m_pEnemyHealthContainerIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/HUD/enemy_health_filler.tga";
+	m_pEnemyHealthFillerIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/HUD/enemy_health_filler_background.tga";
+	m_pEnemyHealthFillerBackgroundIcon->SetIcon(iconName);
 }
 
 void HUD::UnSkinGUI()
