@@ -573,6 +573,12 @@ void OptionsMenu::SkinGUI()
 	m_pCloseExitButton->SetHoverIcon(m_pFrontendManager->GetCloseExitButtonIcon_Hover());
 	m_pCloseExitButton->SetSelectedIcon(m_pFrontendManager->GetCloseExitButtonIcon_Pressed());
 	m_pCloseExitButton->SetDisabledIcon(m_pFrontendManager->GetCloseExitButtonIcon());
+
+	m_pFrontendManager->SetTabIcons(m_pGameplayMode);
+	m_pFrontendManager->SetTabIcons(m_pGraphicsMode);
+	m_pFrontendManager->SetTabIcons(m_pSoundMode);
+	m_pFrontendManager->SetTabIcons(m_pControlsMode);
+	m_pFrontendManager->SetTabIcons(m_pInterfaceMode);
 }
 
 void OptionsMenu::UnSkinGUI()

@@ -169,6 +169,20 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 	m_pArrowRight_Icon_Pressed = new Icon(m_pRenderer, "", 32, 32);
 	m_pArrowRight_Icon_Pressed->SetDepth(2.0f);
 
+	// Tab options
+	m_pTab75OptionIcon = new Icon(m_pRenderer, "", 75, 44);
+	m_pTab75OptionIcon->SetDepth(2.0f);
+	m_pTab75OptionIcon_Hover = new Icon(m_pRenderer, "", 75, 44);
+	m_pTab75OptionIcon_Hover->SetDepth(2.0f);
+	m_pTab75OptionIcon_Pressed = new Icon(m_pRenderer, "", 75, 44);
+	m_pTab75OptionIcon_Pressed->SetDepth(2.0f);
+	m_pTab75OptionIcon_Toggled = new Icon(m_pRenderer, "", 75, 44);
+	m_pTab75OptionIcon_Toggled->SetDepth(2.0f);
+	m_pTab75OptionIcon_Toggled_Hover = new Icon(m_pRenderer, "", 75, 44);
+	m_pTab75OptionIcon_Toggled_Hover->SetDepth(2.0f);
+	m_pTab75OptionIcon_Toggled_Pressed = new Icon(m_pRenderer, "", 75, 44);
+	m_pTab75OptionIcon_Toggled_Pressed->SetDepth(2.0f);
+
 	// Common, shared frontend page params
 	m_cameraOrbitTimer = 15.0f;
 
@@ -270,6 +284,14 @@ FrontendManager::~FrontendManager()
 	delete m_pArrowRight_Icon;
 	delete m_pArrowRight_Icon_Hover;
 	delete m_pArrowRight_Icon_Pressed;
+
+	// Tab options
+	delete m_pTab75OptionIcon;
+	delete m_pTab75OptionIcon_Hover;
+	delete m_pTab75OptionIcon_Pressed;
+	delete m_pTab75OptionIcon_Toggled;
+	delete m_pTab75OptionIcon_Toggled_Hover;
+	delete m_pTab75OptionIcon_Toggled_Pressed;
 }
 
 // Windows dimensions
@@ -462,6 +484,20 @@ void FrontendManager::LoadCommonGraphics(string themeName)
 	m_pArrowRight_Icon_Hover->SetIcon(iconName);
 	iconName = "media/textures/gui/" + themeName + "/common/rotate/arrow_right_pressed.tga";
 	m_pArrowRight_Icon_Pressed->SetIcon(iconName);
+
+	// Tab options
+	iconName = "media/textures/gui/" + themeName + "/common/tab_option/tab.tga";
+	m_pTab75OptionIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/tab_option/tab_hover.tga";
+	m_pTab75OptionIcon_Hover->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/tab_option/tab_pressed.tga";
+	m_pTab75OptionIcon_Pressed->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/tab_option/tab_toggled.tga";
+	m_pTab75OptionIcon_Toggled->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/tab_option/tab_toggled_hover.tga";
+	m_pTab75OptionIcon_Toggled_Hover->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/tab_option/tab_toggled_pressed.tga";
+	m_pTab75OptionIcon_Toggled_Pressed->SetIcon(iconName);
 }
 
 // Setup icons for components
@@ -521,6 +557,18 @@ void FrontendManager::SetButtonIcons(Button* pButton, ButtonSize size)
 	pButton->SetHoverIcon(GetButtonIconHover(size));
 	pButton->SetSelectedIcon(GetButtonIconPressed(size));
 	pButton->SetDisabledIcon(GetButtonIconDisabled(size));
+}
+
+void FrontendManager::SetTabIcons(OptionBox* pTab)
+{
+	pTab->SetDefaultIcon(GetTab75OptionIcon());
+	pTab->SetHoverIcon(GetTab75OptionIcon_Hover());
+	pTab->SetSelectedIcon(GetTab75OptionIcon_Pressed());
+	pTab->SetDisabledIcon(GetTab75OptionIcon());  // HACK : Missing disabled graphic
+	pTab->SetToggledIcon(GetTab75OptionIcon_Toggled());
+	pTab->SetToggledHoverIcon(GetTab75OptionIcon_Toggled_Hover());
+	pTab->SetToggledSelectedIcon(GetTab75OptionIcon_Toggled_Pressed());
+	pTab->SetToggledDisabledIcon(GetTab75OptionIcon_Toggled());  // HACK : Missing disabled graphic
 }
 
 // Common, shared frontend page params

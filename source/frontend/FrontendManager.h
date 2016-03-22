@@ -72,6 +72,7 @@ public:
 	void SetScrollbarIcons(ScrollBar* pScrollbar);
 	void SetPulldownMenuIcons(PulldownMenu* pPulldownMenu);
 	void SetButtonIcons(Button* pButton, ButtonSize size);
+	void SetTabIcons(OptionBox* pTab);
 
 	// Fonts
 	unsigned int GetFrontendFont_Large() { return m_frontendFont_Large; }
@@ -156,6 +157,14 @@ public:
 	Icon* GetLeftRotateArrow() { return m_pArrowLeft_Icon; }
 	Icon* GetLeftRotateArrow_Hover() { return m_pArrowLeft_Icon_Hover; }
 	Icon* GetLeftRotateArrow_Pressed() { return m_pArrowLeft_Icon_Pressed; }
+
+	// Tab Options
+	Icon* GetTab75OptionIcon() { return m_pTab75OptionIcon; }
+	Icon* GetTab75OptionIcon_Hover() { return m_pTab75OptionIcon_Hover; }
+	Icon* GetTab75OptionIcon_Pressed() { return m_pTab75OptionIcon_Pressed; }
+	Icon* GetTab75OptionIcon_Toggled() { return m_pTab75OptionIcon_Toggled; }
+	Icon* GetTab75OptionIcon_Toggled_Hover() { return m_pTab75OptionIcon_Toggled_Hover; }
+	Icon* GetTab75OptionIcon_Toggled_Pressed() { return m_pTab75OptionIcon_Toggled_Pressed; }
 
 	// Common, shared frontend page params
 	float GetCameraOrbitTimer();
@@ -294,6 +303,14 @@ private:
 	Icon* m_pArrowRight_Icon;
 	Icon* m_pArrowRight_Icon_Hover;
 	Icon* m_pArrowRight_Icon_Pressed;
+
+	// Tab Options
+	Icon* m_pTab75OptionIcon;
+	Icon* m_pTab75OptionIcon_Hover;
+	Icon* m_pTab75OptionIcon_Pressed;
+	Icon* m_pTab75OptionIcon_Toggled;
+	Icon* m_pTab75OptionIcon_Toggled_Hover;
+	Icon* m_pTab75OptionIcon_Toggled_Pressed;
 
 	// Common, shared frontend page params
 	float m_cameraOrbitTimer;
