@@ -26,8 +26,8 @@ enum QuestType
     QuestType_CollectX = 0,
     QuestType_KillX,
     QuestType_TalkToPerson,
-    QuestType_FindPerson, // TODO : Implement
-    QuestType_ExplorePlace, // TODO : Implement
+    QuestType_FindPerson, // TODO : Implement - QuestType_FindPerson
+    QuestType_ExplorePlace, // TODO : Implement - QuestType_ExplorePlace
     QuestType_PlaceXScenery,
 
     QuestType_NUM,
