@@ -35,6 +35,12 @@ void Player::PressAttack()
 
 				LoadWeapon(false, "media/gamedata/items/Arrow/ArrowHold.item");
 
+				if (VoxGame::GetInstance()->GetCameraMode() == CameraMode_FirstPerson)
+				{
+					// Make sure we set arrow alpha if we are in first person mode
+					m_pVoxelCharacter->SetMeshAlpha(0.45f, true);
+				}
+
 				if (m_bIsIdle)
 				{
 					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BowCharge", 0.2f);
