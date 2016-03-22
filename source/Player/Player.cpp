@@ -1693,6 +1693,7 @@ void Player::SetCraftingItem(bool crafting)
 {
 	if (crafting)
 	{
+		UnloadWeapon(false);
 		LoadWeapon(false, "media/gamedata/weapons/Hammer/Hammer.weapon");
 	}
 	else
