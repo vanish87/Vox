@@ -592,7 +592,7 @@ void CreateCharacter::Unload()
 bool CreateCharacter::LoadDefaultSettings(string defaultFile, PresetSection m_section)
 {
 	ifstream importFile;
-	importFile.open(defaultFile, ios::in);
+	importFile.open(defaultFile.c_str(), ios::in);
 
 	float scale;
 	float offsetX;
