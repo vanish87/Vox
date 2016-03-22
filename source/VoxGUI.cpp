@@ -296,6 +296,7 @@ void VoxGame::SetupGUI()
 	else if (strcmp(m_pVoxSettings->m_gameMode.c_str(), "FrontEnd") == 0)
 	{
 		m_pFrontEndOptionBox->SetToggled(true);
+		m_pFrontendCameraOptionBox->SetToggled(true);
 	}
 	m_pVoxWindow->Update(m_deltaTime);
 	GameModeChanged();
@@ -934,6 +935,9 @@ void VoxGame::GameModeChanged()
 	else if (m_pFrontEndOptionBox->GetToggled() && gameMode != GameMode_FrontEnd)
 	{
 		SetGameMode(GameMode_FrontEnd);
+
+		// Set front-end page to intro
+		m_pFrontendManager->SetFrontendScreen(FrontendScreen_MainMenu);
 
 		m_pMouseRotateCameraOptionBox->SetDisabled(true);
 		m_pAutoCameraOptionBox->SetDisabled(true);
