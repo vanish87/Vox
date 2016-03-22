@@ -616,11 +616,17 @@ void CreateCharacter::SkinGUI()
 
 	m_pArrowLeftButton->SetDimensions((int)((m_pFrontendManager->GetWindowWidth()*0.5f) - 350), 105, 48, 48);
 	m_pArrowRightButton->SetDimensions((int)((m_pFrontendManager->GetWindowWidth()*0.5f) - 130), 105, 48, 48);
+
+	m_pFrontendManager->SetButtonIcons(m_pNextButton, ButtonSize_225x75);
+	m_pFrontendManager->SetButtonIcons(m_pCreateButton, ButtonSize_225x75);
+	m_pFrontendManager->SetButtonIcons(m_pBackButton, ButtonSize_110x47);
+
+	m_pFrontendManager->SetScrollbarIcons(m_pPresetScrollbar);
+	m_pFrontendManager->SetPulldownMenuIcons(m_pEyesTexturesPulldown);
 }
 
 void CreateCharacter::UnSkinGUI()
 {
-
 }
 
 // Loading

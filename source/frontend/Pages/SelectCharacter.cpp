@@ -177,6 +177,16 @@ void SelectCharacter::SkinGUI()
 
 	iconName = "media/textures/gui/" + themeName + "/common/Tooltips/tooltip_background_common.tga";
 	m_pTooltipBackground->SetIcon(iconName);
+
+	m_pFrontendManager->SetButtonIcons(m_pPopupConfirmButton, ButtonSize_110x47);
+	m_pFrontendManager->SetButtonIcons(m_pPopupCancelButton, ButtonSize_110x47);
+
+	m_pFrontendManager->SetButtonIcons(m_pSelectCharacterButton, ButtonSize_225x75);
+	m_pFrontendManager->SetButtonIcons(m_pCreateCharacterButton, ButtonSize_225x75);
+	m_pFrontendManager->SetButtonIcons(m_pDeleteCharacterButton, ButtonSize_110x47);
+	m_pFrontendManager->SetButtonIcons(m_pBackButton, ButtonSize_110x47);
+
+	m_pDeleteCharacterButton->SetDimensions((m_pFrontendManager->GetWindowWidth() - 225 + 92 - 82), 100, 150, 65);
 }
 
 void SelectCharacter::UnSkinGUI()
