@@ -198,6 +198,7 @@ public:
 	int GetNumJoints();
 	Joint* GetJoint(int index);
 	Joint* GetJoint(const char* jointName);
+	void PlayAnimationOnPaperDoll(const char *lAnimationName);
 
 	// Matrices
 	int GetNumModelMatrices();

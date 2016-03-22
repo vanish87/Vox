@@ -523,23 +523,41 @@ void Player::EquipItem(InventoryItem* pItem)
 
 		switch (pItem->m_itemType)
 		{
-		case InventoryType_Weapon_Dagger: { SetDagger(true); } break;
-		case InventoryType_Weapon_Shield: { SetShield(true); } break;
-		case InventoryType_Weapon_Bow:
+			case InventoryType_Weapon_Dagger:
 			{
-				SetBow(true);
+				SetDagger(true);
+				m_pVoxelCharacter->PlayAnimationOnPaperDoll("TargetPose");
 				break;
 			}
-		case InventoryType_Weapon_Torch: { SetTorch(true); } break;
-		case InventoryType_Weapon_SpellHands:
+			case InventoryType_Weapon_Shield:
+			{
+				SetShield(true);
+				m_pVoxelCharacter->PlayAnimationOnPaperDoll("TargetPose");
+				break;
+			}
+			case InventoryType_Weapon_Bow:
+			{
+				SetBow(true);
+				m_pVoxelCharacter->PlayAnimationOnPaperDoll("BindPose");
+				break;
+			}
+			case InventoryType_Weapon_Torch:
+			{
+				SetTorch(true);
+				m_pVoxelCharacter->PlayAnimationOnPaperDoll("BindPose");
+				break;
+			}
+			case InventoryType_Weapon_SpellHands:
 			{
 				SetSpellHands(true);
 				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "HandSpellCastPose", 0.25f);
 				m_pVoxelCharacter->SetQubicleMatrixRender("Left_Hand", false);
+				m_pVoxelCharacter->PlayAnimationOnPaperDoll("HandSpellCastPose");
 				break;
 			}
 		}
 
+		// Add a quiver to the players back
 		if (pItem->m_itemType == InventoryType_Weapon_Bow)
 		{
 			VoxelWeapon* pNewEquipment = new VoxelWeapon(m_pRenderer, m_pQubicleBinaryManager);
@@ -559,36 +577,105 @@ void Player::EquipItem(InventoryItem* pItem)
 
 		switch (pItem->m_itemType)
 		{
-		case InventoryType_Item: { SetItemPlacing(true); } break;
-		case InventoryType_Scenery: { SetSceneryPlacing(true); } break;
-		case InventoryType_Block: { SetBlockPlacing(true); } break;
-		case InventoryType_Weapon_Sword: { SetSword(true); } break;
-		case InventoryType_Weapon_Dagger: { SetDagger(true); } break;
-		case InventoryType_Weapon_Axe: { SetAxe(true); } break;
-		case InventoryType_Weapon_Hammer: { SetHammer(true); } break;
-		case InventoryType_Weapon_Mace: { SetMace(true); } break;
-		case InventoryType_Weapon_Sickle: { SetSickle(true); } break;
-		case InventoryType_Weapon_2HandedSword:
+			case InventoryType_Item:
+			{
+				SetItemPlacing(true);
+				m_pVoxelCharacter->PlayAnimationOnPaperDoll("BindPose");
+				break;
+			}
+			case InventoryType_Scenery:
+			{
+				SetSceneryPlacing(true);
+				m_pVoxelCharacter->PlayAnimationOnPaperDoll("BindPose");
+				break;
+			}
+			case InventoryType_Block:
+			{
+				SetBlockPlacing(true);
+				m_pVoxelCharacter->PlayAnimationOnPaperDoll("BindPose");
+				break;
+			}
+			case InventoryType_Weapon_Sword:
+			{
+				SetSword(true);
+				m_pVoxelCharacter->PlayAnimationOnPaperDoll("TargetPose");
+				break;
+			}
+			case InventoryType_Weapon_Dagger:
+			{
+				SetDagger(true);
+				m_pVoxelCharacter->PlayAnimationOnPaperDoll("TargetPose");
+				break;
+			}
+			case InventoryType_Weapon_Axe:
+			{
+				SetAxe(true);
+				m_pVoxelCharacter->PlayAnimationOnPaperDoll("TargetPose");
+				break;
+			}
+			case InventoryType_Weapon_Hammer:
+			{
+				SetHammer(true);
+				m_pVoxelCharacter->PlayAnimationOnPaperDoll("TargetPose");
+				break;
+			}
+			case InventoryType_Weapon_Mace:
+			{
+				SetMace(true);
+				m_pVoxelCharacter->PlayAnimationOnPaperDoll("TargetPose");
+				break;
+			}
+			case InventoryType_Weapon_Sickle:
+			{
+				SetSickle(true);
+				m_pVoxelCharacter->PlayAnimationOnPaperDoll("TargetPose");
+				break;
+			}
+			case InventoryType_Weapon_2HandedSword:
 			{
 				Set2HandedSword(true);
 				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "2HandedSwordPose", 0.25f);
+				m_pVoxelCharacter->PlayAnimationOnPaperDoll("2HandedSwordPose");
 				break;
 			}
-		case InventoryType_Weapon_Boomerang: { SetBoomerang(true); m_bCanThrowWeapon = true; } break;
-		case InventoryType_Weapon_Bomb: { SetBomb(true); } break;
-		case InventoryType_Weapon_Staff:
+			case InventoryType_Weapon_Boomerang:
+			{
+				SetBoomerang(true);
+				m_bCanThrowWeapon = true;
+				m_pVoxelCharacter->PlayAnimationOnPaperDoll("BindPose");
+				break;
+			}
+			case InventoryType_Weapon_Bomb:
+			{
+				SetBomb(true);
+				m_pVoxelCharacter->PlayAnimationOnPaperDoll("BindPose");
+				break;
+			}
+			case InventoryType_Weapon_Staff:
 			{
 				SetStaff(true);
 				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "StaffPose", 0.25f);
+				m_pVoxelCharacter->PlayAnimationOnPaperDoll("StaffPose");
 				break;
 			}
-		case InventoryType_Weapon_Wand: { SetWand(true); } break;
-		case InventoryType_Weapon_Pickaxe: { SetPickaxe(true); } break;
-		case InventoryType_Weapon_SpellHands:
+			case InventoryType_Weapon_Wand:
+			{
+				SetWand(true);
+				m_pVoxelCharacter->PlayAnimationOnPaperDoll("TargetPose");
+				break;
+			}
+			case InventoryType_Weapon_Pickaxe:
+			{
+				SetPickaxe(true);
+				m_pVoxelCharacter->PlayAnimationOnPaperDoll("BindPose");
+				break;
+			}
+			case InventoryType_Weapon_SpellHands:
 			{
 				SetSpellHands(true);
 				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "HandSpellCastPose", 0.25f);
 				m_pVoxelCharacter->SetQubicleMatrixRender("Right_Hand", false);
+				m_pVoxelCharacter->PlayAnimationOnPaperDoll("HandSpellCastPose");
 				break;
 			}
 		}
@@ -757,6 +844,9 @@ void Player::UnequipItem(EquipSlot equipSlot)
 
 		m_pVoxelCharacter->SetQubicleMatrixRender("Left_Hand", true);
 
+		m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "BindPose", 0.25f);
+
+		// Remove quiver
 		m_pVoxelCharacter->RemoveQubicleMatrix("Quiver");
 	}
 	break;

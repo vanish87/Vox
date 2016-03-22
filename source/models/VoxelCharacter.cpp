@@ -1518,6 +1518,12 @@ Joint* VoxelCharacter::GetJoint(const char* jointName)
 	return m_pCharacterModel->GetJoint(jointName);
 }
 
+void VoxelCharacter::PlayAnimationOnPaperDoll(const char *lAnimationName)
+{
+	m_pCharacterAnimatorPaperdoll->PlayAnimation(lAnimationName);
+}
+
+// Matrices
 int VoxelCharacter::GetNumModelMatrices()
 {
 	return m_pVoxelModel->GetNumMatrices();
