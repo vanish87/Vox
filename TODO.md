@@ -127,8 +127,8 @@
   - [ ]  Convert scenery manager to use instance rendering and the instance shader.
 - [x]  Add Quest GUI.
 - [x]  Create front end scene and character line up.
-- [ ]  Character creation and customization.
-- [ ]  Add character creator and customization from front-end.
+- [x]  Character creation and customization.
+- [x]  Add character creator and customization from front-end.
 - [ ]  Saving and loading chunks.
   - [ ]  Group together chunks for saving, loading. Not individual
 - [ ]  Add voxel editor.
