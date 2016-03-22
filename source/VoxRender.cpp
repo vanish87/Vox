@@ -129,6 +129,9 @@ void VoxGame::Render()
 			}
 			EndShaderRender();
 
+			// NPC sub selection - For character creation screen
+			m_pNPCManager->RenderSubSelectionNormalNPCs();
+
 			// Render items outline and silhouette before the world/chunks
 			m_pItemManager->Render(true, false, false, false);
 			m_pItemManager->Render(false, false, true, false);
@@ -387,6 +390,7 @@ void VoxGame::RenderShadows()
 
 			// NPCs
 			m_pNPCManager->Render(false, false, false, false, false, true);
+			m_pNPCManager->RenderSubSelectionNPCs();
 
 			// Enemies
 			m_pEnemyManager->Render(false, true, false, true);

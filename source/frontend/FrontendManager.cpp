@@ -13,6 +13,7 @@
 #include "FrontendPage.h"
 #include "Pages/MainMenu.h"
 #include "Pages/SelectCharacter.h"
+#include "Pages/CreateCharacter.h"
 #include "Pages/QuitPopup.h"
 #include "Pages/PauseMenu.h"
 #include "Pages/ModMenu.h"
@@ -182,6 +183,7 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 	int height = 800;
 	FrontendPage* pMainMenu = new MainMenu(m_pRenderer, m_pGUI, this, width, height);
 	FrontendPage* pSelectCharacter = new SelectCharacter(m_pRenderer, m_pGUI, this, width, height);
+	FrontendPage* pCreateCharacter = new CreateCharacter(m_pRenderer, m_pGUI, this, width, height);
 	FrontendPage* pQuitPopup = new QuitPopup(m_pRenderer, m_pGUI, this, width, height);
 	FrontendPage* pPauseMenu = new PauseMenu(m_pRenderer, m_pGUI, this, width, height);
 	FrontendPage* pOptionsMenu = new OptionsMenu(m_pRenderer, m_pGUI, this, width, height);
@@ -189,6 +191,7 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 
 	m_vpFrontendPages.push_back(pMainMenu);
 	m_vpFrontendPages.push_back(pSelectCharacter);
+	m_vpFrontendPages.push_back(pCreateCharacter);
 	m_vpFrontendPages.push_back(pQuitPopup);
 	m_vpFrontendPages.push_back(pPauseMenu);
 	m_vpFrontendPages.push_back(pOptionsMenu);
@@ -562,8 +565,7 @@ void FrontendManager::SetHoverNPC(NPC* pHoverNPC)
 	}
 	else if (m_currentScreen == FrontendScreen_CreateCharacter)
 	{
-		// TODO : SetHoverNPC()
-		//((CreateCharacter*)m_currentPage)->SetHoverNPC(pHoverNPC);
+		((CreateCharacter*)m_currentPage)->SetHoverNPC(pHoverNPC);
 	}
 }
 
@@ -575,8 +577,32 @@ void FrontendManager::SetSelectedNPC(NPC* pSelectedNPC)
 	}
 	else if (m_currentScreen == FrontendScreen_CreateCharacter)
 	{
-		// TODO : SetSelectedNPC()
-		//((CreateCharacter*)m_currentPage)->SetSelectedNPC(pSelectedNPC);
+		((CreateCharacter*)m_currentPage)->SetSelectedNPC(pSelectedNPC);
+	}
+}
+
+void FrontendManager::SetCharacterSubSelection(string subSelection)
+{
+	if (m_currentScreen == FrontendScreen_CreateCharacter)
+	{
+		((CreateCharacter*)m_currentPage)->DeletePresetButtons();
+
+		PresetSection section = PresetSection_None;
+
+		if (subSelection == "Head") { section = PresetSection_Head; }
+		else if (subSelection == "Body") { section = PresetSection_Body; }
+		else if (subSelection == "Legs") { section = PresetSection_Legs; }
+		else if (subSelection == "Right_Shoulder") { section = PresetSection_RightShoulder; }
+		else if (subSelection == "Left_Shoulder") { section = PresetSection_LeftShoulder; }
+		else if (subSelection == "Right_Hand") { section = PresetSection_RightHand; }
+		else if (subSelection == "Left_Hand") { section = PresetSection_LeftHand; }
+		else if (subSelection == "Right_Foot") { section = PresetSection_RightFoot; }
+		else if (subSelection == "Left_Foot") { section = PresetSection_LeftFoot; }
+
+		if (section != PresetSection_None)
+		{
+			((CreateCharacter*)m_currentPage)->CreatePresetButtons(section, true);
+		}
 	}
 }
 

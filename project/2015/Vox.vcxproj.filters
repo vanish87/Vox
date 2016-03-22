@@ -624,6 +624,9 @@
     <ClCompile Include="..\..\source\GameGUI\HUD.cpp">
       <Filter>source\GameGUI</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\frontend\Pages\CreateCharacter.cpp">
+      <Filter>source\frontend\Pages</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\glew\include\GL\glew.h">
@@ -1600,6 +1603,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\GameGUI\HUD.h">
       <Filter>source\GameGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\frontend\Pages\CreateCharacter.h">
+      <Filter>source\frontend\Pages</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

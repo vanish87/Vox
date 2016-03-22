@@ -559,11 +559,7 @@ void VoxGame::UpdateCharactersPulldown()
 	m_pMainWindow->RemoveComponent(m_pCharacterPulldown);
 
 	char importDirectory[128];
-#ifdef _WIN32
-    sprintf(importDirectory, "media/gamedata/models/Human/*.qb");
-#elif __linux__
 	sprintf(importDirectory, "media/gamedata/models/Human/*.*");
-#endif //_WIN32
 
 	vector<string> listFiles;
 	listFiles = listFilesInDirectory(importDirectory);
@@ -619,11 +615,7 @@ void VoxGame::UpdateGUIThemePulldown()
 	m_pGUIThemePulldown->AddPulldownItem("None");
 
 	char importDirectory[128];
-#ifdef _WIN32
     sprintf(importDirectory, "media/textures/gui/*.*");
-#elif __linux__
-	sprintf(importDirectory, "media/textures/gui/*.*");
-#endif //_WIN32
 
 	vector<string> listFiles;
 	listFiles = listFilesInDirectory(importDirectory);

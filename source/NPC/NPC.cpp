@@ -3079,9 +3079,7 @@ void NPC::UpdateSubSelectionNamePicking(int pickingId, bool mousePressed)
 		if(mousePressed)
 		{
 			m_subSelectionSelected = m_pVoxelCharacter->GetSubSelectionName(pickingId);
-			// TODO : Add back in - Character SubSelection
-			//m_pGameWindow->GetGUIHelper()->SetSelectedBoneMatrixForCharacter(m_subSelectionSelected);
-			//m_pGameWindow->GetFrontEndManager()->SetCharacterSubSelection(m_subSelectionSelected);
+			VoxGame::GetInstance()->GetFrontendManager()->SetCharacterSubSelection(m_subSelectionSelected);
 		}
 		else
 		{

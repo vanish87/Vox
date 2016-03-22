@@ -166,6 +166,7 @@ public:
 	void SetModsMenuReturnToMainMenu(bool mainMenu);
 	void SetHoverNPC(NPC* pHoverNPC);
 	void SetSelectedNPC(NPC* pSelectedNPC);
+	void SetCharacterSubSelection(string subSelection);
 
 	// Constants
 	float GetToolTipAppearDelay() { return m_tooltipAppearDelay; }
