@@ -821,6 +821,12 @@ void VoxGame::RenderCinematicLetterBox()
 
 void VoxGame::RenderCrosshair()
 {
+	if (m_pVoxSettings->m_renderCrosshair == false)
+	{
+		// If render crosshair is turned off in the options menu
+		return;
+	}
+
 	m_pRenderer->PushMatrix();
 		m_pRenderer->SetProjectionMode(PM_2D, m_defaultViewport);
 
