@@ -726,6 +726,14 @@ void Player::AttackAnimationTimerFinished()
 		}
 
 		vec3 boomerangTarget = boomerangSpawnPosition + m_forward*15.0f + (vec3(0.0f, 1.0f, 0.0f) * cameraModification);
+		if (m_pTargetEnemy != NULL)
+		{
+			boomerangTarget = m_pTargetEnemy->GetProjectileHitboxCenter();
+			if (m_pTargetEnemy->IsMoving())
+			{
+				boomerangTarget += m_pTargetEnemy->GetForwardVector() * (m_pTargetEnemy->GetMovementSpeed() / 3.0f);
+			}
+		}
 
 		float curveTime = length(boomerangTarget - boomerangSpawnPosition) / 15.0f;
 		if (curveTime <= 0.4f)
