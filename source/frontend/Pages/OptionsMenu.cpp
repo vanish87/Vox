@@ -576,6 +576,36 @@ void OptionsMenu::SkinGUI()
 	m_pFrontendManager->SetTabIcons(m_pControlsMode);
 	m_pFrontendManager->SetTabIcons(m_pInterfaceMode);
 
+	m_pGameplayMode->SetDisplayLabel(false);
+	m_pGameplayMode->SetDimensions(m_optionsWindowWidth - 32 - 375, 0, 75, 32);
+	m_pGameplayMode->SetDisplayLabel(true);
+	int textWidth = m_pRenderer->GetFreeTypeTextWidth(m_pFrontendManager->GetFrontendFont_18_Outline(), "%s", m_pGameplayMode->GetLabel().GetText().c_str());
+	m_pGameplayMode->SetLabelPosition((int)(75 * 0.5f - textWidth*0.5f), 8);
+
+	m_pGraphicsMode->SetDisplayLabel(false);
+	m_pGraphicsMode->SetDimensions(m_optionsWindowWidth - 32 - 300, 0, 75, 32);
+	m_pGraphicsMode->SetDisplayLabel(true);
+	textWidth = m_pRenderer->GetFreeTypeTextWidth(m_pFrontendManager->GetFrontendFont_18_Outline(), "%s", m_pGraphicsMode->GetLabel().GetText().c_str());
+	m_pGraphicsMode->SetLabelPosition((int)(75 * 0.5f - textWidth*0.5f), 8);
+
+	m_pSoundMode->SetDisplayLabel(false);
+	m_pSoundMode->SetDimensions(m_optionsWindowWidth - 32 - 225, 0, 75, 32);
+	m_pSoundMode->SetDisplayLabel(true);
+	textWidth = m_pRenderer->GetFreeTypeTextWidth(m_pFrontendManager->GetFrontendFont_18_Outline(), "%s", m_pSoundMode->GetLabel().GetText().c_str());
+	m_pSoundMode->SetLabelPosition((int)(75 * 0.5f - textWidth*0.5f), 8);
+
+	m_pInterfaceMode->SetDisplayLabel(false);
+	m_pInterfaceMode->SetDimensions(m_optionsWindowWidth - 32 - 150, 0, 75, 32);
+	m_pInterfaceMode->SetDisplayLabel(true);
+	textWidth = m_pRenderer->GetFreeTypeTextWidth(m_pFrontendManager->GetFrontendFont_18_Outline(), "%s", m_pInterfaceMode->GetLabel().GetText().c_str());
+	m_pInterfaceMode->SetLabelPosition((int)(75 * 0.5f - textWidth*0.5f), 8);
+
+	m_pControlsMode->SetDisplayLabel(false);
+	m_pControlsMode->SetDimensions(m_optionsWindowWidth - 32 - 75, 0, 75, 32);
+	m_pControlsMode->SetDisplayLabel(true);
+	textWidth = m_pRenderer->GetFreeTypeTextWidth(m_pFrontendManager->GetFrontendFont_18_Outline(), "%s", m_pControlsMode->GetLabel().GetText().c_str());
+	m_pControlsMode->SetLabelPosition((int)(75 * 0.5f - textWidth*0.5f), 8);
+
 	m_pFrontendManager->SetCheckboxIcons(m_pInvertedMouseMode);
 	Dimensions dimensions = m_pInvertedMouseMode->GetDimensions();
 	m_pInvertedMouseMode->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);

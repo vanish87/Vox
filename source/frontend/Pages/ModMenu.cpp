@@ -352,6 +352,36 @@ void ModMenu::SkinGUI()
 	m_pFrontendManager->SetTabIcons(m_pHUDMode);
 	m_pFrontendManager->SetTabIcons(m_pMiscMode);
 
+	m_pGameplayMode->SetDisplayLabel(false);
+	m_pGameplayMode->SetDimensions(m_modWindowWidth - 32 - 375, 0, 75, 32);
+	m_pGameplayMode->SetDisplayLabel(true);
+	int textWidth = m_pRenderer->GetFreeTypeTextWidth(m_pFrontendManager->GetFrontendFont_18_Outline(), "%s", m_pGameplayMode->GetLabel().GetText().c_str());
+	m_pGameplayMode->SetLabelPosition((int)(75 * 0.5f - textWidth*0.5f), 8);
+
+	m_pGraphicsMode->SetDisplayLabel(false);
+	m_pGraphicsMode->SetDimensions(m_modWindowWidth - 32 - 300, 0, 75, 32);
+	m_pGraphicsMode->SetDisplayLabel(true);
+	textWidth = m_pRenderer->GetFreeTypeTextWidth(m_pFrontendManager->GetFrontendFont_18_Outline(), "%s", m_pGraphicsMode->GetLabel().GetText().c_str());
+	m_pGraphicsMode->SetLabelPosition((int)(75 * 0.5f - textWidth*0.5f), 8);
+
+	m_pSoundMode->SetDisplayLabel(false);
+	m_pSoundMode->SetDimensions(m_modWindowWidth - 32 - 225, 0, 75, 32);
+	m_pSoundMode->SetDisplayLabel(true);
+	textWidth = m_pRenderer->GetFreeTypeTextWidth(m_pFrontendManager->GetFrontendFont_18_Outline(), "%s", m_pSoundMode->GetLabel().GetText().c_str());
+	m_pSoundMode->SetLabelPosition((int)(75 * 0.5f - textWidth*0.5f), 8);
+
+	m_pHUDMode->SetDisplayLabel(false);
+	m_pHUDMode->SetDimensions(m_modWindowWidth - 32 - 150, 0, 75, 32);
+	m_pHUDMode->SetDisplayLabel(true);
+	textWidth = m_pRenderer->GetFreeTypeTextWidth(m_pFrontendManager->GetFrontendFont_18_Outline(), "%s", m_pHUDMode->GetLabel().GetText().c_str());
+	m_pHUDMode->SetLabelPosition((int)(75 * 0.5f - textWidth*0.5f), 8);
+
+	m_pMiscMode->SetDisplayLabel(false);
+	m_pMiscMode->SetDimensions(m_modWindowWidth - 32 - 75, 0, 75, 32);
+	m_pMiscMode->SetDisplayLabel(true);
+	textWidth = m_pRenderer->GetFreeTypeTextWidth(m_pFrontendManager->GetFrontendFont_18_Outline(), "%s", m_pMiscMode->GetLabel().GetText().c_str());
+	m_pMiscMode->SetLabelPosition((int)(75 * 0.5f - textWidth*0.5f), 8);
+
 	iconName = "media/textures/gui/" + themeName + "/common/Tooltips/tooltip_background_common.tga";
 	m_pTooltipBackground_Common->SetIcon(iconName);
 	iconName = "media/textures/gui/" + themeName + "/common/Tooltips/tooltip_background_uncommon.tga";
