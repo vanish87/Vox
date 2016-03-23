@@ -70,6 +70,12 @@ The Vox executable needs to be run from the root directory so that it has access
 
 Alternatively you can run the pre-built executable ```VoxGame.exe``` that is containted within this github repo. For running the prebuilt executable on Linux you can simply run ```./VoxGame``` from within the root ```/Vox``` directory. *(Please note however that there is no guarantee that this exe will contain the latest code from the repo.)*
 
+## Documentation
+The documentation and wiki-pages for Vox can be found on the [Vox GitHub Wiki](https://github.com/AlwaysGeeky/Vox/wiki).
+
+## Changelog
+The full and complete Vox changelog can be found in the [Changelog file](https://github.com/AlwaysGeeky/Vox/blob/master/CHANGELOG.md).
+
 ## License
 This software is provided under the **GNU General Public License**, more information is provided in the [license file](https://github.com/AlwaysGeeky/Vox/blob/master/LICENSE.md).
 
