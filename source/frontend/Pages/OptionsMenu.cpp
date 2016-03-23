@@ -361,10 +361,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	//m_pConfirmDeleteItem->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pResetGUIToDefault = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_25(), m_pFrontendManager->GetFrontendFont_25_Outline(), "Reset GUI", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pResetGUIToDefault->SetDefaultIcon(m_pFrontendManager->GetButtonIcon_Default_115());
-	//m_pResetGUIToDefault->SetHoverIcon(m_pFrontendManager->GetButtonIcon_Hover_115());
-	//m_pResetGUIToDefault->SetSelectedIcon(m_pFrontendManager->GetButtonIcon_Pressed_115());
-	//m_pResetGUIToDefault->SetDisabledIcon(m_pFrontendManager->GetButtonIcon_Disabled_115());
 	m_pResetGUIToDefault->SetLabelOffset(0, 3);
 	//m_pResetGUIToDefault->SetCallBackFunction(_ResetGUIPressed);
 	//m_pResetGUIToDefault->SetCallBackData(this);;
@@ -533,7 +529,7 @@ void OptionsMenu::SetWindowDimensions(int windowWidth, int windowHeight)
 	m_pEquipHoverIcon->SetDimensions(25, m_optionsWindowHeight-225, 32, 32);
 	m_pToolTipAppearDelay->SetDimensions(25, m_optionsWindowHeight-265, 32, 32);
 	m_pConfirmDeleteItem->SetDimensions(25, m_optionsWindowHeight-305, 32, 32);
-	m_pResetGUIToDefault->SetDimensions(25, m_optionsWindowHeight-375, 120, 45);
+	m_pResetGUIToDefault->SetDimensions(25, m_optionsWindowHeight-375, 110, 47);
 
 	// Controls
 }
@@ -579,6 +575,47 @@ void OptionsMenu::SkinGUI()
 	m_pFrontendManager->SetTabIcons(m_pSoundMode);
 	m_pFrontendManager->SetTabIcons(m_pControlsMode);
 	m_pFrontendManager->SetTabIcons(m_pInterfaceMode);
+
+	m_pFrontendManager->SetCheckboxIcons(m_pInvertedMouseMode);
+	Dimensions dimensions = m_pInvertedMouseMode->GetDimensions();
+	m_pInvertedMouseMode->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+
+	m_pFrontendManager->SetOptionboxIcons(m_pNormalCamOption);
+	dimensions = m_pNormalCamOption->GetDimensions();
+	m_pNormalCamOption->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+	m_pFrontendManager->SetOptionboxIcons(m_pFollowCamOption);
+	dimensions = m_pFollowCamOption->GetDimensions();
+	m_pFollowCamOption->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+
+	m_pFrontendManager->SetCheckboxIcons(m_pSoundEffects);
+	dimensions = m_pSoundEffects->GetDimensions();
+	m_pSoundEffects->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+	m_pFrontendManager->SetCheckboxIcons(m_pMusic);
+	dimensions = m_pMusic->GetDimensions();
+	m_pMusic->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+
+	m_pFrontendManager->SetCheckboxIcons(m_pRenderGUI);
+	dimensions = m_pRenderGUI->GetDimensions();
+	m_pRenderGUI->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+	m_pFrontendManager->SetCheckboxIcons(m_pRenderCrosshair);
+	dimensions = m_pRenderCrosshair->GetDimensions();
+	m_pRenderCrosshair->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+	m_pFrontendManager->SetCheckboxIcons(m_pHUDAnimations);
+	dimensions = m_pHUDAnimations->GetDimensions();
+	m_pHUDAnimations->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+	m_pFrontendManager->SetCheckboxIcons(m_pCustomCursors);
+	dimensions = m_pCustomCursors->GetDimensions();
+	m_pCustomCursors->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+	m_pFrontendManager->SetCheckboxIcons(m_pEquipHoverIcon);
+	dimensions = m_pEquipHoverIcon->GetDimensions();
+	m_pEquipHoverIcon->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+	m_pFrontendManager->SetCheckboxIcons(m_pToolTipAppearDelay);
+	dimensions = m_pToolTipAppearDelay->GetDimensions();
+	m_pToolTipAppearDelay->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+	m_pFrontendManager->SetCheckboxIcons(m_pConfirmDeleteItem);
+	dimensions = m_pConfirmDeleteItem->GetDimensions();
+	m_pConfirmDeleteItem->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+	m_pFrontendManager->SetButtonIcons(m_pResetGUIToDefault, ButtonSize_110x47);	
 }
 
 void OptionsMenu::UnSkinGUI()
