@@ -60,11 +60,11 @@ Visual Studio projects are included inside the ```\project``` sub-folder (VS2012
 
 **Linux**
 
-Various project files are included inside the ```\project\linux``` sub folder. (TODO: Add more Linux project and solution files)
+Various project files are included inside the ```\project\linux``` sub folder.
 
 **Mac**
 
-// Todo //
+At the moment Vox *probably* doesn't build on Mac, feel free to test this out and get Mac compatability working.
 
 ## Running
 The Vox executable needs to be run from the root directory so that it has access at the top level to the ```\media``` folder that contains all the game content files. If you want to run the game's executable from within the Visual Studio or other projects (for debugging) then you will need to set the working directy in the Debugging options to ```'..\..\'``` since the Visual Studio projects files reside various in sub-directories above the root.
