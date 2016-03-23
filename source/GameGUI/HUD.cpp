@@ -733,7 +733,7 @@ void HUD::Update(float dt)
 
 	// Portrait dynamic icon
 	// Set the dynamic icon
-	m_pDynamicPortraitIcon->SetDynamicTexture(VoxGame::GetInstance()->GetDynamicPaperdollTexture());
+	m_pDynamicPortraitIcon->SetDynamicTexture(VoxGame::GetInstance()->GetDynamicPortraitTexture());
 
 	// Update the checkboxes for the GUI panels if open or not
 	// TODO : Checkboxes for GUI panels on the HUD

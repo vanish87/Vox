@@ -284,6 +284,8 @@ public:
 	void RenderFace();
 	void RenderPaperdoll();
 	void RenderPaperdollFace();
+	void RenderPortrait();
+	void RenderPortraitFace();
 	void RenderDebug();
 	void RenderProjectileHitboxDebug();
 

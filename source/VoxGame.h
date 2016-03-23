@@ -114,6 +114,9 @@ public:
 	void RotatePaperdollModel(float rot);
 	unsigned int GetDynamicPaperdollTexture();
 
+	// Portrait
+	unsigned int GetDynamicPortraitTexture();
+
 	// Events
 	void PollEvents();
 	bool ShouldClose();
@@ -211,8 +214,10 @@ public:
 	void RenderCinematicLetterBox();
 	void RenderCrosshair();
 	void RenderPaperdollViewport();
-	void RenderFirstPersonViewport();
+	void RenderPortraitViewport();
+	void RenderFirstPersonViewport();	
 	void RenderDeferredRenderingPaperDoll();
+	void RenderDeferredRenderingPortrait();
 	void RenderDebugInformation();
 
 	// GUI Helper functions
@@ -402,6 +407,7 @@ private:
 	unsigned int m_defaultViewport;
 	unsigned int m_firstpersonViewport;
 	unsigned int m_paperdollViewport;
+	unsigned int m_portraitViewport;
 
 	// Fonts
 	unsigned int m_defaultFont;
@@ -424,6 +430,8 @@ private:
 	unsigned int m_secondPassFullscreenBuffer;
 	unsigned int m_paperdollBuffer;
 	unsigned int m_paperdollSSAOTextureBuffer;
+	unsigned int m_portraitBuffer;
+	unsigned int m_portraitSSAOTextureBuffer;
 
 	// Shaders
 	unsigned int m_defaultShader;
@@ -443,6 +451,12 @@ private:
 	int m_paperdollViewportY;
 	int m_paperdollViewportWidth;
 	int m_paperdollViewportHeight;
+
+	// Portrait viewport
+	int m_portraitViewportX;
+	int m_portraitViewportY;
+	int m_portraitViewportWidth;
+	int m_portraitViewportHeight;
 
 	// FPS and deltatime
 #ifdef _WIN32

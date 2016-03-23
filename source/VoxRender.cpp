@@ -249,6 +249,8 @@ void VoxGame::Render()
 		// Render other viewports
 		// Paperdoll for CharacterGUI
 		RenderPaperdollViewport();
+		// Portrait for HUD
+		RenderPortraitViewport();
 
 		// ---------------------------------------
 		// Render transparency
@@ -298,6 +300,8 @@ void VoxGame::Render()
 		// Render other deferred rendering pipelines
 		// Paperdoll SSAO for CharacterGUI
 		RenderDeferredRenderingPaperDoll();
+		// Portrait SSAO for HUD
+		RenderDeferredRenderingPortrait();
 
 		// Render debug information and text
 		RenderDebugInformation();
@@ -906,6 +910,67 @@ void VoxGame::RenderPaperdollViewport()
 	}
 }
 
+void VoxGame::RenderPortraitViewport()
+{
+	if(m_pHUD->IsLoaded())
+	{
+		m_pRenderer->StartRenderingToFrameBuffer(m_portraitBuffer);
+
+		m_pRenderer->PushMatrix();
+			glLoadIdentity();
+
+			glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+			glClear(GL_COLOR_BUFFER_BIT);
+
+			glClearDepth(1.0);
+			glClear(GL_DEPTH_BUFFER_BIT);
+
+			m_pRenderer->SetProjectionMode(PM_PERSPECTIVE, m_portraitViewport);
+
+			m_pRenderer->SetLookAtCamera(vec3(0.0f, 2.05f, 1.5f), vec3(0.0f, 2.05f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+
+			// Render the player
+			m_pRenderer->PushMatrix();
+				m_pRenderer->StartMeshRender();
+
+				if(m_modelWireframe == false)
+				{
+					m_pRenderer->BeginGLSLShader(m_paperdollShader);
+				}
+
+				m_pRenderer->RotateWorldMatrix(0.0f, -30.0f, 0.0f);
+
+				m_pPlayer->RenderPortrait();
+
+				if(m_modelWireframe == false)
+				{
+					m_pRenderer->EndGLSLShader(m_paperdollShader);
+				}
+
+				m_pRenderer->EndMeshRender();
+
+				glActiveTextureARB(GL_TEXTURE0_ARB);
+				glDisable(GL_TEXTURE_2D);
+				glBindTexture(GL_TEXTURE_2D, 0);
+
+				if(m_modelWireframe == false)
+				{
+					m_pRenderer->BeginGLSLShader(m_textureShader);
+				}
+
+				m_pPlayer->RenderPortraitFace();
+
+				if(m_modelWireframe == false)
+				{
+					m_pRenderer->EndGLSLShader(m_textureShader);
+				}
+			m_pRenderer->PopMatrix();
+		m_pRenderer->PopMatrix();
+
+		m_pRenderer->StopRenderingToFrameBuffer(m_portraitBuffer);
+	}
+}
+
 void VoxGame::RenderFirstPersonViewport()
 {
 	m_pRenderer->PushMatrix();
@@ -993,6 +1058,70 @@ void VoxGame::RenderDeferredRenderingPaperDoll()
 	m_pRenderer->PopMatrix();
 
 	m_pRenderer->StopRenderingToFrameBuffer(m_paperdollSSAOTextureBuffer);
+}
+
+void VoxGame::RenderDeferredRenderingPortrait()
+{
+	m_pRenderer->StartRenderingToFrameBuffer(m_portraitSSAOTextureBuffer);
+
+	m_pRenderer->PushMatrix();
+		m_pRenderer->SetProjectionMode(PM_2D, m_portraitViewport);
+
+		m_pRenderer->SetLookAtCamera(vec3(0.0f, 0.0f, 250.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+
+		m_pRenderer->BeginGLSLShader(m_SSAOShader);
+		glShader* pShader = m_pRenderer->GetShader(m_SSAOShader);
+
+		unsigned int textureId = glGetUniformLocationARB(pShader->GetProgramObject(), "bgl_DepthTexture");
+		glActiveTextureARB(GL_TEXTURE0_ARB);
+		m_pRenderer->BindRawTextureId(m_pRenderer->GetDepthTextureFromFrameBuffer(m_portraitBuffer));
+		glUniform1iARB(textureId, 0);
+
+		unsigned int textureId2 = glGetUniformLocationARB(pShader->GetProgramObject(), "bgl_RenderedTexture");
+		glActiveTextureARB(GL_TEXTURE1_ARB);
+		m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_portraitBuffer));
+		glUniform1iARB(textureId2, 1);
+
+		pShader->setUniform1i("screenWidth", m_windowWidth);
+		pShader->setUniform1i("screenHeight", m_windowHeight);
+		pShader->setUniform1f("nearZ", 0.01f);
+		pShader->setUniform1f("farZ", 1000.0f);
+
+		pShader->setUniform1f("samplingMultiplier", 0.5f);
+		pShader->setUniform1i("lighting_enabled", false);
+
+		m_pRenderer->SetRenderMode(RM_TEXTURED);
+		m_pRenderer->EnableImmediateMode(IM_QUADS);
+			m_pRenderer->ImmediateTextureCoordinate(0.0f, 0.0f);
+			m_pRenderer->ImmediateVertex(0.0f, 0.0f, 2.0f);
+			m_pRenderer->ImmediateTextureCoordinate(1.0f, 0.0f);
+			m_pRenderer->ImmediateVertex((float)m_windowWidth, 0.0f, 2.0f);
+			m_pRenderer->ImmediateTextureCoordinate(1.0f, 1.0f);
+			m_pRenderer->ImmediateVertex((float)m_windowWidth, (float)m_windowHeight, 2.0f);
+			m_pRenderer->ImmediateTextureCoordinate(0.0f, 1.0f);
+			m_pRenderer->ImmediateVertex(0.0f, (float)m_windowHeight, 2.0f);
+		m_pRenderer->DisableImmediateMode();
+
+		glActiveTextureARB(GL_TEXTURE3_ARB);
+		glDisable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glActiveTextureARB(GL_TEXTURE2_ARB);
+		glDisable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glActiveTextureARB(GL_TEXTURE1_ARB);
+		glDisable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glActiveTextureARB(GL_TEXTURE0_ARB);
+		glDisable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		m_pRenderer->EndGLSLShader(m_SSAOShader);
+	m_pRenderer->PopMatrix();
+
+	m_pRenderer->StopRenderingToFrameBuffer(m_portraitSSAOTextureBuffer);
 }
 
 void VoxGame::RenderDebugInformation()

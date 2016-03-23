@@ -2875,6 +2875,20 @@ void Player::RenderPaperdollFace()
 	m_pRenderer->PopMatrix();
 }
 
+void Player::RenderPortrait()
+{
+	m_pRenderer->PushMatrix();
+		m_pVoxelCharacter->RenderPortrait();
+	m_pRenderer->PopMatrix();
+}
+
+void Player::RenderPortraitFace()
+{
+	m_pRenderer->PushMatrix();
+		m_pVoxelCharacter->RenderFacePortrait();
+	m_pRenderer->PopMatrix();
+}
+
 void Player::RenderDebug()
 {
 	if (VoxGame::GetInstance()->GetCameraMode() != CameraMode_FirstPerson)
