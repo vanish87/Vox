@@ -96,11 +96,24 @@ void VoxSettings::LoadOptions()
 	m_mouseSensitivity = (float)reader.GetReal("Gameplay", "MouseSensitivity", 50.0f);
 	m_gamepadSensitivity = (float)reader.GetReal("Gameplay", "GamepadSensitivity", 50.0f);
 
+	// Graphics
+
 	// Sound
 	m_audio = reader.GetBoolean("Sound", "AudioEnabled", true);
 	m_audioVolume = (float)reader.GetReal("Sound", "AudioVolume", 0.5f);
 	m_music = reader.GetBoolean("Sound", "MusicEnabled", true);
 	m_musicVolume = (float)reader.GetReal("Sound", "MusicVolume", 0.5f);
+
+	// Interface
+	m_renderGUI = reader.GetBoolean("Interface", "RenderGUI", true);
+	m_renderCrosshair = reader.GetBoolean("Interface", "RenderCrosshair", true);
+	m_HUDAnimations = reader.GetBoolean("Interface", "HUDAnimationd", true);
+	m_customCursors = reader.GetBoolean("Interface", "CustomCursors", true);
+	m_equipHelper = reader.GetBoolean("Interface", "EquipHelper", true);
+	m_tooltipDelay = reader.GetBoolean("Interface", "TooltipDelay", true);
+	m_confirmItemDelete = reader.GetBoolean("Interface", "ConfirmItemDelete", true);
+
+	// Controls
 }
 
 // Save options
@@ -129,6 +142,13 @@ void VoxSettings::SaveOptions()
 	file << "\n";
 
 	file << "[Interface]\n";
+	file << "RenderGUI=" << (m_renderGUI ? "True" : "False") << "\n";
+	file << "RenderCrosshair=" << (m_renderCrosshair ? "True" : "False") << "\n";
+	file << "HUDAnimationd=" << (m_HUDAnimations ? "True" : "False") << "\n";
+	file << "CustomCursors=" << (m_customCursors ? "True" : "False") << "\n";
+	file << "EquipHelper=" << (m_equipHelper ? "True" : "False") << "\n";
+	file << "TooltipDelay=" << (m_tooltipDelay ? "True" : "False") << "\n";
+	file << "ConfirmItemDelete=" << (m_confirmItemDelete ? "True" : "False") << "\n";
 	file << "\n";
 
 	file << "[Controls]\n";

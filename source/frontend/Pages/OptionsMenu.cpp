@@ -632,11 +632,24 @@ void OptionsMenu::LoadOptions()
 	m_pMouseSensativitySlider->SetCurrentValue(pSettings->m_mouseSensitivity);
 	m_pGamepadSensativitySlider->SetCurrentValue(pSettings->m_gamepadSensitivity);
 
+	// Grapgics
+
 	// Sound
 	m_pSoundEffects->SetToggled(pSettings->m_audio);
 	m_pSoundEffectsVolume->SetCurrentValue(pSettings->m_audioVolume);
 	m_pMusic->SetToggled(pSettings->m_music);
 	m_pMusicVolume->SetCurrentValue(pSettings->m_musicVolume);
+
+	// Interface
+	m_pRenderGUI->SetToggled(pSettings->m_renderGUI);
+	m_pRenderCrosshair->SetToggled(pSettings->m_renderCrosshair);
+	m_pHUDAnimations->SetToggled(pSettings->m_HUDAnimations);
+	m_pCustomCursors->SetToggled(pSettings->m_customCursors);
+	m_pEquipHoverIcon->SetToggled(pSettings->m_equipHelper);
+	m_pToolTipAppearDelay->SetToggled(pSettings->m_tooltipDelay);
+	m_pConfirmDeleteItem->SetToggled(pSettings->m_confirmItemDelete);
+
+	// Controls
 }
 
 void OptionsMenu::SaveOptions()
@@ -648,11 +661,24 @@ void OptionsMenu::SaveOptions()
 	pSettings->m_mouseSensitivity = m_pMouseSensativitySlider->GetCurrentValue();
 	pSettings->m_gamepadSensitivity = m_pGamepadSensativitySlider->GetCurrentValue();
 
+	// Graphics
+
 	// Sound
 	pSettings->m_audio = m_pSoundEffects->GetToggled();
 	pSettings->m_audioVolume = m_pSoundEffectsVolume->GetCurrentValue();
 	pSettings->m_music = m_pMusic->GetToggled();
 	pSettings->m_musicVolume= m_pMusicVolume->GetCurrentValue();
+
+	// Interface
+	pSettings->m_renderGUI = m_pRenderGUI->GetToggled();
+	pSettings->m_renderCrosshair = m_pRenderCrosshair->GetToggled();
+	pSettings->m_HUDAnimations = m_pHUDAnimations->GetToggled();
+	pSettings->m_customCursors = m_pCustomCursors->GetToggled();
+	pSettings->m_equipHelper = m_pEquipHoverIcon->GetToggled();
+	pSettings->m_tooltipDelay = m_pToolTipAppearDelay->GetToggled();
+	pSettings->m_confirmItemDelete = m_pConfirmDeleteItem->GetToggled();
+
+	// Controls
 
 	// Save the options file
 	pSettings->SaveOptions();
