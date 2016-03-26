@@ -201,6 +201,8 @@ void PlayerStats::GiveExperience(int amount)
 		VoxGame::GetInstance()->GetCharacterGUI()->UpdatePlayerStats();
 	}
 
+	VoxGame::GetInstance()->GetHUD()->UpdatePlayerData();
+
 	ExportStats(m_name);
 }
 
