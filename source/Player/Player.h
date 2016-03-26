@@ -194,6 +194,7 @@ public:
 	// Crafting
 	void SetCrafting(bool crafting);
 	void SetCraftingItem(bool crafting);
+	bool IsCrafting();
 
 	// Looking
 	void LookAtPoint(vec3 point);

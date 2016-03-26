@@ -1036,6 +1036,28 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 
 	m_pPressedInventoryItem = NULL;
 
+	if (m_pPlayer->IsCrafting())
+	{
+		// Don't allow to do any inventory changing if we are crafting.
+
+		// Reset back to the original position
+		pInventoryItem->m_pInventoryIcon->SetLocation(m_pressedX, m_pressedY);
+		if (pInventoryItem->m_dropshadowAdded == true)
+		{
+			pInventoryItem->m_dropshadowAdded = false;
+			string themeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
+			string dropShadowIcon = "media/textures/gui/" + themeName + "/common/items/drop_shadow.tga";
+			pInventoryItem->m_pInventoryIcon->RemoveIcon(dropShadowIcon.c_str());
+		}
+
+		m_pInventoryWindow->RemoveComponent(m_pDestroyIcon);
+		m_pInventoryWindow->RemoveComponent(m_pDestroyLabel);
+		m_pInventoryWindow->RemoveComponent(m_pDropIcon);
+		m_pInventoryWindow->RemoveComponent(m_pDropLabel);
+
+		return;
+	}
+
 	// Figure out if we need to change to a different inventory slot
 	int x;
 	int y;

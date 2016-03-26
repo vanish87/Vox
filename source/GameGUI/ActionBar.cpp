@@ -436,6 +436,12 @@ void ActionBar::UseActionBarslot(int slotIndex)
 		return;
 	}
 
+	if (m_pPlayer->IsCrafting())
+	{
+		// Don't allow to use the action bar when we are crafting.
+		return;
+	}
+
 	ActionButtonItem* pItem = GetActionButtonForSlot(slotIndex);
 	if(pItem != NULL && pItem->m_inventoryX != -1 && pItem->m_inventoryY != -1)
 	{

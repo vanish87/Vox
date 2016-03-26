@@ -515,6 +515,12 @@ void Player::UnloadWeapon(bool left)
 // Equipping items
 void Player::EquipItem(InventoryItem* pItem)
 {
+	if (m_crafting)
+	{
+		// Don't allow to change the equipped items if we are crafting
+		return;
+	}
+
 	switch (pItem->m_equipSlot)
 	{
 	case EquipSlot_LeftHand:
@@ -826,6 +832,12 @@ void Player::EquipItem(InventoryItem* pItem)
 
 void Player::UnequipItem(EquipSlot equipSlot)
 {
+	if (m_crafting)
+	{
+		// Don't allow to change the equipped items if we are crafting
+		return;
+	}
+
 	switch (equipSlot)
 	{
 	case EquipSlot_LeftHand:
@@ -1804,6 +1816,11 @@ void Player::SetCraftingItem(bool crafting)
 			UnloadWeapon(false);
 		}
 	}
+}
+
+bool Player::IsCrafting()
+{
+	return m_crafting;
 }
 
 // Looking
