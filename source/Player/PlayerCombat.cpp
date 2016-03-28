@@ -613,11 +613,7 @@ void Player::SetTargetEnemy(Enemy* pTargetEnemy)
 
 		CalculateWorldTransformMatrix();
 
-		if (IsBow())
-		{
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BowStance", 0.2f);
-		}
-		else if (Is2HandedSword())
+		if (Is2HandedSword())
 		{
 			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "2HandedSwordPose", 0.2f);
 		}
