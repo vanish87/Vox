@@ -3563,6 +3563,7 @@ void Enemy::UpdateTouchCombat(float dt)
 		m_velocity.x = 0.0f;
 		m_velocity.z = 0.0f;
 		m_aggro = true;
+		m_aggroResetTimer = m_aggroResetTime;
 	}
 }
 
