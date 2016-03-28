@@ -1104,6 +1104,6 @@ void LootGUI::CloseExitPressed()
 
 	if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
 	{
-		VoxGame::GetInstance()->TurnCursorOff();
+		VoxGame::GetInstance()->TurnCursorOff(false);
 	}
 }

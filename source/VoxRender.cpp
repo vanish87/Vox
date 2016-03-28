@@ -328,6 +328,15 @@ void VoxGame::Render()
 		// Render the GUI
 		RenderGUI();
 
+		// Custom cursor
+		if (m_pVoxSettings->m_customCursors && m_bCustomCursorOn)
+		{
+			if (m_gameMode != GameMode_FrontEnd || m_pFrontendManager->GetFrontendScreen() != FrontendScreen_Intro)
+			{
+				RenderCustomCursor();
+			}
+		}
+
 		// Update the NPC screen positions for select character screen
 		m_pNPCManager->UpdateScreenCoordinates2d(m_pGameCamera);
 
@@ -852,6 +861,56 @@ void VoxGame::RenderCrosshair()
 			m_pRenderer->ImmediateVertex(-crosshairBorder, crosshairBorder, 3.0f);
 		m_pRenderer->DisableImmediateMode();
 
+	m_pRenderer->PopMatrix();
+}
+
+void VoxGame::RenderCustomCursor()
+{
+	m_pRenderer->PushMatrix();
+		//glLoadIdentity();
+		m_pRenderer->SetProjectionMode(PM_2D, m_defaultViewport);
+
+		m_pRenderer->SetLookAtCamera(vec3(0.0f, 0.0f, 250.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+
+		glActiveTextureARB(GL_TEXTURE0_ARB);
+		glDisable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		m_pRenderer->SetRenderMode(RM_TEXTURED);
+		m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
+
+		float cursorSize = 28.0f;
+		float xMouse = (float)m_pVoxWindow->GetCursorX();
+		float yMouse = m_windowHeight - (float)m_pVoxWindow->GetCursorY() - cursorSize;
+
+		if(m_bPressedCursorDown)
+		{
+			m_pRenderer->BindTexture(m_customCursorClickedBuffer);
+		}
+		else
+		{
+			m_pRenderer->BindTexture(m_customCursorNormalBuffer);
+		}		
+
+		m_pRenderer->TranslateWorldMatrix(xMouse, yMouse, 240.0f);
+		m_pRenderer->EnableImmediateMode(IM_QUADS);
+			m_pRenderer->ImmediateColourAlpha(1.0f, 1.0f, 1.0f, 1.0f);
+
+			m_pRenderer->ImmediateTextureCoordinate(0.0f, 1.0f);
+			m_pRenderer->ImmediateVertex(0.0f, 0.0f, 3.0f);
+			m_pRenderer->ImmediateTextureCoordinate(1.0f, 1.0f);
+			m_pRenderer->ImmediateVertex(cursorSize, 0.0f, 3.0f);
+			m_pRenderer->ImmediateTextureCoordinate(1.0f, 0.0f);
+			m_pRenderer->ImmediateVertex(cursorSize, cursorSize, 3.0f);
+			m_pRenderer->ImmediateTextureCoordinate(0.0f, 0.0f);
+			m_pRenderer->ImmediateVertex(0.0f, cursorSize, 3.0f);
+		m_pRenderer->DisableImmediateMode();
+
+		m_pRenderer->DisableTransparency();
+
+		glActiveTextureARB(GL_TEXTURE0_ARB);
+		glDisable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	m_pRenderer->PopMatrix();
 }
 

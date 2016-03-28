@@ -978,27 +978,27 @@ void VoxGame::CameraModeChanged()
 	{
 		SetCameraMode(CameraMode_Debug);
 
-		TurnCursorOn(true);
+		TurnCursorOn(true, false);
 	}
 	else if (m_pMouseRotateCameraOptionBox->GetToggled())
 	{
 		SetCameraMode(CameraMode_MouseRotate);
 		InitializeCameraRotation();
 
-		TurnCursorOff();
+		TurnCursorOff(false);
 	}
 	else if (m_pAutoCameraOptionBox->GetToggled())
 	{
 		SetCameraMode(CameraMode_AutoCamera);
 		InitializeCameraRotation();
 
-		TurnCursorOff();
+		TurnCursorOff(false);
 	}
 	else if (m_pFrontendCameraOptionBox->GetToggled())
 	{
 		SetCameraMode(CameraMode_Frontend);
 
-		TurnCursorOn(true);
+		TurnCursorOn(true, false);
 	}
 }
 

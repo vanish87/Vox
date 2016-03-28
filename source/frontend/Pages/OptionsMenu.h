@@ -73,6 +73,9 @@ protected:
 	static void _ControlsTabPressed(void *pData);
 	void ControlsTabPressed();
 
+	static void _CustomCursorsTogglePressed(void *pData);
+	void CustomCursorsTogglePressed();
+
 private:
 	/* Private methods */
 
@@ -93,6 +96,8 @@ private:
 	int m_optionsWindowHeight;
 	int m_titlebarWidth;
 	int m_titlebarHeight;
+
+	bool m_initiallyUsingCustomCursors;
 
 	// Options window
 	GUIWindow* m_pOptionsWindow;

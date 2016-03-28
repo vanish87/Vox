@@ -239,8 +239,8 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	//m_pHUDAnimations->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pCustomCursors = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Custom Cursors", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pCustomCursors->SetCallBackFunction(_HUDAnimationsPressed);
-	//m_pCustomCursors->SetCallBackData(this);
+	m_pCustomCursors->SetCallBackFunction(_CustomCursorsTogglePressed);
+	m_pCustomCursors->SetCallBackData(this);
 	m_pCustomCursors->SetDisplayLabel(true);
 	m_pCustomCursors->SetDepth(2.0f);
 	m_pCustomCursors->SetPressedOffset(0, -2);
@@ -294,6 +294,8 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	// Controls
 
 	SetWindowDimensions(m_windowWidth, m_windowHeight);
+
+	m_initiallyUsingCustomCursors = false;
 
 	m_returnToMainMenu = false;
 }
@@ -639,6 +641,9 @@ void OptionsMenu::Load()
 	// Load options to GUI
 	LoadOptions();
 
+	// Cache if we are using custom cursors
+	m_initiallyUsingCustomCursors = m_pCustomCursors->GetToggled();
+
 	m_pGameplayMode->SetToggled(true);
 	GameplayTabPressed();
 
@@ -649,6 +654,20 @@ void OptionsMenu::Unload()
 {
 	// Save GUI to options
 	SaveOptions();
+
+	// Depending on if we have changed the custom cursors option, we need to force the cursor to appear or disappear.
+	if (m_initiallyUsingCustomCursors != m_pCustomCursors->GetToggled())
+	{
+		if (m_pCustomCursors->GetToggled())
+		{
+			VoxGame::GetInstance()->TurnCursorOff(true);
+			VoxGame::GetInstance()->TurnCursorOn(false, false);
+		}
+		else
+		{
+			VoxGame::GetInstance()->TurnCursorOn(false, true);
+		}
+	}	
 
 	// Remove ALL tab sections
 	for(int i = 0; i < m_vpGameplayComponents.size(); i++)
@@ -959,4 +978,15 @@ void OptionsMenu::ControlsTabPressed()
 
 	m_pGUI->AddWindow(m_pOptionsWindow);
 	m_pOptionsWindow->Show();
+}
+
+void OptionsMenu::_CustomCursorsTogglePressed(void *pData)
+{
+	OptionsMenu* lpOptionsMenu = (OptionsMenu*)pData;
+	lpOptionsMenu->CustomCursorsTogglePressed();
+}
+
+void OptionsMenu::CustomCursorsTogglePressed()
+{
+	// TODO : Make it so that the custom cursors are turned on/off immediately when toggling the option
 }

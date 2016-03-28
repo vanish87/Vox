@@ -124,6 +124,9 @@ public:
 	// Window functionality
 	int GetWindowCursorX();
 	int GetWindowCursorY();
+	void TurnCursorOn(bool resetCursorPosition, bool forceOn);
+	void TurnCursorOff(bool forceOff);
+	bool IsCursorOn();
 	void ResizeWindow(int width, int height);
 	void CloseWindow();
 	void UpdateJoySticks();
@@ -213,6 +216,7 @@ public:
 	void RenderHUD();
 	void RenderCinematicLetterBox();
 	void RenderCrosshair();
+	void RenderCustomCursor();
 	void RenderPaperdollViewport();
 	void RenderPortraitViewport();
 	void RenderFirstPersonViewport();	
@@ -223,8 +227,6 @@ public:
 	// GUI Helper functions
 	bool IsGUIWindowStillDisplayed();
 	void CloseAllGUIWindows();
-	void TurnCursorOn(bool resetCursorPosition);
-	void TurnCursorOff();
 
 	// GUI
 	void CreateGUI();
@@ -446,6 +448,12 @@ private:
 	unsigned int m_blurHorizontalShader;
 	unsigned int m_paperdollShader;
 
+	// Custom cursor textures
+	unsigned int m_customCursorNormalBuffer;
+	unsigned int m_customCursorClickedBuffer;
+	unsigned int m_customCursorRotateBuffer;
+	unsigned int m_customCursorZoomBuffer;
+
 	// Paperdoll viewport
 	int m_paperdollViewportX;
 	int m_paperdollViewportY;
@@ -489,6 +497,10 @@ private:
 
 	// Joystick flags
 	bool m_bJoystickJump;
+
+	// Custom cursor
+	bool m_bPressedCursorDown;
+	bool m_bCustomCursorOn;
 
 	// Combat flags
 	bool m_bAttackPressed_Mouse;

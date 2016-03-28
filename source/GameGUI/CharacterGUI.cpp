@@ -636,7 +636,7 @@ void CharacterGUI::Unload()
 
 	if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false)
 	{
-		VoxGame::GetInstance()->TurnCursorOff();
+		VoxGame::GetInstance()->TurnCursorOff(false);
 		if (VoxGame::GetInstance()->ShouldRestorePreviousCameraMode())
 		{
 			VoxGame::GetInstance()->RestorePreviousCameraMode();

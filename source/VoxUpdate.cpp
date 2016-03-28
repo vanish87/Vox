@@ -167,7 +167,7 @@ void VoxGame::Update()
 	int x = m_pVoxWindow->GetCursorX();
 	int y = m_pVoxWindow->GetCursorY();
 	m_pGUI->Update(m_deltaTime);
-	if (m_pVoxWindow->IsCursorOn())
+	if (IsCursorOn())
 	{
 		m_pGUI->ImportMouseMotion(x, m_windowHeight - y);
 	}

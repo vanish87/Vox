@@ -75,6 +75,10 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pickedObject = -1;
 	m_bNamePickingSelected = false;
 
+	/* Custom cursors */
+	m_bPressedCursorDown = false;
+	m_bCustomCursorOn = false;
+
 	/* Paper doll viewport dimensions */
 	m_paperdollViewportX = 0;
 	m_paperdollViewportY = 0;
@@ -123,6 +127,13 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 
 	/* Create fonts */
 	m_pRenderer->CreateFreeTypeFont("media/fonts/arial.ttf", 12, &m_defaultFont);
+
+	/* Create the custom cursor textures */
+	int lTextureWidth, lTextureHeight, lTextureWidth2, lTextureHeight2;
+	m_pRenderer->LoadTexture("media/textures/cursors/finger_cursor_normal.tga", &lTextureWidth, &lTextureHeight, &lTextureWidth2, &lTextureHeight2, &m_customCursorNormalBuffer);
+	m_pRenderer->LoadTexture("media/textures/cursors/finger_cursor_clicked.tga", &lTextureWidth, &lTextureHeight, &lTextureWidth2, &lTextureHeight2, &m_customCursorClickedBuffer);
+	m_pRenderer->LoadTexture("media/textures/cursors/finger_cursor_rotate.tga", &lTextureWidth, &lTextureHeight, &lTextureWidth2, &lTextureHeight2, &m_customCursorRotateBuffer);
+	m_pRenderer->LoadTexture("media/textures/cursors/finger_cursor_zoom.tga", &lTextureWidth, &lTextureHeight, &lTextureWidth2, &lTextureHeight2, &m_customCursorZoomBuffer);
 
 	/* Create lights */
 	m_defaultLightPosition = vec3(300.0f, 300.0f, 300.0f);
@@ -401,6 +412,12 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_allowToChangeToFrontend = true;
 	SetGameMode(m_gameMode);
 
+	// Turn the cursor initially off if we have custom cursors enabled
+	if (m_pVoxSettings->m_customCursors)
+	{
+		TurnCursorOff(true);
+	}
+
 	// Create, setup and skin the GUI components
 	CreateGUI();
 	SetupGUI();
@@ -458,20 +475,23 @@ void VoxGame::CancelQuitPopup()
 
 	SetGlobalBlurAmount(0.0f);
 
-	TurnCursorOff();
+	TurnCursorOff(false);
 }
 
 void VoxGame::ShowQuitPopup()
 {
-	CloseAllGUIWindows();
+	if (m_pFrontendManager->GetFrontendScreen() != FrontendScreen_QuitPopup)
+	{
+		CloseAllGUIWindows();
 
-	m_pFrontendManager->SetFrontendScreen(FrontendScreen_QuitPopup);
+		m_pFrontendManager->SetFrontendScreen(FrontendScreen_QuitPopup);
 
-	SetPaused(true);
+		SetPaused(true);
 
-	SetGlobalBlurAmount(0.0015f);
+		SetGlobalBlurAmount(0.0015f);
 
-	TurnCursorOn(true);
+		TurnCursorOn(false, false);
+	}
 }
 
 void VoxGame::SetGameQuit(bool quit)
@@ -498,7 +518,7 @@ void VoxGame::SetPauseMenu()
 
 	SetGlobalBlurAmount(0.0015f);
 
-	TurnCursorOn(true);
+	TurnCursorOn(true, false);
 }
 
 void VoxGame::UnsetPauseMenu()
@@ -509,7 +529,7 @@ void VoxGame::UnsetPauseMenu()
 
 	SetGlobalBlurAmount(0.0f);
 
-	TurnCursorOff();
+	TurnCursorOff(false);
 }
 
 // Blur
@@ -572,6 +592,37 @@ int VoxGame::GetWindowCursorX()
 int VoxGame::GetWindowCursorY()
 {
 	return m_pVoxWindow->GetCursorY();
+}
+
+
+void VoxGame::TurnCursorOn(bool resetCursorPosition, bool forceOn)
+{
+	m_pVoxWindow->TurnCursorOn(resetCursorPosition, forceOn);
+
+	m_bCustomCursorOn = true;
+}
+
+void VoxGame::TurnCursorOff(bool forceOff)
+{
+	m_pVoxWindow->TurnCursorOff(forceOff);
+
+	m_bCustomCursorOn = false;
+
+	// Make sure to set the current X and Y when we turn the cursor off, so that camera controls don't glitch.
+	m_currentX = m_pVoxWindow->GetCursorX();
+	m_currentY = m_pVoxWindow->GetCursorY();
+}
+
+bool VoxGame::IsCursorOn()
+{
+	if (m_pVoxSettings->m_customCursors)
+	{
+		return m_bCustomCursorOn;
+	}
+	else
+	{
+		return m_pVoxWindow->IsCursorOn();
+	}
 }
 
 void VoxGame::ResizeWindow(int width, int height)
@@ -665,7 +716,7 @@ void VoxGame::UpdateJoySticks()
 // Game functions
 void VoxGame::QuitToFrontEnd()
 {
-	TurnCursorOn(true);
+	TurnCursorOn(true, false);
 	SetGameMode(GameMode_FrontEnd);
 
 	m_pFrontEndOptionBox->SetToggled(true);
@@ -931,7 +982,7 @@ bool VoxGame::CheckInteractions()
 
 				SavePreviousCameraMode();
 				m_shouldRestorePreviousCameraMode = true;
-				TurnCursorOn(true);
+				TurnCursorOn(false, false);
 			}
 
 			// Set NPC dialog camera mode
@@ -988,7 +1039,7 @@ bool VoxGame::CheckInteractions()
 
 						if (IsGUIWindowStillDisplayed() == false)
 						{
-							TurnCursorOff();
+							TurnCursorOff(false);
 						}
 					}
 					else if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_None)
@@ -1004,7 +1055,7 @@ bool VoxGame::CheckInteractions()
 
 						m_pPlayer->StopMoving();
 
-						TurnCursorOn(true);
+						TurnCursorOn(false, false);
 					}
 				}
 			}
@@ -1134,20 +1185,6 @@ void VoxGame::CloseAllGUIWindows()
 	
 	// Reset focus, also resets any text entry that we might have been doing.
 	m_pGUI->ResetFocus();
-}
-
-void VoxGame::TurnCursorOn(bool resetCursorPosition)
-{
-	m_pVoxWindow->TurnCursorOn(resetCursorPosition);
-}
-
-void VoxGame::TurnCursorOff()
-{
-	m_pVoxWindow->TurnCursorOff();
-
-	// Make sure to set the current X and Y when we turn the cursor off, so that camera controls don't glitch.
-	m_currentX = m_pVoxWindow->GetCursorX();
-	m_currentY = m_pVoxWindow->GetCursorY();
 }
 
 // Accessors

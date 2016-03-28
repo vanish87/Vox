@@ -64,8 +64,8 @@ public:
 	int GetCursorX();
 	int GetCursorY();
 	void SetCursorPosition(int x, int y);
-	void TurnCursorOff();
-	void TurnCursorOn(bool resetCursorPosition);
+	void TurnCursorOff(bool forceOff);
+	void TurnCursorOn(bool resetCursorPosition, bool forceOn);
 	bool IsCursorOn();
 
 	// Joysticks

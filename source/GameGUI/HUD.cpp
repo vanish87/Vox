@@ -1096,7 +1096,7 @@ void HUD::DeathTextFinished()
 	//m_pRespawnButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
 	m_pGUI->AddComponent(m_pRespawnButton);
 
-	VoxGame::GetInstance()->TurnCursorOn(true);
+	VoxGame::GetInstance()->TurnCursorOn(true, false);
 }
 
 void HUD::_RespawnPressed(void *apData)
@@ -1114,7 +1114,7 @@ void HUD::RespawnPressed()
 	VoxGame::GetInstance()->PlayerRespawned();
 	VoxGame::GetInstance()->InitializeCameraRotation();
 
-	VoxGame::GetInstance()->TurnCursorOff();
+	VoxGame::GetInstance()->TurnCursorOff(false);
 }
 
 void HUD::_LevelUpTextFinished(void *apData)

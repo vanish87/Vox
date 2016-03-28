@@ -442,7 +442,7 @@ void CraftingGUI::Unload()
 
 	if (VoxGame::GetInstance()->IsGUIWindowStillDisplayed() == false) // Needs to be after setting loaded to false, so that we correctly turn the cursor back off
 	{
-		VoxGame::GetInstance()->TurnCursorOff();
+		VoxGame::GetInstance()->TurnCursorOff(false);
 		if (VoxGame::GetInstance()->ShouldRestorePreviousCameraMode())
 		{
 			VoxGame::GetInstance()->RestorePreviousCameraMode();
