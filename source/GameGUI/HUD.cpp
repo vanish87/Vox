@@ -421,6 +421,12 @@ void HUD::SetWindowDimensions(int windowWidth, int windowHeight)
 	//m_pCraftingCheckBox->SetDimensions(m_windowWidth-windowBorder-checkboxSize*4-spacer*3, 10, checkboxSize, checkboxSize);
 	//m_pSkillsCheckBox->SetDimensions(m_windowWidth-windowBorder-checkboxSize*5-spacer*4, 10, checkboxSize, checkboxSize);
 	//m_pPetCheckBox->SetDimensions(m_windowWidth-windowBorder-checkboxSize*6-spacer*5, 10, checkboxSize, checkboxSize);
+
+	// Make sure to update the text locations for various HUD text
+	m_updatePlayerHealthTextLocation = true;
+	m_updatePlayerMagicTextLocation = true;
+	m_updatePlayerExperienceTextLocation = true;
+	m_updateEnemyTextLocation = true;
 }
 
 // Skinning the GUI
