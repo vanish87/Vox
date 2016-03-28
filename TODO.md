@@ -149,10 +149,12 @@
 - [x] Use proper animation pose for target camera mode, with different weapons.
 - [x] Add common front-end slider graphics and accessors in front-end manager.
 - [ ] Add common front-end label / button colours, hover, pressed, etc.
-- [ ] Custom cursors.
+- [x] Custom cursors.
 - [ ] Fog rendering.
 - [ ] Particle effects and lights in character GUI.
 - [ ] Particle effects proper position when in first person mode!
 - [ ] Better front-end scenery and character screens.
 - [ ] Add more presets for other body parts in character creator screen.
 - [ ] Side stepping animation when in target camera mode.
+- [ ] Bug with custom cursors when going outside of windows bounds.
+- [ ] Bug with HUD text when resizing (HP, experience, etc)
