@@ -855,6 +855,12 @@ void CharacterGUI::DeleteInventoryItems()
 
 void CharacterGUI::ShowEquipHover(EquipSlot equipSlot)
 {
+	if (VoxGame::GetInstance()->GetVoxSettings()->m_equipHelper == false)
+	{
+		// If we have turned off the equip helper in the options menu, do nothing
+		return;
+	}
+
 	int x;
 	int y;
 	int width;
@@ -882,6 +888,12 @@ void CharacterGUI::ShowEquipHover(EquipSlot equipSlot)
 
 void CharacterGUI::HideEquipHover()
 {
+	if (VoxGame::GetInstance()->GetVoxSettings()->m_equipHelper == false)
+	{
+		// If we have turned off the equip helper in the options menu, do nothing
+		return;
+	}
+
 	m_pCharacterWindow->RemoveComponent(m_pEquipHoverIcon);
 }
 
