@@ -448,8 +448,7 @@ void EnemyManager::UpdateEnemyPlayerAttackCheck(float dt)
 		//	continue;
 		//}
 
-		// TODO : Player enemy damage radius
-		//m_pPlayer->CheckEnemyDamageRadius(pEnemy);
+		m_pPlayer->CheckEnemyDamageRadius(pEnemy);
 	}
 	m_enemyMutex.unlock();
 }
@@ -518,7 +517,7 @@ void EnemyManager::Render(bool outline, bool reflection, bool silhouette, bool s
 		//	continue;
 		//}
 
-		// TODO : Add back in - Culling
+		// TODO : Add back in - Fog
 		//float toCamera = length(m_pGameWindow->GetGameCamera()->GetPosition() - pEnemy->GetCenter());
 		//if(toCamera > m_pGameWindow->GetGUIHelper()->GetFogRadius() + (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*5.0f))
 		//{
