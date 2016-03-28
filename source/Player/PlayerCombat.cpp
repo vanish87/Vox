@@ -303,6 +303,47 @@ float Player::GetAttackSegmentAngle()
 	return m_attackSegmentAngle;
 }
 
+void Player::CheckEnemyDamageRadius(Enemy* pEnemy)
+{
+	if (IsDead())
+	{
+		return;
+	}
+
+	if (pEnemy->GetAttackEnabled() == false)
+	{
+		// If attack is not enabled, just return
+		return;
+	}
+
+	vec3 distance = GetCenter() - pEnemy->GetCenter();
+	float lengthToEnemy = length(distance);
+	if (lengthToEnemy <= m_radius + pEnemy->GetAttackRadius())
+	{
+		vec3 distance_minus_y = distance;
+		distance_minus_y.y = 0.0f;
+		vec3 direction = normalize(distance_minus_y);
+
+		// Figure out the attack vector, based on the attack rotation
+		float enemyRotation = pEnemy->GetRotation();
+		float attackRotation = pEnemy->GetAttackRotation();
+		float angle = DegToRad(enemyRotation + attackRotation);
+		vec3 attackDirection = vec3(sin(angle), 0.0f, cos(angle));
+		float dotProduct = dot(direction, attackDirection);
+
+		if (dotProduct > pEnemy->GetAttackSegmentAngle()) // Check if we are within the attack segment
+		{
+			vec3 knockbackDirection = (direction*2.0f) + vec3(0.0f, 1.0f, 0.0f);
+			knockbackDirection = normalize(knockbackDirection);
+			Colour damageColour = Colour(1.0f, 1.0f, 1.0f);
+
+			float knockbackAmount = 16.0f;
+
+			DoDamage(5.0f, damageColour, knockbackDirection, knockbackAmount, true);
+		}
+	}
+}
+
 void Player::CheckProjectileDamageRadius(Projectile* pProjectile)
 {
 	if (IsDead())

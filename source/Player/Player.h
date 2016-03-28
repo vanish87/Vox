@@ -181,6 +181,7 @@ public:
 	float GetAttackRadius();
 	float GetAttackRotation();
 	float GetAttackSegmentAngle();
+	void CheckEnemyDamageRadius(Enemy* pEnemy);
 	void CheckProjectileDamageRadius(Projectile* pProjectile);
 	void DoDamage(float amount, Colour textColour, vec3 knockbackDirection, float knockbackAmount, bool createParticleHit);
 	void Explode();
