@@ -123,6 +123,36 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 	m_pScrollbarIconDisabled = new Icon(m_pRenderer, "", 18, 18);
 	m_pScrollbarIconDisabled->SetDepth(4.0f);
 
+	// Slider
+	m_pSliderIconDefault = new Icon(m_pRenderer, "", 12, 24);
+	m_pSliderIconDefault->SetDepth(3.0f);
+	m_pSliderIconHover = new Icon(m_pRenderer, "", 12, 24);
+	m_pSliderIconHover->SetDepth(3.0f);
+	m_pSliderIconDrag = new Icon(m_pRenderer, "", 12, 24);
+	m_pSliderIconDrag->SetDepth(3.0f);
+	m_pSliderIconDefaultBlank = new Icon(m_pRenderer, "", 12, 24);
+	m_pSliderIconDefaultBlank->SetDepth(3.0f);
+	m_pSliderIconHoverBlank = new Icon(m_pRenderer, "", 12, 24);
+	m_pSliderIconHoverBlank->SetDepth(3.0f);
+	m_pSliderIconDragBlank = new Icon(m_pRenderer, "", 12, 24);
+	m_pSliderIconDragBlank->SetDepth(3.0f);
+	m_pSliderIncrementIcon = new Icon(m_pRenderer, "", 12, 12);
+	m_pSliderIncrementIcon->SetDepth(3.0f);
+	m_pSliderIncrementIconHover = new Icon(m_pRenderer, "", 12, 12);
+	m_pSliderIncrementIconHover->SetDepth(3.0f);
+	m_pSliderIncrementIconPressed = new Icon(m_pRenderer, "", 12, 12);
+	m_pSliderIncrementIconPressed->SetDepth(3.0f);
+	m_pSliderIncrementIconDisabled = new Icon(m_pRenderer, "", 12, 12);
+	m_pSliderIncrementIconDisabled->SetDepth(3.0f);
+	m_pSliderDecrementIcon = new Icon(m_pRenderer, "", 12, 12);
+	m_pSliderDecrementIcon->SetDepth(3.0f);
+	m_pSliderDecrementIconHover = new Icon(m_pRenderer, "", 12, 12);
+	m_pSliderDecrementIconHover->SetDepth(3.0f);
+	m_pSliderDecrementIconPressed = new Icon(m_pRenderer, "", 12, 12);
+	m_pSliderDecrementIconPressed->SetDepth(3.0f);
+	m_pSliderDecrementIconDisabled = new Icon(m_pRenderer, "", 12, 12);
+	m_pSliderDecrementIconDisabled->SetDepth(3.0f);
+
 	// Buttons
 	m_pButtonIcon = new Icon*[ButtonSize_NUM];
 	m_pButtonIconHover = new Icon*[ButtonSize_NUM];
@@ -262,6 +292,22 @@ FrontendManager::~FrontendManager()
 	delete m_pScrollbarIconHover;
 	delete m_pScrollbarIconPressed;
 	delete m_pScrollbarIconDisabled;
+
+	// Slider
+	delete m_pSliderIconDefault;
+	delete m_pSliderIconHover;
+	delete m_pSliderIconDrag;
+	delete m_pSliderIconDefaultBlank;
+	delete m_pSliderIconHoverBlank;
+	delete m_pSliderIconDragBlank;
+	delete m_pSliderIncrementIcon;
+	delete m_pSliderIncrementIconHover;
+	delete m_pSliderIncrementIconPressed;
+	delete m_pSliderIncrementIconDisabled;
+	delete m_pSliderDecrementIcon;
+	delete m_pSliderDecrementIconHover;
+	delete m_pSliderDecrementIconPressed;
+	delete m_pSliderDecrementIconDisabled;
 
 	// Buttons
 	for (int i = 0; i < ButtonSize_NUM; i++)
@@ -444,6 +490,36 @@ void FrontendManager::LoadCommonGraphics(string themeName)
 	iconName = "media/textures/gui/" + themeName + "/common/scrollbar/scrollbarDisabled.tga";
 	m_pScrollbarIconDisabled->SetIcon(iconName);
 
+	// Slider
+	iconName = "media/textures/gui/" + themeName + "/common/slider/slider_slide.tga";
+	m_pSliderIconDefault->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/slider/slider_slide_hover.tga";
+	m_pSliderIconHover->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/slider/slider_slide_pressed.tga";
+	m_pSliderIconDrag->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/slider/slider_slide_blank.tga";
+	m_pSliderIconDefaultBlank->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/slider/slider_slide_hover_blank.tga";
+	m_pSliderIconHoverBlank->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/slider/slider_slide_pressed_blank.tga";
+	m_pSliderIconDragBlank->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/increment_buttons/plus_default.tga";
+	m_pSliderIncrementIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/increment_buttons/plus_hover.tga";
+	m_pSliderIncrementIconHover->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/increment_buttons/plus_pressed.tga";
+	m_pSliderIncrementIconPressed->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/increment_buttons/plus_disabled.tga";
+	m_pSliderIncrementIconDisabled->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/increment_buttons/minus_default.tga";
+	m_pSliderDecrementIcon->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/increment_buttons/minus_hover.tga";
+	m_pSliderDecrementIconHover->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/increment_buttons/minus_pressed.tga";
+	m_pSliderDecrementIconPressed->SetIcon(iconName);
+	iconName = "media/textures/gui/" + themeName + "/common/increment_buttons/minus_disabled.tga";
+	m_pSliderDecrementIconDisabled->SetIcon(iconName);
+
 	// Buttons
 	for (int i = 0; i < ButtonSize_NUM; i++)
 	{
@@ -540,6 +616,21 @@ void FrontendManager::SetScrollbarIcons(ScrollBar* pScrollbar)
 	pScrollbar->SetScrollbarHoverIcon(GetScrollbarHoverIcon());
 	pScrollbar->SetScrollbarSelectedIcon(GetScrollbarPressedIcon());
 	pScrollbar->SetScrollbarDisabledIcon(GetScrollbarDisabledIcon());
+}
+
+void FrontendManager::SetSliderIcons(Slider* pSlider)
+{
+	pSlider->SetScrollerDefaultIcon(GetSliderIconDefault());
+	pSlider->SetScrollerHoverIcon(GetSliderIconHover());
+	pSlider->SetScrollerDraggingIcon(GetSliderIconDrag());
+	pSlider->SetScrollBackbarIncrementIconDefault(GetSliderIconIncrementButtonDefault());
+	pSlider->SetScrollBackbarIncrementIconHover(GetSliderIconIncrementButtonHover());
+	pSlider->SetScrollBackbarIncrementIconPressed(GetSliderIconIncrementButtonPressed());
+	pSlider->SetScrollBackbarIncrementIconDisabled(GetSliderIconIncrementButtonDisabled());
+	pSlider->SetScrollBackbarDecrementIconDefault(GetSliderIconDecrementButtonDefault());
+	pSlider->SetScrollBackbarDecrementIconHover(GetSliderIconDecrementButtonHover());
+	pSlider->SetScrollBackbarDecrementIconPressed(GetSliderIconDecrementButtonPressed());
+	pSlider->SetScrollBackbarDecrementIconDisabled(GetSliderIconDecrementButtonDisabled());
 }
 
 void FrontendManager::SetPulldownMenuIcons(PulldownMenu* pPulldownMenu)

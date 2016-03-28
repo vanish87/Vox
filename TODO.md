@@ -146,8 +146,8 @@
 - [ ] Companion pets.
 - [ ] Add debug render metrics for all counters (i.e num chunks, particles, items, triangles, verts, etc).
 - [ ] Use mouse and gamepad sensativity in the looking and camera rotation functions.
-- [ ] Use proper animation pose for target camera mode, with different weapons.
-- [ ] Add common front-end slider graphics and accessors in front-end manager.
+- [x] Use proper animation pose for target camera mode, with different weapons.
+- [x] Add common front-end slider graphics and accessors in front-end manager.
 - [ ] Add common front-end label / button colours, hover, pressed, etc.
 - [ ] Custom cursors.
 - [ ] Fog rendering.

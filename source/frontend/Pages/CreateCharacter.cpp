@@ -623,6 +623,14 @@ void CreateCharacter::SkinGUI()
 
 	m_pFrontendManager->SetScrollbarIcons(m_pPresetScrollbar);
 	m_pFrontendManager->SetPulldownMenuIcons(m_pEyesTexturesPulldown);
+
+	m_pFrontendManager->SetSliderIcons(m_pCharacterSizeSlider);
+	m_pFrontendManager->SetSliderIcons(m_pPresetScaleSlider);
+	m_pFrontendManager->SetSliderIcons(m_pEyesSizeSlider);
+	m_pFrontendManager->SetSliderIcons(m_pMouthSizeSlider);
+	m_pFrontendManager->SetSliderIcons(m_pXOffsetSlider);
+	m_pFrontendManager->SetSliderIcons(m_pYOffsetSlider);
+	m_pFrontendManager->SetSliderIcons(m_pZOffsetSlider);
 }
 
 void CreateCharacter::UnSkinGUI()

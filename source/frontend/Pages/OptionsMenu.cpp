@@ -116,14 +116,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	//m_pInvertedMouseMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pNormalCamOption = new OptionBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Normal Cam", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pNormalCamOption->SetDefaultIcon(m_pFrontendManager->GetRadioOptionIcon());
-	//m_pNormalCamOption->SetHoverIcon(m_pFrontendManager->GetRadioOptionIcon_Hover());
-	//m_pNormalCamOption->SetSelectedIcon(m_pFrontendManager->GetRadioOptionIcon_Pressed());
-	//m_pNormalCamOption->SetDisabledIcon(m_pFrontendManager->GetRadioOptionIcon());
-	//m_pNormalCamOption->SetToggledIcon(m_pFrontendManager->GetRadioOptionIcon_Toggled());
-	//m_pNormalCamOption->SetToggledHoverIcon(m_pFrontendManager->GetRadioOptionIcon_Toggled_Hover());
-	//m_pNormalCamOption->SetToggledSelectedIcon(m_pFrontendManager->GetRadioOptionIcon_Toggled_Pressed());
-	//m_pNormalCamOption->SetToggledDisabledIcon(m_pFrontendManager->GetRadioOptionIcon());
 	//m_pNormalCamOption->SetCallBackFunction(_SwitchToNormalCam);
 	//m_pNormalCamOption->SetCallBackData(this);
 	m_pNormalCamOption->SetDisplayLabel(true);
@@ -131,14 +123,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	//m_pNormalCamOption->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
 	//m_pNormalCamOption->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 	m_pFollowCamOption = new OptionBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Follow Cam", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pFollowCamOption->SetDefaultIcon(m_pFrontendManager->GetRadioOptionIcon());
-	//m_pFollowCamOption->SetHoverIcon(m_pFrontendManager->GetRadioOptionIcon_Hover());
-	//m_pFollowCamOption->SetSelectedIcon(m_pFrontendManager->GetRadioOptionIcon_Pressed());
-	//m_pFollowCamOption->SetDisabledIcon(m_pFrontendManager->GetRadioOptionIcon());
-	//m_pFollowCamOption->SetToggledIcon(m_pFrontendManager->GetRadioOptionIcon_Toggled());
-	//m_pFollowCamOption->SetToggledHoverIcon(m_pFrontendManager->GetRadioOptionIcon_Toggled_Hover());
-	//m_pFollowCamOption->SetToggledSelectedIcon(m_pFrontendManager->GetRadioOptionIcon_Toggled_Pressed());
-	//m_pFollowCamOption->SetToggledDisabledIcon(m_pFrontendManager->GetRadioOptionIcon());
 	//m_pFollowCamOption->SetCallBackFunction(_SwitchToFollowCam);
 	//m_pFollowCamOption->SetCallBackData(this);
 	m_pFollowCamOption->SetDisplayLabel(true);
@@ -155,11 +139,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 
 	m_pMouseSensativitySlider = new Slider(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Mouse Sensitivity", 5.0f, 100.0f, 45.0f, Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pMouseSensativitySlider->SetSliderParams(5, 10, ESliderDirection_Horizontal);
-	//m_pMouseSensativitySlider->SetVaueChangedCallBackFunction(_MouseSensativityChanged);
-	//m_pMouseSensativitySlider->SetVaueChangedCallBackData(this);
-	//m_pMouseSensativitySlider->SetScrollerDefaultIcon(m_pFrontendManager->GetSliderIconDefault());
-	//m_pMouseSensativitySlider->SetScrollerHoverIcon(m_pFrontendManager->GetSliderIconHover());
-	//m_pMouseSensativitySlider->SetScrollerDraggingIcon(m_pFrontendManager->GetSliderIconDrag());
 	m_pMouseSensativitySlider->SetLabelPositionOffset(0, 14);
 	m_pMouseSensativitySlider->SetValuePrecision(0);
 	m_pMouseSensativitySlider->SetRenderBackgroundBar(false);
@@ -167,11 +146,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 
 	m_pGamepadSensativitySlider = new Slider(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Gamepad Sensitivity", 5.0f, 100.0f, 20.0f, Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pGamepadSensativitySlider->SetSliderParams(5, 10, ESliderDirection_Horizontal);
-	//m_pGamepadSensativitySlider->SetVaueChangedCallBackFunction(_GamepadSensativityChanged);
-	//m_pGamepadSensativitySlider->SetVaueChangedCallBackData(this);
-	//m_pGamepadSensativitySlider->SetScrollerDefaultIcon(m_pFrontendManager->GetSliderIconDefault());
-	//m_pGamepadSensativitySlider->SetScrollerHoverIcon(m_pFrontendManager->GetSliderIconHover());
-	//m_pGamepadSensativitySlider->SetScrollerDraggingIcon(m_pFrontendManager->GetSliderIconDrag());
 	m_pGamepadSensativitySlider->SetLabelPositionOffset(0, 14);
 	m_pGamepadSensativitySlider->SetValuePrecision(0);
 	m_pGamepadSensativitySlider->SetRenderBackgroundBar(false);
@@ -193,12 +167,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 
 	// Sound
 	m_pSoundEffects = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Sound", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pSoundEffects->SetDefaultIcon(m_pFrontendManager->GetCheckboxIcon());
-	//m_pSoundEffects->SetHoverIcon(m_pFrontendManager->GetCheckboxIcon_Hover());
-	//m_pSoundEffects->SetSelectedIcon(m_pFrontendManager->GetCheckboxIcon_Pressed());
-	//m_pSoundEffects->SetToggledIcon(m_pFrontendManager->GetCheckboxIcon_Toggled());
-	//m_pSoundEffects->SetToggledHoverIcon(m_pFrontendManager->GetCheckboxIcon_Toggled_Hover());
-	//m_pSoundEffects->SetToggledSelectedIcon(m_pFrontendManager->GetCheckboxIcon_Toggled_Pressed());
 	//m_pSoundEffects->SetCallBackFunction(_SoundEffectsPressed);
 	//m_pSoundEffects->SetCallBackData(this);
 	m_pSoundEffects->SetDisplayLabel(true);
@@ -211,19 +179,10 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pSoundEffectsVolume->SetSliderParams(5, 10, ESliderDirection_Horizontal);
 	//m_pSoundEffectsVolume->SetVaueChangedCallBackFunction(_SoundEffectsChanged);
 	//m_pSoundEffectsVolume->SetVaueChangedCallBackData(this);
-	//m_pSoundEffectsVolume->SetScrollerDefaultIcon(m_pFrontendManager->GetSliderIconDefault());
-	//m_pSoundEffectsVolume->SetScrollerHoverIcon(m_pFrontendManager->GetSliderIconHover());
-	//m_pSoundEffectsVolume->SetScrollerDraggingIcon(m_pFrontendManager->GetSliderIconDrag());
 	m_pSoundEffectsVolume->SetRenderBackgroundBar(false);
 	m_pSoundEffectsVolume->SetDepth(2.0f);
 
 	m_pMusic = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Music", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pMusic->SetDefaultIcon(m_pFrontendManager->GetCheckboxIcon());
-	//m_pMusic->SetHoverIcon(m_pFrontendManager->GetCheckboxIcon_Hover());
-	//m_pMusic->SetSelectedIcon(m_pFrontendManager->GetCheckboxIcon_Pressed());
-	//m_pMusic->SetToggledIcon(m_pFrontendManager->GetCheckboxIcon_Toggled());
-	//m_pMusic->SetToggledHoverIcon(m_pFrontendManager->GetCheckboxIcon_Toggled_Hover());
-	//m_pMusic->SetToggledSelectedIcon(m_pFrontendManager->GetCheckboxIcon_Toggled_Pressed());
 	//m_pMusic->SetCallBackFunction(_MusicPressed);
 	//m_pMusic->SetCallBackData(this);
 	m_pMusic->SetDisplayLabel(true);
@@ -236,9 +195,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pMusicVolume->SetSliderParams(5, 10, ESliderDirection_Horizontal);
 	//m_pMusicVolume->SetVaueChangedCallBackFunction(_MusicVolumeChanged);
 	//m_pMusicVolume->SetVaueChangedCallBackData(this);
-	//m_pMusicVolume->SetScrollerDefaultIcon(m_pFrontendManager->GetSliderIconDefault());
-	//m_pMusicVolume->SetScrollerHoverIcon(m_pFrontendManager->GetSliderIconHover());
-	//m_pMusicVolume->SetScrollerDraggingIcon(m_pFrontendManager->GetSliderIconDrag());
 	m_pMusicVolume->SetRenderBackgroundBar(false);
 	m_pMusicVolume->SetDepth(2.0f);
 
@@ -256,12 +212,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 
 	// Interface
 	m_pRenderGUI = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Render GUI", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pRenderGUI->SetDefaultIcon(m_pFrontendManager->GetCheckboxIcon());
-	//m_pRenderGUI->SetHoverIcon(m_pFrontendManager->GetCheckboxIcon_Hover());
-	//m_pRenderGUI->SetSelectedIcon(m_pFrontendManager->GetCheckboxIcon_Pressed());
-	//m_pRenderGUI->SetToggledIcon(m_pFrontendManager->GetCheckboxIcon_Toggled());
-	//m_pRenderGUI->SetToggledHoverIcon(m_pFrontendManager->GetCheckboxIcon_Toggled_Hover());
-	//m_pRenderGUI->SetToggledSelectedIcon(m_pFrontendManager->GetCheckboxIcon_Toggled_Pressed());
 	//m_pRenderGUI->SetCallBackFunction(_RenderGUIPressed);
 	//m_pRenderGUI->SetCallBackData(this);
 	m_pRenderGUI->SetDisplayLabel(true);
@@ -271,12 +221,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	//m_pRenderGUI->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pRenderCrosshair = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Render Crosshair", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pRenderCrosshair->SetDefaultIcon(m_pFrontendManager->GetCheckboxIcon());
-	//m_pRenderCrosshair->SetHoverIcon(m_pFrontendManager->GetCheckboxIcon_Hover());
-	//m_pRenderCrosshair->SetSelectedIcon(m_pFrontendManager->GetCheckboxIcon_Pressed());
-	//m_pRenderCrosshair->SetToggledIcon(m_pFrontendManager->GetCheckboxIcon_Toggled());
-	//m_pRenderCrosshair->SetToggledHoverIcon(m_pFrontendManager->GetCheckboxIcon_Toggled_Hover());
-	//m_pRenderCrosshair->SetToggledSelectedIcon(m_pFrontendManager->GetCheckboxIcon_Toggled_Pressed());
 	//m_pRenderCrosshair->SetCallBackFunction(_RenderCrosshairPressed);
 	//m_pRenderCrosshair->SetCallBackData(this);
 	m_pRenderCrosshair->SetDisplayLabel(true);
@@ -286,12 +230,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	//m_pRenderCrosshair->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pHUDAnimations = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "HUD Animations", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pHUDAnimations->SetDefaultIcon(m_pFrontendManager->GetCheckboxIcon());
-	//m_pHUDAnimations->SetHoverIcon(m_pFrontendManager->GetCheckboxIcon_Hover());
-	//m_pHUDAnimations->SetSelectedIcon(m_pFrontendManager->GetCheckboxIcon_Pressed());
-	//m_pHUDAnimations->SetToggledIcon(m_pFrontendManager->GetCheckboxIcon_Toggled());
-	//m_pHUDAnimations->SetToggledHoverIcon(m_pFrontendManager->GetCheckboxIcon_Toggled_Hover());
-	//m_pHUDAnimations->SetToggledSelectedIcon(m_pFrontendManager->GetCheckboxIcon_Toggled_Pressed());
 	//m_pHUDAnimations->SetCallBackFunction(_HUDAnimationsPressed);
 	//m_pHUDAnimations->SetCallBackData(this);
 	m_pHUDAnimations->SetDisplayLabel(true);
@@ -301,12 +239,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	//m_pHUDAnimations->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pCustomCursors = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Custom Cursors", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pCustomCursors->SetDefaultIcon(m_pFrontendManager->GetCheckboxIcon());
-	//m_pCustomCursors->SetHoverIcon(m_pFrontendManager->GetCheckboxIcon_Hover());
-	//m_pCustomCursors->SetSelectedIcon(m_pFrontendManager->GetCheckboxIcon_Pressed());
-	//m_pCustomCursors->SetToggledIcon(m_pFrontendManager->GetCheckboxIcon_Toggled());
-	//m_pCustomCursors->SetToggledHoverIcon(m_pFrontendManager->GetCheckboxIcon_Toggled_Hover());
-	//m_pCustomCursors->SetToggledSelectedIcon(m_pFrontendManager->GetCheckboxIcon_Toggled_Pressed());
 	//m_pCustomCursors->SetCallBackFunction(_HUDAnimationsPressed);
 	//m_pCustomCursors->SetCallBackData(this);
 	m_pCustomCursors->SetDisplayLabel(true);
@@ -316,12 +248,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	//m_pCustomCursors->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pEquipHoverIcon = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Equip Helper Cursor", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pEquipHoverIcon->SetDefaultIcon(m_pFrontendManager->GetCheckboxIcon());
-	//m_pEquipHoverIcon->SetHoverIcon(m_pFrontendManager->GetCheckboxIcon_Hover());
-	//m_pEquipHoverIcon->SetSelectedIcon(m_pFrontendManager->GetCheckboxIcon_Pressed());
-	//m_pEquipHoverIcon->SetToggledIcon(m_pFrontendManager->GetCheckboxIcon_Toggled());
-	//m_pEquipHoverIcon->SetToggledHoverIcon(m_pFrontendManager->GetCheckboxIcon_Toggled_Hover());
-	//m_pEquipHoverIcon->SetToggledSelectedIcon(m_pFrontendManager->GetCheckboxIcon_Toggled_Pressed());
 	//m_pEquipHoverIcon->SetCallBackFunction(_HUDAnimationsPressed);
 	//m_pEquipHoverIcon->SetCallBackData(this);
 	m_pEquipHoverIcon->SetDisplayLabel(true);
@@ -331,12 +257,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	//m_pEquipHoverIcon->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pToolTipAppearDelay = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Tooltip Delay", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pToolTipAppearDelay->SetDefaultIcon(m_pFrontendManager->GetCheckboxIcon());
-	//m_pToolTipAppearDelay->SetHoverIcon(m_pFrontendManager->GetCheckboxIcon_Hover());
-	//m_pToolTipAppearDelay->SetSelectedIcon(m_pFrontendManager->GetCheckboxIcon_Pressed());
-	//m_pToolTipAppearDelay->SetToggledIcon(m_pFrontendManager->GetCheckboxIcon_Toggled());
-	//m_pToolTipAppearDelay->SetToggledHoverIcon(m_pFrontendManager->GetCheckboxIcon_Toggled_Hover());
-	//m_pToolTipAppearDelay->SetToggledSelectedIcon(m_pFrontendManager->GetCheckboxIcon_Toggled_Pressed());
 	//m_pToolTipAppearDelay->SetCallBackFunction(_HUDAnimationsPressed);
 	//m_pToolTipAppearDelay->SetCallBackData(this);
 	m_pToolTipAppearDelay->SetDisplayLabel(true);
@@ -346,12 +266,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	//m_pToolTipAppearDelay->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pConfirmDeleteItem = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Confirm Item Deletion", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pConfirmDeleteItem->SetDefaultIcon(m_pFrontendManager->GetCheckboxIcon());
-	//m_pConfirmDeleteItem->SetHoverIcon(m_pFrontendManager->GetCheckboxIcon_Hover());
-	//m_pConfirmDeleteItem->SetSelectedIcon(m_pFrontendManager->GetCheckboxIcon_Pressed());
-	//m_pConfirmDeleteItem->SetToggledIcon(m_pFrontendManager->GetCheckboxIcon_Toggled());
-	//m_pConfirmDeleteItem->SetToggledHoverIcon(m_pFrontendManager->GetCheckboxIcon_Toggled_Hover());
-	//m_pConfirmDeleteItem->SetToggledSelectedIcon(m_pFrontendManager->GetCheckboxIcon_Toggled_Pressed());
 	//m_pConfirmDeleteItem->SetCallBackFunction(_HUDAnimationsPressed);
 	//m_pConfirmDeleteItem->SetCallBackData(this);
 	m_pConfirmDeleteItem->SetDisplayLabel(true);
@@ -645,7 +559,12 @@ void OptionsMenu::SkinGUI()
 	m_pFrontendManager->SetCheckboxIcons(m_pConfirmDeleteItem);
 	dimensions = m_pConfirmDeleteItem->GetDimensions();
 	m_pConfirmDeleteItem->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
-	m_pFrontendManager->SetButtonIcons(m_pResetGUIToDefault, ButtonSize_110x47);	
+	m_pFrontendManager->SetButtonIcons(m_pResetGUIToDefault, ButtonSize_110x47);
+
+	m_pFrontendManager->SetSliderIcons(m_pMouseSensativitySlider);
+	m_pFrontendManager->SetSliderIcons(m_pGamepadSensativitySlider);
+	m_pFrontendManager->SetSliderIcons(m_pSoundEffectsVolume);
+	m_pFrontendManager->SetSliderIcons(m_pMusicVolume);
 }
 
 void OptionsMenu::UnSkinGUI()
