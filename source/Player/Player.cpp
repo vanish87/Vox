@@ -147,6 +147,9 @@ void Player::ResetPlayer()
 	m_bIsOnGround = false;
 	m_groundCheckTimer = 0.0f;
 
+	// Floor particles
+	m_floorParticleTimer = 0.25f;
+
 	// Jumping
 	m_bCanJump = true;
 	m_jumpTimer = 0.0f;
@@ -1431,6 +1434,9 @@ vec3 Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeFo
 		}
 	}
 
+	// Create some floor 'dust' particles as we move
+	CreateFloorParticles();
+
 	m_bIsIdle = false;
 
 	return totalAmountMoved;
@@ -1622,6 +1628,50 @@ void Player::DisableMoveToTargetPosition()
 void Player::SetLookAtTargetAfterMoveToPosition(vec3 lookAt)
 {
 	m_lookAtPositionAfterMoveToTarget = lookAt;
+}
+
+void Player::CreateFloorParticles()
+{
+	if (m_bIsOnGround == false)
+	{
+		return;
+	}
+
+	if (m_floorParticleTimer > 0.0f)
+	{
+		return;
+	}
+
+	vec3 floorPosition;
+	if (m_pChunkManager->FindClosestFloor(GetCenter(), &floorPosition))
+	{
+		vec3 blockPosition = floorPosition - vec3(0.0f, Chunk::BLOCK_RENDER_SIZE, 0.0f);
+
+		int blockX, blockY, blockZ;
+		vec3 blockPos;
+		Chunk* pChunk = NULL;
+		bool active = m_pChunkManager->GetBlockActiveFrom3DPosition(blockPosition.x, blockPosition.y, blockPosition.z, &blockPos, &blockX, &blockY, &blockZ, &pChunk);
+
+		if (active && pChunk != NULL)
+		{
+			float r = 1.0f;
+			float g = 1.0f;
+			float b = 1.0f;
+			float a = 1.0f;
+			pChunk->GetColour(blockX, blockY, blockZ, &r, &g, &b, &a);
+
+			vec3 spawnPosition = blockPosition + vec3(0.0f, Chunk::BLOCK_RENDER_SIZE, 0.0f);
+			float randomNum = GetRandomNumber(0, 100, 0);
+			spawnPosition += GetRightVector() * 0.25f * ((randomNum < 50) ? -1.0f : 1.0f);
+			m_pBlockParticleManager->CreateBlockParticle(spawnPosition, vec3(0.0f, -1.0f, 0.0f), 1.0f, spawnPosition, 0.125f, 0.5f, 0.125f, 0.5f,
+				r, g, b, a, 0.0f, 0.0f, 0.0f, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.5f, 0.0f, 0.0f,
+				vec3(0.0f, 3.0f, 0.0f), vec3(2.0f, 1.0f, 2.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+				true, vec3(0.0f, 0.0f, 0.0f), true, false, true, false, NULL);
+		}
+	}
+
+	float randomNumber = GetRandomNumber(0, 100, 2);
+	m_floorParticleTimer = randomNumber * 0.0025f;
 }
 
 // Dead
@@ -2644,6 +2694,12 @@ void Player::UpdateTimers(float dt)
 	if (m_groundCheckTimer >= 0.0f)
 	{
 		m_groundCheckTimer -= dt;
+	}
+
+	// Floor particle timer
+	if (m_floorParticleTimer >= 0.0f)
+	{
+		m_floorParticleTimer -= dt;
 	}
 
 	// Bow attack delay

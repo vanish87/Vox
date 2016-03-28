@@ -147,6 +147,7 @@ public:
 	void SetMoveToTargetPosition(vec3 pos);
 	void DisableMoveToTargetPosition();
 	void SetLookAtTargetAfterMoveToPosition(vec3 lookAt);
+	void CreateFloorParticles();
 
 	// Dead
 	bool IsDead();
@@ -393,6 +394,9 @@ private:
 	// Ground flag
 	bool m_bIsOnGround;
 	float m_groundCheckTimer;
+
+	// Floor particles
+	float m_floorParticleTimer;
 
 	// Flag to control if we are allowed to jump or not, reset when landing
 	bool m_bCanJump;

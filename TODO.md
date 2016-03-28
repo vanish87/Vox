@@ -136,11 +136,10 @@
 - [ ] Water, creating and manipulation, rendering, updating.
 - [ ] Add mode to play in reduced and low FPS.
   - [ ] Low FPS causes bad physics and also bad step-up block functionality, investigate and fix.
-- [ ] Custom cursors - fingers.
 - [ ] Dont allow jumping multiple times by holding down the space (or joy button).
 - [ ] Allow for font changing on the fly, allow different font styles to go with the themes.
 - [ ] Add shadow receiving on instanced rendered objects. (Add texture matrix to shader??)
-- [ ] Player particle trail on walking.
+- [x] Player particle trail on walking.
 - [ ] Beter player walking - animation speeds, lean(?), speed up, slow down, etc
 - [ ] Test out Baked AO models using MagikaVoxel.
 - [ ] Companion pets.
