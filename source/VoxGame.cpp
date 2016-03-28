@@ -831,6 +831,12 @@ void VoxGame::SetGameMode(GameMode mode)
 			// Reset the inventory manager
 			m_pInventoryManager->Reset();
 
+			// Clear the quests
+			m_pQuestManager->ClearQuests();
+
+			// Clear the quest journal
+			m_pQuestJournal->ClearJournal();
+
 			// Reset the player
 			m_pPlayer->ResetPlayer();
 
@@ -867,6 +873,12 @@ void VoxGame::SetGameMode(GameMode mode)
 			// Clear the enemies and enemy spawners
 			m_pEnemyManager->ClearEnemies();
 			m_pEnemyManager->ClearEnemySpawners();
+
+			// Clear the quests
+			m_pQuestManager->ClearQuests();
+
+			// Clear the quest journal
+			m_pQuestJournal->ClearJournal();
 
 			// Reset the player
 			m_pPlayer->ResetPlayer();
