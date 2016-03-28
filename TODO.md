@@ -146,3 +146,12 @@
 - [ ] Companion pets.
 - [ ] Add debug render metrics for all counters (i.e num chunks, particles, items, triangles, verts, etc).
 - [ ] Use mouse and gamepad sensativity in the looking and camera rotation functions.
+- [ ] Use proper animation pose for target camera mode, with different weapons.
+- [ ] Add common front-end slider graphics and accessors in front-end manager.
+- [ ] Add common front-end label / button colours, hover, pressed, etc.
+- [ ] Custom cursors.
+- [ ] Fog rendering.
+- [ ] Particle effects and lights in character GUI.
+- [ ] Particle effects proper position when in first person mode!
+- [ ] Better front-end scenery and character screens.
+- [ ] Add more presets for other body parts in character creator screen.
