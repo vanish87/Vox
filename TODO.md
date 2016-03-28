@@ -156,4 +156,4 @@
 - [ ] Add more presets for other body parts in character creator screen.
 - [ ] Side stepping animation when in target camera mode.
 - [ ] Bug with custom cursors when going outside of windows bounds.
-- [ ] Bug with HUD text when resizing (HP, experience, etc)
+- [x] Bug with HUD text when resizing (HP, experience, etc)

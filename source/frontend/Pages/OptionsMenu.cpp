@@ -211,7 +211,7 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_vpSoundComponents.push_back(m_pSliderBackgroundIcon_Music);
 
 	// Interface
-	m_pRenderGUI = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Render GUI", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	m_pRenderGUI = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Render HUD", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	//m_pRenderGUI->SetCallBackFunction(_RenderGUIPressed);
 	//m_pRenderGUI->SetCallBackData(this);
 	m_pRenderGUI->SetDisplayLabel(true);
