@@ -155,3 +155,4 @@
 - [ ] Particle effects proper position when in first person mode!
 - [ ] Better front-end scenery and character screens.
 - [ ] Add more presets for other body parts in character creator screen.
+- [ ] Side stepping animation when in target camera mode.
