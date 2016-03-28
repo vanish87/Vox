@@ -1387,13 +1387,40 @@ vec3 Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeFo
 	// Change to run animation
 	if (m_bIsChargingAttack == false)
 	{
-		if (IsStaff())
+		if (m_pTargetEnemy == NULL)
 		{
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, true, AnimationSections_Legs_Feet, "StaffRun", 0.01f);
+			if (IsStaff())
+			{
+				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, true, AnimationSections_Legs_Feet, "StaffRun", 0.01f);
+			}
+			else
+			{
+				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, true, AnimationSections_Legs_Feet, "Run", 0.01f);
+			}
 		}
 		else
 		{
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, true, AnimationSections_Legs_Feet, "Run", 0.01f);
+			if (m_bIsIdle)
+			{
+				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, false, AnimationSections_Legs_Feet, "Run", 0.01f);
+			}
+			else
+			{
+				if (m_animationFinished[AnimationSections_Head_Body])
+				{
+					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Head_Body, false, AnimationSections_Head_Body, "TargetPose", 0.1f);
+				}
+				if (m_animationFinished[AnimationSections_Left_Arm_Hand])
+				{
+					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "TargetPose", 0.1f);
+				}
+				if (m_animationFinished[AnimationSections_Right_Arm_Hand])
+				{
+					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "TargetPose", 0.1f);
+				}
+
+				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, true, AnimationSections_Legs_Feet, "Run", 0.01f);
+			}
 		}
 	}
 	else
