@@ -157,3 +157,4 @@
 - [ ] Side stepping animation when in target camera mode.
 - [ ] Bug with custom cursors when going outside of windows bounds.
 - [x] Bug with HUD text when resizing (HP, experience, etc)
+- [x] Make sure to fully clear the quest journal, manager and QuestGUI when round tripping to the front-end.

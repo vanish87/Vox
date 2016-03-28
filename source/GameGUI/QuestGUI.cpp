@@ -297,8 +297,6 @@ void QuestGUI::Load(bool loadDelay, float loadDelayTime)
 		m_pQuestLogWindow->Show();
 	}
 
-	//SetQuestData("Find Moxie", "My dearest [C=Yellow]Moxie[C=White] is lost and I can't find her. I have looked everywhere, but she is nowhere to be found...\n\nCan you lend me your assistance and help locate my dearest [C=Yellow]Moxie[C=White]? I dont know where she could be, but the last time I saw her she was playing around by [C=Custom(00A2E8)]Joseph Maclure's Barnyard[C=White].\n\nIf you can help find [C=Yellow]Moxie[C=White] for me I will reward you handsomely.");
-
 	CreateQuestButtons();
 
 	m_questTabsOpen = false;

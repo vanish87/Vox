@@ -772,9 +772,16 @@ void VoxGame::SetupDataForGame()
 	InventoryItem* pQuestReward2 = m_pInventoryManager->CreateInventoryItem("media/gamedata/items/CopperOre/CopperOre.item", "media/textures/items/copper_ore.tga", InventoryType_Item, eItem_CopperOre, ItemStatus_None, EquipSlot_LeftHand, ItemQuality_Common, false, false, "Copper Nugget", "", 1.0f, 1.0f, 1.0f, 5, -1, -1, -1, -1);
 	pCollectQuest->SetQuestReward(pQuestReward2);
 	pCollectQuest->ExportQuest();
+	// Quest 3
+	string startText3 = "My dearest [C=Yellow]Moxie[C=White] is lost and I can't find her. I have looked everywhere, but she is nowhere to be found...\n\nCan you lend me your assistance and help locate my dearest [C=Yellow]Moxie[C=White]? I dont know where she could be, but the last time I saw her she was playing around by [C=Custom(00A2E8)]Joseph Maclure's Barnyard[C=White].\n\nIf you can help find [C=Yellow]Moxie[C=White] for me I will reward you handsomely.";
+	string completedText3 = "You have found Moxie? Thank you so much kind stranger!";
+	string denyText3 = "You are already on a quest, come back to me once you have finished.";
+	Quest* pFindQuest = m_pQuestManager->CreateQuest("Find Moxie", startText3, completedText3, denyText3);
+	pFindQuest->ExportQuest();
 
 	m_pQuestJournal->AddQuestJournalEntry(pSlimeQuest);
 	m_pQuestJournal->AddQuestJournalEntry(pCollectQuest);
+	m_pQuestJournal->AddQuestJournalEntry(pFindQuest);
 }
 
 void VoxGame::SetupDataForFrontEnd()
@@ -837,6 +844,9 @@ void VoxGame::SetGameMode(GameMode mode)
 			// Clear the quest journal
 			m_pQuestJournal->ClearJournal();
 
+			// Reset the quest GUI text components
+			m_pQuestGUI->SetQuestData("", "");
+
 			// Reset the player
 			m_pPlayer->ResetPlayer();
 
@@ -879,6 +889,9 @@ void VoxGame::SetGameMode(GameMode mode)
 
 			// Clear the quest journal
 			m_pQuestJournal->ClearJournal();
+
+			// Reset the quest GUI text components
+			m_pQuestGUI->SetQuestData("", "");
 
 			// Reset the player
 			m_pPlayer->ResetPlayer();
