@@ -96,6 +96,12 @@ void VoxGame::UpdateKeyboardControls(float dt)
 					m_pFrontendManager->SetFrontendScreen(FrontendScreen_PauseMenu);
 				}
 			}
+
+			// Cancel quit popup menu with escape button
+			if (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_QuitPopup)
+			{
+				VoxGame::GetInstance()->CancelQuitPopup();
+			}
 		}
 
 		if (m_pPlayer->IsDead() == false)
