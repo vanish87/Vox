@@ -418,6 +418,12 @@ void EnemyManager::Update(float dt)
 	}
 	m_enemyMutex.unlock();
 
+	// Update weapon lights
+	UpdateWeaponLights(dt);
+
+	// Update weapon particle effects
+	UpdateWeaponParticleEffects(dt);
+
 	// Update the players attack checking
 	UpdateEnemyPlayerAttackCheck(dt);
 
