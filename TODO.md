@@ -163,3 +163,4 @@
 - [ ] Bug with custom cursors when going outside of windows bounds.
 - [ ] Add a left/right pose to the character GUI animation pose so that hands can be animated seperately.
 - [ ] Enemy and NPC particle effect and light update code should be simplfied, (like player) no duplication for left/right.
+- [ ] Dont create dying lights for the weapons in the front-end create character screen, since this bleeds into the customization section.
