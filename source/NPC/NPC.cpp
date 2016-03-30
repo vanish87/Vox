@@ -2489,7 +2489,7 @@ void NPC::UpdateWeaponParticleEffects(float dt)
 					ParticleEffectPos += m_position;
 				}
 
-				m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, ParticleEffectPos);
+				m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, ParticleEffectPos, ParticleEffectPos);
 			}
 		}
 	}
@@ -2527,7 +2527,7 @@ void NPC::UpdateWeaponParticleEffects(float dt)
 					ParticleEffectPos += m_position;
 				}
 
-				m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, ParticleEffectPos);
+				m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, ParticleEffectPos, ParticleEffectPos);
 			}
 		}
 	}

@@ -1663,7 +1663,7 @@ void Player::CreateFloorParticles()
 			vec3 spawnPosition = blockPosition + vec3(0.0f, Chunk::BLOCK_RENDER_SIZE, 0.0f);
 			float randomNum = GetRandomNumber(0, 100, 0);
 			spawnPosition += GetRightVector() * 0.25f * ((randomNum < 50) ? -1.0f : 1.0f);
-			m_pBlockParticleManager->CreateBlockParticle(spawnPosition, vec3(0.0f, -1.0f, 0.0f), 1.0f, spawnPosition, 0.125f, 0.5f, 0.125f, 0.5f,
+			m_pBlockParticleManager->CreateBlockParticle(spawnPosition, spawnPosition, vec3(0.0f, -1.0f, 0.0f), 1.0f, spawnPosition, 0.125f, 0.5f, 0.125f, 0.5f,
 				r, g, b, a, 0.0f, 0.0f, 0.0f, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.5f, 0.0f, 0.0f,
 				vec3(0.0f, 3.0f, 0.0f), vec3(2.0f, 1.0f, 2.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 				true, vec3(0.0f, 0.0f, 0.0f), true, false, true, false, NULL);
@@ -2845,6 +2845,7 @@ void Player::UpdateWeaponParticleEffects(float dt)
 				{
 					unsigned int particleEffectId;
 					vec3 ParticleEffectPos;
+					vec3 ParticleEffectPos_NoWorldOffset;
 					string effectName;
 					bool connectedToSegment;
 					pWeapon->GetParticleEffectParams(i, &particleEffectId, &ParticleEffectPos, &effectName, &connectedToSegment);
@@ -2853,8 +2854,10 @@ void Player::UpdateWeaponParticleEffects(float dt)
 					{
 						m_pBlockParticleManager->ImportParticleEffect(effectName, vec3(ParticleEffectPos.x, ParticleEffectPos.y, ParticleEffectPos.z), &particleEffectId);
 						pWeapon->SetParticleEffectId(i, particleEffectId);
+						m_pBlockParticleManager->SetRenderNoWoldOffsetViewport(particleEffectId, true);
 					}
 
+					ParticleEffectPos_NoWorldOffset = ParticleEffectPos;
 					if (connectedToSegment == false)
 					{
 						// Rotate due to characters forward vector
@@ -2871,7 +2874,7 @@ void Player::UpdateWeaponParticleEffects(float dt)
 						ParticleEffectPos += m_position;
 					}
 
-					m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, vec3(ParticleEffectPos.x, ParticleEffectPos.y, ParticleEffectPos.z));
+					m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, ParticleEffectPos, ParticleEffectPos_NoWorldOffset);
 				}
 			}
 		}

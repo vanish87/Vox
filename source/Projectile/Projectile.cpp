@@ -751,7 +751,7 @@ void Projectile::UpdateProjectileParticleEffects(float dt)
 				ParticleEffectPos += m_position;
 			}
 
-			m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, ParticleEffectPos);
+			m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, ParticleEffectPos, ParticleEffectPos);
 		}
 	}
 }

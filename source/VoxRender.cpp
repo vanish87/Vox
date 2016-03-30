@@ -169,7 +169,7 @@ void VoxGame::Render()
 			EndShaderRender();
 
 			// Render the block particles
-			m_pBlockParticleManager->Render();
+			m_pBlockParticleManager->Render(false);
 
 			// Render the instanced objects
 			if(m_instanceRender)
@@ -303,9 +303,6 @@ void VoxGame::Render()
 		// Portrait SSAO for HUD
 		RenderDeferredRenderingPortrait();
 
-		// Render debug information and text
-		RenderDebugInformation();
-
 		// Render the chunks 2d (debug text information)
 		if (m_debugRender)
 		{
@@ -336,6 +333,9 @@ void VoxGame::Render()
 				RenderCustomCursor();
 			}
 		}
+
+		// Render debug information and text
+		RenderDebugInformation();
 
 		// Update the NPC screen positions for select character screen
 		m_pNPCManager->UpdateScreenCoordinates2d(m_pGameCamera);
@@ -418,7 +418,7 @@ void VoxGame::RenderShadows()
 			m_pItemManager->Render(false, false, false, true);
 
 			// Render the block particles
-			m_pBlockParticleManager->Render();
+			m_pBlockParticleManager->Render(false);
 
 			// Render the instanced objects
 			if(m_instanceRender)
@@ -957,6 +957,9 @@ void VoxGame::RenderPaperdollViewport()
 				glDisable(GL_TEXTURE_2D);
 				glBindTexture(GL_TEXTURE_2D, 0);
 
+				// Render the block particles
+				m_pBlockParticleManager->Render(true);
+
 				if(m_modelWireframe == false)
 				{
 					m_pRenderer->BeginGLSLShader(m_textureShader);
@@ -1205,7 +1208,7 @@ void VoxGame::RenderDebugInformation()
 	char lChunksBuff[256];
 	sprintf(lChunksBuff, "Chunks: %i, Render: %i", m_pChunkManager->GetNumChunksLoaded(), m_pChunkManager->GetNumChunksRender());
 	char lParticlesBuff[256];
-	sprintf(lParticlesBuff, "Particles: %i, Render: %i, Emitters: %i, Effects: %i", m_pBlockParticleManager->GetNumBlockParticles(), m_pBlockParticleManager->GetNumRenderableParticles(), m_pBlockParticleManager->GetNumBlockParticleEmitters(), m_pBlockParticleManager->GetNumBlockParticleEffects());
+	sprintf(lParticlesBuff, "Particles: %i, Render: %i, Emitters: %i, Effects: %i", m_pBlockParticleManager->GetNumBlockParticles(), m_pBlockParticleManager->GetNumRenderableParticles(false), m_pBlockParticleManager->GetNumBlockParticleEmitters(), m_pBlockParticleManager->GetNumBlockParticleEffects());
 	char lItemsBuff[256];
 	sprintf(lItemsBuff, "Items: %i, Render: %i", m_pItemManager->GetNumItems(), m_pItemManager->GetNumRenderItems());
 	char lNPCBuff[256];

@@ -1078,7 +1078,7 @@ void Item::Interact()
 			vec3 pointOrigin = vec3(0.0f, 0.0f, 0.0f);
 			float r = 0.49f; float g = 0.44f; float b = 0.44f; float a = 1.0f;
 			vec3 spawnPos = GetCenter() + vec3(GetRandomNumber(-1, 1, 2)*0.5f, GetRandomNumber(-1, 1, 2)*0.5f, GetRandomNumber(-1, 1, 2)*0.5f);
-			BlockParticle* pParticle = m_pBlockParticleManager->CreateBlockParticle(spawnPos, gravity, 1.5f, pointOrigin, startScale, 0.0f, endScale, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, 0.0f, lifeTime, 0.0f, 0.0f, 0.0f, vec3(0.0f, 3.0f, 0.0f), vec3(1.85f, 3.0f, 1.85f), vec3(0.0f, 0.0f, 0.0f), vec3(180.0f, 180.0f, 180.0f), 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, true, vec3(0.0f, 0.0f, 0.0f), true, false, false, false, NULL);
+			BlockParticle* pParticle = m_pBlockParticleManager->CreateBlockParticle(spawnPos, spawnPos, gravity, 1.5f, pointOrigin, startScale, 0.0f, endScale, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, 0.0f, lifeTime, 0.0f, 0.0f, 0.0f, vec3(0.0f, 3.0f, 0.0f), vec3(1.85f, 3.0f, 1.85f), vec3(0.0f, 0.0f, 0.0f), vec3(180.0f, 180.0f, 180.0f), 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, true, vec3(0.0f, 0.0f, 0.0f), true, false, false, false, NULL);
 			if(pParticle != NULL)
 			{
 				pParticle->m_allowFloorSliding = true;
@@ -1499,7 +1499,7 @@ void Item::UpdateItemParticleEffects(float dt)
 				ParticleEffectPos += m_position;
 			}
 
-			m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, ParticleEffectPos);
+			m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, ParticleEffectPos, ParticleEffectPos);
 		}
 	}
 }

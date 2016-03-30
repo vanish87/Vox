@@ -2914,7 +2914,7 @@ void Enemy::UpdateWeaponParticleEffects(float dt)
 					ParticleEffectPos += m_position;
 				}
 
-				m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, ParticleEffectPos);
+				m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, ParticleEffectPos, ParticleEffectPos);
 			}
 		}
 	}
@@ -2952,7 +2952,7 @@ void Enemy::UpdateWeaponParticleEffects(float dt)
 					ParticleEffectPos += m_position;
 				}
 
-				m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, ParticleEffectPos);
+				m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, ParticleEffectPos, ParticleEffectPos);
 			}
 		}
 	}
