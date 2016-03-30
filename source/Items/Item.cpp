@@ -54,6 +54,8 @@ Item::Item(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryManage
 	m_autoDisappear = false;
 	m_autoDisappearTimer = 0.0f;
 
+	m_bCreateDyingLights = true;
+
 	m_droppedInventoryItem = NULL;
 
 	// Disappear animaton
@@ -134,8 +136,11 @@ void Item::UnloadEffectsAndLights()
 
 			if(m_itemType != eItem_DroppedItem)
 			{
-				unsigned int lId;
-				m_pLightingManager->AddDyingLight(lightPos, lightRadius, lightDiffuseMultiplier, lightColour, 3.5f, &lId);
+				if (m_bCreateDyingLights)
+				{
+					unsigned int lId;
+					m_pLightingManager->AddDyingLight(lightPos, lightRadius, lightDiffuseMultiplier, lightColour, 3.5f, &lId);
+				}
 			}
 		}
 	}
@@ -492,6 +497,12 @@ eItem Item::GetItemType()
 const char* Item::GetItemTitle()
 {
 	return m_itemTitle.c_str();
+}
+
+// Should we create dying lights when we unload
+void Item::SetCreateDyingLights(bool dyingLights)
+{
+	m_bCreateDyingLights = dyingLights;
 }
 
 // Grid

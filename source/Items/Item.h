@@ -71,7 +71,6 @@ public:
 	vec3 GetAngularVelocity();
 	void SetGravityDirection(vec3 dir);
 	vec3 GetGravityDirection();
-
 	float GetScale();
 	float GetRadius();
 	vec3 GetCenter();
@@ -114,6 +113,9 @@ public:
 
 	// Item title
 	const char* GetItemTitle();
+
+	// Should we create dying lights when we unload
+	void SetCreateDyingLights(bool dyingLights);
 
 	// Grid
 	void UpdateGridPosition();
@@ -279,6 +281,9 @@ private:
 	// Interact counting... i.e. mining takes more than one hit to destroy.
 	int m_interactCount;
 	int m_maxInteractCount;
+
+	// Should we create dying lights when we unload the item?
+	bool m_bCreateDyingLights;
 
 	// Grid position
 	int m_gridPositionX;

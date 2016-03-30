@@ -661,6 +661,10 @@ void CreateCharacter::Load()
 	LoadSelectionCharacters();
 
 	Item* pCampFire = VoxGame::GetInstance()->GetItemManager()->CreateItem(vec3(0.0f, 8.0f, 3.5f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 45.0f, 0.0f), "media/gamedata/items/CampFire/CampFire.item", eItem_CampFire, "CreateScreen Camp Fire", true, false, 0.06f);
+	if (pCampFire != NULL)
+	{
+		pCampFire->SetCreateDyingLights(false);
+	}
 
 	m_pHoverCreatioNPC = NULL;
 	m_pSelectedNPC = NULL;
