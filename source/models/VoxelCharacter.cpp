@@ -163,9 +163,12 @@ void VoxelCharacter::LoadVoxelCharacter(const char* characterType, const char *q
 		m_pCharacterAnimator[i]->LoadAnimations(animatorFilename);	
 	}
 
-	m_pCharacterAnimatorPaperdoll = new MS3DAnimator(m_pRenderer, m_pCharacterModel);
-	m_pCharacterAnimatorPaperdoll->LoadAnimations(animatorFilename);	
-	m_pCharacterAnimatorPaperdoll->PlayAnimation("BindPose");
+	m_pCharacterAnimatorPaperdoll_Left = new MS3DAnimator(m_pRenderer, m_pCharacterModel);
+	m_pCharacterAnimatorPaperdoll_Left->LoadAnimations(animatorFilename);
+	m_pCharacterAnimatorPaperdoll_Left->PlayAnimation("BindPose");
+	m_pCharacterAnimatorPaperdoll_Right = new MS3DAnimator(m_pRenderer, m_pCharacterModel);
+	m_pCharacterAnimatorPaperdoll_Right->LoadAnimations(animatorFilename);
+	m_pCharacterAnimatorPaperdoll_Right->PlayAnimation("BindPose");
 
 	m_pVoxelModel->SetupMatrixBones(m_pCharacterAnimator[0]);
 
@@ -214,6 +217,9 @@ void VoxelCharacter::UnloadCharacter()
 			delete m_pCharacterAnimator[i];
 			m_pCharacterAnimator[i] = NULL;
 		}
+
+		delete m_pCharacterAnimatorPaperdoll_Left;
+		delete m_pCharacterAnimatorPaperdoll_Right;
 
 		delete[] m_pFacialExpressions;
 		m_pFacialExpressions = NULL;
@@ -668,11 +674,18 @@ Matrix4x4 VoxelCharacter::GetBoneMatrix(AnimationSections section, const char* b
 	return empty;
 }
 
-Matrix4x4 VoxelCharacter::GetBoneMatrixPaperdoll(int index)
+Matrix4x4 VoxelCharacter::GetBoneMatrixPaperdoll(int index, bool left)
 {
 	if(m_loaded)
 	{
-		return m_pCharacterAnimatorPaperdoll->GetBoneMatrix(index);
+		if (left)
+		{
+			return m_pCharacterAnimatorPaperdoll_Left->GetBoneMatrix(index);
+		}
+		else
+		{
+			return m_pCharacterAnimatorPaperdoll_Right->GetBoneMatrix(index);
+		}
 	}
 
 	Matrix4x4 empty;
@@ -1518,9 +1531,16 @@ Joint* VoxelCharacter::GetJoint(const char* jointName)
 	return m_pCharacterModel->GetJoint(jointName);
 }
 
-void VoxelCharacter::PlayAnimationOnPaperDoll(const char *lAnimationName)
+void VoxelCharacter::PlayAnimationOnPaperDoll(const char *lAnimationName, bool left)
 {
-	m_pCharacterAnimatorPaperdoll->PlayAnimation(lAnimationName);
+	if (left)
+	{
+		m_pCharacterAnimatorPaperdoll_Left->PlayAnimation(lAnimationName);
+	}
+	else
+	{
+		m_pCharacterAnimatorPaperdoll_Right->PlayAnimation(lAnimationName);
+	}
 }
 
 // Matrices
@@ -1581,11 +1601,15 @@ void VoxelCharacter::Update(float dt, float animationSpeed[AnimationSections_NUM
 	}
 
 	// Update paperdoll animator
-	if(m_pCharacterAnimatorPaperdoll != NULL)
+	if(m_updateAnimator)
 	{
-		if(m_updateAnimator)
+		if (m_pCharacterAnimatorPaperdoll_Left != NULL)
 		{
-			m_pCharacterAnimatorPaperdoll->Update(dt);
+			m_pCharacterAnimatorPaperdoll_Left->Update(dt);
+		}
+		if (m_pCharacterAnimatorPaperdoll_Right != NULL)
+		{
+			m_pCharacterAnimatorPaperdoll_Right->Update(dt);
 		}
 	}
 
@@ -1947,7 +1971,7 @@ void VoxelCharacter::RenderPaperdoll()
 	{
 		m_pRenderer->PushMatrix();
 			m_pRenderer->ScaleWorldMatrix(0.08f, 0.08f, 0.08f);
-			m_pVoxelModel->RenderPaperdoll(m_pCharacterAnimatorPaperdoll, this);
+			m_pVoxelModel->RenderPaperdoll(m_pCharacterAnimatorPaperdoll_Left, m_pCharacterAnimatorPaperdoll_Right, this);
 		m_pRenderer->PopMatrix();
 	}
 }
@@ -1960,8 +1984,8 @@ void VoxelCharacter::RenderPortrait()
 
 		m_pRenderer->PushMatrix();
 			m_pRenderer->ScaleWorldMatrix(0.08f, 0.08f, 0.08f);
-			m_pVoxelModel->RenderPortrait(m_pCharacterAnimatorPaperdoll, this, "Head");
-			m_pVoxelModel->RenderPortrait(m_pCharacterAnimatorPaperdoll, this, "Helm");
+			m_pVoxelModel->RenderPortrait(m_pCharacterAnimatorPaperdoll_Right, this, "Head");
+			m_pVoxelModel->RenderPortrait(m_pCharacterAnimatorPaperdoll_Right, this, "Helm");
 		m_pRenderer->PopMatrix();
 	}
 }
@@ -1977,7 +2001,7 @@ void VoxelCharacter::RenderFacePaperdoll()
 	{
 		m_pRenderer->PushMatrix();
 			m_pRenderer->ScaleWorldMatrix(0.08f, 0.08f, 0.08f);
-			m_pVoxelModel->RenderFace(m_pCharacterAnimatorPaperdoll, this, true);			
+			m_pVoxelModel->RenderFace(m_pCharacterAnimatorPaperdoll_Right, this, true);
 		m_pRenderer->PopMatrix();
 	}
 }
@@ -1994,7 +2018,7 @@ void VoxelCharacter::RenderFacePortrait()
 		m_pRenderer->PushMatrix();
 			m_pRenderer->ScaleWorldMatrix(0.08f, 0.08f, 0.08f);
 			// NOTE : DON'T scale for portrait, we want a default size
-			m_pVoxelModel->RenderFace(m_pCharacterAnimatorPaperdoll, this, true, false, true);			
+			m_pVoxelModel->RenderFace(m_pCharacterAnimatorPaperdoll_Right, this, true, false, true);
 		m_pRenderer->PopMatrix();
 	}
 }

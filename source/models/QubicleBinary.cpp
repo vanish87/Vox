@@ -1986,7 +1986,7 @@ void QubicleBinary::RenderFace(MS3DAnimator* pSkeleton, VoxelCharacter* pVoxelCh
 	}
 }
 
-void QubicleBinary::RenderPaperdoll(MS3DAnimator* pSkeleton, VoxelCharacter* pVoxelCharacter)
+void QubicleBinary::RenderPaperdoll(MS3DAnimator* pSkeleton_Left, MS3DAnimator* pSkeleton_Right, VoxelCharacter* pVoxelCharacter)
 {
 	if(pVoxelCharacter == NULL)
 	{
@@ -2003,7 +2003,17 @@ void QubicleBinary::RenderPaperdoll(MS3DAnimator* pSkeleton, VoxelCharacter* pVo
 				continue;
 			}
 
-			MS3DAnimator* pSkeletonToUse = pSkeleton;			
+			MS3DAnimator* pSkeletonToUse = NULL;
+
+			if (m_vpMatrices[i]->m_boneIndex == pVoxelCharacter->GetLeftShoulderBoneIndex() ||
+				m_vpMatrices[i]->m_boneIndex == pVoxelCharacter->GetLeftHandBoneIndex())
+			{
+				pSkeletonToUse = pSkeleton_Left;
+			}
+			else
+			{
+				pSkeletonToUse = pSkeleton_Right;
+			}
 
 			m_pRenderer->PushMatrix();
 				// Breathing animation

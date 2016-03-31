@@ -1514,7 +1514,8 @@ void VoxelWeapon::RenderPaperdoll()
 		{
 			if(m_boneIndex != -1)
 			{
-				Matrix4x4 boneMatrix = m_pParentCharacter->GetBoneMatrixPaperdoll(m_boneIndex);
+				bool leftSide = (m_boneIndex == m_pParentCharacter->GetLeftHandBoneIndex());
+				Matrix4x4 boneMatrix = m_pParentCharacter->GetBoneMatrixPaperdoll(m_boneIndex, leftSide);
 
 				// Breathing animation
 				float offsetAmount = m_pParentCharacter->GetBreathingAnimationOffsetForBone(m_boneIndex);

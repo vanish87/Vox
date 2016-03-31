@@ -103,7 +103,7 @@ public:
 	void SetUpdateAnimator(bool update);
 	Matrix4x4 GetBoneMatrix(AnimationSections section, int index);
 	Matrix4x4 GetBoneMatrix(AnimationSections section, const char* boneName);
-	Matrix4x4 GetBoneMatrixPaperdoll(int index);
+	Matrix4x4 GetBoneMatrixPaperdoll(int index, bool left);
 	int GetBoneIndex(const char* boneName);
 	int GetMatrixIndexForName(const char* matrixName);
 	MS3DModel* GetMS3DModel();
@@ -198,7 +198,7 @@ public:
 	int GetNumJoints();
 	Joint* GetJoint(int index);
 	Joint* GetJoint(const char* jointName);
-	void PlayAnimationOnPaperDoll(const char *lAnimationName);
+	void PlayAnimationOnPaperDoll(const char *lAnimationName, bool left);
 
 	// Matrices
 	int GetNumModelMatrices();
@@ -349,7 +349,8 @@ private:
 	QubicleBinary* m_pVoxelModel;
 	MS3DModel* m_pCharacterModel;
 	MS3DAnimator* m_pCharacterAnimator[AnimationSections_NUMSECTIONS];
-	MS3DAnimator* m_pCharacterAnimatorPaperdoll;
+	MS3DAnimator* m_pCharacterAnimatorPaperdoll_Left;
+	MS3DAnimator* m_pCharacterAnimatorPaperdoll_Right;
 
 	int m_currentFrame;
 };
