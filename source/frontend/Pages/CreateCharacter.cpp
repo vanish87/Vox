@@ -799,54 +799,54 @@ void CreateCharacter::LoadSelectionCharacters()
 	pCharacter1->SetBodyTurnStopThreshold(0.01f);
 	pCharacter1->SetBodyTurnSpeedMultiplier(6.0f);
 	pCharacter1->SetPushingCollisionEnabled(false);
+	pCharacter1->SetFrontEndNPC(true);
 	NPC* pCharacter2 = VoxGame::GetInstance()->GetNPCManager()->CreateNPC("Character2", "Human", "Knight", vec3(2.5f, 7.51f, 0.5f), 0.08f, false, true);
 	pCharacter2->SetTargetForwardToLookAtPoint(centralLookPoint);
 	pCharacter2->SetBodyTurnStopThreshold(0.01f);
 	pCharacter2->SetBodyTurnSpeedMultiplier(6.0f);
 	pCharacter2->SetPushingCollisionEnabled(false);
-	NPC* pCharacter3 = VoxGame::GetInstance()->GetNPCManager()->CreateNPC("Character3", "Human", "Necromancer", vec3(1.0f, 7.51f, -0.5f), 0.08f, false, true);
+	pCharacter2->SetFrontEndNPC(true);
+	NPC* pCharacter3 = VoxGame::GetInstance()->GetNPCManager()->CreateNPC("Character3", "Human", "Warrior", vec3(1.0f, 7.51f, -0.5f), 0.08f, false, true);
 	pCharacter3->SetTargetForwardToLookAtPoint(centralLookPoint);
 	pCharacter3->SetBodyTurnStopThreshold(0.01f);
 	pCharacter3->SetBodyTurnSpeedMultiplier(6.0f);
 	pCharacter3->SetPushingCollisionEnabled(false);
+	pCharacter3->SetFrontEndNPC(true);
 	NPC* pCharacter4 = VoxGame::GetInstance()->GetNPCManager()->CreateNPC("Character4", "Human", "Ranger", vec3(-1.0f, 7.51f, -0.5f), 0.08f, false, true);
 	pCharacter4->SetTargetForwardToLookAtPoint(centralLookPoint);
 	pCharacter4->SetBodyTurnStopThreshold(0.01f);
 	pCharacter4->SetBodyTurnSpeedMultiplier(6.0f);
 	pCharacter4->SetPushingCollisionEnabled(false);
+	pCharacter4->SetFrontEndNPC(true);
 	NPC* pCharacter5 = VoxGame::GetInstance()->GetNPCManager()->CreateNPC("Character5", "Human", "Mage", vec3(-2.5f, 7.51f, 0.5f), 0.08f, false, true);
 	pCharacter5->SetTargetForwardToLookAtPoint(centralLookPoint);
 	pCharacter5->SetBodyTurnStopThreshold(0.01f);
 	pCharacter5->SetBodyTurnSpeedMultiplier(6.0f);
 	pCharacter5->SetPushingCollisionEnabled(false);
-	NPC* pCharacter6 = VoxGame::GetInstance()->GetNPCManager()->CreateNPC("Character6", "Human", "Warrior", vec3(-4.0f, 7.51f, 1.5f), 0.08f, false, true);
+	pCharacter5->SetFrontEndNPC(true);
+	NPC* pCharacter6 = VoxGame::GetInstance()->GetNPCManager()->CreateNPC("Character6", "Human", "Necromancer", vec3(-4.0f, 7.51f, 1.5f), 0.08f, false, true);
 	pCharacter6->SetTargetForwardToLookAtPoint(centralLookPoint);
 	pCharacter6->SetBodyTurnStopThreshold(0.01f);
 	pCharacter6->SetBodyTurnSpeedMultiplier(6.0f);
 	pCharacter6->SetPushingCollisionEnabled(false);
+	pCharacter6->SetFrontEndNPC(true);
 
 	pCharacter1->LoadWeapon(false, "media/gamedata/weapons/PriestStaff/PriestStaff.weapon");
 	pCharacter1->SetNPCCombatType(eNPCCombatType_Staff, false);
-	pCharacter1->SetFrontEndNPC(true);
 
 	pCharacter2->LoadWeapon(true, "media/gamedata/weapons/Shield/Shield.weapon");
 	pCharacter2->LoadWeapon(false, "media/gamedata/weapons/2HandedSword/2HandedSword.weapon");
 	pCharacter2->SetNPCCombatType(eNPCCombatType_MeleeSword, false);
-	pCharacter2->SetFrontEndNPC(true);
-
-	pCharacter3->LoadWeapon(false, "media/gamedata/weapons/FloatingSkull/FloatingSkull.weapon");
-	pCharacter3->SetNPCCombatType(eNPCCombatType_Staff, false);
-	pCharacter3->SetFrontEndNPC(true);
 
 	pCharacter4->LoadWeapon(true, "media/gamedata/weapons/Bow/Bow.weapon");
 	pCharacter4->SetNPCCombatType(eNPCCombatType_Archer, true);
-	pCharacter4->SetFrontEndNPC(true);
 
 	pCharacter5->LoadWeapon(false, "media/gamedata/weapons/Staff/Staff.weapon");
 	pCharacter5->SetNPCCombatType(eNPCCombatType_Staff, false);
-	pCharacter5->SetFrontEndNPC(true);
 
-	pCharacter6->SetFrontEndNPC(true);
+	pCharacter6->LoadWeapon(false, "media/gamedata/weapons/FloatingSkull/FloatingSkull.weapon");
+	pCharacter6->SetNPCCombatType(eNPCCombatType_Staff, false);
+
 
 	// Hack to make sure NPCs return to exact spots - radius distance checking is smaller
 	pCharacter1->SetAttackRadius(-pCharacter1->GetRadius());
