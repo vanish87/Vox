@@ -98,6 +98,7 @@ NPC::NPC(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, Ligh
 	// Frontend NPC
 	m_frontEndNPC = false;
 
+	// Movement gameplay params
 	m_moveToPlayer = false;
 	m_hasReachedTargetPosition = false;
 	m_lookAtPositionWhenReachTarget = false;
@@ -159,16 +160,19 @@ NPC::NPC(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, Ligh
 	m_jumpTimer = 0.0f;
 	m_jumpHeight = 14.5f;
 
+	// Look at point
 	m_bLookAtPoint = false;
 	m_bodyTurnSpeedMultiplier = 3.5f;
 	m_bodyTurnStopThreshold = 0.35f;
 	m_bIsLookingAtPoint = false;
 
+	// Talking
 	m_talkMode = false;
 	m_talkDelay = 0.0f;
 	m_talkTime = 0.0f;
 	m_talkTimer = 0.0f;
 
+	// Working
 	m_isWorking = false;
 	m_workingAnimationWaitTimer = 0.0f;
 	m_workingAnimationDelay = 0.45f;
@@ -176,8 +180,10 @@ NPC::NPC(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, Ligh
 	m_workingRepetitionCounter = 0;
 	m_createdAnvilHitParticleEffect = false;
 
+	// Push collision enabled
 	m_bPushingCollisionEnabled = true;
 
+	// Is this NPC a credits NPC, if so, behave differently
 	m_isCreditsNPC = false;
 
 	m_pTargetEnemy = NULL;
