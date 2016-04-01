@@ -1860,8 +1860,11 @@ void Enemy::DoDamage(float amount, Colour textColour, vec3 knockbackDirection, f
 			// Play a hit response animation
 			if(m_eEnemyType == eEnemyType_NormalSkeleton || m_eEnemyType == eEnemyType_RangedSkeleton || m_eEnemyType == eEnemyType_MeleeSkeleton || m_eEnemyType == eEnemyType_MageSkeleton || m_eEnemyType == eEnemyType_Mummy || m_eEnemyType == eEnemyType_WalkingZombie)
 			{
-				SetAnimationSpeed(1.0f, false, AnimationSections_FullBody);
-				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "HitResponse", 0.01f);
+				if (m_bIsChargingAttack == false)
+				{
+					SetAnimationSpeed(1.0f, false, AnimationSections_FullBody);
+					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "HitResponse", 0.01f);
+				}
 			}
 		}
 
@@ -3266,7 +3269,7 @@ void Enemy::UpdateCombat(float dt)
 					m_aggro = true;
 					m_aggroResetTimer = m_aggroResetTime;
 
-					if(m_eEnemyType == eEnemyType_IronGiant)
+					if(m_eEnemyType == eEnemyType_IronGiant || m_eEnemyType == eEnemyType_RangedSkeleton || m_eEnemyType == eEnemyType_MageSkeleton || m_eEnemyType == eEnemyType_Bat)
 					{
 						StopMoving();
 					}
