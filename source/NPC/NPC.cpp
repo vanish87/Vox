@@ -1784,7 +1784,7 @@ void NPC::Attack()
 		{
 			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "StaffAttack", 0.01f);
 
-			m_attackDelayTime = 1.35f;
+			m_attackDelayTime = 1.35f + GetRandomNumber(-100, 50, 2) * 0.005f;
 
 			m_attackEnabledDelayTimer = 0.15f;
 			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackEnabledDelayTimer, m_attackEnabledDelayTimer, 0.0f, m_attackEnabledDelayTimer, 0.0f, NULL, _AttackEnabledDelayTimerFinished, this);
@@ -1814,7 +1814,7 @@ void NPC::Attack()
 			m_animationFinished[AnimationSections_Right_Arm_Hand] = true;
 			SetAnimationSpeed(1.5f, true, AnimationSections_FullBody);
 
-			m_attackDelayTime = 0.75f;
+			m_attackDelayTime = 0.75f + GetRandomNumber(-50, 50, 2) * 0.005f;
 			Interpolator::GetInstance()->AddFloatInterpolation(&m_animationTimer, 0.0f, 0.3f, 0.3f, 0.0f, NULL, _AttackEnabledDelayTimerFinished, this);
 
 			m_bCanAttack = false;

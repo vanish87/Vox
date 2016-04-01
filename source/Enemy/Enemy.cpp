@@ -2411,7 +2411,7 @@ void Enemy::Attack()
 			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "StingAttack", 0.1f);
 			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Head_Body, false, AnimationSections_Head_Body, "StingAttack", 0.1f);
 
-			m_attackDelayTime = 1.75f;
+			m_attackDelayTime = 1.75f + GetRandomNumber(-100, 50, 2) * 0.005f;
 
 			m_attackEnabledDelayTimer = 0.35f;
 			float attackTime = 0.60f;
@@ -2442,7 +2442,7 @@ void Enemy::Attack()
 		{
 			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, true, AnimationSections_FullBody, "SwordAttack2", 0.01f);
 
-			m_attackDelayTime = 1.75f;
+			m_attackDelayTime = 1.75f + GetRandomNumber(-50, 25, 2) * 0.005f;
 
 			m_attackEnabledDelayTimer = 0.15f;
 			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackEnabledDelayTimer, m_attackEnabledDelayTimer, 0.0f, m_attackEnabledDelayTimer, 0.0f, NULL, _AttackEnabledDelayTimerFinished, this);
@@ -2453,7 +2453,7 @@ void Enemy::Attack()
 		{
 			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "StaffAttack", 0.01f);
 
-			m_attackDelayTime = 1.0f;
+			m_attackDelayTime = 1.0f + GetRandomNumber(-100, 50, 2) * 0.005f;
 
 			m_attackEnabledDelayTimer = 0.15f;
 			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackEnabledDelayTimer, m_attackEnabledDelayTimer, 0.0f, m_attackEnabledDelayTimer, 0.0f, NULL, _AttackEnabledDelayTimerFinished, this);
