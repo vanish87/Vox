@@ -2823,7 +2823,6 @@ void Player::UpdateWeaponLights(float dt)
 
 void Player::UpdateWeaponParticleEffects(float dt)
 {
-	// Create/update
 	for (int i = 0; i < 2; i++)
 	{
 		VoxelWeapon* pWeapon = NULL;

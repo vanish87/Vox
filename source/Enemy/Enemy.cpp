@@ -2784,94 +2784,64 @@ void Enemy::SetWireFrameRender(bool wireframe)
 // Updating
 void Enemy::UpdateWeaponLights(float dt)
 {
-	// Create/update
-	if(m_pVoxelCharacter->GetRightWeapon() != NULL)
+	for (int i = 0; i < 2; i++)
 	{
-		if(m_pVoxelCharacter->IsRightWeaponLoaded())
+		VoxelWeapon* pWeapon = NULL;
+		bool isWeaponLoaded = false;
+		if (i == 0)  // Right side
 		{
-			for(int i = 0; i < m_pVoxelCharacter->GetRightWeapon()->GetNumLights(); i++)
-			{
-				unsigned int lightId;
-				vec3 lightPos;
-				float lightRadius;
-				float lightDiffuseMultiplier;
-				Colour lightColour;
-				bool connectedToSegment;
-				m_pVoxelCharacter->GetRightWeapon()->GetLightParams(i, &lightId, &lightPos, &lightRadius, &lightDiffuseMultiplier, &lightColour, &connectedToSegment);
-
-				if(lightId == -1)
-				{
-					m_pLightingManager->AddLight(vec3(0.0f, 0.0f, 0.0f), 0.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f, 1.0f), &lightId);
-					m_pVoxelCharacter->GetRightWeapon()->SetLightingId(i, lightId);
-				}
-
-				if(connectedToSegment == false)
-				{
-					// Rotate due to characters forward vector
-					float rotationAngle = acos(dot(vec3(0.0f, 0.0f, 1.0f), m_forward));
-					if(m_forward.x < 0.0f)
-					{
-						rotationAngle = -rotationAngle;
-					}
-					Matrix4x4 rotationMatrix;
-					rotationMatrix.SetRotation(0.0f, rotationAngle, 0.0f);
-					lightPos = rotationMatrix * lightPos;
-
-					// Translate to position
-					lightPos += m_position;
-				}
-
-				float scale = m_pVoxelCharacter->GetCharacterScale();
-
-				m_pLightingManager->UpdateLightPosition(lightId, lightPos);
-				m_pLightingManager->UpdateLightRadius(lightId, lightRadius * scale);
-				m_pLightingManager->UpdateLightDiffuseMultiplier(lightId, lightDiffuseMultiplier);
-				m_pLightingManager->UpdateLightColour(lightId, lightColour);
-			}
+			pWeapon = m_pVoxelCharacter->GetRightWeapon();
+			isWeaponLoaded = m_pVoxelCharacter->IsRightWeaponLoaded();
 		}
-	}
-	if(m_pVoxelCharacter->GetLeftWeapon() != NULL)
-	{
-		if(m_pVoxelCharacter->IsLeftWeaponLoaded())
+		else  // Left side
 		{
-			for(int i = 0; i < m_pVoxelCharacter->GetLeftWeapon()->GetNumLights(); i++)
+			pWeapon = m_pVoxelCharacter->GetLeftWeapon();
+			isWeaponLoaded = m_pVoxelCharacter->IsLeftWeaponLoaded();
+		}
+
+		if (pWeapon != NULL)
+		{
+			if (isWeaponLoaded)
 			{
-				unsigned int lightId;
-				vec3 lightPos;
-				float lightRadius;
-				float lightDiffuseMultiplier;
-				Colour lightColour;
-				bool connectedToSegment;
-				m_pVoxelCharacter->GetLeftWeapon()->GetLightParams(i, &lightId, &lightPos, &lightRadius, &lightDiffuseMultiplier, &lightColour, &connectedToSegment);
-
-				if(lightId == -1)
+				for (int i = 0; i < pWeapon->GetNumLights(); i++)
 				{
-					m_pLightingManager->AddLight(vec3(0.0f, 0.0f, 0.0f), 0.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f, 1.0f), &lightId);
-					m_pVoxelCharacter->GetLeftWeapon()->SetLightingId(i, lightId);
-				}
+					unsigned int lightId;
+					vec3 lightPos;
+					float lightRadius;
+					float lightDiffuseMultiplier;
+					Colour lightColour;
+					bool connectedToSegment;
+					pWeapon->GetLightParams(i, &lightId, &lightPos, &lightRadius, &lightDiffuseMultiplier, &lightColour, &connectedToSegment);
 
-				if(connectedToSegment == false)
-				{
-					// Rotate due to characters forward vector
-					float rotationAngle = acos(dot(vec3(0.0f, 0.0f, 1.0f), m_forward));
-					if(m_forward.x < 0.0f)
+					if (lightId == -1)
 					{
-						rotationAngle = -rotationAngle;
+						m_pLightingManager->AddLight(vec3(0.0f), 0.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f, 1.0f), &lightId);
+						pWeapon->SetLightingId(i, lightId);
 					}
-					Matrix4x4 rotationMatrix;
-					rotationMatrix.SetRotation(0.0f, rotationAngle, 0.0f);
-					lightPos = rotationMatrix * lightPos;
 
-					// Translate to position
-					lightPos += m_position;
+					if (connectedToSegment == false)
+					{
+						// Rotate due to characters forward vector
+						float rotationAngle = acos(dot(vec3(0.0f, 0.0f, 1.0f), m_forward));
+						if (m_forward.x < 0.0f)
+						{
+							rotationAngle = -rotationAngle;
+						}
+						Matrix4x4 rotationMatrix;
+						rotationMatrix.SetRotation(0.0f, rotationAngle, 0.0f);
+						lightPos = rotationMatrix * lightPos;
+
+						// Translate to position
+						lightPos += m_position;
+					}
+
+					float scale = m_pVoxelCharacter->GetCharacterScale();
+
+					m_pLightingManager->UpdateLightPosition(lightId, vec3(lightPos.x, lightPos.y, lightPos.z));
+					m_pLightingManager->UpdateLightRadius(lightId, lightRadius * scale);
+					m_pLightingManager->UpdateLightDiffuseMultiplier(lightId, lightDiffuseMultiplier);
+					m_pLightingManager->UpdateLightColour(lightId, lightColour);
 				}
-
-				float scale = m_pVoxelCharacter->GetCharacterScale();
-
-				m_pLightingManager->UpdateLightPosition(lightId, lightPos);
-				m_pLightingManager->UpdateLightRadius(lightId, lightRadius * scale);
-				m_pLightingManager->UpdateLightDiffuseMultiplier(lightId, lightDiffuseMultiplier);
-				m_pLightingManager->UpdateLightColour(lightId, lightColour);
 			}
 		}
 	}
@@ -2879,80 +2849,60 @@ void Enemy::UpdateWeaponLights(float dt)
 
 void Enemy::UpdateWeaponParticleEffects(float dt)
 {
-	// Create/update
-	if(m_pVoxelCharacter->GetRightWeapon() != NULL)
+	for (int i = 0; i < 2; i++)
 	{
-		if(m_pVoxelCharacter->IsRightWeaponLoaded())
+		VoxelWeapon* pWeapon = NULL;
+		bool isWeaponLoaded = false;
+		if (i == 0)  // Right side
 		{
-			for(int i = 0; i < m_pVoxelCharacter->GetRightWeapon()->GetNumParticleEffects(); i++)
-			{
-				unsigned int particleEffectId;
-				vec3 ParticleEffectPos;
-				string effectName;
-				bool connectedToSegment;
-				m_pVoxelCharacter->GetRightWeapon()->GetParticleEffectParams(i, &particleEffectId, &ParticleEffectPos, &effectName, &connectedToSegment);
-
-				if(particleEffectId == -1)
-				{
-					m_pBlockParticleManager->ImportParticleEffect(effectName, ParticleEffectPos, &particleEffectId);
-					m_pVoxelCharacter->GetRightWeapon()->SetParticleEffectId(i, particleEffectId);
-				}
-
-				if(connectedToSegment == false)
-				{
-					// Rotate due to characters forward vector
-					float rotationAngle = acos(dot(vec3(0.0f, 0.0f, 1.0f), m_forward));
-					if(m_forward.x < 0.0f)
-					{
-						rotationAngle = -rotationAngle;
-					}
-					Matrix4x4 rotationMatrix;
-					rotationMatrix.SetRotation(0.0f, rotationAngle, 0.0f);
-					ParticleEffectPos = rotationMatrix * ParticleEffectPos;
-
-					// Translate to position
-					ParticleEffectPos += m_position;
-				}
-
-				m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, ParticleEffectPos, ParticleEffectPos);
-			}
+			pWeapon = m_pVoxelCharacter->GetRightWeapon();
+			isWeaponLoaded = m_pVoxelCharacter->IsRightWeaponLoaded();
 		}
-	}
-	if(m_pVoxelCharacter->GetLeftWeapon() != NULL)
-	{
-		if(m_pVoxelCharacter->IsLeftWeaponLoaded())
+		else  // Left side
 		{
-			for(int i = 0; i < m_pVoxelCharacter->GetLeftWeapon()->GetNumParticleEffects(); i++)
+			pWeapon = m_pVoxelCharacter->GetLeftWeapon();
+			isWeaponLoaded = m_pVoxelCharacter->IsLeftWeaponLoaded();
+		}
+
+		if (pWeapon != NULL)
+		{
+			if (isWeaponLoaded)
 			{
-				unsigned int particleEffectId;
-				vec3 ParticleEffectPos;
-				string effectName;
-				bool connectedToSegment;
-				m_pVoxelCharacter->GetLeftWeapon()->GetParticleEffectParams(i, &particleEffectId, &ParticleEffectPos, &effectName, &connectedToSegment);
-
-				if(particleEffectId == -1)
+				for (int i = 0; i < pWeapon->GetNumParticleEffects(); i++)
 				{
-					m_pBlockParticleManager->ImportParticleEffect(effectName, ParticleEffectPos, &particleEffectId);
-					m_pVoxelCharacter->GetLeftWeapon()->SetParticleEffectId(i, particleEffectId);
-				}
+					unsigned int particleEffectId;
+					vec3 ParticleEffectPos;
+					vec3 ParticleEffectPos_NoWorldOffset;
+					string effectName;
+					bool connectedToSegment;
+					pWeapon->GetParticleEffectParams(i, &particleEffectId, &ParticleEffectPos, &effectName, &connectedToSegment);
 
-				if(connectedToSegment == false)
-				{
-					// Rotate due to characters forward vector
-					float rotationAngle = acos(dot(vec3(0.0f, 0.0f, 1.0f), m_forward));
-					if(m_forward.x < 0.0f)
+					if (particleEffectId == -1)
 					{
-						rotationAngle = -rotationAngle;
+						m_pBlockParticleManager->ImportParticleEffect(effectName, vec3(ParticleEffectPos.x, ParticleEffectPos.y, ParticleEffectPos.z), &particleEffectId);
+						pWeapon->SetParticleEffectId(i, particleEffectId);
+						m_pBlockParticleManager->SetRenderNoWoldOffsetViewport(particleEffectId, true);
 					}
-					Matrix4x4 rotationMatrix;
-					rotationMatrix.SetRotation(0.0f, rotationAngle, 0.0f);
-					ParticleEffectPos = rotationMatrix * ParticleEffectPos;
 
-					// Translate to position
-					ParticleEffectPos += m_position;
+					ParticleEffectPos_NoWorldOffset = ParticleEffectPos;
+					if (connectedToSegment == false)
+					{
+						// Rotate due to characters forward vector
+						float rotationAngle = acos(dot(vec3(0.0f, 0.0f, 1.0f), m_forward));
+						if (m_forward.x < 0.0f)
+						{
+							rotationAngle = -rotationAngle;
+						}
+						Matrix4x4 rotationMatrix;
+						rotationMatrix.SetRotation(0.0f, rotationAngle, 0.0f);
+						ParticleEffectPos = rotationMatrix * ParticleEffectPos;
+
+						// Translate to position
+						ParticleEffectPos += m_position;
+					}
+
+					m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, ParticleEffectPos, ParticleEffectPos_NoWorldOffset);
 				}
-
-				m_pBlockParticleManager->UpdateParticleEffectPosition(particleEffectId, ParticleEffectPos, ParticleEffectPos);
 			}
 		}
 	}
