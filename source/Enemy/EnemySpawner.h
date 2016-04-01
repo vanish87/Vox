@@ -55,7 +55,7 @@ public:
 	void StartSpawning(float initialDelay);
 	void StopSpawning();
 	eEnemyType GetEnemyTypeToSpawn();
-	vec3 GetSpawnPosition();
+	bool GetSpawnPosition(vec3* pSpawnPosition);
 
 	// Updating
 	void Update(float dt);

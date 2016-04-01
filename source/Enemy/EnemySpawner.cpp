@@ -137,35 +137,50 @@ eEnemyType EnemySpawner::GetEnemyTypeToSpawn()
 	return m_vpEnemyTypeList[randomNum];
 }
 
-vec3 EnemySpawner::GetSpawnPosition()
+bool EnemySpawner::GetSpawnPosition(vec3* pSpawnPosition)
 {
-	vec3 spawnPos = m_position;
-	vec3 randomOffset;
-
-	if(m_spawnFullLoaderRange)
+	bool lLocationGood = false;
+	int numTries = 0;
+	while (lLocationGood == false && numTries < 50)
 	{
-		float loaderRadius = m_pChunkManager->GetLoaderRadius();
-		randomOffset = vec3(GetRandomNumber(-100, 100, 2)*0.01f*loaderRadius, GetRandomNumber(-100, 100, 2)*0.01f*m_spawnRandomOffset.y, GetRandomNumber(-100, 100, 2)*0.01f*loaderRadius);
-	}
-	else
-	{
-		randomOffset = vec3(GetRandomNumber(-100, 100, 2)*0.01f*(m_spawnRandomOffset.x-8.0f), GetRandomNumber(-100, 100, 2)*0.01f*(m_spawnRandomOffset.y-8.0f), GetRandomNumber(-100, 100, 2)*0.01f*(m_spawnRandomOffset.z-8.0f));
-	}
+		vec3 spawnPos = m_position;
+		vec3 randomOffset;
 
-	spawnPos += randomOffset;
-
-	if(m_shouldSpawnOnGround)
-	{
-		vec3 floorPosition;
-		if(m_pChunkManager->FindClosestFloor(spawnPos, &floorPosition))
+		if (m_spawnFullLoaderRange)
 		{
-			spawnPos = floorPosition + vec3(0.0f, 0.01f, 0.0f);
+			float loaderRadius = m_pChunkManager->GetLoaderRadius();
+			randomOffset = vec3(GetRandomNumber(-100, 100, 2)*0.01f*loaderRadius, GetRandomNumber(-100, 100, 2)*0.01f*loaderRadius, GetRandomNumber(-100, 100, 2)*0.01f*loaderRadius);
+		}
+		else
+		{
+			randomOffset = vec3(GetRandomNumber(-100, 100, 2)*0.01f*(m_spawnRandomOffset.x - 8.0f), GetRandomNumber(-100, 100, 2)*0.01f*(m_spawnRandomOffset.y - 8.0f), GetRandomNumber(-100, 100, 2)*0.01f*(m_spawnRandomOffset.z - 8.0f));
 		}
 
-		spawnPos += m_groundSpawnOffset;
+		spawnPos += randomOffset;
+
+		int blockX, blockY, blockZ;
+		vec3 blockPos;
+		Chunk* pChunk = NULL;
+		bool active = m_pChunkManager->GetBlockActiveFrom3DPosition(spawnPos.x, spawnPos.y, spawnPos.z, &blockPos, &blockX, &blockY, &blockZ, &pChunk);
+		if (active == false)
+		{
+			if (m_shouldSpawnOnGround)
+			{
+				vec3 floorPosition;
+				if (m_pChunkManager->FindClosestFloor(spawnPos, &floorPosition))
+				{
+					spawnPos = floorPosition + vec3(0.0f, 0.01f, 0.0f);
+					spawnPos += m_groundSpawnOffset;
+					*pSpawnPosition = spawnPos;
+					lLocationGood = true;
+				}
+			}
+		}
+		
+		numTries++;
 	}
 
-	return spawnPos;
+	return lLocationGood;
 }
 
 // Updating
@@ -180,21 +195,30 @@ void EnemySpawner::Update(float dt)
 	{
 		if(m_spawnCountdownTimer <= 0.0f)
 		{
-			vec3 spawnPos = GetSpawnPosition();
+			vec3 spawnPos;
+			bool spawnGood = GetSpawnPosition(&spawnPos);
 
-			vec3 toPlayer = spawnPos - m_pPlayer->GetCenter();
-			if(length(toPlayer) > m_minDistanceFromPlayer)
+			if (spawnGood)
 			{
-				eEnemyType enemyType = GetEnemyTypeToSpawn();
+				vec3 toPlayer = spawnPos - m_pPlayer->GetCenter();
+				if (length(toPlayer) > m_minDistanceFromPlayer)
+				{
+					eEnemyType enemyType = GetEnemyTypeToSpawn();
 
-				Enemy* pEnemy = m_pEnemyManager->CreateEnemy(spawnPos, enemyType, 0.08f);
-				pEnemy->SetSpawningParams(spawnPos, spawnPos, 2.0f);
-				pEnemy->SetTargetForwardToLookAtPoint(spawnPos + m_spawnFacingDirection);
-				pEnemy->SetEnemySpawner(this);
+					Enemy* pEnemy = m_pEnemyManager->CreateEnemy(spawnPos, enemyType, 0.08f);
+					pEnemy->SetSpawningParams(spawnPos, spawnPos, 0.0f);
+					pEnemy->SetTargetForwardToLookAtPoint(spawnPos + m_spawnFacingDirection);
+					pEnemy->SetEnemySpawner(this);
 
-				m_numSpawnedEnemies += 1;
+					m_numSpawnedEnemies += 1;
 
-				m_spawnCountdownTimer = m_spawnTime;
+					m_spawnCountdownTimer = m_spawnTime;
+				}
+			}
+			else
+			{
+				// Can't spawn an enemy
+				m_spawnCountdownTimer = 0.25f;
 			}
 		}
 	}
