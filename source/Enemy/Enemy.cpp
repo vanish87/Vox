@@ -4194,7 +4194,7 @@ void Enemy::AttackEnabledDelayTimerFinished()
 	}
 	else if(m_eEnemyType == eEnemyType_MageSkeleton)
 	{
-		vec3 fireballSpawnPosition = GetCenter() + (m_forward*0.75f) + (GetRightVector()*-0.4f) + (GetUpVector()*0.5f);
+		vec3 fireballSpawnPosition = GetCenter() + (m_forward*0.75f) + (GetRightVector()*-0.4f) + (GetUpVector()*0.25f);
 
 		float powerAmount = 25.0f;
 		vec3 toTarget;
