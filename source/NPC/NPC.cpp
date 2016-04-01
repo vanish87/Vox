@@ -70,6 +70,7 @@ NPC::NPC(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, Ligh
 	m_hoverRender = false;
 	m_subSelectionRender = false;
 
+	// Animation params
 	for(int i = 0; i < AnimationSections_NUMSECTIONS; i++)
 	{
 		m_animationSpeed[i] = 1.0f;
@@ -77,6 +78,11 @@ NPC::NPC(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, Ligh
 		m_animationFinished[i] = false;
 	}
 	m_animationTimer = 0.0f;
+
+	m_pVoxelCharacter->PlayAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BindPose");
+
+	UnloadWeapon(true);
+	UnloadWeapon(false);
 
 	// Loading character files
 	m_type = typeName;
