@@ -166,3 +166,4 @@
 - [ ] Dont create dying lights for the weapons in the front-end create character screen, since this bleeds into the customization section.
 - [ ] Add spell hands attacks.
 - [ ] Add dagger / knife attacks.
+- [ ] Fix for getting hit / knockback when crafting or interating with items / chest / npc
