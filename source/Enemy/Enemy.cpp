@@ -2408,12 +2408,14 @@ void Enemy::Attack()
 			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "StingAttack", 0.1f);
 			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Head_Body, false, AnimationSections_Head_Body, "StingAttack", 0.1f);
 
-			m_attackDelayTimer = 1.75f;
+			m_attackDelayTime = 1.75f;
 
 			m_attackEnabledDelayTimer = 0.35f;
 			float attackTime = 0.60f;
 			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackEnabledDelayTimer, m_attackEnabledDelayTimer, 0.0f, m_attackEnabledDelayTimer, 0.0f, NULL, _AttackEnabledDelayTimerFinished, this);
 			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackEnabledTimer, 0.0f, attackTime, attackTime, 0.0f, NULL, _AttackEnabledTimerFinished, this);
+
+			doAttack = true;
 		}
 		else if(m_eEnemyType == eEnemyType_GreenSlime || m_eEnemyType == eEnemyType_RedSlime || m_eEnemyType == eEnemyType_BlueSlime || m_eEnemyType == eEnemyType_YellowSlime)
 		{
@@ -2426,28 +2428,34 @@ void Enemy::Attack()
 		}
 		else if(m_eEnemyType == eEnemyType_IronGiant)
 		{
-			m_attackDelayTimer = 1.0f;
+			m_attackDelayTime = 1.0f;
 
 			m_attackEnabledDelayTimer = 0.15f;
 			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackEnabledDelayTimer, m_attackEnabledDelayTimer, 0.0f, m_attackEnabledDelayTimer, 0.0f, NULL, _AttackEnabledDelayTimerFinished, this);
+
+			doAttack = true;
 		}
 		else if(m_eEnemyType == eEnemyType_NormalSkeleton)
 		{
 			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, true, AnimationSections_FullBody, "SwordAttack2", 0.01f);
 
-			m_attackDelayTimer = 1.75f;
+			m_attackDelayTime = 1.75f;
 
 			m_attackEnabledDelayTimer = 0.15f;
 			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackEnabledDelayTimer, m_attackEnabledDelayTimer, 0.0f, m_attackEnabledDelayTimer, 0.0f, NULL, _AttackEnabledDelayTimerFinished, this);
+
+			doAttack = true;
 		}
 		else if(m_eEnemyType == eEnemyType_MageSkeleton)
 		{
 			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "StaffAttack", 0.01f);
 
-			m_attackDelayTimer = 1.0f;
+			m_attackDelayTime = 1.0f;
 
 			m_attackEnabledDelayTimer = 0.15f;
 			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackEnabledDelayTimer, m_attackEnabledDelayTimer, 0.0f, m_attackEnabledDelayTimer, 0.0f, NULL, _AttackEnabledDelayTimerFinished, this);
+
+			doAttack = true;
 		}
 		else if(m_eEnemyType == eEnemyType_RangedSkeleton)
 		{
@@ -2468,6 +2476,8 @@ void Enemy::Attack()
 					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "BowCharge", 0.2f);
 					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "BowCharge", 0.2f);
 				}
+
+				doAttack = true;
 			}
 		}
 		else if(m_eEnemyType == eEnemyType_MeleeSkeleton)
