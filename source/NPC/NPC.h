@@ -147,6 +147,7 @@ public:
 	void StartWaypointNavigation(int waypointIndex);
 	bool IsInsideWaypoint(int waypointIndex);
 	void SetMoveBackToPosition(vec3 pos);
+	void SetForwards(vec3 dir);
 	void SetTargetForwards(vec3 dir);
 	bool HasReachedTargetPosition();
 

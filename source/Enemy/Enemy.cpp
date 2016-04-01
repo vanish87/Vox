@@ -69,7 +69,7 @@ Enemy::Enemy(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, 
 	// Idle
 	m_bIsIdle = true;
 	m_waitBeforeStopMovingAnimationTimer = 0.0f;
-	m_hasSetIdleAnimation = false;
+	m_hasSetIdleAnimation = true;
 
 	// Rendering modes
 	m_outlineRender = false;

@@ -79,11 +79,6 @@ NPC::NPC(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, Ligh
 	}
 	m_animationTimer = 0.0f;
 
-	m_pVoxelCharacter->PlayAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BindPose");
-
-	UnloadWeapon(true);
-	UnloadWeapon(false);
-
 	// Loading character files
 	m_type = typeName;
 	m_modelName = modelName;
@@ -146,7 +141,7 @@ NPC::NPC(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, Ligh
 	// Idle
 	m_bIsIdle = true;
 	m_waitBeforeStopMovingAnimationTimer = 0.0f;
-	m_hasSetIdleAnimation = false;
+	m_hasSetIdleAnimation = true;
 
 	m_movementSpeed = 3.75f;
 	m_maxMovementSpeed = 7.0f;
@@ -224,6 +219,11 @@ NPC::NPC(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, Ligh
 	m_pVoxelCharacter->SetRandomMouthSelection(true);
 	m_pVoxelCharacter->SetRandomLookDirection(true);
 	m_pVoxelCharacter->SetWireFrameRender(false);
+
+	m_pVoxelCharacter->PlayAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BindPose");
+
+	UnloadWeapon(true);
+	UnloadWeapon(false);
 
 	if(m_pCharacterBackup != NULL)
 	{
@@ -1423,6 +1423,11 @@ bool NPC::IsInsideWaypoint(int waypointIndex)
 void NPC::SetMoveBackToPosition(vec3 pos)
 {
 	m_moveBackToPosition = pos;
+}
+
+void NPC::SetForwards(vec3 dir)
+{
+	m_forward = normalize(dir);
 }
 
 void NPC::SetTargetForwards(vec3 dir)
