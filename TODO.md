@@ -140,6 +140,7 @@
 - [x] Add a left/right pose to the character GUI animation pose so that hands can be animated seperately.
 - [x] Enemy and NPC particle effect and light update code should be simplfied, (like player) no duplication for left/right.
 - [x] Fix for getting hit / knockback when crafting or interating with items / chest / npc
+- [x] Physics & collision goes wrong with lag spikes when MoveAbsolute() is called, during a lag spike.
 - [ ] Add VLD support to debug version, allow for memory leak detection.
 - [ ] Add audio and music playback.
 - [ ] Saving and loading chunks.
@@ -167,4 +168,3 @@
 - [ ] Dont create dying lights for the weapons in the front-end create character screen, since this bleeds into the customization section.
 - [ ] Add spell hands attacks.
 - [ ] Add dagger / knife attacks.
-- [ ] Physics & collision goes wrong with lag spikes when MoveAbsolute() is called, during a lag spike.
