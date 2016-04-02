@@ -504,6 +504,9 @@ void Player::DoDamage(float amount, Colour textColour, vec3 knockbackDirection, 
 		m_returnToNormalFacialExpressionAfterHit = false;
 
 		m_damageTimer = m_damageTime;
+
+		// Close the interaction GUI compoenents
+		VoxGame::GetInstance()->CloseInteractionGUI();
 	}
 
 	if (IsDead())

@@ -137,6 +137,9 @@
 - [x] Bug with HUD text when resizing (HP, experience, etc)
 - [x] Make sure to fully clear the quest journal, manager and QuestGUI when round tripping to the front-end.
 - [x] Debug GUI should be on top of HUD and action bar.
+- [x] Add a left/right pose to the character GUI animation pose so that hands can be animated seperately.
+- [x] Enemy and NPC particle effect and light update code should be simplfied, (like player) no duplication for left/right.
+- [x] Fix for getting hit / knockback when crafting or interating with items / chest / npc
 - [ ] Add VLD support to debug version, allow for memory leak detection.
 - [ ] Add audio and music playback.
 - [ ] Saving and loading chunks.
@@ -161,9 +164,6 @@
 - [ ] Add more presets for other body parts in character creator screen.
 - [ ] Side stepping animation when in target camera mode.
 - [ ] Bug with custom cursors when going outside of windows bounds.
-- [x] Add a left/right pose to the character GUI animation pose so that hands can be animated seperately.
-- [x] Enemy and NPC particle effect and light update code should be simplfied, (like player) no duplication for left/right.
 - [ ] Dont create dying lights for the weapons in the front-end create character screen, since this bleeds into the customization section.
 - [ ] Add spell hands attacks.
 - [ ] Add dagger / knife attacks.
-- [ ] Fix for getting hit / knockback when crafting or interating with items / chest / npc

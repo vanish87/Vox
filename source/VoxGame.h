@@ -227,6 +227,7 @@ public:
 	// GUI Helper functions
 	bool IsGUIWindowStillDisplayed();
 	void CloseAllGUIWindows();
+	void CloseInteractionGUI();
 
 	// GUI
 	void CreateGUI();
