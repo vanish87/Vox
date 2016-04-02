@@ -3668,6 +3668,10 @@ void Enemy::UpdateMovement(float dt)
 						movementDirection = normalize(movementDirection);
 
 						float movementSpeed = (m_movementSpeed * dt);
+						if (movementSpeed > 0.5f)
+						{
+							movementSpeed = 0.5f;
+						}
 						float animationSpeed = 0.75f;
 
 						for(int i = 0; i < AnimationSections_NUMSECTIONS; i++)
@@ -3696,6 +3700,10 @@ void Enemy::UpdateMovement(float dt)
 		if(m_bCanJump == false)
 		{
 			float movementSpeed = (m_movementSpeed * dt);
+			if (movementSpeed > 0.5f)
+			{
+				movementSpeed = 0.5f;
+			}
 			MoveAbsolute(m_forward, movementSpeed);
 		}
 	}

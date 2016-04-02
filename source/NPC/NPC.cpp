@@ -2885,6 +2885,10 @@ void NPC::UpdateMovement(float dt)
 					}
 
 					float movementSpeed = m_movementSpeed * dt;
+					if (movementSpeed > 0.5f)
+					{
+						movementSpeed = 0.5f;
+					}
 					float animationSpeed = (m_movementSpeed / m_maxMovementSpeed);
 
 					if(m_bCanJump && m_bCanInteruptCombatAnim == false)

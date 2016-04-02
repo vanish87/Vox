@@ -2540,6 +2540,10 @@ void Player::UpdateMovement(float dt)
 			movementDirection = normalize(movementDirection);
 
 			float movementSpeed = (4.5f * dt);
+			if (movementSpeed > 0.5f)
+			{
+				movementSpeed = 0.5f;
+			}
 			float animationSpeed = 1.0f;
 
 			// TODO : Animation speeds
