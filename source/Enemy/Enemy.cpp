@@ -2104,6 +2104,10 @@ void Enemy::CheckProjectileDamageRadius(Projectile* pProjectile)
 		}
 
 		float knockbackAmount = 16.0f;
+		if (m_eEnemyType == eEnemyType_Bee || m_eEnemyType == eEnemyType_Bat || m_eEnemyType == eEnemyType_Ghost || m_eEnemyType == eEnemyType_Doppelganger)
+		{
+			knockbackAmount = 1.0f;
+		}
 		DoDamage(15.0f, damageColour, knockbackDirection, knockbackAmount, false, playerDamage);
 
 		if(pProjectile->IsReturnToPlayer() == false)
