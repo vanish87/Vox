@@ -167,3 +167,4 @@
 - [ ] Dont create dying lights for the weapons in the front-end create character screen, since this bleeds into the customization section.
 - [ ] Add spell hands attacks.
 - [ ] Add dagger / knife attacks.
+- [ ] Physics & collision goes wrong with lag spikes when MoveAbsolute() is called, during a lag spike.
