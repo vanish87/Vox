@@ -755,12 +755,12 @@ void VoxGame::SetupDataForGame()
 	//Enemy* pEnemy0 = m_pEnemyManager->CreateEnemy(vec3(35.5f, 12.0f, 5.5f), eEnemyType_RedSlime, 0.08f);
 
 	// Enemy spawners
-	//EnemySpawner* pEnemySpawner0 = m_pEnemyManager->CreateEnemySpawner(vec3(0.0f, 4.0f, 0.0f), vec3(0.0f, 0.0f, 5.0f));
-	//pEnemySpawner0->SetSpawningParams(3.0f, 3.0f, 20, vec3(0.0f, 0.0f, 0.0f), true, vec3(0.0f, 1.0f, 0.0f), true, true, 25.0f);
-	//pEnemySpawner0->AddEnemyTypeToSpawn(eEnemyType_GreenSlime);
-	//pEnemySpawner0->AddEnemyTypeToSpawn(eEnemyType_RedSlime);
-	//pEnemySpawner0->AddEnemyTypeToSpawn(eEnemyType_BlueSlime);
-	//pEnemySpawner0->AddEnemyTypeToSpawn(eEnemyType_YellowSlime);
+	EnemySpawner* pEnemySpawner0 = m_pEnemyManager->CreateEnemySpawner(vec3(0.0f, 4.0f, 0.0f), vec3(0.0f, 0.0f, 5.0f));
+	pEnemySpawner0->SetSpawningParams(3.0f, 3.0f, 20, vec3(0.0f, 0.0f, 0.0f), true, vec3(0.0f, 1.0f, 0.0f), true, true, 25.0f);
+	pEnemySpawner0->AddEnemyTypeToSpawn(eEnemyType_GreenSlime);
+	pEnemySpawner0->AddEnemyTypeToSpawn(eEnemyType_RedSlime);
+	pEnemySpawner0->AddEnemyTypeToSpawn(eEnemyType_BlueSlime);
+	pEnemySpawner0->AddEnemyTypeToSpawn(eEnemyType_YellowSlime);
 
 	// Quests
 	// Quest 1
