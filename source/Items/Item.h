@@ -30,6 +30,7 @@ class ItemManager;
 
 string GetItemTypeToString(eItem type);
 eItem GetItemTypeFromString(string typeName);
+float GetItemRadiusForType(eItem type);
 
 class Item
 {
@@ -127,6 +128,7 @@ public:
 
 	// World collision
 	void SetWorldCollide(bool collide);
+	bool CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pNormal, vec3 *pMovement);
 
 	// Bounding collision region
 	void CreateBoundingRegion(vec3 origin, BoundingRegionType boundingType, float radius, float xWidth, float yWidth, float zWidth, float scale);
