@@ -1415,11 +1415,11 @@ vec3 Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeFo
 				{
 					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Head_Body, false, AnimationSections_Head_Body, "TargetPose", 0.1f);
 				}
-				if (m_animationFinished[AnimationSections_Left_Arm_Hand])
+				if (m_animationFinished[AnimationSections_Left_Arm_Hand] && m_bCanAttackLeft)
 				{
 					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "TargetPose", 0.1f);
 				}
-				if (m_animationFinished[AnimationSections_Right_Arm_Hand])
+				if (m_animationFinished[AnimationSections_Right_Arm_Hand] && m_bCanAttackRight)
 				{
 					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "TargetPose", 0.1f);
 				}
