@@ -3109,7 +3109,7 @@ void Enemy::UpdatePhysics(float dt)
 		}
 	}
 
-	m_previousPosition = m_position;
+	m_previousPosition = GetCenter();
 }
 
 void Enemy::UpdateLookingAndForwardTarget(float dt)
