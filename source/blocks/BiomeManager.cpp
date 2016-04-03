@@ -80,6 +80,7 @@ void BiomeManager::AddBiomeBoundary(Biome biome, float heightUpperBoundary, floa
 
 Biome BiomeManager::GetBiome(vec3 position)
 {
+	// TODO : Better biome generation
 	return Biome_GrassLand;
 }
 
