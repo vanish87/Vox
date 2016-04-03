@@ -392,6 +392,31 @@ void ModMenu::SkinGUI()
 	m_pTooltipBackground_Rare->SetIcon(iconName);
 	iconName = "media/textures/gui/" + themeName + "/common/Tooltips/tooltip_background_epic.tga";
 	m_pTooltipBackground_Epic->SetIcon(iconName);
+
+	m_pGameplayMode->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pGameplayMode->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pGameplayMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pGameplayMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+
+	m_pGraphicsMode->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pGraphicsMode->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pGraphicsMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pGraphicsMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+
+	m_pSoundMode->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pSoundMode->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pSoundMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pSoundMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+
+	m_pHUDMode->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pHUDMode->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pHUDMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pHUDMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+
+	m_pMiscMode->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pMiscMode->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pMiscMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pMiscMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 }
 
 void ModMenu::UnSkinGUI()

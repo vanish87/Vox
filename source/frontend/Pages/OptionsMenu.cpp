@@ -567,6 +567,31 @@ void OptionsMenu::SkinGUI()
 	m_pFrontendManager->SetSliderIcons(m_pGamepadSensativitySlider);
 	m_pFrontendManager->SetSliderIcons(m_pSoundEffectsVolume);
 	m_pFrontendManager->SetSliderIcons(m_pMusicVolume);
+
+	m_pGameplayMode->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pGameplayMode->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pGameplayMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pGameplayMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+
+	m_pGraphicsMode->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pGraphicsMode->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pGraphicsMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pGraphicsMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+
+	m_pSoundMode->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pSoundMode->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pSoundMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pSoundMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+
+	m_pControlsMode->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pControlsMode->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pControlsMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pControlsMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+
+	m_pInterfaceMode->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pInterfaceMode->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pInterfaceMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pInterfaceMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 }
 
 void OptionsMenu::UnSkinGUI()
