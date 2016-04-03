@@ -141,6 +141,7 @@
 - [x] Enemy and NPC particle effect and light update code should be simplfied, (like player) no duplication for left/right.
 - [x] Fix for getting hit / knockback when crafting or interating with items / chest / npc
 - [x] Physics & collision goes wrong with lag spikes when MoveAbsolute() is called, during a lag spike.
+- [x] Add common front-end label / button colours, hover, pressed, etc.
 - [ ] Add VLD support to debug version, allow for memory leak detection.
 - [ ] Add audio and music playback.
 - [ ] Saving and loading chunks.
@@ -158,7 +159,6 @@
 - [ ] Companion pets.
 - [ ] Add debug render metrics for all counters (i.e num chunks, particles, items, triangles, verts, etc).
 - [ ] Use mouse and gamepad sensativity in the looking and camera rotation functions.
-- [x] Add common front-end label / button colours, hover, pressed, etc.
 - [ ] Fog rendering.
 - [ ] Particle effects proper position when in first person mode!
 - [ ] Better front-end scenery and character screens.
