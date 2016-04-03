@@ -190,8 +190,8 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 
 	// Interface
 	m_pRenderGUI = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Render HUD", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pRenderGUI->SetCallBackFunction(_RenderGUIPressed);
-	//m_pRenderGUI->SetCallBackData(this);
+	m_pRenderGUI->SetCallBackFunction(_RenderHUDTogglePressed);
+	m_pRenderGUI->SetCallBackData(this);
 	m_pRenderGUI->SetDisplayLabel(true);
 	m_pRenderGUI->SetDepth(2.0f);
 	m_pRenderGUI->SetPressedOffset(0, -2);
@@ -1029,4 +1029,36 @@ void OptionsMenu::_CustomCursorsTogglePressed(void *pData)
 void OptionsMenu::CustomCursorsTogglePressed()
 {
 	// TODO : Make it so that the custom cursors are turned on/off immediately when toggling the option
+}
+
+void OptionsMenu::_RenderHUDTogglePressed(void *pData)
+{
+	OptionsMenu* lpOptionsMenu = (OptionsMenu*)pData;
+	lpOptionsMenu->RenderHUDTogglePressed();
+}
+
+void OptionsMenu::RenderHUDTogglePressed()
+{
+	if (m_pRenderGUI->GetToggled())
+	{
+		if (VoxGame::GetInstance()->GetHUD()->IsLoaded() == false)
+		{
+			VoxGame::GetInstance()->GetHUD()->Load();
+		}
+		if (VoxGame::GetInstance()->GetActionBar()->IsLoaded() == false)
+		{
+			VoxGame::GetInstance()->GetActionBar()->Load();
+		}
+	}
+	else
+	{
+		if (VoxGame::GetInstance()->GetHUD()->IsLoaded() == true)
+		{
+			VoxGame::GetInstance()->GetHUD()->Unload();
+		}
+		if (VoxGame::GetInstance()->GetActionBar()->IsLoaded() == true)
+		{
+			VoxGame::GetInstance()->GetActionBar()->Unload();
+		}
+	}
 }

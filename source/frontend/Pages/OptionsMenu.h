@@ -76,6 +76,9 @@ protected:
 	static void _CustomCursorsTogglePressed(void *pData);
 	void CustomCursorsTogglePressed();
 
+	static void _RenderHUDTogglePressed(void *pData);
+	void RenderHUDTogglePressed();
+
 private:
 	/* Private methods */
 

@@ -870,13 +870,19 @@ void VoxGame::SetGameMode(GameMode mode)
 			// Unload actionbar
 			if (m_pActionBar->IsLoaded())
 			{
-				m_pActionBar->Unload();
+				if (m_pVoxSettings->m_renderGUI)
+				{
+					m_pActionBar->Unload();
+				}
 			}
 
 			// Unload the HUD
 			if (m_pHUD->IsLoaded())
 			{
-				m_pHUD->Unload();
+				if (m_pVoxSettings->m_renderGUI)
+				{
+					m_pHUD->Unload();
+				}
 			}
 
 			// Setup the gamedata since we have just loaded fresh into the frontend.
@@ -916,13 +922,19 @@ void VoxGame::SetGameMode(GameMode mode)
 			// Load action bar
 			if (m_pActionBar->IsLoaded() == false)
 			{
-				m_pActionBar->Load();
+				if (m_pVoxSettings->m_renderGUI)
+				{
+					m_pActionBar->Load();
+				}
 			}
 
 			// Load the HUD
 			if (m_pHUD->IsLoaded() == false)
 			{
-				m_pHUD->Load();
+				if (m_pVoxSettings->m_renderGUI)
+				{
+					m_pHUD->Load();
+				}
 			}
 
 			// Setup the gamedata since we have just loaded fresh into a game.
@@ -1299,6 +1311,11 @@ QuestGUI* VoxGame::GetQuestGUI()
 HUD* VoxGame::GetHUD()
 {
 	return m_pHUD;
+}
+
+ActionBar* VoxGame::GetActionBar()
+{
+	return m_pActionBar;
 }
 
 VoxSettings* VoxGame::GetVoxSettings()

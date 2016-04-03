@@ -1347,17 +1347,20 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 			}
 
 			// Check if we released on a actionbar slot
-			if(m_pActionBar->IsLoaded())
+			if (VoxGame::GetInstance()->GetVoxSettings()->m_renderGUI)
 			{
-				for(int i = 0; i < ActionBar::MAX_NUM_ACTION_SLOTS; i++)
+				if (m_pActionBar->IsLoaded())
 				{
-					m_pActionBar->GetActionSlotDimensions(i, &x, &y, &width, &height);
-
-					// Check if we released (mouse cursor) in the boundary of another slot
-					if(lMouse.x > x && lMouse.x < x+width && lMouse.y > y && lMouse.y < y+height)
+					for (int i = 0; i < ActionBar::MAX_NUM_ACTION_SLOTS; i++)
 					{
-						m_pActionBar->AddItemToActionBar(pInventoryItem->m_pInventoryItem, i, pInventoryItem->m_slotX, pInventoryItem->m_slotY);
-						m_pActionBar->ExportActionBar(m_pPlayer->GetName());
+						m_pActionBar->GetActionSlotDimensions(i, &x, &y, &width, &height);
+
+						// Check if we released (mouse cursor) in the boundary of another slot
+						if (lMouse.x > x && lMouse.x < x + width && lMouse.y > y && lMouse.y < y + height)
+						{
+							m_pActionBar->AddItemToActionBar(pInventoryItem->m_pInventoryItem, i, pInventoryItem->m_slotX, pInventoryItem->m_slotY);
+							m_pActionBar->ExportActionBar(m_pPlayer->GetName());
+						}
 					}
 				}
 			}

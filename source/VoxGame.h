@@ -256,6 +256,7 @@ public:
 	CharacterGUI* GetCharacterGUI();
 	QuestGUI* GetQuestGUI();
 	HUD* GetHUD();
+	ActionBar* GetActionBar();
 	VoxSettings* GetVoxSettings();
 
 protected:

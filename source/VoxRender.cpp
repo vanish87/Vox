@@ -250,7 +250,10 @@ void VoxGame::Render()
 		// Paperdoll for CharacterGUI
 		RenderPaperdollViewport();
 		// Portrait for HUD
-		RenderPortraitViewport();
+		if (m_pVoxSettings->m_renderGUI)
+		{
+			RenderPortraitViewport();
+		}
 
 		// ---------------------------------------
 		// Render transparency
@@ -291,7 +294,10 @@ void VoxGame::Render()
 			RenderCinematicLetterBox();
 
 			// Render the HUD
-			RenderHUD();
+			if (m_pVoxSettings->m_renderGUI)
+			{
+				RenderHUD();
+			}
 		m_pRenderer->PopMatrix();
 
 		// Disable multisampling for 2d gui and text
@@ -301,7 +307,10 @@ void VoxGame::Render()
 		// Paperdoll SSAO for CharacterGUI
 		RenderDeferredRenderingPaperDoll();
 		// Portrait SSAO for HUD
-		RenderDeferredRenderingPortrait();
+		if (m_pVoxSettings->m_renderGUI)
+		{
+			RenderDeferredRenderingPortrait();
+		}
 
 		// Render the chunks 2d (debug text information)
 		if (m_debugRender)
