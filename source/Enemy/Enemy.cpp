@@ -1955,6 +1955,10 @@ void Enemy::CheckPlayerDamageRadius()
 				Colour damageColour = Colour(1.0f, 1.0f, 1.0f);
 
 				float knockbackAmount = 16.0f;
+				if (m_eEnemyType == eEnemyType_Bee || m_eEnemyType == eEnemyType_Bat || m_eEnemyType == eEnemyType_Ghost || m_eEnemyType == eEnemyType_Doppelganger)
+				{
+					knockbackAmount = 1.0f;
+				}
 				DoDamage(20.0f, damageColour, knockbackDirection, knockbackAmount, true, true);
 			}
 		}
@@ -2014,6 +2018,10 @@ void Enemy::CheckNPCDamageRadius()
 				SetTargetNPC(pNPC);
 
 				float knockbackAmount = 16.0f;
+				if (m_eEnemyType == eEnemyType_Bee || m_eEnemyType == eEnemyType_Bat || m_eEnemyType == eEnemyType_Ghost || m_eEnemyType == eEnemyType_Doppelganger)
+				{
+					knockbackAmount = 1.0f;
+				}
 				DoDamage(20.0f, damageColour, knockbackDirection, knockbackAmount, true, false);
 			}
 		}
