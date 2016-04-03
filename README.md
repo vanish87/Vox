@@ -5,7 +5,7 @@
 [![Github Issues](http://githubbadges.herokuapp.com/AlwaysGeeky/Vox/issues.svg?label=Open Issues&style=shield)](https://github.com/AlwaysGeeky/Vox/issues)
 [![Stories in progress](https://badge.waffle.io/AlwaysGeeky/Vox.png?label=In Progress&title=In Progress)](https://waffle.io/AlwaysGeeky/Vox)
 
-Vox engine is an open source Voxel Engine, and game, that is written in C++ and OpenGL and can be used to create easy and fast voxel based games and applications. The engine is written to be highly functional and very efficient at allowing voxel game creation and provides a simple framework for creating 3D voxel games.
+Vox is an open source Voxel Engine, and game, that is written in C++ and OpenGL and can be used to create easy and fast voxel based games and applications. The engine is written to be highly functional and very efficient at allowing voxel game creation and provides a simple framework for creating 3D voxel games.
 
 ## Features
 * 3D voxel engine with cuboid and box-based rendering aesthetic. 
