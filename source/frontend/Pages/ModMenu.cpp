@@ -67,40 +67,30 @@ ModMenu::ModMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontPa
 	m_pGameplayMode->SetCallBackData(this);
 	m_pGameplayMode->SetDepth(2.0f);
 	m_pGameplayMode->SetPressedOffset(0, -2);
-	//m_pGameplayMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pGameplayMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pGraphicsMode = new OptionBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_18(), m_pFrontendManager->GetFrontendFont_18_Outline(), "Graphics", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pGraphicsMode->SetCallBackFunction(_GraphicsTabPressed);
 	m_pGraphicsMode->SetCallBackData(this);
 	m_pGraphicsMode->SetDepth(2.1f);
 	m_pGraphicsMode->SetPressedOffset(0, -2);
-	//m_pGraphicsMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pGraphicsMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pSoundMode = new OptionBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_18(), m_pFrontendManager->GetFrontendFont_18_Outline(), "Sound", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pSoundMode->SetCallBackFunction(_SoundTabPressed);
 	m_pSoundMode->SetCallBackData(this);
 	m_pSoundMode->SetDepth(2.2f);
 	m_pSoundMode->SetPressedOffset(0, -2);
-	//m_pSoundMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pSoundMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pHUDMode = new OptionBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_18(), m_pFrontendManager->GetFrontendFont_18_Outline(), "HUD", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pHUDMode->SetCallBackFunction(_GUITabPressed);
 	m_pHUDMode->SetCallBackData(this);
 	m_pHUDMode->SetDepth(2.3f);
 	m_pHUDMode->SetPressedOffset(0, -2);
-	//m_pHUDMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pHUDMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pMiscMode = new OptionBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_18(), m_pFrontendManager->GetFrontendFont_18_Outline(), "Misc", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pMiscMode->SetCallBackFunction(_MiscTabPressed);
 	m_pMiscMode->SetCallBackData(this);
 	m_pMiscMode->SetDepth(2.4f);
 	m_pMiscMode->SetPressedOffset(0, -2);
-	//m_pMiscMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pMiscMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	// Scrollbar
 	m_pModsScrollbar = new ScrollBar(m_pRenderer);

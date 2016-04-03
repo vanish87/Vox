@@ -61,40 +61,30 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pGameplayMode->SetCallBackData(this);
 	m_pGameplayMode->SetDepth(2.0f);
 	m_pGameplayMode->SetPressedOffset(0, -2);
-	//m_pGameplayMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pGameplayMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pGraphicsMode = new OptionBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_18(), m_pFrontendManager->GetFrontendFont_18_Outline(), "Graphics", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pGraphicsMode->SetCallBackFunction(_GraphicsTabPressed);
 	m_pGraphicsMode->SetCallBackData(this);
 	m_pGraphicsMode->SetDepth(2.1f);
 	m_pGraphicsMode->SetPressedOffset(0, -2);
-	//m_pGraphicsMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pGraphicsMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pSoundMode = new OptionBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_18(), m_pFrontendManager->GetFrontendFont_18_Outline(), "Sound", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pSoundMode->SetCallBackFunction(_SoundTabPressed);
 	m_pSoundMode->SetCallBackData(this);
 	m_pSoundMode->SetDepth(2.2f);
 	m_pSoundMode->SetPressedOffset(0, -2);
-	//m_pSoundMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pSoundMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pControlsMode = new OptionBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_18(), m_pFrontendManager->GetFrontendFont_18_Outline(), "Controls", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pControlsMode->SetCallBackFunction(_ControlsTabPressed);
 	m_pControlsMode->SetCallBackData(this);
 	m_pControlsMode->SetDepth(2.3f);
 	m_pControlsMode->SetPressedOffset(0, -2);
-	//m_pControlsMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pControlsMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pInterfaceMode = new OptionBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_18(), m_pFrontendManager->GetFrontendFont_18_Outline(), "Interface", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pInterfaceMode->SetCallBackFunction(_InterfaceTabPressed);
 	m_pInterfaceMode->SetCallBackData(this);
 	m_pInterfaceMode->SetDepth(2.4f);
 	m_pInterfaceMode->SetPressedOffset(0, -2);
-	//m_pInterfaceMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pInterfaceMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pOptionsModeController->Add(m_pGameplayMode);
 	m_pOptionsModeController->Add(m_pGraphicsMode);
@@ -107,28 +97,20 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 
 	// Gameplay
 	m_pInvertedMouseMode = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Inverted Mouse", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
-	//m_pInvertedMouseMode->SetCallBackFunction(_InvertedMousePressed);
-	//m_pInvertedMouseMode->SetCallBackData(this);
 	m_pInvertedMouseMode->SetDisplayLabel(true);
 	m_pInvertedMouseMode->SetDepth(2.0f);
 	m_pInvertedMouseMode->SetPressedOffset(0, -2);
-	//m_pInvertedMouseMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pInvertedMouseMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pNormalCamOption = new OptionBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Normal Cam", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	//m_pNormalCamOption->SetCallBackFunction(_SwitchToNormalCam);
 	//m_pNormalCamOption->SetCallBackData(this);
 	m_pNormalCamOption->SetDisplayLabel(true);
 	m_pNormalCamOption->SetPressedOffset(0, -2);
-	//m_pNormalCamOption->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pNormalCamOption->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 	m_pFollowCamOption = new OptionBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Follow Cam", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	//m_pFollowCamOption->SetCallBackFunction(_SwitchToFollowCam);
 	//m_pFollowCamOption->SetCallBackData(this);
 	m_pFollowCamOption->SetDisplayLabel(true);
 	m_pFollowCamOption->SetPressedOffset(0, -2);
-	//m_pFollowCamOption->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pFollowCamOption->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 	m_pCameraSelector = new OptionController(m_pRenderer, m_pFrontendManager->GetFrontendFont_25(), m_pFrontendManager->GetFrontendFont_25_Outline(), "Camera Mode", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pCameraSelector->SetDisplayLabel(true);
 	m_pCameraSelector->SetDisplayBorder(true);
@@ -172,8 +154,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pSoundEffects->SetDisplayLabel(true);
 	m_pSoundEffects->SetDepth(2.0f);
 	m_pSoundEffects->SetPressedOffset(0, -2);
-	//m_pSoundEffects->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pSoundEffects->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pSoundEffectsVolume = new Slider(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "", 0.0f, 1.0f, 0.5f, Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pSoundEffectsVolume->SetSliderParams(5, 10, ESliderDirection_Horizontal);
@@ -188,8 +168,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pMusic->SetDisplayLabel(true);
 	m_pMusic->SetDepth(2.0f);
 	m_pMusic->SetPressedOffset(0, -2);
-	//m_pMusic->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pMusic->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pMusicVolume = new Slider(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "", 0.0f, 1.0f, 0.5f, Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pMusicVolume->SetSliderParams(5, 10, ESliderDirection_Horizontal);
@@ -217,8 +195,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pRenderGUI->SetDisplayLabel(true);
 	m_pRenderGUI->SetDepth(2.0f);
 	m_pRenderGUI->SetPressedOffset(0, -2);
-	//m_pRenderGUI->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pRenderGUI->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pRenderCrosshair = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Render Crosshair", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	//m_pRenderCrosshair->SetCallBackFunction(_RenderCrosshairPressed);
@@ -226,8 +202,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pRenderCrosshair->SetDisplayLabel(true);
 	m_pRenderCrosshair->SetDepth(2.0f);
 	m_pRenderCrosshair->SetPressedOffset(0, -2);
-	//m_pRenderCrosshair->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pRenderCrosshair->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pHUDAnimations = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "HUD Animations", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	//m_pHUDAnimations->SetCallBackFunction(_HUDAnimationsPressed);
@@ -235,8 +209,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pHUDAnimations->SetDisplayLabel(true);
 	m_pHUDAnimations->SetDepth(2.0f);
 	m_pHUDAnimations->SetPressedOffset(0, -2);
-	//m_pHUDAnimations->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pHUDAnimations->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pCustomCursors = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Custom Cursors", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pCustomCursors->SetCallBackFunction(_CustomCursorsTogglePressed);
@@ -244,8 +216,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pCustomCursors->SetDisplayLabel(true);
 	m_pCustomCursors->SetDepth(2.0f);
 	m_pCustomCursors->SetPressedOffset(0, -2);
-	//m_pCustomCursors->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pCustomCursors->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pEquipHoverIcon = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Equip Helper Cursor", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	//m_pEquipHoverIcon->SetCallBackFunction(_HUDAnimationsPressed);
@@ -253,8 +223,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pEquipHoverIcon->SetDisplayLabel(true);
 	m_pEquipHoverIcon->SetDepth(2.0f);
 	m_pEquipHoverIcon->SetPressedOffset(0, -2);
-	//m_pEquipHoverIcon->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pEquipHoverIcon->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pToolTipAppearDelay = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Tooltip Delay", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	//m_pToolTipAppearDelay->SetCallBackFunction(_HUDAnimationsPressed);
@@ -262,8 +230,6 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pToolTipAppearDelay->SetDisplayLabel(true);
 	m_pToolTipAppearDelay->SetDepth(2.0f);
 	m_pToolTipAppearDelay->SetPressedOffset(0, -2);
-	//m_pToolTipAppearDelay->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pToolTipAppearDelay->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pConfirmDeleteItem = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Confirm Item Deletion", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	//m_pConfirmDeleteItem->SetCallBackFunction(_HUDAnimationsPressed);
@@ -271,16 +237,12 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pConfirmDeleteItem->SetDisplayLabel(true);
 	m_pConfirmDeleteItem->SetDepth(2.0f);
 	m_pConfirmDeleteItem->SetPressedOffset(0, -2);
-	//m_pConfirmDeleteItem->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pConfirmDeleteItem->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pResetGUIToDefault = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_25(), m_pFrontendManager->GetFrontendFont_25_Outline(), "Reset GUI", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pResetGUIToDefault->SetLabelOffset(0, 3);
 	//m_pResetGUIToDefault->SetCallBackFunction(_ResetGUIPressed);
-	//m_pResetGUIToDefault->SetCallBackData(this);;
+	//m_pResetGUIToDefault->SetCallBackData(this);
 	m_pResetGUIToDefault->SetPressedOffset(0, -2);
-	//m_pResetGUIToDefault->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pResetGUIToDefault->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_vpInterfaceComponents.push_back(m_pRenderGUI);
 	m_vpInterfaceComponents.push_back(m_pRenderCrosshair);
@@ -592,6 +554,59 @@ void OptionsMenu::SkinGUI()
 	m_pInterfaceMode->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
 	m_pInterfaceMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
 	m_pInterfaceMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+
+	m_pInvertedMouseMode->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pInvertedMouseMode->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pInvertedMouseMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pInvertedMouseMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+	m_pNormalCamOption->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pNormalCamOption->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pNormalCamOption->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pNormalCamOption->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+	m_pFollowCamOption->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pFollowCamOption->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pFollowCamOption->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pFollowCamOption->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+	m_pSoundEffects->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pSoundEffects->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pSoundEffects->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pSoundEffects->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+	m_pMusic->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pMusic->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pMusic->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pMusic->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+	m_pRenderGUI->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pRenderGUI->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pRenderGUI->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pRenderGUI->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+	m_pRenderCrosshair->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pRenderCrosshair->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pRenderCrosshair->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pRenderCrosshair->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+	m_pHUDAnimations->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pHUDAnimations->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pHUDAnimations->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pHUDAnimations->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+	m_pCustomCursors->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pCustomCursors->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pCustomCursors->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pCustomCursors->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+	m_pEquipHoverIcon->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pEquipHoverIcon->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pEquipHoverIcon->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pEquipHoverIcon->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+	m_pToolTipAppearDelay->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pToolTipAppearDelay->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pToolTipAppearDelay->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pToolTipAppearDelay->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+	m_pConfirmDeleteItem->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pConfirmDeleteItem->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pConfirmDeleteItem->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pConfirmDeleteItem->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+	m_pResetGUIToDefault->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pResetGUIToDefault->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pResetGUIToDefault->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pResetGUIToDefault->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 }
 
 void OptionsMenu::UnSkinGUI()
