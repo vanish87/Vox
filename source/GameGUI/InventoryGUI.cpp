@@ -173,8 +173,6 @@ InventoryGUI::InventoryGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager
 	m_pPopupConfirmButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_30(), m_pFrontendManager->GetFrontendFont_30_Outline(), "Yes", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pPopupConfirmButton->SetLabelOffset(0, 3);
 	m_pPopupConfirmButton->SetPressedOffset(0, -4);
-	//m_pPopupConfirmButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pPopupConfirmButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 	m_pPopupConfirmButton->SetCallBackFunction(_PopupConfirmPressed);
 	m_pPopupConfirmButton->SetCallBackData(this);
 	m_pPopupConfirmButton->SetDepth(9.0f);
@@ -182,8 +180,6 @@ InventoryGUI::InventoryGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager
 	m_pPopupCancelButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_30(), m_pFrontendManager->GetFrontendFont_30_Outline(), "No", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pPopupCancelButton->SetLabelOffset(0, 3);
 	m_pPopupCancelButton->SetPressedOffset(0, -4);
-	//m_pPopupCancelButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pPopupCancelButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 	m_pPopupCancelButton->SetCallBackFunction(_PopupCancelPressed);
 	m_pPopupCancelButton->SetCallBackData(this);
 	m_pPopupCancelButton->SetDepth(9.1f);
@@ -312,6 +308,13 @@ void InventoryGUI::SkinGUI()
 	iconName = "media/textures/gui/" + themeName + "/common/Tooltips/tooltip_background_epic.tga";
 	m_pTooltipBackground_Epic->SetIcon(iconName);
 
+	m_pPopupConfirmButton->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pPopupConfirmButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pPopupConfirmButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+	m_pPopupCancelButton->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pPopupCancelButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pPopupCancelButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+
 	m_pInventoryManager->SetInventoryGUINeedsUpdate(true);
 }
 
@@ -344,8 +347,8 @@ void InventoryGUI::Load(bool loadDelay, float loadDelayTime)
 		m_pInventoryWindow->Show();
 	}
 
-	//m_pPopupConfirmButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
-	//m_pPopupCancelButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pPopupConfirmButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pPopupCancelButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
 
 	m_pressedX = 0;
 	m_pressedY = 0;
@@ -818,8 +821,8 @@ void InventoryGUI::HideTooltip()
 
 void InventoryGUI::OpenPopup(string popupTitle, string popupText)
 {
-	//m_pPopupConfirmButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
-	//m_pPopupCancelButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pPopupConfirmButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pPopupCancelButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
 
 	int textWidth = m_pRenderer->GetFreeTypeTextWidth(m_pFrontendManager->GetFrontendFont_40(), "%s", popupTitle.c_str());
 	m_popupTitle->SetLocation((int)((m_windowWidth*0.5f)-(textWidth*0.5f)), (int)((m_windowHeight*0.5f)+(m_popupHeight*0.5f))-m_popupTitleSpacer-m_popupBorderSpacer+100);

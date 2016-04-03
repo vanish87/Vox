@@ -80,8 +80,6 @@ CraftingGUI::CraftingGUI(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_pCraftButton->SetCallBackData(this);
 	m_pCraftButton->SetDepth(2.0f);
 	m_pCraftButton->SetPressedOffset(0, -4);
-	//m_pCraftButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pCraftButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pCraftingProgressBarFiller = new Icon(m_pRenderer, "", 96, 14);
 	m_pCraftingProgressBarFiller->SetDepth(1.0f);
@@ -367,6 +365,10 @@ void CraftingGUI::SkinGUI()
 	m_pCloseExitButton->SetHoverIcon(m_pFrontendManager->GetCloseExitButtonIcon_Hover());
 	m_pCloseExitButton->SetSelectedIcon(m_pFrontendManager->GetCloseExitButtonIcon_Pressed());
 	m_pCloseExitButton->SetDisabledIcon(m_pFrontendManager->GetCloseExitButtonIcon());
+
+	m_pCraftButton->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pCraftButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pCraftButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 }
 
 void CraftingGUI::UnSkinGUI()
@@ -709,8 +711,10 @@ void CraftingGUI::CreateRecipeButtons()
 		pNewResultsItem->SetSelectedIcon(m_pRecipeButton_Pressed_Icon);
 		pNewResultsItem->SetDisabledIcon(m_pRecipeButton_Icon);
 		pNewResultsItem->SetPressedOffset(0, -4);
-		//pNewResultsItem->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-		//pNewResultsItem->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+		pNewResultsItem->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+		pNewResultsItem->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+		pNewResultsItem->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+		pNewResultsItem->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 		int xPos = -m_craftingResultsScrollAreaWidth;
 		int yPos = m_craftingResultsScrollAreaHeight - ((i+1)*36);
@@ -1300,13 +1304,13 @@ void CraftingGUI::UpdateCraftButton()
 	if(m_crafting == false && canCraft)
 	{
 		m_pCraftButton->SetDisabled(false);
-		m_pCraftButton->SetLabelColour(Colour(1.0f, 1.0f, 1.0f));
+		m_pCraftButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
 		m_pCraftButton->SetLabelOutlineColour(Colour(0.0f, 0.0f, 0.0f));
 	}
 	else
 	{
 		m_pCraftButton->SetDisabled(true);
-		m_pCraftButton->SetLabelColour(Colour(0.75f, 0.75f, 0.75f));
+		m_pCraftButton->SetLabelColour(m_pFrontendManager->GetDisabledFontColour());
 		m_pCraftButton->SetLabelOutlineColour(Colour(0.25f, 0.25f, 0.25f));
 	}
 }
@@ -1475,7 +1479,7 @@ void CraftingGUI::ResultsItemPressed(RecipeSlotItem* pRecipeButtonData)
 		m_pRecipeSlotItemSelected->m_pResultsIcon->SetDefaultIcon(m_pRecipeButton_Icon);
 		m_pRecipeSlotItemSelected->m_pResultsIcon->SetHoverIcon(m_pRecipeButton_Hover_Icon);
 		m_pRecipeSlotItemSelected->m_pResultsIcon->SetSelectedIcon(m_pRecipeButton_Pressed_Icon);
-		m_pRecipeSlotItemSelected->m_pResultsIcon->SetLabelColour(Colour(1.0f, 1.0f, 1.0f));
+		m_pRecipeSlotItemSelected->m_pResultsIcon->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
 		m_pRecipeSlotItemSelected->m_pResultsIcon->SetEnabled(true);
 		m_pRecipeSlotItemSelected->m_pResultsIcon->SetSelected(false);
 		m_pRecipeSlotItemSelected->m_pResultsIcon->SetHover(false);

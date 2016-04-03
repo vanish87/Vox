@@ -49,13 +49,11 @@ void VoxGame::CreateGUI()
 
 	m_pFullscreenButton = new Button(m_pRenderer, m_defaultFont, "FullScreen");
 	m_pFullscreenButton->SetDimensions(230, 10, 85, 25);
-	m_pFullscreenButton->SetLabelColour(Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pFullscreenButton->SetCallBackFunction(_ToggleFullScreenPressed);
 	m_pFullscreenButton->SetCallBackData(this);
 
 	m_pPlayAnimationButton = new Button(m_pRenderer, m_defaultFont, "Play Anim");
 	m_pPlayAnimationButton->SetDimensions(230, 40, 85, 25);
-	m_pPlayAnimationButton->SetLabelColour(Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pPlayAnimationButton->SetCallBackFunction(_PlayAnimationPressed);
 	m_pPlayAnimationButton->SetCallBackData(this);
 
@@ -161,7 +159,6 @@ void VoxGame::CreateGUI()
 
 	m_pStepUpdateButton = new Button(m_pRenderer, m_defaultFont, "Step");
 	m_pStepUpdateButton->SetDimensions(200, 5, 65, 25);
-	m_pStepUpdateButton->SetLabelColour(Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pStepUpdateButton->SetCallBackFunction(_StepUpdatePressed);
 	m_pStepUpdateButton->SetCallBackData(this);
 

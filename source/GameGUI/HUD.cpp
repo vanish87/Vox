@@ -43,8 +43,6 @@ HUD::HUD(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* pFrontendManager
 	m_pRespawnButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_50(), m_pFrontendManager->GetFrontendFont_50_Outline(), "Respawn", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pRespawnButton->SetLabelOffset(0, 3);
 	m_pRespawnButton->SetPressedOffset(0, -4);
-	//m_pRespawnButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pRespawnButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 	m_pRespawnButton->SetCallBackFunction(_RespawnPressed);
 	m_pRespawnButton->SetCallBackData(this);
 
@@ -462,6 +460,10 @@ void HUD::SkinGUI()
 	m_pEnemyHealthFillerIcon->SetIcon(iconName);
 	iconName = "media/textures/gui/" + themeName + "/HUD/enemy_health_filler_background.tga";
 	m_pEnemyHealthFillerBackgroundIcon->SetIcon(iconName);
+
+	m_pRespawnButton->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pRespawnButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pRespawnButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 }
 
 void HUD::UnSkinGUI()
@@ -1099,7 +1101,7 @@ void HUD::_DeathTextFinished(void *apData)
 
 void HUD::DeathTextFinished()
 {
-	//m_pRespawnButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pRespawnButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
 	m_pGUI->AddComponent(m_pRespawnButton);
 
 	VoxGame::GetInstance()->TurnCursorOn(true, false);

@@ -105,6 +105,12 @@ public:
 	unsigned int GetTextEffectFont() { return m_textEffectFontNormal; }
 	unsigned int GetTextEffectOutlineFont() { return m_textEffectFontOutline; }
 
+	// Label colours
+	Colour GetNormalFontColour() { return m_normalColour; }
+	Colour GetHoverFontColour() { return m_hoverColour; }
+	Colour GetPressedFontColour() { return m_pressedColour; }
+	Colour GetDisabledFontColour() { return m_disabledColour; }
+
 	// Checkbox
 	Icon* GetCheckboxIcon() { return m_pCheckboxIcon; };
 	Icon* GetCheckboxIconHover() { return m_pCheckboxIconHover; };
@@ -266,6 +272,12 @@ private:
 	// Text effects fonts
 	unsigned int m_textEffectFontNormal;
 	unsigned int m_textEffectFontOutline;
+
+	// Label colours
+	Colour m_normalColour;
+	Colour m_hoverColour;
+	Colour m_pressedColour;
+	Colour m_disabledColour;
 
 	// Checkbox
 	Icon* m_pCheckboxIcon;

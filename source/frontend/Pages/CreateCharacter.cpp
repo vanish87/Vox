@@ -61,24 +61,18 @@ CreateCharacter::CreateCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 	m_pBackButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_30(), m_pFrontendManager->GetFrontendFont_30_Outline(), "Back", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pBackButton->SetLabelOffset(0, 3);
 	m_pBackButton->SetPressedOffset(0, -4);
-	//m_pBackButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pBackButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 	m_pBackButton->SetCallBackFunction(_BackPressed);
 	m_pBackButton->SetCallBackData(this);
 
 	m_pNextButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_50(), m_pFrontendManager->GetFrontendFont_50_Outline(), "Next", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pNextButton->SetLabelOffset(0, 5);
 	m_pNextButton->SetPressedOffset(0, -4);
-	//m_pNextButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pNextButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 	m_pNextButton->SetCallBackFunction(_SelectPressed);
 	m_pNextButton->SetCallBackData(this);
 
 	m_pCreateButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_50(), m_pFrontendManager->GetFrontendFont_50_Outline(), "Create", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pCreateButton->SetLabelOffset(0, 5);
 	m_pCreateButton->SetPressedOffset(0, -4);
-	//m_pCreateButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pCreateButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 	m_pCreateButton->SetCallBackFunction(_CreatePressed);
 	m_pCreateButton->SetCallBackData(this);
 
@@ -154,8 +148,6 @@ CreateCharacter::CreateCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 	m_pCreateCustomPresetButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_30(), m_pFrontendManager->GetFrontendFont_30_Outline(), "", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pCreateCustomPresetButton->SetLabelOffset(0, 3);
 	m_pCreateCustomPresetButton->SetPressedOffset(0, -4);
-	//m_pCreateCustomPresetButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pCreateCustomPresetButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 	m_pCreateCustomPresetButton->SetCallBackFunction(_CreateCustomPressed);
 	m_pCreateCustomPresetButton->SetCallBackData(this);
 	m_pCreateCustomPresetButton->SetDepth(3.0f);
@@ -310,8 +302,6 @@ CreateCharacter::CreateCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 	m_pSaveDefaultsButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_25(), m_pFrontendManager->GetFrontendFont_25_Outline(), "", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pSaveDefaultsButton->SetLabelOffset(0, 5);
 	m_pSaveDefaultsButton->SetPressedOffset(0, -4);
-	//m_pSaveDefaultsButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-	//m_pSaveDefaultsButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 	m_pSaveDefaultsButton->SetCallBackFunction(_SaveDefaultsPressed);
 	m_pSaveDefaultsButton->SetCallBackData(this);
 
@@ -631,6 +621,19 @@ void CreateCharacter::SkinGUI()
 	m_pFrontendManager->SetSliderIcons(m_pXOffsetSlider);
 	m_pFrontendManager->SetSliderIcons(m_pYOffsetSlider);
 	m_pFrontendManager->SetSliderIcons(m_pZOffsetSlider);
+
+	m_pNextButton->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pNextButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pNextButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+	m_pCreateButton->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pCreateButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pCreateButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+	m_pBackButton->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pBackButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pBackButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+	m_pCreateCustomPresetButton->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pCreateCustomPresetButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pCreateCustomPresetButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 }
 
 void CreateCharacter::UnSkinGUI()
@@ -640,10 +643,10 @@ void CreateCharacter::UnSkinGUI()
 // Loading
 void CreateCharacter::Load()
 {
-	//m_pNextButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
-	//m_pCreateButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
-	//m_pBackButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
-	//m_pCreateCustomPresetButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pNextButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pCreateButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pBackButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pCreateCustomPresetButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
 
 	m_defaultEyeWidth = 9.0f;
 	m_defaultMouthWidth = 9.0f;
@@ -876,10 +879,10 @@ void CreateCharacter::SetHoverNPC(NPC* pHoverNPC)
 
 void CreateCharacter::SetSelectedNPC(NPC* pSelectedNPC)
 {
-	//m_pNextButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
-	//m_pCreateButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
-	//m_pBackButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
-	//m_pCreateCustomPresetButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pNextButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pCreateButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pBackButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pCreateCustomPresetButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
 
 	if(m_creatingCustom)
 	{
@@ -1575,10 +1578,10 @@ void CreateCharacter::_SelectPressed(void *apData)
 
 void CreateCharacter::SelectPressed()
 {
-	//m_pNextButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
-	//m_pCreateButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
-	//m_pBackButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
-	//m_pCreateCustomPresetButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pNextButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pCreateButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pBackButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pCreateCustomPresetButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
 
 	if(m_creatingCustom)
 	{
@@ -1747,10 +1750,10 @@ void CreateCharacter::_BackPressed(void *apData)
 
 void CreateCharacter::BackPressed()
 {
-	//m_pNextButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
-	//m_pCreateButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
-	//m_pBackButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
-	//m_pCreateCustomPresetButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pNextButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pCreateButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pBackButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pCreateCustomPresetButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
 
 	if(m_creatingCustom)
 	{

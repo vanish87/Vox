@@ -353,8 +353,10 @@ void QuestGUI::CreateQuestButtons()
 		pNewButton->SetSelectedIcon(m_pAlphaButton);
 		pNewButton->SetDisabledIcon(m_pAlphaButton);
 		pNewButton->SetPressedOffset(0, -4);
-		//pNewButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-		//pNewButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+		pNewButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+		pNewButton->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+		pNewButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+		pNewButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 		int textWidth = m_pRenderer->GetFreeTypeTextWidth(m_pFrontendManager->GetFrontendFont_20(), "%s", pQuest->GetName().c_str());
 		int textHeight = m_pRenderer->GetFreeTypeTextHeight(m_pFrontendManager->GetFrontendFont_20(), "%s", pQuest->GetName().c_str());
@@ -384,10 +386,10 @@ void QuestGUI::CreateQuestButtons()
 		pNewButton->SetSelectedIcon(m_pAlphaButton);
 		pNewButton->SetDisabledIcon(m_pAlphaButton);
 		pNewButton->SetPressedOffset(0, -4);
-		pNewButton->SetLabelColour(Colour(0.5f, 0.5f, 0.5f, 1.0f));
-		pNewButton->SetNormalLabelColour(Colour(0.5f, 0.5f, 0.5f, 1.0f));
-		//pNewButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
-		//pNewButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+		pNewButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+		pNewButton->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+		pNewButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+		pNewButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 		int textWidth = m_pRenderer->GetFreeTypeTextWidth(m_pFrontendManager->GetFrontendFont_20(), "%s", pQuest->GetName().c_str());
 		int textHeight = m_pRenderer->GetFreeTypeTextHeight(m_pFrontendManager->GetFrontendFont_20(), "%s", pQuest->GetName().c_str());

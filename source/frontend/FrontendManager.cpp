@@ -20,6 +20,15 @@
 #include "Pages/OptionsMenu.h"
 #include "../VoxGame.h"
 
+#include <iostream>
+#include "ini/INIReader.h"
+
+#include <fstream>
+#include <ostream>
+#include <iostream>
+#include <string>
+using namespace std;
+
 
 FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 {
@@ -56,6 +65,12 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 	// Text effects fonts
 	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolbackot.ttf", 34, &m_textEffectFontNormal, true);
 	m_pRenderer->CreateFreeTypeFont("media/fonts/screenloggercoolot.ttf", 34, &m_textEffectFontOutline, true);
+
+	// Label colours
+	m_normalColour = Colour(1.0f, 1.0f, 1.0f);
+	m_hoverColour = Colour(0.74f, 0.49f, 0.26f);
+	m_pressedColour = Colour(0.5f, 0.3f, 0.01f);
+	m_disabledColour = Colour(0.25f, 0.25f, 0.25f);
 
 	// Checkbox
 	m_pCheckboxIcon = new Icon(m_pRenderer, "", 16, 16);
@@ -574,6 +589,33 @@ void FrontendManager::LoadCommonGraphics(string themeName)
 	m_pTab75OptionIcon_Toggled_Hover->SetIcon(iconName);
 	iconName = "media/textures/gui/" + themeName + "/common/tab_option/tab_toggled_pressed.tga";
 	m_pTab75OptionIcon_Toggled_Pressed->SetIcon(iconName);
+
+	// Label colours
+	string settingsIniFile = "media/textures/gui/" + themeName + "/theme.ini";
+	INIReader reader(settingsIniFile);
+
+	if (reader.ParseError() >= 0)
+	{
+		float r = reader.GetReal("NormalLabel", "Red", 1.0f);
+		float g = reader.GetReal("NormalLabel", "Green", 1.0f);
+		float b = reader.GetReal("NormalLabel", "Blue", 1.0f);
+		m_normalColour = Colour(r, g, b);
+
+		r = reader.GetReal("HoverLabel", "Red", 1.0f);
+		g = reader.GetReal("HoverLabel", "Green", 1.0f);
+		b = reader.GetReal("HoverLabel", "Blue", 1.0f);
+		m_hoverColour = Colour(r, g, b);
+
+		r = reader.GetReal("PressedLabel", "Red", 1.0f);
+		g = reader.GetReal("PressedLabel", "Green", 1.0f);
+		b = reader.GetReal("PressedLabel", "Blue", 1.0f);
+		m_pressedColour = Colour(r, g, b);
+
+		r = reader.GetReal("DisabledLabel", "Red", 1.0f);
+		g = reader.GetReal("DisabledLabel", "Green", 1.0f);
+		b = reader.GetReal("DisabledLabel", "Blue", 1.0f);
+		m_disabledColour = Colour(r, g, b);
+	}
 }
 
 // Setup icons for components

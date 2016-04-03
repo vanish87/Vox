@@ -158,7 +158,7 @@
 - [ ] Companion pets.
 - [ ] Add debug render metrics for all counters (i.e num chunks, particles, items, triangles, verts, etc).
 - [ ] Use mouse and gamepad sensativity in the looking and camera rotation functions.
-- [ ] Add common front-end label / button colours, hover, pressed, etc.
+- [x] Add common front-end label / button colours, hover, pressed, etc.
 - [ ] Fog rendering.
 - [ ] Particle effects proper position when in first person mode!
 - [ ] Better front-end scenery and character screens.
@@ -168,3 +168,4 @@
 - [ ] Dont create dying lights for the weapons in the front-end create character screen, since this bleeds into the customization section.
 - [ ] Add spell hands attacks.
 - [ ] Add dagger / knife attacks.
+- [ ] Don't allow 'other' buttons in select character screen when we have delet popup - i.e select, create, etc.
