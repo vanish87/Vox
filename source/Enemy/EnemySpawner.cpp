@@ -141,7 +141,7 @@ bool EnemySpawner::GetSpawnPosition(vec3* pSpawnPosition)
 {
 	bool lLocationGood = false;
 	int numTries = 0;
-	while (lLocationGood == false && numTries < 50)
+	while (lLocationGood == false && numTries < 10)
 	{
 		vec3 spawnPos = m_position;
 		vec3 randomOffset;
@@ -217,8 +217,8 @@ void EnemySpawner::Update(float dt)
 			}
 			else
 			{
-				// Can't spawn an enemy
-				m_spawnCountdownTimer = 0.25f;
+				// Can't spawn an enemy at a good position, wait a while before we try again
+				m_spawnCountdownTimer = 0.5f;
 			}
 		}
 	}
