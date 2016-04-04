@@ -368,10 +368,10 @@ void OptionsMenu::SetWindowDimensions(int windowWidth, int windowHeight)
 	m_pControlsMode->SetLabelPosition((int)(75*0.5f-textWidth*0.5f), 8);
 
 	// Gameplay
-	m_pInvertedMouseMode->SetDimensions(25, m_optionsWindowHeight-65, 32, 32);
+	m_pInvertedMouseMode->SetDimensions(25, m_optionsWindowHeight-65, 20, 20);
 
-	m_pNormalCamOption->SetDimensions(5, 43, 32, 32);
-	m_pFollowCamOption->SetDimensions(5, 7, 32, 32);
+	m_pNormalCamOption->SetDimensions(5, 43, 20, 20);
+	m_pFollowCamOption->SetDimensions(5, 7, 20, 20);
 	m_pCameraSelector->SetDimensions(25, m_optionsWindowHeight-190, 140, 80);
 
 	m_pMouseSensativitySlider->SetDimensions(135, m_optionsWindowHeight-265, 171, 24);
@@ -388,11 +388,11 @@ void OptionsMenu::SetWindowDimensions(int windowWidth, int windowHeight)
 	// Graphics
 
 	// Sound
-	m_pSoundEffects->SetDimensions(25, m_optionsWindowHeight-65, 32, 32);
+	m_pSoundEffects->SetDimensions(25, m_optionsWindowHeight-65, 20, 20);
 	m_pSoundEffectsVolume->SetDimensions(115, m_optionsWindowHeight-65, 171, 24);
 	m_pSoundEffectsVolume->SetCurrentValue(m_pSoundEffectsVolume->GetCurrentValue(), true);
 
-	m_pMusic->SetDimensions(25, m_optionsWindowHeight-105, 32, 32);
+	m_pMusic->SetDimensions(25, m_optionsWindowHeight-105, 20, 20);
 	m_pMusicVolume->SetDimensions(115, m_optionsWindowHeight-105, 171, 24);
 	m_pMusicVolume->SetCurrentValue(m_pMusicVolume->GetCurrentValue(), true);
 
@@ -400,13 +400,13 @@ void OptionsMenu::SetWindowDimensions(int windowWidth, int windowHeight)
 	m_pSliderBackgroundIcon_Music->SetDimensions(111, m_optionsWindowHeight-108, 207, 31);
 
 	// Interface
-	m_pRenderGUI->SetDimensions(25, m_optionsWindowHeight-65, 32, 32);
-	m_pRenderCrosshair->SetDimensions(25, m_optionsWindowHeight-105, 32, 32);
-	m_pHUDAnimations->SetDimensions(25, m_optionsWindowHeight-145, 32, 32);
-	m_pCustomCursors->SetDimensions(25, m_optionsWindowHeight-185, 32, 32);
-	m_pEquipHoverIcon->SetDimensions(25, m_optionsWindowHeight-225, 32, 32);
-	m_pToolTipAppearDelay->SetDimensions(25, m_optionsWindowHeight-265, 32, 32);
-	m_pConfirmDeleteItem->SetDimensions(25, m_optionsWindowHeight-305, 32, 32);
+	m_pRenderGUI->SetDimensions(25, m_optionsWindowHeight-65, 20, 20);
+	m_pRenderCrosshair->SetDimensions(25, m_optionsWindowHeight-105, 20, 20);
+	m_pHUDAnimations->SetDimensions(25, m_optionsWindowHeight-145, 20, 20);
+	m_pCustomCursors->SetDimensions(25, m_optionsWindowHeight-185, 20, 20);
+	m_pEquipHoverIcon->SetDimensions(25, m_optionsWindowHeight-225, 20, 20);
+	m_pToolTipAppearDelay->SetDimensions(25, m_optionsWindowHeight-265, 20, 20);
+	m_pConfirmDeleteItem->SetDimensions(25, m_optionsWindowHeight-305, 20, 20);
 	m_pResetGUIToDefault->SetDimensions(25, m_optionsWindowHeight-375, 110, 47);
 
 	// Controls
@@ -486,43 +486,43 @@ void OptionsMenu::SkinGUI()
 
 	m_pFrontendManager->SetCheckboxIcons(m_pInvertedMouseMode);
 	Dimensions dimensions = m_pInvertedMouseMode->GetDimensions();
-	m_pInvertedMouseMode->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+	m_pInvertedMouseMode->SetDimensions(dimensions.m_x, dimensions.m_y, 20, 20);
 
 	m_pFrontendManager->SetOptionboxIcons(m_pNormalCamOption);
 	dimensions = m_pNormalCamOption->GetDimensions();
-	m_pNormalCamOption->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+	m_pNormalCamOption->SetDimensions(dimensions.m_x, dimensions.m_y, 20, 20);
 	m_pFrontendManager->SetOptionboxIcons(m_pFollowCamOption);
 	dimensions = m_pFollowCamOption->GetDimensions();
-	m_pFollowCamOption->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+	m_pFollowCamOption->SetDimensions(dimensions.m_x, dimensions.m_y, 20, 20);
 
 	m_pFrontendManager->SetCheckboxIcons(m_pSoundEffects);
 	dimensions = m_pSoundEffects->GetDimensions();
-	m_pSoundEffects->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+	m_pSoundEffects->SetDimensions(dimensions.m_x, dimensions.m_y, 20, 20);
 	m_pFrontendManager->SetCheckboxIcons(m_pMusic);
 	dimensions = m_pMusic->GetDimensions();
-	m_pMusic->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+	m_pMusic->SetDimensions(dimensions.m_x, dimensions.m_y, 20, 20);
 
 	m_pFrontendManager->SetCheckboxIcons(m_pRenderGUI);
 	dimensions = m_pRenderGUI->GetDimensions();
-	m_pRenderGUI->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+	m_pRenderGUI->SetDimensions(dimensions.m_x, dimensions.m_y, 20, 20);
 	m_pFrontendManager->SetCheckboxIcons(m_pRenderCrosshair);
 	dimensions = m_pRenderCrosshair->GetDimensions();
-	m_pRenderCrosshair->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+	m_pRenderCrosshair->SetDimensions(dimensions.m_x, dimensions.m_y, 20, 20);
 	m_pFrontendManager->SetCheckboxIcons(m_pHUDAnimations);
 	dimensions = m_pHUDAnimations->GetDimensions();
-	m_pHUDAnimations->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+	m_pHUDAnimations->SetDimensions(dimensions.m_x, dimensions.m_y, 20, 20);
 	m_pFrontendManager->SetCheckboxIcons(m_pCustomCursors);
 	dimensions = m_pCustomCursors->GetDimensions();
-	m_pCustomCursors->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+	m_pCustomCursors->SetDimensions(dimensions.m_x, dimensions.m_y, 20, 20);
 	m_pFrontendManager->SetCheckboxIcons(m_pEquipHoverIcon);
 	dimensions = m_pEquipHoverIcon->GetDimensions();
-	m_pEquipHoverIcon->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+	m_pEquipHoverIcon->SetDimensions(dimensions.m_x, dimensions.m_y, 20, 20);
 	m_pFrontendManager->SetCheckboxIcons(m_pToolTipAppearDelay);
 	dimensions = m_pToolTipAppearDelay->GetDimensions();
-	m_pToolTipAppearDelay->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+	m_pToolTipAppearDelay->SetDimensions(dimensions.m_x, dimensions.m_y, 20, 20);
 	m_pFrontendManager->SetCheckboxIcons(m_pConfirmDeleteItem);
 	dimensions = m_pConfirmDeleteItem->GetDimensions();
-	m_pConfirmDeleteItem->SetDimensions(dimensions.m_x, dimensions.m_y, 32, 32);
+	m_pConfirmDeleteItem->SetDimensions(dimensions.m_x, dimensions.m_y, 20, 20);
 	m_pFrontendManager->SetButtonIcons(m_pResetGUIToDefault, ButtonSize_110x47);
 
 	m_pFrontendManager->SetSliderIcons(m_pMouseSensativitySlider);
