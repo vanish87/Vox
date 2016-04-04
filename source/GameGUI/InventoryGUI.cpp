@@ -1438,20 +1438,40 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 					}
 					else
 					{
-						char popupTitle[256];
-						sprintf(popupTitle, "Delete");
+						if (VoxGame::GetInstance()->GetVoxSettings()->m_confirmItemDelete)
+						{
+							char popupTitle[256];
+							sprintf(popupTitle, "Delete");
 
-						char popupText[256];
-						sprintf(popupText, "Are you sure you want to delete [C=Custom(00A2E8)]%s[C=White]?", pInventoryItem->m_pInventoryItem->m_title.c_str());
+							char popupText[256];
+							sprintf(popupText, "Are you sure you want to delete [C=Custom(00A2E8)]%s[C=White]?", pInventoryItem->m_pInventoryItem->m_title.c_str());
 
-						OpenPopup(popupTitle, popupText);
+							OpenPopup(popupTitle, popupText);
 
-						m_pInventoryItemToDelete = pInventoryItem;
+							m_pInventoryItemToDelete = pInventoryItem;
 
-						m_pCharacterGUI->HideEquipHover();
+							m_pCharacterGUI->HideEquipHover();
 
-						switched = false;
-						deleted = false;
+							switched = false;
+							deleted = false;
+						}
+						else
+						{
+							if (pInventoryItem != NULL)
+							{
+								m_pInventoryManager->RemoveInventoryItem(pInventoryItem->m_slotX, pInventoryItem->m_slotY);
+
+								m_pActionBar->RemoveInventoryItemFromActionBar(pInventoryItem->m_pInventoryItem->m_title);
+
+								m_pInventoryWindow->RemoveComponent(pInventoryItem->m_pInventoryIcon);
+
+								pInventoryItem->m_erase = true;
+								m_vpInventorySlotItems.erase(remove_if(m_vpInventorySlotItems.begin(), m_vpInventorySlotItems.end(), needs_erasing), m_vpInventorySlotItems.end());
+
+								switched = true;
+								deleted = true;
+							}
+						}
 					}
 				}
 			}
