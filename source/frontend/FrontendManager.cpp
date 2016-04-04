@@ -787,6 +787,19 @@ void FrontendManager::SetCharacterSubSelection(string subSelection)
 	}
 }
 
+// Constants
+float FrontendManager::GetToolTipAppearDelay()
+{
+	if (VoxGame::GetInstance()->GetVoxSettings()->m_tooltipDelay)
+	{
+		return m_tooltipAppearDelay;
+	}
+	else
+	{
+		return 0.0f;
+	}
+}
+
 // Updating
 void FrontendManager::Update(float dt)
 {

@@ -202,7 +202,7 @@ public:
 	void SetCharacterSubSelection(string subSelection);
 
 	// Constants
-	float GetToolTipAppearDelay() { return m_tooltipAppearDelay; }
+	float GetToolTipAppearDelay();
 
 	// Updating
 	void Update(float dt);
