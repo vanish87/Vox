@@ -142,6 +142,8 @@
 - [x] Fix for getting hit / knockback when crafting or interating with items / chest / npc
 - [x] Physics & collision goes wrong with lag spikes when MoveAbsolute() is called, during a lag spike.
 - [x] Add common front-end label / button colours, hover, pressed, etc.
+- [x] Add spell hands attacks.
+- [x] Add dagger / knife attacks.
 - [ ] Add VLD support to debug version, allow for memory leak detection.
 - [ ] Add audio and music playback.
 - [ ] Saving and loading chunks.
@@ -166,6 +168,4 @@
 - [ ] Side stepping animation when in target camera mode.
 - [ ] Bug with custom cursors when going outside of windows bounds.
 - [ ] Dont create dying lights for the weapons in the front-end create character screen, since this bleeds into the customization section.
-- [x] Add spell hands attacks.
-- [ ] Add dagger / knife attacks.
 - [ ] Don't allow 'other' buttons in select character screen when we have delet popup - i.e select, create, etc.
