@@ -306,6 +306,9 @@ protected:
 	static void _AttackAnimationTimerFinished(void *apData);
 	void AttackAnimationTimerFinished();
 
+	static void _AttackAnimationTimerFinished_Alternative(void *apData);
+	void AttackAnimationTimerFinished_Alternative();
+
 private:
 	/* Private methods */
 

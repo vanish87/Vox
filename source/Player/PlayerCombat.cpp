@@ -229,6 +229,25 @@ void Player::PressAttack()
 	}
 	else if (IsSpellHands())
 	{
+		InventoryItem* pRightHand = m_pInventoryManager->GetInventoryItemForEquipSlot(EquipSlot_RightHand);
+		InventoryItem* pLeftHand = m_pInventoryManager->GetInventoryItemForEquipSlot(EquipSlot_LeftHand);
+
+		if (pRightHand != NULL && pRightHand->m_itemType == InventoryType_Weapon_SpellHands && CanAttackRight())
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "HandSpellCastRight", 0.01f);
+
+			Interpolator::GetInstance()->AddFloatInterpolation(&m_animationTimer, 0.0f, 0.3f, 0.3f, 0.0f, NULL, _AttackAnimationTimerFinished, this);
+
+			m_bCanAttackRight = false;
+		}
+		else if (pLeftHand != NULL && pLeftHand->m_itemType == InventoryType_Weapon_SpellHands && CanAttackLeft())
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "HandSpellCastLeft", 0.01f);
+
+			Interpolator::GetInstance()->AddFloatInterpolation(&m_animationTimer, 0.0f, 0.3f, 0.3f, 0.0f, NULL, _AttackAnimationTimerFinished_Alternative, this);
+
+			m_bCanAttackLeft = false;
+		}
 	}
 	else if (IsShield())
 	{
@@ -869,6 +888,128 @@ void Player::AttackAnimationTimerFinished()
 	}
 	else if (IsSpellHands())
 	{
+		float powerAmount = 25.0f;
+		float cameraMultiplier = 25.0f;
+
+		vec3 spellSpawnPosition = GetCenter() + (m_forward*0.5f) + (GetUpVector()*0.0f);
+
+		// For right hand
+		spellSpawnPosition += -(GetRightVector()*0.4f);
+
+		if (VoxGame::GetInstance()->GetCameraMode() == CameraMode_FirstPerson)
+		{
+			cameraMultiplier = 30.0f;
+			spellSpawnPosition.y += 0.75f;
+		}
+
+		vec3 spellSpawnVelocity = m_forward * powerAmount + vec3(0.0f, 1.0f, 0.0f) * (m_cameraForward.y*cameraMultiplier);
+
+		if (m_pTargetEnemy != NULL)
+		{
+			vec3 toTarget = m_pTargetEnemy->GetProjectileHitboxCenter() - GetCenter();
+			spellSpawnVelocity = (normalize(toTarget) * powerAmount);
+		}
+
+		Projectile* pProjectile = m_pProjectileManager->CreateProjectile(spellSpawnPosition, spellSpawnVelocity, 0.0f, "media/gamedata/items/Fireball/FireballBlue.item", 0.05f);
+		pProjectile->SetProjectileType(true, false, false);
+		pProjectile->SetOwner(this, NULL, NULL);
+		pProjectile->SetGravityMultiplier(0.0f);
+	}
+	else if (IsShield())
+	{
+	}
+	else if (IsTorch())
+	{
+	}
+}
+
+void Player::_AttackAnimationTimerFinished_Alternative(void *apData)
+{
+	Player* lpPlayer = (Player*)apData;
+	lpPlayer->AttackAnimationTimerFinished_Alternative();
+}
+
+void Player::AttackAnimationTimerFinished_Alternative()
+{
+	if (IsBow())
+	{
+	}
+	else if (IsBoomerang())
+	{
+	}
+	else if (IsStaff())
+	{
+	}
+	else if (IsWand())
+	{
+	}
+	else if (IsBomb())
+	{
+	}
+	else if (IsConsumable())
+	{
+	}
+	else if (IsDagger())
+	{
+	}
+	else if (IsHammer())
+	{
+	}
+	else if (IsMace())
+	{
+	}
+	else if (IsSickle())
+	{
+	}
+	else if (IsPickaxe())
+	{
+	}
+	else if (IsAxe())
+	{
+	}
+	else if (Is2HandedSword())
+	{
+	}
+	else if (IsSword())
+	{
+	}
+	else if (IsBlockPlacing())
+	{
+	}
+	else if (IsItemPlacing())
+	{
+	}
+	else if (IsSceneryPlacing())
+	{
+	}
+	else if (IsSpellHands())
+	{
+		float powerAmount = 25.0f;
+		float cameraMultiplier = 25.0f;
+
+		vec3 spellSpawnPosition = GetCenter() + (m_forward*0.5f) + (GetUpVector()*0.0f);
+
+		// For left hand
+		spellSpawnPosition += (GetRightVector()*0.4f);
+
+		if (VoxGame::GetInstance()->GetCameraMode() == CameraMode_FirstPerson)
+		{
+			cameraMultiplier = 30.0f;
+			spellSpawnPosition.y += 0.75f;
+		}
+
+		vec3 spellSpawnVelocity = m_forward * powerAmount + vec3(0.0f, 1.0f, 0.0f) * (m_cameraForward.y*cameraMultiplier);
+
+		if (m_pTargetEnemy != NULL)
+		{
+			vec3 toTarget = m_pTargetEnemy->GetProjectileHitboxCenter() - GetCenter();
+			spellSpawnVelocity = (normalize(toTarget) * powerAmount);
+		}
+
+		Projectile* pProjectile = m_pProjectileManager->CreateProjectile(spellSpawnPosition, spellSpawnVelocity, 0.0f, "media/gamedata/items/Fireball/FireballBlue.item", 0.05f);
+		pProjectile->SetProjectileType(true, false, false);
+		pProjectile->SetOwner(this, NULL, NULL);
+		pProjectile->SetGravityMultiplier(0.0f);
 	}
 	else if (IsShield())
 	{
