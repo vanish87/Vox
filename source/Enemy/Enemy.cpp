@@ -1931,36 +1931,25 @@ void Enemy::CheckPlayerDamageRadius()
 
 		if(dotProduct > m_pPlayer->GetAttackSegmentAngle()) // Check if we are within the attack segment
 		{	
-			if(m_pPlayer->IsDagger())
+			vec3 knockbackDirection;
+			if(m_eEnemyType == eEnemyType_Bee || m_eEnemyType == eEnemyType_Bat || m_eEnemyType == eEnemyType_Ghost || m_eEnemyType == eEnemyType_Doppelganger)
 			{
-				// Remove sapping from all other enemies
-				m_pEnemyManager->RemoveSappedFromEnemies(this);
-
-				// Set sapped
-				SetSapped(true);
+				knockbackDirection = (direction*2.0f);
 			}
 			else
 			{
-				vec3 knockbackDirection;
-				if(m_eEnemyType == eEnemyType_Bee || m_eEnemyType == eEnemyType_Bat || m_eEnemyType == eEnemyType_Ghost || m_eEnemyType == eEnemyType_Doppelganger)
-				{
-					knockbackDirection = (direction*2.0f);
-				}
-				else
-				{
-					knockbackDirection = (direction*2.0f) + vec3(0.0f, 1.0f, 0.0f);
-				}
-
-				knockbackDirection = normalize(knockbackDirection);
-				Colour damageColour = Colour(1.0f, 1.0f, 1.0f);
-
-				float knockbackAmount = 16.0f;
-				if (m_eEnemyType == eEnemyType_Bee || m_eEnemyType == eEnemyType_Bat || m_eEnemyType == eEnemyType_Ghost || m_eEnemyType == eEnemyType_Doppelganger)
-				{
-					knockbackAmount = 1.0f;
-				}
-				DoDamage(20.0f, damageColour, knockbackDirection, knockbackAmount, true, true);
+				knockbackDirection = (direction*2.0f) + vec3(0.0f, 1.0f, 0.0f);
 			}
+
+			knockbackDirection = normalize(knockbackDirection);
+			Colour damageColour = Colour(1.0f, 1.0f, 1.0f);
+
+			float knockbackAmount = 16.0f;
+			if (m_eEnemyType == eEnemyType_Bee || m_eEnemyType == eEnemyType_Bat || m_eEnemyType == eEnemyType_Ghost || m_eEnemyType == eEnemyType_Doppelganger)
+			{
+				knockbackAmount = 1.0f;
+			}
+			DoDamage(20.0f, damageColour, knockbackDirection, knockbackAmount, true, true);
 		}
 	}
 }

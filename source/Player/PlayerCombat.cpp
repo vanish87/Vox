@@ -103,6 +103,57 @@ void Player::PressAttack()
 	}
 	else if (IsDagger())
 	{
+		InventoryItem* pRightHand = m_pInventoryManager->GetInventoryItemForEquipSlot(EquipSlot_RightHand);
+		InventoryItem* pLeftHand = m_pInventoryManager->GetInventoryItemForEquipSlot(EquipSlot_LeftHand);
+
+		if (pRightHand != NULL && pRightHand->m_itemType == InventoryType_Weapon_Dagger && CanAttackRight())
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "SwordAttack2", 0.01f);
+
+			Interpolator::GetInstance()->AddFloatInterpolation(&m_animationTimer, 0.0f, 0.3f, 0.3f, 0.0f, NULL, _AttackAnimationTimerFinished, this);
+
+			m_bCanInteruptCombatAnim = true;
+
+			m_attackEnabledDelayTimer = 0.0f;
+			m_attackSegmentAngle = 0.75f;
+			float attackTime = 0.4f;
+			float startRotation = -10.0f;
+			float endRotation = -10.0f;
+			float easingRotation = 0.0f;
+
+			m_attackEnabled = true;
+			m_attackEnabledTimer = 0.0f;
+			m_attackRotation = startRotation;
+			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackEnabledTimer, 0.0f, attackTime, attackTime, 0.0f, NULL, _AttackEnabledTimerFinished, this);
+			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackEnabledDelayTimer, m_attackEnabledDelayTimer, 0.0f, m_attackEnabledDelayTimer, 0.0f, NULL, _AttackEnabledDelayTimerFinished, this);
+			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackRotation, startRotation, endRotation, attackTime, easingRotation);
+
+			m_bCanAttackRight = false;
+		}
+		else if (pLeftHand != NULL && pLeftHand->m_itemType == InventoryType_Weapon_Dagger && CanAttackLeft())
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "SwordAttack2", 0.01f);
+
+			Interpolator::GetInstance()->AddFloatInterpolation(&m_animationTimer, 0.0f, 0.3f, 0.3f, 0.0f, NULL, _AttackAnimationTimerFinished_Alternative, this);
+
+			m_bCanInteruptCombatAnim = true;
+
+			m_attackEnabledDelayTimer = 0.0f;
+			m_attackSegmentAngle = 0.75f;
+			float attackTime = 0.4f;
+			float startRotation = -10.0f;
+			float endRotation = -10.0f;
+			float easingRotation = 0.0f;
+
+			m_attackEnabled = true;
+			m_attackEnabledTimer = 0.0f;
+			m_attackRotation = startRotation;
+			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackEnabledTimer, 0.0f, attackTime, attackTime, 0.0f, NULL, _AttackEnabledTimerFinished, this);
+			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackEnabledDelayTimer, m_attackEnabledDelayTimer, 0.0f, m_attackEnabledDelayTimer, 0.0f, NULL, _AttackEnabledDelayTimerFinished, this);
+			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackRotation, startRotation, endRotation, attackTime, easingRotation);
+
+			m_bCanAttackLeft = false;
+		}
 	}
 	else if (IsHammer())
 	{
