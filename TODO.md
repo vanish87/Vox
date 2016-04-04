@@ -166,6 +166,6 @@
 - [ ] Side stepping animation when in target camera mode.
 - [ ] Bug with custom cursors when going outside of windows bounds.
 - [ ] Dont create dying lights for the weapons in the front-end create character screen, since this bleeds into the customization section.
-- [ ] Add spell hands attacks.
+- [x] Add spell hands attacks.
 - [ ] Add dagger / knife attacks.
 - [ ] Don't allow 'other' buttons in select character screen when we have delet popup - i.e select, create, etc.
