@@ -583,9 +583,12 @@ void NPC::UnloadWeapon(bool left)
 						lightPos += m_position;
 					}
 
-					float scale = m_pVoxelCharacter->GetCharacterScale();
-					unsigned int lId;
-					m_pLightingManager->AddDyingLight(vec3(lightPos.x, lightPos.y, lightPos.z), lightRadius * scale, lightDiffuseMultiplier, lightColour, 2.0f, &lId);
+					if (m_frontEndNPC == false)
+					{
+						float scale = m_pVoxelCharacter->GetCharacterScale();
+						unsigned int lId;
+						m_pLightingManager->AddDyingLight(vec3(lightPos.x, lightPos.y, lightPos.z), lightRadius * scale, lightDiffuseMultiplier, lightColour, 2.0f, &lId);
+					}
 				}
 			}
 

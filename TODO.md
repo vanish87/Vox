@@ -145,6 +145,7 @@
 - [x] Add spell hands attacks.
 - [x] Add dagger / knife attacks.
 - [x] Respawn button properly skinned and textured.
+- [x] Dont create dying lights for the weapons in the front-end create character screen, since this bleeds into the customization section.
 - [ ] Add VLD support to debug version, allow for memory leak detection.
 - [ ] Add audio and music playback.
 - [ ] Saving and loading chunks.
@@ -168,7 +169,6 @@
 - [ ] Add more presets for other body parts in character creator screen.
 - [ ] Side stepping animation when in target camera mode.
 - [ ] Bug with custom cursors when going outside of windows bounds.
-- [ ] Dont create dying lights for the weapons in the front-end create character screen, since this bleeds into the customization section.
 - [ ] Don't allow 'other' buttons in select character screen when we have delet popup - i.e select, create, etc.
 - [ ] Add easier crafting functionality, just a single function call.
 - [ ] Different default inventory when we load a different class type from the create character screen.
