@@ -461,6 +461,9 @@ void HUD::SkinGUI()
 	iconName = "media/textures/gui/" + themeName + "/HUD/enemy_health_filler_background.tga";
 	m_pEnemyHealthFillerBackgroundIcon->SetIcon(iconName);
 
+	m_pFrontendManager->SetButtonIcons(m_pRespawnButton, ButtonSize_225x75);
+	m_pRespawnButton->SetDimensions((int)((m_windowWidth*0.5f) - (int)(m_respawnButtonWidth*0.5f)), (int)((m_windowHeight*0.5f) - (m_respawnButtonHeight*0.5f) + 75), (int)m_respawnButtonWidth, (int)m_respawnButtonHeight);
+
 	m_pRespawnButton->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
 	m_pRespawnButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
 	m_pRespawnButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
