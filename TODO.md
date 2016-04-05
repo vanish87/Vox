@@ -175,3 +175,4 @@
 - [ ] Create random loot manager and random loot dropping.
 - [ ] Random direction on mimic spawning.
 - [ ] Mimics turning around when going back to non-aggro.
+- [ ] Respawn button properly skinned and textured.
