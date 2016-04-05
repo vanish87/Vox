@@ -169,3 +169,5 @@
 - [ ] Bug with custom cursors when going outside of windows bounds.
 - [ ] Dont create dying lights for the weapons in the front-end create character screen, since this bleeds into the customization section.
 - [ ] Don't allow 'other' buttons in select character screen when we have delet popup - i.e select, create, etc.
+- [ ] Add easier crafting functionality, just a single function call.
+- [ ] Different default inventory when we load a different class type from the create character screen.
