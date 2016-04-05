@@ -1,6 +1,7 @@
 <img src="readme_icon.png" align="right" />
 # Vox
 [![Build Status](https://circleci.com/gh/AlwaysGeeky/Vox.svg?style=shield&circle-token=cf7352c6949877a9b363a72e88f9ad1ebbc213c4)](https://circleci.com/gh/AlwaysGeeky/Vox/tree/master)
+[![Repo Size](https://reposs.herokuapp.com/?path=AlwaysGeeky/Vox)](https://github.com/AlwaysGeeky/Vox)
 [![License](https://img.shields.io/badge/Licence-GNU-blue.svg)](https://github.com/AlwaysGeeky/Vox/blob/master/LICENSE.md)
 [![Github Issues](http://githubbadges.herokuapp.com/AlwaysGeeky/Vox/issues.svg?label=Open Issues&style=shield)](https://github.com/AlwaysGeeky/Vox/issues)
 [![Stories in progress](https://badge.waffle.io/AlwaysGeeky/Vox.png?label=In Progress&title=In Progress)](https://waffle.io/AlwaysGeeky/Vox)
