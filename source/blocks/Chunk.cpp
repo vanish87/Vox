@@ -21,6 +21,7 @@
 #include "../utils/Random.h"
 #include "../simplex/simplexnoise.h"
 #include "../VoxSettings.h"
+#include "../VoxGame.h"
 #include "../Items/ItemManager.h"
 
 // A chunk cube is double this render size, since we create from - to + for each axis.
@@ -187,6 +188,8 @@ void Chunk::Setup()
 			float noiseHeight = noiseNormalized * CHUNK_SIZE;
 			noiseHeight *= mountainMultiplier;
 
+			Biome biome = VoxGame::GetInstance()->GetBiomeManager()->GetBiome(vec3(xPosition, 0.0f, zPosition));
+
 			if (m_gridY < 0)
 			{
 				noiseHeight = CHUNK_SIZE;
@@ -226,10 +229,24 @@ void Chunk::Setup()
 				// Trees
 				if ((GetRandomNumber(0, 2000) >= 2000))
 				{
-					if (noiseNormalized >= 0.5f)
+					float minTreeHeight = 0.0f;
+					if (biome == Biome_GrassLand)
+					{
+						minTreeHeight = 0.5f;
+					}
+
+					if (noiseNormalized >= minTreeHeight)
 					{
 						vec3 treePos = vec3(xPosition, noiseHeight, zPosition);
-						m_pChunkManager->ImportQubicleBinary("media/gamedata/terrain/plains/smalltree.qb", treePos, QubicleImportDirection_Normal);
+
+						if (biome == Biome_GrassLand)
+						{
+							m_pChunkManager->ImportQubicleBinary("media/gamedata/terrain/plains/smalltree.qb", treePos, QubicleImportDirection_Normal);
+						}
+						else if (biome == Biome_Desert)
+						{
+							m_pChunkManager->ImportQubicleBinary("media/gamedata/terrain/desert/cactus1.qb", treePos, QubicleImportDirection_Normal);
+						}
 					}
 				}
 
