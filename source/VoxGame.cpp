@@ -783,6 +783,20 @@ void VoxGame::SetupDataForGame()
 	pEnemySpawner4->SetSpawningParams(0.0f, 1.0f, 5, vec3(0.0f, 5.0f, 0.0f), true, vec3(0.0f, 0.0f, 0.0f), true, true, 25.0f, Biome_Desert);
 	pEnemySpawner4->AddEnemyTypeToSpawn(eEnemyType_Mummy);
 
+	// Ashlands
+	EnemySpawner* pEnemySpawner5 = m_pEnemyManager->CreateEnemySpawner(vec3(0.0f, 10.0f, 0.0f), vec3(0.0f, 0.0f, 5.0f));
+	pEnemySpawner5->SetSpawningParams(3.0f, 3.0f, 15, vec3(0.0f, 0.0f, 0.0f), true, vec3(0.0f, 1.0f, 0.0f), true, true, 25.0f, Biome_AshLand);
+	pEnemySpawner5->AddEnemyTypeToSpawn(eEnemyType_WalkingZombie);
+	pEnemySpawner5->AddEnemyTypeToSpawn(eEnemyType_CrawlingZombie);
+
+	EnemySpawner* pEnemySpawner6 = m_pEnemyManager->CreateEnemySpawner(vec3(0.0f, 12.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f));
+	pEnemySpawner6->SetSpawningParams(0.0f, 1.0f, 5, vec3(0.0f, 5.0f, 0.0f), true, vec3(0.0f, 0.0f, 0.0f), true, true, 25.0f, Biome_AshLand);
+	pEnemySpawner6->AddEnemyTypeToSpawn(eEnemyType_IronGiant);
+
+	EnemySpawner* pEnemySpawner7 = m_pEnemyManager->CreateEnemySpawner(vec3(0.0f, 12.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f));
+	pEnemySpawner7->SetSpawningParams(0.0f, 1.0f, 8, vec3(0.0f, 5.0f, 0.0f), true, vec3(0.0f, 5.0f, 0.0f), true, true, 25.0f, Biome_AshLand);
+	pEnemySpawner7->AddEnemyTypeToSpawn(eEnemyType_Bat);
+
 	// Quests
 	// Quest 1
 	string startText1 = "Hello there brave adventurer, my name is [C=Custom(00A2E8)]Melinda The Witch[C=White] and I have stumbled across a 'valuable treasure'. I can give you this treasure if you will do a quest for me...\nI need you to kill these pesky [C=Red]slimes[C=White] that are overrunning this place. If you do this for me, the treasure is yours. What do you say?";
