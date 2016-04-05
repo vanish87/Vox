@@ -23,7 +23,7 @@ BiomeManager::BiomeManager(Renderer* pRenderer)
 	AddBiomeBoundary(Biome_GrassLand,	0.50f,		0.00f, 0.56f, 0.26f, 0.75f, 0.90f, 0.00f,	BlockType_Grass);
 	AddBiomeBoundary(Biome_GrassLand,	1.00f,		0.85f, 0.85f, 0.85f, 0.77f, 0.65f, 0.80f,	BlockType_Snow);
 
-	AddBiomeBoundary(Biome_Desert,	    1.00f,		0.86f, 0.79f, 0.50f, 0.98f, 1.0f, 0.60f,	BlockType_Sand);
+	AddBiomeBoundary(Biome_Desert,	    1.00f,		0.94f, 0.90f, 0.12f, 0.98f, 1.0f, 0.60f,	BlockType_Sand);
 
 	AddBiomeBoundary(Biome_Jungle,	    1.00f,		0.14f, 0.35f, 0.12f, 0.34f, 0.65f, 0.42f,	BlockType_Leaf);
 
@@ -81,7 +81,7 @@ void BiomeManager::AddBiomeBoundary(Biome biome, float heightUpperBoundary, floa
 Biome BiomeManager::GetBiome(vec3 position)
 {
 	// TODO : Better biome generation
-	return Biome_GrassLand;
+	return Biome_Desert;
 }
 
 bool BiomeManager::IsInTown(vec3 position)
