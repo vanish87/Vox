@@ -144,6 +144,7 @@
 - [x] Add common front-end label / button colours, hover, pressed, etc.
 - [x] Add spell hands attacks.
 - [x] Add dagger / knife attacks.
+- [x] Respawn button properly skinned and textured.
 - [ ] Add VLD support to debug version, allow for memory leak detection.
 - [ ] Add audio and music playback.
 - [ ] Saving and loading chunks.
@@ -175,4 +176,3 @@
 - [ ] Create random loot manager and random loot dropping.
 - [ ] Random direction on mimic spawning.
 - [ ] Mimics turning around when going back to non-aggro.
-- [ ] Respawn button properly skinned and textured.
