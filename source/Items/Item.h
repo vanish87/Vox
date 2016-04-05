@@ -22,10 +22,11 @@
 #include "../Particles/BlockParticleManager.h"
 #include "../Inventory/InventoryManager.h"
 #include "../Maths/BoundingRegion.h"
-#include "../Items/ItemsEnum.h"
+#include "ItemsEnum.h"
 
 class LightingManager;
 class ItemManager;
+class ItemSpawner;
 
 
 string GetItemTypeToString(eItem type);
@@ -60,6 +61,10 @@ public:
 
 	// Setup
 	void LoadItem(const char* objectFilename);
+
+	// Item spawner
+	void SetItemSpawner(ItemSpawner* pSpawner);
+	void RemoveItemSpawner(ItemSpawner* pSpawner);
 
 	// Accessors / Setters
 	void SetPosition(vec3 pos);
@@ -286,6 +291,9 @@ private:
 
 	// Should we create dying lights when we unload the item?
 	bool m_bCreateDyingLights;
+
+	// Were we created from an item spawner
+	ItemSpawner* m_pParentItemSpawner;
 
 	// Grid position
 	int m_gridPositionX;

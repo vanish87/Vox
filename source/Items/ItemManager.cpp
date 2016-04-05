@@ -10,6 +10,7 @@
 // ******************************************************************************
 
 #include "ItemManager.h"
+#include "ItemSpawner.h"
 #include "../utils/Random.h"
 #include "../Lighting/LightingManager.h"
 #include "../VoxGame.h"
@@ -93,6 +94,11 @@ void ItemManager::SetInventoryManager(InventoryManager* pInventoryManager)
 	m_pInventoryManager = pInventoryManager;
 }
 
+void ItemManager::SetNPCManager(NPCManager* pNPCManager)
+{
+	m_pNPCManager = pNPCManager;
+}
+
 // Deletion
 void ItemManager::ClearItems()
 {
@@ -112,6 +118,24 @@ void ItemManager::ClearSubSpawnData()
 		m_vpItemSubSpawnDataList[i] = 0;
 	}
 	m_vpItemSubSpawnDataList.clear();
+}
+
+void ItemManager::ClearItemSpawners()
+{
+	for (unsigned int i = 0; i < m_vpItemSpawnerList.size(); i++)
+	{
+		delete m_vpItemSpawnerList[i];
+		m_vpItemSpawnerList[i] = 0;
+	}
+	m_vpItemSpawnerList.clear();
+}
+
+void ItemManager::RemoveItemSpawnerFromItems(ItemSpawner* pSpawner)
+{
+	for (unsigned int i = 0; i < m_vpItemList.size(); i++)
+	{
+		m_vpItemList[i]->RemoveItemSpawner(pSpawner);
+	}
 }
 
 // Item sub spawn data
@@ -218,6 +242,19 @@ void ItemManager::RemoveItem(const char* itemTitle)
 			m_vpItemList[i]->SetErase(true);
 		}
 	}
+}
+
+ItemSpawner* ItemManager::CreateItemSpawner(vec3 position, vec3 direction)
+{
+	ItemSpawner* pItemSpawner = new ItemSpawner(m_pRenderer, m_pChunkManager, m_pPlayer, this, m_pNPCManager);
+
+	pItemSpawner->SetPosition(position);
+	pItemSpawner->SetInitialPosition(position);
+	pItemSpawner->SetFacingDirection(normalize(direction));
+
+	m_vpItemSpawnerList.push_back(pItemSpawner);
+
+	return pItemSpawner;
 }
 
 // Get number of items
@@ -353,6 +390,25 @@ void ItemManager::SetWireFrameRender(bool wireframe)
 // Update
 void ItemManager::Update(float dt)
 {
+	// Update all item spawners
+	for (unsigned int i = 0; i < m_vpItemSpawnerList.size(); i++)
+	{
+		ItemSpawner* pItemSpawner = m_vpItemSpawnerList[i];
+
+		if (pItemSpawner->ShouldFollowPlayer())
+		{
+			pItemSpawner->SetPosition(m_pPlayer->GetCenter() + pItemSpawner->GetInitialPosition());
+		}
+
+		// TODO : Loader radius culling
+		//if(m_pChunkManager->IsInsideLoader(pItemSpawner->GetPosition()) == false)
+		//{
+		//	continue;
+		//}
+
+		pItemSpawner->Update(dt);
+	}
+
 	// Remove any items that need to be erased
 	m_vpItemList.erase( remove_if(m_vpItemList.begin(), m_vpItemList.end(), needs_erasing), m_vpItemList.end() );
 
@@ -505,6 +561,7 @@ void ItemManager::Render(bool outline, bool reflection, bool silhouette, bool sh
 
 void ItemManager::RenderDebug()
 {
+	// Items
 	for(unsigned int i = 0; i < m_vpItemList.size(); i++)
 	{
 		Item* pItem = m_vpItemList[i];
@@ -518,5 +575,13 @@ void ItemManager::RenderDebug()
 		{
 			pItem->RenderDebug();
 		}
+	}
+
+	// Item spawners
+	for (unsigned int i = 0; i < m_vpItemSpawnerList.size(); i++)
+	{
+		ItemSpawner* pItemSpawner = m_vpItemSpawnerList[i];
+
+		pItemSpawner->RenderDebug();
 	}
 }

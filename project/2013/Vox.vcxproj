@@ -92,6 +92,7 @@
     <ClCompile Include="..\..\source\Inventory\InventoryManager.cpp" />
     <ClCompile Include="..\..\source\Items\Item.cpp" />
     <ClCompile Include="..\..\source\Items\ItemManager.cpp" />
+    <ClCompile Include="..\..\source\Items\ItemSpawner.cpp" />
     <ClCompile Include="..\..\source\Items\ItemUtils.cpp" />
     <ClCompile Include="..\..\source\Items\StatAttribute.cpp" />
     <ClCompile Include="..\..\source\Lighting\DynamicLight.cpp" />
@@ -408,6 +409,7 @@
     <ClInclude Include="..\..\source\Items\Item.h" />
     <ClInclude Include="..\..\source\Items\ItemManager.h" />
     <ClInclude Include="..\..\source\Items\ItemsEnum.h" />
+    <ClInclude Include="..\..\source\Items\ItemSpawner.h" />
     <ClInclude Include="..\..\source\Items\StatAttribute.h" />
     <ClInclude Include="..\..\source\Lighting\DynamicLight.h" />
     <ClInclude Include="..\..\source\Lighting\LightingManager.h" />

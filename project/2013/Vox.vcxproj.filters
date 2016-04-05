@@ -630,6 +630,9 @@
     <ClCompile Include="..\..\source\frontend\Pages\CreateCharacter.cpp">
       <Filter>source\frontend\Pages</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\Items\ItemSpawner.cpp">
+      <Filter>source\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\glew\include\GL\glew.h">
@@ -1606,6 +1609,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\frontend\Pages\CreateCharacter.h">
       <Filter>source\frontend\Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Items\ItemSpawner.h">
+      <Filter>source\Items</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

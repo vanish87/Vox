@@ -1,5 +1,5 @@
 // ******************************************************************************
-// Filename:    EnemySPawner.cpp
+// Filename:    ItemSpawner.cpp
 // Project:     Vox
 // Author:      Steven Ball
 //
@@ -9,9 +9,9 @@
 // Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
-#include "EnemySpawner.h"
-#include "EnemyManager.h"
-#include "Enemy.h"
+#include "ItemSpawner.h"
+#include "ItemManager.h"
+#include "Item.h"
 
 #include "../utils/Interpolator.h"
 #include "../utils/Random.h"
@@ -28,12 +28,12 @@
 #include "../VoxGame.h"
 
 
-EnemySpawner::EnemySpawner(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, EnemyManager* pEnemyManager, NPCManager* pNPCManager)
+ItemSpawner::ItemSpawner(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, ItemManager* pItemManager, NPCManager* pNPCManager)
 {
 	m_pRenderer = pRenderer;
 	m_pChunkManager = pChunkManager;
 	m_pPlayer = pPlayer;
-	m_pEnemyManager = pEnemyManager;
+	m_pItemManager = pItemManager;
 	m_pNPCManager = pNPCManager;
 
 	m_spawning = false;
@@ -43,56 +43,56 @@ EnemySpawner::EnemySpawner(Renderer* pRenderer, ChunkManager* pChunkManager, Pla
 	m_spawnFullLoaderRange = false;
 	m_minDistanceFromPlayer = 0;
 
-	m_numSpawnedEnemies = 0;
-	m_maxNumEnemiesToHaveActive = 1;
+	m_numSpawnedItems = 0;
+	m_maxNumItemsToHaveActive = 1;
 	m_shouldSpawnOnGround = true;
 }
 
-EnemySpawner::~EnemySpawner()
+ItemSpawner::~ItemSpawner()
 {
-	m_pEnemyManager->RemoveEnemySpawnerFromEnemies(this);
+	m_pItemManager->RemoveItemSpawnerFromItems(this);
 }
 
-void EnemySpawner::SetPosition(vec3 pos)
+void ItemSpawner::SetPosition(vec3 pos)
 {
 	m_position = pos;
 }
 
-vec3 EnemySpawner::GetPosition()
+vec3 ItemSpawner::GetPosition()
 {
 	return m_position;
 }
 
-void EnemySpawner::SetInitialPosition(vec3 pos)
+void ItemSpawner::SetInitialPosition(vec3 pos)
 {
 	m_initialiPosition = pos;
 }
 
-vec3 EnemySpawner::GetInitialPosition()
+vec3 ItemSpawner::GetInitialPosition()
 {
 	return m_initialiPosition;
 }
 
-void EnemySpawner::SetFacingDirection(vec3 dir)
+void ItemSpawner::SetFacingDirection(vec3 dir)
 {
 	m_spawnFacingDirection = dir;
 }
 
-vec3 EnemySpawner::GetFacingDirection()
+vec3 ItemSpawner::GetFacingDirection()
 {
 	return m_spawnFacingDirection;
 }
 
-bool EnemySpawner::ShouldFollowPlayer()
+bool ItemSpawner::ShouldFollowPlayer()
 {
 	return m_followPlayerIntheWorld;
 }
 
 // Spawning params
-void EnemySpawner::SetSpawningParams(float initialSpawnDelay, float spawnTimer, int maxNumEnemiesActive, vec3 spawnRandomOffset, bool shouldSpawnOnGround, vec3 groundSpawnOffset, bool followPlayerIntheWorld, bool spawnFullLoaderRange, float minDistanceFromPlayer, Biome biomeSpawn)
+void ItemSpawner::SetSpawningParams(float initialSpawnDelay, float spawnTimer, int maxNumItemsActive, vec3 spawnRandomOffset, bool shouldSpawnOnGround, vec3 groundSpawnOffset, bool followPlayerIntheWorld, bool spawnFullLoaderRange, float minDistanceFromPlayer, Biome biomeSpawn)
 {
 	m_spawnTime = spawnTimer;
-	m_maxNumEnemiesToHaveActive = maxNumEnemiesActive;
+	m_maxNumItemsToHaveActive = maxNumItemsActive;
 	m_spawnRandomOffset = spawnRandomOffset;
 	m_shouldSpawnOnGround = shouldSpawnOnGround;
 	m_groundSpawnOffset = groundSpawnOffset;
@@ -107,39 +107,39 @@ void EnemySpawner::SetSpawningParams(float initialSpawnDelay, float spawnTimer, 
 	}
 }
 
-void EnemySpawner::AddEnemyTypeToSpawn(eEnemyType enemyType)
+void ItemSpawner::AddItemTypeToSpawn(eItem itemType)
 {
-	m_vpEnemyTypeList.push_back(enemyType);
+	m_vpItemTypeList.push_back(itemType);
 }
 
-// Enemies killed
-void EnemySpawner::RemoveEnemyFromThisSpawner()
+// Item removed
+void ItemSpawner::RemoveItemFromThisSpawner()
 {
-	m_numSpawnedEnemies -= 1;
+	m_numSpawnedItems -= 1;
 }
 
 // Spawning
-void EnemySpawner::StartSpawning(float initialDelay)
+void ItemSpawner::StartSpawning(float initialDelay)
 {
 	m_spawning = true;
 	m_spawnCountdownTimer = initialDelay;
 }
 
-void EnemySpawner::StopSpawning()
+void ItemSpawner::StopSpawning()
 {
 	m_spawning = false;
 }
 
-eEnemyType EnemySpawner::GetEnemyTypeToSpawn()
+eItem ItemSpawner::GetItemTypeToSpawn()
 {
-	int numEnemyTypes = (int)m_vpEnemyTypeList.size();
+	int numItemTypes = (int)m_vpItemTypeList.size();
 
-	int randomNum = GetRandomNumber(0, numEnemyTypes-1);
+	int randomNum = GetRandomNumber(0, numItemTypes-1);
 
-	return m_vpEnemyTypeList[randomNum];
+	return m_vpItemTypeList[randomNum];
 }
 
-bool EnemySpawner::GetSpawnPosition(vec3* pSpawnPosition)
+bool ItemSpawner::GetSpawnPosition(vec3* pSpawnPosition)
 {
 	bool lLocationGood = false;
 	int numTries = 0;
@@ -191,9 +191,9 @@ bool EnemySpawner::GetSpawnPosition(vec3* pSpawnPosition)
 }
 
 // Updating
-void EnemySpawner::Update(float dt)
+void ItemSpawner::Update(float dt)
 {
-	m_canSpawn = (m_numSpawnedEnemies < m_maxNumEnemiesToHaveActive);
+	m_canSpawn = (m_numSpawnedItems < m_maxNumItemsToHaveActive);
 
 	// Update timers
 	UpdateTimers(dt);
@@ -210,28 +210,26 @@ void EnemySpawner::Update(float dt)
 				vec3 toPlayer = spawnPos - m_pPlayer->GetCenter();
 				if (length(toPlayer) > m_minDistanceFromPlayer)
 				{
-					eEnemyType enemyType = GetEnemyTypeToSpawn();
+					eItem itemType = GetItemTypeToSpawn();
 
-					Enemy* pEnemy = m_pEnemyManager->CreateEnemy(spawnPos, enemyType, 0.08f);
-					pEnemy->SetSpawningParams(spawnPos, spawnPos, 0.0f);
-					pEnemy->SetTargetForwardToLookAtPoint(spawnPos + m_spawnFacingDirection);
-					pEnemy->SetEnemySpawner(this);
+					Item* pItem = m_pItemManager->CreateItem(spawnPos, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Chest/Chest.item", eItem_Chest, "Chest", true, false, 0.08f);
+					pItem->SetItemSpawner(this);
 
-					m_numSpawnedEnemies += 1;
+					m_numSpawnedItems += 1;
 
 					m_spawnCountdownTimer = m_spawnTime;
 				}
 			}
 			else
 			{
-				// Can't spawn an enemy at a good position, wait a while before we try again
+				// Can't spawn an item at a good position, wait a while before we try again
 				m_spawnCountdownTimer = 0.5f;
 			}
 		}
 	}
 }
 
-void EnemySpawner::UpdateTimers(float dt)
+void ItemSpawner::UpdateTimers(float dt)
 {
 	if(m_spawning && m_canSpawn)
 	{
@@ -243,12 +241,12 @@ void EnemySpawner::UpdateTimers(float dt)
 }
 
 // Rendering
-void EnemySpawner::Render()
+void ItemSpawner::Render()
 {
 
 }
 
-void EnemySpawner::RenderDebug()
+void ItemSpawner::RenderDebug()
 {
 	m_pRenderer->PushMatrix();
 		float l_length = 0.5f;

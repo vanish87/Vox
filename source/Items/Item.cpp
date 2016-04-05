@@ -11,6 +11,7 @@
 
 #include "Item.h"
 #include "ItemManager.h"
+#include "ItemSpawner.h"
 
 #include <algorithm>
 
@@ -68,6 +69,8 @@ Item::Item(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryManage
 	m_interactCount = 0;
 	m_maxInteractCount = 1;
 
+	m_pParentItemSpawner = NULL;
+
 	m_gridPositionX = 0;
 	m_gridPositionY = 0;
 	m_gridPositionZ = 0;
@@ -84,6 +87,12 @@ Item::Item(Renderer* pRenderer, ChunkManager* pChunkManager, QubicleBinaryManage
 
 Item::~Item()
 {
+	// If we belong to a spawner, make sure we indicate that we were killed
+	if (m_pParentItemSpawner != NULL)
+	{
+		m_pParentItemSpawner->RemoveItemFromThisSpawner();
+	}
+
 	UnloadEffectsAndLights();
 
 	// Delete the voxel item
@@ -273,6 +282,20 @@ void Item::LoadItem(const char* objectFilename)
 				m_pVoxelItem->SetParticleEffectId(i, -1);
 			}
 		}
+	}
+}
+
+// Item spawner
+void Item::SetItemSpawner(ItemSpawner* pSpawner)
+{
+	m_pParentItemSpawner = pSpawner;
+}
+
+void Item::RemoveItemSpawner(ItemSpawner* pSpawner)
+{
+	if (m_pParentItemSpawner == pSpawner)
+	{
+		m_pParentItemSpawner = NULL;
 	}
 }
 

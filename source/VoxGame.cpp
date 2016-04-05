@@ -296,6 +296,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pItemManager->SetBlockParticleManager(m_pBlockParticleManager);
 	m_pItemManager->SetQubicleBinaryManager(m_pQubicleBinaryManager);
 	m_pItemManager->SetInventoryManager(m_pInventoryManager);
+	m_pItemManager->SetNPCManager(m_pNPCManager);
 	m_pProjectileManager->SetLightingManager(m_pLightingManager);
 	m_pProjectileManager->SetBlockParticleManager(m_pBlockParticleManager);
 	m_pProjectileManager->SetPlayer(m_pPlayer);
@@ -744,6 +745,11 @@ void VoxGame::SetupDataForGame()
 	Item* pAnvil = m_pItemManager->CreateItem(vec3(32.0f, 9.0f, -1.5f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Anvil/Anvil.item", eItem_Anvil, "Anvil", true, false, 0.14f);
 	pAnvil->SetInteractionPositionOffset(vec3(0.0f, 0.0f, -1.5f));
 	Item* pChest = m_pItemManager->CreateItem(vec3(24.0f, 12.0f, 13.5f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 180.0f, 0.0f), "media/gamedata/items/Chest/Chest.item", eItem_Chest, "Chest", true, false, 0.08f);
+
+	// Item spawners
+	ItemSpawner* pItemSpawner1 = m_pItemManager->CreateItemSpawner(vec3(0.0f, 6.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f));
+	pItemSpawner1->SetSpawningParams(0.0f, 0.0f, 5, vec3(0.0f, 0.0f, 0.0f), true, vec3(0.0f, 5.0f, 0.0f), true, true, 25.0f, Biome_GrassLand);
+	pItemSpawner1->AddItemTypeToSpawn(eItem_Chest);
 
 	// Npcs
 	NPC* pCharacter1 = m_pNPCManager->CreateNPC("Mage", "Human", "Mage", vec3(21.0f, 8.5f, 20.0f), 0.08f, false, true);
