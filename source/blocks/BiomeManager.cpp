@@ -81,7 +81,7 @@ void BiomeManager::AddBiomeBoundary(Biome biome, float heightUpperBoundary, floa
 Biome BiomeManager::GetBiome(vec3 position)
 {
 	// TODO : Better biome generation
-	return Biome_Desert;
+	return Biome_GrassLand;
 }
 
 bool BiomeManager::IsInTown(vec3 position)
