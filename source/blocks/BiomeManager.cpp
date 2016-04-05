@@ -38,7 +38,9 @@ BiomeManager::BiomeManager(Renderer* pRenderer)
 
 	AddBiomeBoundary(Biome_Swamp,	    1.00f,		0.00f, 0.75f, 1.00f, 0.00f, 1.00f, 0.75f,	BlockType_Default);
 
-	AddBiomeBoundary(Biome_AshLand,	    1.00f,		0.40f, 0.40f, 0.40f, 0.60f, 0.50f, 0.55f,	BlockType_Stone);
+	AddBiomeBoundary(Biome_AshLand,		-0.35f,		0.18f, 0.12f, 0.12f, 0.23f, 0.17f, 0.18f,	BlockType_Stone);
+	AddBiomeBoundary(Biome_AshLand,	    0.40f,		0.24f, 0.25f, 0.26f, 0.24f, 0.25f, 0.26f,	BlockType_Stone);
+	AddBiomeBoundary(Biome_AshLand,		1.00f,		0.25f, 0.25f, 0.25f, 0.17f, 0.15f, 0.10f,	BlockType_Stone);
 
 	AddBiomeBoundary(Biome_Nightmare,	0.00f,		0.38f, 0.36f, 0.39f, 0.33f, 0.33f, 0.5f,	BlockType_Dirt);
 	AddBiomeBoundary(Biome_Nightmare,	1.00f,		0.50f, 0.47f, 0.62f, 0.38f, 0.32f, 0.62f,	BlockType_Stone);
