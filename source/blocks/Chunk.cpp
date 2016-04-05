@@ -234,6 +234,14 @@ void Chunk::Setup()
 					{
 						minTreeHeight = 0.5f;
 					}
+					else if (biome == Biome_Desert)
+					{
+						minTreeHeight = 0.0f;
+					}
+					else if (biome == Biome_AshLand)
+					{
+						minTreeHeight = 0.25f;
+					}
 
 					if (noiseNormalized >= minTreeHeight)
 					{
@@ -246,6 +254,10 @@ void Chunk::Setup()
 						else if (biome == Biome_Desert)
 						{
 							m_pChunkManager->ImportQubicleBinary("media/gamedata/terrain/desert/cactus1.qb", treePos, QubicleImportDirection_Normal);
+						}
+						else if (biome == Biome_AshLand)
+						{
+							m_pChunkManager->ImportQubicleBinary("media/gamedata/terrain/ashlands/ashtree1.qb", treePos, QubicleImportDirection_Normal);
 						}
 					}
 				}
