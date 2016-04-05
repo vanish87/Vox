@@ -534,133 +534,86 @@ void NPC::LoadWeapon(bool left, string weaponFile)
 
 void NPC::UnloadWeapon(bool left)
 {
-	if(left)
+	VoxelWeapon* pWeapon = NULL;
+	bool isWeaponLoaded = false;
+	if (left)  // Left side
 	{
-		if(m_pVoxelCharacter->GetLeftWeapon() != NULL)
+		pWeapon = m_pVoxelCharacter->GetLeftWeapon();
+		isWeaponLoaded = m_pVoxelCharacter->IsLeftWeaponLoaded();
+	}
+	else  // Right side
+	{
+		pWeapon = m_pVoxelCharacter->GetRightWeapon();
+		isWeaponLoaded = m_pVoxelCharacter->IsRightWeaponLoaded();
+	}
+
+	if (pWeapon != NULL)
+	{
+		if (isWeaponLoaded)
 		{
-			if(m_pVoxelCharacter->IsLeftWeaponLoaded())
+			// Lights
+			for (int i = 0; i < pWeapon->GetNumLights(); i++)
 			{
-				// Lights
-				for(int i = 0; i < m_pVoxelCharacter->GetLeftWeapon()->GetNumLights(); i++)
+				unsigned int lightId;
+				vec3 lightPos;
+				float lightRadius;
+				float lightDiffuseMultiplier;
+				Colour lightColour;
+				bool connectedToSegment;
+				pWeapon->GetLightParams(i, &lightId, &lightPos, &lightRadius, &lightDiffuseMultiplier, &lightColour, &connectedToSegment);
+
+				if (lightId != -1)
 				{
-					unsigned int lightId;
-					vec3 lightPos;
-					float lightRadius;
-					float lightDiffuseMultiplier;
-					Colour lightColour;
-					bool connectedToSegment;
-					m_pVoxelCharacter->GetLeftWeapon()->GetLightParams(i, &lightId, &lightPos, &lightRadius, &lightDiffuseMultiplier, &lightColour, &connectedToSegment);
+					m_pLightingManager->RemoveLight(lightId);
+					pWeapon->SetLightingId(i, -1);
 
-					if(lightId != -1)
+					if (connectedToSegment == false)
 					{
-						m_pLightingManager->RemoveLight(lightId);
-						m_pVoxelCharacter->GetLeftWeapon()->SetLightingId(i, -1);
-
-						if(connectedToSegment == false)
+						// Rotate due to characters forward vector
+						float rotationAngle = acos(dot(vec3(0.0f, 0.0f, 1.0f), m_forward));
+						if (m_forward.x < 0.0f)
 						{
-							// Rotate due to characters forward vector
-							float rotationAngle = acos(dot(vec3(0.0f, 0.0f, 1.0f), m_forward));
-							if(m_forward.x < 0.0f)
-							{
-								rotationAngle = -rotationAngle;
-							}
-							Matrix4x4 rotationMatrix;
-							rotationMatrix.SetRotation(0.0f, rotationAngle, 0.0f);
-							lightPos = rotationMatrix * lightPos;
-
-							// Translate to position
-							lightPos += m_position;
+							rotationAngle = -rotationAngle;
 						}
+						Matrix4x4 rotationMatrix;
+						rotationMatrix.SetRotation(0.0f, rotationAngle, 0.0f);
+						lightPos = rotationMatrix * lightPos;
 
-						float scale = m_pVoxelCharacter->GetCharacterScale();
-						unsigned int lId;
-						m_pLightingManager->AddDyingLight(lightPos, lightRadius * scale, lightDiffuseMultiplier, lightColour, 2.0f, &lId);
+						// Translate to position
+						lightPos += m_position;
 					}
-				}
 
-				// Particle Effects
-				for(int i = 0; i < m_pVoxelCharacter->GetLeftWeapon()->GetNumParticleEffects(); i++)
-				{
-					unsigned int particleEffectId;
-					vec3 ParticleEffectPos;
-					string effectName;
-					bool connectedToSegment;
-					m_pVoxelCharacter->GetLeftWeapon()->GetParticleEffectParams(i, &particleEffectId, &ParticleEffectPos, &effectName, &connectedToSegment);
-
-					if(particleEffectId != -1)
-					{
-						m_pBlockParticleManager->DestroyParticleEffect(particleEffectId);
-						m_pVoxelCharacter->GetLeftWeapon()->SetParticleEffectId(i, -1);
-					}
+					float scale = m_pVoxelCharacter->GetCharacterScale();
+					unsigned int lId;
+					m_pLightingManager->AddDyingLight(vec3(lightPos.x, lightPos.y, lightPos.z), lightRadius * scale, lightDiffuseMultiplier, lightColour, 2.0f, &lId);
 				}
 			}
 
-			m_pVoxelCharacter->GetLeftWeapon()->UnloadWeapon();
+			// Particle Effects
+			for (int i = 0; i < pWeapon->GetNumParticleEffects(); i++)
+			{
+				unsigned int particleEffectId;
+				vec3 ParticleEffectPos;
+				string effectName;
+				bool connectedToSegment;
+				pWeapon->GetParticleEffectParams(i, &particleEffectId, &ParticleEffectPos, &effectName, &connectedToSegment);
+
+				if (particleEffectId != -1)
+				{
+					m_pBlockParticleManager->DestroyParticleEffect(particleEffectId);
+					pWeapon->SetParticleEffectId(i, -1);
+				}
+			}
+		}
+
+		pWeapon->UnloadWeapon();
+
+		if (left)  // Left side
+		{
 			m_pVoxelCharacter->UnloadLeftWeapon();
 		}
-	}
-	else
-	{
-		if(m_pVoxelCharacter->GetRightWeapon() != NULL)
+		else  // Right side
 		{
-			if(m_pVoxelCharacter->IsRightWeaponLoaded())
-			{
-				// Lights
-				for(int i = 0; i < m_pVoxelCharacter->GetRightWeapon()->GetNumLights(); i++)
-				{
-					unsigned int lightId;
-					vec3 lightPos;
-					float lightRadius;
-					float lightDiffuseMultiplier;
-					Colour lightColour;
-					bool connectedToSegment;
-					m_pVoxelCharacter->GetRightWeapon()->GetLightParams(i, &lightId, &lightPos, &lightRadius, &lightDiffuseMultiplier, &lightColour, &connectedToSegment);
-
-					if(lightId != -1)
-					{
-						m_pLightingManager->RemoveLight(lightId);
-						m_pVoxelCharacter->GetRightWeapon()->SetLightingId(i, -1);
-
-						if(connectedToSegment == false)
-						{
-							// Rotate due to characters forward vector
-							float rotationAngle = acos(dot(vec3(0.0f, 0.0f, 1.0f), m_forward));
-							if(m_forward.x < 0.0f)
-							{
-								rotationAngle = -rotationAngle;
-							}
-							Matrix4x4 rotationMatrix;
-							rotationMatrix.SetRotation(0.0f, rotationAngle, 0.0f);
-							lightPos = rotationMatrix * lightPos;
-
-							// Translate to position
-							lightPos += m_position;
-						}
-
-						float scale = m_pVoxelCharacter->GetCharacterScale();
-						unsigned int lId;
-						m_pLightingManager->AddDyingLight(lightPos, lightRadius * scale, lightDiffuseMultiplier, lightColour, 2.0f, &lId);
-					}
-				}
-
-				// Particle Effects
-				for(int i = 0; i < m_pVoxelCharacter->GetRightWeapon()->GetNumParticleEffects(); i++)
-				{
-					unsigned int particleEffectId;
-					vec3 ParticleEffectPos;
-					string effectName;
-					bool connectedToSegment;
-					m_pVoxelCharacter->GetRightWeapon()->GetParticleEffectParams(i, &particleEffectId, &ParticleEffectPos, &effectName, &connectedToSegment);
-
-					if(particleEffectId != -1)
-					{
-						m_pBlockParticleManager->DestroyParticleEffect(particleEffectId);
-						m_pVoxelCharacter->GetRightWeapon()->SetParticleEffectId(i, -1);
-					}
-				}
-			}
-
-			m_pVoxelCharacter->GetRightWeapon()->UnloadWeapon();
 			m_pVoxelCharacter->UnloadRightWeapon();
 		}
 	}
