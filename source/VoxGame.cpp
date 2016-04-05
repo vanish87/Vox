@@ -755,20 +755,33 @@ void VoxGame::SetupDataForGame()
 	//Enemy* pEnemy0 = m_pEnemyManager->CreateEnemy(vec3(35.5f, 12.0f, 5.5f), eEnemyType_RedSlime, 0.08f);
 
 	// Enemy spawners
+	// Grassland
 	EnemySpawner* pEnemySpawner0 = m_pEnemyManager->CreateEnemySpawner(vec3(0.0f, 4.0f, 0.0f), vec3(0.0f, 0.0f, 5.0f));
-	pEnemySpawner0->SetSpawningParams(3.0f, 3.0f, 10, vec3(0.0f, 0.0f, 0.0f), true, vec3(0.0f, 1.0f, 0.0f), true, true, 25.0f);
+	pEnemySpawner0->SetSpawningParams(3.0f, 3.0f, 10, vec3(0.0f, 0.0f, 0.0f), true, vec3(0.0f, 1.0f, 0.0f), true, true, 25.0f, Biome_GrassLand);
 	pEnemySpawner0->AddEnemyTypeToSpawn(eEnemyType_GreenSlime);
 	pEnemySpawner0->AddEnemyTypeToSpawn(eEnemyType_RedSlime);
 	pEnemySpawner0->AddEnemyTypeToSpawn(eEnemyType_BlueSlime);
 	pEnemySpawner0->AddEnemyTypeToSpawn(eEnemyType_YellowSlime);
 
 	EnemySpawner* pEnemySpawner1 = m_pEnemyManager->CreateEnemySpawner(vec3(0.0f, 6.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f));
-	pEnemySpawner1->SetSpawningParams(5.0f, 3.5f, 5, vec3(0.0f, 5.0f, 0.0f), true, vec3(0.0f, 5.0f, 0.0f), true, true, 25.0f);
+	pEnemySpawner1->SetSpawningParams(5.0f, 3.5f, 5, vec3(0.0f, 5.0f, 0.0f), true, vec3(0.0f, 5.0f, 0.0f), true, true, 25.0f, Biome_GrassLand);
 	pEnemySpawner1->AddEnemyTypeToSpawn(eEnemyType_Bee);
 
 	EnemySpawner* pEnemySpawner2 = m_pEnemyManager->CreateEnemySpawner(vec3(0.0f, 8.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f));
-	pEnemySpawner2->SetSpawningParams(0.0f, 1.0f, 5, vec3(0.0f, 5.0f, 0.0f), true, vec3(0.0f, 0.0f, 0.0f), true, true, 25.0f);
+	pEnemySpawner2->SetSpawningParams(0.0f, 1.0f, 5, vec3(0.0f, 5.0f, 0.0f), true, vec3(0.0f, 0.0f, 0.0f), true, true, 25.0f, Biome_GrassLand);
 	pEnemySpawner2->AddEnemyTypeToSpawn(eEnemyType_Mimic);
+
+	// Desert
+	EnemySpawner* pEnemySpawner3 = m_pEnemyManager->CreateEnemySpawner(vec3(0.0f, 10.0f, 0.0f), vec3(0.0f, 0.0f, 5.0f));
+	pEnemySpawner3->SetSpawningParams(3.0f, 3.0f, 10, vec3(0.0f, 0.0f, 0.0f), true, vec3(0.0f, 1.0f, 0.0f), true, true, 25.0f, Biome_Desert);
+	pEnemySpawner3->AddEnemyTypeToSpawn(eEnemyType_NormalSkeleton);
+	pEnemySpawner3->AddEnemyTypeToSpawn(eEnemyType_RangedSkeleton);
+	pEnemySpawner3->AddEnemyTypeToSpawn(eEnemyType_MeleeSkeleton);
+	pEnemySpawner3->AddEnemyTypeToSpawn(eEnemyType_MageSkeleton);
+
+	EnemySpawner* pEnemySpawner4 = m_pEnemyManager->CreateEnemySpawner(vec3(0.0f, 12.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f));
+	pEnemySpawner4->SetSpawningParams(0.0f, 1.0f, 5, vec3(0.0f, 5.0f, 0.0f), true, vec3(0.0f, 0.0f, 0.0f), true, true, 25.0f, Biome_Desert);
+	pEnemySpawner4->AddEnemyTypeToSpawn(eEnemyType_Mummy);
 
 	// Quests
 	// Quest 1
@@ -1271,6 +1284,11 @@ unsigned int VoxGame::GetDefaultViewport()
 Player* VoxGame::GetPlayer()
 {
 	return m_pPlayer;
+}
+
+BiomeManager* VoxGame::GetBiomeManager()
+{
+	return m_pBiomeManager;
 }
 
 FrontendManager* VoxGame::GetFrontendManager()

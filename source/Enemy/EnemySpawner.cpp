@@ -25,6 +25,7 @@
 #include "../Projectile/Projectile.h"
 #include "../NPC/NPCManager.h"
 #include "../NPC/NPC.h"
+#include "../VoxGame.h"
 
 
 EnemySpawner::EnemySpawner(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, EnemyManager* pEnemyManager, NPCManager* pNPCManager)
@@ -88,7 +89,7 @@ bool EnemySpawner::ShouldFollowPlayer()
 }
 
 // Spawning params
-void EnemySpawner::SetSpawningParams(float initialSpawnDelay, float spawnTimer, int maxNumEnemiesActive, vec3 spawnRandomOffset, bool shouldSpawnOnGround, vec3 groundSpawnOffset, bool followPlayerIntheWorld, bool spawnFullLoaderRange, float minDistanceFromPlayer)
+void EnemySpawner::SetSpawningParams(float initialSpawnDelay, float spawnTimer, int maxNumEnemiesActive, vec3 spawnRandomOffset, bool shouldSpawnOnGround, vec3 groundSpawnOffset, bool followPlayerIntheWorld, bool spawnFullLoaderRange, float minDistanceFromPlayer, Biome biomeSpawn)
 {
 	m_spawnTime = spawnTimer;
 	m_maxNumEnemiesToHaveActive = maxNumEnemiesActive;
@@ -98,6 +99,7 @@ void EnemySpawner::SetSpawningParams(float initialSpawnDelay, float spawnTimer, 
 	m_followPlayerIntheWorld = followPlayerIntheWorld;
 	m_spawnFullLoaderRange = spawnFullLoaderRange;
 	m_minDistanceFromPlayer = minDistanceFromPlayer;
+	m_biomeSpawn = biomeSpawn;
 
 	if(initialSpawnDelay >= 0.0f)
 	{
@@ -171,8 +173,13 @@ bool EnemySpawner::GetSpawnPosition(vec3* pSpawnPosition)
 				{
 					spawnPos = floorPosition + vec3(0.0f, 0.01f, 0.0f);
 					spawnPos += m_groundSpawnOffset;
-					*pSpawnPosition = spawnPos;
-					lLocationGood = true;
+
+					Biome biome = VoxGame::GetInstance()->GetBiomeManager()->GetBiome(spawnPos);
+					if (biome == m_biomeSpawn)
+					{
+						*pSpawnPosition = spawnPos;
+						lLocationGood = true;
+					}
 				}
 			}
 		}

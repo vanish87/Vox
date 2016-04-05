@@ -171,3 +171,7 @@
 - [ ] Don't allow 'other' buttons in select character screen when we have delet popup - i.e select, create, etc.
 - [ ] Add easier crafting functionality, just a single function call.
 - [ ] Different default inventory when we load a different class type from the create character screen.
+- [ ] Add magic back into player logic.
+- [ ] Create random loot manager and random loot dropping.
+- [ ] Random direction on mimic spawning.
+- [ ] Mimics turning around when going back to non-aggro.

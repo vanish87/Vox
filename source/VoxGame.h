@@ -248,6 +248,7 @@ public:
 	// Accessors
 	unsigned int GetDefaultViewport();
 	Player* GetPlayer();
+	BiomeManager* GetBiomeManager();
 	FrontendManager* GetFrontendManager();
 	BlockParticleManager* GetBlockParticleManager();
 	NPCManager* GetNPCManager();

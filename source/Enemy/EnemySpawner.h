@@ -15,7 +15,9 @@
 
 #include "Enemy.h"
 #include "../blocks/ChunkManager.h"
+#include "../blocks/BiomeManager.h"
 #include "../Particles/BlockParticleManager.h"
+
 
 class LightingManager;
 class GameWindow;
@@ -45,7 +47,7 @@ public:
 	bool ShouldFollowPlayer();
 
 	// Spawning params
-	void SetSpawningParams(float initialSpawnDelay, float spawnTimer, int maxNumEnemiesActive, vec3 spawnRandomOffset, bool shouldSpawnOnGround, vec3 groundSpawnOffset, bool followPlayerIntheWorld, bool spawnFullLoaderRange, float minDistanceFromPlayer);
+	void SetSpawningParams(float initialSpawnDelay, float spawnTimer, int maxNumEnemiesActive, vec3 spawnRandomOffset, bool shouldSpawnOnGround, vec3 groundSpawnOffset, bool followPlayerIntheWorld, bool spawnFullLoaderRange, float minDistanceFromPlayer, Biome biomeSpawn);
 	void AddEnemyTypeToSpawn(eEnemyType enemyType);
 
 	// Enemies removed
@@ -90,6 +92,9 @@ private:
 
 	// Can we spawn?
 	bool m_canSpawn;
+
+	// What biome do we spawn enemies in?
+	Biome m_biomeSpawn;
 
 	// Spawn time delay
 	float m_spawnTime;
