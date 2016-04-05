@@ -128,7 +128,7 @@ float GetItemRadiusForType(eItem type)
 		case eItem_DroppedItem:		{ return 1.0f; } break;
 		case eItem_Coin:			{ return 0.25f; } break;
 		case eItem_Heart:			{ return 0.25f; } break;
-		case eItem_Gib:				{ return 1.0f; } break;
+		case eItem_Gib:				{ return 0.125f; } break;
 		case eItem_Tombstone:		{ return 1.0f; } break;
 		case eItem_Chest:			{ return 0.5f; } break;
 		case eItem_Torch:			{ return 1.0f; } break;
