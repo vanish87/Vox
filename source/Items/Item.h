@@ -156,9 +156,9 @@ public:
 	bool IsInteracting();
 	void Interact();
 	void SpawnSubItems();
-	void SeCurrentInteractCount(int currentInteract);
+	void SetCurrentInteractCount(int currentInteract);
 	int GetCurrentInteractCount();
-	void SeMaxtInteractCount(int maxInteract);
+	void SetMaxtInteractCount(int maxInteract);
 	int GetMaxInteractCount();
 
 	// Update

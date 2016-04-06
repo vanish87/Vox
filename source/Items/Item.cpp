@@ -1325,7 +1325,7 @@ void Item::SpawnSubItems()
 	}
 }
 
-void Item::SeCurrentInteractCount(int currentInteract)
+void Item::SetCurrentInteractCount(int currentInteract)
 {
 	m_interactCount = currentInteract;
 }
@@ -1335,7 +1335,7 @@ int Item::GetCurrentInteractCount()
 	return m_interactCount;
 }
 
-void Item::SeMaxtInteractCount(int maxInteract)
+void Item::SetMaxtInteractCount(int maxInteract)
 {
 	m_maxInteractCount = maxInteract;
 }
