@@ -1508,15 +1508,15 @@ void Player::StopMoving()
 			{
 				if (m_pTargetEnemy == NULL)
 				{
-					if (CanAttackLeft() && CanAttackRight() && m_bCanInteruptCombatAnim)
+					if (CanAttackLeft() && CanAttackRight())
 					{
 						m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BindPose", 0.15f);
 					}
-					else if (CanAttackLeft() && m_bCanInteruptCombatAnim)
+					else if (CanAttackLeft())
 					{
 						m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "BindPose", 0.15f);
 					}
-					else if (CanAttackRight() && m_bCanInteruptCombatAnim)
+					else if (CanAttackRight())
 					{
 						m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "BindPose", 0.15f);
 					}
@@ -1559,19 +1559,28 @@ void Player::StopMoving()
 						{
 							m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, false, AnimationSections_Legs_Feet, "2HandedSwordPose", 0.15f);
 						}
+						else if (IsStaff())
+						{
+							m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, false, AnimationSections_Legs_Feet, "BindPose", 0.15f);
+						}
+						else if (IsPickaxe())
+						{
+							m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "BindPose", 0.15f);
+							m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, false, AnimationSections_Legs_Feet, "BindPose", 0.15f);
+						}
 					}
 				}
 				else
 				{
-					if (CanAttackLeft() && CanAttackRight() && m_bCanInteruptCombatAnim)
+					if (CanAttackLeft() && CanAttackRight())
 					{
 						m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BindPose", 0.15f);
 					}
-					else if (CanAttackLeft() && m_bCanInteruptCombatAnim)
+					else if (CanAttackLeft())
 					{
 						m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "BindPose", 0.15f);
 					}
-					else if (CanAttackRight() && m_bCanInteruptCombatAnim)
+					else if (CanAttackRight())
 					{
 						m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "BindPose", 0.15f);
 					}
