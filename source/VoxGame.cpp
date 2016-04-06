@@ -1036,8 +1036,7 @@ bool VoxGame::CheckInteractions()
 	m_interactItemMutex.lock();
 	if (interaction == false && m_pInteractItem != NULL)
 	{
-		// Stop any movement drag when we interact with item
-		m_movementSpeed = 0.0f;
+		bool shouldStopMovement = false;
 
 		// Dropped items become collectible by the player and magnet towards him
 		if (m_pInteractItem->GetItemType() == eItem_DroppedItem)
@@ -1064,6 +1063,7 @@ bool VoxGame::CheckInteractions()
 		{
 			m_pInteractItem->Interact();
 			m_pPlayer->StopMoving();
+			shouldStopMovement = true;
 
 			interaction = true;
 		}
@@ -1072,6 +1072,7 @@ bool VoxGame::CheckInteractions()
 		if (m_pInteractItem->GetItemType() == eItem_Anvil || m_pInteractItem->GetItemType() == eItem_Furnace)
 		{
 			m_pPlayer->StopMoving();
+			shouldStopMovement = true;
 
 			// Load crafting GUI
 			if (m_pCraftingGUI->IsLoaded() == false)
@@ -1132,6 +1133,7 @@ bool VoxGame::CheckInteractions()
 				if (m_pInteractItem->IsInteracting() == true) // Only open the GUI screens if we are opening a chest
 				{
 					m_pPlayer->StopMoving();
+					shouldStopMovement = true;
 
 					if (m_pLootGUI->IsLoaded())
 					{
@@ -1154,11 +1156,18 @@ bool VoxGame::CheckInteractions()
 						}
 
 						m_pPlayer->StopMoving();
+						shouldStopMovement = true;
 
 						TurnCursorOn(false, false);
 					}
 				}
 			}
+		}
+
+		if (shouldStopMovement == true)
+		{
+			// Stop any movement drag when we interact with item
+			m_movementSpeed = 0.0f;
 		}
 	}
 	m_interactItemMutex.unlock();
