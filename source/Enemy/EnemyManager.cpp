@@ -73,6 +73,7 @@ void EnemyManager::SetNPCManager(NPCManager* pNPCManager)
 EnemyManager::~EnemyManager()
 {
 	ClearEnemies();
+	ClearEnemySpawners();
 }
 
 // Clearing

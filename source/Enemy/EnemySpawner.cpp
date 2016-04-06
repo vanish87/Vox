@@ -216,6 +216,9 @@ void EnemySpawner::Update(float dt)
 					pEnemy->SetSpawningParams(spawnPos, spawnPos, 0.0f);
 					pEnemy->SetTargetForwardToLookAtPoint(spawnPos + m_spawnFacingDirection);
 					pEnemy->SetEnemySpawner(this);
+					
+					pEnemy->SetRotation(GetRandomNumber(0, 360, 2));
+					pEnemy->SetTargetForwardToLookAtPoint(pEnemy->GetPosition() + pEnemy->GetTargetForward());
 
 					m_numSpawnedEnemies += 1;
 

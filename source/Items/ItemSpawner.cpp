@@ -222,6 +222,7 @@ void ItemSpawner::Update(float dt)
 					{
 						pItem->SetMaxtInteractCount(4);
 					}
+					pItem->SetRotation(vec3(0.0f, GetRandomNumber(0, 360, 2), 0.0f));
 
 					m_numSpawnedItems += 1;
 

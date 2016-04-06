@@ -72,6 +72,7 @@ ItemManager::~ItemManager()
 {
 	ClearItems();
 	ClearSubSpawnData();
+	ClearItemSpawners();
 }
 
 void ItemManager::SetLightingManager(LightingManager* pLightingManager)
