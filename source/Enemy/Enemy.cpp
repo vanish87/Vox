@@ -2231,7 +2231,10 @@ bool Enemy::CanCheckAggroRange()
 {
 	if(m_eEnemyType == eEnemyType_Mimic)
 	{
-		return false;
+		if (m_aggro == false)
+		{
+			return false;
+		}
 	}
 
 	return true;
