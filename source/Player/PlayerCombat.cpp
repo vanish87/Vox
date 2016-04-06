@@ -172,6 +172,8 @@ void Player::PressAttack()
 			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "Mine", 0.01f);
 
 			m_bCanAttackRight = false;
+
+			Interpolator::GetInstance()->AddFloatInterpolation(&m_animationTimer, 0.0f, 0.4f, 0.4f, 0.0f, NULL, _AttackAnimationTimerFinished, this);
 		}
 	}
 	else if (IsAxe())

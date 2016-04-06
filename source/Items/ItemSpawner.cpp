@@ -217,6 +217,11 @@ void ItemSpawner::Update(float dt)
 
 					Item* pItem = m_pItemManager->CreateItem(spawnPos, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), itemFilename.c_str(), itemType, "SpawnedItem", true, false, m_spawnScale);
 					pItem->SetItemSpawner(this);
+					
+					if (itemType == eItem_CopperVein || itemType == eItem_IronVein || itemType == eItem_SilverVein || itemType == eItem_GoldVein)
+					{
+						pItem->SetMaxtInteractCount(4);
+					}
 
 					m_numSpawnedItems += 1;
 
