@@ -286,6 +286,7 @@ void Enemy::SetRotation(float rot)
 {
 	float angle = DegToRad(rot);
 	m_forward = vec3(sin(angle), 0.0f, cos(angle));
+	m_targetForward = m_forward;
 }
 
 float Enemy::GetRotation()
@@ -370,6 +371,11 @@ vec3 Enemy::GetRightVector()
 vec3 Enemy::GetUpVector()
 {
 	return m_worldMatrix.GetUpVector();
+}
+
+vec3 Enemy::GetTargetForward()
+{
+	return m_targetForward;
 }
 
 // Setup
