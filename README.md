@@ -52,7 +52,7 @@ There are various different methods for building the Vox executable from the sou
 
 **CMake**
 
-Run CMake from the root directory level of ```/Vox```.
+Run CMake from the root directory level of ```\Vox```.
 
 **Windows**
 
