@@ -240,10 +240,10 @@ public:
 	void UpdateCharactersPulldown();
 	void UpdateWeaponsPulldown();
 	void UpdateAnimationsPulldown();
-	void UpdateGUIThemePulldown();
 	void AddConsoleLabel(string message);
 	void ClearConsoleLabels();
 	void UpdateConsoleLabels();
+	void ToggleFullScreenPressed();
 
 	// Accessors
 	unsigned int GetDefaultViewport();
@@ -267,9 +267,6 @@ protected:
 	VoxGame &operator=(const VoxGame&) {};
 
 	// GUI callbacks
-	static void _ToggleFullScreenPressed(void *apData);
-	void ToggleFullScreenPressed();
-
 	static void _PlayAnimationPressed(void *apData);
 	void PlayAnimationPressed();
 
@@ -585,7 +582,6 @@ private:
 	CheckBox* m_pBlurCheckBox;
 	CheckBox* m_pDebugRenderCheckBox;
 	CheckBox* m_pInstanceRenderCheckBox;
-	Button* m_pFullscreenButton;
 	Button* m_pPlayAnimationButton;
 	PulldownMenu* m_pAnimationsPulldown;
 	PulldownMenu* m_pWeaponsPulldown;
@@ -595,7 +591,6 @@ private:
 	OptionBox* m_pDebugOptionBox;
 	OptionBox* m_pFrontEndOptionBox;
 	OptionController* m_pGameModeOptionController;
-	PulldownMenu* m_pGUIThemePulldown;
 	OptionBox* m_pDebugCameraOptionBox;
 	OptionBox* m_pMouseRotateCameraOptionBox;
 	OptionBox* m_pAutoCameraOptionBox;

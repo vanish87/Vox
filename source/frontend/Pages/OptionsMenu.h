@@ -73,6 +73,9 @@ protected:
 	static void _ControlsTabPressed(void *pData);
 	void ControlsTabPressed();
 
+	static void _ToggleFullScreenPressed(void *pData);
+	void ToggleFullScreenPressed();
+
 	static void _CustomCursorsTogglePressed(void *pData);
 	void CustomCursorsTogglePressed();
 
@@ -128,6 +131,7 @@ private:
 	Icon* m_pSliderBackgroundIcon_GamepadSensativity;
 
 	// Graphics
+	Button* m_pFullscreenButton;
 
 	// Sound
 	CheckBox* m_pSoundEffects;

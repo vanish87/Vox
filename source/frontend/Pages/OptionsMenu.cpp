@@ -146,6 +146,12 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_vpGameplayComponents.push_back(m_pSliderBackgroundIcon_GamepadSensativity);
 
 	// Graphics
+	m_pFullscreenButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_25(), m_pFrontendManager->GetFrontendFont_25_Outline(), "Fullscreen", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	m_pFullscreenButton->SetCallBackFunction(_ToggleFullScreenPressed);
+	m_pFullscreenButton->SetCallBackData(this);
+	m_pFullscreenButton->SetPressedOffset(0, -2);
+
+	m_vpGraphicsComponents.push_back(m_pFullscreenButton);
 
 	// Sound
 	m_pSoundEffects = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Sound", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
@@ -290,6 +296,7 @@ OptionsMenu::~OptionsMenu()
 	delete m_pSliderBackgroundIcon_GamepadSensativity;
 
 	// Graphics
+	delete m_pFullscreenButton;
 
 	// Sound
 	delete m_pSoundEffects;
@@ -386,6 +393,7 @@ void OptionsMenu::SetWindowDimensions(int windowWidth, int windowHeight)
 	m_pSliderBackgroundIcon_GamepadSensativity->SetDimensions(131, m_optionsWindowHeight-303, 207, 31);
 
 	// Graphics
+	m_pFullscreenButton->SetDimensions(230, 10, 110, 47);
 
 	// Sound
 	m_pSoundEffects->SetDimensions(25, m_optionsWindowHeight-65, 20, 20);
@@ -554,6 +562,12 @@ void OptionsMenu::SkinGUI()
 	m_pInterfaceMode->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
 	m_pInterfaceMode->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
 	m_pInterfaceMode->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+
+	m_pFrontendManager->SetButtonIcons(m_pFullscreenButton, ButtonSize_110x47);
+	m_pFullscreenButton->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pFullscreenButton->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pFullscreenButton->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pFullscreenButton->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 
 	m_pInvertedMouseMode->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
 	m_pInvertedMouseMode->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
@@ -1018,6 +1032,17 @@ void OptionsMenu::ControlsTabPressed()
 
 	m_pGUI->AddWindow(m_pOptionsWindow);
 	m_pOptionsWindow->Show();
+}
+
+void OptionsMenu::_ToggleFullScreenPressed(void *pData)
+{
+	OptionsMenu* lpOptionsMenu = (OptionsMenu*)pData;
+	lpOptionsMenu->ToggleFullScreenPressed();
+}
+
+void OptionsMenu::ToggleFullScreenPressed()
+{
+	VoxGame::GetInstance()->ToggleFullScreenPressed();
 }
 
 void OptionsMenu::_CustomCursorsTogglePressed(void *pData)

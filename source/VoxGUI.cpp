@@ -47,11 +47,6 @@ void VoxGame::CreateGUI()
 	m_pInstanceRenderCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Instance Particles");
 	m_pInstanceRenderCheckBox->SetDimensions(110, 46, 14, 14);
 
-	m_pFullscreenButton = new Button(m_pRenderer, m_defaultFont, "FullScreen");
-	m_pFullscreenButton->SetDimensions(230, 10, 85, 25);
-	m_pFullscreenButton->SetCallBackFunction(_ToggleFullScreenPressed);
-	m_pFullscreenButton->SetCallBackData(this);
-
 	m_pPlayAnimationButton = new Button(m_pRenderer, m_defaultFont, "Play Anim");
 	m_pPlayAnimationButton->SetDimensions(230, 40, 85, 25);
 	m_pPlayAnimationButton->SetCallBackFunction(_PlayAnimationPressed);
@@ -103,7 +98,6 @@ void VoxGame::CreateGUI()
 	m_pMainWindow->AddComponent(m_pUpdateCheckBox);
 	m_pMainWindow->AddComponent(m_pDebugRenderCheckBox);
 	m_pMainWindow->AddComponent(m_pInstanceRenderCheckBox);
-	m_pMainWindow->AddComponent(m_pFullscreenButton);
 	m_pMainWindow->AddComponent(m_pPlayAnimationButton);
 	m_pMainWindow->AddComponent(m_pAnimationsPulldown);
 	m_pMainWindow->AddComponent(m_pWeaponsPulldown);
@@ -140,14 +134,6 @@ void VoxGame::CreateGUI()
 	m_pGameModeOptionController->Add(m_pDebugOptionBox);
 	m_pGameModeOptionController->Add(m_pFrontEndOptionBox);
 	m_pDebugOptionBox->SetToggled(true);
-
-	m_pGUIThemePulldown = new PulldownMenu(m_pRenderer, m_defaultFont, "Theme");
-	m_pGUIThemePulldown->SetDimensions(50, 30, 80, 14);
-	m_pGUIThemePulldown->SetMaxNumItemsDisplayed(5);
-	m_pGUIThemePulldown->SetDepth(2.0f);
-	m_pGUIThemePulldown->SetRenderHeader(true);
-	m_pGUIThemePulldown->SetMenuItemChangedCallBackFunction(_GUIThemePullDownChanged);
-	m_pGUIThemePulldown->SetMenuItemChangedCallBackData(this);
 
 	m_pFaceMergingCheckbox = new CheckBox(m_pRenderer, m_defaultFont, "Face Merging");
 	m_pFaceMergingCheckbox->SetDimensions(10, 10, 14, 14);
@@ -192,7 +178,6 @@ void VoxGame::CreateGUI()
 	m_pFrontendCameraOptionBox->SetDisabled(true);
 
 	m_pGameWindow->AddComponent(m_pGameModeOptionController);
-	m_pGameWindow->AddComponent(m_pGUIThemePulldown);
 	m_pGameWindow->AddComponent(m_pCameraModeOptionController);
 	m_pGameWindow->AddComponent(m_pFaceMergingCheckbox);
 	m_pGameWindow->AddComponent(m_pStepUpdateCheckbox);
@@ -238,12 +223,10 @@ void VoxGame::CreateGUI()
 	UpdateCharactersPulldown();
 	UpdateWeaponsPulldown();
 	UpdateAnimationsPulldown();
-	UpdateGUIThemePulldown();
 
 	m_pCharacterPulldown->SetSelectedItem("Steve");
 	m_pWeaponsPulldown->SetSelectedItem("None");
 	m_pAnimationsPulldown->SetSelectedItem("BindPose");
-	m_pGUIThemePulldown->SetSelectedItem(m_pModsManager->GetHUDTextureTheme());
 
 	m_GUICreated = true;
 }
@@ -327,11 +310,9 @@ void VoxGame::SkinGUI()
 	m_pFrontendManager->SetPulldownMenuIcons(m_pAnimationsPulldown);
 	m_pFrontendManager->SetPulldownMenuIcons(m_pWeaponsPulldown);
 	m_pFrontendManager->SetPulldownMenuIcons(m_pCharacterPulldown);
-	m_pFrontendManager->SetPulldownMenuIcons(m_pGUIThemePulldown);
 
 	m_pFrontendManager->SetScrollbarIcons(m_pConsoleScrollbar);
 
-	m_pFrontendManager->SetButtonIcons(m_pFullscreenButton, ButtonSize_85x25);
 	m_pFrontendManager->SetButtonIcons(m_pPlayAnimationButton, ButtonSize_85x25);
 	m_pFrontendManager->SetButtonIcons(m_pStepUpdateButton, ButtonSize_65x25);
 
@@ -370,14 +351,12 @@ void VoxGame::UnSkinGUI()
 	m_pAnimationsPulldown->SetDefaultIcons(m_pRenderer);
 	m_pWeaponsPulldown->SetDefaultIcons(m_pRenderer);
 	m_pCharacterPulldown->SetDefaultIcons(m_pRenderer);
-	m_pGUIThemePulldown->SetDefaultIcons(m_pRenderer);
 
 	m_pDebugCameraOptionBox->SetDefaultIcons(m_pRenderer);
 	m_pMouseRotateCameraOptionBox->SetDefaultIcons(m_pRenderer);
 	m_pAutoCameraOptionBox->SetDefaultIcons(m_pRenderer);
 	m_pFrontendCameraOptionBox->SetDefaultIcons(m_pRenderer);
 
-	m_pFullscreenButton->SetDefaultIcons(m_pRenderer);
 	m_pPlayAnimationButton->SetDefaultIcons(m_pRenderer);
 	m_pStepUpdateButton->SetDefaultIcons(m_pRenderer);
 
@@ -409,7 +388,6 @@ void VoxGame::DestroyGUI()
 	delete m_pUpdateCheckBox;
 	delete m_pDebugRenderCheckBox;
 	delete m_pInstanceRenderCheckBox;
-	delete m_pFullscreenButton;
 	delete m_pPlayAnimationButton;
 	delete m_pAnimationsPulldown;
 	delete m_pWeaponsPulldown;
@@ -419,7 +397,6 @@ void VoxGame::DestroyGUI()
 	delete m_pDebugOptionBox;
 	delete m_pFrontEndOptionBox;
 	delete m_pGameModeOptionController;
-	delete m_pGUIThemePulldown;
 	delete m_pFaceMergingCheckbox;
 	delete m_pStepUpdateCheckbox;
 	delete m_pStepUpdateButton;
@@ -602,34 +579,6 @@ void VoxGame::UpdateAnimationsPulldown()
 	m_pAnimationsPulldown->AddEventListeners();
 }
 
-void VoxGame::UpdateGUIThemePulldown()
-{
-	m_pGUIThemePulldown->RemoveAllPullDownMenuItems();
-	m_pGUIThemePulldown->ResetPullDownMenu();
-	m_pGameWindow->RemoveComponent(m_pGUIThemePulldown);
-
-	// Add 'None' theme to use standard GUI rendering
-	m_pGUIThemePulldown->AddPulldownItem("None");
-
-	char importDirectory[128];
-    sprintf(importDirectory, "media/textures/gui/*.*");
-
-	vector<string> listFiles;
-	listFiles = listFilesInDirectory(importDirectory);
-	for (unsigned int i = 0; i < listFiles.size(); i++)
-	{
-		if (strcmp(listFiles[i].c_str(), ".") == 0 || strcmp(listFiles[i].c_str(), "..") == 0)
-		{
-			continue;
-		}
-
-		m_pGUIThemePulldown->AddPulldownItem(listFiles[i].c_str());
-	}
-
-	m_pGameWindow->AddComponent(m_pGUIThemePulldown);
-	m_pGUIThemePulldown->AddEventListeners();
-}
-
 void VoxGame::AddConsoleLabel(string message)
 {
 	if (m_GUICreated == false)
@@ -766,13 +715,6 @@ void VoxGame::UpdateConsoleLabels()
 	}
 }
 
-// GUI callbacks
-void VoxGame::_ToggleFullScreenPressed(void *apData)
-{
-	VoxGame* lpVoxGame = (VoxGame*)apData;
-	lpVoxGame->ToggleFullScreenPressed();
-}
-
 void VoxGame::ToggleFullScreenPressed()
 {
 	m_fullscreen = !m_fullscreen;
@@ -781,6 +723,7 @@ void VoxGame::ToggleFullScreenPressed()
 	m_pBlockParticleManager->SetupGLBuffers();
 }
 
+// GUI callbacks
 void VoxGame::_PlayAnimationPressed(void *apData)
 {
 	VoxGame* lpVoxGame = (VoxGame*)apData;
@@ -996,32 +939,6 @@ void VoxGame::CameraModeChanged()
 		SetCameraMode(CameraMode_Frontend);
 
 		TurnCursorOn(true, false);
-	}
-}
-
-void VoxGame::_GUIThemePullDownChanged(void *apData)
-{
-	VoxGame* lpVoxGame = (VoxGame*)apData;
-	lpVoxGame->GUIThemePullDownChanged();
-}
-
-void VoxGame::GUIThemePullDownChanged()
-{
-	MenuItem* pMenuItem = m_pGUIThemePulldown->GetSelectedMenuItem();
-	if (pMenuItem != NULL)
-	{
-		if (pMenuItem->GetLabel().GetText() == "None")
-		{
-			UnSkinGUI();
-		}
-		else
-		{
-			string currentThemeName = VoxGame::GetInstance()->GetModsManager()->GetHUDTextureTheme();
-			VoxGame::GetInstance()->GetModsManager()->RemoveMod(currentThemeName, false, false, false, true, false);
-			VoxGame::GetInstance()->GetModsManager()->AddMod(pMenuItem->GetLabel().GetText().c_str(), false, false, false, true, false);
-			m_pFrontendManager->LoadCommonGraphics(pMenuItem->GetLabel().GetText().c_str());
-			SkinGUI();
-		}
 	}
 }
 
