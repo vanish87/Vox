@@ -18,6 +18,7 @@
 #include "Pages/PauseMenu.h"
 #include "Pages/ModMenu.h"
 #include "Pages/OptionsMenu.h"
+#include "Pages/Credits.h"
 #include "../VoxGame.h"
 
 #include <iostream>
@@ -246,6 +247,7 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 	FrontendPage* pQuitPopup = new QuitPopup(m_pRenderer, m_pGUI, this, width, height);
 	FrontendPage* pPauseMenu = new PauseMenu(m_pRenderer, m_pGUI, this, width, height);
 	FrontendPage* pOptionsMenu = new OptionsMenu(m_pRenderer, m_pGUI, this, width, height);
+	FrontendPage* pCredits = new Credits(m_pRenderer, m_pGUI, this, width, height);
 	FrontendPage* pModMenu = new ModMenu(m_pRenderer, m_pGUI, this, width, height);
 
 	m_vpFrontendPages.push_back(pMainMenu);
@@ -254,6 +256,7 @@ FrontendManager::FrontendManager(Renderer* pRenderer, OpenGLGUI* pGUI)
 	m_vpFrontendPages.push_back(pQuitPopup);
 	m_vpFrontendPages.push_back(pPauseMenu);
 	m_vpFrontendPages.push_back(pOptionsMenu);
+	m_vpFrontendPages.push_back(pCredits);
 	m_vpFrontendPages.push_back(pModMenu);
 
 	// Initial page
@@ -784,6 +787,14 @@ void FrontendManager::SetCharacterSubSelection(string subSelection)
 		{
 			((CreateCharacter*)m_currentPage)->CreatePresetButtons(section, true);
 		}
+	}
+}
+
+void FrontendManager::GotoNextCreditScreen()
+{
+	if (m_currentScreen == FrontendScreen_Credits)
+	{
+		((Credits*)m_currentPage)->GotoNextCreditPage();
 	}
 }
 

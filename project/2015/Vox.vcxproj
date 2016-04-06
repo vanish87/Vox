@@ -29,6 +29,7 @@
     <ClCompile Include="..\..\source\frontend\FrontendManager.cpp" />
     <ClCompile Include="..\..\source\frontend\FrontendPage.cpp" />
     <ClCompile Include="..\..\source\frontend\Pages\CreateCharacter.cpp" />
+    <ClCompile Include="..\..\source\frontend\Pages\Credits.cpp" />
     <ClCompile Include="..\..\source\frontend\Pages\MainMenu.cpp" />
     <ClCompile Include="..\..\source\frontend\Pages\ModMenu.cpp" />
     <ClCompile Include="..\..\source\frontend\Pages\OptionsMenu.cpp" />
@@ -203,6 +204,7 @@
     <ClInclude Include="..\..\source\frontend\FrontendPage.h" />
     <ClInclude Include="..\..\source\frontend\FrontendScreens.h" />
     <ClInclude Include="..\..\source\frontend\Pages\CreateCharacter.h" />
+    <ClInclude Include="..\..\source\frontend\Pages\Credits.h" />
     <ClInclude Include="..\..\source\frontend\Pages\MainMenu.h" />
     <ClInclude Include="..\..\source\frontend\Pages\ModMenu.h" />
     <ClInclude Include="..\..\source\frontend\Pages\OptionsMenu.h" />

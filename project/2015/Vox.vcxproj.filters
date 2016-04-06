@@ -630,6 +630,9 @@
     <ClCompile Include="..\..\source\Items\ItemSpawner.cpp">
       <Filter>source\Items</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\frontend\Pages\Credits.cpp">
+      <Filter>source\frontend\Pages</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\glew\include\GL\glew.h">
@@ -1615,6 +1618,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\Player\PlayerClass.h">
       <Filter>source\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\frontend\Pages\Credits.h">
+      <Filter>source\frontend\Pages</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

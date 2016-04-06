@@ -402,6 +402,12 @@ void VoxGame::MouseLeftPressed()
 			m_pNPCManager->UpdateNamePickingSelection(-1);
 		}
 	}
+
+	// For front-end credits screen advancement
+	if (m_gameMode == GameMode_FrontEnd && m_pFrontendManager->GetFrontendScreen() == FrontendScreen_Credits)
+	{
+		m_pFrontendManager->GotoNextCreditScreen();
+	}
 }
 
 void VoxGame::MouseLeftReleased()

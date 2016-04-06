@@ -200,6 +200,7 @@ public:
 	void SetHoverNPC(NPC* pHoverNPC);
 	void SetSelectedNPC(NPC* pSelectedNPC);
 	void SetCharacterSubSelection(string subSelection);
+	void GotoNextCreditScreen();
 
 	// Constants
 	float GetToolTipAppearDelay();

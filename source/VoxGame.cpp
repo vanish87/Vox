@@ -434,6 +434,7 @@ void VoxGame::Destroy()
 		delete m_pChunkManager;
 		delete m_pItemManager;
 		delete m_pInventoryManager;
+		delete m_pFrontendManager;
 		delete m_pPlayer;
 		delete m_pNPCManager;
 		delete m_pEnemyManager;
@@ -444,7 +445,6 @@ void VoxGame::Destroy()
 		delete m_pInstanceManager;
 		delete m_pBiomeManager;
 		delete m_pQubicleBinaryManager;
-		delete m_pFrontendManager;
 		delete m_pModsManager;
 		delete m_pGameCamera;
 		delete m_pQuestManager;
