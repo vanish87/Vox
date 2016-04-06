@@ -63,6 +63,7 @@ eFrontendScreen FrontendPage::GetPageType()
 	return m_pageType;
 }
 
+// Page title and sub-title
 void FrontendPage::SetTitleAndSubtitle(string title, string subtitle)
 {
 	m_pPageTitle->SetText(title);
@@ -90,6 +91,7 @@ void FrontendPage::RemoveTitlesAndSubTitle()
 	}
 }
 
+// Camera
 vec3 FrontendPage::GetCameraPosition()
 {
 	return m_cameraPosition;
@@ -100,11 +102,13 @@ vec3 FrontendPage::GetCameraView()
 	return m_cameraView;
 }
 
+// Update
 void FrontendPage::Update(float dt)
 {
 	/* Do nothing */
 }
 
+// Render
 void FrontendPage::Render()
 {
 	if(m_updateTitleTextCenterLocation)
