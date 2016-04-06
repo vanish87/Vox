@@ -584,6 +584,10 @@ void VoxGame::MouseCameraRotate()
 		changeY = -changeY;
 	}
 
+	// Scale based on mouse sensitivity options
+	changeX *= m_pVoxSettings->m_mouseSensitivity * 0.02f;
+	changeY *= m_pVoxSettings->m_mouseSensitivity * 0.02f;
+
 	// Limit the rotation, so we can't go 'over' or 'under' the player with out rotations
 	vec3 cameraFacing = m_pGameCamera->GetFacing();
 	float dotResult = acos(dot(cameraFacing, vec3(0.0f, 1.0f, 0.0f)));
@@ -667,6 +671,10 @@ void VoxGame::JoystickCameraRotate(float dt)
 	{
 		changeY = -changeY;
 	}
+
+	// Scale based on gamepad sensitivity options
+	changeX *= m_pVoxSettings->m_gamepadSensitivity * 0.02f;
+	changeY *= m_pVoxSettings->m_gamepadSensitivity * 0.02f;
 
 	// Limit the rotation, so we can't go 'over' or 'under' the player with out rotations
 	vec3 cameraFacing = m_pGameCamera->GetFacing();
