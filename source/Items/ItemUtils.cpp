@@ -120,6 +120,60 @@ eItem GetItemTypeFromString(string typeName)
 	return eItem_None;
 }
 
+string GetItemFilenameForType(eItem type)
+{
+	switch(type)
+	{
+		case eItem_None:			{ return ""; } break;
+		case eItem_DroppedItem:		{ return ""; } break;
+		case eItem_Coin:			{ return "media/gamedata/items/Coin/Coin.item"; } break;
+		case eItem_Heart:			{ return "media/gamedata/items/Heart/Heart.item"; } break;
+		case eItem_Gib:				{ return ""; } break;
+		case eItem_Tombstone:		{ return "media/gamedata/items/Tombstone1.item"; } break;
+		case eItem_Chest:			{ return "media/gamedata/items/Chest/Chest.item"; } break;
+		case eItem_Torch:			{ return "media/gamedata/items/Torch/Torch.item"; } break;
+		case eItem_Furnace:			{ return "media/gamedata/items/Furnace/Furnace.item"; } break;
+		case eItem_Anvil:			{ return "media/gamedata/items/Anvil/Anvil.item"; } break;
+		case eItem_QuestBoard:		{ return "media/gamedata/items/QuestBoard/QuestBoard.item"; } break;
+		case eItem_CampFire:		{ return "media/gamedata/items/CampFire.item"; } break;
+		case eItem_Mannequin:		{ return "media/gamedata/items/Mannequin/Mannequin.item"; } break;
+		case eItem_Door:			{ return "media/gamedata/items/Door/Door.item"; } break;
+		case eItem_Chair:			{ return "media/gamedata/items/Chair/Chair.item"; } break;
+		case eItem_Table:			{ return "media/gamedata/items/Table/Table.item"; } break;
+		case eItem_Bed:				{ return "media/gamedata/items/Bed/Bed.item"; } break;
+		case eItem_Portal:			{ return ""; } break;
+		case eItem_PortalPillar:	{ return ""; } break;
+		case eItem_CopperVein:		{ return "media/gamedata/items/CopperVein/CopperVein0.item"; } break;
+		case eItem_CopperOre:		{ return "media/gamedata/items/CopperOre/CopperOre.item"; } break;
+		case eItem_CopperBar:		{ return "media/gamedata/items/CopperBar/CopperBar.item"; } break;
+		case eItem_IronVein:		{ return "media/gamedata/items/IronVein/IronVein0.item"; } break;
+		case eItem_IronOre:			{ return "media/gamedata/items/IronOre/IronOre.item"; } break;
+		case eItem_IronBar:			{ return "media/gamedata/items/IronBar/IronBar.item"; } break;
+		case eItem_SilverVein:		{ return "media/gamedata/items/SilverVein/SilverVein0.item"; } break;
+		case eItem_SilverOre:		{ return "media/gamedata/items/SilverOre/SilverOre.item"; } break;
+		case eItem_SilverBar:		{ return "media/gamedata/items/SilverBar/SilverBar.item"; } break;
+		case eItem_GoldVein:		{ return "media/gamedata/items/GoldVein/GoldVein0.item"; } break;
+		case eItem_GoldOre:			{ return "media/gamedata/items/GoldOre/GoldOre.item"; } break;
+		case eItem_GoldBar:			{ return "media/gamedata/items/GoldBar/GoldBar.item"; } break;
+		case eItem_CropSoil:		{ return ""; } break;
+		case eItem_CropWheat:		{ return ""; } break;
+		case eItem_CropCorn:		{ return ""; } break;
+		case eItem_CropTomato:		{ return ""; } break;
+		case eItem_Fence:			{ return ""; } break;
+		case eItem_Block_Grass:		{ return "media/gamedata/items/BlockGrass/BlockGrass.item"; } break;
+		case eItem_Block_Dirt:		{ return "media/gamedata/items/BlockDirt/BlockDirt.item"; } break;
+		case eItem_Block_Stone:		{ return "media/gamedata/items/BlockStone/BlockStone.item"; } break;
+		case eItem_Block_Wood:		{ return "media/gamedata/items/BlockWood/BlockWood.item"; } break;
+		case eItem_Block_Leaf:		{ return "media/gamedata/items/BlockLead/BlockLead.item"; } break;
+		case eItem_Block_Sand:		{ return "media/gamedata/items/BlockSand/BlockSand.item"; } break;
+		case eItem_Block_Cactus:	{ return "media/gamedata/items/BlockCactus/BlockCactus.item"; } break;
+		case eItem_Block_Rock:		{ return "media/gamedata/items/BlockRock/BlockRock.item"; } break;
+		case eItem_Block_Snow:		{ return "media/gamedata/items/BlockSnow/BlockSnow.item"; } break;
+	}
+
+	return "";
+}
+
 float GetItemRadiusForType(eItem type)
 {
 	switch (type)
@@ -143,16 +197,16 @@ float GetItemRadiusForType(eItem type)
 		case eItem_Bed:				{ return 1.0f; } break;
 		case eItem_Portal:			{ return 1.0f; } break;
 		case eItem_PortalPillar:	{ return 1.0f; } break;
-		case eItem_CopperVein:		{ return 1.0f; } break;
+		case eItem_CopperVein:		{ return 0.5f; } break;
 		case eItem_CopperOre:		{ return 1.0f; } break;
 		case eItem_CopperBar:		{ return 1.0f; } break;
-		case eItem_IronVein:		{ return 1.0f; } break;
+		case eItem_IronVein:		{ return 0.5f; } break;
 		case eItem_IronOre:			{ return 1.0f; } break;
 		case eItem_IronBar:			{ return 1.0f; } break;
-		case eItem_SilverVein:		{ return 1.0f; } break;
+		case eItem_SilverVein:		{ return 0.5f; } break;
 		case eItem_SilverOre:		{ return 1.0f; } break;
 		case eItem_SilverBar:		{ return 1.0f; } break;
-		case eItem_GoldVein:		{ return 1.0f; } break;
+		case eItem_GoldVein:		{ return 0.5f; } break;
 		case eItem_GoldOre:			{ return 1.0f; } break;
 		case eItem_GoldBar:			{ return 1.0f; } break;
 		case eItem_CropSoil:		{ return 1.0f; } break;

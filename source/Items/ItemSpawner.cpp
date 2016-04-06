@@ -42,6 +42,7 @@ ItemSpawner::ItemSpawner(Renderer* pRenderer, ChunkManager* pChunkManager, Playe
 	m_followPlayerIntheWorld = false;
 	m_spawnFullLoaderRange = false;
 	m_minDistanceFromPlayer = 0;
+	m_spawnScale = 0.1f;
 
 	m_numSpawnedItems = 0;
 	m_maxNumItemsToHaveActive = 1;
@@ -89,7 +90,7 @@ bool ItemSpawner::ShouldFollowPlayer()
 }
 
 // Spawning params
-void ItemSpawner::SetSpawningParams(float initialSpawnDelay, float spawnTimer, int maxNumItemsActive, vec3 spawnRandomOffset, bool shouldSpawnOnGround, vec3 groundSpawnOffset, bool followPlayerIntheWorld, bool spawnFullLoaderRange, float minDistanceFromPlayer, Biome biomeSpawn)
+void ItemSpawner::SetSpawningParams(float initialSpawnDelay, float spawnTimer, int maxNumItemsActive, vec3 spawnRandomOffset, bool shouldSpawnOnGround, vec3 groundSpawnOffset, bool followPlayerIntheWorld, bool spawnFullLoaderRange, float minDistanceFromPlayer, Biome biomeSpawn, float spawnScale)
 {
 	m_spawnTime = spawnTimer;
 	m_maxNumItemsToHaveActive = maxNumItemsActive;
@@ -100,6 +101,7 @@ void ItemSpawner::SetSpawningParams(float initialSpawnDelay, float spawnTimer, i
 	m_spawnFullLoaderRange = spawnFullLoaderRange;
 	m_minDistanceFromPlayer = minDistanceFromPlayer;
 	m_biomeSpawn = biomeSpawn;
+	m_spawnScale = spawnScale;
 
 	if(initialSpawnDelay >= 0.0f)
 	{
@@ -211,8 +213,9 @@ void ItemSpawner::Update(float dt)
 				if (length(toPlayer) > m_minDistanceFromPlayer)
 				{
 					eItem itemType = GetItemTypeToSpawn();
+					string itemFilename = GetItemFilenameForType(itemType);
 
-					Item* pItem = m_pItemManager->CreateItem(spawnPos, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Chest/Chest.item", eItem_Chest, "Chest", true, false, 0.08f);
+					Item* pItem = m_pItemManager->CreateItem(spawnPos, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), itemFilename.c_str(), itemType, "SpawnedItem", true, false, m_spawnScale);
 					pItem->SetItemSpawner(this);
 
 					m_numSpawnedItems += 1;

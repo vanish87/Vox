@@ -46,7 +46,7 @@ public:
 	bool ShouldFollowPlayer();
 
 	// Spawning params
-	void SetSpawningParams(float initialSpawnDelay, float spawnTimer, int maxNumItemsActive, vec3 spawnRandomOffset, bool shouldSpawnOnGround, vec3 groundSpawnOffset, bool followPlayerIntheWorld, bool spawnFullLoaderRange, float minDistanceFromPlayer, Biome biomeSpawn);
+	void SetSpawningParams(float initialSpawnDelay, float spawnTimer, int maxNumItemsActive, vec3 spawnRandomOffset, bool shouldSpawnOnGround, vec3 groundSpawnOffset, bool followPlayerIntheWorld, bool spawnFullLoaderRange, float minDistanceFromPlayer, Biome biomeSpawn, float spawnScale);
 	void AddItemTypeToSpawn(eItem item);
 
 	// Items removed
@@ -109,6 +109,9 @@ private:
 
 	// Can we spawn in the full loader range?
 	bool m_spawnFullLoaderRange;
+
+	// Spawn scale for the item
+	float m_spawnScale;
 
 	// Random spawn offset
 	vec3 m_spawnRandomOffset;

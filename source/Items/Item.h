@@ -32,6 +32,7 @@ class ItemSpawner;
 string GetItemTypeToString(eItem type);
 eItem GetItemTypeFromString(string typeName);
 float GetItemRadiusForType(eItem type);
+string GetItemFilenameForType(eItem type);
 
 class Item
 {
