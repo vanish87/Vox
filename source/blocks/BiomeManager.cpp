@@ -86,7 +86,14 @@ Biome BiomeManager::GetBiome(vec3 position)
 	return Biome_GrassLand;
 }
 
+// Town
 bool BiomeManager::IsInTown(vec3 position)
+{
+	return false;
+}
+
+// Safe zone
+bool BiomeManager::IsInSafeZone(vec3 position)
 {
 	return false;
 }

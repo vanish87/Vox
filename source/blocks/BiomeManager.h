@@ -60,7 +60,11 @@ public:
 
 	Biome GetBiome(vec3 position);
 
+	// Town
 	bool IsInTown(vec3 position);
+
+	// Safe zone
+	bool IsInSafeZone(vec3 position);
 
 	void GetChunkColourAndBlockType(float xPos, float yPos, float zPos, float noiseValue, float landscapeGradient, float *r, float *g, float *b, BlockType *blockType);
 
