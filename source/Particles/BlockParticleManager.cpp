@@ -804,7 +804,7 @@ void BlockParticleManager::ExplodeQubicleMatrix(QubicleMatrix* pMatrix, float sc
 						BlockParticle* pParticle = CreateBlockParticle(blockPosition, blockPosition, gravity, 1.5f, pointOrigin, startScale, 0.0f, endScale, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, 0.0f, lifeTime, 0.0f, 0.0f, 0.0f, -toOrigin+ vec3(0.0f, 2.0f, 0.0f), vec3(0.85f, 2.0f, 0.85f), vec3(0.0f, 0.0f, 0.0f), vec3(180.0f, 180.0f, 180.0f), 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, false, vec3(rotX, rotY, rotZ), true, false, false, false, NULL);
 						if(pParticle != NULL)
 						{
-							pParticle->m_allowFloorSliding = true;
+							pParticle->m_allowFloorSliding = false;
 						}
 					}
 				}
