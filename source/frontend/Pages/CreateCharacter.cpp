@@ -1732,7 +1732,7 @@ void CreateCharacter::CreatePressed()
 
 				// Load default inventory and stats and save out files for the character
 				VoxGame::GetInstance()->GetPlayer()->SetName(m_pNameTextBox->GetText().c_str());
-				VoxGame::GetInstance()->GetPlayer()->LoadDefaultCharacterSettings();
+				VoxGame::GetInstance()->GetPlayer()->LoadCharacterSettings();
 
 				m_pCustomCreationNPC = NULL;
 			}

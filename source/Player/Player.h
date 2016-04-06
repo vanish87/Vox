@@ -132,7 +132,7 @@ public:
 	void SetCameraRight(vec3 right);
 
 	// Loading configuration and settings for the game
-	void LoadDefaultCharacterSettings();
+	void LoadCharacterSettings();
 	void StartGame();
 
 	// Movement

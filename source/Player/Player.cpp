@@ -1282,7 +1282,7 @@ void Player::SetCameraRight(vec3 right)
 }
 
 // Loading configuration and settings for the game
-void Player::LoadDefaultCharacterSettings()
+void Player::LoadCharacterSettings()
 {
 	// Remove supress export
 	m_pInventoryManager->SetSupressExport(false);
