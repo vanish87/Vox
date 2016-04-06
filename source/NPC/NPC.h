@@ -97,6 +97,8 @@ public:
 	// Front-end NPCs
 	void SetFrontEndNPC(bool frontEnd);
 	bool IsFrontEndNPC();
+	void SetPlayerClass(PlayerClass selectedClass);
+	PlayerClass GetPlayerClass();
 
 	// Combat type
 	void SetNPCCombatType(eNPCCombatType eNPCCombatType, bool setWeaponModel);
@@ -309,6 +311,9 @@ private:
 
 	// Frontend NPC flag
 	bool m_frontEndNPC;
+
+	// What class are we for the front-end character lineup
+	PlayerClass m_selectedClass;
 
 	// Idle flag
 	bool m_bIsIdle;

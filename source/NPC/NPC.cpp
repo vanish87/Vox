@@ -93,6 +93,9 @@ NPC::NPC(Renderer* pRenderer, ChunkManager* pChunkManager, Player* pPlayer, Ligh
 	// Frontend NPC
 	m_frontEndNPC = false;
 
+	// Player class for frontend lineup
+	m_selectedClass = PlayerClass_Debug;
+
 	// Movement gameplay params
 	m_moveToPlayer = false;
 	m_hasReachedTargetPosition = false;
@@ -375,6 +378,16 @@ void NPC::SetFrontEndNPC(bool frontEnd)
 bool NPC::IsFrontEndNPC()
 {
 	return m_frontEndNPC;
+}
+
+void NPC::SetPlayerClass(PlayerClass selectedClass)
+{
+	m_selectedClass = selectedClass;
+}
+
+PlayerClass NPC::GetPlayerClass()
+{
+	return m_selectedClass;
 }
 
 // Combat type

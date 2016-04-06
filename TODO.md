@@ -149,6 +149,7 @@
 - [x] Add magic back into player logic.
 - [x] Random direction on mimic spawning.
 - [x] Mimics turning around when going back to non-aggro.
+- [x] Different default inventory when we load a different class type from the create character screen.
 - [ ] Add VLD support to debug version, allow for memory leak detection.
 - [ ] Add audio and music playback.
 - [ ] Saving and loading chunks.
@@ -174,5 +175,5 @@
 - [ ] Bug with custom cursors when going outside of windows bounds.
 - [ ] Don't allow 'other' buttons in select character screen when we have delet popup - i.e select, create, etc.
 - [ ] Add easier crafting functionality, just a single function call.
-- [ ] Different default inventory when we load a different class type from the create character screen.
 - [ ] Create random loot manager and random loot dropping.
+- [ ] NPC loading falls through the world when we road trip to the front-end and start the game.

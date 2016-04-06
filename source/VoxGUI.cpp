@@ -271,7 +271,7 @@ void VoxGame::SetupGUI()
 		m_pActionBar->SetSupressExport(true);
 		m_pPlayer->SetSupressStatsExport(true);
 		// Load default inventory since we are loading directly into the game
-		m_pInventoryManager->LoadDefaultInventory("", false);
+		m_pInventoryManager->LoadInventory("", PlayerClass_Debug, false);
 	}
 	else if (strcmp(m_pVoxSettings->m_gameMode.c_str(), "FrontEnd") == 0)
 	{

@@ -289,6 +289,10 @@ void SelectCharacter::LoadSelectionCharacters()
 		pCharacter1->SetPushingCollisionEnabled(false);
 		pCharacter1->SetFrontEndNPC(true);
 
+		PlayerStats playerStats(NULL);
+		playerStats.ImportStats(listFiles[i].c_str());
+		pCharacter1->SetPlayerClass(playerStats.GetClass());
+
 		char inventoryFile[128];
 		sprintf(inventoryFile, "saves/characters/%s/%s.inv", listFiles[i].c_str(), listFiles[i].c_str());
 		pCharacter1->ImportEquippedItems(inventoryFile);
@@ -543,6 +547,7 @@ void SelectCharacter::SelectCharacterPressed()
 
 	VoxGame::GetInstance()->GetPlayer()->ResetPlayer();
 	VoxGame::GetInstance()->GetPlayer()->SetName(characterName.c_str());
+	VoxGame::GetInstance()->GetPlayer()->SetClass(m_pSelectedNPC->GetPlayerClass());
 	VoxGame::GetInstance()->GetPlayer()->LoadCharacter(characterName.c_str(), true);
 
 	m_pSelectedNPC = NULL;

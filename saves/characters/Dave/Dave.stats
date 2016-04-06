@@ -1,4 +1,5 @@
 name: Dave
+class: 1
 level: 1
 experience: 10
 maxExperience: 100

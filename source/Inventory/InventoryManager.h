@@ -24,6 +24,7 @@ using namespace std;
 
 #include "../Items/StatAttribute.h"
 #include "../Items/ItemsEnum.h"
+#include "../Player/PlayerClass.h"
 
 class Player;
 class InventoryGUI;
@@ -243,7 +244,9 @@ public:
 	void ClearInventory();
 	void ClearEquipped();
 	void ClearOtherCreatedItems();
-	void LoadDefaultInventory(string playerName, bool exportInventoryFile);
+	void LoadInventory(string playerName, PlayerClass ePlayerClass, bool exportInventoryFile);
+	void LoadDefaultInventory();
+	void LoadInventoryForClass(PlayerClass ePlayerClass);
 
 	void SetInventoryGUINeedsUpdate(bool update);
 	bool InventoryGUINeedsUpdate();

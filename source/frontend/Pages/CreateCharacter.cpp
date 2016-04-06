@@ -803,36 +803,42 @@ void CreateCharacter::LoadSelectionCharacters()
 	pCharacter1->SetBodyTurnSpeedMultiplier(6.0f);
 	pCharacter1->SetPushingCollisionEnabled(false);
 	pCharacter1->SetFrontEndNPC(true);
+	pCharacter1->SetPlayerClass(PlayerClass_Priest);
 	NPC* pCharacter2 = VoxGame::GetInstance()->GetNPCManager()->CreateNPC("Character2", "Human", "Knight", vec3(2.5f, 7.51f, 0.5f), 0.08f, false, true);
 	pCharacter2->SetTargetForwardToLookAtPoint(centralLookPoint);
 	pCharacter2->SetBodyTurnStopThreshold(0.01f);
 	pCharacter2->SetBodyTurnSpeedMultiplier(6.0f);
 	pCharacter2->SetPushingCollisionEnabled(false);
 	pCharacter2->SetFrontEndNPC(true);
+	pCharacter2->SetPlayerClass(PlayerClass_Knight);
 	NPC* pCharacter3 = VoxGame::GetInstance()->GetNPCManager()->CreateNPC("Character3", "Human", "Warrior", vec3(1.0f, 7.51f, -0.5f), 0.08f, false, true);
 	pCharacter3->SetTargetForwardToLookAtPoint(centralLookPoint);
 	pCharacter3->SetBodyTurnStopThreshold(0.01f);
 	pCharacter3->SetBodyTurnSpeedMultiplier(6.0f);
 	pCharacter3->SetPushingCollisionEnabled(false);
 	pCharacter3->SetFrontEndNPC(true);
+	pCharacter3->SetPlayerClass(PlayerClass_Warrior);
 	NPC* pCharacter4 = VoxGame::GetInstance()->GetNPCManager()->CreateNPC("Character4", "Human", "Ranger", vec3(-1.0f, 7.51f, -0.5f), 0.08f, false, true);
 	pCharacter4->SetTargetForwardToLookAtPoint(centralLookPoint);
 	pCharacter4->SetBodyTurnStopThreshold(0.01f);
 	pCharacter4->SetBodyTurnSpeedMultiplier(6.0f);
 	pCharacter4->SetPushingCollisionEnabled(false);
 	pCharacter4->SetFrontEndNPC(true);
+	pCharacter4->SetPlayerClass(PlayerClass_Ranger);
 	NPC* pCharacter5 = VoxGame::GetInstance()->GetNPCManager()->CreateNPC("Character5", "Human", "Mage", vec3(-2.5f, 7.51f, 0.5f), 0.08f, false, true);
 	pCharacter5->SetTargetForwardToLookAtPoint(centralLookPoint);
 	pCharacter5->SetBodyTurnStopThreshold(0.01f);
 	pCharacter5->SetBodyTurnSpeedMultiplier(6.0f);
 	pCharacter5->SetPushingCollisionEnabled(false);
 	pCharacter5->SetFrontEndNPC(true);
+	pCharacter5->SetPlayerClass(PlayerClass_Mage);
 	NPC* pCharacter6 = VoxGame::GetInstance()->GetNPCManager()->CreateNPC("Character6", "Human", "Necromancer", vec3(-4.0f, 7.51f, 1.5f), 0.08f, false, true);
 	pCharacter6->SetTargetForwardToLookAtPoint(centralLookPoint);
 	pCharacter6->SetBodyTurnStopThreshold(0.01f);
 	pCharacter6->SetBodyTurnSpeedMultiplier(6.0f);
 	pCharacter6->SetPushingCollisionEnabled(false);
 	pCharacter6->SetFrontEndNPC(true);
+	pCharacter6->SetPlayerClass(PlayerClass_Necromaner);
 
 	pCharacter1->LoadWeapon(false, "media/gamedata/weapons/PriestStaff/PriestStaff.weapon");
 	pCharacter1->SetNPCCombatType(eNPCCombatType_Staff, false);
@@ -1616,6 +1622,7 @@ void CreateCharacter::SelectPressed()
 		// Create a new NPC based on the selected template for custom character modifications
 		m_pCustomCreationNPC = VoxGame::GetInstance()->GetNPCManager()->CreateNPC("CustomCreationCharacter", m_pSelectedNPC->GetType().c_str(), m_pSelectedNPC->GetModelName().c_str(), vec3(-1.0f, 7.5f, -2.0f), 0.08f, false, false);
 		m_pCustomCreationNPC->SetFrontEndNPC(true);
+		m_pCustomCreationNPC->SetPlayerClass(m_pSelectedNPC->GetPlayerClass());
 		//m_pCustomCreationNPC->GetVoxelCharacter()->PlayFacialExpression("Angry");
 		//m_pCustomCreationNPC->GetVoxelCharacter()->SetRandomLookDirection(false);
 
@@ -1728,11 +1735,12 @@ void CreateCharacter::CreatePressed()
 			{
 				m_pCustomCreationNPC->GetVoxelCharacter()->SaveVoxelCharacter(qbFilename, facesFilename, characterFilename);
 
-				VoxGame::GetInstance()->GetNPCManager()->DeleteNPC(m_pCustomCreationNPC->GetName());
-
 				// Load default inventory and stats and save out files for the character
 				VoxGame::GetInstance()->GetPlayer()->SetName(m_pNameTextBox->GetText().c_str());
+				VoxGame::GetInstance()->GetPlayer()->SetClass(m_pCustomCreationNPC->GetPlayerClass());
 				VoxGame::GetInstance()->GetPlayer()->LoadCharacterSettings();
+
+				VoxGame::GetInstance()->GetNPCManager()->DeleteNPC(m_pCustomCreationNPC->GetName());
 
 				m_pCustomCreationNPC = NULL;
 			}

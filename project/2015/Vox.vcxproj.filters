@@ -1613,6 +1613,9 @@
     <ClInclude Include="..\..\source\Items\ItemSpawner.h">
       <Filter>source\Items</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\Player\PlayerClass.h">
+      <Filter>source\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\source\glm\detail\type_mat3x4.inl">

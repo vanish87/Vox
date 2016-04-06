@@ -16,6 +16,7 @@
 #pragma once
 
 #include "PlayerStats.h"
+#include "PlayerClass.h"
 #include "../Renderer/Renderer.h"
 #include "../blocks/ChunkManager.h"
 #include "../models/VoxelCharacter.h"
@@ -56,6 +57,7 @@ static const int PlayerEquippedProperties_Consumable = 131072;
 static const int PlayerEquippedProperties_Bomb = 262144;
 static const int PlayerEquippedProperties_SpellHands = 524288;
 
+
 class Player
 {
 public:
@@ -82,6 +84,8 @@ public:
 	void ResetPlayer();
 
 	// Accessors / Setters
+	void SetClass(PlayerClass ePlayerClass);
+	PlayerClass GetClass();
 	void SetName(string name);
 	string GetName();
 	void SetType(string typeName);
@@ -369,6 +373,9 @@ private:
 
 	// Player name
 	string m_name;
+
+	// Player class
+	PlayerClass m_class;
 
 	// Player type and model name
 	string m_type;

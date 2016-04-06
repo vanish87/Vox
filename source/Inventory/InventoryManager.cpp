@@ -128,7 +128,7 @@ void InventoryManager::ClearOtherCreatedItems()
 	m_vpOtherInventoryItemList.clear();
 }
 
-void InventoryManager::LoadDefaultInventory(string playerName, bool exportInventoryFile)
+void InventoryManager::LoadInventory(string playerName, PlayerClass ePlayerClass, bool exportInventoryFile)
 {
 	ClearInventory();
 	ClearEquipped();
@@ -136,9 +136,17 @@ void InventoryManager::LoadDefaultInventory(string playerName, bool exportInvent
 	m_playerName = playerName;
 
 	m_numCoins = 0;
-	
-	InventoryItem* pPickaxe = AddInventoryItem("media/gamedata/weapons/Pickaxe/Pickaxe.weapon", "media/textures/items/pickaxe.tga", InventoryType_Weapon_Pickaxe, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Pickaxe", "Used for mining and digging the world", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
-	InventoryItem* pTorch = AddInventoryItem("media/gamedata/weapons/Torch/Torch.weapon", "media/textures/items/torch.tga", InventoryType_Weapon_Torch, eItem_None, ItemStatus_None, EquipSlot_LeftHand, ItemQuality_Common, false, false, "Torch", "A torch to light up the darkness", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+
+	LoadInventoryForClass(ePlayerClass);
+
+	if (exportInventoryFile)
+	{
+		ExportInventory(m_playerName);
+	}
+}
+
+void InventoryManager::LoadDefaultInventory()
+{
 	InventoryItem* pSword = AddInventoryItem("media/gamedata/weapons/Sword/Sword.weapon", "media/textures/items/sword.tga", InventoryType_Weapon_Sword, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Uncommon, false, false, "Sword", "Just a standard sword, very useful for killing enemies", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
 	pSword->AddStatAttribute(AttributeType_Strength, 2);
 	InventoryItem* pShield = AddInventoryItem("media/gamedata/weapons/Shield/Shield.weapon", "media/textures/items/shield.tga", InventoryType_Weapon_Shield, eItem_None, ItemStatus_None, EquipSlot_LeftHand, ItemQuality_Uncommon, false, false, "Shield", "Just a standard shield", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
@@ -155,6 +163,12 @@ void InventoryManager::LoadDefaultInventory(string playerName, bool exportInvent
 	InventoryItem* pFireball1 = AddInventoryItem("media/gamedata/weapons/FireballHands/FireballHandsRight.weapon", "media/textures/items/fireball_hand.tga", InventoryType_Weapon_SpellHands, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Epic, false, false, "Fireball Hands", "Fireball hand", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
 	InventoryItem* pFireball2 = AddInventoryItem("media/gamedata/weapons/FireballHands/FireballHandsLeft.weapon", "media/textures/items/fireball_hand.tga", InventoryType_Weapon_SpellHands, eItem_None, ItemStatus_None, EquipSlot_LeftHand, ItemQuality_Epic, false, false, "Fireball Hands", "Fireball hand", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
 
+	InventoryItem* pStone = AddInventoryItem("media/gamedata/items/Block_Stone/Block_Stone.item", "media/textures/items/block_stone.tga", InventoryType_Block, eItem_Block_Stone, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Stone Block", "Stone block for world building", 1.0f, 1.0f, 1.0f, 3, -1, -1, -1, -1);
+	InventoryItem* pWood = AddInventoryItem("media/gamedata/items/Block_Wood/Block_Wood.item", "media/textures/items/block_wood.tga", InventoryType_Block, eItem_Block_Wood, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Wood Block", "Wood block for world building", 1.0f, 1.0f, 1.0f, 4, -1, -1, -1, -1);
+	InventoryItem* pGrass = AddInventoryItem("media/gamedata/items/Block_Grass/Block_Grass.item", "media/textures/items/block_grass.tga", InventoryType_Block, eItem_Block_Grass, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Grass Block", "Grass block for world building", 1.0f, 1.0f, 1.0f, 2, -1, -1, -1, -1);
+	InventoryItem* pDirt = AddInventoryItem("media/gamedata/items/Block_Dirt/Block_Dirt.item", "media/textures/items/block_dirt.tga", InventoryType_Block, eItem_Block_Dirt, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Dirt Block", "Dirt block for world building", 1.0f, 1.0f, 1.0f, 2, -1, -1, -1, -1);
+	InventoryItem* pLeaf = AddInventoryItem("media/gamedata/items/Block_Leaf/Block_Leaf.item", "media/textures/items/block_leaf.tga", InventoryType_Block, eItem_Block_Leaf, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Leaf Block", "Leaf block for world building", 1.0f, 1.0f, 1.0f, 2, -1, -1, -1, -1);
+
 	/*
 	InventoryItem* pPlacementTorch = AddInventoryItem("media/gamedata/items/Torch/Torch.item", "media/textures/items/torch.tga", InventoryType_Item, eItem_Torch, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Torch", "Provides light", 1.0f, 1.0f, 1.0f, 3, -1, -1, -1, -1);
 	InventoryItem* pAnvil = AddInventoryItem("media/gamedata/items/Anvil/Anvil.item", "media/textures/items/anvil.tga", InventoryType_Item, eItem_Anvil, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Anvil", "Anvil for crafting", 1.0f, 1.0f, 1.0f, 1, -1, -1, -1, -1);
@@ -163,12 +177,6 @@ void InventoryManager::LoadDefaultInventory(string playerName, bool exportInvent
 	InventoryItem* pBed = AddInventoryItem("media/gamedata/items/Bed/Bed.item", "media/textures/items/question_mark.tga", InventoryType_Item, eItem_Bed, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Bed", "Set spawn position", 1.0f, 1.0f, 1.0f, 1, -1, -1, -1, -1);
 	*/
 
-	InventoryItem* pStone = AddInventoryItem("media/gamedata/items/Block_Stone/Block_Stone.item", "media/textures/items/block_stone.tga", InventoryType_Block, eItem_Block_Stone, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Stone Block", "Stone block for world building", 1.0f, 1.0f, 1.0f, 3, -1, -1, -1, -1);
-	InventoryItem* pWood = AddInventoryItem("media/gamedata/items/Block_Wood/Block_Wood.item", "media/textures/items/block_wood.tga", InventoryType_Block, eItem_Block_Wood, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Wood Block", "Wood block for world building", 1.0f, 1.0f, 1.0f, 4, -1, -1, -1, -1);
-	InventoryItem* pGrass = AddInventoryItem("media/gamedata/items/Block_Grass/Block_Grass.item", "media/textures/items/block_grass.tga", InventoryType_Block, eItem_Block_Grass, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Grass Block", "Grass block for world building", 1.0f, 1.0f, 1.0f, 2, -1, -1, -1, -1);
-	InventoryItem* pDirt = AddInventoryItem("media/gamedata/items/Block_Dirt/Block_Dirt.item", "media/textures/items/block_dirt.tga", InventoryType_Block, eItem_Block_Dirt, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Dirt Block", "Dirt block for world building", 1.0f, 1.0f, 1.0f, 2, -1, -1, -1, -1);
-	InventoryItem* pLeaf = AddInventoryItem("media/gamedata/items/Block_Leaf/Block_Leaf.item", "media/textures/items/block_leaf.tga", InventoryType_Block, eItem_Block_Leaf, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Leaf Block", "Leaf block for world building", 1.0f, 1.0f, 1.0f, 2, -1, -1, -1, -1);
-	
 	/*
 	InventoryItem* pShoulders = AddInventoryItem("media/gamedata/equipment/WoodShoulders/WoodShoulders.equipment", "media/textures/items/wood_shoulders.tga", InventoryType_Clothing, eItem_None, ItemStatus_None, EquipSlot_Shoulders, ItemQuality_Uncommon, true, true, "Shoulders", "Shoulder armor.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
 	pShoulders->AddStatAttribute(AttributeType_Armor, 1);
@@ -183,10 +191,47 @@ void InventoryManager::LoadDefaultInventory(string playerName, bool exportInvent
 	InventoryItem* pLegs = AddInventoryItem("media/gamedata/equipment/WoodPants/WoodPants.equipment", "media/textures/items/wood_pants.tga", InventoryType_Clothing, eItem_None, ItemStatus_None, EquipSlot_Legs, ItemQuality_Uncommon, true, true, "Leg Armor", "Leg armor.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
 	pLegs->AddStatAttribute(AttributeType_Armor, 1);
 	*/
+}
 
-	if (exportInventoryFile)
+void InventoryManager::LoadInventoryForClass(PlayerClass ePlayerClass)
+{
+	InventoryItem* pPickaxe = AddInventoryItem("media/gamedata/weapons/Pickaxe/Pickaxe.weapon", "media/textures/items/pickaxe.tga", InventoryType_Weapon_Pickaxe, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Pickaxe", "Used for mining and digging the world", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+	InventoryItem* pTorch = AddInventoryItem("media/gamedata/weapons/Torch/Torch.weapon", "media/textures/items/torch.tga", InventoryType_Weapon_Torch, eItem_None, ItemStatus_None, EquipSlot_LeftHand, ItemQuality_Common, false, false, "Torch", "A torch to light up the darkness", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+
+	if (ePlayerClass == PlayerClass_Debug)
 	{
-		ExportInventory(m_playerName);
+		LoadDefaultInventory();
+	}
+	else if (ePlayerClass == PlayerClass_Warrior)
+	{
+		InventoryItem* pSword = AddInventoryItem("media/gamedata/weapons/Sword/Sword.weapon", "media/textures/items/sword.tga", InventoryType_Weapon_Sword, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Uncommon, false, false, "Sword", "Just a standard sword, very useful for killing enemies", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+		pSword->AddStatAttribute(AttributeType_Strength, 2);
+		InventoryItem* pShield = AddInventoryItem("media/gamedata/weapons/Shield/Shield.weapon", "media/textures/items/shield.tga", InventoryType_Weapon_Shield, eItem_None, ItemStatus_None, EquipSlot_LeftHand, ItemQuality_Uncommon, false, false, "Shield", "Just a standard shield", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+		pShield->AddStatAttribute(AttributeType_Armor, 2);
+	}
+	else if (ePlayerClass == PlayerClass_Ranger)
+	{
+		InventoryItem* pBow = AddInventoryItem("media/gamedata/weapons/Bow/Bow.weapon", "media/textures/items/bow.tga", InventoryType_Weapon_Bow, eItem_None, ItemStatus_None, EquipSlot_LeftHand, ItemQuality_Uncommon, true, true, "Bow", "Shoots arrows.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+		pBow->AddStatAttribute(AttributeType_Dexterity, 1);
+	}
+	else if (ePlayerClass == PlayerClass_Mage)
+	{
+		InventoryItem* pStaff = AddInventoryItem("media/gamedata/weapons/Staff/Staff.weapon", "media/textures/items/staff.tga", InventoryType_Weapon_Staff, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, true, true, "Staff", "A magical staff", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+		pStaff->AddStatAttribute(AttributeType_Intelligence, 25);
+	}
+	else if (ePlayerClass == PlayerClass_Priest)
+	{
+		InventoryItem* pFireball1 = AddInventoryItem("media/gamedata/weapons/FireballHands/FireballHandsRight.weapon", "media/textures/items/fireball_hand.tga", InventoryType_Weapon_SpellHands, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Epic, false, false, "Fireball Hands", "Fireball hand", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+		InventoryItem* pFireball2 = AddInventoryItem("media/gamedata/weapons/FireballHands/FireballHandsLeft.weapon", "media/textures/items/fireball_hand.tga", InventoryType_Weapon_SpellHands, eItem_None, ItemStatus_None, EquipSlot_LeftHand, ItemQuality_Epic, false, false, "Fireball Hands", "Fireball hand", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+	}
+	else if (ePlayerClass == PlayerClass_Necromaner)
+	{
+		InventoryItem* pStaff = AddInventoryItem("media/gamedata/weapons/NecroStaff/NecroStaff.weapon", "media/textures/items/staff.tga", InventoryType_Weapon_Staff, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, true, true, "Staff", "A magical staff", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+		pStaff->AddStatAttribute(AttributeType_Intelligence, 25);
+	}
+	else if (ePlayerClass == PlayerClass_Knight)
+	{
+		InventoryItem* p2HandedSword = AddInventoryItem("media/gamedata/weapons/2HandedSword/2HandedSword.weapon", "media/textures/items/2handed_sword.tga", InventoryType_Weapon_2HandedSword, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Rare, true, true, "Two Handed Sword", "You need two hands for a reason", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
 	}
 }
 

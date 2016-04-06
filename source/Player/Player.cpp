@@ -119,6 +119,8 @@ VoxelCharacter* Player::GetVoxelCharacter()
 // Player reset
 void Player::ResetPlayer()
 {
+	m_class = PlayerClass_Debug;
+
 	m_forward = vec3(0.0f, 0.0f, 1.0f);
 	m_right = vec3(1.0f, 0.0f, 0.0f);
 	m_up = vec3(0.0f, 1.0f, 0.0f);
@@ -248,6 +250,18 @@ void Player::ResetPlayer()
 }
 
 // Accessors / Setters
+void Player::SetClass(PlayerClass ePlayerClass)
+{
+	m_class = ePlayerClass;
+
+	m_pPlayerStats->SetClass(m_class);
+}
+
+PlayerClass Player::GetClass()
+{
+	return m_class;
+}
+
 void Player::SetName(string name)
 {
 	m_name = name;
@@ -1289,7 +1303,7 @@ void Player::LoadCharacterSettings()
 	m_pActionBar->SetSupressExport(false);
 	m_pPlayerStats->SetSupressExport(false);
 
-	m_pInventoryManager->LoadDefaultInventory(m_name, true);
+	m_pInventoryManager->LoadInventory(m_name, m_class, true);
 	m_pInventoryManager->ExportInventory(m_name);
 	m_pActionBar->ExportActionBar(m_name);
 
@@ -1316,6 +1330,7 @@ void Player::StartGame()
 
 	// Import the player stats
 	m_pPlayerStats->ImportStats(m_name);
+	SetClass(m_pPlayerStats->GetClass());
 
 	// Make sure to set the chunk loading from the player position
 	int gridX;
