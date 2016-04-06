@@ -1493,15 +1493,15 @@ void Player::StopMoving()
 			{
 				if (m_pTargetEnemy == NULL)
 				{
-					if (CanAttackLeft() && CanAttackRight())
+					if (CanAttackLeft() && CanAttackRight() && m_bCanInteruptCombatAnim)
 					{
 						m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BindPose", 0.15f);
 					}
-					else if (CanAttackLeft())
+					else if (CanAttackLeft() && m_bCanInteruptCombatAnim)
 					{
 						m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "BindPose", 0.15f);
 					}
-					else if (CanAttackRight())
+					else if (CanAttackRight() && m_bCanInteruptCombatAnim)
 					{
 						m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "BindPose", 0.15f);
 					}
@@ -1534,18 +1534,29 @@ void Player::StopMoving()
 							m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "BindPose", 0.15f);
 						}
 					}
+					else
+					{
+						if (Is2HandedSword())
+						{
+							m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, false, AnimationSections_Legs_Feet, "2HandedSwordPose", 0.15f);
+						}
+						else if (IsSword())
+						{
+							m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Legs_Feet, false, AnimationSections_Legs_Feet, "2HandedSwordPose", 0.15f);
+						}
+					}
 				}
 				else
 				{
-					if (CanAttackLeft() && CanAttackRight())
+					if (CanAttackLeft() && CanAttackRight() && m_bCanInteruptCombatAnim)
 					{
 						m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BindPose", 0.15f);
 					}
-					else if (CanAttackLeft())
+					else if (CanAttackLeft() && m_bCanInteruptCombatAnim)
 					{
 						m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "BindPose", 0.15f);
 					}
-					else if (CanAttackRight())
+					else if (CanAttackRight() && m_bCanInteruptCombatAnim)
 					{
 						m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "BindPose", 0.15f);
 					}
@@ -2403,6 +2414,9 @@ void Player::Update(float dt)
 	UpdateWeaponLights(dt);
 	UpdateWeaponParticleEffects(dt);
 
+	// Update magic
+	UpdateMagic(dt);
+
 	// Update timers
 	UpdateTimers(dt);
 
@@ -2685,6 +2699,20 @@ void Player::UpdateLookingAndForwardTarget(float dt)
 			}
 			m_pVoxelCharacter->SetFaceLookToTargetSpeedMultiplier(1.0f);
 		}
+	}
+}
+
+void Player::UpdateMagic(float dt)
+{
+	if (IsDead() == false)
+	{
+		// Passively add mana back
+		m_magic += 5.0f * dt;
+		if (m_magic > m_maxMagic)
+		{
+			m_magic = m_maxMagic;
+		}
+		VoxGame::GetInstance()->GetHUD()->UpdatePlayerData();
 	}
 }
 

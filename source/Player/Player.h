@@ -274,6 +274,7 @@ public:
 	void UpdateMovement(float dt);
 	void UpdateWorking(float dt);
 	void UpdateLookingAndForwardTarget(float dt);
+	void UpdateMagic(float dt);
 	void UpdateTimers(float dt);
 	void UpdateWeaponLights(float dt);
 	void UpdateWeaponParticleEffects(float dt);

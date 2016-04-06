@@ -81,15 +81,21 @@ void Player::PressAttack()
 	}
 	else if (IsStaff())
 	{
-		if (CanAttackRight())
+		if (m_magic >= 10.0f)
 		{
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "StaffAttack", 0.01f);
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "StaffAttack", 0.01f);
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Head_Body, false, AnimationSections_Head_Body, "StaffAttack", 0.01f);
+			if (CanAttackRight())
+			{
+				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "StaffAttack", 0.01f);
+				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "StaffAttack", 0.01f);
+				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Head_Body, false, AnimationSections_Head_Body, "StaffAttack", 0.01f);
 
-			Interpolator::GetInstance()->AddFloatInterpolation(&m_animationTimer, 0.0f, 0.2f, 0.2f, 0.0f, NULL, _AttackAnimationTimerFinished, this);
+				Interpolator::GetInstance()->AddFloatInterpolation(&m_animationTimer, 0.0f, 0.2f, 0.2f, 0.0f, NULL, _AttackAnimationTimerFinished, this);
 
-			m_bCanAttackRight = false;
+				m_magic -= 10.0f;
+				VoxGame::GetInstance()->GetHUD()->UpdatePlayerData();
+
+				m_bCanAttackRight = false;
+			}
 		}
 	}
 	else if (IsWand())
@@ -171,9 +177,9 @@ void Player::PressAttack()
 			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, true, AnimationSections_FullBody, "Mine", 0.01f);
 			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "Mine", 0.01f);
 
-			m_bCanAttackRight = false;
-
 			Interpolator::GetInstance()->AddFloatInterpolation(&m_animationTimer, 0.0f, 0.4f, 0.4f, 0.0f, NULL, _AttackAnimationTimerFinished, this);
+
+			m_bCanAttackRight = false;
 		}
 	}
 	else if (IsAxe())
@@ -187,7 +193,7 @@ void Player::PressAttack()
 			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "2HandedSwordAttack", 0.01f);
 			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "2HandedSwordAttack", 0.01f);
 
-			m_bCanAttackRight = false;
+			m_bCanInteruptCombatAnim = false;
 
 			m_attackEnabledDelayTimer = 0.175f;
 			m_attackSegmentAngle = 0.60f;
@@ -203,6 +209,7 @@ void Player::PressAttack()
 			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackEnabledDelayTimer, m_attackEnabledDelayTimer, 0.0f, m_attackEnabledDelayTimer, 0.0f, NULL, _AttackEnabledDelayTimerFinished, this);
 			Interpolator::GetInstance()->AddFloatInterpolation(&m_attackRotation, startRotation, endRotation, attackTime, easingRotation);
 
+			m_bCanAttackRight = false;
 		}
 	}
 	else if (IsSword())
@@ -222,7 +229,7 @@ void Player::PressAttack()
 				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "SwordAttack1", 0.01f);
 				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "SwordAttack1", 0.01f);
 
-				m_bCanInteruptCombatAnim = true;
+				m_bCanInteruptCombatAnim = false;
 
 				m_attackEnabledDelayTimer = 0.1f;
 				m_attackSegmentAngle = 0.75f;
@@ -238,7 +245,7 @@ void Player::PressAttack()
 				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "SwordAttack2", 0.01f);
 				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "SwordAttack1", 0.01f);
 
-				m_bCanInteruptCombatAnim = true;
+				m_bCanInteruptCombatAnim = false;
 
 				m_attackEnabledDelayTimer = 0.2f;
 				m_attackSegmentAngle = 0.75f;
@@ -282,24 +289,33 @@ void Player::PressAttack()
 	}
 	else if (IsSpellHands())
 	{
-		InventoryItem* pRightHand = m_pInventoryManager->GetInventoryItemForEquipSlot(EquipSlot_RightHand);
-		InventoryItem* pLeftHand = m_pInventoryManager->GetInventoryItemForEquipSlot(EquipSlot_LeftHand);
-
-		if (pRightHand != NULL && pRightHand->m_itemType == InventoryType_Weapon_SpellHands && CanAttackRight())
+		if (m_magic >= 5.0f)
 		{
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "HandSpellCastRight", 0.01f);
+			InventoryItem* pRightHand = m_pInventoryManager->GetInventoryItemForEquipSlot(EquipSlot_RightHand);
+			InventoryItem* pLeftHand = m_pInventoryManager->GetInventoryItemForEquipSlot(EquipSlot_LeftHand);
 
-			Interpolator::GetInstance()->AddFloatInterpolation(&m_animationTimer, 0.0f, 0.3f, 0.3f, 0.0f, NULL, _AttackAnimationTimerFinished, this);
+			if (pRightHand != NULL && pRightHand->m_itemType == InventoryType_Weapon_SpellHands && CanAttackRight())
+			{
+				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "HandSpellCastRight", 0.01f);
 
-			m_bCanAttackRight = false;
-		}
-		else if (pLeftHand != NULL && pLeftHand->m_itemType == InventoryType_Weapon_SpellHands && CanAttackLeft())
-		{
-			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "HandSpellCastLeft", 0.01f);
+				Interpolator::GetInstance()->AddFloatInterpolation(&m_animationTimer, 0.0f, 0.3f, 0.3f, 0.0f, NULL, _AttackAnimationTimerFinished, this);
 
-			Interpolator::GetInstance()->AddFloatInterpolation(&m_animationTimer, 0.0f, 0.3f, 0.3f, 0.0f, NULL, _AttackAnimationTimerFinished_Alternative, this);
+				m_magic -= 5.0f;
+				VoxGame::GetInstance()->GetHUD()->UpdatePlayerData();
 
-			m_bCanAttackLeft = false;
+				m_bCanAttackRight = false;
+			}
+			else if (pLeftHand != NULL && pLeftHand->m_itemType == InventoryType_Weapon_SpellHands && CanAttackLeft())
+			{
+				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "HandSpellCastLeft", 0.01f);
+
+				Interpolator::GetInstance()->AddFloatInterpolation(&m_animationTimer, 0.0f, 0.3f, 0.3f, 0.0f, NULL, _AttackAnimationTimerFinished_Alternative, this);
+
+				m_magic -= 5.0f;
+				VoxGame::GetInstance()->GetHUD()->UpdatePlayerData();
+
+				m_bCanAttackLeft = false;
+			}
 		}
 	}
 	else if (IsShield())
