@@ -406,8 +406,10 @@ private:
 	unsigned int m_activeViewport;
 
 	// Frustums
-	vector<Frustum *> m_frustums; // Note : We store a frustum for each viewport, therefore viewport and frustum are closely linked (See viewport functions)
-
+	vector<Frustum *> m_frustums;
+	// Note : We store a frustum for each viewport, therefore viewport and
+	// frustum are closely linked (See viewport functions)
+	
 	// Materials
 	vector<Material *> m_materials;
 
