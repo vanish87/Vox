@@ -3711,32 +3711,35 @@ void Enemy::UpdateTimers(float dt)
 		{
 			if(m_aggroResetTimer <= 0.0f)
 			{
-				m_aggro = false;
-
-				m_bIsChargingAttack = false;
-				m_chargeAmount = 0.0f;
-
-				if(m_eEnemyType != eEnemyType_GreenSlime && m_eEnemyType != eEnemyType_RedSlime && m_eEnemyType != eEnemyType_BlueSlime && m_eEnemyType != eEnemyType_YellowSlime && m_eEnemyType != eEnemyType_Mimic)
+				if (m_bCanJump == true)
 				{
-					SetRandomLookMode();
-				}
+					m_aggro = false;
 
-				if(m_eEnemyType == eEnemyType_RangedSkeleton)
-				{
 					m_bIsChargingAttack = false;
 					m_chargeAmount = 0.0f;
 
-					UnloadWeapon(false);
-
-					if(m_bIsIdle)
+					if (m_eEnemyType != eEnemyType_GreenSlime && m_eEnemyType != eEnemyType_RedSlime && m_eEnemyType != eEnemyType_BlueSlime && m_eEnemyType != eEnemyType_YellowSlime && m_eEnemyType != eEnemyType_Mimic)
 					{
-						m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BindPose", 0.2f);
+						SetRandomLookMode();
 					}
-					else
+
+					if (m_eEnemyType == eEnemyType_RangedSkeleton)
 					{
-						m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Head_Body, false, AnimationSections_Head_Body, "BindPose", 0.2f);
-						m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "BindPose", 0.2f);
-						m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "BindPose", 0.2f);
+						m_bIsChargingAttack = false;
+						m_chargeAmount = 0.0f;
+
+						UnloadWeapon(false);
+
+						if (m_bIsIdle)
+						{
+							m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, false, AnimationSections_FullBody, "BindPose", 0.2f);
+						}
+						else
+						{
+							m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Head_Body, false, AnimationSections_Head_Body, "BindPose", 0.2f);
+							m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "BindPose", 0.2f);
+							m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "BindPose", 0.2f);
+						}
 					}
 				}
 			}
