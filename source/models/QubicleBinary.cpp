@@ -2244,7 +2244,16 @@ void QubicleBinary::RenderPortrait(MS3DAnimator* pSkeleton, VoxelCharacter* pVox
 				// Translate for external matrix offset value
 				m_pRenderer->TranslateWorldMatrix(m_vpMatrices[matrixIndex]->m_offsetX, m_vpMatrices[matrixIndex]->m_offsetY, m_vpMatrices[matrixIndex]->m_offsetZ);
 
-				m_pRenderer->SetRenderMode(RM_SOLID);
+				if (m_renderWireFrame)
+				{
+					m_pRenderer->SetLineWidth(1.0f);
+					m_pRenderer->SetRenderMode(RM_WIREFRAME);
+					m_pRenderer->SetCullMode(CM_NOCULL);
+				}
+				else
+				{
+					m_pRenderer->SetRenderMode(RM_SOLID);
+				}
 
 				// Texture manipulation (for shadow rendering)
 				{
