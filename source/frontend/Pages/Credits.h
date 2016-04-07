@@ -14,9 +14,9 @@
 
 #pragma once
 
-#include "..\FrontendPage.h"
+#include "../FrontendPage.h"
 
-#include "..\..\NPC\NPCManager.h"
+#include "../../NPC/NPCManager.h"
 
 class CreditTextLine
 {
