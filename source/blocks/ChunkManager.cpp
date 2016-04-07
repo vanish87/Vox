@@ -869,11 +869,17 @@ void ChunkManager::ExplodeSphere(vec3 position, float radius)
 							pChunk->SetColour(blockX, blockY, blockZ, 0);
 
 							// Create particle effect
-							CreateBlockDestroyParticleEffect(r, g, b, a, blockPosition);
+							if (GetRandomNumber(0, 100, 2) > 75.0f)
+							{
+								CreateBlockDestroyParticleEffect(r, g, b, a, blockPosition);
+							}
 
 							// Create the collectible block item
-							BlockType blockType = pChunk->GetBlockType(blockX, blockY, blockZ);
-							CreateCollectibleBlock(blockType, blockPosition);
+							if (GetRandomNumber(0, 100, 2) > 75.0f)
+							{
+								BlockType blockType = pChunk->GetBlockType(blockX, blockY, blockZ);
+								CreateCollectibleBlock(blockType, blockPosition);
+							}
 
 							// Add to batch update list (no duplicates)
 							bool found = false;
