@@ -828,6 +828,81 @@ void ChunkManager::CreateBlockDestroyParticleEffect(float r, float g, float b, f
 	}
 }
 
+void ChunkManager::ExplodeSphere(vec3 position, float radius)
+{
+	float startx = position.x - radius;
+	float starty = position.y - radius;
+	float startz = position.z - radius;
+	float endx = position.x + radius;
+	float endy = position.y + radius;
+	float endz = position.z + radius;
+
+	ChunkList vChunkBatchUpdateList;
+
+	for (float x = startx; x < endx; x += Chunk::BLOCK_RENDER_SIZE)
+	{
+		for (float y = starty; y < endy; y += Chunk::BLOCK_RENDER_SIZE)
+		{
+			for (float z = startz; z < endz; z += Chunk::BLOCK_RENDER_SIZE)
+			{
+				vec3 blockPosition;
+				int blockX, blockY, blockZ;
+				Chunk* pChunk = NULL;
+				bool active = GetBlockActiveFrom3DPosition(x, y, z, &blockPosition, &blockX, &blockY, &blockZ, &pChunk);
+
+				float distance = length(blockPosition - position);
+
+				if (pChunk != NULL)
+				{
+					if (distance <= radius)
+					{
+						if (active)
+						{
+							float r;
+							float g;
+							float b;
+							float a;
+							// Store the colour for particle effect later
+							pChunk->GetColour(blockX, blockY, blockZ, &r, &g, &b, &a);
+
+							// Remove the block from being active
+							pChunk->SetColour(blockX, blockY, blockZ, 0);
+
+							// Create particle effect
+							CreateBlockDestroyParticleEffect(r, g, b, a, blockPosition);
+
+							// Create the collectible block item
+							BlockType blockType = pChunk->GetBlockType(blockX, blockY, blockZ);
+							CreateCollectibleBlock(blockType, blockPosition);
+
+							// Add to batch update list (no duplicates)
+							bool found = false;
+							for (int i = 0; i < (int)vChunkBatchUpdateList.size() && found == false; i++)
+							{
+								if (vChunkBatchUpdateList[i] == pChunk)
+								{
+									found = true;
+								}
+							}
+							if (found == false)
+							{
+								vChunkBatchUpdateList.push_back(pChunk);
+								pChunk->StartBatchUpdate();
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	for (int i = 0; i < (int)vChunkBatchUpdateList.size(); i++)
+	{
+		vChunkBatchUpdateList[i]->StopBatchUpdate();
+	}
+	vChunkBatchUpdateList.clear();
+}
+
 // Collectible block objects
 void ChunkManager::CreateCollectibleBlock(BlockType blockType, vec3 blockPos)
 {

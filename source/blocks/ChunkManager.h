@@ -194,6 +194,7 @@ public:
 
 	// Explosions
 	void CreateBlockDestroyParticleEffect(float r, float g, float b, float a, vec3 blockPosition);
+	void ExplodeSphere(vec3 position, float radius);
 
 	// Collectible block objects
 	void CreateCollectibleBlock(BlockType blockType, vec3 blockPos);
