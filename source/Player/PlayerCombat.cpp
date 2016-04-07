@@ -105,6 +105,15 @@ void Player::PressAttack()
 	}
 	else if (IsBomb())
 	{
+		if (CanAttackRight())
+		{
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_FullBody, true, AnimationSections_FullBody, "SwordAttack2", 0.01f);
+			m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "SwordAttack2", 0.01f);
+
+			Interpolator::GetInstance()->AddFloatInterpolation(&m_animationTimer, 0.0f, 0.25f, 0.25f, 0.0f, NULL, _AttackAnimationTimerFinished, this);
+
+			m_bCanAttackRight = false;
+		}
 	}
 	else if (IsConsumable())
 	{
@@ -949,6 +958,54 @@ void Player::AttackAnimationTimerFinished()
 	}
 	else if (IsBomb())
 	{
+		vec3 bombSpawnPosition = GetCenter() + (m_forward*0.75f) + (GetUpVector()*0.5f);
+
+		float liftAmount = 8.0f;
+		float powerAmount = 30.0f;
+		float cameraMultiplier = 25.0f;
+
+		if (VoxGame::GetInstance()->GetCameraMode() == CameraMode_FirstPerson)
+		{
+			cameraMultiplier = 30.0f;
+		}
+
+		vec3 bombSpawnVelocity;
+		if (m_pTargetEnemy)
+		{
+			// Enemy target
+			vec3 toTarget = m_pTargetEnemy->GetCenter() - GetCenter();
+			float toTargetDistance = length(toTarget);
+			liftAmount += toTargetDistance * 0.04f;
+			bombSpawnVelocity = (normalize(toTarget) * powerAmount) + vec3(0.0f, liftAmount, 0.0f);
+		}
+		else
+		{
+			bombSpawnVelocity = (m_forward * powerAmount) + (GetUpVector() * liftAmount) + vec3(0.0f, 1.0f, 0.0f) * (m_cameraForward.y*cameraMultiplier);
+		}
+
+		Projectile* pProjectile = m_pProjectileManager->CreateProjectile(bombSpawnPosition, bombSpawnVelocity, 0.0f, "media/gamedata/items/Bomb/BombThrown.item", 0.05f);
+		pProjectile->SetProjectileType(true, false, false);
+		pProjectile->SetOwner(this, NULL, NULL);
+		pProjectile->SetGravityMultiplier(3.5f);
+		pProjectile->SetExplodingProjectile(true, 3.5f);
+
+		//m_pVoxelCharacter->SetRenderRightWeapon(false);
+
+		InventoryItem* pItem = m_pInventoryManager->GetInventoryItemForEquipSlot(EquipSlot_RightHand);
+		if (pItem != NULL)
+		{
+			if (pItem->m_quantity != -1)
+			{
+				pItem->m_quantity -= 1;
+			}
+			if (pItem->m_quantity == 0)
+			{
+				// Remove this item from the manager, and remove it from the inventory and GUI
+				UnequipItem(EquipSlot_RightHand);
+				m_pInventoryManager->RemoveInventoryItem(EquipSlot_RightHand);
+				m_pActionBar->RemoveInventoryItemFromActionBar(pItem->m_title);
+			}
+		}
 	}
 	else if (IsConsumable())
 	{
