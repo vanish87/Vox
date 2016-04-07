@@ -987,7 +987,8 @@ void Player::AttackAnimationTimerFinished()
 		pProjectile->SetProjectileType(true, false, false);
 		pProjectile->SetOwner(this, NULL, NULL);
 		pProjectile->SetGravityMultiplier(3.5f);
-		pProjectile->SetExplodingProjectile(true, 3.5f);
+		float explodeRadius = 3.5f - (GetRandomNumber(-150, 0, 2) * 0.01f);
+		pProjectile->SetExplodingProjectile(true, explodeRadius);
 
 		//m_pVoxelCharacter->SetRenderRightWeapon(false);
 
