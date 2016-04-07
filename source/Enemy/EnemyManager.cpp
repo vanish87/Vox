@@ -541,8 +541,6 @@ void EnemyManager::Render(bool outline, bool reflection, bool silhouette, bool s
 
 			m_numRenderEnemies++;
 		}
-
-		m_pRenderer->DisableTransparency();
 	}
 	m_enemyMutex.unlock();
 }

@@ -1261,6 +1261,8 @@ void ChunkManager::Render(bool shadowRender)
 		m_pRenderer->SetRenderMode(RM_SOLID);
 	}
 
+	m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
+
 	m_pRenderer->PushMatrix();
 		m_ChunkMapMutexLock.lock();
 		typedef map<ChunkCoordKeys, Chunk*>::iterator it_type;
@@ -1285,6 +1287,8 @@ void ChunkManager::Render(bool shadowRender)
 		}
 		m_ChunkMapMutexLock.unlock();
 	m_pRenderer->PopMatrix();
+
+	m_pRenderer->DisableTransparency();
 
 	// Restore cull mode
 	m_pRenderer->SetCullMode(cullMode);
