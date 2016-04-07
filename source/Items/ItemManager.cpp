@@ -540,16 +540,16 @@ void ItemManager::Render(bool outline, bool reflection, bool silhouette, bool sh
 			continue;
 		}
 
-		// TODO : Add me back in - Fog rendering
-		//float toCamera = length(m_pGameWindow->GetGameCamera()->GetPosition() - pItem->GetCenter());
-		//if(toCamera > m_pGameWindow->GetGUIHelper()->GetFogRadius() + (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*5.0f))
-		//{
-		//	continue;
-		//}
-		//if(toCamera > m_pGameWindow->GetGUIHelper()->GetFogRadius() - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*1.0f)
-		//{
-		//	m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
-		//}
+		// Fog
+		float toCamera = length(VoxGame::GetInstance()->GetGameCamera()->GetPosition() - pItem->GetCenter());
+		if(toCamera > m_pChunkManager->GetLoaderRadius() + (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*5.0f))
+		{
+			continue;
+		}
+		if(toCamera > m_pChunkManager->GetLoaderRadius() - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*3.0f)
+		{
+			m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
+		}
 
 		if(shadow || m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), pItem->GetCenter(), pItem->GetRadius()))
 		{
@@ -557,6 +557,8 @@ void ItemManager::Render(bool outline, bool reflection, bool silhouette, bool sh
 
 			m_numRenderItems++;
 		}
+
+		m_pRenderer->DisableTransparency();
 	}
 }
 

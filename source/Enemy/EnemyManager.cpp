@@ -524,16 +524,16 @@ void EnemyManager::Render(bool outline, bool reflection, bool silhouette, bool s
 		//	continue;
 		//}
 
-		// TODO : Add back in - Fog
-		//float toCamera = length(m_pGameWindow->GetGameCamera()->GetPosition() - pEnemy->GetCenter());
-		//if(toCamera > m_pGameWindow->GetGUIHelper()->GetFogRadius() + (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*5.0f))
-		//{
-		//	continue;
-		//}
-		//if(toCamera > m_pGameWindow->GetGUIHelper()->GetFogRadius() - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*1.0f)
-		//{
-		//	m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
-		//}
+		// Fog
+		float toCamera = length(VoxGame::GetInstance()->GetGameCamera()->GetPosition() - pEnemy->GetCenter());
+		if (toCamera > m_pChunkManager->GetLoaderRadius() + (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*5.0f))
+		{
+			continue;
+		}
+		if (toCamera > m_pChunkManager->GetLoaderRadius() - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*3.0f)
+		{
+			m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
+		}
 
 		if(shadow || m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), pEnemy->GetCenter(), pEnemy->GetRadius()))
 		{
@@ -541,6 +541,8 @@ void EnemyManager::Render(bool outline, bool reflection, bool silhouette, bool s
 
 			m_numRenderEnemies++;
 		}
+
+		m_pRenderer->DisableTransparency();
 	}
 	m_enemyMutex.unlock();
 }

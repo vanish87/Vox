@@ -1324,6 +1324,11 @@ unsigned int VoxGame::GetDefaultViewport()
 	return m_defaultViewport;
 }
 
+Camera* VoxGame::GetGameCamera()
+{
+	return m_pGameCamera;
+}
+
 Player* VoxGame::GetPlayer()
 {
 	return m_pPlayer;

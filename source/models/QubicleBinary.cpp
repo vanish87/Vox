@@ -1346,7 +1346,10 @@ void QubicleBinary::Render(bool renderOutline, bool refelction, bool silhouette,
 						m_pRenderer->MeshStaticBufferRender(m_vpMatrices[i]->m_pMesh);
 					}
 
-					m_pRenderer->DisableTransparency();
+					if (m_meshAlpha < 1.0f)
+					{
+						m_pRenderer->DisableTransparency();
+					}
 
 					// Texture manipulation (for shadow rendering)
 					{
@@ -1582,7 +1585,10 @@ void QubicleBinary::RenderWithAnimator(MS3DAnimator** pSkeleton, VoxelCharacter*
 						m_pRenderer->MeshStaticBufferRender(m_vpMatrices[i]->m_pMesh);
 					}
 
-					m_pRenderer->DisableTransparency();
+					if (m_meshAlpha < 1.0f)
+					{
+						m_pRenderer->DisableTransparency();
+					}
 
 					// Texture manipulation (for shadow rendering)
 					{
@@ -1809,7 +1815,10 @@ void QubicleBinary::RenderSingleMatrix(MS3DAnimator** pSkeleton, VoxelCharacter*
 					m_pRenderer->MeshStaticBufferRender(m_vpMatrices[matrixIndex]->m_pMesh);
 				}
 
-				m_pRenderer->DisableTransparency();
+				if (m_meshAlpha < 1.0f)
+				{
+					m_pRenderer->DisableTransparency();
+				}
 
 				// Texture manipulation (for shadow rendering)
 				{

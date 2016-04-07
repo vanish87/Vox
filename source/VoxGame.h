@@ -247,6 +247,7 @@ public:
 
 	// Accessors
 	unsigned int GetDefaultViewport();
+	Camera* GetGameCamera();
 	Player* GetPlayer();
 	BiomeManager* GetBiomeManager();
 	FrontendManager* GetFrontendManager();

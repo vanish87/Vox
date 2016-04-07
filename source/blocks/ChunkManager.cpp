@@ -1261,8 +1261,6 @@ void ChunkManager::Render(bool shadowRender)
 		m_pRenderer->SetRenderMode(RM_SOLID);
 	}
 
-	m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
-
 	m_pRenderer->PushMatrix();
 		m_ChunkMapMutexLock.lock();
 		typedef map<ChunkCoordKeys, Chunk*>::iterator it_type;
@@ -1276,19 +1274,31 @@ void ChunkManager::Render(bool shadowRender)
 
 				if (shadowRender == true || m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), chunkCenter, Chunk::CHUNK_RADIUS))
 				{
+					// Fog
+					vec3 chunkCenter = pChunk->GetPosition() + vec3((Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE) - Chunk::BLOCK_RENDER_SIZE, (Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE) - Chunk::BLOCK_RENDER_SIZE, (Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE) - Chunk::BLOCK_RENDER_SIZE);
+					float toCamera = length(VoxGame::GetInstance()->GetGameCamera()->GetPosition() - chunkCenter);
+					if (toCamera > GetLoaderRadius() + (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*5.0f))
+					{
+						continue;
+					}
+					if (toCamera > GetLoaderRadius() - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*3.0f)
+					{
+						m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
+					}
+
 					pChunk->Render();
 
 					if (shadowRender == false)
 					{
 						m_numChunksRender++;
 					}
+
+					m_pRenderer->DisableTransparency();
 				}
 			}
 		}
 		m_ChunkMapMutexLock.unlock();
 	m_pRenderer->PopMatrix();
-
-	m_pRenderer->DisableTransparency();
 
 	// Restore cull mode
 	m_pRenderer->SetCullMode(cullMode);

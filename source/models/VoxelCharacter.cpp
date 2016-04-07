@@ -1900,7 +1900,10 @@ void VoxelCharacter::RenderFaceTextures(bool eyesTexture, bool wireframe, bool t
 		m_pRenderer->DisableImmediateMode();
 		m_pRenderer->DisableTexture();
 
-		m_pRenderer->DisableTransparency();
+		if (transparency)
+		{
+			m_pRenderer->DisableTransparency();
+		}
 
 		// Restore cull mode
 		m_pRenderer->SetCullMode(cullMode);
