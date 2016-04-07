@@ -18,6 +18,7 @@
 
 #pragma once
 
+#include "BlocksEnum.h"
 #include "../Renderer/Renderer.h"
 #include "../Renderer/camera.h"
 
@@ -113,6 +114,10 @@ public:
 	void GetColour(int x, int y, int z, float* r, float* g, float* b, float* a);
 	void SetColour(int x, int y, int z, unsigned int colour);
 	unsigned int GetColour(int x, int y, int z);
+
+	// Block type
+	BlockType GetBlockType(int x, int y, int z);
+	void SetBlockType(int x, int y, int z, BlockType blockType);
 
 	// Flags
 	bool IsEmpty();
@@ -216,8 +221,11 @@ private:
 	bool m_z_minus_full;
 	bool m_z_plus_full;
 
-	// The blocks data
+	// The blocks colour data
 	unsigned int *m_colour;
+
+	// Block type
+	BlockType *m_blockType;
 
 	// Item list
 	mutex m_itemMutexLock;

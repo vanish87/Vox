@@ -262,6 +262,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pChunkManager->SetEnemyManager(m_pEnemyManager);
 	m_pChunkManager->SetNPCManager(m_pNPCManager);
 	m_pChunkManager->SetBlockParticleManager(m_pBlockParticleManager);
+	m_pChunkManager->SetItemManager(m_pItemManager);
 	m_pPlayer->SetInventoryManager(m_pInventoryManager);
 	m_pPlayer->SetItemManager(m_pItemManager);
 	m_pPlayer->SetProjectileManager(m_pProjectileManager);

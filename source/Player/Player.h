@@ -121,6 +121,10 @@ public:
 	// Collision
 	bool CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pNormal, vec3 *pMovement, bool *pStepUpBlock);
 
+	// Selection
+	bool GetSelectionBlock(vec3 *blockPos, int* chunkIndex, int* blockX, int* blockY, int* blockZ);
+	bool GetPlacementBlock(vec3 *blockPos, int* chunkIndex, int* blockX, int* blockY, int* blockZ);
+
 	// World
 	void UpdateGridPosition();
 	int GetGridX() const;
@@ -191,6 +195,9 @@ public:
 	void DoDamage(float amount, Colour textColour, vec3 knockbackDirection, float knockbackAmount, bool createParticleHit);
 	void Explode();
 	void Respawn();
+
+	// World editing
+	void DestroyBlock();
 
 	// Enemy target
 	void SetEnemyDied(Enemy* pEnemy);
@@ -284,6 +291,7 @@ public:
 	void UpdateWeaponParticleEffects(float dt);
 	void UpdateChargingAttack(float dt);
 	void UpdateCombat(float dt);
+	void UpdateBlockSelection(float dt);
 
 	// Rendering
 	void Render();
@@ -294,6 +302,7 @@ public:
 	void RenderPaperdollFace();
 	void RenderPortrait();
 	void RenderPortraitFace();
+	void RenderSelectionBlock();
 	void RenderDebug();
 	void RenderProjectileHitboxDebug();
 
@@ -495,6 +504,10 @@ private:
 
 	// Bitfield flag to hold the equipped properties for a player
 	unsigned int m_equippedProperties;
+
+	// Block selection
+	bool m_blockSelection;
+	vec3 m_blockSelectionPos;
 
 	// Cached values for stat modifications, cache is refreshed whenever we equip or unequip a new item
 	int m_strengthModifier;

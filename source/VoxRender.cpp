@@ -168,6 +168,9 @@ void VoxGame::Render()
 			}
 			EndShaderRender();
 
+			// Player selection block
+			m_pPlayer->RenderSelectionBlock();
+
 			// Render the block particles
 			m_pBlockParticleManager->Render(false);
 

@@ -814,6 +814,43 @@ vec3 Player::GetProjectileHitboxCenter()
 	return GetCenter() + m_projectileHitboxCenterOffset;
 }
 
+// World editing
+void Player::DestroyBlock()
+{
+	if (m_blockSelection)
+	{
+		Chunk* pChunk = m_pChunkManager->GetChunkFromPosition(m_blockSelectionPos.x, m_blockSelectionPos.y, m_blockSelectionPos.z);
+
+		if (pChunk != NULL)
+		{
+			int blockX, blockY, blockZ;
+			vec3 blockPos;
+			bool active = m_pChunkManager->GetBlockActiveFrom3DPosition(m_blockSelectionPos.x, m_blockSelectionPos.y, m_blockSelectionPos.z, &blockPos, &blockX, &blockY, &blockZ, &pChunk);
+			if (active)
+			{
+				float r;
+				float g;
+				float b;
+				float a;
+				pChunk->GetColour(blockX, blockY, blockZ, &r, &g, &b, &a);
+
+				pChunk->StartBatchUpdate();
+				pChunk->SetColour(blockX, blockY, blockZ, 0);
+				pChunk->StopBatchUpdate();
+
+				m_pChunkManager->CreateBlockDestroyParticleEffect(r, g, b, a, m_blockSelectionPos);
+
+				// Create the collectible block item
+				BlockType blockType = pChunk->GetBlockType(blockX, blockY, blockZ);
+				m_pChunkManager->CreateCollectibleBlock(blockType, m_blockSelectionPos);
+			}
+		}
+
+		m_blockSelection = false;
+	}
+}
+
+// Static callbacks
 void Player::_AttackEnabledTimerFinished(void *apData)
 {
 	Player* lpPlayer = (Player*)apData;
@@ -937,8 +974,7 @@ void Player::AttackAnimationTimerFinished()
 		}
 		else
 		{
-			// TODO : DestroyBlock functionality
-			//DestroyBlock();
+			DestroyBlock();
 		}
 	}
 	else if (IsAxe())

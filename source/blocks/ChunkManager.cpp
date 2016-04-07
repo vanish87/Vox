@@ -14,9 +14,11 @@
 #include "../Player/Player.h"
 #include "../NPC/NPCManager.h"
 #include "../Enemy/EnemyManager.h"
+#include "../Items/ItemManager.h"
 #include "../Particles/BlockParticleManager.h"
 #include "../VoxSettings.h"
 #include "../VoxGame.h"
+#include "../utils/Random.h"
 #include "../models/QubicleBinaryManager.h"
 
 #include <algorithm>
@@ -95,6 +97,11 @@ void ChunkManager::SetEnemyManager(EnemyManager* pEnemyManager)
 void ChunkManager::SetBlockParticleManager(BlockParticleManager* pBlockParticleManager)
 {
 	m_pBlockParticleManager = pBlockParticleManager;
+}
+
+void ChunkManager::SetItemManager(ItemManager* pItemManager)
+{
+	m_pItemManager = pItemManager;
 }
 
 // Scenery manager pointer
@@ -791,6 +798,63 @@ QubicleBinary* ChunkManager::ImportQubicleBinary(const char* filename, vec3 posi
 	}
 
 	return NULL;
+}
+
+// Explosions
+void ChunkManager::CreateBlockDestroyParticleEffect(float r, float g, float b, float a, vec3 blockPosition)
+{
+	for (int i = 0; i < 8; i++)
+	{
+		float size = Chunk::BLOCK_RENDER_SIZE*0.5f;
+		float scale = 0.3f + (GetRandomNumber(-1, 1, 4)*0.2f);
+		vec3 addition;
+		if (i == 0) addition = vec3(-size, size, -size);
+		if (i == 1) addition = vec3(size, size, -size);
+		if (i == 2) addition = vec3(-size, size, size);
+		if (i == 3) addition = vec3(size, size, size);
+		if (i == 4) addition = vec3(-size, -size, -size);
+		if (i == 5) addition = vec3(size, -size, -size);
+		if (i == 6) addition = vec3(-size, -size, size);
+		if (i == 7) addition = vec3(size, -size, size);
+
+		float lifeTime = 6.5f + GetRandomNumber(-1, 1, 1) * 0.75f;
+
+		vec3 gravityDir = vec3(0.0f, -1.0f, 0.0f);
+		vec3 pointOrigin = vec3(0.0f, 0.0f, 0.0f);
+		BlockParticle* pParticle = m_pBlockParticleManager->CreateBlockParticle(blockPosition + addition, blockPosition + addition, gravityDir, 2.5f, pointOrigin, scale, 0.0f, scale, 0.0f,
+			r, g, b, a, 0.0f, 0.0f, 0.0f, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, 0.0f, lifeTime, 0.0f, 0.0f, 0.0f, vec3(0.0f, 7.0f, 0.0f),
+			vec3(3.0f, 2.0f, 3.0f), vec3(GetRandomNumber(-360, 360, 2), GetRandomNumber(-360, 360, 2), GetRandomNumber(-360, 360, 2)),
+			vec3(180.0f, 180.0f, 180.0f), 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, true, vec3(0.0f, 0.0f, 0.0f), true, false, false, false, NULL);
+	}
+}
+
+// Collectible block objects
+void ChunkManager::CreateCollectibleBlock(BlockType blockType, vec3 blockPos)
+{
+	Item* pItem = NULL;
+
+	ItemSubSpawnData *pItemSubSpawnData = m_pItemManager->GetItemSubSpawnData(blockType);
+	if (pItemSubSpawnData != NULL)
+	{
+		pItem = m_pItemManager->CreateItem(blockPos, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), pItemSubSpawnData->m_spawnedItemFilename.c_str(), pItemSubSpawnData->m_spawnedItem, pItemSubSpawnData->m_spawnedItemTitle.c_str(), pItemSubSpawnData->m_interactable, pItemSubSpawnData->m_collectible, pItemSubSpawnData->m_scale);
+
+		if (pItem != NULL)
+		{
+			float radius = 1.5f;
+			float angle = DegToRad((float)GetRandomNumber(0, 360, 2));
+			vec3 ItemPosition = blockPos + vec3(cos(angle) * radius, 0.0f, sin(angle) * radius);
+
+			pItem->SetGravityDirection(vec3(0.0f, -1.0f, 0.0f));
+			vec3 vel = ItemPosition - blockPos;
+			pItem->SetVelocity(normalize(vel)*(float)GetRandomNumber(0, 1, 2) + vec3(GetRandomNumber(-1, 1, 2), 1.0f + GetRandomNumber(2, 5, 2), GetRandomNumber(-1, 1, 2)));
+			pItem->SetRotation(vec3(0.0f, GetRandomNumber(0, 360, 2), 0.0f));
+			pItem->SetAngularVelocity(vec3(0.0f, 90.0f, 0.0f));
+
+			pItem->SetDroppedItem(pItemSubSpawnData->m_droppedItemFilename.c_str(), pItemSubSpawnData->m_droppedItemTextureFilename.c_str(), pItemSubSpawnData->m_droppedItemInventoryType, pItemSubSpawnData->m_droppedItemItem, pItemSubSpawnData->m_droppedItemStatus, pItemSubSpawnData->m_droppedItemEquipSlot, pItemSubSpawnData->m_droppedItemQuality, pItemSubSpawnData->m_droppedItemLeft, pItemSubSpawnData->m_droppedItemRight, pItemSubSpawnData->m_droppedItemTitle.c_str(), pItemSubSpawnData->m_droppedItemDescription.c_str(), pItemSubSpawnData->m_droppedItemPlacementR, pItemSubSpawnData->m_droppedItemPlacementG, pItemSubSpawnData->m_droppedItemPlacementB, pItemSubSpawnData->m_droppedItemQuantity);
+			pItem->SetAutoDisappear(20.0f + (GetRandomNumber(-20, 20, 1) * 0.2f));
+			pItem->SetCollisionEnabled(false);
+		}
+	}
 }
 
 // Rendering modes

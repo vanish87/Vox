@@ -20,6 +20,7 @@
 #include "../models/QubicleBinary.h"
 
 #include "Chunk.h"
+#include "BlocksEnum.h"
 
 #include <map>
 using namespace std;
@@ -31,6 +32,7 @@ class Player;
 class NPCManager;
 class EnemyManager;
 class BlockParticleManager;
+class ItemManager;
 class SceneryManager;
 class VoxSettings;
 class QubicleBinaryManager;
@@ -140,6 +142,7 @@ public:
 	void SetNPCManager(NPCManager* pNPCManager);
 	void SetEnemyManager(EnemyManager* pEnemyManager);
 	void SetBlockParticleManager(BlockParticleManager* pBlockParticleManager);
+	void SetItemManager(ItemManager* pItemManager);
 
 	// Scenery manager pointer
 	void SetSceneryManager(SceneryManager* pSceneryManager);
@@ -189,6 +192,12 @@ public:
 	QubicleBinary* ImportQubicleBinary(QubicleBinary* qubicleBinaryFile, vec3 position, QubicleImportDirection direction);
 	QubicleBinary* ImportQubicleBinary(const char* filename, vec3 position, QubicleImportDirection direction);
 
+	// Explosions
+	void CreateBlockDestroyParticleEffect(float r, float g, float b, float a, vec3 blockPosition);
+
+	// Collectible block objects
+	void CreateCollectibleBlock(BlockType blockType, vec3 blockPos);
+
 	// Rendering modes
 	void SetWireframeRender(bool wireframe);
 	void SetFaceMerging(bool faceMerge);
@@ -224,6 +233,7 @@ private:
 	BiomeManager* m_pBiomeManager;
 	VoxSettings* m_pVoxSettings;
 	QubicleBinaryManager* m_pQubicleBinaryManager;
+	ItemManager* m_pItemManager;
 	BlockParticleManager* m_pBlockParticleManager;
 	EnemyManager* m_pEnemyManager;
 	NPCManager* m_pNPCManager;

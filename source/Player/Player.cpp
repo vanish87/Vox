@@ -223,6 +223,9 @@ void Player::ResetPlayer()
 	m_chargeAmount = 0.0f;
 	m_chargeTime = 1.0f;
 
+	// Block selection
+	m_blockSelection = false;
+
 	// Player stats
 	m_pPlayerStats = new PlayerStats(this);
 	m_strengthModifier = 0;
@@ -1201,6 +1204,85 @@ bool Player::CheckCollisions(vec3 positionCheck, vec3 previousPosition, vec3 *pN
 	*pMovement = movementCache;
 
 	return false;
+}
+
+// Selection
+bool Player::GetSelectionBlock(vec3 *blockPos, int* chunkIndex, int* blockX, int* blockY, int* blockZ)
+{
+	float distance = 0.0f;
+	bool collides = false;
+	int interations = 0;
+	float increments = 0.025f;
+
+	while (collides == false && interations < 110)
+	{
+		vec3 testPos = GetCenter() + PLAYER_CENTER_OFFSET + normalize(m_cameraForward) * distance;
+
+		Chunk* pChunk = NULL;
+		bool active = m_pChunkManager->GetBlockActiveFrom3DPosition(testPos.x, testPos.y, testPos.z, blockPos, blockX, blockY, blockZ, &pChunk);
+		if (active == true)
+		{
+			collides = true;
+		}
+
+		distance += increments;
+		interations++;
+	}
+
+	return collides;
+}
+
+bool Player::GetPlacementBlock(vec3 *blockPos, int* chunkIndex, int* blockX, int* blockY, int* blockZ)
+{
+	float distance = 0.0f;
+	bool collides = false;
+	int interations = 0;
+	float increments = 0.025f;
+
+	while (collides == false && interations < 175)
+	{
+		vec3 testPos = GetCenter() + PLAYER_CENTER_OFFSET + normalize(m_cameraForward) * distance;
+
+		Chunk* pChunk = NULL;
+		bool active = m_pChunkManager->GetBlockActiveFrom3DPosition(testPos.x, testPos.y, testPos.z, blockPos, blockX, blockY, blockZ, &pChunk);
+		if (active == true)
+		{
+			// Get an empty block position
+			vec3 EmptyPos = testPos - normalize(m_cameraForward) * Chunk::BLOCK_RENDER_SIZE;
+			bool active2 = m_pChunkManager->GetBlockActiveFrom3DPosition(EmptyPos.x, EmptyPos.y, EmptyPos.z, blockPos, blockX, blockY, blockZ, &pChunk);
+			Chunk* pChunk = m_pChunkManager->GetChunkFromPosition(EmptyPos.x, EmptyPos.y, EmptyPos.z);
+
+			if (pChunk != NULL && active2 == false)
+			{
+				vec3 blockPosTest;
+				int blockXTest;
+				int blockYTest;
+				int blockZTest;
+				bool pBlock1 = m_pChunkManager->GetBlockActiveFrom3DPosition(EmptyPos.x - (Chunk::BLOCK_RENDER_SIZE*2.0f), EmptyPos.y, EmptyPos.z, &blockPosTest, &blockXTest, &blockYTest, &blockZTest, &pChunk);
+				bool pBlock2 = m_pChunkManager->GetBlockActiveFrom3DPosition(EmptyPos.x + (Chunk::BLOCK_RENDER_SIZE*2.0f), EmptyPos.y, EmptyPos.z, &blockPosTest, &blockXTest, &blockYTest, &blockZTest, &pChunk);
+				bool pBlock3 = m_pChunkManager->GetBlockActiveFrom3DPosition(EmptyPos.x, EmptyPos.y - (Chunk::BLOCK_RENDER_SIZE*2.0f), EmptyPos.z, &blockPosTest, &blockXTest, &blockYTest, &blockZTest, &pChunk);
+				bool pBlock4 = m_pChunkManager->GetBlockActiveFrom3DPosition(EmptyPos.x, EmptyPos.y + (Chunk::BLOCK_RENDER_SIZE*2.0f), EmptyPos.z, &blockPosTest, &blockXTest, &blockYTest, &blockZTest, &pChunk);
+				bool pBlock5 = m_pChunkManager->GetBlockActiveFrom3DPosition(EmptyPos.x, EmptyPos.y, EmptyPos.z - (Chunk::BLOCK_RENDER_SIZE*2.0f), &blockPosTest, &blockXTest, &blockYTest, &blockZTest, &pChunk);
+				bool pBlock6 = m_pChunkManager->GetBlockActiveFrom3DPosition(EmptyPos.x, EmptyPos.y, EmptyPos.z + (Chunk::BLOCK_RENDER_SIZE*2.0f), &blockPosTest, &blockXTest, &blockYTest, &blockZTest, &pChunk);
+
+				// ONLY allow non-diagonal block placements
+				if (pBlock1 == true || pBlock2 == true || pBlock3 == true || pBlock4 == true || pBlock5 == true || pBlock6 == true)
+				{
+					vec3 dist = (*blockPos) - m_position + PLAYER_CENTER_OFFSET;
+					//dist.y = 0.0f;
+					if (length(dist) > m_radius)
+					{
+						collides = true;
+					}
+				}
+			}
+		}
+
+		distance += increments;
+		interations++;
+	}
+
+	return collides;
 }
 
 // World
@@ -2425,6 +2507,9 @@ void Player::Update(float dt)
 	// Update combat
 	UpdateCombat(dt);
 
+	// Update block selection
+	UpdateBlockSelection(dt);
+
 	// Update movement
 	UpdateMovement(dt);
 
@@ -3004,6 +3089,29 @@ void Player::UpdateCombat(float dt)
 	}
 }
 
+void Player::UpdateBlockSelection(float dt)
+{
+	if (IsPickaxe())
+	{
+		Item* pInteractItem = VoxGame::GetInstance()->GetInteractItem();
+		if (pInteractItem == NULL) // Only show the mining selection block if we are not interacting with an item
+		{
+			int chunkIndex;
+			int blockX, blockY, blockZ;
+			vec3 blockPos;
+			m_blockSelection = GetSelectionBlock(&blockPos, &chunkIndex, &blockX, &blockY, &blockZ);
+			if (m_blockSelection == true)
+			{
+				m_blockSelectionPos = blockPos;
+			}
+		}
+		else
+		{
+			m_blockSelection = false;
+		}
+	}
+}
+
 // Rendering
 void Player::Render()
 {
@@ -3091,6 +3199,90 @@ void Player::RenderPortraitFace()
 	m_pRenderer->PushMatrix();
 		m_pVoxelCharacter->RenderFacePortrait();
 	m_pRenderer->PopMatrix();
+}
+
+void Player::RenderSelectionBlock()
+{
+	if(m_dead == true)
+	{
+		return;
+	}
+
+	if(IsPickaxe() == false && IsBlockPlacing() == false && IsItemPlacing() == false)
+	{
+		return;
+	}
+
+	if(m_blockSelection)
+	{
+		float l_length = Chunk::BLOCK_RENDER_SIZE * 1.1f;
+		float l_height = Chunk::BLOCK_RENDER_SIZE * 1.1f;
+		float l_width = Chunk::BLOCK_RENDER_SIZE * 1.1f;
+
+		m_pRenderer->PushMatrix();
+			m_pRenderer->TranslateWorldMatrix(m_blockSelectionPos.x, m_blockSelectionPos.y, m_blockSelectionPos.z);
+			for(int i = 0; i < 2; i ++)
+			{
+				if(i == 0)
+				{
+					m_pRenderer->SetRenderMode(RM_WIREFRAME);
+					m_pRenderer->SetCullMode(CM_NOCULL);
+					m_pRenderer->SetLineWidth(1.0f);
+				}
+				else
+				{
+					m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
+					m_pRenderer->SetRenderMode(RM_SOLID);
+				}
+			
+				m_pRenderer->EnableImmediateMode(IM_QUADS);
+					m_pRenderer->ImmediateColourAlpha(1.0f, 0.9f, 0.25f, 0.25f);
+					m_pRenderer->ImmediateNormal(0.0f, 0.0f, -1.0f);
+					m_pRenderer->ImmediateVertex(l_length, -l_height, -l_width);
+					m_pRenderer->ImmediateVertex(-l_length, -l_height, -l_width);
+					m_pRenderer->ImmediateVertex(-l_length, l_height, -l_width);
+					m_pRenderer->ImmediateVertex(l_length, l_height, -l_width);
+
+					m_pRenderer->ImmediateNormal(0.0f, 0.0f, 1.0f);
+					m_pRenderer->ImmediateVertex(-l_length, -l_height, l_width);
+					m_pRenderer->ImmediateVertex(l_length, -l_height, l_width);
+					m_pRenderer->ImmediateVertex(l_length, l_height, l_width);
+					m_pRenderer->ImmediateVertex(-l_length, l_height, l_width);
+
+					m_pRenderer->ImmediateNormal(1.0f, 0.0f, 0.0f);
+					m_pRenderer->ImmediateVertex(l_length, -l_height, l_width);
+					m_pRenderer->ImmediateVertex(l_length, -l_height, -l_width);
+					m_pRenderer->ImmediateVertex(l_length, l_height, -l_width);
+					m_pRenderer->ImmediateVertex(l_length, l_height, l_width);
+
+					m_pRenderer->ImmediateNormal(-1.0f, 0.0f, 0.0f);
+					m_pRenderer->ImmediateVertex(-l_length, -l_height, -l_width);
+					m_pRenderer->ImmediateVertex(-l_length, -l_height, l_width);
+					m_pRenderer->ImmediateVertex(-l_length, l_height, l_width);
+					m_pRenderer->ImmediateVertex(-l_length, l_height, -l_width);
+
+					m_pRenderer->ImmediateNormal(0.0f, -1.0f, 0.0f);
+					m_pRenderer->ImmediateVertex(-l_length, -l_height, -l_width);
+					m_pRenderer->ImmediateVertex(l_length, -l_height, -l_width);
+					m_pRenderer->ImmediateVertex(l_length, -l_height, l_width);
+					m_pRenderer->ImmediateVertex(-l_length, -l_height, l_width);
+
+					m_pRenderer->ImmediateNormal(0.0f, 1.0f, 0.0f);
+					m_pRenderer->ImmediateVertex(l_length, l_height, -l_width);
+					m_pRenderer->ImmediateVertex(-l_length, l_height, -l_width);
+					m_pRenderer->ImmediateVertex(-l_length, l_height, l_width);
+					m_pRenderer->ImmediateVertex(l_length, l_height, l_width);
+				m_pRenderer->DisableImmediateMode();
+
+				if(i == 1)
+				{
+					m_pRenderer->DisableTransparency();
+				}
+			}		
+
+			m_pRenderer->SetCullMode(CM_BACK);
+		m_pRenderer->PopMatrix();
+	}
 }
 
 void Player::RenderDebug()

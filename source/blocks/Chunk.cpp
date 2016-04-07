@@ -45,6 +45,7 @@ Chunk::~Chunk()
 	Unload();
 
 	delete m_colour;
+	delete m_blockType;
 }
 
 // Player pointer
@@ -113,9 +114,11 @@ void Chunk::Initialize()
 
 	// Blocks data
 	m_colour = new unsigned int[CHUNK_SIZE_CUBED];
+	m_blockType = new BlockType[CHUNK_SIZE_CUBED];
 	for (int i = 0; i < CHUNK_SIZE_CUBED; i++)
 	{
 		m_colour[i] = 0;
+		m_blockType[i] = BlockType_Default;
 	}
 }
 
@@ -219,6 +222,7 @@ void Chunk::Setup()
 						m_pBiomeManager->GetChunkColourAndBlockType(xPosition, yPosition, zPosition, noise, colorNoiseNormalized, &red, &green, &blue, &blockType);
 						
 						SetColour(x, y, z, red, green, blue, alpha);
+						SetBlockType(x, y, z, blockType);
 					}
 				}
 			}
@@ -545,6 +549,17 @@ void Chunk::SetColour(int x, int y, int z, unsigned int colour)
 unsigned int Chunk::GetColour(int x, int y, int z)
 {
 	return m_colour[x + y * CHUNK_SIZE + z * CHUNK_SIZE_SQUARED];
+}
+
+// Block type
+BlockType Chunk::GetBlockType(int x, int y, int z)
+{
+	return m_blockType[x + y * CHUNK_SIZE + z * CHUNK_SIZE_SQUARED];
+}
+
+void Chunk::SetBlockType(int x, int y, int z, BlockType blockType)
+{
+	m_blockType[x + y * CHUNK_SIZE + z * CHUNK_SIZE_SQUARED] = blockType;
 }
 
 // Flags
