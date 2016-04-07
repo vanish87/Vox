@@ -1884,6 +1884,8 @@ void NPC::SetEnemyDied(Enemy* pEnemy)
 	if(m_pTargetEnemy == pEnemy)
 	{
 		SetTargetEnemy(NULL);
+
+		SetRandomLookMode();
 	}
 }
 
