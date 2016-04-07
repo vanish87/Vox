@@ -599,24 +599,24 @@ void FrontendManager::LoadCommonGraphics(string themeName)
 
 	if (reader.ParseError() >= 0)
 	{
-		float r = reader.GetReal("NormalLabel", "Red", 1.0f);
-		float g = reader.GetReal("NormalLabel", "Green", 1.0f);
-		float b = reader.GetReal("NormalLabel", "Blue", 1.0f);
+		float r = (float)reader.GetReal("NormalLabel", "Red", 1.0f);
+		float g = (float)reader.GetReal("NormalLabel", "Green", 1.0f);
+		float b = (float)reader.GetReal("NormalLabel", "Blue", 1.0f);
 		m_normalColour = Colour(r, g, b);
 
-		r = reader.GetReal("HoverLabel", "Red", 1.0f);
-		g = reader.GetReal("HoverLabel", "Green", 1.0f);
-		b = reader.GetReal("HoverLabel", "Blue", 1.0f);
+		r = (float)reader.GetReal("HoverLabel", "Red", 1.0f);
+		g = (float)reader.GetReal("HoverLabel", "Green", 1.0f);
+		b = (float)reader.GetReal("HoverLabel", "Blue", 1.0f);
 		m_hoverColour = Colour(r, g, b);
 
-		r = reader.GetReal("PressedLabel", "Red", 1.0f);
-		g = reader.GetReal("PressedLabel", "Green", 1.0f);
-		b = reader.GetReal("PressedLabel", "Blue", 1.0f);
+		r = (float)reader.GetReal("PressedLabel", "Red", 1.0f);
+		g = (float)reader.GetReal("PressedLabel", "Green", 1.0f);
+		b = (float)reader.GetReal("PressedLabel", "Blue", 1.0f);
 		m_pressedColour = Colour(r, g, b);
 
-		r = reader.GetReal("DisabledLabel", "Red", 1.0f);
-		g = reader.GetReal("DisabledLabel", "Green", 1.0f);
-		b = reader.GetReal("DisabledLabel", "Blue", 1.0f);
+		r = (float)reader.GetReal("DisabledLabel", "Red", 1.0f);
+		g = (float)reader.GetReal("DisabledLabel", "Green", 1.0f);
+		b = (float)reader.GetReal("DisabledLabel", "Blue", 1.0f);
 		m_disabledColour = Colour(r, g, b);
 	}
 }
