@@ -287,7 +287,10 @@ void VoxGame::Render()
 			// Crosshair
 			if (m_cameraMode == CameraMode_FirstPerson && m_bPaused == false)
 			{
-				RenderCrosshair();
+				if (m_pPlayer->IsDead() == false)
+				{
+					RenderCrosshair();
+				}
 			}
 
 			// Text effects
