@@ -623,7 +623,7 @@ void VoxGame::RenderSSAOTexture()
 		pShader->setUniform1f("nearZ", 0.01f);
 		pShader->setUniform1f("farZ", 1000.0f);
 
-		pShader->setUniform1f("samplingMultiplier", 0.5f);
+		pShader->setUniform1f("samplingMultiplier", 1.5f);
 
 		pShader->setUniform1i("lighting_enabled", m_dynamicLighting);
 		pShader->setUniform1i("ssao_enabled", m_ssao);

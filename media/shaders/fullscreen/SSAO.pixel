@@ -61,7 +61,7 @@ vec3 readTransparency(in vec2 coord)
 
 float compareDepths(in float depth1, in float depth2,inout int far)  
 {  
-    float diff = (depth1 - depth2)*1000.0; //depth difference (0-1000)
+    float diff = (depth1 - depth2)*100.0; //depth difference (0-100)
     float gdisplace = 0.2; //gauss bell center
     float garea = 2.0; //gauss bell width 2
 
