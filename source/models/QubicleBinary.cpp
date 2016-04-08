@@ -1919,8 +1919,8 @@ void QubicleBinary::RenderFace(MS3DAnimator* pSkeleton, VoxelCharacter* pVoxelCh
 				pVoxelCharacter->RenderFaceTextures(true, m_renderWireFrame, transparency);
 			m_pRenderer->PopMatrix();
 		}
-
 	}
+
 
 	// Render mouth
 	{
