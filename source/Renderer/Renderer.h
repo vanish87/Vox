@@ -194,6 +194,8 @@ public:
 	bool BeginScene(bool pixel = true, bool depth = true, bool stencil = true);
 	void EndScene();
 	void SetColourMask(bool red, bool green, bool blue, bool alpha);
+	void SetClearColour(float red, float green, float blue, float alpha);
+	void SetClearColour(Colour &col);
 
 	// Push / Pop matrix stack
 	void PushMatrix();
@@ -223,6 +225,10 @@ public:
 	// Screen projection
 	vec3 GetWorldProjectionFromScreenCoordinates(int x, int y, float z);
 	void GetScreenCoordinatesFromWorldPosition(vec3 pos, int *x, int *y);
+
+	// Clip planes
+	void EnableClipPlane(unsigned int index, double eq1, double eq2, double eq3, double eq4);
+	void DisableClipPlane(unsigned int index);
 
 	// Camera functionality
 	void SetLookAtCamera(vec3 pos, vec3 target, vec3 up);

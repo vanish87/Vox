@@ -65,6 +65,9 @@ Renderer::Renderer(int width, int height, int depthBits, int stencilBits)
 		m_stencil = true;
 	}
 
+	// Set clear colour to black
+	SetClearColour(Colour(0.0f, 0.0f, 0.0f));
+
 	// Enable smooth shading
 	glShadeModel(GL_SMOOTH);
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
@@ -509,6 +512,16 @@ void Renderer::SetColourMask(bool red, bool green, bool blue, bool alpha)
 	glColorMask(red, green, blue, alpha);
 }
 
+void Renderer::SetClearColour(float red, float green, float blue, float alpha)
+{
+	glClearColor(red, green, blue, alpha);
+}
+
+void Renderer::SetClearColour(Colour &col)
+{
+	glClearColor(col.GetRed(), col.GetGreen(), col.GetBlue(), col.GetAlpha());
+}
+
 // Push / Pop matrix stack
 void Renderer::PushMatrix()
 {
@@ -710,6 +723,19 @@ void Renderer::GetScreenCoordinatesFromWorldPosition(vec3 pos, int *x, int *y)
 
 	(*x) = (int)winx;
 	(*y) = (int)winy;
+}
+
+// Clip planes
+void Renderer::EnableClipPlane(unsigned int index, double eq1, double eq2, double eq3, double eq4)
+{
+	double plane[] = { eq1, eq2, eq3, eq4 };
+	glClipPlane(GL_CLIP_PLANE0 + index, plane);
+	glEnable(GL_CLIP_PLANE0 + index);
+}
+
+void Renderer::DisableClipPlane(unsigned int index)
+{
+	glDisable(GL_CLIP_PLANE0);
 }
 
 // Camera functionality
