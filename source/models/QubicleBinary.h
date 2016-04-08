@@ -170,8 +170,8 @@ public:
 	void Update(float dt);
 
 	// Rendering
-	void Render(bool renderOutline, bool refelction, bool silhouette, Colour OutlineColour);
-	void RenderWithAnimator(MS3DAnimator** pSkeleton, VoxelCharacter* pVoxelCharacter, bool renderOutline, bool refelction, bool silhouette, Colour OutlineColour, bool subSelectionNamePicking);
+	void Render(bool renderOutline, bool reflection, bool silhouette, Colour OutlineColour);
+	void RenderWithAnimator(MS3DAnimator** pSkeleton, VoxelCharacter* pVoxelCharacter, bool renderOutline, bool reflection, bool silhouette, Colour OutlineColour, bool subSelectionNamePicking);
 	void RenderSingleMatrix(MS3DAnimator** pSkeleton, VoxelCharacter* pVoxelCharacter, string matrixName, bool renderOutline, bool silhouette, Colour OutlineColour);
 	void RenderFace(MS3DAnimator* pSkeleton, VoxelCharacter* pVoxelCharacter, bool transparency, bool useScale = true, bool useTranslate = true);
 	void RenderPaperdoll(MS3DAnimator* pSkeleton_Left, MS3DAnimator* pSkeleton_Right, VoxelCharacter* pVoxelCharacter);

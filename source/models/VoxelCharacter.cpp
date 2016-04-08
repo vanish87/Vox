@@ -1729,13 +1729,13 @@ void VoxelCharacter::SetWeaponTrailsOriginMatrix(float dt, Matrix4x4 originMatri
 }
 
 // Rendering
-void VoxelCharacter::Render(bool renderOutline, bool refelction, bool silhouette, Colour OutlineColour, bool subSelectionNamePicking)
+void VoxelCharacter::Render(bool renderOutline, bool reflection, bool silhouette, Colour OutlineColour, bool subSelectionNamePicking)
 {
 	if(m_pVoxelModel != NULL)
 	{
 		m_pRenderer->PushMatrix();
 			m_pRenderer->ScaleWorldMatrix(m_characterScale, m_characterScale, m_characterScale);
-			m_pVoxelModel->RenderWithAnimator(m_pCharacterAnimator, this, renderOutline, refelction, silhouette, OutlineColour, subSelectionNamePicking);
+			m_pVoxelModel->RenderWithAnimator(m_pCharacterAnimator, this, renderOutline, reflection, silhouette, OutlineColour, subSelectionNamePicking);
 		m_pRenderer->PopMatrix();
 	}
 }
@@ -1910,7 +1910,7 @@ void VoxelCharacter::RenderFaceTextures(bool eyesTexture, bool wireframe, bool t
 	m_pRenderer->PopMatrix();
 }
 
-void VoxelCharacter::RenderWeapons(bool renderOutline, bool refelction, bool silhouette, Colour OutlineColour)
+void VoxelCharacter::RenderWeapons(bool renderOutline, bool reflection, bool silhouette, Colour OutlineColour)
 {
 	if(m_pLeftWeapon != NULL)
 	{
@@ -1920,7 +1920,7 @@ void VoxelCharacter::RenderWeapons(bool renderOutline, bool refelction, bool sil
 			{
 				m_pRenderer->PushMatrix();
 					m_pRenderer->ScaleWorldMatrix(m_characterScale, m_characterScale, m_characterScale);
-					m_pLeftWeapon->Render(renderOutline, refelction, silhouette, OutlineColour);
+					m_pLeftWeapon->Render(renderOutline, reflection, silhouette, OutlineColour);
 				m_pRenderer->PopMatrix();
 			}
 		}
@@ -1933,7 +1933,7 @@ void VoxelCharacter::RenderWeapons(bool renderOutline, bool refelction, bool sil
 			{
 				m_pRenderer->PushMatrix();
 					m_pRenderer->ScaleWorldMatrix(m_characterScale, m_characterScale, m_characterScale);
-					m_pRightWeapon->Render(renderOutline, refelction, silhouette, OutlineColour);
+					m_pRightWeapon->Render(renderOutline, reflection, silhouette, OutlineColour);
 				m_pRenderer->PopMatrix();
 			}
 		}

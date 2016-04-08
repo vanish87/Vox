@@ -1260,7 +1260,7 @@ void QubicleBinary::Update(float dt)
 }
 
 //Rendering
-void QubicleBinary::Render(bool renderOutline, bool refelction, bool silhouette, Colour OutlineColour)
+void QubicleBinary::Render(bool renderOutline, bool reflection, bool silhouette, Colour OutlineColour)
 {
 	m_pRenderer->PushMatrix();
 		for(unsigned int i = 0; i < m_numMatrices; i++)
@@ -1313,7 +1313,7 @@ void QubicleBinary::Render(bool renderOutline, bool refelction, bool silhouette,
 				}
 
 				// Store the model matrix
-				if(refelction == false)
+				if(reflection == false)
 				{
 					m_pRenderer->GetModelMatrix(&m_vpMatrices[i]->m_modelMatrix);
 				}
@@ -1370,7 +1370,7 @@ void QubicleBinary::Render(bool renderOutline, bool refelction, bool silhouette,
 	m_pRenderer->PopMatrix();
 }
 
-void QubicleBinary::RenderWithAnimator(MS3DAnimator** pSkeleton, VoxelCharacter* pVoxelCharacter, bool renderOutline, bool refelction, bool silhouette, Colour OutlineColour, bool subSelectionNamePicking)
+void QubicleBinary::RenderWithAnimator(MS3DAnimator** pSkeleton, VoxelCharacter* pVoxelCharacter, bool renderOutline, bool reflection, bool silhouette, Colour OutlineColour, bool subSelectionNamePicking)
 {
 	if(pVoxelCharacter == NULL)
 	{
@@ -1555,7 +1555,7 @@ void QubicleBinary::RenderWithAnimator(MS3DAnimator** pSkeleton, VoxelCharacter*
 					}
 
 					// Store the model matrix
-					if(refelction == false)
+					if(reflection == false)
 					{
 						m_pRenderer->GetModelMatrix(&m_vpMatrices[i]->m_modelMatrix);
 					}

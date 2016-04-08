@@ -218,13 +218,13 @@ public:
 	void SetWeaponTrailsOriginMatrix(float dt, Matrix4x4 originMatrix);
 
 	// Rendering
-	void Render(bool renderOutline, bool refelction, bool silhouette, Colour OutlineColour, bool subSelectionNamePicking);
+	void Render(bool renderOutline, bool reflection, bool silhouette, Colour OutlineColour, bool subSelectionNamePicking);
 	void RenderSubSelection(string subSelection, bool renderOutline, bool silhouette, Colour OutlineColour);
 	void RenderBones();
 	void RenderFace();
 	void RenderFacingDebug();
 	void RenderFaceTextures(bool eyesTexture, bool wireframe, bool transparency);
-	void RenderWeapons(bool renderOutline, bool refelction, bool silhouette, Colour OutlineColour);
+	void RenderWeapons(bool renderOutline, bool reflection, bool silhouette, Colour OutlineColour);
 	void RenderWeaponTrails();
 	void RenderPaperdoll();
 	void RenderPortrait();
