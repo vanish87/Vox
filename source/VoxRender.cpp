@@ -90,14 +90,6 @@ void VoxGame::Render()
 			RenderShadows();
 		}
 
-		RenderWaterReflections();
-
-		// SSAO frame buffer rendering start
-		if (m_deferredRendering)
-		{
-			m_pRenderer->StartRenderingToFrameBuffer(m_SSAOFrameBuffer);
-		}
-
 		// ---------------------------------------
 		// Render 3d
 		// ---------------------------------------
@@ -128,6 +120,18 @@ void VoxGame::Render()
 			{
 				m_pRenderer->DisableMultiSampling();
 			}
+
+			// Water reflections
+			RenderWaterReflections();
+
+			// SSAO frame buffer rendering start
+			if (m_deferredRendering)
+			{
+				m_pRenderer->StartRenderingToFrameBuffer(m_SSAOFrameBuffer);
+			}
+
+			m_pRenderer->SetClearColour(0.0f, 0.0f, 0.0f, 1.0f);
+			m_pRenderer->ClearScene(true, true, true);
 
 			// Render the lights (DEBUG)
 			m_pRenderer->PushMatrix();
@@ -246,6 +250,12 @@ void VoxGame::Render()
 					m_pFrontendManager->RenderDebug();
 				}
 			}
+
+			// SSAO frame buffer rendering stop
+			if (m_deferredRendering)
+			{
+				m_pRenderer->StopRenderingToFrameBuffer(m_SSAOFrameBuffer);
+			}
 		m_pRenderer->PopMatrix();
 
 		// Render player first person viewport
@@ -261,12 +271,6 @@ void VoxGame::Render()
 		if (m_dynamicLighting)
 		{
 			RenderDeferredLighting();
-		}
-
-		// SSAO frame buffer rendering stop
-		if (m_deferredRendering)
-		{
-			m_pRenderer->StopRenderingToFrameBuffer(m_SSAOFrameBuffer);
 		}
 
 		// Render other viewports
@@ -473,6 +477,52 @@ void VoxGame::RenderShadows()
 void VoxGame::RenderWaterReflections()
 {
 	m_pRenderer->StartRenderingToFrameBuffer(m_waterReflectionFrameBuffer);
+
+	if(m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()) == false)
+	{
+		m_pRenderer->PushMatrix();
+			m_pRenderer->SetClearColour(0.0f, 0.0f, 0.0f, 1.0f);
+			m_pRenderer->ClearScene(true, false, false);
+			m_pRenderer->TranslateWorldMatrix(0.0f, (m_pChunkManager->GetWaterHeight()*2.0f), 0.0f);
+			m_pRenderer->ScaleWorldMatrix(1.0f, -1.0f, 1.0f);
+			m_pRenderer->SetCullMode(CM_FRONT);
+
+			m_pRenderer->EnableClipPlane(0, 0.0f, 1.0f, 0.0f, -m_pChunkManager->GetWaterHeight());
+
+			// Player
+			if (m_gameMode != GameMode_FrontEnd)
+			{
+				m_pPlayer->Render();
+				m_pPlayer->RenderFace();
+			}
+
+			//// NPCs
+			//m_pNPCManager->Render(false, false, false, false, false, false);
+			//m_pNPCManager->RenderFaces();
+
+			//// Enemies
+			//m_pEnemyManager->Render(false, true, false, false);
+			//m_pEnemyManager->RenderFaces();
+
+			//// Projectiles
+			//m_pProjectileManager->Render();
+
+			//// Scenery
+			//m_pSceneryManager->Render(false, false, false, false, false);
+
+			//// Items
+			//m_pItemManager->Render(false, false, false, false);
+
+			//// Render the instanced objects
+			//if (m_instanceRender)
+			//{
+			//	m_pInstanceManager->Render();
+			//}
+
+			m_pRenderer->SetCullMode(CM_BACK);
+			m_pRenderer->DisableClipPlane(0);
+		m_pRenderer->PopMatrix();
+	}
 
 	m_pRenderer->StopRenderingToFrameBuffer(m_waterReflectionFrameBuffer);
 }
