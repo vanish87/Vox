@@ -218,6 +218,14 @@ void VoxGame::Render()
 			}
 			EndShaderRender();
 
+			// Render the transparency items above the water render, so that they appear properly under water
+			m_pPlayer->RenderFace();
+			m_pNPCManager->RenderFaces();
+			m_pEnemyManager->RenderFaces();
+			m_pPlayer->RenderWeaponTrails();
+			m_pNPCManager->RenderWeaponTrails();
+			m_pEnemyManager->RenderWeaponTrails();
+
 			// Render water
 			RenderWater();
 
@@ -494,6 +502,7 @@ void VoxGame::RenderWaterReflections()
 			{
 				m_pPlayer->Render();
 				m_pPlayer->RenderFace();
+				m_pPlayer->RenderWeaponTrails();
 			}
 
 			//// NPCs

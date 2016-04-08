@@ -1885,16 +1885,16 @@ void VoxelCharacter::RenderFaceTextures(bool eyesTexture, bool wireframe, bool t
 		m_pRenderer->EnableMaterial(m_pVoxelModel->GetMaterial());
 
 		m_pRenderer->EnableImmediateMode(IM_QUADS);
-			m_pRenderer->ImmediateNormal(0.0f, 0.0f, 1.0f);
+			//m_pRenderer->ImmediateNormal(0.0f, 0.0f, 1.0f);
 			m_pRenderer->ImmediateTextureCoordinate(0.0f, texture_h);
 			m_pRenderer->ImmediateVertex(0.0f, 0.0f, 0.0f);
-			m_pRenderer->ImmediateNormal(0.0f, 0.0f, 1.0f);
+			//m_pRenderer->ImmediateNormal(0.0f, 0.0f, 1.0f);
 			m_pRenderer->ImmediateTextureCoordinate(texture_w, texture_h);
 			m_pRenderer->ImmediateVertex(width, 0.0f, 0.0f);
-			m_pRenderer->ImmediateNormal(0.0f, 0.0f, 1.0f);
+			//m_pRenderer->ImmediateNormal(0.0f, 0.0f, 1.0f);
 			m_pRenderer->ImmediateTextureCoordinate(texture_w, 0.0f);
 			m_pRenderer->ImmediateVertex(width, height, 0.0f);
-			m_pRenderer->ImmediateNormal(0.0f, 0.0f, 1.0f);
+			//m_pRenderer->ImmediateNormal(0.0f, 0.0f, 1.0f);
 			m_pRenderer->ImmediateTextureCoordinate(0.0f, 0.0f);
 			m_pRenderer->ImmediateVertex(0.0f, height, 0.0f);
 		m_pRenderer->DisableImmediateMode();
