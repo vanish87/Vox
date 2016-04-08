@@ -66,7 +66,7 @@ Renderer::Renderer(int width, int height, int depthBits, int stencilBits)
 	}
 
 	// Set clear colour to black
-	SetClearColour(Colour(0.0f, 0.0f, 0.0f));
+	SetClearColour(0.0f, 0.0f, 0.0f, 1.0f);
 
 	// Enable smooth shading
 	glShadeModel(GL_SMOOTH);
@@ -517,7 +517,7 @@ void Renderer::SetClearColour(float red, float green, float blue, float alpha)
 	glClearColor(red, green, blue, alpha);
 }
 
-void Renderer::SetClearColour(Colour &col)
+void Renderer::SetClearColour(Colour col)
 {
 	glClearColor(col.GetRed(), col.GetGreen(), col.GetBlue(), col.GetAlpha());
 }

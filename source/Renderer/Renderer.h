@@ -195,7 +195,7 @@ public:
 	void EndScene();
 	void SetColourMask(bool red, bool green, bool blue, bool alpha);
 	void SetClearColour(float red, float green, float blue, float alpha);
-	void SetClearColour(Colour &col);
+	void SetClearColour(Colour col);
 
 	// Push / Pop matrix stack
 	void PushMatrix();
