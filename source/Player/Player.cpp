@@ -1686,7 +1686,7 @@ void Player::StopMoving()
 
 void Player::Jump()
 {
-	if (m_bCanJump == false)
+	if (m_bCanJump == false && m_pChunkManager->IsUnderWater(GetCenter()) == false)
 	{
 		return;
 	}
@@ -1696,7 +1696,7 @@ void Player::Jump()
 		return;
 	}
 
-	if (m_bIsOnGround == false)
+	if (m_bIsOnGround == false && m_pChunkManager->IsUnderWater(GetCenter()) == false)
 	{
 		return;
 	}
@@ -1709,7 +1709,13 @@ void Player::Jump()
 	m_bCanJump = false;
 	m_jumpTimer = 0.3f;
 
-	m_velocity += m_up * 14.0f;
+	float jumpMultiplier = 14.0f;
+	if (m_pChunkManager->IsUnderWater(GetCenter()))
+	{
+		jumpMultiplier = 5.0f;
+	}
+
+	m_velocity += m_up * jumpMultiplier;
 
 	// Change to jump animation
 	if (m_bIsChargingAttack == false)
@@ -2576,8 +2582,15 @@ void Player::UpdatePhysics(float dt)
 		m_stepUpAnimationPrevious = m_stepUpAnimationYAmount;
 	}
 
+	// Gravity multiplier
+	float gravityMultiplier = 4.0f;
+	if (m_pChunkManager->IsUnderWater(GetCenter()))
+	{
+		gravityMultiplier = 0.5f;
+	}
+
 	// Integrate velocity
-	vec3 acceleration = m_force + (m_gravityDirection * 9.81f)*4.0f;
+	vec3 acceleration = m_force + (m_gravityDirection * 9.81f)*gravityMultiplier;
 	m_velocity += acceleration * dt;
 
 	// Check collision
