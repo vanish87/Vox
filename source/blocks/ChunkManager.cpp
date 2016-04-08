@@ -38,6 +38,9 @@ ChunkManager::ChunkManager(Renderer* pRenderer, VoxSettings* pVoxSettings, Qubic
 	// Loader radius
 	m_loaderRadius = m_pVoxSettings->m_loaderRadius;
 
+	// Water
+	m_waterHeight = 0.0f;
+
 	// Update lock
 	m_stepLockEnabled = false;
 	m_updateStepLock = true;
@@ -938,6 +941,27 @@ void ChunkManager::CreateCollectibleBlock(BlockType blockType, vec3 blockPos)
 	}
 }
 
+// Water
+void ChunkManager::SetWaterHeight(float height)
+{
+	m_waterHeight = height;
+}
+
+float ChunkManager::GetWaterHeight()
+{
+	return m_waterHeight;
+}
+
+bool ChunkManager::IsUnderWater(vec3 position)
+{
+	if(position.y <= m_waterHeight)
+	{
+		return true;
+	}
+
+	return false;
+}
+
 // Rendering modes
 void ChunkManager::SetWireframeRender(bool wireframe)
 {
@@ -1304,6 +1328,28 @@ void ChunkManager::Render(bool shadowRender)
 	m_pRenderer->SetCullMode(cullMode);
 
 	m_pRenderer->EndMeshRender();
+}
+
+void ChunkManager::RenderWater()
+{
+	m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
+	m_pRenderer->EnableMaterial(m_chunkMaterialID);
+
+	float waterDistance = 500.0f;
+
+	m_pRenderer->SetCullMode(CM_NOCULL);
+
+	m_pRenderer->SetRenderMode(RM_SOLID);
+	m_pRenderer->EnableImmediateMode(IM_QUADS);
+		m_pRenderer->ImmediateVertex(-(float)waterDistance, m_waterHeight, -(float)waterDistance);
+		m_pRenderer->ImmediateVertex(-(float)waterDistance, m_waterHeight, (float)waterDistance);
+		m_pRenderer->ImmediateVertex((float)waterDistance, m_waterHeight, (float)waterDistance);
+		m_pRenderer->ImmediateVertex((float)waterDistance, m_waterHeight, -(float)waterDistance);
+	m_pRenderer->DisableImmediateMode();
+
+	m_pRenderer->SetCullMode(CM_BACK);
+
+	m_pRenderer->DisableTransparency();
 }
 
 void ChunkManager::RenderDebug()

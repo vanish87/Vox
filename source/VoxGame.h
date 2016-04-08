@@ -206,6 +206,8 @@ public:
 	void Render();
 	void RenderSkybox();
 	void RenderShadows();
+	void RenderWaterReflections();
+	void RenderWater();
 	void RenderDeferredLighting();
 	void RenderTransparency();
 	void RenderSSAOTexture();
@@ -428,6 +430,7 @@ private:
 	unsigned int m_shadowFrameBuffer;
 	unsigned int m_lightingFrameBuffer;
 	unsigned int m_transparencyFrameBuffer;
+	unsigned int m_waterReflectionFrameBuffer;
 	unsigned int m_FXAAFrameBuffer;
 	unsigned int m_firstPassFullscreenBuffer;
 	unsigned int m_secondPassFullscreenBuffer;
@@ -441,6 +444,7 @@ private:
 	unsigned int m_phongShader;
 	unsigned int m_SSAOShader;
 	unsigned int m_shadowShader;
+	unsigned int m_waterShader;
 	unsigned int m_lightingShader;
 	unsigned int m_cubeMapShader;
 	unsigned int m_textureShader;
@@ -557,6 +561,9 @@ private:
 
 	// Cinematic letterbox mode
 	float m_letterBoxRatio;
+
+	// Water
+	float m_elapsedWaterTime;
 
 	// Paperdoll rendering
 	float m_paperdollRenderRotation;

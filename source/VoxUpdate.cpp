@@ -58,7 +58,7 @@ void VoxGame::Update()
 		}
 	}
 
-	// Animation update
+	// Main components update
 	if (m_bPaused == false && m_initialStartWait == false)
 	{
 		// Update the lighting manager
@@ -110,6 +110,9 @@ void VoxGame::Update()
 			vec3 playerMovementChanged = m_pPlayer->GetPositionMovementAmount();
 			m_pGameCamera->SetFakePosition(m_pGameCamera->GetFakePosition() + playerMovementChanged);
 		}
+
+		// Water
+		m_elapsedWaterTime += m_deltaTime;
 	}
 
 	// Update the chunk manager

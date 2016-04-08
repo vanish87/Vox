@@ -90,6 +90,8 @@ void VoxGame::Render()
 			RenderShadows();
 		}
 
+		RenderWaterReflections();
+
 		// SSAO frame buffer rendering start
 		if (m_deferredRendering)
 		{
@@ -212,6 +214,9 @@ void VoxGame::Render()
 			}
 			EndShaderRender();
 
+			// Render water
+			RenderWater();
+
 			// Debug rendering
 			if(m_debugRender)
 			{
@@ -288,7 +293,7 @@ void VoxGame::Render()
 				RenderFXAATexture();
 			}
 
-			if(m_blur)
+			if(m_blur || m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()))
 			{
 				RenderFirstPassFullScreen();
 				RenderSecondPassFullScreen();
@@ -465,6 +470,60 @@ void VoxGame::RenderShadows()
 	m_pRenderer->PopMatrix();
 }
 
+void VoxGame::RenderWaterReflections()
+{
+	m_pRenderer->StartRenderingToFrameBuffer(m_waterReflectionFrameBuffer);
+
+	m_pRenderer->StopRenderingToFrameBuffer(m_waterReflectionFrameBuffer);
+}
+
+void VoxGame::RenderWater()
+{
+	m_pRenderer->PushMatrix();
+
+	m_pRenderer->BeginGLSLShader(m_waterShader);
+
+		glShader* pShader = pShader = m_pRenderer->GetShader(m_waterShader);
+		unsigned int reflectionTexture = glGetUniformLocationARB(pShader->GetProgramObject(), "reflectionTexture");
+		glActiveTextureARB(GL_TEXTURE1_ARB);
+		m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_waterReflectionFrameBuffer));
+		glUniform1iARB(reflectionTexture, 1);
+		
+		unsigned int cubemapTexture = glGetUniformLocationARB(pShader->GetProgramObject(), "cubemap");
+		glActiveTextureARB(GL_TEXTURE0_ARB);
+		m_pRenderer->BindCubeTexture(m_pSkybox->GetCubeMapTexture1());
+		glUniform1iARB(cubemapTexture, 0);
+
+		bool fogEnabled = true;
+		glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "enableFog"), fogEnabled);
+		float lfogEnd = m_pChunkManager->GetLoaderRadius() - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE;
+		float lfogStart = lfogEnd - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*2.0f;
+		GLfloat fogColor[4] = { 1.0f, 1.0f, 1.0f, 0.0f };
+		glFogi(GL_FOG_MODE, GL_LINEAR);
+		glFogfv(GL_FOG_COLOR, fogColor);
+		glFogf(GL_FOG_DENSITY, 1.0f);
+		glHint(GL_FOG_HINT, GL_DONT_CARE);
+		glFogf(GL_FOG_START, lfogStart);
+		glFogf(GL_FOG_END, lfogEnd);
+		glEnable(GL_FOG);
+
+		//pShader->setUniform1f("time", m_elapsedWaterTime);
+
+		m_pRenderer->TranslateWorldMatrix(m_pPlayer->GetCenter().x, 0.0f, m_pPlayer->GetCenter().z);
+		m_pChunkManager->RenderWater();
+
+		glDisable(GL_FOG);
+
+		glActiveTextureARB(GL_TEXTURE1_ARB);
+		glDisable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glActiveTextureARB(GL_TEXTURE0_ARB);
+		m_pRenderer->DisableCubeTexture();
+		m_pRenderer->EndGLSLShader(m_waterShader);
+	m_pRenderer->PopMatrix();
+}
+
 void VoxGame::RenderDeferredLighting()
 {
 	// Render deferred lighting to light frame buffer
@@ -607,7 +666,7 @@ void VoxGame::RenderSSAOTexture()
 		{
 			m_pRenderer->StartRenderingToFrameBuffer(m_FXAAFrameBuffer);
 		}
-		else if (m_blur)
+		else if (m_blur || m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()))
 		{
 			m_pRenderer->StartRenderingToFrameBuffer(m_firstPassFullscreenBuffer);
 		}
@@ -670,7 +729,7 @@ void VoxGame::RenderSSAOTexture()
 		{
 			m_pRenderer->StopRenderingToFrameBuffer(m_FXAAFrameBuffer);
 		}
-		else if (m_blur)
+		else if (m_blur || m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()))
 		{
 			m_pRenderer->StopRenderingToFrameBuffer(m_firstPassFullscreenBuffer);
 		}
@@ -683,7 +742,7 @@ void VoxGame::RenderFXAATexture()
 		m_pRenderer->SetProjectionMode(PM_2D, m_defaultViewport);
 		m_pRenderer->SetLookAtCamera(vec3(0.0f, 0.0f, 250.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
 
-		if (m_blur)
+		if (m_blur || m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()))
 		{
 			m_pRenderer->StartRenderingToFrameBuffer(m_firstPassFullscreenBuffer);
 		}
@@ -714,7 +773,7 @@ void VoxGame::RenderFXAATexture()
 
 		m_pRenderer->EndGLSLShader(m_fxaaShader);
 
-		if (m_blur)
+		if (m_blur || m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()))
 		{
 			m_pRenderer->StopRenderingToFrameBuffer(m_firstPassFullscreenBuffer);
 		}
@@ -781,6 +840,13 @@ void VoxGame::RenderSecondPassFullScreen()
 
 		float blurSize = 0.0015f;
 
+		bool applyBlueTint = false;
+		if (m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()))
+		{
+			blurSize = 0.0015f;
+			applyBlueTint = true;
+		}
+
 		// Override any blur amount if we have global blur set
 		if (m_globalBlurAmount > 0.0f)
 		{
@@ -788,6 +854,8 @@ void VoxGame::RenderSecondPassFullScreen()
 		}
 		
 		pShader->setUniform1f("blurSize", blurSize);
+
+		glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "applyBlueTint"), applyBlueTint);
 
 		m_pRenderer->SetRenderMode(RM_TEXTURED);
 		m_pRenderer->EnableImmediateMode(IM_QUADS);

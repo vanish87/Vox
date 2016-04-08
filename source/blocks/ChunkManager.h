@@ -199,6 +199,11 @@ public:
 	// Collectible block objects
 	void CreateCollectibleBlock(BlockType blockType, vec3 blockPos);
 
+	// Water
+	void SetWaterHeight(float height);
+	float GetWaterHeight();
+	bool IsUnderWater(vec3 position);
+
 	// Rendering modes
 	void SetWireframeRender(bool wireframe);
 	void SetFaceMerging(bool faceMerge);
@@ -211,6 +216,7 @@ public:
 
 	// Rendering
 	void Render(bool shadowRender);
+	void RenderWater();
 	void RenderDebug();
 	void Render2D(Camera* pCamera, unsigned int viewport, unsigned int font);
 
@@ -244,6 +250,9 @@ private:
 
 	// Loader radius
 	float m_loaderRadius;
+
+	// Water
+	float m_waterHeight;
 
 	// Update step lock
 	bool m_stepLockEnabled;
