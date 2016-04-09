@@ -278,9 +278,6 @@ protected:
 	static void _AnimationPullDownChanged(void *apData);
 	void AnimationPullDownChanged();
 
-	static void _WeaponPullDownChanged(void *apData);
-	void WeaponPullDownChanged();
-
 	static void _CharacterPullDownChanged(void *apData);
 	void CharacterPullDownChanged();
 
@@ -596,7 +593,6 @@ private:
 	CheckBox* m_pWaterRenderCheckBox;
 	Button* m_pPlayAnimationButton;
 	PulldownMenu* m_pAnimationsPulldown;
-	PulldownMenu* m_pWeaponsPulldown;
 	PulldownMenu* m_pCharacterPulldown;
 	GUIWindow* m_pGameWindow;
 	OptionBox* m_pGameOptionBox;
