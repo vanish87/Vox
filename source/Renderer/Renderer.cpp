@@ -45,7 +45,7 @@ Renderer::Renderer(int width, int height, int depthBits, int stencilBits)
 
 	// Default clipping planes
 	m_clipNear = 0.1f;
-	m_clipFar = 1000.0f;
+	m_clipFar = 10000.0f;
 
 	// Is depth buffer needed?
 	if (depthBits > 0)
