@@ -809,7 +809,7 @@ void VoxGame::WeaponPullDownChanged()
 		}
 		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Bow") == 0)
 		{
-			m_pPlayer->GetVoxelCharacter()->LoadLeftWeapon("media/gamedata/weapons/Bow/Bow.weapon");
+			m_pPlayer->GetVoxelCharacter()->LoadLeftWeapon("media/gamedata/weapons/WoodenBow/WoodenBow.weapon");
 		}
 		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Staff") == 0)
 		{

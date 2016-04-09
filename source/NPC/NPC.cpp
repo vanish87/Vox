@@ -413,7 +413,7 @@ void NPC::SetNPCCombatType(eNPCCombatType eNPCCombatType, bool setWeaponModel)
 			}
 		case eNPCCombatType_Archer:
 			{
-				LoadWeapon(true, "media/gamedata/weapons/Bow/Bow.weapon");
+				LoadWeapon(true, "media/gamedata/weapons/WoodenBow/WoodenBow.weapon");
 
 				// Add a quiver item to the enemy ranger
 				VoxelWeapon* pNewEquipment = new VoxelWeapon(m_pRenderer, m_pQubicleBinaryManager);

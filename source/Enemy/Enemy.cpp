@@ -562,7 +562,7 @@ void Enemy::SetupWeaponsForType()
 		break;
 	case eEnemyType_RangedSkeleton:
 		{
-			LoadWeapon(true, "media/gamedata/weapons/Bow/Bow.weapon");
+			LoadWeapon(true, "media/gamedata/weapons/WoodenBow/WoodenBow.weapon");
 		}
 		break;
 	case eEnemyType_MeleeSkeleton:
