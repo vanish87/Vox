@@ -552,9 +552,9 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 		// Pickaxe
 		{
 			CraftingRecipe* pPickaxeRecipe = new CraftingRecipe();
-			InventoryItem* pStone = m_pInventoryManager->CreateInventoryItem("media/gamedata/items/Block_Wood/Block_Wood.item", "media/textures/items/block_stone.tga", InventoryType_Block, eItem_Block_Stone, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Stone Block", "", 1.0f, 1.0f, 1.0f, 3, -1, -1, -1, -1);
-			InventoryItem* pWood = m_pInventoryManager->CreateInventoryItem("media/gamedata/items/Block_Wood/Block_Wood.item", "media/textures/items/block_wood.tga", InventoryType_Block, eItem_Block_Wood, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Wood Block", "", 1.0f, 1.0f, 1.0f, 4, -1, -1, -1, -1);
-			InventoryItem* pGrass = m_pInventoryManager->CreateInventoryItem("media/gamedata/items/Block_Wood/Block_Wood.item", "media/textures/items/block_grass.tga", InventoryType_Block, eItem_Block_Grass, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Grass Block", "", 1.0f, 1.0f, 1.0f, 2, -1, -1, -1, -1);
+			InventoryItem* pStone = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_Block_Stone, 3, ItemQuality_Common);
+			InventoryItem* pWood = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_Block_Wood, 4, ItemQuality_Common);
+			InventoryItem* pGrass = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_Block_Grass, 2, ItemQuality_Common);
 			pPickaxeRecipe->m_vpCraftingItems.push_back(pStone);
 			pPickaxeRecipe->m_vpCraftingItems.push_back(pWood);
 			pPickaxeRecipe->m_vpCraftingItems.push_back(pGrass);
@@ -569,8 +569,8 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 		// Hammer
 		{
 			CraftingRecipe* pHammerRecipe = new CraftingRecipe();
-			InventoryItem* pStone = m_pInventoryManager->CreateInventoryItem("media/gamedata/items/Block_Wood/Block_Wood.item", "media/textures/items/block_stone.tga", InventoryType_Block, eItem_Block_Stone, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Stone Block", "", 1.0f, 1.0f, 1.0f, 3, -1, -1, -1, -1);
-			InventoryItem* pWood = m_pInventoryManager->CreateInventoryItem("media/gamedata/items/Block_Wood/Block_Wood.item", "media/textures/items/block_wood.tga", InventoryType_Block, eItem_Block_Wood, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Wood Block", "", 1.0f, 1.0f, 1.0f, 4, -1, -1, -1, -1);
+			InventoryItem* pStone = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_Block_Stone, 3, ItemQuality_Common);
+			InventoryItem* pWood = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_Block_Wood, 4, ItemQuality_Common);
 			pHammerRecipe->m_vpCraftingItems.push_back(pStone);
 			pHammerRecipe->m_vpCraftingItems.push_back(pWood);
 
@@ -584,7 +584,7 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 		// Sword
 		{
 			CraftingRecipe* pSwordRecipe = new CraftingRecipe();
-			InventoryItem* pStone = m_pInventoryManager->CreateInventoryItem("media/gamedata/items/Block_Wood/Block_Wood.item", "media/textures/items/block_stone.tga", InventoryType_Block, eItem_Block_Stone, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Stone Block", "", 1.0f, 1.0f, 1.0f, 3, -1, -1, -1, -1);
+			InventoryItem* pStone = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_Block_Stone, 3, ItemQuality_Common);
 			pSwordRecipe->m_vpCraftingItems.push_back(pStone);
 
 			InventoryItem* pSword = m_pInventoryManager->CreateInventoryItem("media/gamedata/weapons/Sword/Sword.weapon", "media/textures/items/sword.tga", InventoryType_Weapon_Sword, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Sword", "Attacking enemies.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
@@ -597,7 +597,7 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 		// Bigger Sword
 		{
 			CraftingRecipe* pBiggerSwordRecipe = new CraftingRecipe();
-			InventoryItem* pStone = m_pInventoryManager->CreateInventoryItem("media/gamedata/items/Block_Wood/Block_Wood.item", "media/textures/items/block_stone.tga", InventoryType_Block, eItem_Block_Stone, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Stone Block", "", 1.0f, 1.0f, 1.0f, 3, -1, -1, -1, -1);
+			InventoryItem* pStone = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_Block_Stone, 3, ItemQuality_Common);
 			pBiggerSwordRecipe->m_vpCraftingItems.push_back(pStone);
 
 			InventoryItem* pBiggerSword = m_pInventoryManager->CreateInventoryItem("media/gamedata/weapons/2HandedSword/2HandedSword.weapon", "media/textures/items/2handed_sword.tga", InventoryType_Weapon_2HandedSword, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, true, true, "Bigger Sword", "Used for removing items from the world and repositioning.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
@@ -612,10 +612,10 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 		// Copper
 		{
 			CraftingRecipe* pCopperRecipe = new CraftingRecipe();
-			InventoryItem* pCopperNugget = m_pInventoryManager->CreateInventoryItem("media/gamedata/items/CopperOre/CopperOre.item", "media/textures/items/copper_ore.tga", InventoryType_Item, eItem_CopperOre, ItemStatus_None, EquipSlot_NoSlot, ItemQuality_Common, false, false, "Copper Ore", "Copper ore", 1.0f, 1.0f, 1.0f, 1, -1, -1, -1, -1);
+			InventoryItem* pCopperNugget = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_CopperOre, 1, ItemQuality_Common);
 			pCopperRecipe->m_vpCraftingItems.push_back(pCopperNugget);
 
-			InventoryItem* pCopperBar = m_pInventoryManager->CreateInventoryItem("media/gamedata/items/CopperBar/CopperBar.item", "media/textures/items/copper_bar.tga", InventoryType_Item, eItem_CopperBar, ItemStatus_None, EquipSlot_NoSlot, ItemQuality_Common, false, false, "Copper Bar", "Copper bar", 1.0f, 1.0f, 1.0f, 1, -1, -1, -1, -1);
+			InventoryItem* pCopperBar = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_CopperBar, 1, ItemQuality_Common);
 			pCopperRecipe->m_pResultItem = pCopperBar;
 
 			AddCraftingRecipe(pCopperRecipe);
@@ -624,10 +624,10 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 		// Iron
 		{
 			CraftingRecipe* pIronRecipe = new CraftingRecipe();
-			InventoryItem* pIronNugget = m_pInventoryManager->CreateInventoryItem("media/gamedata/items/IronOre/IronOre.item", "media/textures/items/iron_ore.tga", InventoryType_Item, eItem_IronOre, ItemStatus_None, EquipSlot_NoSlot, ItemQuality_Common, false, false, "Iron Ore", "Iron ore", 1.0f, 1.0f, 1.0f, 2, -1, -1, -1, -1);
+			InventoryItem* pIronNugget = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_IronOre, 2, ItemQuality_Common); 
 			pIronRecipe->m_vpCraftingItems.push_back(pIronNugget);
 
-			InventoryItem* pIronBar = m_pInventoryManager->CreateInventoryItem("media/gamedata/items/IronBar/IronBar.item", "media/textures/items/iron_bar.tga", InventoryType_Item, eItem_IronBar, ItemStatus_None, EquipSlot_NoSlot, ItemQuality_Common, false, false, "Iron Bar", "Iron bar", 1.0f, 1.0f, 1.0f, 1, -1, -1, -1, -1);
+			InventoryItem* pIronBar = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_IronBar, 1, ItemQuality_Common);
 			pIronRecipe->m_pResultItem = pIronBar;
 
 			AddCraftingRecipe(pIronRecipe);
@@ -636,10 +636,10 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 		// Silver
 		{
 			CraftingRecipe* pSilverRecipe = new CraftingRecipe();
-			InventoryItem* pSilverNugget = m_pInventoryManager->CreateInventoryItem("media/gamedata/items/SilverOre/SilverOre.item", "media/textures/items/silver_ore.tga", InventoryType_Item, eItem_SilverOre, ItemStatus_None, EquipSlot_NoSlot, ItemQuality_Common, false, false, "Silver Ore", "Silver ore", 1.0f, 1.0f, 1.0f, 3, -1, -1, -1, -1);
+			InventoryItem* pSilverNugget = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_SilverOre, 3, ItemQuality_Common);
 			pSilverRecipe->m_vpCraftingItems.push_back(pSilverNugget);
 
-			InventoryItem* pSilverBar = m_pInventoryManager->CreateInventoryItem("media/gamedata/items/SilverBar/SilverBar.item", "media/textures/items/silver_bar.tga", InventoryType_Item, eItem_SilverBar, ItemStatus_None, EquipSlot_NoSlot, ItemQuality_Common, false, false, "Silver Bar", "Silver bar", 1.0f, 1.0f, 1.0f, 1, -1, -1, -1, -1);
+			InventoryItem* pSilverBar = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_SilverBar, 1, ItemQuality_Common);
 			pSilverRecipe->m_pResultItem = pSilverBar;
 
 			AddCraftingRecipe(pSilverRecipe);
@@ -648,10 +648,10 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 		// Gold
 		{
 			CraftingRecipe* pGoldRecipe = new CraftingRecipe();
-			InventoryItem* pGoldNugget = m_pInventoryManager->CreateInventoryItem("media/gamedata/items/GoldOre/GoldOre.item", "media/textures/items/gold_ore.tga", InventoryType_Item, eItem_GoldOre, ItemStatus_None, EquipSlot_NoSlot, ItemQuality_Common, false, false, "Gold Ore", "Gold ore", 1.0f, 1.0f, 1.0f, 4, -1, -1, -1, -1);
+			InventoryItem* pGoldNugget = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_GoldOre, 3, ItemQuality_Common);
 			pGoldRecipe->m_vpCraftingItems.push_back(pGoldNugget);
 
-			InventoryItem* pGoldBar = m_pInventoryManager->CreateInventoryItem("media/gamedata/items/GoldBar/GoldBar.item", "media/textures/items/gold_bar.tga", InventoryType_Item, eItem_GoldBar, ItemStatus_None, EquipSlot_NoSlot, ItemQuality_Common, false, false, "Gold Bar", "Gold bar", 1.0f, 1.0f, 1.0f, 1, -1, -1, -1, -1);
+			InventoryItem* pGoldBar = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_GoldBar, 1, ItemQuality_Common);
 			pGoldRecipe->m_pResultItem = pGoldBar;
 
 			AddCraftingRecipe(pGoldRecipe);

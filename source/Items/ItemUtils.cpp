@@ -15,55 +15,109 @@
 
 #include "Item.h"
 
-string GetItemTypeToString(eItem type)
+string GetItemTitleForType(eItem type)
 {
 	switch(type)
 	{
 		case eItem_None:			{ return "None"; } break;
-		case eItem_DroppedItem:		{ return "DroppedItem"; } break;
+		case eItem_DroppedItem:		{ return "Dropped Item"; } break;
 		case eItem_Coin:			{ return "Coin"; } break;
 		case eItem_Heart:			{ return "Heart"; } break;
 		case eItem_Gib:				{ return "Gib"; } break;
-		case eItem_Tombstone:		{ return "TombStone"; } break;
+		case eItem_Tombstone:		{ return "Tombstone"; } break;
 		case eItem_Chest:			{ return "Chest"; } break;
 		case eItem_Torch:			{ return "Torch"; } break;
 		case eItem_Furnace:			{ return "Furnace"; } break;
 		case eItem_Anvil:			{ return "Anvil"; } break;
-		case eItem_QuestBoard:		{ return "QuestBoard"; } break;
-		case eItem_CampFire:		{ return "CampFire"; } break;
+		case eItem_QuestBoard:		{ return "Quest Board"; } break;
+		case eItem_CampFire:		{ return "Camp Fire"; } break;
 		case eItem_Mannequin:		{ return "Mannequin"; } break;
 		case eItem_Door:			{ return "Door"; } break;
 		case eItem_Chair:			{ return "Chair"; } break;
 		case eItem_Table:			{ return "Table"; } break;
 		case eItem_Bed:				{ return "Bed"; } break;
 		case eItem_Portal:			{ return "Portal"; } break;
-		case eItem_PortalPillar:	{ return "PortalPillar"; } break;
-		case eItem_CopperVein:		{ return "CopperVein"; } break;
-		case eItem_CopperOre:		{ return "CopperOre"; } break;
-		case eItem_CopperBar:		{ return "CopperBar"; } break;
-		case eItem_IronVein:		{ return "IronVein"; } break;
-		case eItem_IronOre:			{ return "IronOre"; } break;
-		case eItem_IronBar:			{ return "IronBar"; } break;
-		case eItem_SilverVein:		{ return "SilverVein"; } break;
-		case eItem_SilverOre:		{ return "SilverOre"; } break;
-		case eItem_SilverBar:		{ return "SilverBar"; } break;
-		case eItem_GoldVein:		{ return "GoldVein"; } break;
-		case eItem_GoldOre:			{ return "GoldOre"; } break;
-		case eItem_GoldBar:			{ return "GoldBar"; } break;
-		case eItem_CropSoil:		{ return "CropSoil"; } break;
-		case eItem_CropWheat:		{ return "CropWheat"; } break;
-		case eItem_CropCorn:		{ return "CropCorn"; } break;
-		case eItem_CropTomato:		{ return "CropTomato"; } break;
+		case eItem_PortalPillar:	{ return "Portal Pillar"; } break;
+		case eItem_CopperVein:		{ return "Copper Vein"; } break;
+		case eItem_CopperOre:		{ return "Copper Ore"; } break;
+		case eItem_CopperBar:		{ return "Copper Bar"; } break;
+		case eItem_IronVein:		{ return "Iron Vein"; } break;
+		case eItem_IronOre:			{ return "Iron Ore"; } break;
+		case eItem_IronBar:			{ return "Iron Bar"; } break;
+		case eItem_SilverVein:		{ return "Silver Vein"; } break;
+		case eItem_SilverOre:		{ return "Silver Ore"; } break;
+		case eItem_SilverBar:		{ return "Silver Bar"; } break;
+		case eItem_GoldVein:		{ return "Gold Vein"; } break;
+		case eItem_GoldOre:			{ return "Gold Ore"; } break;
+		case eItem_GoldBar:			{ return "Gold Bar"; } break;
+		case eItem_CropSoil:		{ return "Soil"; } break;
+		case eItem_CropWheat:		{ return "Wheat Crop"; } break;
+		case eItem_CropCorn:		{ return "Corn Crop"; } break;
+		case eItem_CropTomato:		{ return "Tomato Crop"; } break;
 		case eItem_Fence:			{ return "Fence"; } break;
-		case eItem_Block_Grass:		{ return "BlockGrass"; } break;
-		case eItem_Block_Dirt:		{ return "BlockDirt"; } break;
-		case eItem_Block_Stone:		{ return "BlockStone"; } break;
-		case eItem_Block_Wood:		{ return "BlockWood"; } break;
-		case eItem_Block_Leaf:		{ return "BlockLead"; } break;
-		case eItem_Block_Sand:		{ return "BlockSand"; } break;
-		case eItem_Block_Cactus:	{ return "BlockCactus"; } break;
-		case eItem_Block_Rock:		{ return "BlockRock"; } break;
-		case eItem_Block_Snow:		{ return "BlockSnow"; } break;
+		case eItem_Block_Grass:		{ return "Grass Block"; } break;
+		case eItem_Block_Dirt:		{ return "Dirt Block"; } break;
+		case eItem_Block_Stone:		{ return "Stone Block"; } break;
+		case eItem_Block_Wood:		{ return "Wood Block"; } break;
+		case eItem_Block_Leaf:		{ return "Lead Block"; } break;
+		case eItem_Block_Sand:		{ return "Sand Block"; } break;
+		case eItem_Block_Cactus:	{ return "Cactus Block"; } break;
+		case eItem_Block_Rock:		{ return "Rock Block"; } break;
+		case eItem_Block_Snow:		{ return "Snow Block"; } break;
+	}
+
+	return "";
+}
+
+string GetItemDescriptionForType(eItem type)
+{
+	switch(type)
+	{
+		case eItem_None:			{ return "None"; } break;
+		case eItem_DroppedItem:		{ return "Dropped Item"; } break;
+		case eItem_Coin:			{ return "Coin"; } break;
+		case eItem_Heart:			{ return "Heart"; } break;
+		case eItem_Gib:				{ return "Gib"; } break;
+		case eItem_Tombstone:		{ return "Tombstone"; } break;
+		case eItem_Chest:			{ return "Chest"; } break;
+		case eItem_Torch:			{ return "Torch"; } break;
+		case eItem_Furnace:			{ return "Furnace"; } break;
+		case eItem_Anvil:			{ return "Anvil"; } break;
+		case eItem_QuestBoard:		{ return "Quest Board"; } break;
+		case eItem_CampFire:		{ return "Camp Fire"; } break;
+		case eItem_Mannequin:		{ return "Mannequin"; } break;
+		case eItem_Door:			{ return "Door"; } break;
+		case eItem_Chair:			{ return "Chair"; } break;
+		case eItem_Table:			{ return "Table"; } break;
+		case eItem_Bed:				{ return "Bed"; } break;
+		case eItem_Portal:			{ return "Portal"; } break;
+		case eItem_PortalPillar:	{ return "Portal Pillar"; } break;
+		case eItem_CopperVein:		{ return "Copper Vein"; } break;
+		case eItem_CopperOre:		{ return "A nugget of copper ore. Can be smelted down at a furnace to create copper bars."; } break;
+		case eItem_CopperBar:		{ return "A solid bar of copper, useful for crafting items made out of copper."; } break;
+		case eItem_IronVein:		{ return "Iron Vein"; } break;
+		case eItem_IronOre:			{ return "A nugget of iron ore. Can be smelted down at a furnace to create iron bars."; } break;
+		case eItem_IronBar:			{ return "A solid bar of iron, useful for crafting items made out of iron."; } break;
+		case eItem_SilverVein:		{ return "Silver Vein"; } break;
+		case eItem_SilverOre:		{ return "A nugget of silver ore. Can be smelted down at a furnace to create silver bars."; } break;
+		case eItem_SilverBar:		{ return "A solid bar of silver, useful for crafting items made out of silver."; } break;
+		case eItem_GoldVein:		{ return "Gold Vein"; } break;
+		case eItem_GoldOre:			{ return "A nugget of gold ore. Can be smelted down at a furnace to create gold bars."; } break;
+		case eItem_GoldBar:			{ return "A solid bar of gold, useful for crafting items made out of gold."; } break;
+		case eItem_CropSoil:		{ return "Soil"; } break;
+		case eItem_CropWheat:		{ return "Wheat Crop"; } break;
+		case eItem_CropCorn:		{ return "Corn Crop"; } break;
+		case eItem_CropTomato:		{ return "Tomato Crop"; } break;
+		case eItem_Fence:			{ return "Fence"; } break;
+		case eItem_Block_Grass:		{ return "Grass block for world building."; } break;
+		case eItem_Block_Dirt:		{ return "Dirt block for world building."; } break;
+		case eItem_Block_Stone:		{ return "Stone block for world building."; } break;
+		case eItem_Block_Wood:		{ return "Wood block for world building."; } break;
+		case eItem_Block_Leaf:		{ return "Lead block for world building."; } break;
+		case eItem_Block_Sand:		{ return "Sand block for world building."; } break;
+		case eItem_Block_Cactus:	{ return "Cactus block for world building."; } break;
+		case eItem_Block_Rock:		{ return "Rock block for world building."; } break;
+		case eItem_Block_Snow:		{ return "Snow block for world building."; } break;
 	}
 
 	return "";
@@ -160,15 +214,69 @@ string GetItemFilenameForType(eItem type)
 		case eItem_CropCorn:		{ return ""; } break;
 		case eItem_CropTomato:		{ return ""; } break;
 		case eItem_Fence:			{ return ""; } break;
-		case eItem_Block_Grass:		{ return "media/gamedata/items/BlockGrass/BlockGrass.item"; } break;
-		case eItem_Block_Dirt:		{ return "media/gamedata/items/BlockDirt/BlockDirt.item"; } break;
-		case eItem_Block_Stone:		{ return "media/gamedata/items/BlockStone/BlockStone.item"; } break;
-		case eItem_Block_Wood:		{ return "media/gamedata/items/BlockWood/BlockWood.item"; } break;
-		case eItem_Block_Leaf:		{ return "media/gamedata/items/BlockLead/BlockLead.item"; } break;
-		case eItem_Block_Sand:		{ return "media/gamedata/items/BlockSand/BlockSand.item"; } break;
-		case eItem_Block_Cactus:	{ return "media/gamedata/items/BlockCactus/BlockCactus.item"; } break;
-		case eItem_Block_Rock:		{ return "media/gamedata/items/BlockRock/BlockRock.item"; } break;
-		case eItem_Block_Snow:		{ return "media/gamedata/items/BlockSnow/BlockSnow.item"; } break;
+		case eItem_Block_Grass:		{ return "media/gamedata/items/Block_Grass/Block_Grass.item"; } break;
+		case eItem_Block_Dirt:		{ return "media/gamedata/items/Block_Dirt/Block_Dirt.item"; } break;
+		case eItem_Block_Stone:		{ return "media/gamedata/items/Block_Stone/Block_Stone.item"; } break;
+		case eItem_Block_Wood:		{ return "media/gamedata/items/Block_Wood/Block_Wood.item"; } break;
+		case eItem_Block_Leaf:		{ return "media/gamedata/items/Block_Lead/Block_Lead.item"; } break;
+		case eItem_Block_Sand:		{ return "media/gamedata/items/Block_Sand/Block_Sand.item"; } break;
+		case eItem_Block_Cactus:	{ return "media/gamedata/items/Block_Cactus/Block_Cactus.item"; } break;
+		case eItem_Block_Rock:		{ return "media/gamedata/items/Block_Rock/Block_Rock.item"; } break;
+		case eItem_Block_Snow:		{ return "media/gamedata/items/Block_Snow/Block_Snow.item"; } break;
+	}
+
+	return "";
+}
+
+string GetItemTextureForType(eItem type)
+{
+	switch(type)
+	{
+		case eItem_None:			{ return ""; } break;
+		case eItem_DroppedItem:		{ return ""; } break;
+		case eItem_Coin:			{ return ""; } break;
+		case eItem_Heart:			{ return ""; } break;
+		case eItem_Gib:				{ return ""; } break;
+		case eItem_Tombstone:		{ return ""; } break;
+		case eItem_Chest:			{ return "media/textures/items/chest.tga"; } break;
+		case eItem_Torch:			{ return "media/textures/items/torch.tga"; } break;
+		case eItem_Furnace:			{ return "media/textures/items/furnace.tga"; } break;
+		case eItem_Anvil:			{ return "media/textures/items/anvil.tga"; } break;
+		case eItem_QuestBoard:		{ return ""; } break;
+		case eItem_CampFire:		{ return ""; } break;
+		case eItem_Mannequin:		{ return ""; } break;
+		case eItem_Door:			{ return ""; } break;
+		case eItem_Chair:			{ return ""; } break;
+		case eItem_Table:			{ return ""; } break;
+		case eItem_Bed:				{ return ""; } break;
+		case eItem_Portal:			{ return ""; } break;
+		case eItem_PortalPillar:	{ return ""; } break;
+		case eItem_CopperVein:		{ return ""; } break;
+		case eItem_CopperOre:		{ return "media/textures/items/copper_ore.tga"; } break;
+		case eItem_CopperBar:		{ return "media/textures/items/copper_bar.tga"; } break;
+		case eItem_IronVein:		{ return ""; } break;
+		case eItem_IronOre:			{ return "media/textures/items/iron_ore.tga"; } break;
+		case eItem_IronBar:			{ return "media/textures/items/iron_bar.tga"; } break;
+		case eItem_SilverVein:		{ return ""; } break;
+		case eItem_SilverOre:		{ return "media/textures/items/silver_ore.tga"; } break;
+		case eItem_SilverBar:		{ return "media/textures/items/silver_bar.tga"; } break;
+		case eItem_GoldVein:		{ return ""; } break;
+		case eItem_GoldOre:			{ return "media/textures/items/gold_ore.tga"; } break;
+		case eItem_GoldBar:			{ return "media/textures/items/gold_bar.tga"; } break;
+		case eItem_CropSoil:		{ return ""; } break;
+		case eItem_CropWheat:		{ return ""; } break;
+		case eItem_CropCorn:		{ return ""; } break;
+		case eItem_CropTomato:		{ return ""; } break;
+		case eItem_Fence:			{ return ""; } break;
+		case eItem_Block_Grass:		{ return "media/textures/items/block_grass.tga"; } break;
+		case eItem_Block_Dirt:		{ return "media/textures/items/block_dirt.tga"; } break;
+		case eItem_Block_Stone:		{ return "media/textures/items/block_stone.tga"; } break;
+		case eItem_Block_Wood:		{ return "media/textures/items/block_wood.tga"; } break;
+		case eItem_Block_Leaf:		{ return "media/textures/items/block_leaf.tga"; } break;
+		case eItem_Block_Sand:		{ return "media/textures/items/block_sand.tga"; } break;
+		case eItem_Block_Cactus:	{ return "media/textures/items/block_cactus.tga"; } break;
+		case eItem_Block_Rock:		{ return "media/textures/items/block_rock.tga"; } break;
+		case eItem_Block_Snow:		{ return "media/textures/items/block_snow.tga"; } break;
 	}
 
 	return "";

@@ -726,6 +726,16 @@ InventoryItem* InventoryManager::CreateInventoryItem(const char* filename, const
 	return pNewItem;
 }
 
+InventoryItem* InventoryManager::CreateInventoryItemForCrafting(eItem item, int quantity, ItemQuality itemQuality)
+{
+	string filename = GetItemFilenameForType(item);
+	string textureFilename = GetItemTextureForType(item);
+	string title = GetItemTitleForType(item);
+	string desscription = GetItemDescriptionForType(item);
+
+	return CreateInventoryItem(filename.c_str(), textureFilename.c_str(), InventoryType_Item, item, ItemStatus_None, EquipSlot_NoSlot, itemQuality, false, false, title.c_str(), desscription.c_str(), 1.0f, 1.0f, 1.0f, quantity, -1, -1, -1, -1);
+}
+
 ItemTextData* InventoryManager::GetItemTextData(eItem item)
 {
 	for(int i = 0; i < (sizeof(g_itemData)/sizeof(g_itemData[0])); i++)

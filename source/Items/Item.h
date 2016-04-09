@@ -29,10 +29,12 @@ class ItemManager;
 class ItemSpawner;
 
 
-string GetItemTypeToString(eItem type);
+string GetItemTitleForType(eItem type);
+string GetItemDescriptionForType(eItem type);
 eItem GetItemTypeFromString(string typeName);
 float GetItemRadiusForType(eItem type);
 string GetItemFilenameForType(eItem type);
+string GetItemTextureForType(eItem type);
 
 class Item
 {

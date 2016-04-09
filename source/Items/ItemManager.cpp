@@ -34,38 +34,38 @@ ItemManager::ItemManager(Renderer* pRenderer, ChunkManager* pChunkManager, Playe
 	m_numRenderItems = 0;
 
 	// Chest
-	AddItemSubSpawnData(eItem_Chest, BlockType_Default, eItem_Coin, "media/gamedata/items/Coin/Coin.item", "Coin", false, true, 0.0225f,
-		"media/gamedata/items/Coin/Coin.item", "media/textures/items/coin.tga", InventoryType_Item, eItem_Coin, ItemStatus_None, EquipSlot_NoSlot, ItemQuality_Common, false, false, "Coin", "Coin", 1.0f, 1.0f, 1.0f, 1);
+	AddItemSubSpawnData(eItem_Chest, BlockType_Default, eItem_Coin, GetItemFilenameForType(eItem_Coin), GetItemTitleForType(eItem_Coin), false, true, 0.0225f,
+		GetItemFilenameForType(eItem_Coin), GetItemTextureForType(eItem_Coin), InventoryType_Item, eItem_Coin, ItemStatus_None, EquipSlot_NoSlot, ItemQuality_Common, false, false, GetItemTitleForType(eItem_Coin), GetItemDescriptionForType(eItem_Coin), 1.0f, 1.0f, 1.0f, 1);
 
 	// Ores
-	AddItemSubSpawnData(eItem_CopperVein, BlockType_Default, eItem_CopperOre, "media/gamedata/items/CopperOre/CopperOre.item", "Copper Ore", false, true, 0.08f,
-		"media/gamedata/items/CopperOre/CopperOre.item", "media/textures/items/copper_ore.tga", InventoryType_Item, eItem_CopperOre, ItemStatus_None, EquipSlot_NoSlot, ItemQuality_Common, false, false, "Copper Ore", "Copper ore", 1.0f, 1.0f, 1.0f, 1);
-	AddItemSubSpawnData(eItem_IronVein, BlockType_Default, eItem_IronOre, "media/gamedata/items/IronOre/IronOre.item", "Iron Ore", false, true, 0.08f,
-		"media/gamedata/items/IronOre/IronOre.item", "media/textures/items/iron_ore.tga", InventoryType_Item, eItem_IronOre, ItemStatus_None, EquipSlot_NoSlot, ItemQuality_Common, false, false, "Iron Ore", "Iron ore", 1.0f, 1.0f, 1.0f, 1);
-	AddItemSubSpawnData(eItem_SilverVein, BlockType_Default, eItem_SilverOre, "media/gamedata/items/SilverOre/SilverOre.item", "Silver Ore", false, true, 0.08f,
-		"media/gamedata/items/SilverOre/SilverOre.item", "media/textures/items/silver_ore.tga", InventoryType_Item, eItem_SilverOre, ItemStatus_None, EquipSlot_NoSlot, ItemQuality_Common, false, false, "Silver Ore", "Silver ore", 1.0f, 1.0f, 1.0f, 1);
-	AddItemSubSpawnData(eItem_GoldVein, BlockType_Default, eItem_GoldOre, "media/gamedata/items/GoldOre/GoldOre.item", "Gold Ore", false, true, 0.08f,
-		"media/gamedata/items/GoldOre/GoldOre.item", "media/textures/items/gold_ore.tga", InventoryType_Item, eItem_GoldOre, ItemStatus_None, EquipSlot_NoSlot, ItemQuality_Common, false, false, "Gold Ore", "Gold ore", 1.0f, 1.0f, 1.0f, 1);
+	AddItemSubSpawnData(eItem_CopperVein, BlockType_Default, eItem_CopperOre, GetItemFilenameForType(eItem_CopperOre), GetItemTitleForType(eItem_CopperOre), false, true, 0.08f,
+		GetItemFilenameForType(eItem_CopperOre), GetItemTextureForType(eItem_CopperOre), InventoryType_Item, eItem_CopperOre, ItemStatus_None, EquipSlot_NoSlot, ItemQuality_Common, false, false, GetItemTitleForType(eItem_CopperOre), GetItemDescriptionForType(eItem_CopperOre), 1.0f, 1.0f, 1.0f, 1);
+	AddItemSubSpawnData(eItem_IronVein, BlockType_Default, eItem_IronOre, GetItemFilenameForType(eItem_IronOre), GetItemTitleForType(eItem_IronOre), false, true, 0.08f,
+		GetItemFilenameForType(eItem_IronOre), GetItemTextureForType(eItem_IronOre), InventoryType_Item, eItem_IronOre, ItemStatus_None, EquipSlot_NoSlot, ItemQuality_Common, false, false, GetItemTitleForType(eItem_IronOre), GetItemDescriptionForType(eItem_IronOre), 1.0f, 1.0f, 1.0f, 1);
+	AddItemSubSpawnData(eItem_SilverVein, BlockType_Default, eItem_SilverOre, GetItemFilenameForType(eItem_SilverOre), GetItemTitleForType(eItem_SilverOre), false, true, 0.08f,
+		GetItemFilenameForType(eItem_SilverOre), GetItemTextureForType(eItem_SilverOre), InventoryType_Item, eItem_SilverOre, ItemStatus_None, EquipSlot_NoSlot, ItemQuality_Common, false, false, GetItemTitleForType(eItem_SilverOre), GetItemDescriptionForType(eItem_SilverOre), 1.0f, 1.0f, 1.0f, 1);
+	AddItemSubSpawnData(eItem_GoldVein, BlockType_Default, eItem_GoldOre, GetItemFilenameForType(eItem_GoldOre), GetItemTitleForType(eItem_GoldOre), false, true, 0.08f,
+		GetItemFilenameForType(eItem_GoldOre), GetItemTextureForType(eItem_GoldOre), InventoryType_Item, eItem_GoldOre, ItemStatus_None, EquipSlot_NoSlot, ItemQuality_Common, false, false, GetItemTitleForType(eItem_GoldOre), GetItemDescriptionForType(eItem_GoldOre), 1.0f, 1.0f, 1.0f, 1);
 
 	// Blocks
-	AddItemSubSpawnData(eItem_None, BlockType_Grass, eItem_Block_Grass, "media/gamedata/items/Block_Grass/Block_Grass.item", "Grass Block", false, true, 0.06f,
-		"media/gamedata/items/Block_Grass/Block_Grass.item", "media/textures/items/block_grass.tga", InventoryType_Block, eItem_Block_Grass, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Grass Block", "Grass block for world building", 0.23f, 0.13f, 0.02f, 1);
-	AddItemSubSpawnData(eItem_None, BlockType_Dirt, eItem_Block_Dirt, "media/gamedata/items/Block_Dirt/Block_Dirt.item", "Dirt Block", false, true, 0.06f,
-		"media/gamedata/items/Block_Dirt/Block_Dirt.item", "media/textures/items/block_dirt.tga", InventoryType_Block, eItem_Block_Dirt, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Dirt Block", "Dirt block for world building", 0.23f, 0.13f, 0.02f, 1);
-	AddItemSubSpawnData(eItem_None, BlockType_Stone, eItem_Block_Stone, "media/gamedata/items/Block_Stone/Block_Stone.item", "Stone Block", false, true, 0.06f,
-		"media/gamedata/items/Block_Stone/Block_Stone.item", "media/textures/items/block_stone.tga", InventoryType_Block, eItem_Block_Stone, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Stone Block", "Stone block for world building", 0.23f, 0.13f, 0.02f, 1);
-	AddItemSubSpawnData(eItem_None, BlockType_Wood, eItem_Block_Wood, "media/gamedata/items/Block_Wood/Block_Wood.item", "Wood Block", false, true, 0.06f,
-		"media/gamedata/items/Block_Wood/Block_Wood.item", "media/textures/items/block_wood.tga", InventoryType_Block, eItem_Block_Wood, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Wood Block", "Wood block for world building", 0.23f, 0.13f, 0.02f, 1);
-	AddItemSubSpawnData(eItem_None, BlockType_Leaf, eItem_Block_Leaf, "media/gamedata/items/Block_Leaf/Block_Leaf.item", "Leaf Block", false, true, 0.06f,
-		"media/gamedata/items/Block_Leaf/Block_Leaf.item", "media/textures/items/block_leaf.tga", InventoryType_Block, eItem_Block_Leaf, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Leaf Block", "Leaf block for world building", 0.23f, 0.13f, 0.02f, 1);
-	AddItemSubSpawnData(eItem_None, BlockType_Sand, eItem_Block_Sand, "media/gamedata/items/Block_Sand/Block_Sand.item", "Sand Block", false, true, 0.06f,
-		"media/gamedata/items/Block_Sand/Block_Sand.item", "media/textures/items/block_sand.tga", InventoryType_Block, eItem_Block_Sand, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Sand Block", "Sand block for world building", 0.23f, 0.13f, 0.02f, 1);
-	AddItemSubSpawnData(eItem_None, BlockType_Cactus, eItem_Block_Cactus, "media/gamedata/items/Block_Cactus/Block_Cactus.item", "Cactus Block", false, true, 0.06f,
-		"media/gamedata/items/Block_Cactus/Block_Cactus.item", "media/textures/items/block_cactus.tga", InventoryType_Block, eItem_Block_Cactus, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Cactus Block", "Cactus block for world building", 0.23f, 0.13f, 0.02f, 1);
-	AddItemSubSpawnData(eItem_None, BlockType_Rock, eItem_Block_Rock, "media/gamedata/items/Block_Rock/Block_Rock.item", "Rock Block", false, true, 0.06f,
-		"media/gamedata/items/Block_Rock/Block_Rock.item", "media/textures/items/block_rock.tga", InventoryType_Block, eItem_Block_Rock, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Rock Block", "Rock block for world building", 0.23f, 0.13f, 0.02f, 1);
-	AddItemSubSpawnData(eItem_None, BlockType_Snow, eItem_Block_Snow, "media/gamedata/items/Block_Snow/Block_Snow.item", "Snow Block", false, true, 0.06f,
-		"media/gamedata/items/Block_Snow/Block_Snow.item", "media/textures/items/block_snow.tga", InventoryType_Block, eItem_Block_Snow, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Snow Block", "Snow block for world building", 1.0f, 1.0f, 1.0f, 1);
+	AddItemSubSpawnData(eItem_None, BlockType_Grass, eItem_Block_Grass, GetItemFilenameForType(eItem_Block_Grass), GetItemTitleForType(eItem_Block_Grass), false, true, 0.06f,
+		GetItemFilenameForType(eItem_Block_Grass), GetItemTextureForType(eItem_Block_Grass), InventoryType_Block, eItem_Block_Grass, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, GetItemTitleForType(eItem_Block_Grass), GetItemDescriptionForType(eItem_Block_Grass), 0.23f, 0.13f, 0.02f, 1);
+	AddItemSubSpawnData(eItem_None, BlockType_Dirt, eItem_Block_Dirt, GetItemFilenameForType(eItem_Block_Dirt), GetItemTitleForType(eItem_Block_Dirt), false, true, 0.06f,
+		GetItemFilenameForType(eItem_Block_Dirt), GetItemTextureForType(eItem_Block_Dirt), InventoryType_Block, eItem_Block_Dirt, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, GetItemTitleForType(eItem_Block_Dirt), GetItemDescriptionForType(eItem_Block_Dirt), 0.23f, 0.13f, 0.02f, 1);
+	AddItemSubSpawnData(eItem_None, BlockType_Stone, eItem_Block_Stone, GetItemFilenameForType(eItem_Block_Stone), GetItemTitleForType(eItem_Block_Stone), false, true, 0.06f,
+		GetItemFilenameForType(eItem_Block_Stone), GetItemTextureForType(eItem_Block_Stone), InventoryType_Block, eItem_Block_Stone, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, GetItemTitleForType(eItem_Block_Stone), GetItemDescriptionForType(eItem_Block_Stone), 0.23f, 0.13f, 0.02f, 1);
+	AddItemSubSpawnData(eItem_None, BlockType_Wood, eItem_Block_Wood, GetItemFilenameForType(eItem_Block_Wood), GetItemTitleForType(eItem_Block_Wood), false, true, 0.06f,
+		GetItemFilenameForType(eItem_Block_Wood), GetItemTextureForType(eItem_Block_Wood), InventoryType_Block, eItem_Block_Wood, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, GetItemTitleForType(eItem_Block_Wood), GetItemDescriptionForType(eItem_Block_Wood), 0.23f, 0.13f, 0.02f, 1);
+	AddItemSubSpawnData(eItem_None, BlockType_Leaf, eItem_Block_Leaf, GetItemFilenameForType(eItem_Block_Leaf), GetItemTitleForType(eItem_Block_Leaf), false, true, 0.06f,
+		GetItemFilenameForType(eItem_Block_Leaf), GetItemTextureForType(eItem_Block_Leaf), InventoryType_Block, eItem_Block_Leaf, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, GetItemTitleForType(eItem_Block_Leaf), GetItemDescriptionForType(eItem_Block_Leaf), 0.23f, 0.13f, 0.02f, 1);
+	AddItemSubSpawnData(eItem_None, BlockType_Sand, eItem_Block_Sand, GetItemFilenameForType(eItem_Block_Sand), GetItemTitleForType(eItem_Block_Sand), false, true, 0.06f,
+		GetItemFilenameForType(eItem_Block_Sand), GetItemTextureForType(eItem_Block_Sand), InventoryType_Block, eItem_Block_Sand, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, GetItemTitleForType(eItem_Block_Sand), GetItemDescriptionForType(eItem_Block_Sand), 0.23f, 0.13f, 0.02f, 1);
+	AddItemSubSpawnData(eItem_None, BlockType_Cactus, eItem_Block_Cactus, GetItemFilenameForType(eItem_Block_Cactus), GetItemTitleForType(eItem_Block_Cactus), false, true, 0.06f,
+		GetItemFilenameForType(eItem_Block_Cactus), GetItemTextureForType(eItem_Block_Cactus), InventoryType_Block, eItem_Block_Cactus, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, GetItemTitleForType(eItem_Block_Cactus), GetItemDescriptionForType(eItem_Block_Cactus), 0.23f, 0.13f, 0.02f, 1);
+	AddItemSubSpawnData(eItem_None, BlockType_Rock, eItem_Block_Rock, GetItemFilenameForType(eItem_Block_Rock), GetItemTitleForType(eItem_Block_Rock), false, true, 0.06f,
+		GetItemFilenameForType(eItem_Block_Rock), GetItemTextureForType(eItem_Block_Rock), InventoryType_Block, eItem_Block_Rock, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, GetItemTitleForType(eItem_Block_Rock), GetItemDescriptionForType(eItem_Block_Rock), 0.23f, 0.13f, 0.02f, 1);
+	AddItemSubSpawnData(eItem_None, BlockType_Snow, eItem_Block_Snow, GetItemFilenameForType(eItem_Block_Snow), GetItemTitleForType(eItem_Block_Snow), false, true, 0.06f,
+		GetItemFilenameForType(eItem_Block_Snow), GetItemTextureForType(eItem_Block_Snow), InventoryType_Block, eItem_Block_Snow, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, GetItemTitleForType(eItem_Block_Snow), GetItemDescriptionForType(eItem_Block_Snow), 1.0f, 1.0f, 1.0f, 1);
 }
 
 ItemManager::~ItemManager()
