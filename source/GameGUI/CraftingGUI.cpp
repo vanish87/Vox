@@ -671,18 +671,6 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 	}
 	else
 	{
-		// Knife
-		{
-			CraftingRecipe* pKnifeRecipe = new CraftingRecipe();
-			InventoryItem* pGrass = m_pInventoryManager->CreateInventoryItem("media/gamedata/items/Block_Wood/Block_Wood.item", "media/textures/items/block_grass.tga", InventoryType_Block, eItem_Block_Grass, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Rare, false, false, "Grass Block", "", 1.0f, 1.0f, 1.0f, 2, -1, -1, -1, -1);
-			pKnifeRecipe->m_vpCraftingItems.push_back(pGrass);
-
-			InventoryItem* pKnife = m_pInventoryManager->CreateInventoryItem("media/gamedata/weapons/Knife/Knife.weapon", "media/textures/items/knife.tga", InventoryType_Weapon_Dagger, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Rare, false, false, "Knife", "Used for removing items from the world and repositioning.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
-			pKnife->m_scale = 0.5f; pKnife->m_offsetX = 0.5f; pKnife->m_offsetY = 0.83f; pKnife->m_offsetZ = 0.5f;
-			pKnifeRecipe->m_pResultItem = pKnife;
-
-			AddCraftingRecipe(pKnifeRecipe);
-		}
 	}
 }
 

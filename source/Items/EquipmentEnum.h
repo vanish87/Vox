@@ -20,6 +20,7 @@ enum eEquipment
 	eEquipment_None = 0,
 
 	eEquipment_NormalPickaxe,
+	eEquipment_Torch,
 
 	eEquipment_IronSword,
 	eEquipment_IronShield,
