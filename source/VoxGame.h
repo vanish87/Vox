@@ -251,6 +251,7 @@ public:
 	unsigned int GetDefaultViewport();
 	Camera* GetGameCamera();
 	Player* GetPlayer();
+	ChunkManager* GetChunkManager();
 	BiomeManager* GetBiomeManager();
 	FrontendManager* GetFrontendManager();
 	BlockParticleManager* GetBlockParticleManager();

@@ -1347,6 +1347,11 @@ Player* VoxGame::GetPlayer()
 	return m_pPlayer;
 }
 
+ChunkManager* VoxGame::GetChunkManager()
+{
+	return m_pChunkManager;
+}
+
 BiomeManager* VoxGame::GetBiomeManager()
 {
 	return m_pBiomeManager;
