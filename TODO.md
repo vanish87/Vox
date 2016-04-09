@@ -150,6 +150,8 @@
 - [x] Random direction on mimic spawning.
 - [x] Mimics turning around when going back to non-aggro.
 - [x] Different default inventory when we load a different class type from the create character screen.
+- [x] Use mouse and gamepad sensativity in the looking and camera rotation functions.
+- [x] Fog rendering.
 - [ ] Add VLD support to debug version, allow for memory leak detection.
 - [ ] Add audio and music playback.
 - [ ] Saving and loading chunks.
@@ -166,8 +168,6 @@
 - [ ] Test out Baked AO models using MagikaVoxel.
 - [ ] Companion pets.
 - [ ] Add debug render metrics for all counters (i.e num chunks, particles, items, triangles, verts, etc).
-- [x] Use mouse and gamepad sensativity in the looking and camera rotation functions.
-- [x] Fog rendering.
 - [ ] Particle effects proper position when in first person mode!
 - [ ] Better front-end scenery and character screens.
 - [ ] Add more presets for other body parts in character creator screen.
