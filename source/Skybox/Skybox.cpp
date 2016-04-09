@@ -10,6 +10,7 @@
 // ******************************************************************************
 
 #include "Skybox.h"
+#include "../VoxGame.h"
 
 
 Skybox::Skybox(Renderer* pRenderer)
@@ -66,9 +67,9 @@ unsigned int Skybox::GetCubeMapTexture2()
 
 void Skybox::Render()
 {
-	float width = 1000.0f;
-	float height = 1000.0f;
-	float length = 1000.0f;
+	float width = 4000.0f;
+	float height = 4000.0f;
+	float length = 4000.0f;
 
 	// Center the Skybox around the given x,y,z position
 	float x = -(width*0.5f);
