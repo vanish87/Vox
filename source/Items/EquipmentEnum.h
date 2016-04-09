@@ -21,5 +21,8 @@ enum eEquipment
 
 	eEquipment_NormalPickaxe,
 
+	eEquipment_IronSword,
+	eEquipment_IronShield,
+
 	eEquipment_NUM_EQUIPMENT,
 };

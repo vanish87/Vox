@@ -408,7 +408,7 @@ void NPC::SetNPCCombatType(eNPCCombatType eNPCCombatType, bool setWeaponModel)
 		case eNPCCombatType_None: { break; }
 		case eNPCCombatType_MeleeSword:
 			{
-				LoadWeapon(false, "media/gamedata/weapons/Sword/Sword.weapon");
+				LoadWeapon(false, "media/gamedata/weapons/IronSword/IronSword.weapon");
 				break;
 			}
 		case eNPCCombatType_Archer:

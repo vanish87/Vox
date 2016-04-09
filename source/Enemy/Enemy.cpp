@@ -567,8 +567,8 @@ void Enemy::SetupWeaponsForType()
 		break;
 	case eEnemyType_MeleeSkeleton:
 		{
-			LoadWeapon(false, "media/gamedata/weapons/Sword/Sword.weapon");
-			LoadWeapon(true, "media/gamedata/weapons/Shield/Shield.weapon");
+			LoadWeapon(false, "media/gamedata/weapons/IronSword/IronSword.weapon");
+			LoadWeapon(true, "media/gamedata/weapons/IronShield/IronShield.weapon");
 		}
 		break;
 	case eEnemyType_MageSkeleton:

@@ -792,12 +792,12 @@ void VoxGame::WeaponPullDownChanged()
 		}
 		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Sword") == 0)
 		{
-			m_pPlayer->GetVoxelCharacter()->LoadRightWeapon("media/gamedata/weapons/Sword/Sword.weapon");
+			m_pPlayer->GetVoxelCharacter()->LoadRightWeapon("media/gamedata/weapons/IronSword/IronSword.weapon");
 		}
 		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "Sword & Shield") == 0)
 		{
-			m_pPlayer->GetVoxelCharacter()->LoadRightWeapon("media/gamedata/weapons/Sword/Sword.weapon");
-			m_pPlayer->GetVoxelCharacter()->LoadLeftWeapon("media/gamedata/weapons/Shield/Shield.weapon");
+			m_pPlayer->GetVoxelCharacter()->LoadRightWeapon("media/gamedata/weapons/IronSword/IronSword.weapon");
+			m_pPlayer->GetVoxelCharacter()->LoadLeftWeapon("media/gamedata/weapons/IronShield/IronShield.weapon");
 		}
 		else if (strcmp(pMenuItem->GetLabel().GetText().c_str(), "2 Handed Sword") == 0)
 		{

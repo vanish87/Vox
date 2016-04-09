@@ -584,17 +584,29 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 		// Sword
 		{
 			CraftingRecipe* pSwordRecipe = new CraftingRecipe();
-			InventoryItem* pStone = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_Block_Stone, 3, ItemQuality_Common);
-			pSwordRecipe->m_vpCraftingItems.push_back(pStone);
+			InventoryItem* pIronBar = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_IronBar, 3, ItemQuality_Common);
+			pSwordRecipe->m_vpCraftingItems.push_back(pIronBar);
 
-			InventoryItem* pSword = m_pInventoryManager->CreateInventoryItem("media/gamedata/weapons/Sword/Sword.weapon", "media/textures/items/sword.tga", InventoryType_Weapon_Sword, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Sword", "Attacking enemies.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+			InventoryItem* pSword = m_pInventoryManager->CreateEquipmentItemFromType(eEquipment_IronSword);
 			pSword->m_scale = 0.5f; pSword->m_offsetX = 0.5f; pSword->m_offsetY = 0.83f; pSword->m_offsetZ = 0.5f;
 			pSwordRecipe->m_pResultItem = pSword;
 
 			AddCraftingRecipe(pSwordRecipe);
 		}
 
-		// Bigger Sword
+		// Shield
+		{
+			CraftingRecipe* pShieldRecipe = new CraftingRecipe();
+			InventoryItem* pIronBar = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_IronBar, 4, ItemQuality_Common);
+			pShieldRecipe->m_vpCraftingItems.push_back(pIronBar);
+
+			InventoryItem* pShield = m_pInventoryManager->CreateEquipmentItemFromType(eEquipment_IronShield);
+			pShieldRecipe->m_pResultItem = pShield;
+
+			AddCraftingRecipe(pShieldRecipe);
+		}
+
+		// 2 Handed Sword
 		{
 			CraftingRecipe* pBiggerSwordRecipe = new CraftingRecipe();
 			InventoryItem* pStone = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_Block_Stone, 3, ItemQuality_Common);

@@ -843,8 +843,8 @@ void CreateCharacter::LoadSelectionCharacters()
 	pCharacter1->LoadWeapon(false, "media/gamedata/weapons/PriestStaff/PriestStaff.weapon");
 	pCharacter1->SetNPCCombatType(eNPCCombatType_Staff, false);
 
-	pCharacter2->LoadWeapon(true, "media/gamedata/weapons/Shield/Shield.weapon");
-	pCharacter2->LoadWeapon(false, "media/gamedata/weapons/2HandedSword/2HandedSword.weapon");
+	pCharacter2->LoadWeapon(true, "media/gamedata/weapons/IronShield/IronShield.weapon");
+	pCharacter2->LoadWeapon(false, "media/gamedata/weapons/IronSword/IronSword.weapon");
 	pCharacter2->SetNPCCombatType(eNPCCombatType_MeleeSword, false);
 
 	pCharacter4->LoadWeapon(true, "media/gamedata/weapons/Bow/Bow.weapon");

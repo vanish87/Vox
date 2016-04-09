@@ -147,9 +147,9 @@ void InventoryManager::LoadInventory(string playerName, PlayerClass ePlayerClass
 
 void InventoryManager::LoadDefaultInventory()
 {
-	InventoryItem* pSword = AddInventoryItem("media/gamedata/weapons/Sword/Sword.weapon", "media/textures/items/sword.tga", InventoryType_Weapon_Sword, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Uncommon, false, false, "Sword", "Just a standard sword, very useful for killing enemies", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+	InventoryItem* pSword = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_IronSword), -1, -1);
 	pSword->AddStatAttribute(AttributeType_Strength, 2);
-	InventoryItem* pShield = AddInventoryItem("media/gamedata/weapons/Shield/Shield.weapon", "media/textures/items/shield.tga", InventoryType_Weapon_Shield, eItem_None, ItemStatus_None, EquipSlot_LeftHand, ItemQuality_Uncommon, false, false, "Shield", "Just a standard shield", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+	InventoryItem* pShield = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_IronShield), -1, -1);
 	pShield->AddStatAttribute(AttributeType_Armor, 2);
 	InventoryItem* pBow = AddInventoryItem("media/gamedata/weapons/Bow/Bow.weapon", "media/textures/items/bow.tga", InventoryType_Weapon_Bow, eItem_None, ItemStatus_None, EquipSlot_LeftHand, ItemQuality_Uncommon, true, true, "Bow", "Shoots arrows.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
 	pBow->AddStatAttribute(AttributeType_Dexterity, 1);
@@ -204,9 +204,9 @@ void InventoryManager::LoadInventoryForClass(PlayerClass ePlayerClass)
 	}
 	else if (ePlayerClass == PlayerClass_Warrior)
 	{
-		InventoryItem* pSword = AddInventoryItem("media/gamedata/weapons/Sword/Sword.weapon", "media/textures/items/sword.tga", InventoryType_Weapon_Sword, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Uncommon, false, false, "Sword", "Just a standard sword, very useful for killing enemies", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+		InventoryItem* pSword = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_IronSword), -1, -1);
 		pSword->AddStatAttribute(AttributeType_Strength, 2);
-		InventoryItem* pShield = AddInventoryItem("media/gamedata/weapons/Shield/Shield.weapon", "media/textures/items/shield.tga", InventoryType_Weapon_Shield, eItem_None, ItemStatus_None, EquipSlot_LeftHand, ItemQuality_Uncommon, false, false, "Shield", "Just a standard shield", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+		InventoryItem* pShield = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_IronShield), -1, -1);
 		pShield->AddStatAttribute(AttributeType_Armor, 2);
 	}
 	else if (ePlayerClass == PlayerClass_Ranger)
