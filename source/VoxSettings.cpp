@@ -54,6 +54,8 @@ void VoxSettings::LoadSettings()
 	m_msaa = reader.GetBoolean("Graphics", "MSAA", false);
 	m_instancedParticles = reader.GetBoolean("Graphics", "InstancedParticles", false);
 	m_faceMerging = reader.GetBoolean("Graphics", "FaceMerging", false);
+	m_fogRendering = reader.GetBoolean("Graphics", "FogRendering", false);
+	m_waterRendering = reader.GetBoolean("Graphics", "WaterRendering", false);
 
 	// Landscape generation
 	m_landscapeOctaves = (float)reader.GetReal("Landscape", "LandscapeOctaves", 4.0f);

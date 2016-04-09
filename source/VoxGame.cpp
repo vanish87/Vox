@@ -408,6 +408,8 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_fullscreen = m_pVoxSettings->m_fullscreen;
 	m_debugRender = false;
 	m_instanceRender = true;
+	m_fogRender = true;
+	m_waterRender = true;
 
 	// Camera mode
 	m_cameraMode = CameraMode_Debug;

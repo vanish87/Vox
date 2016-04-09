@@ -88,6 +88,8 @@ public:
 	bool m_msaa;
 	bool m_instancedParticles;
 	bool m_faceMerging;
+	bool m_fogRendering;
+	bool m_waterRendering;
 
 	// Landscape generation
 	float m_landscapeOctaves;
