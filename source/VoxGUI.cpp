@@ -739,6 +739,11 @@ void VoxGame::ToggleFullScreenPressed()
 	m_pBlockParticleManager->SetupGLBuffers();
 }
 
+bool VoxGame::GetWaterRender()
+{
+	return m_waterRender;
+}
+
 // GUI callbacks
 void VoxGame::_PlayAnimationPressed(void *apData)
 {

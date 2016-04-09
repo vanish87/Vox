@@ -311,7 +311,7 @@ void VoxGame::Render()
 				RenderFXAATexture();
 			}
 
-			if(m_blur || (m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()) && m_waterRender))
+			if(m_blur || m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()))
 			{
 				RenderFirstPassFullScreen();
 				RenderSecondPassFullScreen();
@@ -731,7 +731,7 @@ void VoxGame::RenderSSAOTexture()
 		{
 			m_pRenderer->StartRenderingToFrameBuffer(m_FXAAFrameBuffer);
 		}
-		else if (m_blur || (m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()) && m_waterRender))
+		else if (m_blur || m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()))
 		{
 			m_pRenderer->StartRenderingToFrameBuffer(m_firstPassFullscreenBuffer);
 		}
@@ -794,7 +794,7 @@ void VoxGame::RenderSSAOTexture()
 		{
 			m_pRenderer->StopRenderingToFrameBuffer(m_FXAAFrameBuffer);
 		}
-		else if (m_blur || (m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()) && m_waterRender))
+		else if (m_blur || m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()))
 		{
 			m_pRenderer->StopRenderingToFrameBuffer(m_firstPassFullscreenBuffer);
 		}
@@ -807,7 +807,7 @@ void VoxGame::RenderFXAATexture()
 		m_pRenderer->SetProjectionMode(PM_2D, m_defaultViewport);
 		m_pRenderer->SetLookAtCamera(vec3(0.0f, 0.0f, 250.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
 
-		if (m_blur || (m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()) && m_waterRender))
+		if (m_blur || m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()))
 		{
 			m_pRenderer->StartRenderingToFrameBuffer(m_firstPassFullscreenBuffer);
 		}
@@ -838,7 +838,7 @@ void VoxGame::RenderFXAATexture()
 
 		m_pRenderer->EndGLSLShader(m_fxaaShader);
 
-		if (m_blur || (m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()) && m_waterRender))
+		if (m_blur || m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()))
 		{
 			m_pRenderer->StopRenderingToFrameBuffer(m_firstPassFullscreenBuffer);
 		}
@@ -906,7 +906,7 @@ void VoxGame::RenderSecondPassFullScreen()
 		float blurSize = 0.0015f;
 
 		bool applyBlueTint = false;
-		if (m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()) && m_waterRender)
+		if (m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()))
 		{
 			blurSize = 0.0015f;
 			applyBlueTint = true;

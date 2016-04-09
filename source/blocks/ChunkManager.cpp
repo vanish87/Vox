@@ -954,6 +954,10 @@ float ChunkManager::GetWaterHeight()
 
 bool ChunkManager::IsUnderWater(vec3 position)
 {
+	{
+		return false;
+	}
+
 	if(position.y <= m_waterHeight)
 	{
 		return true;

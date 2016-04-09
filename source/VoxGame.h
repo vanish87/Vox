@@ -246,6 +246,7 @@ public:
 	void ClearConsoleLabels();
 	void UpdateConsoleLabels();
 	void ToggleFullScreenPressed();
+	bool GetWaterRender();
 
 	// Accessors
 	unsigned int GetDefaultViewport();
