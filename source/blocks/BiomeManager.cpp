@@ -49,8 +49,11 @@ BiomeManager::BiomeManager(Renderer* pRenderer)
 BiomeManager::~BiomeManager()
 {
 	ClearBoundaryData();
+	ClearTownData();
+	ClearSafeZoneData();
 }
 
+// Clear data
 void BiomeManager::ClearBoundaryData()
 {
 	for(int i = 0; i < BiomeType_NumBiomes; i++)
@@ -64,6 +67,27 @@ void BiomeManager::ClearBoundaryData()
 	}
 }
 
+void BiomeManager::ClearTownData()
+{
+	for (unsigned int i = 0; i < m_vpTownsList.size(); i++)
+	{
+		delete m_vpTownsList[i];
+		m_vpTownsList[i] = 0;
+	}
+	m_vpTownsList.clear();
+}
+
+void BiomeManager::ClearSafeZoneData()
+{
+	for (unsigned int i = 0; i < m_vpSafeZonesList.size(); i++)
+	{
+		delete m_vpSafeZonesList[i];
+		m_vpSafeZonesList[i] = 0;
+	}
+	m_vpSafeZonesList.clear();
+}
+
+// Add data
 void BiomeManager::AddBiomeBoundary(Biome biome, float heightUpperBoundary, float red1, float green1, float blue1, float red2, float green2, float blue2, BlockType blockType)
 {
 	BiomeHeightBoundary* pNewBiomeHeightBoundary = new BiomeHeightBoundary();
@@ -80,6 +104,57 @@ void BiomeManager::AddBiomeBoundary(Biome biome, float heightUpperBoundary, floa
 	m_vpBiomeHeightBoundaryList[biome].push_back(pNewBiomeHeightBoundary);
 }
 
+void BiomeManager::AddTown(vec3 townCenter, float radius)
+{
+	ZoneData* pNewTown = new ZoneData();
+	pNewTown->m_origin = townCenter;
+	pNewTown->m_regionType = BiomeRegionType_Sphere;
+	pNewTown->m_radius = radius;
+
+	m_vpTownsList.push_back(pNewTown);
+}
+
+void BiomeManager::AddTown(vec3 townCenter, float length, float height, float width)
+{
+	ZoneData* pNewTown = new ZoneData();
+	pNewTown->m_origin = townCenter;
+	pNewTown->m_regionType = BiomeRegionType_Cube;
+	pNewTown->m_length = length;
+	pNewTown->m_height = height;
+	pNewTown->m_width = width;
+
+	Matrix4x4 transformMatrix;
+	pNewTown->UpdatePlanes(transformMatrix);
+
+	m_vpTownsList.push_back(pNewTown);
+}
+
+void BiomeManager::AddSafeZone(vec3 safeZoneCenter, float radius)
+{
+	ZoneData* pNewSafeZone = new ZoneData();
+	pNewSafeZone->m_origin = safeZoneCenter;
+	pNewSafeZone->m_regionType = BiomeRegionType_Sphere;
+	pNewSafeZone->m_radius = radius;
+
+	m_vpSafeZonesList.push_back(pNewSafeZone);
+}
+
+void BiomeManager::AddSafeZone(vec3 safeZoneCenter, float length, float height, float width)
+{
+	ZoneData* pNewSafeZone = new ZoneData();
+	pNewSafeZone->m_origin = safeZoneCenter;
+	pNewSafeZone->m_regionType = BiomeRegionType_Cube;
+	pNewSafeZone->m_length = length;
+	pNewSafeZone->m_height = height;
+	pNewSafeZone->m_width = width;
+
+	Matrix4x4 transformMatrix;
+	pNewSafeZone->UpdatePlanes(transformMatrix);
+
+	m_vpSafeZonesList.push_back(pNewSafeZone);
+}
+
+// Get biome
 Biome BiomeManager::GetBiome(vec3 position)
 {
 	// TODO : Better biome generation
@@ -89,15 +164,100 @@ Biome BiomeManager::GetBiome(vec3 position)
 // Town
 bool BiomeManager::IsInTown(vec3 position)
 {
+	for (unsigned int i = 0; i < m_vpTownsList.size(); i++)
+	{
+		ZoneData* pTown = m_vpTownsList[i];
+
+		if (pTown->m_regionType == BiomeRegionType_Sphere)
+		{
+			vec3 difference = pTown->m_origin - position;
+			float distance = length(difference);
+			if (distance < pTown->m_radius)
+			{
+				return true;
+			}
+		}
+		else if (pTown->m_regionType == BiomeRegionType_Cube)
+		{
+			float distance;
+			int outside = 0;
+			int inside = 0;
+
+			for (int i = 0; i < 6; i++)
+			{
+				distance = pTown->m_planes[i].GetPointDistance(position - pTown->m_origin);
+
+				if (distance < 0.0f)
+				{
+					// Outside...
+					outside++;
+				}
+				else
+				{
+					// Inside...
+					inside++;
+				}
+			}
+
+			if (outside == 0)
+			{
+				return true;
+			}
+		}
+	}
+
 	return false;
 }
 
 // Safe zone
 bool BiomeManager::IsInSafeZone(vec3 position)
 {
+	for (unsigned int i = 0; i < m_vpSafeZonesList.size(); i++)
+	{
+		ZoneData* pTown = m_vpSafeZonesList[i];
+
+		if (pTown->m_regionType == BiomeRegionType_Sphere)
+		{
+			vec3 difference = pTown->m_origin - position;
+			float distance = length(difference);
+			if (distance < pTown->m_radius)
+			{
+				return true;
+			}
+		}
+		else if (pTown->m_regionType == BiomeRegionType_Cube)
+		{
+			float distance;
+			int outside = 0;
+			int inside = 0;
+
+			for (int i = 0; i < 6; i++)
+			{
+				distance = pTown->m_planes[i].GetPointDistance(position - pTown->m_origin);
+
+				if (distance < 0.0f)
+				{
+					// Outside...
+					outside++;
+				}
+				else
+				{
+					// Inside...
+					inside++;
+				}
+			}
+
+			if (outside == 0)
+			{
+				return true;
+			}
+		}
+	}
+
 	return false;
 }
 
+// Check chunk and block type
 void BiomeManager::GetChunkColourAndBlockType(float xPos, float yPos, float zPos, float noiseValue, float landscapeGradient, float *r, float *g, float *b, BlockType *blockType)
 {
 	Biome biome = GetBiome(vec3(xPos, yPos, zPos));
@@ -149,4 +309,182 @@ void BiomeManager::GetChunkColourAndBlockType(float xPos, float yPos, float zPos
 	*r = red1 + ((red2 - red1) * landscapeGradient);
 	*g = green1 + ((green2 - green1) * landscapeGradient);
 	*b = blue1 + ((blue2 - blue1) * landscapeGradient);
+}
+
+// Update
+void BiomeManager::Update(float dt)
+{
+}
+
+// Render
+void BiomeManager::RenderDebug()
+{
+	RenderTownsDebug();
+	RenderSafeZoneDebug();
+}
+
+void BiomeManager::RenderTownsDebug()
+{
+	for(unsigned int i = 0; i < m_vpTownsList.size(); i++)
+	{
+		ZoneData* pTown = m_vpTownsList[i];
+
+		if(pTown->m_regionType == BiomeRegionType_Sphere)
+		{
+			m_pRenderer->PushMatrix();
+				m_pRenderer->SetLineWidth(1.0f);
+				m_pRenderer->SetCullMode(CM_NOCULL);
+				m_pRenderer->SetRenderMode(RM_WIREFRAME);
+
+				m_pRenderer->ImmediateColourAlpha(1.0f, 1.0f, 1.0f, 1.0f);
+
+				m_pRenderer->TranslateWorldMatrix(pTown->m_origin.x, pTown->m_origin.y, pTown->m_origin.z);
+
+				m_pRenderer->DrawSphere(pTown->m_radius, 20, 20);
+			m_pRenderer->PopMatrix();
+		}
+		else if(pTown->m_regionType == BiomeRegionType_Cube)
+		{
+			m_pRenderer->PushMatrix();
+				m_pRenderer->SetLineWidth(1.0f);
+				m_pRenderer->ImmediateColourAlpha(1.0f, 1.0f, 1.0f, 0.25f);
+				m_pRenderer->SetCullMode(CM_NOCULL);
+				m_pRenderer->SetRenderMode(RM_WIREFRAME);
+				
+				m_pRenderer->TranslateWorldMatrix(pTown->m_origin.x, pTown->m_origin.y, pTown->m_origin.z);
+
+				float l_length = pTown->m_length;
+				float l_height = pTown->m_height;
+				float l_width = pTown->m_width;
+
+				m_pRenderer->EnableImmediateMode(IM_QUADS);
+					m_pRenderer->ImmediateNormal(0.0f, 0.0f, -1.0f);
+					m_pRenderer->ImmediateVertex(l_length, -l_height, -l_width);
+					m_pRenderer->ImmediateVertex(-l_length, -l_height, -l_width);
+					m_pRenderer->ImmediateVertex(-l_length, l_height, -l_width);
+					m_pRenderer->ImmediateVertex(l_length, l_height, -l_width);
+
+					m_pRenderer->ImmediateNormal(0.0f, 0.0f, 1.0f);
+					m_pRenderer->ImmediateVertex(-l_length, -l_height, l_width);
+					m_pRenderer->ImmediateVertex(l_length, -l_height, l_width);
+					m_pRenderer->ImmediateVertex(l_length, l_height, l_width);
+					m_pRenderer->ImmediateVertex(-l_length, l_height, l_width);
+
+					m_pRenderer->ImmediateNormal(1.0f, 0.0f, 0.0f);
+					m_pRenderer->ImmediateVertex(l_length, -l_height, l_width);
+					m_pRenderer->ImmediateVertex(l_length, -l_height, -l_width);
+					m_pRenderer->ImmediateVertex(l_length, l_height, -l_width);
+					m_pRenderer->ImmediateVertex(l_length, l_height, l_width);
+
+					m_pRenderer->ImmediateNormal(-1.0f, 0.0f, 0.0f);
+					m_pRenderer->ImmediateVertex(-l_length, -l_height, -l_width);
+					m_pRenderer->ImmediateVertex(-l_length, -l_height, l_width);
+					m_pRenderer->ImmediateVertex(-l_length, l_height, l_width);
+					m_pRenderer->ImmediateVertex(-l_length, l_height, -l_width);
+
+					m_pRenderer->ImmediateNormal(0.0f, -1.0f, 0.0f);
+					m_pRenderer->ImmediateVertex(-l_length, -l_height, -l_width);
+					m_pRenderer->ImmediateVertex(l_length, -l_height, -l_width);
+					m_pRenderer->ImmediateVertex(l_length, -l_height, l_width);
+					m_pRenderer->ImmediateVertex(-l_length, -l_height, l_width);
+
+					m_pRenderer->ImmediateNormal(0.0f, 1.0f, 0.0f);
+					m_pRenderer->ImmediateVertex(l_length, l_height, -l_width);
+					m_pRenderer->ImmediateVertex(-l_length, l_height, -l_width);
+					m_pRenderer->ImmediateVertex(-l_length, l_height, l_width);
+					m_pRenderer->ImmediateVertex(l_length, l_height, l_width);
+					m_pRenderer->DisableImmediateMode();
+			m_pRenderer->PopMatrix();
+		}
+	}
+
+	m_pRenderer->SetCullMode(CM_BACK);
+}
+
+void BiomeManager::RenderSafeZoneDebug()
+{
+	for(unsigned int i = 0; i < m_vpSafeZonesList.size(); i++)
+	{
+		ZoneData* pSafeZone = m_vpSafeZonesList[i];
+
+		if(pSafeZone->m_regionType == BiomeRegionType_Sphere)
+		{
+			m_pRenderer->PushMatrix();
+				m_pRenderer->SetLineWidth(1.0f);
+				m_pRenderer->SetCullMode(CM_NOCULL);
+				m_pRenderer->SetRenderMode(RM_WIREFRAME);
+
+				m_pRenderer->ImmediateColourAlpha(1.0f, 1.0f, 1.0f, 1.0f);
+
+				m_pRenderer->TranslateWorldMatrix(pSafeZone->m_origin.x, pSafeZone->m_origin.y, pSafeZone->m_origin.z);
+
+				m_pRenderer->DrawSphere(pSafeZone->m_radius, 20, 20);
+			m_pRenderer->PopMatrix();
+		}
+		else if(pSafeZone->m_regionType == BiomeRegionType_Cube)
+		{
+			m_pRenderer->PushMatrix();
+				m_pRenderer->SetLineWidth(1.0f);
+				m_pRenderer->ImmediateColourAlpha(1.0f, 1.0f, 1.0f, 0.25f);
+				m_pRenderer->SetCullMode(CM_NOCULL);
+				m_pRenderer->SetRenderMode(RM_WIREFRAME);
+				
+				m_pRenderer->TranslateWorldMatrix(pSafeZone->m_origin.x, pSafeZone->m_origin.y, pSafeZone->m_origin.z);
+
+				float l_length = pSafeZone->m_length;
+				float l_height = pSafeZone->m_height;
+				float l_width = pSafeZone->m_width;
+
+				m_pRenderer->EnableImmediateMode(IM_QUADS);
+					m_pRenderer->ImmediateNormal(0.0f, 0.0f, -1.0f);
+					m_pRenderer->ImmediateVertex(l_length, -l_height, -l_width);
+					m_pRenderer->ImmediateVertex(-l_length, -l_height, -l_width);
+					m_pRenderer->ImmediateVertex(-l_length, l_height, -l_width);
+					m_pRenderer->ImmediateVertex(l_length, l_height, -l_width);
+
+					m_pRenderer->ImmediateNormal(0.0f, 0.0f, 1.0f);
+					m_pRenderer->ImmediateVertex(-l_length, -l_height, l_width);
+					m_pRenderer->ImmediateVertex(l_length, -l_height, l_width);
+					m_pRenderer->ImmediateVertex(l_length, l_height, l_width);
+					m_pRenderer->ImmediateVertex(-l_length, l_height, l_width);
+
+					m_pRenderer->ImmediateNormal(1.0f, 0.0f, 0.0f);
+					m_pRenderer->ImmediateVertex(l_length, -l_height, l_width);
+					m_pRenderer->ImmediateVertex(l_length, -l_height, -l_width);
+					m_pRenderer->ImmediateVertex(l_length, l_height, -l_width);
+					m_pRenderer->ImmediateVertex(l_length, l_height, l_width);
+
+					m_pRenderer->ImmediateNormal(-1.0f, 0.0f, 0.0f);
+					m_pRenderer->ImmediateVertex(-l_length, -l_height, -l_width);
+					m_pRenderer->ImmediateVertex(-l_length, -l_height, l_width);
+					m_pRenderer->ImmediateVertex(-l_length, l_height, l_width);
+					m_pRenderer->ImmediateVertex(-l_length, l_height, -l_width);
+
+					m_pRenderer->ImmediateNormal(0.0f, -1.0f, 0.0f);
+					m_pRenderer->ImmediateVertex(-l_length, -l_height, -l_width);
+					m_pRenderer->ImmediateVertex(l_length, -l_height, -l_width);
+					m_pRenderer->ImmediateVertex(l_length, -l_height, l_width);
+					m_pRenderer->ImmediateVertex(-l_length, -l_height, l_width);
+
+					m_pRenderer->ImmediateNormal(0.0f, 1.0f, 0.0f);
+					m_pRenderer->ImmediateVertex(l_length, l_height, -l_width);
+					m_pRenderer->ImmediateVertex(-l_length, l_height, -l_width);
+					m_pRenderer->ImmediateVertex(-l_length, l_height, l_width);
+					m_pRenderer->ImmediateVertex(l_length, l_height, l_width);
+					m_pRenderer->DisableImmediateMode();
+			m_pRenderer->PopMatrix();
+		}
+	}
+
+	m_pRenderer->SetCullMode(CM_BACK);
+}
+
+void ZoneData::UpdatePlanes(Matrix4x4 transformationMatrix)
+{
+	m_planes[0] = Plane3D(transformationMatrix * vec3(-1.0f, 0.0f, 0.0f), transformationMatrix * vec3(m_length, 0.0f, 0.0f));
+	m_planes[1] = Plane3D(transformationMatrix * vec3(1.0f, 0.0f, 0.0f), transformationMatrix * vec3(-m_length, 0.0f, 0.0f));
+	m_planes[2] = Plane3D(transformationMatrix * vec3(0.0f, -1.0f, 0.0f), transformationMatrix * vec3(0.0f, m_height, 0.0f));
+	m_planes[3] = Plane3D(transformationMatrix * vec3(0.0f, 1.0f, 0.0f), transformationMatrix * vec3(0.0f, -m_height, 0.0f));
+	m_planes[4] = Plane3D(transformationMatrix * vec3(0.0f, 0.0f, -1.0f), transformationMatrix * vec3(0.0f, 0.0f, m_width));
+	m_planes[5] = Plane3D(transformationMatrix * vec3(0.0f, 0.0f, 1.0f), transformationMatrix * vec3(0.0f, 0.0f, -m_width));
 }

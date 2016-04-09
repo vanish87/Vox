@@ -47,6 +47,28 @@ public:
 
 typedef std::vector<BiomeHeightBoundary*> BiomeHeightBoundaryList;
 
+enum ZoneRegionType
+{
+	BiomeRegionType_Sphere = 0,
+	BiomeRegionType_Cube,
+};
+
+class ZoneData
+{
+public:
+	vec3 m_origin;
+	ZoneRegionType m_regionType;
+	float m_radius;
+	float m_length;
+	float m_height;
+	float m_width;
+	Plane3D m_planes[6];
+
+	void UpdatePlanes(Matrix4x4 transformationMatrix);
+};
+
+typedef std::vector<ZoneData*> ZoneDataList;
+
 class BiomeManager
 {
 public:
@@ -54,10 +76,19 @@ public:
 	BiomeManager(Renderer* pRenderer);
 	~BiomeManager();
 
+	// Clear data
 	void ClearBoundaryData();
+	void ClearTownData();
+	void ClearSafeZoneData();
 
+	// Add data
 	void AddBiomeBoundary(Biome biome, float heightUpperBoundary, float red1, float green1, float blue1, float red2, float green2, float blue2, BlockType blockType);
+	void AddTown(vec3 townCenter, float radius);
+	void AddTown(vec3 townCenter, float length, float height, float width);
+	void AddSafeZone(vec3 safeZoneCenter, float radius);
+	void AddSafeZone(vec3 safeZoneCenter, float length, float height, float width);
 
+	// Get biome
 	Biome GetBiome(vec3 position);
 
 	// Town
@@ -66,7 +97,16 @@ public:
 	// Safe zone
 	bool IsInSafeZone(vec3 position);
 
+	// Check chunk and block type
 	void GetChunkColourAndBlockType(float xPos, float yPos, float zPos, float noiseValue, float landscapeGradient, float *r, float *g, float *b, BlockType *blockType);
+
+	// Update
+	void Update(float dt);
+
+	// Render
+	void RenderDebug();
+	void RenderTownsDebug();
+	void RenderSafeZoneDebug();
 
 protected:
 	/* Protected methods */
@@ -84,5 +124,12 @@ private:
 	/* Private members */
 	Renderer* m_pRenderer;
 
+	// Biome boundaries
 	BiomeHeightBoundaryList m_vpBiomeHeightBoundaryList[BiomeType_NumBiomes];
+
+	// Towns
+	ZoneDataList m_vpTownsList;
+
+	// Safe zones
+	ZoneDataList m_vpSafeZonesList;
 };

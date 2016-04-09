@@ -98,6 +98,9 @@ void VoxGame::Update()
 		// Update the enemy manager
 		m_pEnemyManager->Update(m_deltaTime);
 
+		// Update the biome manager
+		m_pBiomeManager->Update(m_deltaTime);
+
 		// Player
 		if (m_animationUpdate)
 		{

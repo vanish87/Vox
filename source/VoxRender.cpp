@@ -259,6 +259,8 @@ void VoxGame::Render()
 
 				m_pProjectileManager->RenderDebug();
 
+				m_pBiomeManager->RenderDebug();
+
 				if (m_gameMode == GameMode_FrontEnd)
 				{
 					m_pFrontendManager->RenderDebug();

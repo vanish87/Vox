@@ -175,7 +175,9 @@ bool EnemySpawner::GetSpawnPosition(vec3* pSpawnPosition)
 					spawnPos += m_groundSpawnOffset;
 
 					Biome biome = VoxGame::GetInstance()->GetBiomeManager()->GetBiome(spawnPos);
-					if (biome == m_biomeSpawn)
+					bool isInTown = VoxGame::GetInstance()->GetBiomeManager()->IsInTown(spawnPos);
+					bool isInSafeZone = VoxGame::GetInstance()->GetBiomeManager()->IsInSafeZone(spawnPos);
+					if (biome == m_biomeSpawn && isInTown == false && isInSafeZone == false)
 					{
 						*pSpawnPosition = spawnPos;
 						lLocationGood = true;
