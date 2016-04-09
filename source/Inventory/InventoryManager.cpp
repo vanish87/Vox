@@ -775,7 +775,7 @@ bool InventoryManager::CanAddInventoryItem(const char* title, eItem item, int qu
 		// First check if the item already exists in the inventory slots, to add to its quantity
 		for(int i = 0; i < MAX_NUM_INVENTORY_SLOTS; i++)
 		{
-			if(m_ItemSlotMapping[i] != NULL && (strcmp(title, m_ItemSlotMapping[i]->m_title.c_str()) == 0) && m_ItemSlotMapping[i]->m_item == item)
+			if(m_ItemSlotMapping[i] != NULL && (strcmp(title, m_ItemSlotMapping[i]->m_title.c_str()) == 0) && (m_ItemSlotMapping[i]->m_item == item || item == eItem_DroppedItem))
 			{
 				return true;
 			}
@@ -786,7 +786,7 @@ bool InventoryManager::CanAddInventoryItem(const char* title, eItem item, int qu
 		{
 			InventoryItem* lpItem = m_equippedSlots[i];
 
-			if(lpItem != NULL && (strcmp(title, lpItem->m_title.c_str()) == 0) && m_equippedSlots[i]->m_item == item)
+			if(lpItem != NULL && (strcmp(title, lpItem->m_title.c_str()) == 0) && (m_ItemSlotMapping[i]->m_item == item || item == eItem_DroppedItem))
 			{
 				return true;
 			}
