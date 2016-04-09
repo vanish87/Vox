@@ -152,6 +152,7 @@
 - [x] Different default inventory when we load a different class type from the create character screen.
 - [x] Use mouse and gamepad sensativity in the looking and camera rotation functions.
 - [x] Fog rendering.
+- [x] Add easier crafting functionality, just a single function call.
 - [ ] Add VLD support to debug version, allow for memory leak detection.
 - [ ] Add audio and music playback.
 - [ ] Saving and loading chunks.
@@ -174,6 +175,5 @@
 - [ ] Side stepping animation when in target camera mode.
 - [ ] Bug with custom cursors when going outside of windows bounds.
 - [ ] Don't allow 'other' buttons in select character screen when we have delet popup - i.e select, create, etc.
-- [ ] Add easier crafting functionality, just a single function call.
 - [ ] Create random loot manager and random loot dropping.
 - [ ] NPC loading falls through the world when we road trip to the front-end and start the game.
