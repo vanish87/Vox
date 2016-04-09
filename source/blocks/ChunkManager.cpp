@@ -954,6 +954,7 @@ float ChunkManager::GetWaterHeight()
 
 bool ChunkManager::IsUnderWater(vec3 position)
 {
+	if (VoxGame::GetInstance()->GetWaterRender() == false)
 	{
 		return false;
 	}
