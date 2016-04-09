@@ -559,7 +559,7 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 			pPickaxeRecipe->m_vpCraftingItems.push_back(pWood);
 			pPickaxeRecipe->m_vpCraftingItems.push_back(pGrass);
 
-			InventoryItem* pPickaxe = m_pInventoryManager->CreateInventoryItem("media/gamedata/weapons/Pickaxe/Pickaxe.weapon", "media/textures/items/pickaxe.tga", InventoryType_Weapon_Pickaxe, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Pickaxe", "Used for mining and digging the world.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+			InventoryItem* pPickaxe = m_pInventoryManager->CreateEquipmentItemFromType(eEquipment_NormalPickaxe);
 			pPickaxe->m_scale = 0.0f; pPickaxe->m_offsetX = 0.5f; pPickaxe->m_offsetY = 0.95f; pPickaxe->m_offsetZ = 0.5f;
 			pPickaxeRecipe->m_pResultItem = pPickaxe;
 

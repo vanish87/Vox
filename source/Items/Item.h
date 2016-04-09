@@ -23,18 +23,29 @@
 #include "../Inventory/InventoryManager.h"
 #include "../Maths/BoundingRegion.h"
 #include "ItemsEnum.h"
+#include "EquipmentEnum.h"
 
 class LightingManager;
 class ItemManager;
 class ItemSpawner;
 
-
+// Item helper functionality
 string GetItemTitleForType(eItem type);
 string GetItemDescriptionForType(eItem type);
 eItem GetItemTypeFromString(string typeName);
 float GetItemRadiusForType(eItem type);
 string GetItemFilenameForType(eItem type);
 string GetItemTextureForType(eItem type);
+
+// Equipment helper functionality
+string GetEquipmentTitleForType(eEquipment type);
+string GetEquipmentDescriptionForType(eEquipment type);
+string GetEquipmentFilenameForType(eEquipment type);
+string GetEquipmentTextureForType(eEquipment type);
+InventoryType GetInventoryTypeForEquipment(eEquipment type);
+EquipSlot GetEquipSlotForEquipment(eEquipment type);
+ItemQuality GetItemQualityForEquipment(eEquipment type);
+void GetItemSidesForEquipment(eEquipment type, bool *left, bool *right);
 
 class Item
 {

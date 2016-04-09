@@ -636,6 +636,9 @@
     <ClCompile Include="..\..\source\frontend\Pages\Credits.cpp">
       <Filter>source\frontend\Pages</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\Items\EquipmentUtils.cpp">
+      <Filter>source\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\glew\include\GL\glew.h">
@@ -1621,6 +1624,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\frontend\Pages\Credits.h">
       <Filter>source\frontend\Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Items\EquipmentEnum.h">
+      <Filter>source\Items</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -24,6 +24,7 @@ using namespace std;
 
 #include "../Items/StatAttribute.h"
 #include "../Items/ItemsEnum.h"
+#include "../Items/EquipmentEnum.h"
 #include "../Player/PlayerClass.h"
 
 class Player;
@@ -271,9 +272,10 @@ public:
 	InventoryItem* CreateInventoryItem(InventoryItem* pItem);
 	InventoryItem* CreateInventoryItem(const char* filename, const char* iconFilename, InventoryType itemType, eItem item, ItemStatus status, EquipSlot equipSlot, ItemQuality itemQuality, bool left, bool right, const char* title, const char* description, float r, float g, float b, int quantity, int lootSlotX, int lootSlotY, int setInventorySlotX, int setInventorySlotY);
 	InventoryItem* CreateInventoryItemForCrafting(eItem item, int quantity, ItemQuality itemQuality);
+	InventoryItem* CreateEquipmentItemFromType(eEquipment equipment);
 
 	InventoryItem* AddInventoryItem(const char* filename, const char* iconFilename, InventoryType itemType, eItem item, ItemStatus status, EquipSlot equipSlot, ItemQuality itemQuality, bool left, bool right, const char* title, const char* description, float r, float g, float b, int quantity, int lootSlotX, int lootSlotY, int setInventorySlotX, int setInventorySlotY);
-	void AddInventoryItem(InventoryItem* pInventoryItem, int inventoryX, int inventoryY);
+	InventoryItem* AddInventoryItem(InventoryItem* pInventoryItem, int inventoryX, int inventoryY);
 	
 	void RemoveInventoryItem(const char* title, eItem item, int quantity);
 	void RemoveInventoryItem(EquipSlot equipSlot);

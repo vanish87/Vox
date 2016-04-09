@@ -195,7 +195,7 @@ void InventoryManager::LoadDefaultInventory()
 
 void InventoryManager::LoadInventoryForClass(PlayerClass ePlayerClass)
 {
-	InventoryItem* pPickaxe = AddInventoryItem("media/gamedata/weapons/Pickaxe/Pickaxe.weapon", "media/textures/items/pickaxe.tga", InventoryType_Weapon_Pickaxe, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Pickaxe", "Used for mining and digging the world", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+	InventoryItem* pPickaxe = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_NormalPickaxe), -1, -1);
 	InventoryItem* pTorch = AddInventoryItem("media/gamedata/weapons/Torch/Torch.weapon", "media/textures/items/torch.tga", InventoryType_Weapon_Torch, eItem_None, ItemStatus_None, EquipSlot_LeftHand, ItemQuality_Common, false, false, "Torch", "A torch to light up the darkness", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
 
 	if (ePlayerClass == PlayerClass_Debug)
@@ -736,6 +736,22 @@ InventoryItem* InventoryManager::CreateInventoryItemForCrafting(eItem item, int 
 	return CreateInventoryItem(filename.c_str(), textureFilename.c_str(), InventoryType_Item, item, ItemStatus_None, EquipSlot_NoSlot, itemQuality, false, false, title.c_str(), desscription.c_str(), 1.0f, 1.0f, 1.0f, quantity, -1, -1, -1, -1);
 }
 
+InventoryItem* InventoryManager::CreateEquipmentItemFromType(eEquipment equipment)
+{
+	string filename = GetEquipmentFilenameForType(equipment);
+	string textureFilename = GetEquipmentTextureForType(equipment);
+	string title = GetEquipmentTitleForType(equipment);
+	string desscription = GetEquipmentDescriptionForType(equipment);
+	InventoryType type = GetInventoryTypeForEquipment(equipment);
+	EquipSlot slot = GetEquipSlotForEquipment(equipment);
+	ItemQuality quality = GetItemQualityForEquipment(equipment);
+	bool left;
+	bool right;
+	GetItemSidesForEquipment(equipment, &left, &right);
+
+	return CreateInventoryItem(filename.c_str(), textureFilename.c_str(), type, eItem_None, ItemStatus_None, slot, quality, left, right, title.c_str(), desscription.c_str(), 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+}
+
 ItemTextData* InventoryManager::GetItemTextData(eItem item)
 {
 	for(int i = 0; i < (sizeof(g_itemData)/sizeof(g_itemData[0])); i++)
@@ -940,7 +956,7 @@ InventoryItem* InventoryManager::AddInventoryItem(const char* filename, const ch
 	return NULL;
 }
 
-void InventoryManager::AddInventoryItem(InventoryItem* pInventoryItem, int inventoryX, int inventoryY)
+InventoryItem* InventoryManager::AddInventoryItem(InventoryItem* pInventoryItem, int inventoryX, int inventoryY)
 {
 	InventoryItem* pItem = AddInventoryItem(pInventoryItem->m_filename.c_str(), pInventoryItem->m_Iconfilename.c_str(), pInventoryItem->m_itemType, pInventoryItem->m_item,  pInventoryItem->m_status, pInventoryItem->m_equipSlot, pInventoryItem->m_itemQuality, pInventoryItem->m_left, pInventoryItem->m_right, pInventoryItem->m_title.c_str(), pInventoryItem->m_description.c_str(), pInventoryItem->m_placementR, pInventoryItem->m_placementG, pInventoryItem->m_placementB, pInventoryItem->m_quantity, pInventoryItem->m_lootSlotX, pInventoryItem->m_lootSlotY, inventoryX, inventoryY);
 	
@@ -953,6 +969,8 @@ void InventoryManager::AddInventoryItem(InventoryItem* pInventoryItem, int inven
 	pItem->m_offsetX = pInventoryItem->m_offsetX;
 	pItem->m_offsetY = pInventoryItem->m_offsetY;
 	pItem->m_offsetZ = pInventoryItem->m_offsetZ;
+
+	return pItem;
 }
 
 void InventoryManager::RemoveInventoryItem(const char* title, eItem item, int quantity)
