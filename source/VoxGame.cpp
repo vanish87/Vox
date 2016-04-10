@@ -837,7 +837,7 @@ void VoxGame::SetupDataForGame()
 	string denyText2 = "You are already on a quest, come back to me once you have finished.";
 	Quest* pCollectQuest = m_pQuestManager->CreateQuest("A Simple Collection", startText2, completedText2, denyText2);
 	pCollectQuest->AddQuestObjective("Collect 5 Copper Nuggets", QuestType_CollectX, 5, eEnemyType_None, eItem_CopperOre, NULL, "", NULL);
-	InventoryItem* pQuestReward2 = m_pInventoryManager->CreateInventoryItem("media/gamedata/items/CopperOre/CopperOre.item", "media/textures/items/copper_ore.tga", InventoryType_Item, eItem_CopperOre, ItemStatus_None, EquipSlot_LeftHand, ItemQuality_Common, false, false, "Copper Nugget", "", 1.0f, 1.0f, 1.0f, 5, -1, -1, -1, -1);
+	InventoryItem* pQuestReward2 = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_CopperOre, 5, ItemQuality_Common);
 	pCollectQuest->SetQuestReward(pQuestReward2);
 	pCollectQuest->ExportQuest();
 	// Quest 3
