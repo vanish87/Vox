@@ -122,7 +122,7 @@ void VoxGame::Render()
 			}
 
 			// Water reflections
-			if (m_waterRender)
+			if (m_waterRender && m_gameMode != GameMode_FrontEnd)
 			{
 				RenderWaterReflections();
 			}
@@ -222,7 +222,7 @@ void VoxGame::Render()
 			EndShaderRender();
 
 			// Render the transparency items above the water render, so that they appear properly under water
-			if (m_waterRender)
+			if (m_waterRender && m_gameMode != GameMode_FrontEnd)
 			{
 				m_pPlayer->RenderFace();
 				m_pNPCManager->RenderFaces();
