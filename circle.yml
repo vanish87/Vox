@@ -6,3 +6,6 @@ test:
         - cmake .  # generate the project files
     override:
         - make;  # make the project
+    post:
+        - mkdir $CIRCLE_ARTIFACTS/outputBin
+        - cp Vox $CIRCLE_ARTIFACTS/outputBin/Vox
