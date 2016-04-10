@@ -11,6 +11,7 @@
 
 #include "RandomLootManager.h"
 #include "../utils/Random.h"
+#include "../VoxGame.h"
 
 #include <fstream>
 #include <ostream>
@@ -26,11 +27,20 @@ RandomLootManager::RandomLootManager()
 	//AddEnemyIngredientSpawnData(eEnemyType_RedSlime, eItem_SlimeJelly, 1, 1);
 	//AddEnemyIngredientSpawnData(eEnemyType_BlueSlime, eItem_SlimeJelly, 1, 1);
 	//AddEnemyIngredientSpawnData(eEnemyType_YellowSlime, eItem_SlimeJelly, 1, 1);
+
+	// Create the random loot
+	AddRandomLoot(eEquipment_WoodenHelm);
+	AddRandomLoot(eEquipment_WoodenArmor);
+	AddRandomLoot(eEquipment_WoodenPants);
+	AddRandomLoot(eEquipment_WoodenGloves);
+	AddRandomLoot(eEquipment_WoodenBoots);
+	AddRandomLoot(eEquipment_WoodenShoulders);
 }
 
 RandomLootManager::~RandomLootManager()
 {
 	ClearEnemyIngredientsSpawnData();
+	ClearRandomLootList();
 }
 
 // Deletion
@@ -44,7 +54,29 @@ void RandomLootManager::ClearEnemyIngredientsSpawnData()
 	m_vpEnemyIngredientsSpawnDataList.clear();
 }
 
+void RandomLootManager::ClearRandomLootList()
+{
+	for (unsigned int i = 0; i < m_vpRandomLootItemList.size(); i++)
+	{
+		delete m_vpRandomLootItemList[i];
+		m_vpRandomLootItemList[i] = 0;
+	}
+	m_vpRandomLootItemList.clear();
+}
+
 // Enemy dropping ingredients
+void RandomLootManager::AddEnemyIngredientSpawnData(eEnemyType sourceEnemy, eItem spawnedItem, int minSpawn, int maxSpawn)
+{
+	EnemyIngredientsSpawnData* pEnemyIngredientsSpawnData = new EnemyIngredientsSpawnData();
+
+	pEnemyIngredientsSpawnData->m_sourceEnemy = sourceEnemy;
+	pEnemyIngredientsSpawnData->m_spawnedItem = spawnedItem;
+	pEnemyIngredientsSpawnData->m_minSpawn = minSpawn;
+	pEnemyIngredientsSpawnData->m_maxSpawn = maxSpawn;
+
+	m_vpEnemyIngredientsSpawnDataList.push_back(pEnemyIngredientsSpawnData);
+}
+
 void RandomLootManager::GetSpawnedIngredientItemForEnemy(eEnemyType sourceEnemy, eItem *item, int *quantity)
 {
 	for (unsigned int i = 0; i < m_vpEnemyIngredientsSpawnDataList.size(); i++)
@@ -71,19 +103,49 @@ void RandomLootManager::GetSpawnedIngredientItemForEnemy(eEnemyType sourceEnemy,
 }
 
 // Random loot
-InventoryItem* RandomLootManager::GetRandomLootItem()
+void RandomLootManager::AddRandomLoot(eEquipment equipment)
 {
-	return NULL;
+	RandomLootItem* pNewRandomLoot = new RandomLootItem();
+
+	pNewRandomLoot->m_repickValue = 500;
+	pNewRandomLoot->m_equipmentType = equipment;
+	pNewRandomLoot->m_pLootItem = VoxGame::GetInstance()->GetInventoryManager()->CreateEquipmentItemFromType(equipment);
+
+	m_vpRandomLootItemList.push_back(pNewRandomLoot);
 }
 
-void RandomLootManager::AddEnemyIngredientSpawnData(eEnemyType sourceEnemy, eItem spawnedItem, int minSpawn, int maxSpawn)
+InventoryItem* RandomLootManager::GetRandomLootItem(eEquipment *equipment)
 {
-	EnemyIngredientsSpawnData* pEnemyIngredientsSpawnData = new EnemyIngredientsSpawnData();
-	
-	pEnemyIngredientsSpawnData->m_sourceEnemy = sourceEnemy;
-	pEnemyIngredientsSpawnData->m_spawnedItem = spawnedItem;
-	pEnemyIngredientsSpawnData->m_minSpawn = minSpawn;
-	pEnemyIngredientsSpawnData->m_maxSpawn = maxSpawn;
+	int numRetries = 0;
+	while (numRetries < 10)
+	{
+		int randomSelection = GetRandomNumber(0, (int)m_vpRandomLootItemList.size() - 1);
+		int repickValue = GetRandomNumber(0, 1000);
 
-	m_vpEnemyIngredientsSpawnDataList.push_back(pEnemyIngredientsSpawnData);
+		if (numRetries < 9)
+		{
+			if (m_vpRandomLootItemList[randomSelection]->m_repickValue > repickValue)
+			{
+				m_vpRandomLootItemList[randomSelection]->m_repickValue = (int)(m_vpRandomLootItemList[randomSelection]->m_repickValue * 0.5f);
+
+				*equipment = m_vpRandomLootItemList[randomSelection]->m_equipmentType;
+				return m_vpRandomLootItemList[randomSelection]->m_pLootItem;
+			}
+			else
+			{
+				m_vpRandomLootItemList[randomSelection]->m_repickValue += (int)((1000 - m_vpRandomLootItemList[randomSelection]->m_repickValue)*0.5f);
+
+				numRetries++;
+			}
+		}
+		else
+		{
+			*equipment = m_vpRandomLootItemList[randomSelection]->m_equipmentType;
+			return m_vpRandomLootItemList[randomSelection]->m_pLootItem;
+		}
+
+	}
+
+	*equipment = eEquipment_None;
+	return NULL;
 }

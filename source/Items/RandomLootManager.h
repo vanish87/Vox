@@ -32,7 +32,16 @@ public:
 	int m_maxSpawn;
 };
 
+class RandomLootItem
+{
+public:
+	InventoryItem* m_pLootItem;
+	eEquipment m_equipmentType;
+	int m_repickValue;
+};
+
 typedef vector<EnemyIngredientsSpawnData*> EnemyIngredientsSpawnDataList;
+typedef vector<RandomLootItem*> RandomLootItemList;
 
 class RandomLootManager
 {
@@ -43,19 +52,21 @@ public:
 
 	// Deletion
 	void ClearEnemyIngredientsSpawnData();
+	void ClearRandomLootList();
 
 	// Enemy dropping ingredients
+	void AddEnemyIngredientSpawnData(eEnemyType sourceEnemy, eItem spawnedItem, int minSpawn, int maxSpawn);
 	void GetSpawnedIngredientItemForEnemy(eEnemyType sourceEnemy, eItem *item, int *quantity);
 
 	// Random loot
-	InventoryItem* GetRandomLootItem();
+	void AddRandomLoot(eEquipment equipment);
+	InventoryItem* GetRandomLootItem(eEquipment *equipment);
 
 protected:
 	/* Protected methods */
 
 private:
 	/* Private methods */
-	void AddEnemyIngredientSpawnData(eEnemyType sourceEnemy, eItem spawnedItem, int minSpawn, int maxSpawn);
 
 public:
 	/* Public members */
@@ -65,5 +76,10 @@ protected:
 
 private:
 	/* Private members */
+
+	// Enemy ingredients
 	EnemyIngredientsSpawnDataList m_vpEnemyIngredientsSpawnDataList;
+
+	// Random loot
+	RandomLootItemList m_vpRandomLootItemList;
 };

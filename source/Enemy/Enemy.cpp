@@ -2621,7 +2621,6 @@ void Enemy::SpawnLootItems()
 	eItem item;
 	int quantity;
 	VoxGame::GetInstance()->GetRandomLootManager()->GetSpawnedIngredientItemForEnemy(m_eEnemyType, &item, &quantity);
-
 	if (quantity != 0 && item != eItem_None)
 	{
 		for (int i = 0; i < quantity; i++)
@@ -2652,7 +2651,40 @@ void Enemy::SpawnLootItems()
 		}
 	}
 
-	// Create items from the killed enemy
+	// Create random loot
+	if (m_eEnemyType == eEnemyType_Mimic)
+	{
+		eEquipment equipment = eEquipment_None;
+		InventoryItem* pRandomLoot = VoxGame::GetInstance()->GetRandomLootManager()->GetRandomLootItem(&equipment);
+
+		if (pRandomLoot != NULL && equipment != eEquipment_None)
+		{
+			float radius = GetRadius();
+			float angle = DegToRad(GetRandomNumber(0, 360, 1));
+			vec3 ItemPosition = GetCenter() + vec3(cos(angle) * radius, 0.0f, sin(angle) * radius);
+			vec3 gravity = vec3(0.0f, -1.0f, 0.0f);
+			gravity = normalize(gravity);
+
+			Item* pItem = m_pItemManager->CreateItem(GetCenter(), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), GetEquipmentFilenameForType(equipment).c_str(), eItem_DroppedItem, GetEquipmentTitleForType(equipment).c_str(), true, false, 0.08f);
+
+			if (pItem != NULL)
+			{
+				pItem->SetGravityDirection(gravity);
+				vec3 vel = ItemPosition - GetCenter();
+				pItem->SetVelocity(normalize(vel)*(float)GetRandomNumber(2, 4, 2) + vec3(0.0f, 9.5f + GetRandomNumber(-2, 4, 2), 0.0f));
+				pItem->SetRotation(vec3(0.0f, GetRandomNumber(0, 360, 2), 0.0f));
+				pItem->SetAngularVelocity(vec3(0.0f, 90.0f, 0.0f));
+				pItem->SetCollisionEnabled(false);
+
+				pItem->SetDroppedItem(pRandomLoot);
+
+				int numY = pItem->GetVoxelItem()->GetAnimatedSection(0)->m_pVoxelObject->GetQubicleModel()->GetQubicleMatrix(0)->m_matrixSizeY;
+				pItem->GetVoxelItem()->SetRenderOffset(vec3(0.0f, numY*0.5f, 0.0f));
+			}
+		}
+	}
+
+	// Create items from the killed enemy (coins, hearts)
 	int numItems = GetRandomNumber(3, 8);
 	for(int i = 0; i < numItems; i++)
 	{
