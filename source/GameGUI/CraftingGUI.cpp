@@ -727,7 +727,7 @@ void CraftingGUI::CreateRecipeButtons()
 		pNewResultsItem->AddIcon(m_pRenderer, lItemTexture, 64, 64, 24, 24, 4, 4, 2.5f);
 
 		// Create the item label
-		pNewResultsItem->AddText(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), pResultsItem->m_title, Colour(1.0f, 1.0f, 1.0f, 1.0f), 40, 7, true, Colour(0.0f, 0.0f, 0.0f, 1.0f));
+		pNewResultsItem->AddText(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), pResultsItem->m_title, Colour(1.0f, 1.0f, 1.0f, 1.0f), 34, 7, true, Colour(0.0f, 0.0f, 0.0f, 1.0f));
 
 		pNewResultsItem->SetCallBackFunction(_ResultsItemPressed);
 		pNewResultsItem->SetCallBackData(lpSlotItem);
