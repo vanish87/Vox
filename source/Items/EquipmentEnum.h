@@ -35,6 +35,8 @@ enum eEquipment
 	eEquipment_FireballHandLeft,
 	eEquipment_FireballHandRight,
 
+	eEquipment_WoodenSword,
+	eEquipment_WoodenShield,
 	eEquipment_WoodenBow,
 
 	eEquipment_IronSword,
