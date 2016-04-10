@@ -85,5 +85,13 @@ enum eEquipment
 	eEquipment_IceBoots,
 	eEquipment_IceShoulders,
 
+	// Spike
+	eEquipment_SpikeHelm,
+	eEquipment_SpikeArmor,
+	eEquipment_SpikePants,
+	eEquipment_SpikeGloves,
+	eEquipment_SpikeBoots,
+	eEquipment_SpikeShoulders,
+
 	eEquipment_NUM_EQUIPMENT,
 };

@@ -74,6 +74,13 @@ string GetEquipmentTitleForType(eEquipment type)
 		case eEquipment_IceGloves:			{ return "Ice Gloves"; } break;
 		case eEquipment_IceBoots:			{ return "Ice Boots"; } break;
 		case eEquipment_IceShoulders:		{ return "Ice Shoulders"; } break;
+		// Spike
+		case eEquipment_SpikeHelm:			{ return "Spike Helm"; } break;
+		case eEquipment_SpikeArmor:			{ return "Spike Armor"; } break;
+		case eEquipment_SpikePants:			{ return "Spike Pants"; } break;
+		case eEquipment_SpikeGloves:		{ return "Spike Gloves"; } break;
+		case eEquipment_SpikeBoots:			{ return "Spike Boots"; } break;
+		case eEquipment_SpikeShoulders:		{ return "Spike Shoulders"; } break;
 	}
 
 	return "";
@@ -138,6 +145,13 @@ string GetEquipmentDescriptionForType(eEquipment type)
 		case eEquipment_IceGloves:			{ return "Ice gloves."; } break;
 		case eEquipment_IceBoots:			{ return "Ice boots."; } break;
 		case eEquipment_IceShoulders:		{ return "Ice shoulders."; } break;
+		// Spike
+		case eEquipment_SpikeHelm:			{ return "Spike helm."; } break;
+		case eEquipment_SpikeArmor:			{ return "Spike armor."; } break;
+		case eEquipment_SpikePants:			{ return "Spike pants."; } break;
+		case eEquipment_SpikeGloves:		{ return "Spike gloves."; } break;
+		case eEquipment_SpikeBoots:			{ return "Spike boots."; } break;
+		case eEquipment_SpikeShoulders:		{ return "Spike shoulders."; } break;
 	}
 
 	return "";
@@ -202,6 +216,13 @@ string GetEquipmentFilenameForType(eEquipment type)
 		case eEquipment_IceGloves:			{ return "media/gamedata/equipment/IceGloves/IceGloves.equipment"; } break;
 		case eEquipment_IceBoots:			{ return "media/gamedata/equipment/IceBoots/IceBoots.equipment"; } break;
 		case eEquipment_IceShoulders:		{ return "media/gamedata/equipment/IceShoulders/IceShoulders.equipment"; } break;
+		// Spike
+		case eEquipment_SpikeHelm:			{ return "media/gamedata/equipment/SpikeHelm/SpikeHelm.equipment"; } break;
+		case eEquipment_SpikeArmor:			{ return "media/gamedata/equipment/SpikeBody/SpikeBody.equipment"; } break;
+		case eEquipment_SpikePants:			{ return "media/gamedata/equipment/SpikePants/SpikePants.equipment"; } break;
+		case eEquipment_SpikeGloves:		{ return "media/gamedata/equipment/SpikeGloves/SpikeGloves.equipment"; } break;
+		case eEquipment_SpikeBoots:			{ return "media/gamedata/equipment/SpikeBoots/SpikeBoots.equipment"; } break;
+		case eEquipment_SpikeShoulders:		{ return "media/gamedata/equipment/SpikeShoulders/SpikeShoulders.equipment"; } break;
 	}
 
 	return "";
@@ -266,6 +287,13 @@ string GetEquipmentTextureForType(eEquipment type)
 		case eEquipment_IceGloves:			{ return "media/textures/items/question_mark.tga"; } break;
 		case eEquipment_IceBoots:			{ return "media/textures/items/question_mark.tga"; } break;
 		case eEquipment_IceShoulders:		{ return "media/textures/items/question_mark.tga"; } break;
+		// Spike
+		case eEquipment_SpikeHelm:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_SpikeArmor:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_SpikePants:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_SpikeGloves:		{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_SpikeBoots:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_SpikeShoulders:		{ return "media/textures/items/question_mark.tga"; } break;
 	}
 
 	return "";
@@ -330,6 +358,13 @@ InventoryType GetInventoryTypeForEquipment(eEquipment type)
 		case eEquipment_IceGloves:			{ return InventoryType_Clothing; } break;
 		case eEquipment_IceBoots:			{ return InventoryType_Clothing; } break;
 		case eEquipment_IceShoulders:		{ return InventoryType_Clothing; } break;
+		// Spike
+		case eEquipment_SpikeHelm:			{ return InventoryType_Clothing; } break;
+		case eEquipment_SpikeArmor:			{ return InventoryType_Clothing; } break;
+		case eEquipment_SpikePants:			{ return InventoryType_Clothing; } break;
+		case eEquipment_SpikeGloves:		{ return InventoryType_Clothing; } break;
+		case eEquipment_SpikeBoots:			{ return InventoryType_Clothing; } break;
+		case eEquipment_SpikeShoulders:		{ return InventoryType_Clothing; } break;
 	}
 
 	return InventoryType_Nothing;
@@ -394,6 +429,13 @@ EquipSlot GetEquipSlotForEquipment(eEquipment type)
 		case eEquipment_IceGloves:			{ return EquipSlot_Hand; } break;
 		case eEquipment_IceBoots:			{ return EquipSlot_Feet; } break;
 		case eEquipment_IceShoulders:		{ return EquipSlot_Shoulders; } break;
+		// Spike
+		case eEquipment_SpikeHelm:			{ return EquipSlot_Head; } break;
+		case eEquipment_SpikeArmor:			{ return EquipSlot_Body; } break;
+		case eEquipment_SpikePants:			{ return EquipSlot_Legs; } break;
+		case eEquipment_SpikeGloves:		{ return EquipSlot_Hand; } break;
+		case eEquipment_SpikeBoots:			{ return EquipSlot_Feet; } break;
+		case eEquipment_SpikeShoulders:		{ return EquipSlot_Shoulders; } break;
 	}
 
 	return EquipSlot_NoSlot;
@@ -422,12 +464,12 @@ ItemQuality GetItemQualityForEquipment(eEquipment type)
 		case eEquipment_WoodenSword:		{ return ItemQuality_Common; } break;
 		case eEquipment_WoodenShield:		{ return ItemQuality_Common; } break;
 		case eEquipment_WoodenBow:			{ return ItemQuality_Common; } break;
-		case eEquipment_WoodenHelm:			{ return ItemQuality_Uncommon; } break;
-		case eEquipment_WoodenArmor:		{ return ItemQuality_Uncommon; } break;
-		case eEquipment_WoodenPants:		{ return ItemQuality_Uncommon; } break;
-		case eEquipment_WoodenGloves:		{ return ItemQuality_Uncommon; } break;
-		case eEquipment_WoodenBoots:		{ return ItemQuality_Uncommon; } break;
-		case eEquipment_WoodenShoulders:	{ return ItemQuality_Uncommon; } break;
+		case eEquipment_WoodenHelm:			{ return ItemQuality_Common; } break;
+		case eEquipment_WoodenArmor:		{ return ItemQuality_Common; } break;
+		case eEquipment_WoodenPants:		{ return ItemQuality_Common; } break;
+		case eEquipment_WoodenGloves:		{ return ItemQuality_Common; } break;
+		case eEquipment_WoodenBoots:		{ return ItemQuality_Common; } break;
+		case eEquipment_WoodenShoulders:	{ return ItemQuality_Common; } break;
 		// Iron
 		case eEquipment_IronSword:			{ return ItemQuality_Common; } break;
 		case eEquipment_IronShield:			{ return ItemQuality_Common; } break;
@@ -458,6 +500,13 @@ ItemQuality GetItemQualityForEquipment(eEquipment type)
 		case eEquipment_IceGloves:			{ return ItemQuality_Rare; } break;
 		case eEquipment_IceBoots:			{ return ItemQuality_Rare; } break;
 		case eEquipment_IceShoulders:		{ return ItemQuality_Rare; } break;
+		// Spike
+		case eEquipment_SpikeHelm:			{ return ItemQuality_Epic; } break;
+		case eEquipment_SpikeArmor:			{ return ItemQuality_Epic; } break;
+		case eEquipment_SpikePants:			{ return ItemQuality_Epic; } break;
+		case eEquipment_SpikeGloves:		{ return ItemQuality_Epic; } break;
+		case eEquipment_SpikeBoots:			{ return ItemQuality_Epic; } break;
+		case eEquipment_SpikeShoulders:		{ return ItemQuality_Epic; } break;
 	}
 
 	return ItemQuality_Common;
@@ -522,5 +571,12 @@ void GetItemSidesForEquipment(eEquipment type, bool *left, bool *right)
 		case eEquipment_IceGloves:			{ *left = true; *right = true; } break;
 		case eEquipment_IceBoots:			{ *left = true; *right = true; } break;
 		case eEquipment_IceShoulders:		{ *left = true; *right = true; } break;
+		// Spike
+		case eEquipment_SpikeHelm:			{ *left = false; *right = false; } break;
+		case eEquipment_SpikeArmor:			{ *left = false; *right = false; } break;
+		case eEquipment_SpikePants:			{ *left = false; *right = false; } break;
+		case eEquipment_SpikeGloves:		{ *left = true; *right = true; } break;
+		case eEquipment_SpikeBoots:			{ *left = true; *right = true; } break;
+		case eEquipment_SpikeShoulders:		{ *left = true; *right = true; } break;
 	}
 }
