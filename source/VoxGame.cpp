@@ -762,12 +762,12 @@ void VoxGame::SetupDataForGame()
 
 	// Item spawners
 	ItemSpawner* pItemSpawner1 = m_pItemManager->CreateItemSpawner(vec3(0.0f, 6.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f));
-	pItemSpawner1->SetSpawningParams(0.0f, 0.0f, 15, vec3(0.0f, 0.0f, 0.0f), true, vec3(0.0f, 5.0f, 0.0f), true, true, 25.0f, Biome_GrassLand, 0.15f);
+	pItemSpawner1->SetSpawningParams(0.0f, 0.0f, 15, vec3(0.0f, 0.0f, 0.0f), true, vec3(0.0f, 0.5f, 0.0f), true, true, 25.0f, Biome_GrassLand, 0.15f);
 	pItemSpawner1->AddItemTypeToSpawn(eItem_CopperVein);
 	pItemSpawner1->AddItemTypeToSpawn(eItem_IronVein);
 
 	ItemSpawner* pItemSpawner2 = m_pItemManager->CreateItemSpawner(vec3(0.0f, 6.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f));
-	pItemSpawner2->SetSpawningParams(0.0f, 0.0f, 3, vec3(0.0f, 0.0f, 0.0f), true, vec3(0.0f, 5.0f, 0.0f), true, true, 25.0f, Biome_GrassLand, 0.08f);
+	pItemSpawner2->SetSpawningParams(0.0f, 0.0f, 3, vec3(0.0f, 0.0f, 0.0f), true, vec3(0.0f, 0.5f, 0.0f), true, true, 25.0f, Biome_GrassLand, 0.08f);
 	pItemSpawner2->AddItemTypeToSpawn(eItem_Chest);
 
 	// Npcs
