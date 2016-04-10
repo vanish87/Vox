@@ -38,6 +38,7 @@ void VoxGame::Update()
 	float maxDeltaTime = 0.25f;
 	if (m_deltaTime > maxDeltaTime)
 	{
+		cout << "Warning: DeltaTime exceeded sensible value, switching dt from " << m_deltaTime << " to " << maxDeltaTime << ".\n";
 		m_deltaTime = maxDeltaTime;
 	}
 
