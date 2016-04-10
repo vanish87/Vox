@@ -1177,26 +1177,6 @@ void Item::Interact()
 		}
 	}
 
-	// Door open/close animation
-	if(m_itemType == eItem_Door)
-	{
-		if(m_pVoxelItem->HasSubSectionAnimationFinished(0))
-		{
-			m_pVoxelItem->StartSubSectionAnimation();
-
-			if(m_itemInteracting)
-			{
-				SetCollisionEnabled(true);
-				m_itemInteracting = false;
-			}
-			else
-			{
-				SetCollisionEnabled(false);
-				m_itemInteracting = true;
-			}
-		}
-	}
-
 	// Chest open/close animation
 	if(m_itemType == eItem_Chest)
 	{

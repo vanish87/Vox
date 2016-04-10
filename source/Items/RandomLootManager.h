@@ -14,12 +14,25 @@
 #pragma once
 
 #include "Item.h"
-#include "..\Inventory\InventoryManager.h"
+#include "ItemsEnum.h"
+#include "../Enemy/Enemy.h"
+#include "../Inventory/InventoryManager.h"
 
 #include <vector>
 #include <string>
 using namespace std;
 
+
+class EnemyIngredientsSpawnData
+{
+public:
+	eEnemyType m_sourceEnemy;
+	eItem m_spawnedItem;
+	int m_minSpawn;
+	int m_maxSpawn;
+};
+
+typedef vector<EnemyIngredientsSpawnData*> EnemyIngredientsSpawnDataList;
 
 class RandomLootManager
 {
@@ -28,6 +41,13 @@ public:
 	RandomLootManager();
 	~RandomLootManager();
 
+	// Deletion
+	void ClearEnemyIngredientsSpawnData();
+
+	// Enemy dropping ingredients
+	void GetSpawnedIngredientItemForEnemy(eEnemyType sourceEnemy, eItem *item, int *quantity);
+
+	// Random loot
 	InventoryItem* GetRandomLootItem();
 
 protected:
@@ -35,6 +55,7 @@ protected:
 
 private:
 	/* Private methods */
+	void AddEnemyIngredientSpawnData(eEnemyType sourceEnemy, eItem spawnedItem, int minSpawn, int maxSpawn);
 
 public:
 	/* Public members */
@@ -44,4 +65,5 @@ protected:
 
 private:
 	/* Private members */
+	EnemyIngredientsSpawnDataList m_vpEnemyIngredientsSpawnDataList;
 };

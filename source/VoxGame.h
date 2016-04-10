@@ -259,6 +259,7 @@ public:
 	BlockParticleManager* GetBlockParticleManager();
 	NPCManager* GetNPCManager();
 	ItemManager* GetItemManager();
+	InventoryManager* GetInventoryManager();
 	RandomLootManager* GetRandomLootManager();
 	ModsManager* GetModsManager();
 	CharacterGUI* GetCharacterGUI();

@@ -29,8 +29,8 @@ enum eItem
 	// Zombie gib
 	eItem_Gib,
 
+	// Interactable items
 	eItem_Tombstone,
-
 	eItem_Chest,
 	eItem_Torch,
 	eItem_Furnace,
@@ -38,15 +38,6 @@ enum eItem
 	eItem_QuestBoard,
 	eItem_CampFire,
 	eItem_Mannequin,
-
-	// Housing and building
-	eItem_Door,
-	eItem_Chair,
-	eItem_Table,
-	eItem_Bed,
-
-	eItem_Portal,
-	eItem_PortalPillar,
 	
 	// Ore and mining
 	eItem_CopperVein,
@@ -61,14 +52,6 @@ enum eItem
 	eItem_GoldVein,
 	eItem_GoldOre,
 	eItem_GoldBar,
-
-	// Farming crops
-	eItem_CropSoil,
-	eItem_CropWheat,
-	eItem_CropCorn,
-	eItem_CropTomato,
-
-	eItem_Fence,
 
 	// World blocks
 	eItem_Block_Grass,

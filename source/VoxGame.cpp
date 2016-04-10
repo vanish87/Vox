@@ -1073,24 +1073,6 @@ bool VoxGame::CheckInteractions()
 			interaction = true;
 		}
 
-		// Open/close door
-		if (m_pInteractItem->GetItemType() == eItem_Door)
-		{
-			m_pInteractItem->Interact();
-
-			interaction = true;
-		}
-
-		// Sitting in chair
-		if (m_pInteractItem->GetItemType() == eItem_Chair)
-		{
-			m_pInteractItem->Interact();
-			m_pPlayer->StopMoving();
-			shouldStopMovement = true;
-
-			interaction = true;
-		}
-
 		// Crafting stations
 		if (m_pInteractItem->GetItemType() == eItem_Anvil || m_pInteractItem->GetItemType() == eItem_Furnace)
 		{
@@ -1384,6 +1366,11 @@ NPCManager* VoxGame::GetNPCManager()
 ItemManager* VoxGame::GetItemManager()
 {
 	return m_pItemManager;
+}
+
+InventoryManager* VoxGame::GetInventoryManager()
+{
+	return m_pInventoryManager;
 }
 
 RandomLootManager* VoxGame::GetRandomLootManager()

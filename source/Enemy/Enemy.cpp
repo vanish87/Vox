@@ -26,6 +26,7 @@
 #include "../GameGUI/HUD.h"
 #include "../NPC/NPCManager.h"
 #include "../NPC/NPC.h"
+#include "../Items/Item.h"
 #include "../VoxGame.h"
 
 
@@ -2616,6 +2617,41 @@ vec3 Enemy::GetProjectileHitboxCenter()
 // Spawn loot items
 void Enemy::SpawnLootItems()
 {
+	// Create the random ingredients drops
+	eItem item;
+	int quantity;
+	VoxGame::GetInstance()->GetRandomLootManager()->GetSpawnedIngredientItemForEnemy(m_eEnemyType, &item, &quantity);
+
+	if (quantity != 0 && item != eItem_None)
+	{
+		for (int i = 0; i < quantity; i++)
+		{
+			float radius = GetRadius();
+			float angle = DegToRad(GetRandomNumber(0, 360, 1));
+			vec3 ItemPosition = GetCenter() + vec3(cos(angle) * radius, 0.0f, sin(angle) * radius);
+			vec3 gravity = vec3(0.0f, -1.0f, 0.0f);
+			gravity = normalize(gravity);
+
+			Item* pItem = m_pItemManager->CreateItem(GetCenter(), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), GetItemFilenameForType(item).c_str(), eItem_DroppedItem, GetItemTitleForType(item).c_str(), true, false, 0.08f);
+
+			if (pItem != NULL)
+			{
+				pItem->SetGravityDirection(gravity);
+				vec3 vel = ItemPosition - GetCenter();
+				pItem->SetVelocity(normalize(vel)*(float)GetRandomNumber(2, 4, 2) + vec3(0.0f, 9.5f + GetRandomNumber(-2, 4, 2), 0.0f));
+				pItem->SetRotation(vec3(0.0f, GetRandomNumber(0, 360, 2), 0.0f));
+				pItem->SetAngularVelocity(vec3(0.0f, 90.0f, 0.0f));
+				pItem->SetCollisionEnabled(false);
+
+				InventoryItem* pInventoryItem = VoxGame::GetInstance()->GetInventoryManager()->CreateInventoryItemForCrafting(item, 1, ItemQuality_Common);
+				pItem->SetDroppedItem(pInventoryItem);
+
+				int numY = pItem->GetVoxelItem()->GetAnimatedSection(0)->m_pVoxelObject->GetQubicleModel()->GetQubicleMatrix(0)->m_matrixSizeY;
+				pItem->GetVoxelItem()->SetRenderOffset(vec3(0.0f, numY*0.5f, 0.0f));
+			}
+		}
+	}
+
 	// Create items from the killed enemy
 	int numItems = GetRandomNumber(3, 8);
 	for(int i = 0; i < numItems; i++)
@@ -2627,8 +2663,7 @@ void Enemy::SpawnLootItems()
 		float b = 1.0f;
 		float a = 1.0f;
 
-		float radius = 0.5f;
-		//float angle = DegToRad(((float)i/(float)numItems) * 360.0f);
+		float radius = GetRadius();
 		float angle = DegToRad(GetRandomNumber(0, 360, 1));
 		vec3 ItemPosition = GetCenter() + vec3(cos(angle) * radius, 0.0f, sin(angle) * radius);
 
@@ -2637,11 +2672,11 @@ void Enemy::SpawnLootItems()
 		Item* pItem = NULL;
 		if(GetRandomNumber(0, 100) > 90)
 		{
-			pItem = m_pItemManager->CreateItem(GetCenter(), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Heart/Heart.item", eItem_Heart, "Heart", false, true, 0.03f);
+			pItem = m_pItemManager->CreateItem(GetCenter(), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), GetItemFilenameForType(eItem_Heart).c_str(), eItem_Heart, GetItemTitleForType(eItem_Heart).c_str(), false, true, 0.03f);
 		}
 		else
 		{
-			pItem = m_pItemManager->CreateItem(GetCenter(), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Coin/Coin.item", eItem_Coin, "Coin", false, true, 0.0225f);
+			pItem = m_pItemManager->CreateItem(GetCenter(), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), GetItemFilenameForType(eItem_Coin).c_str(), eItem_Coin, GetItemTitleForType(eItem_Coin).c_str(), false, true, 0.0225f);
 		}
 
 		if(pItem != NULL)
