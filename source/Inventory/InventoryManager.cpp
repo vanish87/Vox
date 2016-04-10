@@ -181,20 +181,20 @@ void InventoryManager::LoadDefaultInventory()
 	InventoryItem* pBed = AddInventoryItem("media/gamedata/items/Bed/Bed.item", "media/textures/items/question_mark.tga", InventoryType_Item, eItem_Bed, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Bed", "Set spawn position", 1.0f, 1.0f, 1.0f, 1, -1, -1, -1, -1);
 	*/
 
-	/*
-	InventoryItem* pShoulders = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_WoodenShoulders), -1, -1);
+	///*
+	InventoryItem* pShoulders = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_IronShoulders), -1, -1);
 	pShoulders->AddStatAttribute(AttributeType_Armor, 1);
-	InventoryItem* pHelm = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_WoodenHelm), -1, -1);
+	InventoryItem* pHelm = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_IronHelm), -1, -1);
 	pHelm->AddStatAttribute(AttributeType_Armor, 1);
-	InventoryItem* pGloves = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_WoodenGloves), -1, -1);
+	InventoryItem* pGloves = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_IronGloves), -1, -1);
 	pGloves->AddStatAttribute(AttributeType_Armor, 1);
-	InventoryItem* pBoots = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_WoodenBoots), -1, -1);
+	InventoryItem* pBoots = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_IronBoots), -1, -1);
 	pBoots->AddStatAttribute(AttributeType_Armor, 1);
-	InventoryItem* pBody = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_WoodenArmor), -1, -1);
+	InventoryItem* pBody = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_IronArmor), -1, -1);
 	pBody->AddStatAttribute(AttributeType_Armor, 1);
-	InventoryItem* pLegs = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_WoodenPants), -1, -1);
+	InventoryItem* pLegs = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_IronPants), -1, -1);
 	pLegs->AddStatAttribute(AttributeType_Armor, 1);
-	*/
+	//*/
 }
 
 void InventoryManager::LoadInventoryForClass(PlayerClass ePlayerClass)

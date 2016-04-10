@@ -50,6 +50,12 @@ enum eEquipment
 	// Iron
 	eEquipment_IronSword,
 	eEquipment_IronShield,
+	eEquipment_IronHelm,
+	eEquipment_IronArmor,
+	eEquipment_IronPants,
+	eEquipment_IronGloves,
+	eEquipment_IronBoots,
+	eEquipment_IronShoulders,
 
 	// Silver
 

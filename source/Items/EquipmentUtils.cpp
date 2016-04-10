@@ -45,6 +45,12 @@ string GetEquipmentTitleForType(eEquipment type)
 		case eEquipment_WoodenShoulders:	{ return "Wooden Shoulders"; } break;
 		case eEquipment_IronSword:			{ return "Iron Sword"; } break;
 		case eEquipment_IronShield:			{ return "Iron Shield"; } break;
+		case eEquipment_IronHelm:			{ return "Iron Helm"; } break;
+		case eEquipment_IronArmor:			{ return "Iron Armor"; } break;
+		case eEquipment_IronPants:			{ return "Iron Pants"; } break;
+		case eEquipment_IronGloves:			{ return "Iron Gloves"; } break;
+		case eEquipment_IronBoots:			{ return "Iron Boots"; } break;
+		case eEquipment_IronShoulders:		{ return "Iron Shoulders"; } break;
 	}
 
 	return "";
@@ -80,6 +86,12 @@ string GetEquipmentDescriptionForType(eEquipment type)
 		case eEquipment_WoodenShoulders:	{ return "Wooden shoulders."; } break;
 		case eEquipment_IronSword:			{ return "A sturdy sword made of iron."; } break;
 		case eEquipment_IronShield:			{ return "A shield of pure iron."; } break;
+		case eEquipment_IronHelm:			{ return "Iron helm."; } break;
+		case eEquipment_IronArmor:			{ return "Iron armor."; } break;
+		case eEquipment_IronPants:			{ return "Iron pants."; } break;
+		case eEquipment_IronGloves:			{ return "Iron gloves."; } break;
+		case eEquipment_IronBoots:			{ return "Iron boots."; } break;
+		case eEquipment_IronShoulders:		{ return "Iron shoulders."; } break;
 	}
 
 	return "";
@@ -115,6 +127,12 @@ string GetEquipmentFilenameForType(eEquipment type)
 		case eEquipment_WoodenShoulders:	{ return "media/gamedata/equipment/WoodShoulders/WoodShoulders.equipment"; } break;
 		case eEquipment_IronSword:			{ return "media/gamedata/weapons/IronSword/IronSword.weapon"; } break;
 		case eEquipment_IronShield:			{ return "media/gamedata/weapons/IronShield/IronShield.weapon"; } break;
+		case eEquipment_IronHelm:			{ return "media/gamedata/equipment/IronHelm/IronHelm.equipment"; } break;
+		case eEquipment_IronArmor:			{ return "media/gamedata/equipment/IronBody/IronBody.equipment"; } break;
+		case eEquipment_IronPants:			{ return "media/gamedata/equipment/IronPants/IronPants.equipment"; } break;
+		case eEquipment_IronGloves:			{ return "media/gamedata/equipment/IronGloves/IronGloves.equipment"; } break;
+		case eEquipment_IronBoots:			{ return "media/gamedata/equipment/IronBoots/IronBoots.equipment"; } break;
+		case eEquipment_IronShoulders:		{ return "media/gamedata/equipment/IronShoulders/IronShoulders.equipment"; } break;
 	}
 
 	return "";
@@ -150,6 +168,12 @@ string GetEquipmentTextureForType(eEquipment type)
 		case eEquipment_WoodenShoulders:	{ return "media/textures/items/wood_shoulders.tga"; } break;
 		case eEquipment_IronSword:			{ return "media/textures/items/iron_sword.tga"; } break;
 		case eEquipment_IronShield:			{ return "media/textures/items/iron_shield.tga"; } break;
+		case eEquipment_IronHelm:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_IronArmor:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_IronPants:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_IronGloves:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_IronBoots:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_IronShoulders:		{ return "media/textures/items/question_mark.tga"; } break;
 	}
 
 	return "";
@@ -185,6 +209,12 @@ InventoryType GetInventoryTypeForEquipment(eEquipment type)
 		case eEquipment_WoodenShoulders:	{ return InventoryType_Clothing; } break;
 		case eEquipment_IronSword:			{ return InventoryType_Weapon_Sword; } break;
 		case eEquipment_IronShield:			{ return InventoryType_Weapon_Shield; } break;
+		case eEquipment_IronHelm:			{ return InventoryType_Clothing; } break;
+		case eEquipment_IronArmor:			{ return InventoryType_Clothing; } break;
+		case eEquipment_IronPants:			{ return InventoryType_Clothing; } break;
+		case eEquipment_IronGloves:			{ return InventoryType_Clothing; } break;
+		case eEquipment_IronBoots:			{ return InventoryType_Clothing; } break;
+		case eEquipment_IronShoulders:		{ return InventoryType_Clothing; } break;
 	}
 
 	return InventoryType_Nothing;
@@ -220,6 +250,12 @@ EquipSlot GetEquipSlotForEquipment(eEquipment type)
 		case eEquipment_WoodenShoulders:	{ return EquipSlot_Shoulders; } break;
 		case eEquipment_IronSword:			{ return EquipSlot_RightHand; } break;
 		case eEquipment_IronShield:			{ return EquipSlot_LeftHand; } break;
+		case eEquipment_IronHelm:			{ return EquipSlot_Head; } break;
+		case eEquipment_IronArmor:			{ return EquipSlot_Body; } break;
+		case eEquipment_IronPants:			{ return EquipSlot_Legs; } break;
+		case eEquipment_IronGloves:			{ return EquipSlot_Hand; } break;
+		case eEquipment_IronBoots:			{ return EquipSlot_Feet; } break;
+		case eEquipment_IronShoulders:		{ return EquipSlot_Shoulders; } break;
 	}
 
 	return EquipSlot_NoSlot;
@@ -255,6 +291,12 @@ ItemQuality GetItemQualityForEquipment(eEquipment type)
 		case eEquipment_WoodenShoulders:	{ return ItemQuality_Uncommon; } break;
 		case eEquipment_IronSword:			{ return ItemQuality_Common; } break;
 		case eEquipment_IronShield:			{ return ItemQuality_Common; } break;
+		case eEquipment_IronHelm:			{ return ItemQuality_Uncommon; } break;
+		case eEquipment_IronArmor:			{ return ItemQuality_Uncommon; } break;
+		case eEquipment_IronPants:			{ return ItemQuality_Uncommon; } break;
+		case eEquipment_IronGloves:			{ return ItemQuality_Uncommon; } break;
+		case eEquipment_IronBoots:			{ return ItemQuality_Uncommon; } break;
+		case eEquipment_IronShoulders:		{ return ItemQuality_Uncommon; } break;
 	}
 
 	return ItemQuality_Common;
@@ -290,5 +332,11 @@ void GetItemSidesForEquipment(eEquipment type, bool *left, bool *right)
 		case eEquipment_WoodenShoulders:	{ *left = true; *right = true; } break;
 		case eEquipment_IronSword:			{ *left = false; *right = true; } break;
 		case eEquipment_IronShield:			{ *left = true; *right = false; } break;
+		case eEquipment_IronHelm:			{ *left = false; *right = false; } break;
+		case eEquipment_IronArmor:			{ *left = false; *right = false; } break;
+		case eEquipment_IronPants:			{ *left = false; *right = false; } break;
+		case eEquipment_IronGloves:			{ *left = true; *right = true; } break;
+		case eEquipment_IronBoots:			{ *left = true; *right = true; } break;
+		case eEquipment_IronShoulders:		{ *left = true; *right = true; } break;
 	}
 }

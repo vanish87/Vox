@@ -608,26 +608,74 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 
 		// Iron Helm
 		{
+			CraftingRecipe* pIronHelmRecipe = new CraftingRecipe();
+			InventoryItem* pIronBar = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_IronBar, 10, ItemQuality_Common);
+			pIronHelmRecipe->m_vpCraftingItems.push_back(pIronBar);
+
+			InventoryItem* pIronHelm = m_pInventoryManager->CreateEquipmentItemFromType(eEquipment_IronHelm);
+			pIronHelmRecipe->m_pResultItem = pIronHelm;
+
+			AddCraftingRecipe(pIronHelmRecipe);
 		}
 
 		// Iron Armor
 		{
+			CraftingRecipe* pIronArmorRecipe = new CraftingRecipe();
+			InventoryItem* pIronBar = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_IronBar, 10, ItemQuality_Common);
+			pIronArmorRecipe->m_vpCraftingItems.push_back(pIronBar);
+
+			InventoryItem* pIronArmor = m_pInventoryManager->CreateEquipmentItemFromType(eEquipment_IronArmor);
+			pIronArmorRecipe->m_pResultItem = pIronArmor;
+
+			AddCraftingRecipe(pIronArmorRecipe);
 		}
 
 		// Iron Pants
 		{
+			CraftingRecipe* pIronPantsRecipe = new CraftingRecipe();
+			InventoryItem* pIronBar = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_IronBar, 10, ItemQuality_Common);
+			pIronPantsRecipe->m_vpCraftingItems.push_back(pIronBar);
+
+			InventoryItem* pIronPants = m_pInventoryManager->CreateEquipmentItemFromType(eEquipment_IronPants);
+			pIronPantsRecipe->m_pResultItem = pIronPants;
+
+			AddCraftingRecipe(pIronPantsRecipe);
 		}
 
 		// Iron Gloves
 		{
+			CraftingRecipe* pIronGlovesRecipe = new CraftingRecipe();
+			InventoryItem* pIronBar = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_IronBar, 10, ItemQuality_Common);
+			pIronGlovesRecipe->m_vpCraftingItems.push_back(pIronBar);
+
+			InventoryItem* pIronGloves = m_pInventoryManager->CreateEquipmentItemFromType(eEquipment_IronGloves);
+			pIronGlovesRecipe->m_pResultItem = pIronGloves;
+
+			AddCraftingRecipe(pIronGlovesRecipe);
 		}
 
 		// Iron Boots
 		{
+			CraftingRecipe* pIronBootsRecipe = new CraftingRecipe();
+			InventoryItem* pIronBar = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_IronBar, 10, ItemQuality_Common);
+			pIronBootsRecipe->m_vpCraftingItems.push_back(pIronBar);
+
+			InventoryItem* pIronBoots = m_pInventoryManager->CreateEquipmentItemFromType(eEquipment_IronBoots);
+			pIronBootsRecipe->m_pResultItem = pIronBoots;
+
+			AddCraftingRecipe(pIronBootsRecipe);
 		}
 
 		// Iron Shoulders
 		{
+			CraftingRecipe* pIronShouldersRecipe = new CraftingRecipe();
+			InventoryItem* pIronBar = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_IronBar, 10, ItemQuality_Common);
+			pIronShouldersRecipe->m_vpCraftingItems.push_back(pIronBar);
+
+			InventoryItem* pIronShoulders = m_pInventoryManager->CreateEquipmentItemFromType(eEquipment_IronShoulders);
+			pIronShouldersRecipe->m_pResultItem = pIronShoulders;
+
+			AddCraftingRecipe(pIronShouldersRecipe);
 		}
 
 		// 2 Handed Sword
