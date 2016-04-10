@@ -21,7 +21,6 @@ enum eEquipment
 
 	eEquipment_NormalPickaxe,
 	eEquipment_Torch,
-
 	eEquipment_Hammer,
 	eEquipment_MageStaff,
 	eEquipment_NecroStaff,
@@ -35,12 +34,20 @@ enum eEquipment
 	eEquipment_FireballHandLeft,
 	eEquipment_FireballHandRight,
 
+	// Wooden
 	eEquipment_WoodenSword,
 	eEquipment_WoodenShield,
 	eEquipment_WoodenBow,
 
+	// Copper
+
+	// Iron
 	eEquipment_IronSword,
 	eEquipment_IronShield,
+
+	// Silver
+
+	// Gold
 
 	eEquipment_NUM_EQUIPMENT,
 };
