@@ -28,6 +28,7 @@
 #include "Enemy/EnemyManager.h"
 #include "Inventory/InventoryManager.h"
 #include "Items/ItemManager.h"
+#include "Items/RandomLootManager.h"
 #include "Quests/QuestManager.h"
 #include "Quests/QuestJournal.h"
 #include "blocks/ChunkManager.h"
@@ -258,6 +259,7 @@ public:
 	BlockParticleManager* GetBlockParticleManager();
 	NPCManager* GetNPCManager();
 	ItemManager* GetItemManager();
+	RandomLootManager* GetRandomLootManager();
 	ModsManager* GetModsManager();
 	CharacterGUI* GetCharacterGUI();
 	QuestGUI* GetQuestGUI();
@@ -339,6 +341,9 @@ private:
 
 	// Items
 	ItemManager* m_pItemManager;
+
+	// Random loot
+	RandomLootManager* m_pRandomLootManager;
 
 	// Projectile manager
 	ProjectileManager* m_pProjectileManager;

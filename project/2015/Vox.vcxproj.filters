@@ -636,6 +636,9 @@
     <ClCompile Include="..\..\source\Inventory\InventoryManager.cpp">
       <Filter>source\Inventory</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\Items\RandomLootManager.cpp">
+      <Filter>source\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\glew\include\GL\glew.h">
@@ -1626,6 +1629,9 @@
       <Filter>source\frontend\Pages</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\Items\EquipmentEnum.h">
+      <Filter>source\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Items\RandomLootManager.h">
       <Filter>source\Items</Filter>
     </ClInclude>
   </ItemGroup>

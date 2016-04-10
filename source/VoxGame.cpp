@@ -241,6 +241,9 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	/* Create the item manager */
 	m_pItemManager = new ItemManager(m_pRenderer, m_pChunkManager, m_pPlayer);
 
+	/* Create the random loot manager */
+	m_pRandomLootManager = new RandomLootManager();
+
 	/* Create the projectile manager */
 	m_pProjectileManager = new ProjectileManager(m_pRenderer, m_pChunkManager);
 
@@ -442,6 +445,7 @@ void VoxGame::Destroy()
 		delete m_pSkybox;
 		delete m_pChunkManager;
 		delete m_pItemManager;
+		delete m_pRandomLootManager;
 		delete m_pInventoryManager;
 		delete m_pFrontendManager;
 		delete m_pPlayer;
@@ -1380,6 +1384,11 @@ NPCManager* VoxGame::GetNPCManager()
 ItemManager* VoxGame::GetItemManager()
 {
 	return m_pItemManager;
+}
+
+RandomLootManager* VoxGame::GetRandomLootManager()
+{
+	return m_pRandomLootManager;
 }
 
 ModsManager* VoxGame::GetModsManager()
