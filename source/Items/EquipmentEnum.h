@@ -30,7 +30,9 @@ enum eEquipment
 	eEquipment_2HandedSword,
 	eEquipment_Boomerang,
 	eEquipment_Bomb,
-	
+	eEquipment_KnifeLeft,
+	eEquipment_KnifeRight,
+
 	eEquipment_WoodenBow,
 
 	eEquipment_IronSword,
