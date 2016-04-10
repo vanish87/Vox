@@ -727,7 +727,7 @@ void InventoryGUI::ShowTooltip(InventorySlotItem* pInventoryItem)
 	case EquipSlot_Head: { sprintf(slotText, "Head"); break; }
 	case EquipSlot_Shoulders: { sprintf(slotText, "Shoulders"); break; }
 	case EquipSlot_Body: { sprintf(slotText, "Body"); break; }
-	case EquipSlot_Legs: { sprintf(slotText, "Lefs"); break; }
+	case EquipSlot_Legs: { sprintf(slotText, "Legs"); break; }
 	case EquipSlot_Hand: { sprintf(slotText, "Hand"); break; }
 	case EquipSlot_Feet: { sprintf(slotText, "Feet"); break; }
 	case EquipSlot_Accessory1: { sprintf(slotText, "Accessory 1"); break; }
