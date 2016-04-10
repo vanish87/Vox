@@ -1182,7 +1182,7 @@ void BlockParticleManager::RenderBlockParticle(BlockParticle* pBlockParticle, bo
 		m_pRenderer->PushMatrix();
 			m_pRenderer->SetPrimativeMode(PM_QUADS);
 			//m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
-			m_pRenderer->RenderFromArray(VT_POSITION_NORMAL_COLOUR, m_blockMaterialID, NULL, 24, 24, 0, &m_vertexBuffer, NULL, NULL);
+			m_pRenderer->RenderFromArray(VT_POSITION_NORMAL_COLOUR, m_blockMaterialID, 0, 24, 24, 0, &m_vertexBuffer, NULL, NULL);
 			//m_pRenderer->DisableTransparency();
 		m_pRenderer->PopMatrix();
 
