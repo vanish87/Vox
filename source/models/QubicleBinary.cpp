@@ -48,6 +48,20 @@ QubicleBinary::~QubicleBinary()
 	Reset();
 }
 
+void QubicleBinary::SetNullLinkage(QubicleBinary *pBinary)
+{
+	for (int i = 0; i < (int)m_vpMatrices.size(); i++)
+	{
+		for (int j = 0; j < pBinary->GetNumMatrices(); j++)
+		{
+			if (m_vpMatrices[i] == pBinary->GetQubicleMatrix(j))
+			{
+				m_vpMatrices[i] = NULL;
+			}
+		}
+	}
+}
+
 void QubicleBinary::Unload()
 {
 	if(m_loaded)
@@ -60,6 +74,16 @@ void QubicleBinary::ClearMatrices()
 {
 	for(unsigned int i = 0; i < m_vpMatrices.size(); i++)
 	{
+		if (m_vpMatrices[i] == NULL)
+		{
+			continue;
+		}
+
+		if (m_vpMatrices[i]->m_removed == true)
+		{
+			continue;
+		}
+
 		m_pRenderer->ClearMesh(m_vpMatrices[i]->m_pMesh);
 		m_vpMatrices[i]->m_pMesh = NULL;
 

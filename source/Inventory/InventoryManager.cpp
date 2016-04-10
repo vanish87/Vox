@@ -154,16 +154,16 @@ void InventoryManager::LoadDefaultInventory()
 	InventoryItem* pBow = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_WoodenBow), -1, -1);
 	pBow->AddStatAttribute(AttributeType_Dexterity, 1);
 	InventoryItem* p2HandedSword = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_2HandedSword), -1, -1);
-	InventoryItem* pBoomerang = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_Boomerang), -1, -1);
-	InventoryItem* pBomb = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_Bomb), -1, -1);
-	InventoryItem* pStaff1 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_MageStaff), -1, -1); 
-	pStaff1->AddStatAttribute(AttributeType_Intelligence, 25);
+	//InventoryItem* pBoomerang = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_Boomerang), -1, -1);
+	//InventoryItem* pBomb = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_Bomb), -1, -1);
+	//InventoryItem* pStaff1 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_MageStaff), -1, -1); 
+	//pStaff1->AddStatAttribute(AttributeType_Intelligence, 25);
 	//InventoryItem* pStaff2 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_PriestStaff), -1, -1);
 	//InventoryItem* pStaff3 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_DruidStaff), -1, -1);
-	InventoryItem* pDagger1 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_KnifeRight), -1, -1);
-	InventoryItem* pDagger2 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_KnifeLeft), -1, -1);
-	InventoryItem* pFireball1 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_FireballHandRight), -1, -1);
-	InventoryItem* pFireball2 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_FireballHandLeft), -1, -1);
+	//InventoryItem* pDagger1 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_KnifeRight), -1, -1);
+	//InventoryItem* pDagger2 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_KnifeLeft), -1, -1);
+	//InventoryItem* pFireball1 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_FireballHandRight), -1, -1);
+	//InventoryItem* pFireball2 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_FireballHandLeft), -1, -1);
 
 	/*
 	InventoryItem* pStone = AddInventoryItem("media/gamedata/items/Block_Stone/Block_Stone.item", "media/textures/items/block_stone.tga", InventoryType_Block, eItem_Block_Stone, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Stone Block", "Stone block for world building", 1.0f, 1.0f, 1.0f, 3, -1, -1, -1, -1);
@@ -181,20 +181,18 @@ void InventoryManager::LoadDefaultInventory()
 	InventoryItem* pBed = AddInventoryItem("media/gamedata/items/Bed/Bed.item", "media/textures/items/question_mark.tga", InventoryType_Item, eItem_Bed, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Bed", "Set spawn position", 1.0f, 1.0f, 1.0f, 1, -1, -1, -1, -1);
 	*/
 
-	/*
-	InventoryItem* pShoulders = AddInventoryItem("media/gamedata/equipment/WoodShoulders/WoodShoulders.equipment", "media/textures/items/wood_shoulders.tga", InventoryType_Clothing, eItem_None, ItemStatus_None, EquipSlot_Shoulders, ItemQuality_Uncommon, true, true, "Shoulders", "Shoulder armor.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+	InventoryItem* pShoulders = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_WoodenShoulders), -1, -1);
 	pShoulders->AddStatAttribute(AttributeType_Armor, 1);
-	InventoryItem* pHelm = AddInventoryItem("media/gamedata/equipment/WoodHelm/WoodHelm.equipment", "media/textures/items/wood_helm.tga", InventoryType_Clothing, eItem_None, ItemStatus_None, EquipSlot_Head, ItemQuality_Uncommon, false, false, "Helm", "Helm armor.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+	InventoryItem* pHelm = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_WoodenHelm), -1, -1);
 	pHelm->AddStatAttribute(AttributeType_Armor, 1);
-	InventoryItem* pGloves = AddInventoryItem("media/gamedata/equipment/WoodGloves/WoodGloves.equipment", "media/textures/items/wood_gloves.tga", InventoryType_Clothing, eItem_None, ItemStatus_None, EquipSlot_Hand, ItemQuality_Uncommon, true, true, "Gloves", "Glove armor.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+	InventoryItem* pGloves = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_WoodenGloves), -1, -1);
 	pGloves->AddStatAttribute(AttributeType_Armor, 1);
-	InventoryItem* pBoots = AddInventoryItem("media/gamedata/equipment/WoodBoots/WoodBoots.equipment", "media/textures/items/wood_boots.tga", InventoryType_Clothing, eItem_None, ItemStatus_None, EquipSlot_Feet, ItemQuality_Uncommon, true, true, "Boots", "Boot armor.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+	InventoryItem* pBoots = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_WoodenBoots), -1, -1);
 	pBoots->AddStatAttribute(AttributeType_Armor, 1);
-	InventoryItem* pBody = AddInventoryItem("media/gamedata/equipment/WoodBody/WoodBody.equipment", "media/textures/items/wood_armor.tga", InventoryType_Clothing, eItem_None, ItemStatus_None, EquipSlot_Body, ItemQuality_Uncommon, true, true, "Body Armor", "Body armor.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+	InventoryItem* pBody = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_WoodenArmor), -1, -1);
 	pBody->AddStatAttribute(AttributeType_Armor, 1);
-	InventoryItem* pLegs = AddInventoryItem("media/gamedata/equipment/WoodPants/WoodPants.equipment", "media/textures/items/wood_pants.tga", InventoryType_Clothing, eItem_None, ItemStatus_None, EquipSlot_Legs, ItemQuality_Uncommon, true, true, "Leg Armor", "Leg armor.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+	InventoryItem* pLegs = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_WoodenPants), -1, -1);
 	pLegs->AddStatAttribute(AttributeType_Armor, 1);
-	*/
 }
 
 void InventoryManager::LoadInventoryForClass(PlayerClass ePlayerClass)
@@ -1014,7 +1012,7 @@ void InventoryManager::RemoveInventoryItem(const char* title, eItem item, int qu
 
 			if(lpItem->m_quantity <= 0)
 			{
-				m_pPlayer->UnequipItem((EquipSlot)i);
+				m_pPlayer->UnequipItem((EquipSlot)i, false, false);
 				RemoveInventoryItem((EquipSlot)i);
 			}
 

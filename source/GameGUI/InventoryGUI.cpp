@@ -932,11 +932,11 @@ void InventoryGUI::EquipItem(InventorySlotItem* pInventoryItem)
 	pInventoryItem->m_slotY = -1;
 }
 
-void InventoryGUI::UnequipItem(EquipSlot equipSlot)
+void InventoryGUI::UnequipItem(EquipSlot equipSlot, bool left, bool right)
 {
 	m_pEquippedItems[equipSlot] = "";
 
-	m_pPlayer->UnequipItem(equipSlot);
+	m_pPlayer->UnequipItem(equipSlot, left, right);
 }
 
 void InventoryGUI::Update(float dt)
@@ -1086,7 +1086,7 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 						// We are unquipping an item that is in one of the equipment slots
 						m_pInventoryManager->UnequipItem(j, i, pInventoryItem->m_pInventoryItem->m_equipSlot);
 
-						UnequipItem(pInventoryItem->m_pInventoryItem->m_equipSlot);
+						UnequipItem(pInventoryItem->m_pInventoryItem->m_equipSlot, pInventoryItem->m_pInventoryItem->m_left, pInventoryItem->m_pInventoryItem->m_right);
 
 						// Set the new location for the released inventory icon
 						pInventoryItem->m_slotX = j;
@@ -1101,7 +1101,7 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 						if(pInventorySlotItem->m_pInventoryItem->m_equipSlot == pInventoryItem->m_pInventoryItem->m_equipSlot)
 						{
 							// We are swapping an equipped item for one in the inventory
-							UnequipItem(pInventoryItem->m_pInventoryItem->m_equipSlot);
+							UnequipItem(pInventoryItem->m_pInventoryItem->m_equipSlot, pInventoryItem->m_pInventoryItem->m_left, pInventoryItem->m_pInventoryItem->m_right);
 							m_pInventoryManager->UnequipItem(j, i, pInventoryItem->m_pInventoryItem->m_equipSlot);
 
 							// Equip the new item
@@ -1176,7 +1176,7 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 								int slotX;
 								int slotY;
 								// Unequip the left hand slot since we are dual handed, OR the already equipped left hand item needs both hands
-								UnequipItem(EquipSlot_LeftHand);
+								UnequipItem(EquipSlot_LeftHand, false, false);
 								if(m_pInventoryManager->UnequipItemToFreeInventorySlot(EquipSlot_LeftHand, &slotX, &slotY) == false)
 								{
 									// We can't fit the other item in the inventory
@@ -1195,7 +1195,7 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 								int slotX;
 								int slotY;
 								// Unequip the right hand slot since we are dual handed, OR the already equipped right hand item needs both hands
-								UnequipItem(EquipSlot_RightHand);
+								UnequipItem(EquipSlot_RightHand, false, false);
 								if(m_pInventoryManager->UnequipItemToFreeInventorySlot(EquipSlot_RightHand, &slotX, &slotY) == false)
 								{
 									// We can't fit the other item in the inventory
@@ -1207,7 +1207,7 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 							}
 						}
 
-						m_pPlayer->UnequipItem(pInventoryItem->m_pInventoryItem->m_equipSlot);
+						m_pPlayer->UnequipItem(pInventoryItem->m_pInventoryItem->m_equipSlot, pInventoryItem->m_pInventoryItem->m_left, pInventoryItem->m_pInventoryItem->m_right);
 						m_pInventoryManager->EquipInventoryItem(pInventoryItem->m_slotX, pInventoryItem->m_slotY, pInventoryItem->m_pInventoryItem->m_equipSlot);
 						EquipItem(pInventoryItem);
 
@@ -1256,7 +1256,7 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 									int slotX;
 									int slotY;
 									// Unequip the left hand slot since we are dual handed, OR the already equipped left hand item needs both hands
-									UnequipItem(EquipSlot_LeftHand);
+									UnequipItem(EquipSlot_LeftHand, false, false);
 									if(m_pInventoryManager->UnequipItemToFreeInventorySlot(EquipSlot_LeftHand, &slotX, &slotY) == false)
 									{
 										// We can't fit the other item in the inventory
@@ -1275,7 +1275,7 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 									int slotX;
 									int slotY;
 									// Unequip the right hand slot since we are dual handed, OR the already equipped right hand item needs both hands
-									UnequipItem(EquipSlot_RightHand);
+									UnequipItem(EquipSlot_RightHand, false, false);
 									if(m_pInventoryManager->UnequipItemToFreeInventorySlot(EquipSlot_RightHand, &slotX, &slotY) == false)
 									{
 										// We can't fit the other item in the inventory
@@ -1287,7 +1287,7 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 								}
 							}
 
-							m_pPlayer->UnequipItem(pInventoryItem->m_pInventoryItem->m_equipSlot);
+							m_pPlayer->UnequipItem(pInventoryItem->m_pInventoryItem->m_equipSlot, pInventoryItem->m_pInventoryItem->m_left, pInventoryItem->m_pInventoryItem->m_right);
 							m_pInventoryManager->EquipInventoryItem(pInventoryItem->m_slotX, pInventoryItem->m_slotY, pInventoryItem->m_pInventoryItem->m_equipSlot);
 							EquipItem(pInventoryItem);
 

@@ -37,6 +37,12 @@ string GetEquipmentTitleForType(eEquipment type)
 		case eEquipment_WoodenSword:		{ return "Wooden Sword"; } break;
 		case eEquipment_WoodenShield:		{ return "Wooden Shield"; } break;
 		case eEquipment_WoodenBow:			{ return "Wooden Bow"; } break;
+		case eEquipment_WoodenHelm:			{ return "Wooden Helm"; } break;
+		case eEquipment_WoodenArmor:		{ return "Wooden Armor"; } break;
+		case eEquipment_WoodenPants:		{ return "Wooden Pants"; } break;
+		case eEquipment_WoodenGloves:		{ return "Wooden Gloves"; } break;
+		case eEquipment_WoodenBoots:		{ return "Wooden Boots"; } break;
+		case eEquipment_WoodenShoulders:	{ return "Wooden Shoulders"; } break;
 		case eEquipment_IronSword:			{ return "Iron Sword"; } break;
 		case eEquipment_IronShield:			{ return "Iron Shield"; } break;
 	}
@@ -66,6 +72,12 @@ string GetEquipmentDescriptionForType(eEquipment type)
 		case eEquipment_WoodenSword:		{ return "A wooden sword, not very good in combat."; } break;
 		case eEquipment_WoodenShield:		{ return "A wooden shield, cannnot protect against much."; } break;
 		case eEquipment_WoodenBow:			{ return "A wooden bow, made for shooting arrows."; } break;
+		case eEquipment_WoodenHelm:			{ return "Wooden helm."; } break;
+		case eEquipment_WoodenArmor:		{ return "Wooden armor."; } break;
+		case eEquipment_WoodenPants:		{ return "Wooden pants."; } break;
+		case eEquipment_WoodenGloves:		{ return "Wooden gloves."; } break;
+		case eEquipment_WoodenBoots:		{ return "Wooden boots."; } break;
+		case eEquipment_WoodenShoulders:	{ return "Wooden shoulders."; } break;
 		case eEquipment_IronSword:			{ return "A sturdy sword made of iron."; } break;
 		case eEquipment_IronShield:			{ return "A shield of pure iron."; } break;
 	}
@@ -95,6 +107,12 @@ string GetEquipmentFilenameForType(eEquipment type)
 		case eEquipment_WoodenSword:		{ return "media/gamedata/weapons/WoodenSword/WoodenSword.weapon"; } break;
 		case eEquipment_WoodenShield:		{ return "media/gamedata/weapons/WoodenShield/WoodenShield.weapon"; } break;
 		case eEquipment_WoodenBow:			{ return "media/gamedata/weapons/WoodenBow/WoodenBow.weapon"; } break;
+		case eEquipment_WoodenHelm:			{ return "media/gamedata/equipment/WoodHelm/WoodHelm.equipment"; } break;
+		case eEquipment_WoodenArmor:		{ return "media/gamedata/equipment/WoodBody/WoodBody.equipment"; } break;
+		case eEquipment_WoodenPants:		{ return "media/gamedata/equipment/WoodPants/WoodPants.equipment"; } break;
+		case eEquipment_WoodenGloves:		{ return "media/gamedata/equipment/WoodGloves/WoodGloves.equipment"; } break;
+		case eEquipment_WoodenBoots:		{ return "media/gamedata/equipment/WoodBoots/WoodBoots.equipment"; } break;
+		case eEquipment_WoodenShoulders:	{ return "media/gamedata/equipment/WoodShoulders/WoodShoulders.equipment"; } break;
 		case eEquipment_IronSword:			{ return "media/gamedata/weapons/IronSword/IronSword.weapon"; } break;
 		case eEquipment_IronShield:			{ return "media/gamedata/weapons/IronShield/IronShield.weapon"; } break;
 	}
@@ -124,6 +142,12 @@ string GetEquipmentTextureForType(eEquipment type)
 		case eEquipment_WoodenSword:		{ return "media/textures/items/question_mark.tga"; } break;
 		case eEquipment_WoodenShield:		{ return "media/textures/items/question_mark.tga"; } break;
 		case eEquipment_WoodenBow:			{ return "media/textures/items/wooden_bow.tga"; } break;
+		case eEquipment_WoodenHelm:			{ return "media/textures/items/wood_helm.tga"; } break;
+		case eEquipment_WoodenArmor:		{ return "media/textures/items/wood_armor.tga"; } break;
+		case eEquipment_WoodenPants:		{ return "media/textures/items/wood_pants.tga"; } break;
+		case eEquipment_WoodenGloves:		{ return "media/textures/items/wood_gloves.tga"; } break;
+		case eEquipment_WoodenBoots:		{ return "media/textures/items/wood_boots.tga"; } break;
+		case eEquipment_WoodenShoulders:	{ return "media/textures/items/wood_shoulders.tga"; } break;
 		case eEquipment_IronSword:			{ return "media/textures/items/iron_sword.tga"; } break;
 		case eEquipment_IronShield:			{ return "media/textures/items/iron_shield.tga"; } break;
 	}
@@ -153,6 +177,12 @@ InventoryType GetInventoryTypeForEquipment(eEquipment type)
 		case eEquipment_WoodenSword:		{ return InventoryType_Weapon_Sword; } break;
 		case eEquipment_WoodenShield:		{ return InventoryType_Weapon_Shield; } break;
 		case eEquipment_WoodenBow:			{ return InventoryType_Weapon_Bow; } break;
+		case eEquipment_WoodenHelm:			{ return InventoryType_Clothing; } break;
+		case eEquipment_WoodenArmor:		{ return InventoryType_Clothing; } break;
+		case eEquipment_WoodenPants:		{ return InventoryType_Clothing; } break;
+		case eEquipment_WoodenGloves:		{ return InventoryType_Clothing; } break;
+		case eEquipment_WoodenBoots:		{ return InventoryType_Clothing; } break;
+		case eEquipment_WoodenShoulders:	{ return InventoryType_Clothing; } break;
 		case eEquipment_IronSword:			{ return InventoryType_Weapon_Sword; } break;
 		case eEquipment_IronShield:			{ return InventoryType_Weapon_Shield; } break;
 	}
@@ -182,6 +212,12 @@ EquipSlot GetEquipSlotForEquipment(eEquipment type)
 		case eEquipment_WoodenSword:		{ return EquipSlot_RightHand; } break;
 		case eEquipment_WoodenShield:		{ return EquipSlot_LeftHand; } break;
 		case eEquipment_WoodenBow:			{ return EquipSlot_LeftHand; } break;
+		case eEquipment_WoodenHelm:			{ return EquipSlot_Head; } break;
+		case eEquipment_WoodenArmor:		{ return EquipSlot_Body; } break;
+		case eEquipment_WoodenPants:		{ return EquipSlot_Legs; } break;
+		case eEquipment_WoodenGloves:		{ return EquipSlot_Hand; } break;
+		case eEquipment_WoodenBoots:		{ return EquipSlot_Feet; } break;
+		case eEquipment_WoodenShoulders:	{ return EquipSlot_Shoulders; } break;
 		case eEquipment_IronSword:			{ return EquipSlot_RightHand; } break;
 		case eEquipment_IronShield:			{ return EquipSlot_LeftHand; } break;
 	}
@@ -211,6 +247,12 @@ ItemQuality GetItemQualityForEquipment(eEquipment type)
 		case eEquipment_WoodenSword:		{ return ItemQuality_Common; } break;
 		case eEquipment_WoodenShield:		{ return ItemQuality_Common; } break;
 		case eEquipment_WoodenBow:			{ return ItemQuality_Common; } break;
+		case eEquipment_WoodenHelm:			{ return ItemQuality_Uncommon; } break;
+		case eEquipment_WoodenArmor:		{ return ItemQuality_Uncommon; } break;
+		case eEquipment_WoodenPants:		{ return ItemQuality_Uncommon; } break;
+		case eEquipment_WoodenGloves:		{ return ItemQuality_Uncommon; } break;
+		case eEquipment_WoodenBoots:		{ return ItemQuality_Uncommon; } break;
+		case eEquipment_WoodenShoulders:	{ return ItemQuality_Uncommon; } break;
 		case eEquipment_IronSword:			{ return ItemQuality_Common; } break;
 		case eEquipment_IronShield:			{ return ItemQuality_Common; } break;
 	}
@@ -240,6 +282,12 @@ void GetItemSidesForEquipment(eEquipment type, bool *left, bool *right)
 		case eEquipment_WoodenSword:		{ *left = false; *right = true; } break;
 		case eEquipment_WoodenShield:		{ *left = true; *right = false; } break;
 		case eEquipment_WoodenBow:			{ *left = true; *right = true; } break;
+		case eEquipment_WoodenHelm:			{ *left = false; *right = false; } break;
+		case eEquipment_WoodenArmor:		{ *left = false; *right = false; } break;
+		case eEquipment_WoodenPants:		{ *left = false; *right = false; } break;
+		case eEquipment_WoodenGloves:		{ *left = true; *right = true; } break;
+		case eEquipment_WoodenBoots:		{ *left = true; *right = true; } break;
+		case eEquipment_WoodenShoulders:	{ *left = true; *right = true; } break;
 		case eEquipment_IronSword:			{ *left = false; *right = true; } break;
 		case eEquipment_IronShield:			{ *left = true; *right = false; } break;
 	}

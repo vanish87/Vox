@@ -1002,7 +1002,7 @@ void Player::AttackAnimationTimerFinished()
 			if (pItem->m_quantity == 0)
 			{
 				// Remove this item from the manager, and remove it from the inventory and GUI
-				UnequipItem(EquipSlot_RightHand);
+				UnequipItem(EquipSlot_RightHand, false, false);
 				m_pInventoryManager->RemoveInventoryItem(EquipSlot_RightHand);
 				m_pActionBar->RemoveInventoryItemFromActionBar(pItem->m_title);
 			}

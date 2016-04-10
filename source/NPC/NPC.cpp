@@ -248,8 +248,15 @@ NPC::~NPC()
 
 	m_pVoxelCharacter->RemoveQubicleMatrix("Quiver");
 
+	if (m_pCharacterBackup != NULL)
+	{
+		m_pCharacterBackup->SetNullLinkage(m_pVoxelCharacter->GetQubicleModel());
+	}
 	delete m_pVoxelCharacter;
-	delete m_pCharacterBackup;
+	if (m_pCharacterBackup != NULL)
+	{
+		delete m_pCharacterBackup;
+	}
 }
 
 void NPC::SetLightingManager(LightingManager* pLightingManager)
@@ -976,7 +983,7 @@ void NPC::EquipItem(EquipSlot equipSlot, const char* itemFilename, bool left, bo
 	}
 }
 
-void NPC::UnequipItem(EquipSlot equipSlot)
+void NPC::UnequipItem(EquipSlot equipSlot, bool left, bool right)
 {
 	switch(equipSlot)
 	{
@@ -1027,13 +1034,19 @@ void NPC::UnequipItem(EquipSlot equipSlot)
 		break;
 	case EquipSlot_Hand:
 		{
-			QubicleMatrix* pRightHandMatrix = m_pCharacterBackup->GetQubicleMatrix("Right_Hand");
-			pRightHandMatrix->m_boneIndex = m_pVoxelCharacter->GetRightHandBoneIndex();
-			m_pVoxelCharacter->AddQubicleMatrix(pRightHandMatrix, false);
+			if (right)
+			{
+				QubicleMatrix* pRightHandMatrix = m_pCharacterBackup->GetQubicleMatrix("Right_Hand");
+				pRightHandMatrix->m_boneIndex = m_pVoxelCharacter->GetRightHandBoneIndex();
+				m_pVoxelCharacter->AddQubicleMatrix(pRightHandMatrix, false);
+			}
 
-			QubicleMatrix* pLeftHandMatrix = m_pCharacterBackup->GetQubicleMatrix("Left_Hand");
-			pLeftHandMatrix->m_boneIndex = m_pVoxelCharacter->GetLeftHandBoneIndex();
-			m_pVoxelCharacter->AddQubicleMatrix(pLeftHandMatrix, false);
+			if (left)
+			{
+				QubicleMatrix* pLeftHandMatrix = m_pCharacterBackup->GetQubicleMatrix("Left_Hand");
+				pLeftHandMatrix->m_boneIndex = m_pVoxelCharacter->GetLeftHandBoneIndex();
+				m_pVoxelCharacter->AddQubicleMatrix(pLeftHandMatrix, false);
+			}
 
 			char characterFilename[128];
 			sprintf(characterFilename, "media/gamedata/characters/%s/%s.character", m_type.c_str(), m_modelName.c_str());
@@ -1043,13 +1056,19 @@ void NPC::UnequipItem(EquipSlot equipSlot)
 		break;
 	case EquipSlot_Feet:
 		{
-			QubicleMatrix* pRightFootMatrix = m_pCharacterBackup->GetQubicleMatrix("Right_Foot");
-			pRightFootMatrix->m_boneIndex = m_pVoxelCharacter->GetRightFootBoneIndex();
-			m_pVoxelCharacter->AddQubicleMatrix(pRightFootMatrix, false);
+			if (right)
+			{
+				QubicleMatrix* pRightFootMatrix = m_pCharacterBackup->GetQubicleMatrix("Right_Foot");
+				pRightFootMatrix->m_boneIndex = m_pVoxelCharacter->GetRightFootBoneIndex();
+				m_pVoxelCharacter->AddQubicleMatrix(pRightFootMatrix, false);
+			}
 
-			QubicleMatrix* pLeftFootMatrix = m_pCharacterBackup->GetQubicleMatrix("Left_Foot");
-			pLeftFootMatrix->m_boneIndex = m_pVoxelCharacter->GetLeftFootBoneIndex();
-			m_pVoxelCharacter->AddQubicleMatrix(pLeftFootMatrix, false);
+			if (left)
+			{
+				QubicleMatrix* pLeftFootMatrix = m_pCharacterBackup->GetQubicleMatrix("Left_Foot");
+				pLeftFootMatrix->m_boneIndex = m_pVoxelCharacter->GetLeftFootBoneIndex();
+				m_pVoxelCharacter->AddQubicleMatrix(pLeftFootMatrix, false);
+			}
 
 			char characterFilename[128];
 			sprintf(characterFilename, "media/gamedata/characters/%s/%s.character", m_type.c_str(), m_modelName.c_str());

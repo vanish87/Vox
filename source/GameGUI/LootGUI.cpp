@@ -889,7 +889,7 @@ void LootGUI::LootItemReleased(LootSlotItem* pLootItem)
 							m_pActionBar->RemoveInventoryItemFromActionBar(pInventoryItem->m_title);
 						}
 
-						m_pPlayer->UnequipItem(pLootItem->m_pInventoryItem->m_equipSlot);
+						m_pPlayer->UnequipItem(pLootItem->m_pInventoryItem->m_equipSlot, pLootItem->m_pInventoryItem->m_left, pLootItem->m_pInventoryItem->m_right);
 						m_pInventoryManager->EquipLootItem(pLootItem->m_slotX, pLootItem->m_slotY, pLootItem->m_pInventoryItem, pLootItem->m_pInventoryItem->m_equipSlot);
 						m_pInventoryGUI->EquipItem(pLootItem);
 

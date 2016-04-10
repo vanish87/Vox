@@ -38,6 +38,12 @@ enum eEquipment
 	eEquipment_WoodenSword,
 	eEquipment_WoodenShield,
 	eEquipment_WoodenBow,
+	eEquipment_WoodenHelm,
+	eEquipment_WoodenArmor,
+	eEquipment_WoodenPants,
+	eEquipment_WoodenGloves,
+	eEquipment_WoodenBoots,
+	eEquipment_WoodenShoulders,
 
 	// Copper
 

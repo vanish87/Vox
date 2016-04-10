@@ -113,7 +113,7 @@ public:
 
 	// Equipping items
 	void EquipItem(InventoryItem* pItem);
-	void UnequipItem(EquipSlot equipSlot);
+	void UnequipItem(EquipSlot equipSlot, bool left, bool right);
 
 	// Stat modifier values
 	void RefreshStatModifierCacheValues();

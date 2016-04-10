@@ -1581,7 +1581,7 @@ void CharacterGUI::CharacterItemReleased(CharacterSlotItem* pCharacterItem)
 						// We are unquipping an item that is in one of the equipment slots
 						m_pInventoryManager->UnequipItem(j, i, pCharacterItem->m_pInventoryItem->m_equipSlot);
 
-						m_pInventoryGUI->UnequipItem(pCharacterItem->m_pInventoryItem->m_equipSlot);
+						m_pInventoryGUI->UnequipItem(pCharacterItem->m_pInventoryItem->m_equipSlot, pCharacterItem->m_pInventoryItem->m_left, pCharacterItem->m_pInventoryItem->m_right);
 
 						// Set the new location for the released inventory icon
 						pCharacterItem->m_slotX = j;
@@ -1614,7 +1614,7 @@ void CharacterGUI::CharacterItemReleased(CharacterSlotItem* pCharacterItem)
 									int slotX;
 									int slotY;
 									// Unequip the left hand slot since we are dual handed, OR the already equipped left hand item needs both hands
-									m_pInventoryGUI->UnequipItem(EquipSlot_LeftHand);
+									m_pInventoryGUI->UnequipItem(EquipSlot_LeftHand, false, false);
 									if(m_pInventoryManager->UnequipItemToFreeInventorySlot(EquipSlot_LeftHand, &slotX, &slotY) == false)
 									{
 										// We can't fit the other item in the inventory
@@ -1633,7 +1633,7 @@ void CharacterGUI::CharacterItemReleased(CharacterSlotItem* pCharacterItem)
 									int slotX;
 									int slotY;
 									// Unequip the right hand slot since we are dual handed, OR the already equipped right hand item needs both hands
-									m_pInventoryGUI->UnequipItem(EquipSlot_RightHand);
+									m_pInventoryGUI->UnequipItem(EquipSlot_RightHand, false, false);
 									if(m_pInventoryManager->UnequipItemToFreeInventorySlot(EquipSlot_RightHand, &slotX, &slotY) == false)
 									{
 										// We can't fit the other item in the inventory
@@ -1646,7 +1646,7 @@ void CharacterGUI::CharacterItemReleased(CharacterSlotItem* pCharacterItem)
 							}
 
 							// We are swapping an equipped item for one in the inventory
-							m_pInventoryGUI->UnequipItem(pCharacterItem->m_pInventoryItem->m_equipSlot);
+							m_pInventoryGUI->UnequipItem(pCharacterItem->m_pInventoryItem->m_equipSlot, pCharacterItem->m_pInventoryItem->m_left, pCharacterItem->m_pInventoryItem->m_right);
 							m_pInventoryManager->UnequipItem(j, i, pCharacterItem->m_pInventoryItem->m_equipSlot);
 
 							// Equip the new item
@@ -1693,7 +1693,7 @@ void CharacterGUI::CharacterItemReleased(CharacterSlotItem* pCharacterItem)
 					{
 						if(m_pLootGUI->GetLootSlotItem(j, i) == NULL) // ONLY if an item doesn't already exist in the loot slot position
 						{
-							m_pInventoryGUI->UnequipItem(pCharacterItem->m_pInventoryItem->m_equipSlot);
+							m_pInventoryGUI->UnequipItem(pCharacterItem->m_pInventoryItem->m_equipSlot, pCharacterItem->m_pInventoryItem->m_left, pCharacterItem->m_pInventoryItem->m_right);
 							m_pInventoryManager->UnequipItemToLootGUI(pCharacterItem->m_pInventoryItem->m_equipSlot);
 
 							m_pActionBar->RemoveInventoryItemFromActionBar(pCharacterItem->m_pInventoryItem->m_title);

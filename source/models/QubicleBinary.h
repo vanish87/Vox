@@ -113,6 +113,8 @@ public:
 	QubicleBinary(Renderer* pRenderer);
 	~QubicleBinary();
 
+	void SetNullLinkage(QubicleBinary *pBinary);
+
 	void Unload();
 	void ClearMatrices();
 

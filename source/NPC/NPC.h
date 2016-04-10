@@ -110,7 +110,7 @@ public:
 	// Equipping items
 	void ImportEquippedItems(string inventoryFile);
 	void EquipItem(EquipSlot equipSlot, const char* itemFilename, bool left, bool right);
-	void UnequipItem(EquipSlot equipSlot);
+	void UnequipItem(EquipSlot equipSlot, bool left, bool right);
 
 	// Animation
 	void SetAnimationSpeed(float speed, bool onlySetOnCompleteAnimation, AnimationSections section);
