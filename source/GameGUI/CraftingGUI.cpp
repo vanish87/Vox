@@ -606,6 +606,30 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 			AddCraftingRecipe(pIronShieldRecipe);
 		}
 
+		// Iron Helm
+		{
+		}
+
+		// Iron Armor
+		{
+		}
+
+		// Iron Pants
+		{
+		}
+
+		// Iron Gloves
+		{
+		}
+
+		// Iron Boots
+		{
+		}
+
+		// Iron Shoulders
+		{
+		}
+
 		// 2 Handed Sword
 		{
 			CraftingRecipe* p2HandedSwordRecipe = new CraftingRecipe();
