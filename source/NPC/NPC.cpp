@@ -434,8 +434,8 @@ void NPC::SetNPCCombatType(eNPCCombatType eNPCCombatType, bool setWeaponModel)
 			}
 		case eNPCCombatType_FireballHands:
 			{
-				LoadWeapon(false, "media/gamedata/weapons/FireballHands/FireballHandsRight.weapon");
-				LoadWeapon(true, "media/gamedata/weapons/FireballHands/FireballHandsLeft.weapon");
+				LoadWeapon(false, GetEquipmentFilenameForType(eEquipment_FireballHandRight));
+				LoadWeapon(true, GetEquipmentFilenameForType(eEquipment_FireballHandLeft));
 				break;
 			}
 		}

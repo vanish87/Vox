@@ -162,8 +162,8 @@ void InventoryManager::LoadDefaultInventory()
 	//InventoryItem* pStaff3 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_DruidStaff), -1, -1);
 	InventoryItem* pDagger1 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_KnifeRight), -1, -1);
 	InventoryItem* pDagger2 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_KnifeLeft), -1, -1);
-	InventoryItem* pFireball1 = AddInventoryItem("media/gamedata/weapons/FireballHands/FireballHandsRight.weapon", "media/textures/items/fireball_hand.tga", InventoryType_Weapon_SpellHands, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Epic, false, false, "Fireball Hands", "Fireball hand", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
-	InventoryItem* pFireball2 = AddInventoryItem("media/gamedata/weapons/FireballHands/FireballHandsLeft.weapon", "media/textures/items/fireball_hand.tga", InventoryType_Weapon_SpellHands, eItem_None, ItemStatus_None, EquipSlot_LeftHand, ItemQuality_Epic, false, false, "Fireball Hands", "Fireball hand", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+	InventoryItem* pFireball1 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_FireballHandRight), -1, -1);
+	InventoryItem* pFireball2 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_FireballHandLeft), -1, -1);
 
 	/*
 	InventoryItem* pStone = AddInventoryItem("media/gamedata/items/Block_Stone/Block_Stone.item", "media/textures/items/block_stone.tga", InventoryType_Block, eItem_Block_Stone, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Stone Block", "Stone block for world building", 1.0f, 1.0f, 1.0f, 3, -1, -1, -1, -1);
@@ -228,8 +228,8 @@ void InventoryManager::LoadInventoryForClass(PlayerClass ePlayerClass)
 		InventoryItem* pPriestStaff = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_PriestStaff), -1, -1);
 		pPriestStaff->AddStatAttribute(AttributeType_Intelligence, 25);
 
-		InventoryItem* pFireball1 = AddInventoryItem("media/gamedata/weapons/FireballHands/FireballHandsRight.weapon", "media/textures/items/fireball_hand.tga", InventoryType_Weapon_SpellHands, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Epic, false, false, "Fireball Hands", "Fireball hand", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
-		InventoryItem* pFireball2 = AddInventoryItem("media/gamedata/weapons/FireballHands/FireballHandsLeft.weapon", "media/textures/items/fireball_hand.tga", InventoryType_Weapon_SpellHands, eItem_None, ItemStatus_None, EquipSlot_LeftHand, ItemQuality_Epic, false, false, "Fireball Hands", "Fireball hand", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+		InventoryItem* pFireball1 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_FireballHandRight), -1, -1);
+		InventoryItem* pFireball2 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_FireballHandLeft), -1, -1);
 	}
 	else if (ePlayerClass == PlayerClass_Necromaner)
 	{
