@@ -843,14 +843,14 @@ void CreateCharacter::LoadSelectionCharacters()
 	pCharacter1->LoadWeapon(false, "media/gamedata/weapons/PriestStaff/PriestStaff.weapon");
 	pCharacter1->SetNPCCombatType(eNPCCombatType_Staff, false);
 
-	pCharacter2->LoadWeapon(true, "media/gamedata/weapons/IronShield/IronShield.weapon");
-	pCharacter2->LoadWeapon(false, "media/gamedata/weapons/IronSword/IronSword.weapon");
+	pCharacter2->LoadWeapon(false, GetEquipmentFilenameForType(eEquipment_IronSword));
+	pCharacter2->LoadWeapon(true, GetEquipmentFilenameForType(eEquipment_IronShield));
 	pCharacter2->SetNPCCombatType(eNPCCombatType_MeleeSword, false);
 
-	pCharacter4->LoadWeapon(true, "media/gamedata/weapons/WoodenBow/WoodenBow.weapon");
+	pCharacter4->LoadWeapon(true, GetEquipmentFilenameForType(eEquipment_WoodenBow));
 	pCharacter4->SetNPCCombatType(eNPCCombatType_Archer, true);
 
-	pCharacter5->LoadWeapon(false, "media/gamedata/weapons/Staff/Staff.weapon");
+	pCharacter5->LoadWeapon(false, GetEquipmentFilenameForType(eEquipment_MageStaff));
 	pCharacter5->SetNPCCombatType(eNPCCombatType_Staff, false);
 
 	pCharacter6->LoadWeapon(false, "media/gamedata/weapons/FloatingSkull/FloatingSkull.weapon");

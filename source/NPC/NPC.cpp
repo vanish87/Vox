@@ -408,12 +408,12 @@ void NPC::SetNPCCombatType(eNPCCombatType eNPCCombatType, bool setWeaponModel)
 		case eNPCCombatType_None: { break; }
 		case eNPCCombatType_MeleeSword:
 			{
-				LoadWeapon(false, "media/gamedata/weapons/IronSword/IronSword.weapon");
+				LoadWeapon(false, GetEquipmentFilenameForType(eEquipment_IronSword));
 				break;
 			}
 		case eNPCCombatType_Archer:
 			{
-				LoadWeapon(true, "media/gamedata/weapons/WoodenBow/WoodenBow.weapon");
+				LoadWeapon(true, GetEquipmentFilenameForType(eEquipment_WoodenBow));
 
 				// Add a quiver item to the enemy ranger
 				VoxelWeapon* pNewEquipment = new VoxelWeapon(m_pRenderer, m_pQubicleBinaryManager);
@@ -429,7 +429,7 @@ void NPC::SetNPCCombatType(eNPCCombatType eNPCCombatType, bool setWeaponModel)
 			}
 		case eNPCCombatType_Staff:
 			{
-				LoadWeapon(false, "media/gamedata/weapons/Staff/Staff.weapon");
+				LoadWeapon(false, GetEquipmentFilenameForType(eEquipment_MageStaff));
 				break;
 			}
 		case eNPCCombatType_FireballHands:

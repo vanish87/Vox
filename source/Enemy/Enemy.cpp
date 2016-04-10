@@ -562,12 +562,12 @@ void Enemy::SetupWeaponsForType()
 		break;
 	case eEnemyType_RangedSkeleton:
 		{
-			LoadWeapon(true, "media/gamedata/weapons/WoodenBow/WoodenBow.weapon");
+			LoadWeapon(true, GetEquipmentFilenameForType(eEquipment_WoodenBow));
 		}
 		break;
 	case eEnemyType_MeleeSkeleton:
 		{
-			LoadWeapon(false, "media/gamedata/weapons/IronSword/IronSword.weapon");
+			LoadWeapon(false, GetEquipmentFilenameForType(eEquipment_IronSword));
 			LoadWeapon(true, "media/gamedata/weapons/IronShield/IronShield.weapon");
 		}
 		break;
