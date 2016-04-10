@@ -61,5 +61,15 @@ enum eEquipment
 
 	// Gold
 
+	// Ash
+	eEquipment_AshHelm,
+	eEquipment_AshArmor,
+	eEquipment_AshPants,
+	eEquipment_AshGloves,
+	eEquipment_AshBoots,
+	eEquipment_AshShoulders,
+
+	// Bone
+
 	eEquipment_NUM_EQUIPMENT,
 };
