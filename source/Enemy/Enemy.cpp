@@ -568,12 +568,12 @@ void Enemy::SetupWeaponsForType()
 	case eEnemyType_MeleeSkeleton:
 		{
 			LoadWeapon(false, GetEquipmentFilenameForType(eEquipment_IronSword));
-			LoadWeapon(true, "media/gamedata/weapons/IronShield/IronShield.weapon");
+			LoadWeapon(true, GetEquipmentFilenameForType(eEquipment_IronShield));
 		}
 		break;
 	case eEnemyType_MageSkeleton:
 		{
-			LoadWeapon(false, "media/gamedata/weapons/NecroStaff/NecroStaff.weapon");
+			LoadWeapon(false, GetEquipmentFilenameForType(eEquipment_NecroStaff));
 		}
 		break;
 
