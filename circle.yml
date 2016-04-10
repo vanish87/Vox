@@ -8,4 +8,4 @@ test:
         - make;  # make the project
     post:
         - mkdir $CIRCLE_ARTIFACTS/outputBin
-        - cp Vox $CIRCLE_ARTIFACTS/outputBin/Vox
+        - cp Vox $CIRCLE_ARTIFACTS/outputBin
