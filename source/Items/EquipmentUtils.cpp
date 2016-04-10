@@ -60,6 +60,13 @@ string GetEquipmentTitleForType(eEquipment type)
 		case eEquipment_AshGloves:			{ return "Ash Gloves"; } break;
 		case eEquipment_AshBoots:			{ return "Ash Boots"; } break;
 		case eEquipment_AshShoulders:		{ return "Ash Shoulders"; } break;
+		// Bone
+		case eEquipment_BoneHelm:			{ return "Bone Helm"; } break;
+		case eEquipment_BoneArmor:			{ return "Bone Armor"; } break;
+		case eEquipment_BonePants:			{ return "Bone Pants"; } break;
+		case eEquipment_BoneGloves:			{ return "Bone Gloves"; } break;
+		case eEquipment_BoneBoots:			{ return "Bone Boots"; } break;
+		case eEquipment_BoneShoulders:		{ return "Bone Shoulders"; } break;
 	}
 
 	return "";
@@ -110,6 +117,13 @@ string GetEquipmentDescriptionForType(eEquipment type)
 		case eEquipment_AshGloves:			{ return "Ash gloves."; } break;
 		case eEquipment_AshBoots:			{ return "Ash boots."; } break;
 		case eEquipment_AshShoulders:		{ return "Ash shoulders."; } break;
+		// Bone
+		case eEquipment_BoneHelm:			{ return "Bone helm."; } break;
+		case eEquipment_BoneArmor:			{ return "Bone armor."; } break;
+		case eEquipment_BonePants:			{ return "Bone pants."; } break;
+		case eEquipment_BoneGloves:			{ return "Bone gloves."; } break;
+		case eEquipment_BoneBoots:			{ return "Bone boots."; } break;
+		case eEquipment_BoneShoulders:		{ return "Bone shoulders."; } break;
 	}
 
 	return "";
@@ -160,6 +174,13 @@ string GetEquipmentFilenameForType(eEquipment type)
 		case eEquipment_AshGloves:			{ return "media/gamedata/equipment/AshGloves/AshGloves.equipment"; } break;
 		case eEquipment_AshBoots:			{ return "media/gamedata/equipment/AshBoots/AshBoots.equipment"; } break;
 		case eEquipment_AshShoulders:		{ return "media/gamedata/equipment/AshShoulders/AshShoulders.equipment"; } break;
+		// Bone
+		case eEquipment_BoneHelm:			{ return "media/gamedata/equipment/BoneHelm/BoneHelm.equipment"; } break;
+		case eEquipment_BoneArmor:			{ return "media/gamedata/equipment/BoneBody/BoneBody.equipment"; } break;
+		case eEquipment_BonePants:			{ return "media/gamedata/equipment/BonePants/BonePants.equipment"; } break;
+		case eEquipment_BoneGloves:			{ return "media/gamedata/equipment/BoneGloves/BoneGloves.equipment"; } break;
+		case eEquipment_BoneBoots:			{ return "media/gamedata/equipment/BoneBoots/BoneBoots.equipment"; } break;
+		case eEquipment_BoneShoulders:		{ return "media/gamedata/equipment/BoneShoulders/BoneShoulders.equipment"; } break;
 	}
 
 	return "";
@@ -210,6 +231,13 @@ string GetEquipmentTextureForType(eEquipment type)
 		case eEquipment_AshGloves:			{ return "media/textures/items/ash_gloves.tga"; } break;
 		case eEquipment_AshBoots:			{ return "media/textures/items/ash_boots.tga"; } break;
 		case eEquipment_AshShoulders:		{ return "media/textures/items/ash_shoulders.tga"; } break;
+		// Bone
+		case eEquipment_BoneHelm:			{ return "media/textures/items/bone_helm.tga"; } break;
+		case eEquipment_BoneArmor:			{ return "media/textures/items/bone_armor.tga"; } break;
+		case eEquipment_BonePants:			{ return "media/textures/items/bone_pants.tga"; } break;
+		case eEquipment_BoneGloves:			{ return "media/textures/items/bone_gloves.tga"; } break;
+		case eEquipment_BoneBoots:			{ return "media/textures/items/bone_boots.tga"; } break;
+		case eEquipment_BoneShoulders:		{ return "media/textures/items/bone_shoulders.tga"; } break;
 	}
 
 	return "";
@@ -260,6 +288,13 @@ InventoryType GetInventoryTypeForEquipment(eEquipment type)
 		case eEquipment_AshGloves:			{ return InventoryType_Clothing; } break;
 		case eEquipment_AshBoots:			{ return InventoryType_Clothing; } break;
 		case eEquipment_AshShoulders:		{ return InventoryType_Clothing; } break;
+		// Bone
+		case eEquipment_BoneHelm:			{ return InventoryType_Clothing; } break;
+		case eEquipment_BoneArmor:			{ return InventoryType_Clothing; } break;
+		case eEquipment_BonePants:			{ return InventoryType_Clothing; } break;
+		case eEquipment_BoneGloves:			{ return InventoryType_Clothing; } break;
+		case eEquipment_BoneBoots:			{ return InventoryType_Clothing; } break;
+		case eEquipment_BoneShoulders:		{ return InventoryType_Clothing; } break;
 	}
 
 	return InventoryType_Nothing;
@@ -310,6 +345,13 @@ EquipSlot GetEquipSlotForEquipment(eEquipment type)
 		case eEquipment_AshGloves:			{ return EquipSlot_Hand; } break;
 		case eEquipment_AshBoots:			{ return EquipSlot_Feet; } break;
 		case eEquipment_AshShoulders:		{ return EquipSlot_Shoulders; } break;
+		// Bone
+		case eEquipment_BoneHelm:			{ return EquipSlot_Head; } break;
+		case eEquipment_BoneArmor:			{ return EquipSlot_Body; } break;
+		case eEquipment_BonePants:			{ return EquipSlot_Legs; } break;
+		case eEquipment_BoneGloves:			{ return EquipSlot_Hand; } break;
+		case eEquipment_BoneBoots:			{ return EquipSlot_Feet; } break;
+		case eEquipment_BoneShoulders:		{ return EquipSlot_Shoulders; } break;
 	}
 
 	return EquipSlot_NoSlot;
@@ -354,12 +396,19 @@ ItemQuality GetItemQualityForEquipment(eEquipment type)
 		case eEquipment_IronBoots:			{ return ItemQuality_Uncommon; } break;
 		case eEquipment_IronShoulders:		{ return ItemQuality_Uncommon; } break;
 		// Ash
-		case eEquipment_AshHelm:			{ return ItemQuality_Uncommon; } break;
-		case eEquipment_AshArmor:			{ return ItemQuality_Uncommon; } break;
-		case eEquipment_AshPants:			{ return ItemQuality_Uncommon; } break;
-		case eEquipment_AshGloves:			{ return ItemQuality_Uncommon; } break;
-		case eEquipment_AshBoots:			{ return ItemQuality_Uncommon; } break;
-		case eEquipment_AshShoulders:		{ return ItemQuality_Uncommon; } break;
+		case eEquipment_AshHelm:			{ return ItemQuality_Rare; } break;
+		case eEquipment_AshArmor:			{ return ItemQuality_Rare; } break;
+		case eEquipment_AshPants:			{ return ItemQuality_Rare; } break;
+		case eEquipment_AshGloves:			{ return ItemQuality_Rare; } break;
+		case eEquipment_AshBoots:			{ return ItemQuality_Rare; } break;
+		case eEquipment_AshShoulders:		{ return ItemQuality_Rare; } break;
+		// Bone
+		case eEquipment_BoneHelm:			{ return ItemQuality_Rare; } break;
+		case eEquipment_BoneArmor:			{ return ItemQuality_Rare; } break;
+		case eEquipment_BonePants:			{ return ItemQuality_Rare; } break;
+		case eEquipment_BoneGloves:			{ return ItemQuality_Rare; } break;
+		case eEquipment_BoneBoots:			{ return ItemQuality_Rare; } break;
+		case eEquipment_BoneShoulders:		{ return ItemQuality_Rare; } break;
 	}
 
 	return ItemQuality_Common;
@@ -404,11 +453,18 @@ void GetItemSidesForEquipment(eEquipment type, bool *left, bool *right)
 		case eEquipment_IronBoots:			{ *left = true; *right = true; } break;
 		case eEquipment_IronShoulders:		{ *left = true; *right = true; } break;
 		// Ash
-		case eEquipment_AshHelm: { *left = false; *right = false; } break;
-		case eEquipment_AshArmor: { *left = false; *right = false; } break;
-		case eEquipment_AshPants: { *left = false; *right = false; } break;
-		case eEquipment_AshGloves: { *left = true; *right = true; } break;
-		case eEquipment_AshBoots: { *left = true; *right = true; } break;
-		case eEquipment_AshShoulders: { *left = true; *right = true; } break;
+		case eEquipment_AshHelm:			{ *left = false; *right = false; } break;
+		case eEquipment_AshArmor:			{ *left = false; *right = false; } break;
+		case eEquipment_AshPants:			{ *left = false; *right = false; } break;
+		case eEquipment_AshGloves:			{ *left = true; *right = true; } break;
+		case eEquipment_AshBoots:			{ *left = true; *right = true; } break;
+		case eEquipment_AshShoulders:		{ *left = true; *right = true; } break;
+		// Bone
+		case eEquipment_BoneHelm:			{ *left = false; *right = false; } break;
+		case eEquipment_BoneArmor:			{ *left = false; *right = false; } break;
+		case eEquipment_BonePants:			{ *left = false; *right = false; } break;
+		case eEquipment_BoneGloves:			{ *left = true; *right = true; } break;
+		case eEquipment_BoneBoots:			{ *left = true; *right = true; } break;
+		case eEquipment_BoneShoulders:		{ *left = true; *right = true; } break;
 	}
 }

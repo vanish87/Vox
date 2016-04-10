@@ -70,6 +70,14 @@ enum eEquipment
 	eEquipment_AshShoulders,
 
 	// Bone
+	eEquipment_BoneHelm,
+	eEquipment_BoneArmor,
+	eEquipment_BonePants,
+	eEquipment_BoneGloves,
+	eEquipment_BoneBoots,
+	eEquipment_BoneShoulders,
+
+	// Ice
 
 	eEquipment_NUM_EQUIPMENT,
 };
