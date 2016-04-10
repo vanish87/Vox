@@ -268,10 +268,10 @@ public:
 	void DrawSphericalSector(float lRadius, float angle, int lSectors, int lPoints);
 
 	// Text rendering
-	bool CreateFreeTypeFont(char *fontName, int fontSize, unsigned int *pID, bool noAutoHint = false);
-	bool RenderFreeTypeText(unsigned int fontID, float x, float y, float z, Colour colour, float scale, char *inText, ...);
-	int GetFreeTypeTextWidth(unsigned int fontID, char *inText, ...);
-	int GetFreeTypeTextHeight(unsigned int fontID, char *inText, ...);
+	bool CreateFreeTypeFont(const char *fontName, int fontSize, unsigned int *pID, bool noAutoHint = false);
+	bool RenderFreeTypeText(unsigned int fontID, float x, float y, float z, Colour colour, float scale, const char *inText, ...);
+	int GetFreeTypeTextWidth(unsigned int fontID, const char *inText, ...);
+	int GetFreeTypeTextHeight(unsigned int fontID, const char *inText, ...);
 	int GetFreeTypeTextAscent(unsigned int fontID);
 	int GetFreeTypeTextDescent(unsigned int fontID);
 
@@ -368,7 +368,7 @@ public:
 	unsigned int GetDepthTextureFromFrameBuffer(unsigned int frameBufferId);
 
 	// Shaders
-	bool LoadGLSLShader(char* vertexFile, char* fragmentFile, unsigned int *pID);
+	bool LoadGLSLShader(const char* vertexFile, const char* fragmentFile, unsigned int *pID);
 	void BeginGLSLShader(unsigned int shaderID);
 	void EndGLSLShader(unsigned int shaderID);
 	glShader* GetShader(unsigned int shaderID);

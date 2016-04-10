@@ -14,7 +14,7 @@
 #include "Renderer.h"
 
 // GL ERROR CHECK
-int CheckGLErrors(char *file, int line)
+int CheckGLErrors(const char *file, int line)
 {
 	GLenum glErr;
 	int    retCode = 0;
@@ -1014,7 +1014,7 @@ void Renderer::DrawSphericalSector(float lRadius, float angle, int lSectors, int
 }
 
 // Text rendering
-bool Renderer::CreateFreeTypeFont(char *fontName, int fontSize, unsigned int *pID, bool noAutoHint)
+bool Renderer::CreateFreeTypeFont(const char *fontName, int fontSize, unsigned int *pID, bool noAutoHint)
 {
 	FreeTypeFont* font = new FreeTypeFont();
 
@@ -1028,7 +1028,7 @@ bool Renderer::CreateFreeTypeFont(char *fontName, int fontSize, unsigned int *pI
 	return true;
 }
 
-bool Renderer::RenderFreeTypeText(unsigned int fontID, float x, float y, float z, Colour colour, float scale, char *inText, ...)
+bool Renderer::RenderFreeTypeText(unsigned int fontID, float x, float y, float z, Colour colour, float scale, const char *inText, ...)
 {
 	char		outText[8192];
 	va_list		ap;  // Pointer to list of arguments
@@ -1059,7 +1059,7 @@ bool Renderer::RenderFreeTypeText(unsigned int fontID, float x, float y, float z
 	return true;
 }
 
-int Renderer::GetFreeTypeTextWidth(unsigned int fontID, char *inText, ...)
+int Renderer::GetFreeTypeTextWidth(unsigned int fontID, const char *inText, ...)
 {
 	char outText[8192];
 	va_list ap;
@@ -1075,7 +1075,7 @@ int Renderer::GetFreeTypeTextWidth(unsigned int fontID, char *inText, ...)
 	return m_freetypeFonts[fontID]->GetTextWidth(outText);
 }
 
-int Renderer::GetFreeTypeTextHeight(unsigned int fontID, char *inText, ...)
+int Renderer::GetFreeTypeTextHeight(unsigned int fontID, const char *inText, ...)
 {
 	return m_freetypeFonts[fontID]->GetCharHeight('a');
 }
@@ -2552,7 +2552,7 @@ unsigned int Renderer::GetDepthTextureFromFrameBuffer(unsigned int frameBufferId
 }
 
 // Shaders
-bool Renderer::LoadGLSLShader(char* vertexFile, char* fragmentFile, unsigned int *pID)
+bool Renderer::LoadGLSLShader(const char* vertexFile, const char* fragmentFile, unsigned int *pID)
 {
 	glShader* lpShader = NULL;
 
