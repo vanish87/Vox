@@ -122,7 +122,7 @@ void VoxGame::Render()
 			}
 
 			// Water reflections
-			if (m_waterRender && m_gameMode != GameMode_FrontEnd)
+			if (m_waterRender && m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()) == false && m_gameMode != GameMode_FrontEnd)
 			{
 				RenderWaterReflections();
 			}
@@ -556,10 +556,13 @@ void VoxGame::RenderWater()
 		m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_waterReflectionFrameBuffer));
 		glUniform1iARB(reflectionTexture, 1);
 		
-		unsigned int cubemapTexture = glGetUniformLocationARB(pShader->GetProgramObject(), "cubemap");
-		glActiveTextureARB(GL_TEXTURE0_ARB);
-		m_pRenderer->BindCubeTexture(m_pSkybox->GetCubeMapTexture1());
-		glUniform1iARB(cubemapTexture, 0);
+		if (m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()) == false)
+		{
+			unsigned int cubemapTexture = glGetUniformLocationARB(pShader->GetProgramObject(), "cubemap");
+			glActiveTextureARB(GL_TEXTURE0_ARB);
+			m_pRenderer->BindCubeTexture(m_pSkybox->GetCubeMapTexture1());
+			glUniform1iARB(cubemapTexture, 0);
+		}
 
 		bool fogEnabled = true;
 		glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "enableFog"), m_fogRender);
