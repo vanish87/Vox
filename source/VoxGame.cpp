@@ -828,7 +828,7 @@ void VoxGame::SetupDataForGame()
 	string denyText1 = "You are already on a quest, come back to me once you have finished.";
 	Quest* pSlimeQuest = m_pQuestManager->CreateQuest("A Simple Task", startText1, completedText1, denyText1);
 	pSlimeQuest->AddQuestObjective("Kill 5 Slimes", QuestType_KillX, 5, eEnemyType_GreenSlime, eItem_None, NULL, "", NULL);
-	InventoryItem* pQuestReward1 = m_pInventoryManager->CreateInventoryItem("media/gamedata/weapons/IronSword/IronSword.weapon", "media/textures/items/iron_sword.tga", InventoryType_Weapon_Sword, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Sword", "Attacking enemies.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+	InventoryItem* pQuestReward1 = m_pInventoryManager->CreateEquipmentItemFromType(eEquipment_IronSword);
 	pSlimeQuest->SetQuestReward(pQuestReward1);
 	pSlimeQuest->ExportQuest();
 	// Quest 2
