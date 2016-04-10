@@ -83,6 +83,8 @@ string GetEquipmentTitleForType(eEquipment type)
 		case eEquipment_SpikeShoulders:		{ return "Spike Shoulders"; } break;
 	}
 
+	cout << "Warning: Reached end of GetEquipmentTitleForType() without finding type - " << type << ".\n";
+
 	return "";
 }
 
@@ -153,6 +155,8 @@ string GetEquipmentDescriptionForType(eEquipment type)
 		case eEquipment_SpikeBoots:			{ return "Spike boots."; } break;
 		case eEquipment_SpikeShoulders:		{ return "Spike shoulders."; } break;
 	}
+
+	cout << "Warning: Reached end of GetEquipmentDescriptionForType() without finding type - " << type << ".\n";
 
 	return "";
 }
@@ -225,6 +229,8 @@ string GetEquipmentFilenameForType(eEquipment type)
 		case eEquipment_SpikeShoulders:		{ return "media/gamedata/equipment/SpikeShoulders/SpikeShoulders.equipment"; } break;
 	}
 
+	cout << "Warning: Reached end of GetEquipmentFilenameForType() without finding type - " << type << ".\n";
+
 	return "";
 }
 
@@ -295,6 +301,8 @@ string GetEquipmentTextureForType(eEquipment type)
 		case eEquipment_SpikeBoots:			{ return "media/textures/items/question_mark.tga"; } break;
 		case eEquipment_SpikeShoulders:		{ return "media/textures/items/question_mark.tga"; } break;
 	}
+
+	cout << "Warning: Reached end of GetEquipmentTextureForType() without finding type - " << type << ".\n";
 
 	return "";
 }
@@ -367,6 +375,8 @@ InventoryType GetInventoryTypeForEquipment(eEquipment type)
 		case eEquipment_SpikeShoulders:		{ return InventoryType_Clothing; } break;
 	}
 
+	cout << "Warning: Reached end of GetInventoryTypeForEquipment() without finding type - " << type << ".\n";
+
 	return InventoryType_Nothing;
 }
 
@@ -437,6 +447,8 @@ EquipSlot GetEquipSlotForEquipment(eEquipment type)
 		case eEquipment_SpikeBoots:			{ return EquipSlot_Feet; } break;
 		case eEquipment_SpikeShoulders:		{ return EquipSlot_Shoulders; } break;
 	}
+
+	cout << "Warning: Reached end of GetEquipSlotForEquipment() without finding type - " << type << ".\n";
 
 	return EquipSlot_NoSlot;
 }
@@ -509,6 +521,8 @@ ItemQuality GetItemQualityForEquipment(eEquipment type)
 		case eEquipment_SpikeShoulders:		{ return ItemQuality_Epic; } break;
 	}
 
+	cout << "Warning: Reached end of GetItemQualityForEquipment() without finding type - " << type << ".\n";
+
 	return ItemQuality_Common;
 }
 
@@ -516,67 +530,71 @@ void GetItemSidesForEquipment(eEquipment type, bool *left, bool *right)
 {
 	switch (type)
 	{
-		case eEquipment_None:				{ *left = false; *right = false; } break;
-		case eEquipment_NormalPickaxe:		{ *left = false; *right = true; } break;
-		case eEquipment_Torch:				{ *left = true; *right = false; } break;
-		case eEquipment_Hammer:				{ *left = false; *right = true; } break;
-		case eEquipment_MageStaff:			{ *left = true; *right = true; } break;
-		case eEquipment_NecroStaff:			{ *left = true; *right = true; } break;
-		case eEquipment_PriestStaff:		{ *left = true; *right = true; } break;
-		case eEquipment_DruidStaff:			{ *left = true; *right = true; } break;
-		case eEquipment_2HandedSword:		{ *left = true; *right = true; } break;
-		case eEquipment_Boomerang:			{ *left = false; *right = true; } break;
-		case eEquipment_Bomb:				{ *left = false; *right = true; } break;
-		case eEquipment_KnifeLeft:			{ *left = true; *right = false; } break;
-		case eEquipment_KnifeRight:			{ *left = false; *right = true; } break;
-		case eEquipment_FireballHandLeft:	{ *left = true; *right = false; } break;
-		case eEquipment_FireballHandRight:	{ *left = false; *right = true; } break;
+		case eEquipment_None:				{ *left = false; *right = false; return;} break;
+		case eEquipment_NormalPickaxe:		{ *left = false; *right = true; return; } break;
+		case eEquipment_Torch:				{ *left = true; *right = false; return; } break;
+		case eEquipment_Hammer:				{ *left = false; *right = true; return; } break;
+		case eEquipment_MageStaff:			{ *left = true; *right = true; return; } break;
+		case eEquipment_NecroStaff:			{ *left = true; *right = true; return; } break;
+		case eEquipment_PriestStaff:		{ *left = true; *right = true; return; } break;
+		case eEquipment_DruidStaff:			{ *left = true; *right = true; return; } break;
+		case eEquipment_2HandedSword:		{ *left = true; *right = true; return; } break;
+		case eEquipment_Boomerang:			{ *left = false; *right = true; return; } break;
+		case eEquipment_Bomb:				{ *left = false; *right = true; return; } break;
+		case eEquipment_KnifeLeft:			{ *left = true; *right = false; return; } break;
+		case eEquipment_KnifeRight:			{ *left = false; *right = true; return; } break;
+		case eEquipment_FireballHandLeft:	{ *left = true; *right = false; return; } break;
+		case eEquipment_FireballHandRight:	{ *left = false; *right = true; return; } break;
 		// Wood
-		case eEquipment_WoodenSword:		{ *left = false; *right = true; } break;
-		case eEquipment_WoodenShield:		{ *left = true; *right = false; } break;
-		case eEquipment_WoodenBow:			{ *left = true; *right = true; } break;
-		case eEquipment_WoodenHelm:			{ *left = false; *right = false; } break;
-		case eEquipment_WoodenArmor:		{ *left = false; *right = false; } break;
-		case eEquipment_WoodenPants:		{ *left = false; *right = false; } break;
-		case eEquipment_WoodenGloves:		{ *left = true; *right = true; } break;
-		case eEquipment_WoodenBoots:		{ *left = true; *right = true; } break;
-		case eEquipment_WoodenShoulders:	{ *left = true; *right = true; } break;
+		case eEquipment_WoodenSword:		{ *left = false; *right = true; return; } break;
+		case eEquipment_WoodenShield:		{ *left = true; *right = false; return; } break;
+		case eEquipment_WoodenBow:			{ *left = true; *right = true; return; } break;
+		case eEquipment_WoodenHelm:			{ *left = false; *right = false; return; } break;
+		case eEquipment_WoodenArmor:		{ *left = false; *right = false; return; } break;
+		case eEquipment_WoodenPants:		{ *left = false; *right = false; return; } break;
+		case eEquipment_WoodenGloves:		{ *left = true; *right = true; return; } break;
+		case eEquipment_WoodenBoots:		{ *left = true; *right = true; return; } break;
+		case eEquipment_WoodenShoulders:	{ *left = true; *right = true; return; } break;
 		// Iron
-		case eEquipment_IronSword:			{ *left = false; *right = true; } break;
-		case eEquipment_IronShield:			{ *left = true; *right = false; } break;
-		case eEquipment_IronHelm:			{ *left = false; *right = false; } break;
-		case eEquipment_IronArmor:			{ *left = false; *right = false; } break;
-		case eEquipment_IronPants:			{ *left = false; *right = false; } break;
-		case eEquipment_IronGloves:			{ *left = true; *right = true; } break;
-		case eEquipment_IronBoots:			{ *left = true; *right = true; } break;
-		case eEquipment_IronShoulders:		{ *left = true; *right = true; } break;
+		case eEquipment_IronSword:			{ *left = false; *right = true; return; } break;
+		case eEquipment_IronShield:			{ *left = true; *right = false; return; } break;
+		case eEquipment_IronHelm:			{ *left = false; *right = false; return; } break;
+		case eEquipment_IronArmor:			{ *left = false; *right = false; return; } break;
+		case eEquipment_IronPants:			{ *left = false; *right = false; return; } break;
+		case eEquipment_IronGloves:			{ *left = true; *right = true; return; } break;
+		case eEquipment_IronBoots:			{ *left = true; *right = true; return; } break;
+		case eEquipment_IronShoulders:		{ *left = true; *right = true; return; } break;
 		// Ash
-		case eEquipment_AshHelm:			{ *left = false; *right = false; } break;
-		case eEquipment_AshArmor:			{ *left = false; *right = false; } break;
-		case eEquipment_AshPants:			{ *left = false; *right = false; } break;
-		case eEquipment_AshGloves:			{ *left = true; *right = true; } break;
-		case eEquipment_AshBoots:			{ *left = true; *right = true; } break;
-		case eEquipment_AshShoulders:		{ *left = true; *right = true; } break;
+		case eEquipment_AshHelm:			{ *left = false; *right = false; return; } break;
+		case eEquipment_AshArmor:			{ *left = false; *right = false; return; } break;
+		case eEquipment_AshPants:			{ *left = false; *right = false; return; } break;
+		case eEquipment_AshGloves:			{ *left = true; *right = true; return; } break;
+		case eEquipment_AshBoots:			{ *left = true; *right = true; return; } break;
+		case eEquipment_AshShoulders:		{ *left = true; *right = true; return; } break;
 		// Bone
-		case eEquipment_BoneHelm:			{ *left = false; *right = false; } break;
-		case eEquipment_BoneArmor:			{ *left = false; *right = false; } break;
-		case eEquipment_BonePants:			{ *left = false; *right = false; } break;
-		case eEquipment_BoneGloves:			{ *left = true; *right = true; } break;
-		case eEquipment_BoneBoots:			{ *left = true; *right = true; } break;
-		case eEquipment_BoneShoulders:		{ *left = true; *right = true; } break;
+		case eEquipment_BoneHelm:			{ *left = false; *right = false; return; } break;
+		case eEquipment_BoneArmor:			{ *left = false; *right = false; return; } break;
+		case eEquipment_BonePants:			{ *left = false; *right = false; return; } break;
+		case eEquipment_BoneGloves:			{ *left = true; *right = true; return; } break;
+		case eEquipment_BoneBoots:			{ *left = true; *right = true; return; } break;
+		case eEquipment_BoneShoulders:		{ *left = true; *right = true; return; } break;
 		// Ice
-		case eEquipment_IceHelm:			{ *left = false; *right = false; } break;
-		case eEquipment_IceArmor:			{ *left = false; *right = false; } break;
-		case eEquipment_IcePants:			{ *left = false; *right = false; } break;
-		case eEquipment_IceGloves:			{ *left = true; *right = true; } break;
-		case eEquipment_IceBoots:			{ *left = true; *right = true; } break;
-		case eEquipment_IceShoulders:		{ *left = true; *right = true; } break;
+		case eEquipment_IceHelm:			{ *left = false; *right = false; return; } break;
+		case eEquipment_IceArmor:			{ *left = false; *right = false; return; } break;
+		case eEquipment_IcePants:			{ *left = false; *right = false; return; } break;
+		case eEquipment_IceGloves:			{ *left = true; *right = true; return; } break;
+		case eEquipment_IceBoots:			{ *left = true; *right = true; return; } break;
+		case eEquipment_IceShoulders:		{ *left = true; *right = true; return; } break;
 		// Spike
-		case eEquipment_SpikeHelm:			{ *left = false; *right = false; } break;
-		case eEquipment_SpikeArmor:			{ *left = false; *right = false; } break;
-		case eEquipment_SpikePants:			{ *left = false; *right = false; } break;
-		case eEquipment_SpikeGloves:		{ *left = true; *right = true; } break;
-		case eEquipment_SpikeBoots:			{ *left = true; *right = true; } break;
-		case eEquipment_SpikeShoulders:		{ *left = true; *right = true; } break;
+		case eEquipment_SpikeHelm:			{ *left = false; *right = false; return; } break;
+		case eEquipment_SpikeArmor:			{ *left = false; *right = false; return; } break;
+		case eEquipment_SpikePants:			{ *left = false; *right = false; return; } break;
+		case eEquipment_SpikeGloves:		{ *left = true; *right = true; return; } break;
+		case eEquipment_SpikeBoots:			{ *left = true; *right = true; return; } break;
+		case eEquipment_SpikeShoulders:		{ *left = true; *right = true; return; } break;
 	}
+
+	cout << "Warning: Reached end of GetItemSidesForEquipment() without finding type - " << type << ".\n";
+	*left = false;
+	*right = false;
 }

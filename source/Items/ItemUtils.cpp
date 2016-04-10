@@ -66,6 +66,8 @@ string GetItemTitleForType(eItem type)
 		case eItem_Block_Snow:		{ return "Snow Block"; } break;
 	}
 
+	cout << "Warning: Reached end of GetItemTitleForType() without finding type - " << type << ".\n";
+
 	return "";
 }
 
@@ -120,6 +122,8 @@ string GetItemDescriptionForType(eItem type)
 		case eItem_Block_Snow:		{ return "Snow block for world building."; } break;
 	}
 
+	cout << "Warning: Reached end of GetItemDescriptionForType() without finding type - " << type << ".\n";
+
 	return "";
 }
 
@@ -170,6 +174,8 @@ eItem GetItemTypeFromString(string typeName)
 	if(typeName == "BlockCactus")	{ return eItem_Block_Cactus; }
 	if(typeName == "BlockRock")		{ return eItem_Block_Rock; }
 	if(typeName == "BlockSnow")		{ return eItem_Block_Snow; }
+
+	cout << "Warning: Reached end of GetItemTypeFromString() without finding string - " << typeName << ".\n";
 
 	return eItem_None;
 }
@@ -225,6 +231,8 @@ string GetItemFilenameForType(eItem type)
 		case eItem_Block_Snow:		{ return "media/gamedata/items/Block_Snow/Block_Snow.item"; } break;
 	}
 
+	cout << "Warning: Reached end of GetItemFilenameForType() without finding type - " << type << ".\n";
+
 	return "";
 }
 
@@ -279,6 +287,8 @@ string GetItemTextureForType(eItem type)
 		case eItem_Block_Snow:		{ return "media/textures/items/block_snow.tga"; } break;
 	}
 
+	cout << "Warning: Reached end of GetItemTextureForType() without finding type - " << type << ".\n";
+
 	return "";
 }
 
@@ -332,6 +342,8 @@ float GetItemRadiusForType(eItem type)
 		case eItem_Block_Rock:		{ return 0.25f; } break;
 		case eItem_Block_Snow:		{ return 0.25f; } break;
 	}
+
+	cout << "Warning: Reached end of GetItemRadiusForType() without finding type - " << type << ".\n";
 
 	return 1.0f;
 }
