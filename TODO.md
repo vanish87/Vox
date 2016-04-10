@@ -153,13 +153,13 @@
 - [x] Use mouse and gamepad sensativity in the looking and camera rotation functions.
 - [x] Fog rendering.
 - [x] Add easier crafting functionality, just a single function call.
+- [x] Water, creating and manipulation, rendering, updating.
 - [ ] Add VLD support to debug version, allow for memory leak detection.
 - [ ] Add audio and music playback.
 - [ ] Saving and loading chunks.
   - [ ] Group together chunks for saving, loading. Not individual
 - [ ] Add voxel editor.
 - [ ] Add texture support for voxel blocks.
-- [ ] Water, creating and manipulation, rendering, updating.
 - [ ] Add mode to play in reduced and low FPS.
   - [ ] Low FPS causes bad physics and also bad step-up block functionality, investigate and fix.
 - [ ] Dont allow jumping multiple times by holding down the space (or joy button).
@@ -176,4 +176,4 @@
 - [ ] Bug with custom cursors when going outside of windows bounds.
 - [ ] Don't allow 'other' buttons in select character screen when we have delet popup - i.e select, create, etc.
 - [ ] Create random loot manager and random loot dropping.
-- [ ] NPC loading falls through the world when we road trip to the front-end and start the game.
+- [ ] NPC loading falls through the world when we road trip to the front-end and start the game, Because physics happens during loading.
