@@ -22,6 +22,10 @@ enum eEquipment
 	eEquipment_NormalPickaxe,
 	eEquipment_Torch,
 
+	eEquipment_Hammer,
+	eEquipment_MageStaff,
+	eEquipment_NecroStaff,
+
 	eEquipment_WoodenBow,
 
 	eEquipment_IronSword,

@@ -156,7 +156,7 @@ void InventoryManager::LoadDefaultInventory()
 	InventoryItem* p2HandedSword = AddInventoryItem("media/gamedata/weapons/2HandedSword/2HandedSword.weapon", "media/textures/items/2handed_sword.tga", InventoryType_Weapon_2HandedSword, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Rare, true, true, "Two Handed Sword", "You need two hands for a reason", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
 	InventoryItem* pBoomerang = AddInventoryItem("media/gamedata/weapons/Boomerang/Boomerang.weapon", "media/textures/items/boomerang.tga", InventoryType_Weapon_Boomerang, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Magical, false, false, "Boomerang", "It really comes back", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
 	InventoryItem* pBomb = AddInventoryItem("media/gamedata/items/Bomb/Bomb.item", "media/textures/items/bomb.tga", InventoryType_Weapon_Bomb, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Magical, false, false, "Bomb", "Booooom!", 1.0f, 1.0f, 1.0f, 10, -1, -1, -1, -1);
-	InventoryItem* pStaff = AddInventoryItem("media/gamedata/weapons/Staff/Staff.weapon", "media/textures/items/staff.tga", InventoryType_Weapon_Staff, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, true, true, "Staff", "A magical staff", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+	InventoryItem* pStaff = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_MageStaff), -1, -1); 
 	pStaff->AddStatAttribute(AttributeType_Intelligence, 25);
 	InventoryItem* pDagger1 = AddInventoryItem("media/gamedata/weapons/Knife/Knife.weapon", "media/textures/items/knife.tga", InventoryType_Weapon_Dagger, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Dagger", "Sharp dagger", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
 	InventoryItem* pDagger2 = AddInventoryItem("media/gamedata/weapons/Knife/Knife.weapon", "media/textures/items/knife.tga", InventoryType_Weapon_Dagger, eItem_None, ItemStatus_None, EquipSlot_LeftHand, ItemQuality_Common, false, false, "Dagger", "Sharp dagger", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
@@ -218,7 +218,7 @@ void InventoryManager::LoadInventoryForClass(PlayerClass ePlayerClass)
 	}
 	else if (ePlayerClass == PlayerClass_Mage)
 	{
-		InventoryItem* pStaff = AddInventoryItem("media/gamedata/weapons/Staff/Staff.weapon", "media/textures/items/staff.tga", InventoryType_Weapon_Staff, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, true, true, "Staff", "A magical staff", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+		InventoryItem* pStaff = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_MageStaff), -1, -1); 
 		pStaff->AddStatAttribute(AttributeType_Intelligence, 25);
 	}
 	else if (ePlayerClass == PlayerClass_Priest)
@@ -228,7 +228,7 @@ void InventoryManager::LoadInventoryForClass(PlayerClass ePlayerClass)
 	}
 	else if (ePlayerClass == PlayerClass_Necromaner)
 	{
-		InventoryItem* pStaff = AddInventoryItem("media/gamedata/weapons/NecroStaff/NecroStaff.weapon", "media/textures/items/staff.tga", InventoryType_Weapon_Staff, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, true, true, "Staff", "A magical staff", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+		InventoryItem* pStaff = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_NecroStaff), -1, -1);
 		pStaff->AddStatAttribute(AttributeType_Intelligence, 25);
 	}
 	else if (ePlayerClass == PlayerClass_Knight)

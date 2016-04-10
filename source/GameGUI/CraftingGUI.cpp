@@ -574,7 +574,7 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 			pHammerRecipe->m_vpCraftingItems.push_back(pStone);
 			pHammerRecipe->m_vpCraftingItems.push_back(pWood);
 
-			InventoryItem* pHammer = m_pInventoryManager->CreateInventoryItem("media/gamedata/weapons/Hammer/Hammer.weapon", "media/textures/items/hammer.tga", InventoryType_Weapon_Hammer, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Hammer", "Used for removing items from the world and repositioning.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+			InventoryItem* pHammer = m_pInventoryManager->CreateEquipmentItemFromType(eEquipment_Hammer);
 			pHammer->m_scale = 0.5f; pHammer->m_offsetX = 0.5f; pHammer->m_offsetY = 0.83f; pHammer->m_offsetZ = 0.5f;
 			pHammerRecipe->m_pResultItem = pHammer;
 
