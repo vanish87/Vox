@@ -1070,7 +1070,7 @@ void BlockParticleManager::RenderInstanced(bool noWorldOffset)
 			glVertexAttribPointer(in_model_matrix + i,		// Location
 				4, GL_FLOAT, GL_FALSE,	// vec4
 				4 * 16,						// Stride
-				(void *)(16 * i));		// Start offset
+				reinterpret_cast<void *>(16 * i));		// Start offset
 
 			glEnableVertexAttribArray(in_model_matrix + i);
 			glVertexAttribDivisor(in_model_matrix + i, 1);
