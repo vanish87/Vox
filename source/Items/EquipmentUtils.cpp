@@ -28,6 +28,8 @@ string GetEquipmentTitleForType(eEquipment type)
 		case eEquipment_PriestStaff:		{ return "Priest Staff"; } break;
 		case eEquipment_DruidStaff:			{ return "Druid Staff"; } break;
 		case eEquipment_2HandedSword:		{ return "Two Handed Sword"; } break;
+		case eEquipment_Boomerang:			{ return "Boomerang"; } break;
+		case eEquipment_Bomb:				{ return "Bomb"; } break;
 		case eEquipment_WoodenBow:			{ return "Wooden Bow"; } break;
 		case eEquipment_IronSword:			{ return "Iron Sword"; } break;
 		case eEquipment_IronShield:			{ return "Iron Shield"; } break;
@@ -49,6 +51,8 @@ string GetEquipmentDescriptionForType(eEquipment type)
 		case eEquipment_PriestStaff:		{ return "A holy staff of pure energy."; } break;
 		case eEquipment_DruidStaff:			{ return "A staff that is engraved with nature."; } break;
 		case eEquipment_2HandedSword:		{ return "A sword that requires both hands to wield."; } break;
+		case eEquipment_Boomerang:			{ return "Once thrown, the boomerang returns to you."; } break;
+		case eEquipment_Bomb:				{ return "An explosive bomb, can destroy enemies and the landscape."; } break;
 		case eEquipment_WoodenBow:			{ return "A wooden bow, made for shooting arrows."; } break;
 		case eEquipment_IronSword:			{ return "A sturdy sword made of iron."; } break;
 		case eEquipment_IronShield:			{ return "A shield of pure iron."; } break;
@@ -70,6 +74,8 @@ string GetEquipmentFilenameForType(eEquipment type)
 		case eEquipment_PriestStaff:		{ return "media/gamedata/weapons/PriestStaff/PriestStaff.weapon"; } break;
 		case eEquipment_DruidStaff:			{ return "media/gamedata/weapons/DruidStaff/DruidStaff.weapon"; } break;
 		case eEquipment_2HandedSword:		{ return "media/gamedata/weapons/2HandedSword/2HandedSword.weapon"; } break;
+		case eEquipment_Boomerang:			{ return "media/gamedata/weapons/Boomerang/Boomerang.weapon"; } break;
+		case eEquipment_Bomb:				{ return "media/gamedata/items/Bomb/Bomb.item"; } break;
 		case eEquipment_WoodenBow:			{ return "media/gamedata/weapons/WoodenBow/WoodenBow.weapon"; } break;
 		case eEquipment_IronSword:			{ return "media/gamedata/weapons/IronSword/IronSword.weapon"; } break;
 		case eEquipment_IronShield:			{ return "media/gamedata/weapons/IronShield/IronShield.weapon"; } break;
@@ -91,6 +97,8 @@ string GetEquipmentTextureForType(eEquipment type)
 		case eEquipment_PriestStaff:		{ return "media/textures/items/staff.tga"; } break;
 		case eEquipment_DruidStaff:			{ return "media/textures/items/staff.tga"; } break;
 		case eEquipment_2HandedSword:		{ return "media/textures/items/2handed_sword.tga"; } break;
+		case eEquipment_Boomerang:			{ return "media/textures/items/boomerang.tga"; } break;
+		case eEquipment_Bomb:				{ return "media/textures/items/bomb.tga"; } break;
 		case eEquipment_WoodenBow:			{ return "media/textures/items/wooden_bow.tga"; } break;
 		case eEquipment_IronSword:			{ return "media/textures/items/iron_sword.tga"; } break;
 		case eEquipment_IronShield:			{ return "media/textures/items/iron_shield.tga"; } break;
@@ -112,6 +120,8 @@ InventoryType GetInventoryTypeForEquipment(eEquipment type)
 		case eEquipment_PriestStaff:		{ return InventoryType_Weapon_Staff; } break;
 		case eEquipment_DruidStaff:			{ return InventoryType_Weapon_Staff; } break;
 		case eEquipment_2HandedSword:		{ return InventoryType_Weapon_2HandedSword; } break;
+		case eEquipment_Boomerang:			{ return InventoryType_Weapon_Boomerang; } break;
+		case eEquipment_Bomb:				{ return InventoryType_Weapon_Bomb; } break;
 		case eEquipment_WoodenBow:			{ return InventoryType_Weapon_Bow; } break;
 		case eEquipment_IronSword:			{ return InventoryType_Weapon_Sword; } break;
 		case eEquipment_IronShield:			{ return InventoryType_Weapon_Shield; } break;
@@ -133,6 +143,8 @@ EquipSlot GetEquipSlotForEquipment(eEquipment type)
 		case eEquipment_PriestStaff:		{ return EquipSlot_RightHand; } break;
 		case eEquipment_DruidStaff:			{ return EquipSlot_RightHand; } break;
 		case eEquipment_2HandedSword:		{ return EquipSlot_RightHand; } break;
+		case eEquipment_Boomerang:			{ return EquipSlot_RightHand; } break;
+		case eEquipment_Bomb:				{ return EquipSlot_RightHand; } break;
 		case eEquipment_WoodenBow:			{ return EquipSlot_LeftHand; } break;
 		case eEquipment_IronSword:			{ return EquipSlot_RightHand; } break;
 		case eEquipment_IronShield:			{ return EquipSlot_LeftHand; } break;
@@ -154,6 +166,8 @@ ItemQuality GetItemQualityForEquipment(eEquipment type)
 		case eEquipment_PriestStaff:		{ return ItemQuality_Common; } break;
 		case eEquipment_DruidStaff:			{ return ItemQuality_Common; } break;
 		case eEquipment_2HandedSword:		{ return ItemQuality_Common; } break;
+		case eEquipment_Boomerang:			{ return ItemQuality_Common; } break;
+		case eEquipment_Bomb:				{ return ItemQuality_Common; } break;
 		case eEquipment_WoodenBow:			{ return ItemQuality_Common; } break;
 		case eEquipment_IronSword:			{ return ItemQuality_Common; } break;
 		case eEquipment_IronShield:			{ return ItemQuality_Common; } break;
@@ -175,6 +189,8 @@ void GetItemSidesForEquipment(eEquipment type, bool *left, bool *right)
 		case eEquipment_PriestStaff:		{ *left = false; *right = false; } break;
 		case eEquipment_DruidStaff:			{ *left = false; *right = false; } break;
 		case eEquipment_2HandedSword:		{ *left = false; *right = false; } break;
+		case eEquipment_Boomerang:			{ *left = false; *right = false; } break;
+		case eEquipment_Bomb:				{ *left = false; *right = false; } break;
 		case eEquipment_WoodenBow:			{ *left = false; *right = false; } break;
 		case eEquipment_IronSword:			{ *left = false; *right = false; } break;
 		case eEquipment_IronShield:			{ *left = false; *right = false; } break;

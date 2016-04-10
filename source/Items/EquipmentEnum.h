@@ -28,7 +28,9 @@ enum eEquipment
 	eEquipment_PriestStaff,
 	eEquipment_DruidStaff,
 	eEquipment_2HandedSword,
-
+	eEquipment_Boomerang,
+	eEquipment_Bomb,
+	
 	eEquipment_WoodenBow,
 
 	eEquipment_IronSword,

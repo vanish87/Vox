@@ -154,12 +154,12 @@ void InventoryManager::LoadDefaultInventory()
 	InventoryItem* pBow = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_WoodenBow), -1, -1);
 	pBow->AddStatAttribute(AttributeType_Dexterity, 1);
 	InventoryItem* p2HandedSword = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_2HandedSword), -1, -1);
-	InventoryItem* pBoomerang = AddInventoryItem("media/gamedata/weapons/Boomerang/Boomerang.weapon", "media/textures/items/boomerang.tga", InventoryType_Weapon_Boomerang, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Magical, false, false, "Boomerang", "It really comes back", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
-	InventoryItem* pBomb = AddInventoryItem("media/gamedata/items/Bomb/Bomb.item", "media/textures/items/bomb.tga", InventoryType_Weapon_Bomb, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Magical, false, false, "Bomb", "Booooom!", 1.0f, 1.0f, 1.0f, 10, -1, -1, -1, -1);
+	InventoryItem* pBoomerang = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_Boomerang), -1, -1);
+	InventoryItem* pBomb = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_Bomb), -1, -1);
 	InventoryItem* pStaff1 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_MageStaff), -1, -1); 
 	pStaff1->AddStatAttribute(AttributeType_Intelligence, 25);
-	InventoryItem* pStaff2 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_PriestStaff), -1, -1);
-	InventoryItem* pStaff3 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_DruidStaff), -1, -1);
+	//InventoryItem* pStaff2 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_PriestStaff), -1, -1);
+	//InventoryItem* pStaff3 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_DruidStaff), -1, -1);
 	InventoryItem* pDagger1 = AddInventoryItem("media/gamedata/weapons/Knife/Knife.weapon", "media/textures/items/knife.tga", InventoryType_Weapon_Dagger, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Dagger", "Sharp dagger", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
 	InventoryItem* pDagger2 = AddInventoryItem("media/gamedata/weapons/Knife/Knife.weapon", "media/textures/items/knife.tga", InventoryType_Weapon_Dagger, eItem_None, ItemStatus_None, EquipSlot_LeftHand, ItemQuality_Common, false, false, "Dagger", "Sharp dagger", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
 	InventoryItem* pFireball1 = AddInventoryItem("media/gamedata/weapons/FireballHands/FireballHandsRight.weapon", "media/textures/items/fireball_hand.tga", InventoryType_Weapon_SpellHands, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Epic, false, false, "Fireball Hands", "Fireball hand", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
