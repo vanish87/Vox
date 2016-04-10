@@ -19,11 +19,14 @@ enum eItem
 {
 	eItem_None = 0,
 
+	// Dropped item in the world
 	eItem_DroppedItem,
 
+	// Herts and coins dropped from killing enemies
 	eItem_Coin,
 	eItem_Heart,
 
+	// Zombie gib
 	eItem_Gib,
 
 	eItem_Tombstone,
@@ -36,6 +39,7 @@ enum eItem
 	eItem_CampFire,
 	eItem_Mannequin,
 
+	// Housing and building
 	eItem_Door,
 	eItem_Chair,
 	eItem_Table,
@@ -44,6 +48,7 @@ enum eItem
 	eItem_Portal,
 	eItem_PortalPillar,
 	
+	// Ore and mining
 	eItem_CopperVein,
 	eItem_CopperOre,
 	eItem_CopperBar,
@@ -57,6 +62,7 @@ enum eItem
 	eItem_GoldOre,
 	eItem_GoldBar,
 
+	// Farming crops
 	eItem_CropSoil,
 	eItem_CropWheat,
 	eItem_CropCorn,
@@ -64,6 +70,7 @@ enum eItem
 
 	eItem_Fence,
 
+	// World blocks
 	eItem_Block_Grass,
 	eItem_Block_Dirt,
 	eItem_Block_Stone,
