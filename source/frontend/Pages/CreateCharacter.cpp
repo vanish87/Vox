@@ -840,7 +840,7 @@ void CreateCharacter::LoadSelectionCharacters()
 	pCharacter6->SetFrontEndNPC(true);
 	pCharacter6->SetPlayerClass(PlayerClass_Necromaner);
 
-	pCharacter1->LoadWeapon(false, "media/gamedata/weapons/PriestStaff/PriestStaff.weapon");
+	pCharacter1->LoadWeapon(false, GetEquipmentFilenameForType(eEquipment_PriestStaff));
 	pCharacter1->SetNPCCombatType(eNPCCombatType_Staff, false);
 
 	pCharacter2->LoadWeapon(false, GetEquipmentFilenameForType(eEquipment_IronSword));

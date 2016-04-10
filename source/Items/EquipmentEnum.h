@@ -25,6 +25,8 @@ enum eEquipment
 	eEquipment_Hammer,
 	eEquipment_MageStaff,
 	eEquipment_NecroStaff,
+	eEquipment_PriestStaff,
+	eEquipment_DruidStaff,
 	eEquipment_2HandedSword,
 
 	eEquipment_WoodenBow,

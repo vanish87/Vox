@@ -25,6 +25,8 @@ string GetEquipmentTitleForType(eEquipment type)
 		case eEquipment_Hammer:				{ return "Hammer"; } break;
 		case eEquipment_MageStaff:			{ return "Mage Staff"; } break;
 		case eEquipment_NecroStaff:			{ return "Necro Staff"; } break;
+		case eEquipment_PriestStaff:		{ return "Priest Staff"; } break;
+		case eEquipment_DruidStaff:			{ return "Druid Staff"; } break;
 		case eEquipment_2HandedSword:		{ return "Two Handed Sword"; } break;
 		case eEquipment_WoodenBow:			{ return "Wooden Bow"; } break;
 		case eEquipment_IronSword:			{ return "Iron Sword"; } break;
@@ -43,7 +45,9 @@ string GetEquipmentDescriptionForType(eEquipment type)
 		case eEquipment_Torch:				{ return "A torch to light up the darkness."; } break;
 		case eEquipment_Hammer:				{ return "A hammer to smite your foes."; } break;
 		case eEquipment_MageStaff:			{ return "A staff that contains powerful magic."; } break;
-		case eEquipment_NecroStaff:			{ return "A necromancer Staff once used by powerful mages of undeath."; } break;
+		case eEquipment_NecroStaff:			{ return "A necromancer staff once used by powerful mages of undeath."; } break;
+		case eEquipment_PriestStaff:		{ return "A holy staff of pure energy."; } break;
+		case eEquipment_DruidStaff:			{ return "A staff that is engraved with nature."; } break;
 		case eEquipment_2HandedSword:		{ return "A sword that requires both hands to wield."; } break;
 		case eEquipment_WoodenBow:			{ return "A wooden bow, made for shooting arrows."; } break;
 		case eEquipment_IronSword:			{ return "A sturdy sword made of iron."; } break;
@@ -63,6 +67,8 @@ string GetEquipmentFilenameForType(eEquipment type)
 		case eEquipment_Hammer:				{ return "media/gamedata/weapons/Hammer/Hammer.weapon"; } break;
 		case eEquipment_MageStaff:			{ return "media/gamedata/weapons/Staff/Staff.weapon"; } break;
 		case eEquipment_NecroStaff:			{ return "media/gamedata/weapons/NecroStaff/NecroStaff.weapon"; } break;
+		case eEquipment_PriestStaff:		{ return "media/gamedata/weapons/PriestStaff/PriestStaff.weapon"; } break;
+		case eEquipment_DruidStaff:			{ return "media/gamedata/weapons/DruidStaff/DruidStaff.weapon"; } break;
 		case eEquipment_2HandedSword:		{ return "media/gamedata/weapons/2HandedSword/2HandedSword.weapon"; } break;
 		case eEquipment_WoodenBow:			{ return "media/gamedata/weapons/WoodenBow/WoodenBow.weapon"; } break;
 		case eEquipment_IronSword:			{ return "media/gamedata/weapons/IronSword/IronSword.weapon"; } break;
@@ -82,6 +88,8 @@ string GetEquipmentTextureForType(eEquipment type)
 		case eEquipment_Hammer:				{ return "media/textures/items/hammer.tga"; } break;
 		case eEquipment_MageStaff:			{ return "media/textures/items/staff.tga"; } break;
 		case eEquipment_NecroStaff:			{ return "media/textures/items/staff.tga"; } break;
+		case eEquipment_PriestStaff:		{ return "media/textures/items/staff.tga"; } break;
+		case eEquipment_DruidStaff:			{ return "media/textures/items/staff.tga"; } break;
 		case eEquipment_2HandedSword:		{ return "media/textures/items/2handed_sword.tga"; } break;
 		case eEquipment_WoodenBow:			{ return "media/textures/items/wooden_bow.tga"; } break;
 		case eEquipment_IronSword:			{ return "media/textures/items/iron_sword.tga"; } break;
@@ -101,6 +109,8 @@ InventoryType GetInventoryTypeForEquipment(eEquipment type)
 		case eEquipment_Hammer:				{ return InventoryType_Weapon_Hammer; } break;
 		case eEquipment_MageStaff:			{ return InventoryType_Weapon_Staff; } break;
 		case eEquipment_NecroStaff:			{ return InventoryType_Weapon_Staff; } break;
+		case eEquipment_PriestStaff:		{ return InventoryType_Weapon_Staff; } break;
+		case eEquipment_DruidStaff:			{ return InventoryType_Weapon_Staff; } break;
 		case eEquipment_2HandedSword:		{ return InventoryType_Weapon_2HandedSword; } break;
 		case eEquipment_WoodenBow:			{ return InventoryType_Weapon_Bow; } break;
 		case eEquipment_IronSword:			{ return InventoryType_Weapon_Sword; } break;
@@ -120,6 +130,8 @@ EquipSlot GetEquipSlotForEquipment(eEquipment type)
 		case eEquipment_Hammer:				{ return EquipSlot_RightHand; } break;
 		case eEquipment_MageStaff:			{ return EquipSlot_RightHand; } break;
 		case eEquipment_NecroStaff:			{ return EquipSlot_RightHand; } break;
+		case eEquipment_PriestStaff:		{ return EquipSlot_RightHand; } break;
+		case eEquipment_DruidStaff:			{ return EquipSlot_RightHand; } break;
 		case eEquipment_2HandedSword:		{ return EquipSlot_RightHand; } break;
 		case eEquipment_WoodenBow:			{ return EquipSlot_LeftHand; } break;
 		case eEquipment_IronSword:			{ return EquipSlot_RightHand; } break;
@@ -139,6 +151,8 @@ ItemQuality GetItemQualityForEquipment(eEquipment type)
 		case eEquipment_Hammer:				{ return ItemQuality_Common; } break;
 		case eEquipment_MageStaff:			{ return ItemQuality_Common; } break;
 		case eEquipment_NecroStaff:			{ return ItemQuality_Common; } break;
+		case eEquipment_PriestStaff:		{ return ItemQuality_Common; } break;
+		case eEquipment_DruidStaff:			{ return ItemQuality_Common; } break;
 		case eEquipment_2HandedSword:		{ return ItemQuality_Common; } break;
 		case eEquipment_WoodenBow:			{ return ItemQuality_Common; } break;
 		case eEquipment_IronSword:			{ return ItemQuality_Common; } break;
@@ -158,6 +172,8 @@ void GetItemSidesForEquipment(eEquipment type, bool *left, bool *right)
 		case eEquipment_Hammer:				{ *left = false; *right = false; } break;
 		case eEquipment_MageStaff:			{ *left = false; *right = false; } break;
 		case eEquipment_NecroStaff:			{ *left = false; *right = false; } break;
+		case eEquipment_PriestStaff:		{ *left = false; *right = false; } break;
+		case eEquipment_DruidStaff:			{ *left = false; *right = false; } break;
 		case eEquipment_2HandedSword:		{ *left = false; *right = false; } break;
 		case eEquipment_WoodenBow:			{ *left = false; *right = false; } break;
 		case eEquipment_IronSword:			{ *left = false; *right = false; } break;
