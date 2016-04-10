@@ -554,10 +554,10 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 			CraftingRecipe* pPickaxeRecipe = new CraftingRecipe();
 			InventoryItem* pStone = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_Block_Stone, 3, ItemQuality_Common);
 			InventoryItem* pWood = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_Block_Wood, 4, ItemQuality_Common);
-			InventoryItem* pGrass = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_Block_Grass, 2, ItemQuality_Common);
+			InventoryItem* pIronBar = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_IronBar, 3, ItemQuality_Common);
 			pPickaxeRecipe->m_vpCraftingItems.push_back(pStone);
 			pPickaxeRecipe->m_vpCraftingItems.push_back(pWood);
-			pPickaxeRecipe->m_vpCraftingItems.push_back(pGrass);
+			pPickaxeRecipe->m_vpCraftingItems.push_back(pIronBar);
 
 			InventoryItem* pPickaxe = m_pInventoryManager->CreateEquipmentItemFromType(eEquipment_NormalPickaxe);
 			pPickaxe->m_scale = 0.0f; pPickaxe->m_offsetX = 0.5f; pPickaxe->m_offsetY = 0.95f; pPickaxe->m_offsetZ = 0.5f;
@@ -569,10 +569,10 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 		// Hammer
 		{
 			CraftingRecipe* pHammerRecipe = new CraftingRecipe();
-			InventoryItem* pStone = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_Block_Stone, 3, ItemQuality_Common);
-			InventoryItem* pWood = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_Block_Wood, 4, ItemQuality_Common);
+			InventoryItem* pStone = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_Block_Stone, 4, ItemQuality_Common);
+			InventoryItem* pIronBar = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_IronBar, 4, ItemQuality_Common);
 			pHammerRecipe->m_vpCraftingItems.push_back(pStone);
-			pHammerRecipe->m_vpCraftingItems.push_back(pWood);
+			pHammerRecipe->m_vpCraftingItems.push_back(pIronBar);
 
 			InventoryItem* pHammer = m_pInventoryManager->CreateEquipmentItemFromType(eEquipment_Hammer);
 			pHammer->m_scale = 0.5f; pHammer->m_offsetX = 0.5f; pHammer->m_offsetY = 0.83f; pHammer->m_offsetZ = 0.5f;
@@ -581,36 +581,40 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 			AddCraftingRecipe(pHammerRecipe);
 		}
 
-		// Sword
+		// Iron Sword
 		{
-			CraftingRecipe* pSwordRecipe = new CraftingRecipe();
+			CraftingRecipe* pIronSwordRecipe = new CraftingRecipe();
 			InventoryItem* pIronBar = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_IronBar, 3, ItemQuality_Common);
-			pSwordRecipe->m_vpCraftingItems.push_back(pIronBar);
+			pIronSwordRecipe->m_vpCraftingItems.push_back(pIronBar);
 
-			InventoryItem* pSword = m_pInventoryManager->CreateEquipmentItemFromType(eEquipment_IronSword);
-			pSword->m_scale = 0.5f; pSword->m_offsetX = 0.5f; pSword->m_offsetY = 0.83f; pSword->m_offsetZ = 0.5f;
-			pSwordRecipe->m_pResultItem = pSword;
+			InventoryItem* pIronSword = m_pInventoryManager->CreateEquipmentItemFromType(eEquipment_IronSword);
+			pIronSword->m_scale = 0.5f; pIronSword->m_offsetX = 0.5f; pIronSword->m_offsetY = 0.83f; pIronSword->m_offsetZ = 0.5f;
+			pIronSwordRecipe->m_pResultItem = pIronSword;
 
-			AddCraftingRecipe(pSwordRecipe);
+			AddCraftingRecipe(pIronSwordRecipe);
 		}
 
-		// Shield
+		// Iron Shield
 		{
-			CraftingRecipe* pShieldRecipe = new CraftingRecipe();
+			CraftingRecipe* pIronShieldRecipe = new CraftingRecipe();
 			InventoryItem* pIronBar = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_IronBar, 4, ItemQuality_Common);
-			pShieldRecipe->m_vpCraftingItems.push_back(pIronBar);
+			pIronShieldRecipe->m_vpCraftingItems.push_back(pIronBar);
 
-			InventoryItem* pShield = m_pInventoryManager->CreateEquipmentItemFromType(eEquipment_IronShield);
-			pShieldRecipe->m_pResultItem = pShield;
+			InventoryItem* pIronShield = m_pInventoryManager->CreateEquipmentItemFromType(eEquipment_IronShield);
+			pIronShieldRecipe->m_pResultItem = pIronShield;
 
-			AddCraftingRecipe(pShieldRecipe);
+			AddCraftingRecipe(pIronShieldRecipe);
 		}
 
 		// 2 Handed Sword
 		{
 			CraftingRecipe* p2HandedSwordRecipe = new CraftingRecipe();
-			InventoryItem* pStone = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_Block_Stone, 3, ItemQuality_Common);
-			p2HandedSwordRecipe->m_vpCraftingItems.push_back(pStone);
+			InventoryItem* pIronBar = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_IronBar, 10, ItemQuality_Common);
+			InventoryItem* pCopperBar = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_CopperBar, 5, ItemQuality_Common);
+			InventoryItem* pWood = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_Block_Wood, 3, ItemQuality_Common);
+			p2HandedSwordRecipe->m_vpCraftingItems.push_back(pIronBar);
+			p2HandedSwordRecipe->m_vpCraftingItems.push_back(pCopperBar);
+			p2HandedSwordRecipe->m_vpCraftingItems.push_back(pWood);
 
 			InventoryItem* p2HandedSword = m_pInventoryManager->CreateEquipmentItemFromType(eEquipment_2HandedSword);
 			p2HandedSword->m_scale = 0.5f; p2HandedSword->m_offsetX = 0.5f; p2HandedSword->m_offsetY = 0.83f; p2HandedSword->m_offsetZ = 0.5f;
