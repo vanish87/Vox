@@ -67,6 +67,13 @@ string GetEquipmentTitleForType(eEquipment type)
 		case eEquipment_BoneGloves:			{ return "Bone Gloves"; } break;
 		case eEquipment_BoneBoots:			{ return "Bone Boots"; } break;
 		case eEquipment_BoneShoulders:		{ return "Bone Shoulders"; } break;
+		// Ice
+		case eEquipment_IceHelm:			{ return "Ice Helm"; } break;
+		case eEquipment_IceArmor:			{ return "Ice Armor"; } break;
+		case eEquipment_IcePants:			{ return "Ice Pants"; } break;
+		case eEquipment_IceGloves:			{ return "Ice Gloves"; } break;
+		case eEquipment_IceBoots:			{ return "Ice Boots"; } break;
+		case eEquipment_IceShoulders:		{ return "Ice Shoulders"; } break;
 	}
 
 	return "";
@@ -124,6 +131,13 @@ string GetEquipmentDescriptionForType(eEquipment type)
 		case eEquipment_BoneGloves:			{ return "Bone gloves."; } break;
 		case eEquipment_BoneBoots:			{ return "Bone boots."; } break;
 		case eEquipment_BoneShoulders:		{ return "Bone shoulders."; } break;
+		// Ice
+		case eEquipment_IceHelm:			{ return "Ice helm."; } break;
+		case eEquipment_IceArmor:			{ return "Ice armor."; } break;
+		case eEquipment_IcePants:			{ return "Ice pants."; } break;
+		case eEquipment_IceGloves:			{ return "Ice gloves."; } break;
+		case eEquipment_IceBoots:			{ return "Ice boots."; } break;
+		case eEquipment_IceShoulders:		{ return "Ice shoulders."; } break;
 	}
 
 	return "";
@@ -181,6 +195,13 @@ string GetEquipmentFilenameForType(eEquipment type)
 		case eEquipment_BoneGloves:			{ return "media/gamedata/equipment/BoneGloves/BoneGloves.equipment"; } break;
 		case eEquipment_BoneBoots:			{ return "media/gamedata/equipment/BoneBoots/BoneBoots.equipment"; } break;
 		case eEquipment_BoneShoulders:		{ return "media/gamedata/equipment/BoneShoulders/BoneShoulders.equipment"; } break;
+		// Ice
+		case eEquipment_IceHelm:			{ return "media/gamedata/equipment/IceHelm/IceHelm.equipment"; } break;
+		case eEquipment_IceArmor:			{ return "media/gamedata/equipment/IceBody/IceBody.equipment"; } break;
+		case eEquipment_IcePants:			{ return "media/gamedata/equipment/IcePants/IcePants.equipment"; } break;
+		case eEquipment_IceGloves:			{ return "media/gamedata/equipment/IceGloves/IceGloves.equipment"; } break;
+		case eEquipment_IceBoots:			{ return "media/gamedata/equipment/IceBoots/IceBoots.equipment"; } break;
+		case eEquipment_IceShoulders:		{ return "media/gamedata/equipment/IceShoulders/IceShoulders.equipment"; } break;
 	}
 
 	return "";
@@ -238,6 +259,13 @@ string GetEquipmentTextureForType(eEquipment type)
 		case eEquipment_BoneGloves:			{ return "media/textures/items/bone_gloves.tga"; } break;
 		case eEquipment_BoneBoots:			{ return "media/textures/items/bone_boots.tga"; } break;
 		case eEquipment_BoneShoulders:		{ return "media/textures/items/bone_shoulders.tga"; } break;
+		// Ice
+		case eEquipment_IceHelm:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_IceArmor:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_IcePants:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_IceGloves:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_IceBoots:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_IceShoulders:		{ return "media/textures/items/question_mark.tga"; } break;
 	}
 
 	return "";
@@ -295,6 +323,13 @@ InventoryType GetInventoryTypeForEquipment(eEquipment type)
 		case eEquipment_BoneGloves:			{ return InventoryType_Clothing; } break;
 		case eEquipment_BoneBoots:			{ return InventoryType_Clothing; } break;
 		case eEquipment_BoneShoulders:		{ return InventoryType_Clothing; } break;
+		// Ice
+		case eEquipment_IceHelm:			{ return InventoryType_Clothing; } break;
+		case eEquipment_IceArmor:			{ return InventoryType_Clothing; } break;
+		case eEquipment_IcePants:			{ return InventoryType_Clothing; } break;
+		case eEquipment_IceGloves:			{ return InventoryType_Clothing; } break;
+		case eEquipment_IceBoots:			{ return InventoryType_Clothing; } break;
+		case eEquipment_IceShoulders:		{ return InventoryType_Clothing; } break;
 	}
 
 	return InventoryType_Nothing;
@@ -352,6 +387,13 @@ EquipSlot GetEquipSlotForEquipment(eEquipment type)
 		case eEquipment_BoneGloves:			{ return EquipSlot_Hand; } break;
 		case eEquipment_BoneBoots:			{ return EquipSlot_Feet; } break;
 		case eEquipment_BoneShoulders:		{ return EquipSlot_Shoulders; } break;
+		// Ice
+		case eEquipment_IceHelm:			{ return EquipSlot_Head; } break;
+		case eEquipment_IceArmor:			{ return EquipSlot_Body; } break;
+		case eEquipment_IcePants:			{ return EquipSlot_Legs; } break;
+		case eEquipment_IceGloves:			{ return EquipSlot_Hand; } break;
+		case eEquipment_IceBoots:			{ return EquipSlot_Feet; } break;
+		case eEquipment_IceShoulders:		{ return EquipSlot_Shoulders; } break;
 	}
 
 	return EquipSlot_NoSlot;
@@ -409,6 +451,13 @@ ItemQuality GetItemQualityForEquipment(eEquipment type)
 		case eEquipment_BoneGloves:			{ return ItemQuality_Rare; } break;
 		case eEquipment_BoneBoots:			{ return ItemQuality_Rare; } break;
 		case eEquipment_BoneShoulders:		{ return ItemQuality_Rare; } break;
+		// Ice
+		case eEquipment_IceHelm:			{ return ItemQuality_Rare; } break;
+		case eEquipment_IceArmor:			{ return ItemQuality_Rare; } break;
+		case eEquipment_IcePants:			{ return ItemQuality_Rare; } break;
+		case eEquipment_IceGloves:			{ return ItemQuality_Rare; } break;
+		case eEquipment_IceBoots:			{ return ItemQuality_Rare; } break;
+		case eEquipment_IceShoulders:		{ return ItemQuality_Rare; } break;
 	}
 
 	return ItemQuality_Common;
@@ -466,5 +515,12 @@ void GetItemSidesForEquipment(eEquipment type, bool *left, bool *right)
 		case eEquipment_BoneGloves:			{ *left = true; *right = true; } break;
 		case eEquipment_BoneBoots:			{ *left = true; *right = true; } break;
 		case eEquipment_BoneShoulders:		{ *left = true; *right = true; } break;
+		// Ice
+		case eEquipment_IceHelm:			{ *left = false; *right = false; } break;
+		case eEquipment_IceArmor:			{ *left = false; *right = false; } break;
+		case eEquipment_IcePants:			{ *left = false; *right = false; } break;
+		case eEquipment_IceGloves:			{ *left = true; *right = true; } break;
+		case eEquipment_IceBoots:			{ *left = true; *right = true; } break;
+		case eEquipment_IceShoulders:		{ *left = true; *right = true; } break;
 	}
 }
