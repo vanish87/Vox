@@ -153,7 +153,7 @@ void InventoryManager::LoadDefaultInventory()
 	pShield->AddStatAttribute(AttributeType_Armor, 2);
 	InventoryItem* pBow = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_WoodenBow), -1, -1);
 	pBow->AddStatAttribute(AttributeType_Dexterity, 1);
-	InventoryItem* p2HandedSword = AddInventoryItem("media/gamedata/weapons/2HandedSword/2HandedSword.weapon", "media/textures/items/2handed_sword.tga", InventoryType_Weapon_2HandedSword, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Rare, true, true, "Two Handed Sword", "You need two hands for a reason", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+	InventoryItem* p2HandedSword = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_2HandedSword), -1, -1);
 	InventoryItem* pBoomerang = AddInventoryItem("media/gamedata/weapons/Boomerang/Boomerang.weapon", "media/textures/items/boomerang.tga", InventoryType_Weapon_Boomerang, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Magical, false, false, "Boomerang", "It really comes back", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
 	InventoryItem* pBomb = AddInventoryItem("media/gamedata/items/Bomb/Bomb.item", "media/textures/items/bomb.tga", InventoryType_Weapon_Bomb, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Magical, false, false, "Bomb", "Booooom!", 1.0f, 1.0f, 1.0f, 10, -1, -1, -1, -1);
 	InventoryItem* pStaff = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_MageStaff), -1, -1); 
@@ -233,7 +233,7 @@ void InventoryManager::LoadInventoryForClass(PlayerClass ePlayerClass)
 	}
 	else if (ePlayerClass == PlayerClass_Knight)
 	{
-		InventoryItem* p2HandedSword = AddInventoryItem("media/gamedata/weapons/2HandedSword/2HandedSword.weapon", "media/textures/items/2handed_sword.tga", InventoryType_Weapon_2HandedSword, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Rare, true, true, "Two Handed Sword", "You need two hands for a reason", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+		InventoryItem* p2HandedSword = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_2HandedSword), -1, -1);
 	}
 }
 

@@ -612,7 +612,7 @@ void CraftingGUI::SetCraftingRecipesForItem(eItem craftingItem)
 			InventoryItem* pStone = m_pInventoryManager->CreateInventoryItemForCrafting(eItem_Block_Stone, 3, ItemQuality_Common);
 			p2HandedSwordRecipe->m_vpCraftingItems.push_back(pStone);
 
-			InventoryItem* p2HandedSword = m_pInventoryManager->CreateInventoryItem("media/gamedata/weapons/2HandedSword/2HandedSword.weapon", "media/textures/items/2handed_sword.tga", InventoryType_Weapon_2HandedSword, eItem_None, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, true, true, "Bigger Sword", "Used for removing items from the world and repositioning.", 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+			InventoryItem* p2HandedSword = m_pInventoryManager->CreateEquipmentItemFromType(eEquipment_2HandedSword);
 			p2HandedSword->m_scale = 0.5f; p2HandedSword->m_offsetX = 0.5f; p2HandedSword->m_offsetY = 0.83f; p2HandedSword->m_offsetZ = 0.5f;
 			p2HandedSwordRecipe->m_pResultItem = p2HandedSword;
 
