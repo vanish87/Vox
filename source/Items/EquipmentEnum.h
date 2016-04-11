@@ -19,6 +19,7 @@ enum eEquipment
 {
 	eEquipment_None = 0,
 
+	// Weapons
 	eEquipment_NormalPickaxe,
 	eEquipment_Torch,
 	eEquipment_Hammer,
@@ -36,6 +37,9 @@ enum eEquipment
 	eEquipment_Mace,
 	eEquipment_Sickle,
 	eEquipment_DragonBow,
+
+	// Equipment
+	eEquipment_BlacksmithGloves,
 
 	// Wooden
 	eEquipment_WoodenSword,

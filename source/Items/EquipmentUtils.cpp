@@ -19,6 +19,7 @@ string GetEquipmentTitleForType(eEquipment type)
 {
 	switch(type)
 	{
+		// Weapons
 		case eEquipment_None:				{ return ""; } break;
 		case eEquipment_NormalPickaxe:		{ return "Normal Pickaxe"; } break;
 		case eEquipment_Torch:				{ return "Torch"; } break;
@@ -37,6 +38,8 @@ string GetEquipmentTitleForType(eEquipment type)
 		case eEquipment_Mace:				{ return "Mace"; } break;
 		case eEquipment_Sickle:				{ return "Sickle"; } break;
 		case eEquipment_DragonBow:			{ return "Dragon Bow"; } break;
+		// Equipment
+		case eEquipment_BlacksmithGloves:	{ return "Blacksmith Gloves"; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return "Wooden Sword"; } break;
 		case eEquipment_WoodenShield:		{ return "Wooden Shield"; } break;
@@ -98,6 +101,7 @@ string GetEquipmentDescriptionForType(eEquipment type)
 	switch(type)
 	{
 		case eEquipment_None:				{ return ""; } break;
+		// Weapons
 		case eEquipment_NormalPickaxe:		{ return "Used for mining and digging the world."; } break;
 		case eEquipment_Torch:				{ return "A torch to light up the darkness."; } break;
 		case eEquipment_Hammer:				{ return "A hammer to smite your foes."; } break;
@@ -115,6 +119,8 @@ string GetEquipmentDescriptionForType(eEquipment type)
 		case eEquipment_Mace:				{ return "A deadly mace, to smite down your enemies."; } break;
 		case eEquipment_Sickle:				{ return "Very sharp and very deadly."; } break;
 		case eEquipment_DragonBow:			{ return "Once used by the dragon riders of old Vox."; } break;
+		// Equipment
+		case eEquipment_BlacksmithGloves:	{ return "Blacksmith gloves are used during the crafting of items."; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return "A wooden sword, not very good in combat."; } break;
 		case eEquipment_WoodenShield:		{ return "A wooden shield, cannnot protect against much."; } break;
@@ -176,6 +182,7 @@ string GetEquipmentFilenameForType(eEquipment type)
 	switch(type)
 	{
 		case eEquipment_None:				{ return ""; } break;
+		// Weapons
 		case eEquipment_NormalPickaxe:		{ return "media/gamedata/weapons/Pickaxe/Pickaxe.weapon"; } break;
 		case eEquipment_Torch:				{ return "media/gamedata/weapons/Torch/Torch.weapon"; } break;
 		case eEquipment_Hammer:				{ return "media/gamedata/weapons/Hammer/Hammer.weapon"; } break;
@@ -193,6 +200,8 @@ string GetEquipmentFilenameForType(eEquipment type)
 		case eEquipment_Mace:				{ return "media/gamedata/weapons/Mace/Mace.weapon"; } break;
 		case eEquipment_Sickle:				{ return "media/gamedata/weapons/Sickle/Sickle.weapon"; } break;
 		case eEquipment_DragonBow:			{ return "media/gamedata/weapons/DragonBow/DragonBow.weapon"; } break;
+		// Equipment
+		case eEquipment_BlacksmithGloves:	{ return "media/gamedata/equipment/BlacksmithGloves/BlacksmithGloves.equipment"; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return "media/gamedata/weapons/WoodenSword/WoodenSword.weapon"; } break;
 		case eEquipment_WoodenShield:		{ return "media/gamedata/weapons/WoodenShield/WoodenShield.weapon"; } break;
@@ -254,6 +263,7 @@ string GetEquipmentTextureForType(eEquipment type)
 	switch(type)
 	{
 		case eEquipment_None:				{ return ""; } break;
+		// Weapons
 		case eEquipment_NormalPickaxe:		{ return "media/textures/items/pickaxe.tga"; } break;
 		case eEquipment_Torch:				{ return "media/textures/items/torch.tga"; } break;
 		case eEquipment_Hammer:				{ return "media/textures/items/hammer.tga"; } break;
@@ -271,6 +281,8 @@ string GetEquipmentTextureForType(eEquipment type)
 		case eEquipment_Mace:				{ return "media/textures/items/question_mark.tga"; } break;
 		case eEquipment_Sickle:				{ return "media/textures/items/question_mark.tga"; } break;
 		case eEquipment_DragonBow:			{ return "media/textures/items/question_mark.tga"; } break;
+		// Equipment
+		case eEquipment_BlacksmithGloves:	{ return "media/textures/items/blacksmith_gloves.tga"; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return "media/textures/items/question_mark.tga"; } break;
 		case eEquipment_WoodenShield:		{ return "media/textures/items/question_mark.tga"; } break;
@@ -332,6 +344,7 @@ InventoryType GetInventoryTypeForEquipment(eEquipment type)
 	switch(type)
 	{
 		case eEquipment_None:				{ return InventoryType_Nothing; } break;
+		// Weapons
 		case eEquipment_NormalPickaxe:		{ return InventoryType_Weapon_Pickaxe; } break;
 		case eEquipment_Torch:				{ return InventoryType_Weapon_Torch; } break;
 		case eEquipment_Hammer:				{ return InventoryType_Weapon_Hammer; } break;
@@ -349,6 +362,8 @@ InventoryType GetInventoryTypeForEquipment(eEquipment type)
 		case eEquipment_Mace:				{ return InventoryType_Weapon_Mace; } break;
 		case eEquipment_Sickle:				{ return InventoryType_Weapon_Sickle; } break;
 		case eEquipment_DragonBow:			{ return InventoryType_Weapon_Bow; } break;
+		// Equipment
+		case eEquipment_BlacksmithGloves:	{ return InventoryType_Clothing; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return InventoryType_Weapon_Sword; } break;
 		case eEquipment_WoodenShield:		{ return InventoryType_Weapon_Shield; } break;
@@ -410,6 +425,7 @@ EquipSlot GetEquipSlotForEquipment(eEquipment type)
 	switch (type)
 	{
 		case eEquipment_None:				{ return EquipSlot_NoSlot; } break;
+		// Weapons
 		case eEquipment_NormalPickaxe:		{ return EquipSlot_RightHand; } break;
 		case eEquipment_Torch:				{ return EquipSlot_LeftHand; } break;
 		case eEquipment_Hammer:				{ return EquipSlot_RightHand; } break;
@@ -427,6 +443,8 @@ EquipSlot GetEquipSlotForEquipment(eEquipment type)
 		case eEquipment_Mace:				{ return EquipSlot_RightHand; } break;
 		case eEquipment_Sickle:				{ return EquipSlot_RightHand; } break;
 		case eEquipment_DragonBow:			{ return EquipSlot_LeftHand; } break;
+		// Equipment
+		case eEquipment_BlacksmithGloves:	{ return EquipSlot_Hand; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return EquipSlot_RightHand; } break;
 		case eEquipment_WoodenShield:		{ return EquipSlot_LeftHand; } break;
@@ -488,6 +506,7 @@ ItemQuality GetItemQualityForEquipment(eEquipment type)
 	switch (type)
 	{
 		case eEquipment_None:				{ return ItemQuality_Common; } break;
+		// Weapons
 		case eEquipment_NormalPickaxe:		{ return ItemQuality_Common; } break;
 		case eEquipment_Torch:				{ return ItemQuality_Common; } break;
 		case eEquipment_Hammer:				{ return ItemQuality_Common; } break;
@@ -505,6 +524,8 @@ ItemQuality GetItemQualityForEquipment(eEquipment type)
 		case eEquipment_Mace:				{ return ItemQuality_Magical; } break;
 		case eEquipment_Sickle:				{ return ItemQuality_Magical; } break;
 		case eEquipment_DragonBow:			{ return ItemQuality_Rare; } break;
+		// Equipment
+		case eEquipment_BlacksmithGloves:	{ return ItemQuality_Uncommon; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return ItemQuality_Common; } break;
 		case eEquipment_WoodenShield:		{ return ItemQuality_Common; } break;
@@ -566,6 +587,7 @@ void GetItemSidesForEquipment(eEquipment type, bool *left, bool *right)
 	switch (type)
 	{
 		case eEquipment_None:				{ *left = false; *right = false; return;} break;
+		// Weapons
 		case eEquipment_NormalPickaxe:		{ *left = false; *right = true; return; } break;
 		case eEquipment_Torch:				{ *left = true; *right = false; return; } break;
 		case eEquipment_Hammer:				{ *left = false; *right = true; return; } break;
@@ -583,6 +605,8 @@ void GetItemSidesForEquipment(eEquipment type, bool *left, bool *right)
 		case eEquipment_Mace:				{ *left = false; *right = true; return; } break;
 		case eEquipment_Sickle:				{ *left = false; *right = true; return; } break;
 		case eEquipment_DragonBow:			{ *left = true; *right = true; return; } break;
+		// Equipment
+		case eEquipment_BlacksmithGloves:	{ *left = true; *right = true; return; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ *left = false; *right = true; return; } break;
 		case eEquipment_WoodenShield:		{ *left = true; *right = false; return; } break;
