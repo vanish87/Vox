@@ -34,6 +34,8 @@ string GetEquipmentTitleForType(eEquipment type)
 		case eEquipment_KnifeRight:			{ return "Knife"; } break;
 		case eEquipment_FireballHandLeft:	{ return "Fireball Hands"; } break;
 		case eEquipment_FireballHandRight:	{ return "Fireball Hands"; } break;
+		case eEquipment_Mace:				{ return "Mace"; } break;
+		case eEquipment_Sickle:				{ return "Sickle"; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return "Wooden Sword"; } break;
 		case eEquipment_WoodenShield:		{ return "Wooden Shield"; } break;
@@ -109,6 +111,8 @@ string GetEquipmentDescriptionForType(eEquipment type)
 		case eEquipment_KnifeRight:			{ return "A stabbing knife."; } break;
 		case eEquipment_FireballHandLeft:	{ return "Cast powerful spells using only your hands."; } break;
 		case eEquipment_FireballHandRight:	{ return "Cast powerful spells using only your hands."; } break;
+		case eEquipment_Mace:				{ return "A deadly mace, to smite down your enemies."; } break;
+		case eEquipment_Sickle:				{ return "Very sharp and very deadly."; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return "A wooden sword, not very good in combat."; } break;
 		case eEquipment_WoodenShield:		{ return "A wooden shield, cannnot protect against much."; } break;
@@ -184,6 +188,8 @@ string GetEquipmentFilenameForType(eEquipment type)
 		case eEquipment_KnifeRight:			{ return "media/gamedata/weapons/Knife/Knife.weapon"; } break;
 		case eEquipment_FireballHandLeft:	{ return "media/gamedata/weapons/FireballHands/FireballHandsLeft.weapon"; } break;
 		case eEquipment_FireballHandRight:	{ return "media/gamedata/weapons/FireballHands/FireballHandsRight.weapon"; } break;
+		case eEquipment_Mace:				{ return "media/gamedata/weapons/Mace/Mace.weapon"; } break;
+		case eEquipment_Sickle:				{ return "media/gamedata/weapons/Sickle/Sickle.weapon"; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return "media/gamedata/weapons/WoodenSword/WoodenSword.weapon"; } break;
 		case eEquipment_WoodenShield:		{ return "media/gamedata/weapons/WoodenShield/WoodenShield.weapon"; } break;
@@ -259,6 +265,8 @@ string GetEquipmentTextureForType(eEquipment type)
 		case eEquipment_KnifeRight:			{ return "media/textures/items/knife.tga"; } break;
 		case eEquipment_FireballHandLeft:	{ return "media/textures/items/fireball_hand.tga"; } break;
 		case eEquipment_FireballHandRight:	{ return "media/textures/items/fireball_hand.tga"; } break;
+		case eEquipment_Mace:				{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_Sickle:				{ return "media/textures/items/question_mark.tga"; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return "media/textures/items/question_mark.tga"; } break;
 		case eEquipment_WoodenShield:		{ return "media/textures/items/question_mark.tga"; } break;
@@ -334,6 +342,8 @@ InventoryType GetInventoryTypeForEquipment(eEquipment type)
 		case eEquipment_KnifeRight:			{ return InventoryType_Weapon_Dagger; } break;
 		case eEquipment_FireballHandLeft:	{ return InventoryType_Weapon_SpellHands; } break;
 		case eEquipment_FireballHandRight:	{ return InventoryType_Weapon_SpellHands; } break;
+		case eEquipment_Mace:				{ return InventoryType_Weapon_Mace; } break;
+		case eEquipment_Sickle:				{ return InventoryType_Weapon_Sickle; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return InventoryType_Weapon_Sword; } break;
 		case eEquipment_WoodenShield:		{ return InventoryType_Weapon_Shield; } break;
@@ -409,6 +419,8 @@ EquipSlot GetEquipSlotForEquipment(eEquipment type)
 		case eEquipment_KnifeRight:			{ return EquipSlot_RightHand; } break;
 		case eEquipment_FireballHandLeft:	{ return EquipSlot_LeftHand; } break;
 		case eEquipment_FireballHandRight:	{ return EquipSlot_RightHand; } break;
+		case eEquipment_Mace:				{ return EquipSlot_RightHand; } break;
+		case eEquipment_Sickle:				{ return EquipSlot_RightHand; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return EquipSlot_RightHand; } break;
 		case eEquipment_WoodenShield:		{ return EquipSlot_LeftHand; } break;
@@ -484,6 +496,8 @@ ItemQuality GetItemQualityForEquipment(eEquipment type)
 		case eEquipment_KnifeRight:			{ return ItemQuality_Common; } break;
 		case eEquipment_FireballHandLeft:	{ return ItemQuality_Common; } break;
 		case eEquipment_FireballHandRight:	{ return ItemQuality_Common; } break;
+		case eEquipment_Mace:				{ return ItemQuality_Magical; } break;
+		case eEquipment_Sickle:				{ return ItemQuality_Magical; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return ItemQuality_Common; } break;
 		case eEquipment_WoodenShield:		{ return ItemQuality_Common; } break;
@@ -559,6 +573,8 @@ void GetItemSidesForEquipment(eEquipment type, bool *left, bool *right)
 		case eEquipment_KnifeRight:			{ *left = false; *right = true; return; } break;
 		case eEquipment_FireballHandLeft:	{ *left = true; *right = false; return; } break;
 		case eEquipment_FireballHandRight:	{ *left = false; *right = true; return; } break;
+		case eEquipment_Mace:				{ *left = false; *right = true; return; } break;
+		case eEquipment_Sickle:				{ *left = false; *right = true; return; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ *left = false; *right = true; return; } break;
 		case eEquipment_WoodenShield:		{ *left = true; *right = false; return; } break;

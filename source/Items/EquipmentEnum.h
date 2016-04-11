@@ -33,6 +33,8 @@ enum eEquipment
 	eEquipment_KnifeRight,
 	eEquipment_FireballHandLeft,
 	eEquipment_FireballHandRight,
+	eEquipment_Mace,
+	eEquipment_Sickle,
 
 	// Wooden
 	eEquipment_WoodenSword,
