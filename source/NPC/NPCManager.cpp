@@ -691,7 +691,9 @@ void NPCManager::RenderFaces()
 		if(m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), pNPC->GetCenter(), pNPC->GetRadius()))
 		{
 			pNPC->RenderFace();
-		}		
+		}
+
+		m_pRenderer->DisableTransparency();
 	}
 	m_NPCMutex.unlock();
 }
@@ -723,7 +725,9 @@ void NPCManager::RenderWeaponTrails()
 		if(m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), pNPC->GetCenter(), pNPC->GetRadius()))
 		{
 			pNPC->RenderWeaponTrails();
-		}		
+		}
+
+		m_pRenderer->DisableTransparency();
 	}
 	m_NPCMutex.unlock();
 }
@@ -805,6 +809,8 @@ void NPCManager::RenderOutlineNPCs()
 			{
 				pNPC->Render(true, false, false);
 			}
+
+			m_pRenderer->DisableTransparency();
 		}
 	}
 	m_NPCMutex.unlock();
@@ -909,7 +915,9 @@ void NPCManager::RenderDebug()
 		if(m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), pNPC->GetCenter(), pNPC->GetRadius()))
 		{
 			pNPC->RenderDebug();
-		}		
+		}
+
+		m_pRenderer->DisableTransparency();
 	}
 	m_NPCMutex.unlock();
 }
