@@ -64,6 +64,13 @@ string GetEquipmentTitleForType(eEquipment type)
 		case eEquipment_IronGloves:			{ return "Iron Gloves"; } break;
 		case eEquipment_IronBoots:			{ return "Iron Boots"; } break;
 		case eEquipment_IronShoulders:		{ return "Iron Shoulders"; } break;
+		// Steel
+		case eEquipment_SteelHelm:			{ return "Steel Helm"; } break;
+		case eEquipment_SteelArmor:			{ return "Steel Armor"; } break;
+		case eEquipment_SteelPants:			{ return "Steel Pants"; } break;
+		case eEquipment_SteelGloves:		{ return "Steel Gloves"; } break;
+		case eEquipment_SteelBoots:			{ return "Steel Boots"; } break;
+		case eEquipment_SteelShoulders:		{ return "Steel Shoulders"; } break;
 		// Ash
 		case eEquipment_AshHelm:			{ return "Ash Helm"; } break;
 		case eEquipment_AshSword:			{ return "Ash Sword"; } break;
@@ -150,6 +157,13 @@ string GetEquipmentDescriptionForType(eEquipment type)
 		case eEquipment_IronGloves:			{ return "Iron gloves."; } break;
 		case eEquipment_IronBoots:			{ return "Iron boots."; } break;
 		case eEquipment_IronShoulders:		{ return "Iron shoulders."; } break;
+		// Steel
+		case eEquipment_SteelHelm:			{ return "Steel helm."; } break;
+		case eEquipment_SteelArmor:			{ return "Steel armor."; } break;
+		case eEquipment_SteelPants:			{ return "Steel pants."; } break;
+		case eEquipment_SteelGloves:		{ return "Steel gloves."; } break;
+		case eEquipment_SteelBoots:			{ return "Steel boots."; } break;
+		case eEquipment_SteelShoulders:		{ return "Steel shoulders."; } break;
 		// Ash
 		case eEquipment_AshSword:			{ return "Ash sword."; } break;
 		case eEquipment_AshHelm:			{ return "Ash helm."; } break;
@@ -236,6 +250,13 @@ string GetEquipmentFilenameForType(eEquipment type)
 		case eEquipment_IronGloves:			{ return "media/gamedata/equipment/IronGloves/IronGloves.equipment"; } break;
 		case eEquipment_IronBoots:			{ return "media/gamedata/equipment/IronBoots/IronBoots.equipment"; } break;
 		case eEquipment_IronShoulders:		{ return "media/gamedata/equipment/IronShoulders/IronShoulders.equipment"; } break;
+		// Steel
+		case eEquipment_SteelHelm:			{ return "media/gamedata/equipment/SteelHelm/SteelHelm.equipment"; } break;
+		case eEquipment_SteelArmor:			{ return "media/gamedata/equipment/SteelBody/SteelBody.equipment"; } break;
+		case eEquipment_SteelPants:			{ return "media/gamedata/equipment/SteelPants/SteelPants.equipment"; } break;
+		case eEquipment_SteelGloves:		{ return "media/gamedata/equipment/SteelGloves/SteelGloves.equipment"; } break;
+		case eEquipment_SteelBoots:			{ return "media/gamedata/equipment/SteelBoots/SteelBoots.equipment"; } break;
+		case eEquipment_SteelShoulders:		{ return "media/gamedata/equipment/SteelShoulders/SteelShoulders.equipment"; } break;
 		// Ash
 		case eEquipment_AshSword:			{ return "media/gamedata/weapons/AshSword/AshSword.weapon"; } break;
 		case eEquipment_AshHelm:			{ return "media/gamedata/equipment/AshHelm/AshHelm.equipment"; } break;
@@ -322,6 +343,13 @@ string GetEquipmentTextureForType(eEquipment type)
 		case eEquipment_IronGloves:			{ return "media/textures/items/question_mark.tga"; } break;
 		case eEquipment_IronBoots:			{ return "media/textures/items/question_mark.tga"; } break;
 		case eEquipment_IronShoulders:		{ return "media/textures/items/question_mark.tga"; } break;
+		// Steel
+		case eEquipment_SteelHelm:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_SteelArmor:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_SteelPants:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_SteelGloves:		{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_SteelBoots:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_SteelShoulders:		{ return "media/textures/items/question_mark.tga"; } break;
 		// Ash
 		case eEquipment_AshSword:			{ return "media/textures/items/ash_sword.tga"; } break;
 		case eEquipment_AshHelm:			{ return "media/textures/items/ash_helm.tga"; } break;
@@ -408,6 +436,13 @@ InventoryType GetInventoryTypeForEquipment(eEquipment type)
 		case eEquipment_IronGloves:			{ return InventoryType_Clothing; } break;
 		case eEquipment_IronBoots:			{ return InventoryType_Clothing; } break;
 		case eEquipment_IronShoulders:		{ return InventoryType_Clothing; } break;
+		// Steel
+		case eEquipment_SteelHelm:			{ return InventoryType_Clothing; } break;
+		case eEquipment_SteelArmor:			{ return InventoryType_Clothing; } break;
+		case eEquipment_SteelPants:			{ return InventoryType_Clothing; } break;
+		case eEquipment_SteelGloves:		{ return InventoryType_Clothing; } break;
+		case eEquipment_SteelBoots:			{ return InventoryType_Clothing; } break;
+		case eEquipment_SteelShoulders:		{ return InventoryType_Clothing; } break;
 		// Ash
 		case eEquipment_AshSword:			{ return InventoryType_Weapon_Sword; } break;
 		case eEquipment_AshHelm:			{ return InventoryType_Clothing; } break;
@@ -494,6 +529,13 @@ EquipSlot GetEquipSlotForEquipment(eEquipment type)
 		case eEquipment_IronGloves:			{ return EquipSlot_Hand; } break;
 		case eEquipment_IronBoots:			{ return EquipSlot_Feet; } break;
 		case eEquipment_IronShoulders:		{ return EquipSlot_Shoulders; } break;
+		// Steel
+		case eEquipment_SteelHelm:			{ return EquipSlot_Head; } break;
+		case eEquipment_SteelArmor:			{ return EquipSlot_Body; } break;
+		case eEquipment_SteelPants:			{ return EquipSlot_Legs; } break;
+		case eEquipment_SteelGloves:		{ return EquipSlot_Hand; } break;
+		case eEquipment_SteelBoots:			{ return EquipSlot_Feet; } break;
+		case eEquipment_SteelShoulders:		{ return EquipSlot_Shoulders; } break;
 		// Ash
 		case eEquipment_AshSword:			{ return EquipSlot_RightHand; } break;
 		case eEquipment_AshHelm:			{ return EquipSlot_Head; } break;
@@ -580,6 +622,13 @@ ItemQuality GetItemQualityForEquipment(eEquipment type)
 		case eEquipment_IronGloves:			{ return ItemQuality_Uncommon; } break;
 		case eEquipment_IronBoots:			{ return ItemQuality_Uncommon; } break;
 		case eEquipment_IronShoulders:		{ return ItemQuality_Uncommon; } break;
+		// Steel
+		case eEquipment_SteelHelm:			{ return ItemQuality_Uncommon; } break;
+		case eEquipment_SteelArmor:			{ return ItemQuality_Uncommon; } break;
+		case eEquipment_SteelPants:			{ return ItemQuality_Uncommon; } break;
+		case eEquipment_SteelGloves:		{ return ItemQuality_Uncommon; } break;
+		case eEquipment_SteelBoots:			{ return ItemQuality_Uncommon; } break;
+		case eEquipment_SteelShoulders:		{ return ItemQuality_Uncommon; } break;
 		// Ash
 		case eEquipment_AshSword:			{ return ItemQuality_Epic; } break;
 		case eEquipment_AshHelm:			{ return ItemQuality_Rare; } break;
@@ -666,6 +715,13 @@ void GetItemSidesForEquipment(eEquipment type, bool *left, bool *right)
 		case eEquipment_IronGloves:			{ *left = true; *right = true; return; } break;
 		case eEquipment_IronBoots:			{ *left = true; *right = true; return; } break;
 		case eEquipment_IronShoulders:		{ *left = true; *right = true; return; } break;
+		// Steel
+		case eEquipment_SteelHelm:			{ *left = false; *right = false; return; } break;
+		case eEquipment_SteelArmor:			{ *left = false; *right = false; return; } break;
+		case eEquipment_SteelPants:			{ *left = false; *right = false; return; } break;
+		case eEquipment_SteelGloves:		{ *left = true; *right = true; return; } break;
+		case eEquipment_SteelBoots:			{ *left = true; *right = true; return; } break;
+		case eEquipment_SteelShoulders:		{ *left = true; *right = true; return; } break;
 		// Ash
 		case eEquipment_AshSword:			{ *left = false; *right = true; return; } break;
 		case eEquipment_AshHelm:			{ *left = false; *right = false; return; } break;

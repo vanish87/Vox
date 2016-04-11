@@ -69,6 +69,14 @@ enum eEquipment
 	eEquipment_IronBoots,
 	eEquipment_IronShoulders,
 
+	// Steel
+	eEquipment_SteelHelm,
+	eEquipment_SteelArmor,
+	eEquipment_SteelPants,
+	eEquipment_SteelGloves,
+	eEquipment_SteelBoots,
+	eEquipment_SteelShoulders,
+
 	// Silver
 
 	// Gold
