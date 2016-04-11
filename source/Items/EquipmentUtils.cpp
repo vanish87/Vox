@@ -192,7 +192,7 @@ string GetEquipmentFilenameForType(eEquipment type)
 		case eEquipment_FireballHandRight:	{ return "media/gamedata/weapons/FireballHands/FireballHandsRight.weapon"; } break;
 		case eEquipment_Mace:				{ return "media/gamedata/weapons/Mace/Mace.weapon"; } break;
 		case eEquipment_Sickle:				{ return "media/gamedata/weapons/Sickle/Sickle.weapon"; } break;
-		case eEquipment_DragonBow:			{ return "media/gamedata/weapons/DrawgonBow/DrawgonBow.weapon"; } break;
+		case eEquipment_DragonBow:			{ return "media/gamedata/weapons/DragonBow/DragonBow.weapon"; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return "media/gamedata/weapons/WoodenSword/WoodenSword.weapon"; } break;
 		case eEquipment_WoodenShield:		{ return "media/gamedata/weapons/WoodenShield/WoodenShield.weapon"; } break;
