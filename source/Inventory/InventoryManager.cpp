@@ -174,11 +174,9 @@ void InventoryManager::LoadDefaultInventory()
 	*/
 
 	/*
-	InventoryItem* pPlacementTorch = AddInventoryItem("media/gamedata/items/Torch/Torch.item", "media/textures/items/torch.tga", InventoryType_Item, eItem_Torch, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Torch", "Provides light", 1.0f, 1.0f, 1.0f, 3, -1, -1, -1, -1);
 	InventoryItem* pAnvil = AddInventoryItem("media/gamedata/items/Anvil/Anvil.item", "media/textures/items/anvil.tga", InventoryType_Item, eItem_Anvil, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Anvil", "Anvil for crafting", 1.0f, 1.0f, 1.0f, 1, -1, -1, -1, -1);
 	InventoryItem* pChest = AddInventoryItem("media/gamedata/items/Chest/Chest.item", "media/textures/items/chest.tga", InventoryType_Item, eItem_Chest, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Chest", "Chest for storing items", 1.0f, 1.0f, 1.0f, 1, -1, -1, -1, -1);
 	InventoryItem* pFurnace = AddInventoryItem("media/gamedata/items/Furnace/Furnace.item", "media/textures/items/furnace.tga", InventoryType_Item, eItem_Furnace, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Furnace", "Used for smelting ore", 1.0f, 1.0f, 1.0f, 1, -1, -1, -1, -1);
-	InventoryItem* pBed = AddInventoryItem("media/gamedata/items/Bed/Bed.item", "media/textures/items/question_mark.tga", InventoryType_Item, eItem_Bed, ItemStatus_None, EquipSlot_RightHand, ItemQuality_Common, false, false, "Bed", "Set spawn position", 1.0f, 1.0f, 1.0f, 1, -1, -1, -1, -1);
 	*/
 
 	/*
