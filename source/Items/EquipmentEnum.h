@@ -71,6 +71,7 @@ enum eEquipment
 	eEquipment_AshShoulders,
 
 	// Bone
+	eEquipment_BoneSword,
 	eEquipment_BoneHelm,
 	eEquipment_BoneArmor,
 	eEquipment_BonePants,
