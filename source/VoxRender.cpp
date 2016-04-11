@@ -224,10 +224,17 @@ void VoxGame::Render()
 			// Render the transparency items above the water render, so that they appear properly under water
 			if (m_waterRender && m_gameMode != GameMode_FrontEnd)
 			{
-				m_pPlayer->RenderFace();
+				if (m_cameraMode != CameraMode_FirstPerson)
+				{
+					m_pPlayer->RenderFace();
+				}
 				m_pNPCManager->RenderFaces();
 				m_pEnemyManager->RenderFaces();
-				m_pPlayer->RenderWeaponTrails();
+
+				if (m_cameraMode != CameraMode_FirstPerson)
+				{
+					m_pPlayer->RenderWeaponTrails();
+				}
 				m_pNPCManager->RenderWeaponTrails();
 				m_pEnemyManager->RenderWeaponTrails();
 
@@ -267,21 +274,21 @@ void VoxGame::Render()
 				}
 			}
 
+			// Render player first person viewport
+			if (m_gameMode != GameMode_FrontEnd)
+			{
+				if (m_cameraMode == CameraMode_FirstPerson)
+				{
+					RenderFirstPersonViewport();
+				}
+			}
+
 			// SSAO frame buffer rendering stop
 			if (m_deferredRendering)
 			{
 				m_pRenderer->StopRenderingToFrameBuffer(m_SSAOFrameBuffer);
 			}
 		m_pRenderer->PopMatrix();
-
-		// Render player first person viewport
-		if (m_gameMode != GameMode_FrontEnd)
-		{
-			if (m_cameraMode == CameraMode_FirstPerson)
-			{
-				RenderFirstPersonViewport();
-			}
-		}
 
 		// Render the deferred lighting pass
 		if (m_dynamicLighting)
