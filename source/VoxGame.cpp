@@ -758,7 +758,21 @@ void VoxGame::SetupDataForGame()
 	pFurnace->SetInteractionPositionOffset(vec3(0.0f, 0.0f, -2.0f));
 	Item* pAnvil = m_pItemManager->CreateItem(vec3(32.0f, 9.0f, -1.5f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Anvil/Anvil.item", eItem_Anvil, "Anvil", true, false, 0.14f);
 	pAnvil->SetInteractionPositionOffset(vec3(0.0f, 0.0f, -1.5f));
+	
+	// Chest with random loot item
 	Item* pChest = m_pItemManager->CreateItem(vec3(24.0f, 12.0f, 13.5f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 180.0f, 0.0f), "media/gamedata/items/Chest/Chest.item", eItem_Chest, "Chest", true, false, 0.08f);
+	eEquipment equipment = eEquipment_None;
+	InventoryItem* pRandomLoot = VoxGame::GetInstance()->GetRandomLootManager()->GetRandomLootItem(&equipment);
+	if (pRandomLoot != NULL && equipment != eEquipment_None)
+	{
+		InventoryItem* pRandomLootItem = pChest->AddLootItem(pRandomLoot, 0, 2);
+		pRandomLootItem->m_scale = pRandomLoot->m_scale;
+		pRandomLootItem->m_offsetX = pRandomLoot->m_offsetX;
+		pRandomLootItem->m_offsetY = pRandomLoot->m_offsetY;
+		pRandomLootItem->m_offsetZ = pRandomLoot->m_offsetZ;
+		pRandomLootItem->m_left = pRandomLoot->m_left;
+		pRandomLootItem->m_right = pRandomLoot->m_right;
+	}
 
 	// Item spawners
 	ItemSpawner* pItemSpawner1 = m_pItemManager->CreateItemSpawner(vec3(0.0f, 6.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f));
