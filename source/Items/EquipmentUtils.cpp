@@ -40,6 +40,11 @@ string GetEquipmentTitleForType(eEquipment type)
 		case eEquipment_DragonBow:			{ return "Dragon Bow"; } break;
 		// Equipment
 		case eEquipment_BlacksmithGloves:	{ return "Blacksmith Gloves"; } break;
+		case eEquipment_NormalBoots:		{ return "Normal Boots"; } break;
+		case eEquipment_NormalGloves:		{ return "Normal Gloves"; } break;
+		case eEquipment_NormalShoulders:	{ return "Normal Shoulders"; } break;
+		case eEquipment_RocketBoots:		{ return "Rocket Boots"; } break;
+		case eEquipment_RegrowthBoots:		{ return "Regrowth Boots"; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return "Wooden Sword"; } break;
 		case eEquipment_WoodenShield:		{ return "Wooden Shield"; } break;
@@ -121,6 +126,11 @@ string GetEquipmentDescriptionForType(eEquipment type)
 		case eEquipment_DragonBow:			{ return "Once used by the dragon riders of old Vox."; } break;
 		// Equipment
 		case eEquipment_BlacksmithGloves:	{ return "Blacksmith gloves are used during the crafting of items."; } break;
+		case eEquipment_NormalBoots:		{ return "Normal boots."; } break;
+		case eEquipment_NormalGloves:		{ return "Normal gloves."; } break;
+		case eEquipment_NormalShoulders:	{ return "Normal shoulders."; } break;
+		case eEquipment_RocketBoots:		{ return "Rocket boots."; } break;
+		case eEquipment_RegrowthBoots:		{ return "Regrowth boots."; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return "A wooden sword, not very good in combat."; } break;
 		case eEquipment_WoodenShield:		{ return "A wooden shield, cannnot protect against much."; } break;
@@ -202,6 +212,11 @@ string GetEquipmentFilenameForType(eEquipment type)
 		case eEquipment_DragonBow:			{ return "media/gamedata/weapons/DragonBow/DragonBow.weapon"; } break;
 		// Equipment
 		case eEquipment_BlacksmithGloves:	{ return "media/gamedata/equipment/BlacksmithGloves/BlacksmithGloves.equipment"; } break;
+		case eEquipment_NormalBoots:		{ return "media/gamedata/equipment/NormalBoots/NormalBoots.equipment"; } break;
+		case eEquipment_NormalGloves:		{ return "media/gamedata/equipment/NormalGloves/NormalGloves.equipment"; } break;
+		case eEquipment_NormalShoulders:	{ return "media/gamedata/equipment/NormalShoulders/NormalShoulders.equipment"; } break;
+		case eEquipment_RocketBoots:		{ return "media/gamedata/equipment/RocketBoots/RocketBoots.equipment"; } break;
+		case eEquipment_RegrowthBoots:		{ return "media/gamedata/equipment/RegrowthBoots/RegrowthBoots.equipment"; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return "media/gamedata/weapons/WoodenSword/WoodenSword.weapon"; } break;
 		case eEquipment_WoodenShield:		{ return "media/gamedata/weapons/WoodenShield/WoodenShield.weapon"; } break;
@@ -283,6 +298,11 @@ string GetEquipmentTextureForType(eEquipment type)
 		case eEquipment_DragonBow:			{ return "media/textures/items/question_mark.tga"; } break;
 		// Equipment
 		case eEquipment_BlacksmithGloves:	{ return "media/textures/items/blacksmith_gloves.tga"; } break;
+		case eEquipment_NormalBoots:		{ return "media/textures/items/normal_boots.tga"; } break;
+		case eEquipment_NormalGloves:		{ return "media/textures/items/normal_gloves.tga"; } break;
+		case eEquipment_NormalShoulders:	{ return "media/textures/items/normal_shoulders.tga"; } break;
+		case eEquipment_RocketBoots:		{ return "media/textures/items/rocket_boots.tga"; } break;
+		case eEquipment_RegrowthBoots:		{ return "media/textures/items/regrowth_boots.tga"; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return "media/textures/items/question_mark.tga"; } break;
 		case eEquipment_WoodenShield:		{ return "media/textures/items/question_mark.tga"; } break;
@@ -364,6 +384,11 @@ InventoryType GetInventoryTypeForEquipment(eEquipment type)
 		case eEquipment_DragonBow:			{ return InventoryType_Weapon_Bow; } break;
 		// Equipment
 		case eEquipment_BlacksmithGloves:	{ return InventoryType_Clothing; } break;
+		case eEquipment_NormalBoots:		{ return InventoryType_Clothing; } break;
+		case eEquipment_NormalGloves:		{ return InventoryType_Clothing; } break;
+		case eEquipment_NormalShoulders:	{ return InventoryType_Clothing; } break;
+		case eEquipment_RocketBoots:		{ return InventoryType_Clothing; } break;
+		case eEquipment_RegrowthBoots:		{ return InventoryType_Clothing; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return InventoryType_Weapon_Sword; } break;
 		case eEquipment_WoodenShield:		{ return InventoryType_Weapon_Shield; } break;
@@ -445,6 +470,11 @@ EquipSlot GetEquipSlotForEquipment(eEquipment type)
 		case eEquipment_DragonBow:			{ return EquipSlot_LeftHand; } break;
 		// Equipment
 		case eEquipment_BlacksmithGloves:	{ return EquipSlot_Hand; } break;
+		case eEquipment_NormalBoots:		{ return EquipSlot_Feet; } break;
+		case eEquipment_NormalGloves:		{ return EquipSlot_Hand; } break;
+		case eEquipment_NormalShoulders:	{ return EquipSlot_Shoulders; } break;
+		case eEquipment_RocketBoots:		{ return EquipSlot_Feet; } break;
+		case eEquipment_RegrowthBoots:		{ return EquipSlot_Feet; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return EquipSlot_RightHand; } break;
 		case eEquipment_WoodenShield:		{ return EquipSlot_LeftHand; } break;
@@ -526,6 +556,11 @@ ItemQuality GetItemQualityForEquipment(eEquipment type)
 		case eEquipment_DragonBow:			{ return ItemQuality_Rare; } break;
 		// Equipment
 		case eEquipment_BlacksmithGloves:	{ return ItemQuality_Uncommon; } break;
+		case eEquipment_NormalBoots:		{ return ItemQuality_Uncommon; } break;
+		case eEquipment_NormalGloves:		{ return ItemQuality_Uncommon; } break;
+		case eEquipment_NormalShoulders:	{ return ItemQuality_Uncommon; } break;
+		case eEquipment_RocketBoots:		{ return ItemQuality_Uncommon; } break;
+		case eEquipment_RegrowthBoots:		{ return ItemQuality_Uncommon; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ return ItemQuality_Common; } break;
 		case eEquipment_WoodenShield:		{ return ItemQuality_Common; } break;
@@ -607,6 +642,11 @@ void GetItemSidesForEquipment(eEquipment type, bool *left, bool *right)
 		case eEquipment_DragonBow:			{ *left = true; *right = true; return; } break;
 		// Equipment
 		case eEquipment_BlacksmithGloves:	{ *left = true; *right = true; return; } break;
+		case eEquipment_NormalBoots:		{ *left = true; *right = true; return; } break;
+		case eEquipment_NormalGloves:		{ *left = true; *right = true; return; } break;
+		case eEquipment_NormalShoulders:	{ *left = true; *right = true; return; } break;
+		case eEquipment_RocketBoots:		{ *left = true; *right = true; return; } break;
+		case eEquipment_RegrowthBoots:		{ *left = true; *right = true; return; } break;
 		// Wood
 		case eEquipment_WoodenSword:		{ *left = false; *right = true; return; } break;
 		case eEquipment_WoodenShield:		{ *left = true; *right = false; return; } break;

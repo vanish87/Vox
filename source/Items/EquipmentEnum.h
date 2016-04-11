@@ -40,6 +40,11 @@ enum eEquipment
 
 	// Equipment
 	eEquipment_BlacksmithGloves,
+	eEquipment_NormalBoots,
+	eEquipment_NormalGloves,
+	eEquipment_NormalShoulders,
+	eEquipment_RocketBoots,
+	eEquipment_RegrowthBoots,
 
 	// Wooden
 	eEquipment_WoodenSword,
