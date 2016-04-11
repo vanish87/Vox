@@ -220,8 +220,29 @@ void ItemSpawner::Update(float dt)
 					
 					if (itemType == eItem_CopperVein || itemType == eItem_IronVein || itemType == eItem_SilverVein || itemType == eItem_GoldVein)
 					{
+						// Interaction with ore deposits
 						pItem->SetMaxtInteractCount(4);
 					}
+					if (itemType == eItem_Chest)
+					{
+						int xPos = 0;
+						int yPos = LootGUI::MAX_NUM_SLOTS_VERTICAL - 1;
+
+						// Create random loot inside the chest
+						eEquipment equipment = eEquipment_None;
+						InventoryItem* pRandomLoot = VoxGame::GetInstance()->GetRandomLootManager()->GetRandomLootItem(&equipment);
+						if (pRandomLoot != NULL && equipment != eEquipment_None)
+						{
+							InventoryItem* pRandomLootItem = pItem->AddLootItem(pRandomLoot, xPos, yPos);
+							pRandomLootItem->m_scale = pRandomLoot->m_scale;
+							pRandomLootItem->m_offsetX = pRandomLoot->m_offsetX;
+							pRandomLootItem->m_offsetY = pRandomLoot->m_offsetY;
+							pRandomLootItem->m_offsetZ = pRandomLoot->m_offsetZ;
+							pRandomLootItem->m_left = pRandomLoot->m_left;
+							pRandomLootItem->m_right = pRandomLoot->m_right;
+						}
+					}
+
 					pItem->SetRotation(vec3(0.0f, GetRandomNumber(0, 360, 2), 0.0f));
 
 					m_numSpawnedItems += 1;
