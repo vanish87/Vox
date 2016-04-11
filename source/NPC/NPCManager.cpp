@@ -677,6 +677,17 @@ void NPCManager::RenderFaces()
 		//	continue;
 		//}
 
+		// Fog
+		float toCamera = length(VoxGame::GetInstance()->GetGameCamera()->GetPosition() - pNPC->GetCenter());
+		if (toCamera > m_pChunkManager->GetLoaderRadius() + (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*5.0f))
+		{
+			continue;
+		}
+		if (toCamera > m_pChunkManager->GetLoaderRadius() - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*3.0f)
+		{
+			m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
+		}
+
 		if(m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), pNPC->GetCenter(), pNPC->GetRadius()))
 		{
 			pNPC->RenderFace();
@@ -697,6 +708,17 @@ void NPCManager::RenderWeaponTrails()
 		//{
 		//	continue;
 		//}
+
+		// Fog
+		float toCamera = length(VoxGame::GetInstance()->GetGameCamera()->GetPosition() - pNPC->GetCenter());
+		if (toCamera > m_pChunkManager->GetLoaderRadius() + (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*5.0f))
+		{
+			continue;
+		}
+		if (toCamera > m_pChunkManager->GetLoaderRadius() - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*3.0f)
+		{
+			m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
+		}
 
 		if(m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), pNPC->GetCenter(), pNPC->GetRadius()))
 		{
@@ -767,6 +789,17 @@ void NPCManager::RenderOutlineNPCs()
 			//{
 			//	continue;
 			//}
+
+			// Fog
+			float toCamera = length(VoxGame::GetInstance()->GetGameCamera()->GetPosition() - pNPC->GetCenter());
+			if (toCamera > m_pChunkManager->GetLoaderRadius() + (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*5.0f))
+			{
+				continue;
+			}
+			if (toCamera > m_pChunkManager->GetLoaderRadius() - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*3.0f)
+			{
+				m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
+			}
 
 			if(m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), pNPC->GetCenter(), pNPC->GetRadius()))
 			{
@@ -861,6 +894,17 @@ void NPCManager::RenderDebug()
 		//{
 		//	continue;
 		//}
+
+		// Fog
+		float toCamera = length(VoxGame::GetInstance()->GetGameCamera()->GetPosition() - pNPC->GetCenter());
+		if (toCamera > m_pChunkManager->GetLoaderRadius() + (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*5.0f))
+		{
+			continue;
+		}
+		if (toCamera > m_pChunkManager->GetLoaderRadius() - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*3.0f)
+		{
+			m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
+		}
 
 		if(m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), pNPC->GetCenter(), pNPC->GetRadius()))
 		{
