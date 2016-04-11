@@ -719,6 +719,10 @@ void Player::Respawn()
 	}
 
 	m_position = m_respawnPosition;
+	
+	// Make sure we create a chunk in the respawn position
+	UpdateGridPosition();
+	m_pChunkManager->CreateNewChunk(GetGridX(), GetGridY(), GetGridZ());
 
 	m_health = m_maxHealth;
 
