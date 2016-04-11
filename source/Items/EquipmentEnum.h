@@ -35,6 +35,7 @@ enum eEquipment
 	eEquipment_FireballHandRight,
 	eEquipment_Mace,
 	eEquipment_Sickle,
+	eEquipment_DragonBow,
 
 	// Wooden
 	eEquipment_WoodenSword,
