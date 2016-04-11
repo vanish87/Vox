@@ -709,6 +709,12 @@ void Player::EquipItem(InventoryItem* pItem)
 				break;
 			}
 		}
+
+		// Set new attack radius
+		if (m_pVoxelCharacter->GetRightWeapon() != NULL)
+		{
+			m_attackRadius = m_pVoxelCharacter->GetRightWeapon()->GetWeaponRadius();
+		}
 	}
 	break;
 	case EquipSlot_Head:
