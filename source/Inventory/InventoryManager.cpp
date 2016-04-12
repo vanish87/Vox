@@ -148,16 +148,12 @@ void InventoryManager::LoadInventory(string playerName, PlayerClass ePlayerClass
 void InventoryManager::LoadDefaultInventory()
 {
 	InventoryItem* pSword = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_IronSword), -1, -1);
-	pSword->AddStatAttribute(AttributeType_Strength, 2);
 	InventoryItem* pShield = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_IronShield), -1, -1);
-	pShield->AddStatAttribute(AttributeType_Armor, 2);
 	InventoryItem* pBow = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_WoodenBow), -1, -1);
-	pBow->AddStatAttribute(AttributeType_Dexterity, 1);
 	InventoryItem* p2HandedSword = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_2HandedSword), -1, -1);
 	//InventoryItem* pBoomerang = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_Boomerang), -1, -1);
 	//InventoryItem* pBomb = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_Bomb), -1, -1);
 	//InventoryItem* pStaff1 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_MageStaff), -1, -1); 
-	//pStaff1->AddStatAttribute(AttributeType_Intelligence, 25);
 	//InventoryItem* pStaff2 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_PriestStaff), -1, -1);
 	//InventoryItem* pStaff3 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_DruidStaff), -1, -1);
 	//InventoryItem* pDagger1 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_KnifeRight), -1, -1);
@@ -180,18 +176,12 @@ void InventoryManager::LoadDefaultInventory()
 	*/
 
 	/*
-	InventoryItem* pShoulders = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_IronShoulders), -1, -1);
-	pShoulders->AddStatAttribute(AttributeType_Armor, 1);
-	InventoryItem* pHelm = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_IronHelm), -1, -1);
-	pHelm->AddStatAttribute(AttributeType_Armor, 1);
-	InventoryItem* pGloves = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_IronGloves), -1, -1);
-	pGloves->AddStatAttribute(AttributeType_Armor, 1);
-	InventoryItem* pBoots = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_IronBoots), -1, -1);
-	pBoots->AddStatAttribute(AttributeType_Armor, 1);
-	InventoryItem* pBody = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_IronArmor), -1, -1);
-	pBody->AddStatAttribute(AttributeType_Armor, 1);
-	InventoryItem* pLegs = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_IronPants), -1, -1);
-	pLegs->AddStatAttribute(AttributeType_Armor, 1);
+	InventoryItem* pShoulders = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_SteelShoulders), -1, -1);
+	InventoryItem* pHelm = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_SteelHelm), -1, -1);
+	InventoryItem* pGloves = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_SteelGloves), -1, -1);
+	InventoryItem* pBoots = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_SteelBoots), -1, -1);
+	InventoryItem* pBody = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_SteelArmor), -1, -1);
+	InventoryItem* pLegs = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_SteelPants), -1, -1);
 	*/
 }
 
@@ -207,32 +197,25 @@ void InventoryManager::LoadInventoryForClass(PlayerClass ePlayerClass)
 	else if (ePlayerClass == PlayerClass_Warrior)
 	{
 		InventoryItem* pSword = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_IronSword), -1, -1);
-		pSword->AddStatAttribute(AttributeType_Strength, 2);
 		InventoryItem* pShield = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_IronShield), -1, -1);
-		pShield->AddStatAttribute(AttributeType_Armor, 2);
 	}
 	else if (ePlayerClass == PlayerClass_Ranger)
 	{
 		InventoryItem* pBow = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_WoodenBow), -1, -1);
-		pBow->AddStatAttribute(AttributeType_Dexterity, 1);
 	}
 	else if (ePlayerClass == PlayerClass_Mage)
 	{
 		InventoryItem* pMageStaff = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_MageStaff), -1, -1); 
-		pMageStaff->AddStatAttribute(AttributeType_Intelligence, 25);
 	}
 	else if (ePlayerClass == PlayerClass_Priest)
 	{
 		InventoryItem* pPriestStaff = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_PriestStaff), -1, -1);
-		pPriestStaff->AddStatAttribute(AttributeType_Intelligence, 25);
-
 		InventoryItem* pFireball1 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_FireballHandRight), -1, -1);
 		InventoryItem* pFireball2 = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_FireballHandLeft), -1, -1);
 	}
 	else if (ePlayerClass == PlayerClass_Necromaner)
 	{
 		InventoryItem* pNecroStaff = AddInventoryItem(CreateEquipmentItemFromType(eEquipment_NecroStaff), -1, -1);
-		pNecroStaff->AddStatAttribute(AttributeType_Intelligence, 25);
 	}
 	else if (ePlayerClass == PlayerClass_Knight)
 	{
@@ -754,7 +737,12 @@ InventoryItem* InventoryManager::CreateEquipmentItemFromType(eEquipment equipmen
 	bool right;
 	GetItemSidesForEquipment(equipment, &left, &right);
 
-	return CreateInventoryItem(filename.c_str(), textureFilename.c_str(), type, eItem_None, ItemStatus_None, slot, quality, left, right, title.c_str(), desscription.c_str(), 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+	InventoryItem* pInventoryItem = CreateInventoryItem(filename.c_str(), textureFilename.c_str(), type, eItem_None, ItemStatus_None, slot, quality, left, right, title.c_str(), desscription.c_str(), 1.0f, 1.0f, 1.0f, -1, -1, -1, -1, -1);
+	
+	// Add the stats modifiers for the equipment type
+	AddStatsModifiersForType(equipment, pInventoryItem);
+	
+	return pInventoryItem;
 }
 
 ItemTextData* InventoryManager::GetItemTextData(eItem item)

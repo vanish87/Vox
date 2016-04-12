@@ -29,12 +29,54 @@ RandomLootManager::RandomLootManager()
 	//AddEnemyIngredientSpawnData(eEnemyType_YellowSlime, eItem_SlimeJelly, 1, 1);
 
 	// Create the random loot
-	AddRandomLoot(eEquipment_WoodenHelm);
-	AddRandomLoot(eEquipment_WoodenArmor);
-	AddRandomLoot(eEquipment_WoodenPants);
-	AddRandomLoot(eEquipment_WoodenGloves);
-	AddRandomLoot(eEquipment_WoodenBoots);
-	AddRandomLoot(eEquipment_WoodenShoulders);
+	AddRandomLoot(eEquipment_MageStaff);
+
+	bool createRandomLootArmor = true;
+	if (createRandomLootArmor)
+	{
+		AddRandomLoot(eEquipment_WoodenHelm);
+		AddRandomLoot(eEquipment_WoodenArmor);
+		AddRandomLoot(eEquipment_WoodenPants);
+		AddRandomLoot(eEquipment_WoodenGloves);
+		AddRandomLoot(eEquipment_WoodenBoots);
+		AddRandomLoot(eEquipment_WoodenShoulders);
+		AddRandomLoot(eEquipment_IronHelm);
+		AddRandomLoot(eEquipment_IronArmor);
+		AddRandomLoot(eEquipment_IronPants);
+		AddRandomLoot(eEquipment_IronGloves);
+		AddRandomLoot(eEquipment_IronBoots);
+		AddRandomLoot(eEquipment_IronShoulders);
+		AddRandomLoot(eEquipment_SteelHelm);
+		AddRandomLoot(eEquipment_SteelArmor);
+		AddRandomLoot(eEquipment_SteelPants);
+		AddRandomLoot(eEquipment_SteelGloves);
+		AddRandomLoot(eEquipment_SteelBoots);
+		AddRandomLoot(eEquipment_SteelShoulders);
+		AddRandomLoot(eEquipment_IceHelm);
+		AddRandomLoot(eEquipment_IceArmor);
+		AddRandomLoot(eEquipment_IcePants);
+		AddRandomLoot(eEquipment_IceGloves);
+		AddRandomLoot(eEquipment_IceBoots);
+		AddRandomLoot(eEquipment_IceShoulders);
+		AddRandomLoot(eEquipment_AshHelm);
+		AddRandomLoot(eEquipment_AshArmor);
+		AddRandomLoot(eEquipment_AshPants);
+		AddRandomLoot(eEquipment_AshGloves);
+		AddRandomLoot(eEquipment_AshBoots);
+		AddRandomLoot(eEquipment_AshShoulders);
+		AddRandomLoot(eEquipment_BoneHelm);
+		AddRandomLoot(eEquipment_BoneArmor);
+		AddRandomLoot(eEquipment_BonePants);
+		AddRandomLoot(eEquipment_BoneGloves);
+		AddRandomLoot(eEquipment_BoneBoots);
+		AddRandomLoot(eEquipment_BoneShoulders);
+		AddRandomLoot(eEquipment_SpikeHelm);
+		AddRandomLoot(eEquipment_SpikeArmor);
+		AddRandomLoot(eEquipment_SpikePants);
+		AddRandomLoot(eEquipment_SpikeGloves);
+		AddRandomLoot(eEquipment_SpikeBoots);
+		AddRandomLoot(eEquipment_SpikeShoulders);
+	}
 }
 
 RandomLootManager::~RandomLootManager()

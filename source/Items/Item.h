@@ -46,6 +46,8 @@ InventoryType GetInventoryTypeForEquipment(eEquipment type);
 EquipSlot GetEquipSlotForEquipment(eEquipment type);
 ItemQuality GetItemQualityForEquipment(eEquipment type);
 void GetItemSidesForEquipment(eEquipment type, bool *left, bool *right);
+void AddStatsModifiersForType(eEquipment type, InventoryItem* pItem);
+
 
 class Item
 {

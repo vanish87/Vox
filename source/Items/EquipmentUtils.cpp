@@ -758,3 +758,65 @@ void GetItemSidesForEquipment(eEquipment type, bool *left, bool *right)
 	*left = false;
 	*right = false;
 }
+
+void AddStatsModifiersForType(eEquipment type, InventoryItem* pItem)
+{
+	if (type == eEquipment_MageStaff) { pItem->AddStatAttribute(AttributeType_Intelligence, 5); }
+	if (type == eEquipment_NecroStaff) { pItem->AddStatAttribute(AttributeType_Intelligence, 4); }
+	if (type == eEquipment_PriestStaff) { pItem->AddStatAttribute(AttributeType_Intelligence, 6); }
+	if (type == eEquipment_DruidStaff) { pItem->AddStatAttribute(AttributeType_Intelligence, 3); }
+
+	if (type == eEquipment_WoodenSword) { pItem->AddStatAttribute(AttributeType_Strength, 2); }
+	if (type == eEquipment_WoodenShield) { pItem->AddStatAttribute(AttributeType_Armor, 2); }
+	if (type == eEquipment_WoodenBow) { pItem->AddStatAttribute(AttributeType_Dexterity, 1); }
+	if (type == eEquipment_WoodenHelm) { pItem->AddStatAttribute(AttributeType_Armor, 1); }
+	if (type == eEquipment_WoodenArmor) { pItem->AddStatAttribute(AttributeType_Armor, 1); }
+	if (type == eEquipment_WoodenPants) { pItem->AddStatAttribute(AttributeType_Armor, 1); }
+	if (type == eEquipment_WoodenGloves) { pItem->AddStatAttribute(AttributeType_Armor, 1); }
+	if (type == eEquipment_WoodenBoots) { pItem->AddStatAttribute(AttributeType_Armor, 1); }
+	if (type == eEquipment_WoodenShoulders) { pItem->AddStatAttribute(AttributeType_Armor, 1); }
+
+	if (type == eEquipment_IronSword) { pItem->AddStatAttribute(AttributeType_Strength, 2); }
+	if (type == eEquipment_IronShield) { pItem->AddStatAttribute(AttributeType_Armor, 2); }
+	if (type == eEquipment_IronHelm) { pItem->AddStatAttribute(AttributeType_Armor, 2); }
+	if (type == eEquipment_IronArmor) { pItem->AddStatAttribute(AttributeType_Armor, 2); }
+	if (type == eEquipment_IronPants) { pItem->AddStatAttribute(AttributeType_Armor, 2); }
+	if (type == eEquipment_IronGloves) { pItem->AddStatAttribute(AttributeType_Armor, 2); }
+	if (type == eEquipment_IronBoots) { pItem->AddStatAttribute(AttributeType_Armor, 2); }
+	if (type == eEquipment_IronShoulders) { pItem->AddStatAttribute(AttributeType_Armor, 2); }
+
+	if (type == eEquipment_SteelHelm) { pItem->AddStatAttribute(AttributeType_Armor, 3); }
+	if (type == eEquipment_SteelArmor) { pItem->AddStatAttribute(AttributeType_Armor, 3); }
+	if (type == eEquipment_SteelPants) { pItem->AddStatAttribute(AttributeType_Armor, 3); }
+	if (type == eEquipment_SteelGloves) { pItem->AddStatAttribute(AttributeType_Armor, 3); }
+	if (type == eEquipment_SteelBoots) { pItem->AddStatAttribute(AttributeType_Armor, 3); }
+	if (type == eEquipment_SteelShoulders) { pItem->AddStatAttribute(AttributeType_Armor, 3); }
+
+	if (type == eEquipment_AshHelm) { pItem->AddStatAttribute(AttributeType_Armor, 4); }
+	if (type == eEquipment_AshArmor) { pItem->AddStatAttribute(AttributeType_Armor, 4); }
+	if (type == eEquipment_AshPants) { pItem->AddStatAttribute(AttributeType_Armor, 4); }
+	if (type == eEquipment_AshGloves) { pItem->AddStatAttribute(AttributeType_Armor, 4); }
+	if (type == eEquipment_AshBoots) { pItem->AddStatAttribute(AttributeType_Armor, 4); }
+	if (type == eEquipment_AshShoulders) { pItem->AddStatAttribute(AttributeType_Armor, 4); }
+
+	if (type == eEquipment_BoneHelm) { pItem->AddStatAttribute(AttributeType_Armor, 5); }
+	if (type == eEquipment_BoneArmor) { pItem->AddStatAttribute(AttributeType_Armor, 5); }
+	if (type == eEquipment_BonePants) { pItem->AddStatAttribute(AttributeType_Armor, 5); }
+	if (type == eEquipment_BoneGloves) { pItem->AddStatAttribute(AttributeType_Armor, 5); }
+	if (type == eEquipment_BoneBoots) { pItem->AddStatAttribute(AttributeType_Armor, 5); }
+	if (type == eEquipment_BoneShoulders) { pItem->AddStatAttribute(AttributeType_Armor, 5); }
+
+	if (type == eEquipment_IceHelm) { pItem->AddStatAttribute(AttributeType_Armor, 5); }
+	if (type == eEquipment_IceArmor) { pItem->AddStatAttribute(AttributeType_Armor, 5); }
+	if (type == eEquipment_IcePants) { pItem->AddStatAttribute(AttributeType_Armor, 5); }
+	if (type == eEquipment_IceGloves) { pItem->AddStatAttribute(AttributeType_Armor, 5); }
+	if (type == eEquipment_IceBoots) { pItem->AddStatAttribute(AttributeType_Armor, 5); }
+	if (type == eEquipment_IceShoulders) { pItem->AddStatAttribute(AttributeType_Armor, 5); }
+
+	if (type == eEquipment_SpikeHelm) { pItem->AddStatAttribute(AttributeType_Armor, 5); }
+	if (type == eEquipment_SpikeArmor) { pItem->AddStatAttribute(AttributeType_Armor, 5); }
+	if (type == eEquipment_SpikePants) { pItem->AddStatAttribute(AttributeType_Armor, 5); }
+	if (type == eEquipment_SpikeGloves) { pItem->AddStatAttribute(AttributeType_Armor, 5); }
+	if (type == eEquipment_SpikeBoots) { pItem->AddStatAttribute(AttributeType_Armor, 5); }
+	if (type == eEquipment_SpikeShoulders) { pItem->AddStatAttribute(AttributeType_Armor, 5); }
+}
