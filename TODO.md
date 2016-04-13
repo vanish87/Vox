@@ -176,4 +176,4 @@
 - [ ] Side stepping animation when in target camera mode.
 - [ ] Bug with custom cursors when going outside of windows bounds.
 - [ ] Don't allow 'other' buttons in select character screen when we have delet popup - i.e select, create, etc.
-- [ ] NPC loading falls through the world when we road trip to the front-end and start the game, Because physics happens during loading.
+- [x] NPC loading falls through the world when we road trip to the front-end and start the game, Because physics happens during loading.
