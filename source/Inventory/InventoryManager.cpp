@@ -65,13 +65,13 @@ InventoryManager::InventoryManager()
 InventoryManager::~InventoryManager()
 {
 	Reset();
+	ClearOtherCreatedItems();
 }
 
 void InventoryManager::Reset()
 {
 	ClearInventory();
 	ClearEquipped();
-	ClearOtherCreatedItems();
 }
 
 // Linkage
