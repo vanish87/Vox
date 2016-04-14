@@ -39,6 +39,10 @@ enum eItem
 	eItem_CampFire,
 	eItem_Mannequin,
 	
+	// Ingredients
+	eItem_SlimeJelly,
+	eItem_BeeWing,
+
 	// Ore and mining
 	eItem_CopperVein,
 	eItem_CopperOre,

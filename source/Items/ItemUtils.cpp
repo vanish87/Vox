@@ -20,10 +20,14 @@ string GetItemTitleForType(eItem type)
 	switch(type)
 	{
 		case eItem_None:			{ return "None"; } break;
+		// Dropped item in the world
 		case eItem_DroppedItem:		{ return "Dropped Item"; } break;
+		// Herts and coins dropped from killing enemies
 		case eItem_Coin:			{ return "Coin"; } break;
 		case eItem_Heart:			{ return "Heart"; } break;
+		// Zombie gib
 		case eItem_Gib:				{ return "Gib"; } break;
+		// Interactable items
 		case eItem_Tombstone:		{ return "Tombstone"; } break;
 		case eItem_Chest:			{ return "Chest"; } break;
 		case eItem_Torch:			{ return "Torch"; } break;
@@ -32,6 +36,10 @@ string GetItemTitleForType(eItem type)
 		case eItem_QuestBoard:		{ return "Quest Board"; } break;
 		case eItem_CampFire:		{ return "Camp Fire"; } break;
 		case eItem_Mannequin:		{ return "Mannequin"; } break;
+		// Ingredients
+		case eItem_SlimeJelly:		{ return "Slime Jelly"; } break;
+		case eItem_BeeWing:			{ return "Bee Wing"; } break;
+		// Ore and mining
 		case eItem_CopperVein:		{ return "Copper Vein"; } break;
 		case eItem_CopperOre:		{ return "Copper Ore"; } break;
 		case eItem_CopperBar:		{ return "Copper Bar"; } break;
@@ -44,6 +52,7 @@ string GetItemTitleForType(eItem type)
 		case eItem_GoldVein:		{ return "Gold Vein"; } break;
 		case eItem_GoldOre:			{ return "Gold Ore"; } break;
 		case eItem_GoldBar:			{ return "Gold Bar"; } break;
+		// World blocks
 		case eItem_Block_Grass:		{ return "Grass Block"; } break;
 		case eItem_Block_Dirt:		{ return "Dirt Block"; } break;
 		case eItem_Block_Stone:		{ return "Stone Block"; } break;
@@ -65,10 +74,14 @@ string GetItemDescriptionForType(eItem type)
 	switch(type)
 	{
 		case eItem_None:			{ return "None"; } break;
+		// Dropped item in the world
 		case eItem_DroppedItem:		{ return "Dropped Item"; } break;
+		// Herts and coins dropped from killing enemies
 		case eItem_Coin:			{ return "Coin"; } break;
 		case eItem_Heart:			{ return "Heart"; } break;
+		// Zombie gib
 		case eItem_Gib:				{ return "Gib"; } break;
+		// Interactable items
 		case eItem_Tombstone:		{ return "Tombstone"; } break;
 		case eItem_Chest:			{ return "Chest"; } break;
 		case eItem_Torch:			{ return "Torch"; } break;
@@ -77,6 +90,10 @@ string GetItemDescriptionForType(eItem type)
 		case eItem_QuestBoard:		{ return "Quest Board"; } break;
 		case eItem_CampFire:		{ return "Camp Fire"; } break;
 		case eItem_Mannequin:		{ return "A wooden mannequin, used for storing armor sets."; } break;
+		// Ingredients
+		case eItem_SlimeJelly:		{ return "Jelly from a slime monster."; } break;
+		case eItem_BeeWing:			{ return "A wing from a bee."; } break;
+		// Ore and mining
 		case eItem_CopperVein:		{ return "Copper Vein"; } break;
 		case eItem_CopperOre:		{ return "A nugget of copper ore. Can be smelted down at a furnace to create copper bars."; } break;
 		case eItem_CopperBar:		{ return "A solid bar of copper, used for crafting items made out of copper."; } break;
@@ -89,6 +106,7 @@ string GetItemDescriptionForType(eItem type)
 		case eItem_GoldVein:		{ return "Gold Vein"; } break;
 		case eItem_GoldOre:			{ return "A nugget of gold ore. Can be smelted down at a furnace to create gold bars."; } break;
 		case eItem_GoldBar:			{ return "A solid bar of gold, used for crafting items made out of gold."; } break;
+		// World blocks
 		case eItem_Block_Grass:		{ return "Grass block for world building."; } break;
 		case eItem_Block_Dirt:		{ return "Dirt block for world building."; } break;
 		case eItem_Block_Stone:		{ return "Stone block for world building."; } break;
@@ -105,57 +123,19 @@ string GetItemDescriptionForType(eItem type)
 	return "";
 }
 
-eItem GetItemTypeFromString(string typeName)
-{
-	if(typeName == "None")			{ return eItem_None; }
-	if(typeName == "DroppedItem")	{ return eItem_DroppedItem; }
-	if(typeName == "Coin")			{ return eItem_Coin; }
-	if(typeName == "Heart")			{ return eItem_Heart; }
-	if(typeName == "Gib")			{ return eItem_Gib; }
-	if(typeName == "TombStone")		{ return eItem_Tombstone; }
-	if(typeName == "Chest")			{ return eItem_Chest; }
-	if(typeName == "Torch")			{ return eItem_Torch; }
-	if(typeName == "Furnace")		{ return eItem_Furnace; }
-	if(typeName == "Anvil")			{ return eItem_Anvil; }
-	if(typeName == "QuestBoard")	{ return eItem_QuestBoard; }
-	if(typeName == "CampFire")		{ return eItem_CampFire; }
-	if(typeName == "Mannequin")		{ return eItem_Mannequin; }
-	if(typeName == "CopperVein")	{ return eItem_CopperVein; }
-	if(typeName == "CopperOre")		{ return eItem_CopperOre; }
-	if(typeName == "CopperBar")		{ return eItem_CopperBar; }
-	if(typeName == "IronVein")		{ return eItem_IronVein; }
-	if(typeName == "IronOre")		{ return eItem_IronOre; }
-	if(typeName == "IronBar")		{ return eItem_IronBar; }
-	if(typeName == "SilverVein")	{ return eItem_SilverVein; }
-	if(typeName == "SilverOre")		{ return eItem_SilverOre; }
-	if(typeName == "SilverBar")		{ return eItem_SilverBar; }
-	if(typeName == "GoldVein")		{ return eItem_GoldVein; }
-	if(typeName == "GoldOre")		{ return eItem_GoldOre; }
-	if(typeName == "GoldBar")		{ return eItem_GoldBar; }
-	if(typeName == "BlockGrass")	{ return eItem_Block_Grass; }
-	if(typeName == "BlockDirt")		{ return eItem_Block_Dirt; }
-	if(typeName == "BlockStone")	{ return eItem_Block_Stone; }
-	if(typeName == "BlockWood")		{ return eItem_Block_Wood; }
-	if(typeName == "BlockLead")		{ return eItem_Block_Leaf; }
-	if(typeName == "BlockSand")		{ return eItem_Block_Sand; }
-	if(typeName == "BlockCactus")	{ return eItem_Block_Cactus; }
-	if(typeName == "BlockRock")		{ return eItem_Block_Rock; }
-	if(typeName == "BlockSnow")		{ return eItem_Block_Snow; }
-
-	cout << "Warning: Reached end of GetItemTypeFromString() without finding string - " << typeName << ".\n";
-
-	return eItem_None;
-}
-
 string GetItemFilenameForType(eItem type)
 {
 	switch(type)
 	{
 		case eItem_None:			{ return ""; } break;
+		// Dropped item in the world
 		case eItem_DroppedItem:		{ return ""; } break;
+		// Herts and coins dropped from killing enemies
 		case eItem_Coin:			{ return "media/gamedata/items/Coin/Coin.item"; } break;
 		case eItem_Heart:			{ return "media/gamedata/items/Heart/Heart.item"; } break;
+		// Zombie gib
 		case eItem_Gib:				{ return "media/gamedata/items/Hand1Gib.item"; } break;
+		// Interactable items
 		case eItem_Tombstone:		{ return "media/gamedata/items/Tombstone/Tombstone1.item"; } break;
 		case eItem_Chest:			{ return "media/gamedata/items/Chest/Chest.item"; } break;
 		case eItem_Torch:			{ return "media/gamedata/items/Torch/Torch.item"; } break;
@@ -164,6 +144,10 @@ string GetItemFilenameForType(eItem type)
 		case eItem_QuestBoard:		{ return "media/gamedata/items/QuestBoard/QuestBoard.item"; } break;
 		case eItem_CampFire:		{ return "media/gamedata/items/CampFire/CampFire.item"; } break;
 		case eItem_Mannequin:		{ return "media/gamedata/items/Mannequin/Mannequin.item"; } break;
+		// Ingredients
+		case eItem_SlimeJelly:		{ return "media/gamedata/items/SlimeJelly/SlimeJelly.item"; } break;
+		case eItem_BeeWing:			{ return "media/gamedata/items/BeeWing/BeeWing.item"; } break;
+		// Ore and mining
 		case eItem_CopperVein:		{ return "media/gamedata/items/CopperVein/CopperVein0.item"; } break;
 		case eItem_CopperOre:		{ return "media/gamedata/items/CopperOre/CopperOre.item"; } break;
 		case eItem_CopperBar:		{ return "media/gamedata/items/CopperBar/CopperBar.item"; } break;
@@ -176,6 +160,7 @@ string GetItemFilenameForType(eItem type)
 		case eItem_GoldVein:		{ return "media/gamedata/items/GoldVein/GoldVein0.item"; } break;
 		case eItem_GoldOre:			{ return "media/gamedata/items/GoldOre/GoldOre.item"; } break;
 		case eItem_GoldBar:			{ return "media/gamedata/items/GoldBar/GoldBar.item"; } break;
+		// World blocks
 		case eItem_Block_Grass:		{ return "media/gamedata/items/Block_Grass/Block_Grass.item"; } break;
 		case eItem_Block_Dirt:		{ return "media/gamedata/items/Block_Dirt/Block_Dirt.item"; } break;
 		case eItem_Block_Stone:		{ return "media/gamedata/items/Block_Stone/Block_Stone.item"; } break;
@@ -197,30 +182,39 @@ string GetItemTextureForType(eItem type)
 	switch(type)
 	{
 		case eItem_None:			{ return ""; } break;
+		// Dropped item in the world
 		case eItem_DroppedItem:		{ return ""; } break;
-		case eItem_Coin:			{ return ""; } break;
-		case eItem_Heart:			{ return ""; } break;
-		case eItem_Gib:				{ return ""; } break;
-		case eItem_Tombstone:		{ return ""; } break;
+		// Herts and coins dropped from killing enemies
+		case eItem_Coin:			{ return "media/textures/items/coin.tga"; } break;
+		case eItem_Heart:			{ return "media/textures/items/question_mark.tga"; } break;
+		// Zombie gib
+		case eItem_Gib:				{ return "media/textures/items/question_mark.tga"; } break;
+		// Interactable items
+		case eItem_Tombstone:		{ return "media/textures/items/question_mark.tga"; } break;
 		case eItem_Chest:			{ return "media/textures/items/chest.tga"; } break;
 		case eItem_Torch:			{ return "media/textures/items/torch.tga"; } break;
 		case eItem_Furnace:			{ return "media/textures/items/furnace.tga"; } break;
 		case eItem_Anvil:			{ return "media/textures/items/anvil.tga"; } break;
-		case eItem_QuestBoard:		{ return ""; } break;
-		case eItem_CampFire:		{ return ""; } break;
-		case eItem_Mannequin:		{ return ""; } break;
-		case eItem_CopperVein:		{ return ""; } break;
+		case eItem_QuestBoard:		{ return "media/textures/items/question_mark.tga"; } break;
+		case eItem_CampFire:		{ return "media/textures/items/question_mark.tga"; } break;
+		case eItem_Mannequin:		{ return "media/textures/items/question_mark.tga"; } break;
+		// Ingredients
+		case eItem_SlimeJelly:		{ return "media/textures/items/question_mark.tga"; } break;
+		case eItem_BeeWing:			{ return "media/textures/items/question_mark.tga"; } break;
+		// Ore and mining
+		case eItem_CopperVein:		{ return "media/textures/items/question_mark.tga"; } break;
 		case eItem_CopperOre:		{ return "media/textures/items/copper_ore.tga"; } break;
 		case eItem_CopperBar:		{ return "media/textures/items/copper_bar.tga"; } break;
-		case eItem_IronVein:		{ return ""; } break;
+		case eItem_IronVein:		{ return "media/textures/items/question_mark.tga"; } break;
 		case eItem_IronOre:			{ return "media/textures/items/iron_ore.tga"; } break;
 		case eItem_IronBar:			{ return "media/textures/items/iron_bar.tga"; } break;
-		case eItem_SilverVein:		{ return ""; } break;
+		case eItem_SilverVein:		{ return "media/textures/items/question_mark.tga"; } break;
 		case eItem_SilverOre:		{ return "media/textures/items/silver_ore.tga"; } break;
 		case eItem_SilverBar:		{ return "media/textures/items/silver_bar.tga"; } break;
-		case eItem_GoldVein:		{ return ""; } break;
+		case eItem_GoldVein:		{ return "media/textures/items/question_mark.tga"; } break;
 		case eItem_GoldOre:			{ return "media/textures/items/gold_ore.tga"; } break;
 		case eItem_GoldBar:			{ return "media/textures/items/gold_bar.tga"; } break;
+		// World blocks
 		case eItem_Block_Grass:		{ return "media/textures/items/block_grass.tga"; } break;
 		case eItem_Block_Dirt:		{ return "media/textures/items/block_dirt.tga"; } break;
 		case eItem_Block_Stone:		{ return "media/textures/items/block_stone.tga"; } break;
@@ -242,10 +236,14 @@ float GetItemRadiusForType(eItem type)
 	switch (type)
 	{
 		case eItem_None:			{ return 1.00f; } break;
+		// Dropped item in the world
 		case eItem_DroppedItem:		{ return 0.50f; } break;
+		// Herts and coins dropped from killing enemies
 		case eItem_Coin:			{ return 0.25f; } break;
 		case eItem_Heart:			{ return 0.25f; } break;
+		// Zombie gib
 		case eItem_Gib:				{ return 0.125f; } break;
+		// Interactable items
 		case eItem_Tombstone:		{ return 0.50f; } break;
 		case eItem_Chest:			{ return 0.50f; } break;
 		case eItem_Torch:			{ return 1.00f; } break;
@@ -254,6 +252,10 @@ float GetItemRadiusForType(eItem type)
 		case eItem_QuestBoard:		{ return 1.00f; } break;
 		case eItem_CampFire:		{ return 0.50f; } break;
 		case eItem_Mannequin:		{ return 1.00f; } break;
+		// Ingredients
+		case eItem_SlimeJelly:		{ return 0.25f; } break;
+		case eItem_BeeWing:			{ return 0.25f; } break;
+		// Ore and mining
 		case eItem_CopperVein:		{ return 0.50f; } break;
 		case eItem_CopperOre:		{ return 0.25f; } break;
 		case eItem_CopperBar:		{ return 0.25f; } break;
@@ -266,6 +268,7 @@ float GetItemRadiusForType(eItem type)
 		case eItem_GoldVein:		{ return 0.5f; } break;
 		case eItem_GoldOre:			{ return 0.25f; } break;
 		case eItem_GoldBar:			{ return 0.25f; } break;
+		// World blocks
 		case eItem_Block_Grass:		{ return 0.25f; } break;
 		case eItem_Block_Dirt:		{ return 0.25f; } break;
 		case eItem_Block_Stone:		{ return 0.25f; } break;

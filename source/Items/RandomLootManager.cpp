@@ -23,10 +23,11 @@ using namespace std;
 RandomLootManager::RandomLootManager()
 {
 	// Create the enemy ingredient spawn data lists
-	//AddEnemyIngredientSpawnData(eEnemyType_GreenSlime, eItem_SlimeJelly, 1, 1);
-	//AddEnemyIngredientSpawnData(eEnemyType_RedSlime, eItem_SlimeJelly, 1, 1);
-	//AddEnemyIngredientSpawnData(eEnemyType_BlueSlime, eItem_SlimeJelly, 1, 1);
-	//AddEnemyIngredientSpawnData(eEnemyType_YellowSlime, eItem_SlimeJelly, 1, 1);
+	AddEnemyIngredientSpawnData(eEnemyType_GreenSlime, eItem_SlimeJelly, 1, 3);
+	AddEnemyIngredientSpawnData(eEnemyType_RedSlime, eItem_SlimeJelly, 1, 3);
+	AddEnemyIngredientSpawnData(eEnemyType_BlueSlime, eItem_SlimeJelly, 1, 3);
+	AddEnemyIngredientSpawnData(eEnemyType_YellowSlime, eItem_SlimeJelly, 1, 3);
+	AddEnemyIngredientSpawnData(eEnemyType_Bee, eItem_BeeWing, 1, 1);
 
 	// Create the random loot
 	AddRandomLoot(eEquipment_MageStaff);
