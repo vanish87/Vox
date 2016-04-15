@@ -1753,6 +1753,11 @@ void Enemy::DoDamage(float amount, Colour textColour, vec3 knockbackDirection, f
 		knockbackAmount = 0.0f;
 	}
 
+	if (m_eEnemyType == eEnemyType_IronGiant)
+	{
+		knockbackAmount = 0.0f;
+	}
+
 	bool finalDeathHit = false;
 
 	// Remove sapped
