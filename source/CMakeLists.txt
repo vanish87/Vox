@@ -116,10 +116,10 @@ add_executable(Vox
                ${GAMEGUI_SRCS}
                ${PROJECTILE_SRCS}
                ${TEXTEFFECTS_SRCS}
-			   ${MODS_SRCS}
-			   ${NPC_SRCS}
-			   ${ENEMY_SRCS}
-			   ${QUESTS_SRCS})
+               ${MODS_SRCS}
+               ${NPC_SRCS}
+               ${ENEMY_SRCS}
+               ${QUESTS_SRCS})
 
 include_directories(".")			   
 include_directories("glfw\\include")
