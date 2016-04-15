@@ -123,7 +123,7 @@ void ChunkManager::SetBiomeManager(BiomeManager* pBiomeManager)
 void ChunkManager::InitializeChunkCreation()
 {
 	// Create initial chunk
-	CreateNewChunk(0, 0, 0);
+	CreateNewChunk(m_pPlayer->GetGridX(), m_pPlayer->GetGridY(), m_pPlayer->GetGridZ());
 }
 
 // Chunk rendering material
