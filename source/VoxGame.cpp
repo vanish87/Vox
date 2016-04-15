@@ -794,7 +794,7 @@ void VoxGame::SetupDataForGame()
 
 	// Safezones (Where we cannot spawn enemies)
 	m_pBiomeManager->AddSafeZone(vec3(21.0f, 8.5f, 20.0f), 25.f, 30.0f, 25.0f);
-	m_pBiomeManager->AddTown(vec3(8.0f, 8.0f, 8.0f), 50.f, 15.0f, 50.0f);
+	m_pBiomeManager->AddTown(vec3(8.0f, 8.0f, 8.0f), 75.f, 15.0f, 75.0f);
 
 	// Enemies
 	//Enemy* pEnemy0 = m_pEnemyManager->CreateEnemy(vec3(35.5f, 12.0f, 5.5f), eEnemyType_RedSlime, 0.08f);

@@ -51,6 +51,7 @@ BiomeManager::BiomeManager(Renderer* pRenderer)
 
 	// Biome regions	
 	biomeRegions.SetFrequency(0.005f);
+	biomeRegions.SetSeed(2);
 
 	// TODO : Remove this test code below:
 	//utils::NoiseMap heightMap;
@@ -278,9 +279,9 @@ float BiomeManager::GetTowMultiplier(vec3 position)
 		{
 			ratio = 1.0f;
 		}
-		if (ratio < 0.0f)
+		if (ratio < 0.01f)
 		{
-			ratio = 0.0f;
+			ratio = 0.01f;
 		}
 
 		return ratio;
