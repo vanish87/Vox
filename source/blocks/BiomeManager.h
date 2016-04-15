@@ -26,11 +26,11 @@ enum Biome
 
 	Biome_GrassLand,
 	Biome_Desert,
-	Biome_Jungle,
+	//Biome_Jungle,
 	Biome_Tundra,
-	Biome_Swamp,
+	//Biome_Swamp,
 	Biome_AshLand,
-	Biome_Nightmare,
+	//Biome_Nightmare,
 
 	BiomeType_NumBiomes,
 };
@@ -126,6 +126,9 @@ protected:
 private:
 	/* Private members */
 	Renderer* m_pRenderer;
+
+	// Biome voronoi regions
+	module::Voronoi biomeRegions;
 
 	// Biome boundaries
 	BiomeHeightBoundaryList m_vpBiomeHeightBoundaryList[BiomeType_NumBiomes];

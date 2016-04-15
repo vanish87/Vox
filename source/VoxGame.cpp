@@ -781,8 +781,13 @@ void VoxGame::SetupDataForGame()
 	pItemSpawner1->AddItemTypeToSpawn(eItem_IronVein);
 
 	ItemSpawner* pItemSpawner2 = m_pItemManager->CreateItemSpawner(vec3(0.0f, 6.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f));
-	pItemSpawner2->SetSpawningParams(0.0f, 0.0f, 3, vec3(0.0f, 0.0f, 0.0f), true, vec3(0.0f, 0.5f, 0.0f), true, true, 25.0f, Biome_GrassLand, 0.08f);
-	pItemSpawner2->AddItemTypeToSpawn(eItem_Chest);
+	pItemSpawner2->SetSpawningParams(0.0f, 0.0f, 15, vec3(0.0f, 0.0f, 0.0f), true, vec3(0.0f, 0.5f, 0.0f), true, true, 25.0f, Biome_AshLand, 0.15f);
+	pItemSpawner2->AddItemTypeToSpawn(eItem_SilverVein);
+	pItemSpawner2->AddItemTypeToSpawn(eItem_GoldVein);
+
+	ItemSpawner* pItemSpawner3 = m_pItemManager->CreateItemSpawner(vec3(0.0f, 6.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f));
+	pItemSpawner3->SetSpawningParams(0.0f, 0.0f, 3, vec3(0.0f, 0.0f, 0.0f), true, vec3(0.0f, 0.5f, 0.0f), true, true, 25.0f, Biome_GrassLand, 0.08f);
+	pItemSpawner3->AddItemTypeToSpawn(eItem_Chest);
 
 	// Npcs
 	NPC* pCharacter1 = m_pNPCManager->CreateNPC("Mage", "Human", "Mage", vec3(21.0f, 8.5f, 20.0f), 0.08f, false, true);
@@ -802,7 +807,7 @@ void VoxGame::SetupDataForGame()
 	pEnemySpawner0->SetSpawningParams(3.0f, 3.0f, 8, vec3(0.0f, 0.0f, 0.0f), true, vec3(0.0f, 1.0f, 0.0f), true, true, 25.0f, Biome_GrassLand);
 	pEnemySpawner0->AddEnemyTypeToSpawn(eEnemyType_GreenSlime);
 	pEnemySpawner0->AddEnemyTypeToSpawn(eEnemyType_RedSlime);
-	pEnemySpawner0->AddEnemyTypeToSpawn(eEnemyType_BlueSlime);
+	//pEnemySpawner0->AddEnemyTypeToSpawn(eEnemyType_BlueSlime);
 	pEnemySpawner0->AddEnemyTypeToSpawn(eEnemyType_YellowSlime);
 
 	EnemySpawner* pEnemySpawner1 = m_pEnemyManager->CreateEnemySpawner(vec3(0.0f, 6.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f));
@@ -838,6 +843,11 @@ void VoxGame::SetupDataForGame()
 	EnemySpawner* pEnemySpawner7 = m_pEnemyManager->CreateEnemySpawner(vec3(0.0f, 12.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f));
 	pEnemySpawner7->SetSpawningParams(0.0f, 1.0f, 8, vec3(0.0f, 5.0f, 0.0f), true, vec3(0.0f, 5.0f, 0.0f), true, true, 25.0f, Biome_AshLand);
 	pEnemySpawner7->AddEnemyTypeToSpawn(eEnemyType_Bat);
+
+	// Tundra
+	EnemySpawner* pEnemySpawner8 = m_pEnemyManager->CreateEnemySpawner(vec3(0.0f, 4.0f, 0.0f), vec3(0.0f, 0.0f, 5.0f));
+	pEnemySpawner8->SetSpawningParams(3.0f, 3.0f, 8, vec3(0.0f, 0.0f, 0.0f), true, vec3(0.0f, 1.0f, 0.0f), true, true, 25.0f, Biome_Tundra);
+	pEnemySpawner8->AddEnemyTypeToSpawn(eEnemyType_BlueSlime);
 
 	// Quests
 	// Quest 1

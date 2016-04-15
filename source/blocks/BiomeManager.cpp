@@ -12,6 +12,10 @@
 #include "BiomeManager.h"
 #include "ChunkManager.h"
 
+#include "noise/noise.h"
+#include "noiseutils.h"
+using namespace noise;
+
 
 BiomeManager::BiomeManager(Renderer* pRenderer)
 {
@@ -25,7 +29,7 @@ BiomeManager::BiomeManager(Renderer* pRenderer)
 
 	AddBiomeBoundary(Biome_Desert,	    1.00f,		0.94f, 0.90f, 0.12f, 0.98f, 1.0f, 0.60f,	BlockType_Sand);
 
-	AddBiomeBoundary(Biome_Jungle,	    1.00f,		0.14f, 0.35f, 0.12f, 0.34f, 0.65f, 0.42f,	BlockType_Leaf);
+	//AddBiomeBoundary(Biome_Jungle,	    1.00f,		0.14f, 0.35f, 0.12f, 0.34f, 0.65f, 0.42f,	BlockType_Leaf);
 
 	AddBiomeBoundary(Biome_Tundra,		-0.25f,		0.05f, 0.05f, 0.78f, 0.05f, 0.05f, 0.78f,	BlockType_Stone);
 	AddBiomeBoundary(Biome_Tundra,		-0.00f,		0.37f, 0.61f, 0.85f, 0.30f, 0.56f, 0.95f,	BlockType_Stone);
@@ -36,14 +40,47 @@ BiomeManager::BiomeManager(Renderer* pRenderer)
 	AddBiomeBoundary(Biome_Tundra,	    0.90f,		0.60f, 0.73f, 1.00f, 0.68f, 0.80f, 1.00f,	BlockType_Snow);
 	AddBiomeBoundary(Biome_Tundra,	    1.00f,		0.51f, 0.63f, 1.00f, 0.60f, 0.73f, 1.00f,	BlockType_Snow);
 
-	AddBiomeBoundary(Biome_Swamp,	    1.00f,		0.00f, 0.75f, 1.00f, 0.00f, 1.00f, 0.75f,	BlockType_Default);
+	//AddBiomeBoundary(Biome_Swamp,	    1.00f,		0.00f, 0.75f, 1.00f, 0.00f, 1.00f, 0.75f,	BlockType_Default);
 
 	AddBiomeBoundary(Biome_AshLand,		-0.35f,		0.18f, 0.12f, 0.12f, 0.23f, 0.17f, 0.18f,	BlockType_Stone);
 	AddBiomeBoundary(Biome_AshLand,	    0.40f,		0.24f, 0.25f, 0.26f, 0.24f, 0.25f, 0.26f,	BlockType_Stone);
 	AddBiomeBoundary(Biome_AshLand,		1.00f,		0.25f, 0.25f, 0.25f, 0.17f, 0.15f, 0.10f,	BlockType_Stone);
 
-	AddBiomeBoundary(Biome_Nightmare,	0.00f,		0.38f, 0.36f, 0.39f, 0.33f, 0.33f, 0.5f,	BlockType_Dirt);
-	AddBiomeBoundary(Biome_Nightmare,	1.00f,		0.50f, 0.47f, 0.62f, 0.38f, 0.32f, 0.62f,	BlockType_Stone);
+	//AddBiomeBoundary(Biome_Nightmare,	0.00f,		0.38f, 0.36f, 0.39f, 0.33f, 0.33f, 0.5f,	BlockType_Dirt);
+	//AddBiomeBoundary(Biome_Nightmare,	1.00f,		0.50f, 0.47f, 0.62f, 0.38f, 0.32f, 0.62f,	BlockType_Stone);
+
+	// Biome regions	
+	biomeRegions.SetFrequency(0.005f);
+
+	// TODO : Remove this test code below:
+	//utils::NoiseMap heightMap;
+	//utils::NoiseMapBuilderPlane heightMapBuilder;
+	//heightMapBuilder.SetSourceModule(biomeRegions);
+	//heightMapBuilder.SetDestNoiseMap(heightMap);
+	//heightMapBuilder.SetDestSize(256, 256);
+	//heightMapBuilder.SetBounds(6.0, 10.0, 1.0, 5.0);
+	//heightMapBuilder.Build();
+	//utils::RendererImage renderer;
+	//utils::Image image;
+	//renderer.SetSourceNoiseMap(heightMap);
+	//renderer.SetDestImage(image);
+	//renderer.ClearGradient();
+	//renderer.AddGradientPoint(-1.0000, utils::Color(0, 0, 128, 255)); // deeps
+	//renderer.AddGradientPoint(-0.2500, utils::Color(0, 0, 255, 255)); // shallow
+	//renderer.AddGradientPoint(0.0000, utils::Color(0, 128, 255, 255)); // shore
+	//renderer.AddGradientPoint(0.0625, utils::Color(240, 240, 64, 255)); // sand
+	//renderer.AddGradientPoint(0.1250, utils::Color(32, 160, 0, 255)); // grass
+	//renderer.AddGradientPoint(0.3750, utils::Color(224, 224, 0, 255)); // dirt
+	//renderer.AddGradientPoint(0.7500, utils::Color(128, 128, 128, 255)); // rock
+	//renderer.AddGradientPoint(1.0000, utils::Color(255, 255, 255, 255)); // snow
+	//renderer.EnableLight();
+	//renderer.SetLightContrast(3.0); // Triple the contrast
+	//renderer.SetLightBrightness(2.0); // Double the brightness
+	//renderer.Render();
+	//utils::WriterBMP writer;
+	//writer.SetSourceImage(image);
+	//writer.SetDestFilename("tutorial.bmp");
+	//writer.WriteDestFile();
 }
 
 BiomeManager::~BiomeManager()
@@ -157,8 +194,21 @@ void BiomeManager::AddSafeZone(vec3 safeZoneCenter, float length, float height, 
 // Get biome
 Biome BiomeManager::GetBiome(vec3 position)
 {
-	// TODO : Better biome generation
-	return Biome_GrassLand;
+	float regionValue = biomeRegions.GetValue(position.x, position.y, position.z);
+	float regionValueNormalise = (regionValue + 1.0f) * 0.5f;
+
+	float ratio = 1.0f / (BiomeType_NumBiomes-1.0f);
+	for (int i = 1; i < BiomeType_NumBiomes; i++)
+	{
+		float maxValue = i * ratio;
+
+		if (regionValue <= maxValue)
+		{
+			return (Biome)i;
+		}
+	}
+
+	return Biome_None;
 }
 
 // Town
