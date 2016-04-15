@@ -254,8 +254,8 @@ void SelectCharacter::Unload()
 
 void SelectCharacter::LoadSelectionCharacters()
 {
-	float xPosition = -4.0f;
-	float zPosition = 1.5f;
+	float xPosition = 0.0f;
+	float zPosition = 0.0f;
 
 	char importDirectory[128];
 	sprintf(importDirectory, "saves/characters/*.*");
@@ -272,17 +272,17 @@ void SelectCharacter::LoadSelectionCharacters()
 
 		switch(characterNumCounter)
 		{
-			case 0: { xPosition = -4.0f; zPosition = 1.5f; } break;
-			case 1: { xPosition = -2.5f; zPosition = 0.5f; } break;
-			case 2: { xPosition = -1.0f; zPosition = -0.5f; } break;
-			case 3: { xPosition = 1.0f; zPosition = -0.5f; } break;
-			case 4: { xPosition = 2.5f; zPosition = 0.5f; } break;
-			case 5: { xPosition = 4.0f; zPosition = 1.5f; } break;
+			case 0: { xPosition = 21.0f; zPosition = 1.5f; } break;
+			case 1: { xPosition = 22.5f; zPosition = 0.5f; } break;
+			case 2: { xPosition = 24.0f; zPosition = -0.5f; } break;
+			case 3: { xPosition = 26.0f; zPosition = -0.5f; } break;
+			case 4: { xPosition = 27.5f; zPosition = 0.5f; } break;
+			case 5: { xPosition = 29.0f; zPosition = 1.5f; } break;
 		}
 
-		vec3 centralLookPoint = vec3(0.0f, 8.0f, 5.0f);
+		vec3 centralLookPoint = vec3(25.0f, 1.0f, 5.0f);
 
-		NPC* pCharacter1 = VoxGame::GetInstance()->GetNPCManager()->CreateNPC(listFiles[i].c_str(), "Human", listFiles[i].c_str(), vec3(xPosition, 7.5f, zPosition), 0.08f, true, false);
+		NPC* pCharacter1 = VoxGame::GetInstance()->GetNPCManager()->CreateNPC(listFiles[i].c_str(), "Human", listFiles[i].c_str(), vec3(xPosition, 0.5f, zPosition), 0.08f, true, false);
 		pCharacter1->SetTargetForwardToLookAtPoint(centralLookPoint);
 		pCharacter1->SetBodyTurnStopThreshold(0.01f);
 		pCharacter1->SetBodyTurnSpeedMultiplier(6.0f);
@@ -445,8 +445,8 @@ void SelectCharacter::Update(float dt)
 {
 	FrontendPage::Update(dt);
 
-	m_cameraPosition = vec3(0.0f, 9.75f, 8.0f);
-	m_cameraView = vec3(0.0f, 9.0f, 0.0f);
+	m_cameraPosition = vec3(25.0f, 2.75f, 8.0f);
+	m_cameraView = vec3(25.0f, 2.0f, 0.0f);
 
 	// Character fade in text alpha
 	if(m_nameTextFadeInFadeInTimer < m_nameTextFadeInFadeInTime)

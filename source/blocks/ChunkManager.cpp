@@ -959,6 +959,11 @@ bool ChunkManager::IsUnderWater(vec3 position)
 		return false;
 	}
 
+	if (VoxGame::GetInstance()->GetGameMode() == GameMode_FrontEnd)
+	{
+		return false;
+	}
+
 	if(position.y <= m_waterHeight)
 	{
 		return true;
