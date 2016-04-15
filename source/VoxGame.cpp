@@ -331,9 +331,6 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pHUD->SetQuestGUI(m_pQuestGUI);
 	m_pHUD->SetCraftingGUI(m_pCraftingGUI);
 
-	/* Initial chunk creation (Must be after player pointer sent to chunks) */
-	m_pChunkManager->InitializeChunkCreation();
-
 	// Keyboard movement
 	m_bKeyboardForward = false;
 	m_bKeyboardBackward = false;
@@ -796,7 +793,8 @@ void VoxGame::SetupDataForGame()
 	pCharacter1->SetNPCCombatType(eNPCCombatType_Staff, true);
 
 	// Safezones (Where we cannot spawn enemies)
-	m_pBiomeManager->AddSafeZone(vec3(21.0f, 8.5f, 20.0f), 25.f, 50.0f, 25.0f);
+	m_pBiomeManager->AddSafeZone(vec3(21.0f, 8.5f, 20.0f), 25.f, 30.0f, 25.0f);
+	m_pBiomeManager->AddTown(vec3(8.0f, 8.0f, 8.0f), 50.f, 15.0f, 50.0f);
 
 	// Enemies
 	//Enemy* pEnemy0 = m_pEnemyManager->CreateEnemy(vec3(35.5f, 12.0f, 5.5f), eEnemyType_RedSlime, 0.08f);
@@ -973,6 +971,9 @@ void VoxGame::SetGameMode(GameMode mode)
 
 			// Setup the gamedata since we have just loaded fresh into the frontend.
 			SetupDataForFrontEnd();
+
+			// Initial chunk creation
+			m_pChunkManager->InitializeChunkCreation();
 		}
 	}
 
@@ -1032,6 +1033,9 @@ void VoxGame::SetGameMode(GameMode mode)
 
 			// Setup the gamedata since we have just loaded fresh into a game.
 			SetupDataForGame();
+
+			// Initial chunk creation
+			m_pChunkManager->InitializeChunkCreation();
 		}
 	}
 }

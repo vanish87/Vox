@@ -181,17 +181,22 @@ void Chunk::Setup()
 			float xPosition = m_position.x + x;
 			float zPosition = m_position.z + z;
 
+			Biome biome = VoxGame::GetInstance()->GetBiomeManager()->GetBiome(vec3(xPosition, 0.0f, zPosition));
+
+			// Get the 
 			float noise = octave_noise_2d(m_pVoxSettings->m_landscapeOctaves, m_pVoxSettings->m_landscapePersistence, m_pVoxSettings->m_landscapeScale, xPosition, zPosition);
 			float noiseNormalized = ((noise + 1.0f) * 0.5f);
+			float noiseHeight = noiseNormalized * CHUNK_SIZE;
 
+			// Multiple by mountain ratio
 			float mountainNoise = octave_noise_2d(m_pVoxSettings->m_mountainOctaves, m_pVoxSettings->m_mountainPersistence, m_pVoxSettings->m_mountainScale, xPosition, zPosition);
 			float mountainNoiseNormalise = (mountainNoise + 1.0f) * 0.5f;
 			float mountainMultiplier = m_pVoxSettings->m_mountainMultiplier * mountainNoiseNormalise;
-
-			float noiseHeight = noiseNormalized * CHUNK_SIZE;
 			noiseHeight *= mountainMultiplier;
 
-			Biome biome = VoxGame::GetInstance()->GetBiomeManager()->GetBiome(vec3(xPosition, 0.0f, zPosition));
+			// Smooth out for towns
+			float townMultiplier = VoxGame::GetInstance()->GetBiomeManager()->GetTowMultiplier(vec3(xPosition, 0.0f, zPosition));
+			noiseHeight *= townMultiplier;
 
 			if (m_gridY < 0)
 			{

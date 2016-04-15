@@ -95,10 +95,11 @@ public:
 	Biome GetBiome(vec3 position);
 
 	// Town
-	bool IsInTown(vec3 position);
+	bool IsInTown(vec3 position, ZoneData **pReturnTown);
+	float GetTowMultiplier(vec3 position);
 
 	// Safe zone
-	bool IsInSafeZone(vec3 position);
+	bool IsInSafeZone(vec3 position, ZoneData **pReturnSafeZone);
 
 	// Check chunk and block type
 	void GetChunkColourAndBlockType(float xPos, float yPos, float zPos, float noiseValue, float landscapeGradient, float *r, float *g, float *b, BlockType *blockType);

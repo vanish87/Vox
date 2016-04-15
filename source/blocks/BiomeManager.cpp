@@ -159,6 +159,7 @@ void BiomeManager::AddTown(vec3 townCenter, float length, float height, float wi
 	pNewTown->m_length = length;
 	pNewTown->m_height = height;
 	pNewTown->m_width = width;
+	pNewTown->m_radius = length;
 
 	Matrix4x4 transformMatrix;
 	pNewTown->UpdatePlanes(transformMatrix);
@@ -184,6 +185,7 @@ void BiomeManager::AddSafeZone(vec3 safeZoneCenter, float length, float height, 
 	pNewSafeZone->m_length = length;
 	pNewSafeZone->m_height = height;
 	pNewSafeZone->m_width = width;
+	pNewSafeZone->m_radius = length;
 
 	Matrix4x4 transformMatrix;
 	pNewSafeZone->UpdatePlanes(transformMatrix);
@@ -194,7 +196,7 @@ void BiomeManager::AddSafeZone(vec3 safeZoneCenter, float length, float height, 
 // Get biome
 Biome BiomeManager::GetBiome(vec3 position)
 {
-	float regionValue = biomeRegions.GetValue(position.x, position.y, position.z);
+	float regionValue = (float)biomeRegions.GetValue(position.x, position.y, position.z);
 	float regionValueNormalise = (regionValue + 1.0f) * 0.5f;
 
 	float ratio = 1.0f / (BiomeType_NumBiomes-1.0f);
@@ -212,7 +214,7 @@ Biome BiomeManager::GetBiome(vec3 position)
 }
 
 // Town
-bool BiomeManager::IsInTown(vec3 position)
+bool BiomeManager::IsInTown(vec3 position, ZoneData **pReturnTown)
 {
 	for (unsigned int i = 0; i < m_vpTownsList.size(); i++)
 	{
@@ -224,6 +226,7 @@ bool BiomeManager::IsInTown(vec3 position)
 			float distance = length(difference);
 			if (distance < pTown->m_radius)
 			{
+				*pReturnTown = pTown;
 				return true;
 			}
 		}
@@ -251,31 +254,59 @@ bool BiomeManager::IsInTown(vec3 position)
 
 			if (outside == 0)
 			{
+				*pReturnTown = pTown;
 				return true;
 			}
 		}
 	}
 
+	*pReturnTown = NULL;
 	return false;
 }
 
+float BiomeManager::GetTowMultiplier(vec3 position)
+{
+	ZoneData *pTown = NULL;
+	if (IsInTown(position, &pTown))
+	{
+		vec3 toCenter = position - pTown->m_origin;
+		toCenter.y = 0.0f;
+		float lengthToCenter = length(toCenter);
+
+		float ratio = lengthToCenter / (pTown->m_radius);
+		if (ratio > 1.0f)
+		{
+			ratio = 1.0f;
+		}
+		if (ratio < 0.0f)
+		{
+			ratio = 0.0f;
+		}
+
+		return ratio;
+	}
+
+	return 1.0f;
+}
+
 // Safe zone
-bool BiomeManager::IsInSafeZone(vec3 position)
+bool BiomeManager::IsInSafeZone(vec3 position, ZoneData **pReturnSafeZone)
 {
 	for (unsigned int i = 0; i < m_vpSafeZonesList.size(); i++)
 	{
-		ZoneData* pTown = m_vpSafeZonesList[i];
+		ZoneData* pSafeZone = m_vpSafeZonesList[i];
 
-		if (pTown->m_regionType == BiomeRegionType_Sphere)
+		if (pSafeZone->m_regionType == BiomeRegionType_Sphere)
 		{
-			vec3 difference = pTown->m_origin - position;
+			vec3 difference = pSafeZone->m_origin - position;
 			float distance = length(difference);
-			if (distance < pTown->m_radius)
+			if (distance < pSafeZone->m_radius)
 			{
+				*pReturnSafeZone = pSafeZone;
 				return true;
 			}
 		}
-		else if (pTown->m_regionType == BiomeRegionType_Cube)
+		else if (pSafeZone->m_regionType == BiomeRegionType_Cube)
 		{
 			float distance;
 			int outside = 0;
@@ -283,7 +314,7 @@ bool BiomeManager::IsInSafeZone(vec3 position)
 
 			for (int i = 0; i < 6; i++)
 			{
-				distance = pTown->m_planes[i].GetPointDistance(position - pTown->m_origin);
+				distance = pSafeZone->m_planes[i].GetPointDistance(position - pSafeZone->m_origin);
 
 				if (distance < 0.0f)
 				{
@@ -299,11 +330,13 @@ bool BiomeManager::IsInSafeZone(vec3 position)
 
 			if (outside == 0)
 			{
+				*pReturnSafeZone = pSafeZone;
 				return true;
 			}
 		}
 	}
 
+	*pReturnSafeZone = NULL;
 	return false;
 }
 
