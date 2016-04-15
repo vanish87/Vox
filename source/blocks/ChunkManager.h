@@ -18,7 +18,6 @@
 
 #include "../Renderer/Renderer.h"
 #include "../models/QubicleBinary.h"
-
 #include "Chunk.h"
 #include "BlocksEnum.h"
 

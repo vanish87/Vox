@@ -16,6 +16,9 @@
 #include "../Renderer/Renderer.h"
 #include "BlocksEnum.h"
 
+#include "noise/noise.h"
+using namespace noise;
+
 
 enum Biome
 {
