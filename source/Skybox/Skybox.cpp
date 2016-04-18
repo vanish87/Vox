@@ -19,6 +19,12 @@ Skybox::Skybox(Renderer* pRenderer)
 
 	SetSkybox1("glacier");
 	SetSkybox2("delirious");
+
+	m_skyBoxNames[Biome_None] = "glacier";
+	m_skyBoxNames[Biome_GrassLand] = "glacier";
+	m_skyBoxNames[Biome_Desert] = "desert";
+	m_skyBoxNames[Biome_Tundra] = "blue_sky";
+	m_skyBoxNames[Biome_AshLand] = "delirious";
 }
 
 Skybox::~Skybox()

@@ -16,6 +16,7 @@
 #pragma once
 
 #include "../Renderer/Renderer.h"
+#include "../blocks/BiomeManager.h"
 
 
 class Skybox
@@ -54,4 +55,6 @@ private:
 
 	string m_skyBox1Name;
 	string m_skyBox2Name;
+
+	string m_skyBoxNames[BiomeType_NumBiomes];
 };
