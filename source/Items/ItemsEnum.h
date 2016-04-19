@@ -42,6 +42,7 @@ enum eItem
 	// Ingredients
 	eItem_SlimeJelly,
 	eItem_BeeWing,
+	eItem_Bone,
 
 	// Ore and mining
 	eItem_CopperVein,

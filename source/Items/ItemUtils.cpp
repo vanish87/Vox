@@ -39,6 +39,7 @@ string GetItemTitleForType(eItem type)
 		// Ingredients
 		case eItem_SlimeJelly:		{ return "Slime Jelly"; } break;
 		case eItem_BeeWing:			{ return "Bee Wing"; } break;
+		case eItem_Bone:			{ return "Bone"; } break;
 		// Ore and mining
 		case eItem_CopperVein:		{ return "Copper Vein"; } break;
 		case eItem_CopperOre:		{ return "Copper Ore"; } break;
@@ -93,6 +94,7 @@ string GetItemDescriptionForType(eItem type)
 		// Ingredients
 		case eItem_SlimeJelly:		{ return "Jelly from a slime monster."; } break;
 		case eItem_BeeWing:			{ return "A wing from a bee."; } break;
+		case eItem_Bone:			{ return "A raw bone from a skeleton."; } break;
 		// Ore and mining
 		case eItem_CopperVein:		{ return "Copper Vein"; } break;
 		case eItem_CopperOre:		{ return "A nugget of copper ore. Can be smelted down at a furnace to create copper bars."; } break;
@@ -147,6 +149,7 @@ string GetItemFilenameForType(eItem type)
 		// Ingredients
 		case eItem_SlimeJelly:		{ return "media/gamedata/items/SlimeJelly/SlimeJelly.item"; } break;
 		case eItem_BeeWing:			{ return "media/gamedata/items/BeeWing/BeeWing.item"; } break;
+		case eItem_Bone:			{ return "media/gamedata/items/Bone/Bone.item"; } break;
 		// Ore and mining
 		case eItem_CopperVein:		{ return "media/gamedata/items/CopperVein/CopperVein0.item"; } break;
 		case eItem_CopperOre:		{ return "media/gamedata/items/CopperOre/CopperOre.item"; } break;
@@ -201,6 +204,7 @@ string GetItemTextureForType(eItem type)
 		// Ingredients
 		case eItem_SlimeJelly:		{ return "media/textures/items/question_mark.tga"; } break;
 		case eItem_BeeWing:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eItem_Bone:			{ return "media/textures/items/question_mark.tga"; } break;
 		// Ore and mining
 		case eItem_CopperVein:		{ return "media/textures/items/question_mark.tga"; } break;
 		case eItem_CopperOre:		{ return "media/textures/items/copper_ore.tga"; } break;
@@ -255,6 +259,7 @@ float GetItemRadiusForType(eItem type)
 		// Ingredients
 		case eItem_SlimeJelly:		{ return 0.25f; } break;
 		case eItem_BeeWing:			{ return 0.25f; } break;
+		case eItem_Bone:			{ return 0.25f; } break;
 		// Ore and mining
 		case eItem_CopperVein:		{ return 0.50f; } break;
 		case eItem_CopperOre:		{ return 0.25f; } break;

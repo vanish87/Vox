@@ -28,6 +28,10 @@ RandomLootManager::RandomLootManager()
 	AddEnemyIngredientSpawnData(eEnemyType_BlueSlime, eItem_SlimeJelly, 1, 3);
 	AddEnemyIngredientSpawnData(eEnemyType_YellowSlime, eItem_SlimeJelly, 1, 3);
 	AddEnemyIngredientSpawnData(eEnemyType_Bee, eItem_BeeWing, 1, 1);
+	AddEnemyIngredientSpawnData(eEnemyType_NormalSkeleton, eItem_Bone, 1, 2);
+	AddEnemyIngredientSpawnData(eEnemyType_RangedSkeleton, eItem_Bone, 1, 2);
+	AddEnemyIngredientSpawnData(eEnemyType_MeleeSkeleton, eItem_Bone, 1, 2);
+	AddEnemyIngredientSpawnData(eEnemyType_MageSkeleton, eItem_Bone, 1, 2);
 
 	// Create the random loot
 	AddRandomLoot(eEquipment_MageStaff);
