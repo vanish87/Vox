@@ -71,6 +71,11 @@ unsigned int Skybox::GetCubeMapTexture2()
 	return m_cubeTextureId2;
 }
 
+void Skybox::SetCurrentBiome(Biome currentBiome)
+{
+	SetSkybox1(m_skyBoxNames[currentBiome]);
+}
+
 void Skybox::Render()
 {
 	float width = 4000.0f;

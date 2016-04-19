@@ -399,6 +399,9 @@ private:
 	CameraMode m_previousCameraMode;
 	bool m_shouldRestorePreviousCameraMode;
 
+	// Biome
+	Biome m_currentBiome;
+
 	// Interacting item
 	mutex m_interactItemMutex;
 	Item* m_pInteractItem;

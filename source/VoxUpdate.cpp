@@ -65,6 +65,14 @@ void VoxGame::Update()
 		}
 	}
 
+	// Update the current biome
+	Biome currentBiome = m_pBiomeManager->GetBiome(m_pPlayer->GetCenter());
+	if (currentBiome != m_currentBiome)
+	{
+		m_pSkybox->SetCurrentBiome(currentBiome);
+		m_currentBiome = currentBiome;
+	}
+	
 	// Main components update
 	if (m_bPaused == false && m_initialStartWait == false)
 	{

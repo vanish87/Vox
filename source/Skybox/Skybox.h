@@ -32,6 +32,8 @@ public:
 	unsigned int GetCubeMapTexture1();
 	unsigned int GetCubeMapTexture2();
 
+	void SetCurrentBiome(Biome currentBiome);
+
 	void Render();
 
 protected:

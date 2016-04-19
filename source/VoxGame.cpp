@@ -108,6 +108,9 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	/* Interactions */
 	m_pInteractItem = NULL;
 
+	/* Biome */
+	m_currentBiome = Biome_None;
+
 	/* Create the GUI */
 	m_pGUI = new OpenGLGUI(m_pRenderer);
 
