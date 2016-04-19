@@ -512,6 +512,9 @@ void VoxGame::RenderWaterReflections()
 
 			m_pRenderer->EnableClipPlane(0, 0.0f, 1.0f, 0.0f, -m_pChunkManager->GetWaterHeight());
 
+			// Render the chunks
+			m_pChunkManager->Render(true);
+
 			// Player
 			if (m_gameMode != GameMode_FrontEnd)
 			{
