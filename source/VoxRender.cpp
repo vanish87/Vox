@@ -501,7 +501,7 @@ void VoxGame::RenderWaterReflections()
 {
 	m_pRenderer->StartRenderingToFrameBuffer(m_waterReflectionFrameBuffer);
 
-	if(m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()) == false)
+	if (m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()) == false)
 	{
 		m_pRenderer->PushMatrix();
 			m_pRenderer->SetClearColour(0.0f, 0.0f, 0.0f, 1.0f);
@@ -550,7 +550,6 @@ void VoxGame::RenderWaterReflections()
 			m_pRenderer->DisableClipPlane(0);
 		m_pRenderer->PopMatrix();
 	}
-
 	m_pRenderer->StopRenderingToFrameBuffer(m_waterReflectionFrameBuffer);
 }
 
@@ -562,16 +561,27 @@ void VoxGame::RenderWater()
 
 		glShader* pShader = pShader = m_pRenderer->GetShader(m_waterShader);
 		unsigned int reflectionTexture = glGetUniformLocationARB(pShader->GetProgramObject(), "reflectionTexture");
-		glActiveTextureARB(GL_TEXTURE1_ARB);
-		m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_waterReflectionFrameBuffer));
-		glUniform1iARB(reflectionTexture, 1);
-		
+		unsigned int cubemapTexture = glGetUniformLocationARB(pShader->GetProgramObject(), "cubemap");
 		if (m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()) == false)
 		{
-			unsigned int cubemapTexture = glGetUniformLocationARB(pShader->GetProgramObject(), "cubemap");
+			glActiveTextureARB(GL_TEXTURE1_ARB);
+			m_pRenderer->BindRawTextureId(m_pRenderer->GetDiffuseTextureFromFrameBuffer(m_waterReflectionFrameBuffer));
+			glUniform1iARB(reflectionTexture, 1);
+					
 			glActiveTextureARB(GL_TEXTURE0_ARB);
 			m_pRenderer->BindCubeTexture(m_pSkybox->GetCubeMapTexture1());
 			glUniform1iARB(cubemapTexture, 0);
+		}
+		else
+		{
+			glActiveTextureARB(GL_TEXTURE1_ARB);
+			glDisable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, 0);
+
+			glActiveTextureARB(GL_TEXTURE0_ARB);
+			m_pRenderer->DisableCubeTexture();
+
+			glActiveTextureARB(GL_TEXTURE1_ARB);
 		}
 
 		bool fogEnabled = true;
