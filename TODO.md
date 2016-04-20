@@ -155,6 +155,8 @@
 - [x] Add easier crafting functionality, just a single function call.
 - [x] Water, creating and manipulation, rendering, updating.
 - [x] Create random loot manager and random loot dropping.
+- [x] NPC loading falls through the world when we road trip to the front-end and start the game, Because physics happens during loading.
+- [x] Better front-end scenery and character screens.
 - [ ] Add VLD support to debug version, allow for memory leak detection.
 - [ ] Add audio and music playback.
 - [ ] Saving and loading chunks.
@@ -171,9 +173,7 @@
 - [ ] Companion pets.
 - [ ] Add debug render metrics for all counters (i.e num chunks, particles, items, triangles, verts, etc).
 - [ ] Particle effects proper position when in first person mode!
-- [ ] Better front-end scenery and character screens.
 - [ ] Add more presets for other body parts in character creator screen.
 - [ ] Side stepping animation when in target camera mode.
 - [ ] Bug with custom cursors when going outside of windows bounds.
 - [ ] Don't allow 'other' buttons in select character screen when we have delet popup - i.e select, create, etc.
-- [x] NPC loading falls through the world when we road trip to the front-end and start the game, Because physics happens during loading.
