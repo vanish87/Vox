@@ -77,7 +77,7 @@ CreateCharacter::CreateCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 	m_pCreateButton->SetCallBackData(this);
 
 	// Presets window
-	m_pPresetsWindow = new GUIWindow(m_pRenderer, m_pFrontendManager->GetFrontendFont_Medium(), "Presets");
+	m_pPresetsWindow = new GUIWindow(m_pRenderer, m_pFrontendManager->GetFrontendFont_Medium(), "Preset");
 	m_pPresetsWindow->AllowMoving(true);
 	m_pPresetsWindow->AllowClosing(false);
 	m_pPresetsWindow->AllowMinimizing(false);
@@ -192,6 +192,13 @@ CreateCharacter::CreateCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 	m_pEyesTexturesPulldown->SetMenuItemChangedCallBackFunction(_EyesTexturesPulldownChanged);
 	m_pEyesTexturesPulldown->SetMenuItemChangedCallBackData(this);
 
+	m_pPresetsPulldown = new PulldownMenu(m_pRenderer, m_pFrontendManager->GetFrontendFont_25(), m_pFrontendManager->GetFrontendFont_25_Outline(), "Presets", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	m_pPresetsPulldown->SetDepth(3.0f);
+	m_pPresetsPulldown->SetMaxNumItemsDisplayed(5);
+	m_pPresetsPulldown->SetRenderHeader(true);
+	m_pPresetsPulldown->SetMenuItemChangedCallBackFunction(_PresetsPulldownChanged);
+	m_pPresetsPulldown->SetMenuItemChangedCallBackData(this);
+
 	m_pCustomizeWindow->SetBackgroundIcon(m_pCustomizeWindowBackgroundIcon);
 	m_pCustomizeWindow->SetTitlebarBackgroundIcon(m_pCustomizeTitleBarBackgroundIcon);
 
@@ -199,6 +206,7 @@ CreateCharacter::CreateCharacter(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendM
 	m_pCustomizeWindow->AddComponent(m_pNameTextBox);
 	m_pCustomizeWindow->AddComponent(m_pCharacterSizeSlider);
 	m_pCustomizeWindow->AddComponent(m_pEyesTexturesPulldown);
+	m_pCustomizeWindow->AddComponent(m_pPresetsPulldown);
 
 	// Scale window
 	m_pScaleWindow = new GUIWindow(m_pRenderer, m_pFrontendManager->GetFrontendFont_Medium(), "Scale");
@@ -348,6 +356,7 @@ CreateCharacter::~CreateCharacter()
 	delete m_pNameTextBox;
 	delete m_pEyesTexturesPulldown;
 	delete m_pCharacterSizeSlider;
+	delete m_pPresetsPulldown;
 
 	delete m_pPresetsWindow;
 	delete m_pPresetTitleBarIcon;
@@ -415,7 +424,7 @@ void CreateCharacter::SetWindowDimensions(int windowWidth, int windowHeight)
 	m_presetsWindowWidth = 350;
 	m_presetsWindowHeight = 225;
 	m_customizeWindowWidth = 350;
-	m_customizeWindowHeight = 150;
+	m_customizeWindowHeight = 190;
 	m_scaleWindowWidth = 350;
 	m_scaleWindowHeight = 125;
 	m_defaultsWindowWidth = 350;
@@ -434,11 +443,12 @@ void CreateCharacter::SetWindowDimensions(int windowWidth, int windowHeight)
 
 	m_pCustomizeTitleBarIcon->SetDimensions(0, m_customizeWindowHeight, 44, 44);
 
-	m_pNameTextBox->SetDimensions(75, 100, 250, 30);
-	m_pCharacterSizeSlider->SetDimensions(75, 65, 200, 24);
-	m_pEyesTexturesPulldown->SetDimensions(70, 25, 130, 24);
+	m_pNameTextBox->SetDimensions(75, 140, 250, 30);
+	m_pCharacterSizeSlider->SetDimensions(75, 105, 200, 24);
+	m_pEyesTexturesPulldown->SetDimensions(70, 65, 130, 24);
+	m_pPresetsPulldown->SetDimensions(70, 25, 180, 24);
 
-	m_pPresetsWindow->SetDimensions((int)((m_windowWidth*0.825f) - (m_presetsWindowWidth*0.5f)), (int)((m_windowHeight*0.535f) - (m_presetsWindowHeight*0.5f)), m_presetsWindowWidth, m_presetsWindowHeight);
+	m_pPresetsWindow->SetDimensions((int)((m_windowWidth*0.825f) - (m_presetsWindowWidth*0.5f)), (int)((m_windowHeight*0.5f) - (m_presetsWindowHeight*0.5f)), m_presetsWindowWidth, m_presetsWindowHeight);
 	m_pPresetsWindow->SetTitleBarDimensions(0, 0, m_titlebarWidth, m_titlebarHeight);
 	m_pPresetsWindow->SetTitleOffset(50, 5);
 	m_pPresetsWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
@@ -448,7 +458,7 @@ void CreateCharacter::SetWindowDimensions(int windowWidth, int windowHeight)
 
 	m_pCreateCustomPresetButton->SetDimensions(0, 0, 64, 64);
 
-	m_pScaleWindow->SetDimensions((int)((m_windowWidth*0.825f) - (m_scaleWindowWidth*0.5f)), (int)((m_windowHeight*0.275f) - (m_scaleWindowHeight*0.5f)), m_scaleWindowWidth, m_scaleWindowHeight);
+	m_pScaleWindow->SetDimensions((int)((m_windowWidth*0.825f) - (m_scaleWindowWidth*0.5f)), (int)((m_windowHeight*0.25f) - (m_scaleWindowHeight*0.5f)), m_scaleWindowWidth, m_scaleWindowHeight);
 	m_pScaleWindow->SetTitleBarDimensions(0, 0, m_titlebarWidth, m_titlebarHeight);
 	m_pScaleWindow->SetTitleOffset(50, 5);
 	m_pScaleWindow->SetApplicationDimensions(m_windowWidth, m_windowHeight);
@@ -613,6 +623,7 @@ void CreateCharacter::SkinGUI()
 
 	m_pFrontendManager->SetScrollbarIcons(m_pPresetScrollbar);
 	m_pFrontendManager->SetPulldownMenuIcons(m_pEyesTexturesPulldown);
+	m_pFrontendManager->SetPulldownMenuIcons(m_pPresetsPulldown);
 
 	m_pFrontendManager->SetSliderIcons(m_pCharacterSizeSlider);
 	m_pFrontendManager->SetSliderIcons(m_pPresetScaleSlider);
@@ -1355,6 +1366,37 @@ void CreateCharacter::UpdateEyeTexturePulldown()
 	m_pEyesTexturesPulldown->AddEventListeners();
 }
 
+void CreateCharacter::UpdatePresetsPulldown()
+{
+	m_pPresetsPulldown->RemoveAllPullDownMenuItems();
+	m_pPresetsPulldown->ResetPullDownMenu();
+	m_pCustomizeWindow->RemoveComponent(m_pPresetsPulldown);
+
+	char importDirectory[128];
+	sprintf(importDirectory, "media/gamedata/models/createcharacter/presets/full_presets/*.*");
+
+	vector<string> listFiles;
+	listFiles = listFilesInDirectory(importDirectory);
+	for (unsigned int i = 0; i < listFiles.size(); i++)
+	{
+		if (strcmp(listFiles[i].c_str(), ".") == 0 || strcmp(listFiles[i].c_str(), "..") == 0)
+		{
+			continue;
+		}
+
+		if (listFiles[i].find(".qb") != string::npos)
+		{
+			int lastindex = (int)(listFiles[i].find_last_of("."));
+			string fileWithoutExtension = listFiles[i].substr(0, lastindex);
+
+			m_pPresetsPulldown->AddPulldownItem(fileWithoutExtension.c_str());
+		}
+	}
+
+	m_pCustomizeWindow->AddComponent(m_pPresetsPulldown);
+	m_pPresetsPulldown->AddEventListeners();
+}
+
 void CreateCharacter::Update(float dt)
 {
 	FrontendPage::Update(dt);
@@ -1693,6 +1735,7 @@ void CreateCharacter::SelectPressed()
 		SetTitleAndSubtitle("CREATE CHARACTER", "Customize your adventurer.");
 
 		UpdateEyeTexturePulldown();
+		UpdatePresetsPulldown();
 
 		m_pCustomizeWindow->Show();
 	}
@@ -1812,6 +1855,40 @@ void CreateCharacter::EyesTexturesPulldownChanged()
 			m_pCustomCreationNPC->GetVoxelCharacter()->ModifyEyesTextures("media/gamedata/models", "Human", pEyesTexture->GetLabel().GetText().c_str());
 		}
 	}
+}
+
+void CreateCharacter::_PresetsPulldownChanged(void *pData)
+{
+	CreateCharacter* lpCreateCharacter = (CreateCharacter*)pData;
+	lpCreateCharacter->PresetsPulldownChanged();
+}
+
+void CreateCharacter::PresetsPulldownChanged()
+{
+	if (m_pCustomCreationNPC != NULL)
+	{
+		MenuItem* pPreset = m_pPresetsPulldown->GetSelectedMenuItem();
+		if (pPreset != NULL)
+		{
+			char characterBaseFolder[128];
+			char presetModelFilename[256];
+			char ms3dFilename[128];
+			char animListFilename[128];
+			char facesFilename[128];
+			char characterFilename[128];
+
+			sprintf(characterBaseFolder, "media/gamedata/models");
+			sprintf(ms3dFilename, "media/gamedata/models/Human/Human.ms3d");
+			sprintf(animListFilename, "media/gamedata/models/Human/Human.animlist");
+			sprintf(facesFilename, "media/gamedata/models/Human/%s.faces", pPreset->GetLabel().GetText().c_str());
+			sprintf(characterFilename, "media/gamedata/models/createcharacter/presets/full_presets/%s.character", pPreset->GetLabel().GetText().c_str());
+			sprintf(presetModelFilename, "media/gamedata/models/createcharacter/presets/full_presets/%s.qb", pPreset->GetLabel().GetText().c_str());
+
+			m_pCustomCreationNPC->GetVoxelCharacter()->UnloadCharacter();
+			m_pCustomCreationNPC->GetVoxelCharacter()->Reset();
+			m_pCustomCreationNPC->GetVoxelCharacter()->LoadVoxelCharacter("Human", presetModelFilename, ms3dFilename, animListFilename, facesFilename, characterFilename, characterBaseFolder, false);
+		}
+	}	
 }
 
 void CreateCharacter::_ArrowLeftPressed(void *pData)
