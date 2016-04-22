@@ -4,8 +4,8 @@ level: 1
 experience: 50
 maxExperience: 100
 numStatsPoints: 2
-strength: 4
-dexterity: 2
+strength: 5
+dexterity: 3
 intelligence: 2
 vitality: 5
 armor: 2
