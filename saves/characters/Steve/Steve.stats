@@ -3,7 +3,7 @@ class: 6
 level: 1
 experience: 50
 maxExperience: 100
-numStatsPoints: 0
+numStatsPoints: 2
 strength: 4
 dexterity: 2
 intelligence: 2
