@@ -10,7 +10,7 @@ uniform bool enableFog;
 void main (void)
 {
 	vec3 reflectedDirection = normalize(reflect(eyeDir, normalize(normal)));
-    reflectedDirection.y = -reflectedDirection.y;
+	reflectedDirection.y = -reflectedDirection.y;
 
 	vec4 fragColor = textureCube(cubemap, reflectedDirection);
 
