@@ -122,6 +122,7 @@ void main (void)
 	finalColour = vec4(gl_Color.r * shadow, gl_Color.g * shadow, gl_Color.b * shadow, gl_Color.a) * light_color;
 	finalColour.a = gl_Color.a;
 
+	// Fog modifier
 	if(enableFog)
 	{
 		vec4 fog_color = gl_Fog.color;
