@@ -194,6 +194,9 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_pModsManager = new ModsManager();
 	m_pModsManager->LoadMods();
 
+	/* Create the audio manager */
+	AudioManager::GetInstance()->Setup();
+
 	/* Create the qubicle binary file manager */
 	m_pQubicleBinaryManager = new QubicleBinaryManager(m_pRenderer);
 
@@ -471,6 +474,8 @@ void VoxGame::Destroy()
 		DestroyGUI();  // Destroy the GUI components before we delete the GUI manager object.
 		delete m_pGUI;
 		delete m_pRenderer;
+
+		AudioManager::GetInstance()->Shutdown();
 
 		m_pVoxWindow->Destroy();
 

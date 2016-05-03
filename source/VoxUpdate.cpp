@@ -51,6 +51,9 @@ void VoxGame::Update()
 	// Update the time manager (countdowntimers);
 	TimeManager::GetInstance()->Update(m_deltaTime);
 
+	// Update the audio manager
+	AudioManager::GetInstance()->Update(m_deltaTime);
+
 	// Update the initial wait timer and variables, so we dont do gameplay updates straight away
 	if (m_initialStartWait == true)
 	{

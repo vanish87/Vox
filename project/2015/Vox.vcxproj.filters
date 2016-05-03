@@ -121,6 +121,9 @@
     <Filter Include="source\libnoise">
       <UniqueIdentifier>{69395420-00af-44da-bb81-fa2a7d8757c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\AudioManager">
+      <UniqueIdentifier>{f529fbda-4588-40d3-8dc1-bfda9a8762bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\glew\src\glew.c">
@@ -644,6 +647,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\libnoise\noiseutils.cpp">
       <Filter>source\libnoise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\AudioManager\AudioManager.cpp">
+      <Filter>source\AudioManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1642,6 +1648,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\libnoise\noiseutils.h">
       <Filter>source\libnoise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\AudioManager\AudioManager.h">
+      <Filter>source\AudioManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

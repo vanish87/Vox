@@ -83,6 +83,7 @@ source_group("source\\NPC" FILES ${NPC_SRCS})
 source_group("source\\Enemy" FILES ${ENEMY_SRCS})
 source_group("source\\Quests" FILES ${QUESTS_SRCS})
 source_group("source\\libnoise" FILES ${LIBNOISE_SRCS})
+source_group("source\\AudioManager" FILES ${AUDIOMANAGER_SRCS})
 
 add_executable(Vox
                ${SRCS}
@@ -122,7 +123,8 @@ add_executable(Vox
                ${NPC_SRCS}
                ${ENEMY_SRCS}
                ${QUESTS_SRCS}
-               ${LIBNOISE_SRCS})
+               ${LIBNOISE_SRCS}
+               ${AUDIOMANAGER_SRCS})
 
 include_directories(".")			   
 include_directories("glfw\\include")

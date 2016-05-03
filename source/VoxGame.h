@@ -40,6 +40,7 @@
 #include "Projectile/ProjectileManager.h"
 #include "TextEffects/TextEffectsManager.h"
 #include "Mods/ModsManager.h"
+#include "AudioManager/AudioManager.h"
 #include "VoxWindow.h"
 #include "VoxSettings.h"
 #include "GameGUI/ActionBar.h"
