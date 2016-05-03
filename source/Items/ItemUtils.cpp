@@ -198,11 +198,11 @@ string GetItemTextureForType(eItem type)
 		case eItem_Torch:			{ return "media/textures/items/torch.tga"; } break;
 		case eItem_Furnace:			{ return "media/textures/items/furnace.tga"; } break;
 		case eItem_Anvil:			{ return "media/textures/items/anvil.tga"; } break;
-		case eItem_QuestBoard:		{ return "media/textures/items/question_mark.tga"; } break;
-		case eItem_CampFire:		{ return "media/textures/items/question_mark.tga"; } break;
-		case eItem_Mannequin:		{ return "media/textures/items/question_mark.tga"; } break;
+		case eItem_QuestBoard:		{ return "media/textures/items/quest_board.tga"; } break;
+		case eItem_CampFire:		{ return "media/textures/items/camp_fire.tga"; } break;
+		case eItem_Mannequin:		{ return "media/textures/items/mannequin.tga"; } break;
 		// Ingredients
-		case eItem_SlimeJelly:		{ return "media/textures/items/question_mark.tga"; } break;
+		case eItem_SlimeJelly:		{ return "media/textures/items/slime_jelly.tga"; } break;
 		case eItem_BeeWing:			{ return "media/textures/items/question_mark.tga"; } break;
 		case eItem_Bone:			{ return "media/textures/items/question_mark.tga"; } break;
 		// Ore and mining
