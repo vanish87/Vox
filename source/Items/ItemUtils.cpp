@@ -203,8 +203,8 @@ string GetItemTextureForType(eItem type)
 		case eItem_Mannequin:		{ return "media/textures/items/mannequin.tga"; } break;
 		// Ingredients
 		case eItem_SlimeJelly:		{ return "media/textures/items/slime_jelly.tga"; } break;
-		case eItem_BeeWing:			{ return "media/textures/items/question_mark.tga"; } break;
-		case eItem_Bone:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eItem_BeeWing:			{ return "media/textures/items/bee_wing.tga"; } break;
+		case eItem_Bone:			{ return "media/textures/items/bone.tga"; } break;
 		// Ore and mining
 		case eItem_CopperVein:		{ return "media/textures/items/question_mark.tga"; } break;
 		case eItem_CopperOre:		{ return "media/textures/items/copper_ore.tga"; } break;
