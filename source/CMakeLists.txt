@@ -44,6 +44,7 @@ add_subdirectory(NPC)
 add_subdirectory(Enemy)
 add_subdirectory(Quests)
 add_subdirectory(libnoise)
+add_subdirectory(AudioManager)
 
 source_group("source" FILES ${SRCS})
 source_group("source\\utils" FILES ${UTIL_SRCS})
