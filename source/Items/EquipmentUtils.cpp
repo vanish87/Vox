@@ -303,7 +303,7 @@ string GetEquipmentTextureForType(eEquipment type)
 		case eEquipment_NormalPickaxe:		{ return "media/textures/items/pickaxe.tga"; } break;
 		case eEquipment_Torch:				{ return "media/textures/items/torch.tga"; } break;
 		case eEquipment_Hammer:				{ return "media/textures/items/hammer.tga"; } break;
-		case eEquipment_MageStaff:			{ return "media/textures/items/staff.tga"; } break;
+		case eEquipment_MageStaff:			{ return "media/textures/items/staff_mage.tga"; } break;
 		case eEquipment_NecroStaff:			{ return "media/textures/items/question_mark.tga"; } break;
 		case eEquipment_PriestStaff:		{ return "media/textures/items/question_mark.tga"; } break;
 		case eEquipment_DruidStaff:			{ return "media/textures/items/question_mark.tga"; } break;
