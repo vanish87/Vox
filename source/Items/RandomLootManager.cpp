@@ -34,11 +34,30 @@ RandomLootManager::RandomLootManager()
 	AddEnemyIngredientSpawnData(eEnemyType_MageSkeleton, eItem_Bone, 1, 2);
 
 	// Create the random loot
-	AddRandomLoot(eEquipment_MageStaff);
+	bool createRandomLootWeapons = true;
+	if (createRandomLootWeapons)
+	{
+		AddRandomLoot(eEquipment_MageStaff);
+		AddRandomLoot(eEquipment_NecroStaff);
+		AddRandomLoot(eEquipment_PriestStaff);
+		AddRandomLoot(eEquipment_DruidStaff);
+		AddRandomLoot(eEquipment_Boomerang);
+		AddRandomLoot(eEquipment_DragonBow);
+		AddRandomLoot(eEquipment_BoneSword);
+		AddRandomLoot(eEquipment_AshSword);
+		AddRandomLoot(eEquipment_FireballHandLeft);
+		AddRandomLoot(eEquipment_FireballHandRight);
+	}
 
 	bool createRandomLootArmor = true;
 	if (createRandomLootArmor)
 	{
+		AddRandomLoot(eEquipment_BlacksmithGloves);
+		AddRandomLoot(eEquipment_NormalBoots);
+		AddRandomLoot(eEquipment_NormalGloves);
+		AddRandomLoot(eEquipment_NormalShoulders);
+		AddRandomLoot(eEquipment_RocketBoots);
+		AddRandomLoot(eEquipment_RegrowthBoots);
 		AddRandomLoot(eEquipment_WoodenHelm);
 		AddRandomLoot(eEquipment_WoodenArmor);
 		AddRandomLoot(eEquipment_WoodenPants);
@@ -163,34 +182,36 @@ void RandomLootManager::AddRandomLoot(eEquipment equipment)
 
 InventoryItem* RandomLootManager::GetRandomLootItem(eEquipment *equipment)
 {
-	int numRetries = 0;
-	while (numRetries < 10)
+	if (m_vpRandomLootItemList.size() > 0)
 	{
-		int randomSelection = GetRandomNumber(0, (int)m_vpRandomLootItemList.size() - 1);
-		int repickValue = GetRandomNumber(0, 1000);
-
-		if (numRetries < 9)
+		int numRetries = 0;
+		while (numRetries < 10)
 		{
-			if (m_vpRandomLootItemList[randomSelection]->m_repickValue > repickValue)
-			{
-				m_vpRandomLootItemList[randomSelection]->m_repickValue = (int)(m_vpRandomLootItemList[randomSelection]->m_repickValue * 0.5f);
+			int randomSelection = GetRandomNumber(0, (int)m_vpRandomLootItemList.size() - 1);
+			int repickValue = GetRandomNumber(0, 1000);
 
-				*equipment = m_vpRandomLootItemList[randomSelection]->m_equipmentType;
-				return m_vpRandomLootItemList[randomSelection]->m_pLootItem;
+			if (numRetries < 9)
+			{
+				if (m_vpRandomLootItemList[randomSelection]->m_repickValue > repickValue)
+				{
+					m_vpRandomLootItemList[randomSelection]->m_repickValue = (int)(m_vpRandomLootItemList[randomSelection]->m_repickValue * 0.5f);
+
+					*equipment = m_vpRandomLootItemList[randomSelection]->m_equipmentType;
+					return m_vpRandomLootItemList[randomSelection]->m_pLootItem;
+				}
+				else
+				{
+					m_vpRandomLootItemList[randomSelection]->m_repickValue += (int)((1000 - m_vpRandomLootItemList[randomSelection]->m_repickValue)*0.5f);
+
+					numRetries++;
+				}
 			}
 			else
 			{
-				m_vpRandomLootItemList[randomSelection]->m_repickValue += (int)((1000 - m_vpRandomLootItemList[randomSelection]->m_repickValue)*0.5f);
-
-				numRetries++;
+				*equipment = m_vpRandomLootItemList[randomSelection]->m_equipmentType;
+				return m_vpRandomLootItemList[randomSelection]->m_pLootItem;
 			}
 		}
-		else
-		{
-			*equipment = m_vpRandomLootItemList[randomSelection]->m_equipmentType;
-			return m_vpRandomLootItemList[randomSelection]->m_pLootItem;
-		}
-
 	}
 
 	*equipment = eEquipment_None;
