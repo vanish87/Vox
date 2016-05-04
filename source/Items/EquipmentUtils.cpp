@@ -325,9 +325,9 @@ string GetEquipmentTextureForType(eEquipment type)
 		case eEquipment_RocketBoots:		{ return "media/textures/items/rocket_boots.tga"; } break;
 		case eEquipment_RegrowthBoots:		{ return "media/textures/items/regrowth_boots.tga"; } break;
 		// Wood
-		case eEquipment_WoodenSword:		{ return "media/textures/items/question_mark.tga"; } break;
-		case eEquipment_WoodenShield:		{ return "media/textures/items/question_mark.tga"; } break;
-		case eEquipment_WoodenBow:			{ return "media/textures/items/wooden_bow.tga"; } break;
+		case eEquipment_WoodenSword:		{ return "media/textures/items/wood_sword.tga"; } break;
+		case eEquipment_WoodenShield:		{ return "media/textures/items/wood_shield.tga"; } break;
+		case eEquipment_WoodenBow:			{ return "media/textures/items/wood_bow.tga"; } break;
 		case eEquipment_WoodenHelm:			{ return "media/textures/items/wood_helm.tga"; } break;
 		case eEquipment_WoodenArmor:		{ return "media/textures/items/wood_armor.tga"; } break;
 		case eEquipment_WoodenPants:		{ return "media/textures/items/wood_pants.tga"; } break;
