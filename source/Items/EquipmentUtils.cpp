@@ -367,12 +367,12 @@ string GetEquipmentTextureForType(eEquipment type)
 		case eEquipment_BoneBoots:			{ return "media/textures/items/bone_boots.tga"; } break;
 		case eEquipment_BoneShoulders:		{ return "media/textures/items/bone_shoulders.tga"; } break;
 		// Ice
-		case eEquipment_IceHelm:			{ return "media/textures/items/question_mark.tga"; } break;
-		case eEquipment_IceArmor:			{ return "media/textures/items/question_mark.tga"; } break;
-		case eEquipment_IcePants:			{ return "media/textures/items/question_mark.tga"; } break;
-		case eEquipment_IceGloves:			{ return "media/textures/items/question_mark.tga"; } break;
-		case eEquipment_IceBoots:			{ return "media/textures/items/question_mark.tga"; } break;
-		case eEquipment_IceShoulders:		{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_IceHelm:			{ return "media/textures/items/ice_helm.tga"; } break;
+		case eEquipment_IceArmor:			{ return "media/textures/items/ice_armor.tga"; } break;
+		case eEquipment_IcePants:			{ return "media/textures/items/ice_pants.tga"; } break;
+		case eEquipment_IceGloves:			{ return "media/textures/items/ice_gloves.tga"; } break;
+		case eEquipment_IceBoots:			{ return "media/textures/items/ice_boots.tga"; } break;
+		case eEquipment_IceShoulders:		{ return "media/textures/items/ice_shoulders.tga"; } break;
 		// Spike
 		case eEquipment_SpikeHelm:			{ return "media/textures/items/spike_helm.tga"; } break;
 		case eEquipment_SpikeArmor:			{ return "media/textures/items/spike_armor.tga"; } break;
