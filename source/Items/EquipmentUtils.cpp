@@ -304,9 +304,9 @@ string GetEquipmentTextureForType(eEquipment type)
 		case eEquipment_Torch:				{ return "media/textures/items/torch.tga"; } break;
 		case eEquipment_Hammer:				{ return "media/textures/items/hammer.tga"; } break;
 		case eEquipment_MageStaff:			{ return "media/textures/items/staff_mage.tga"; } break;
-		case eEquipment_NecroStaff:			{ return "media/textures/items/question_mark.tga"; } break;
-		case eEquipment_PriestStaff:		{ return "media/textures/items/question_mark.tga"; } break;
-		case eEquipment_DruidStaff:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_NecroStaff:			{ return "media/textures/items/staff_necro.tga"; } break;
+		case eEquipment_PriestStaff:		{ return "media/textures/items/staff_priest.tga"; } break;
+		case eEquipment_DruidStaff:			{ return "media/textures/items/staff_druid.tga"; } break;
 		case eEquipment_2HandedSword:		{ return "media/textures/items/2handed_sword.tga"; } break;
 		case eEquipment_Boomerang:			{ return "media/textures/items/boomerang.tga"; } break;
 		case eEquipment_Bomb:				{ return "media/textures/items/bomb.tga"; } break;
@@ -314,9 +314,9 @@ string GetEquipmentTextureForType(eEquipment type)
 		case eEquipment_KnifeRight:			{ return "media/textures/items/knife.tga"; } break;
 		case eEquipment_FireballHandLeft:	{ return "media/textures/items/fireball_hand.tga"; } break;
 		case eEquipment_FireballHandRight:	{ return "media/textures/items/fireball_hand.tga"; } break;
-		case eEquipment_Mace:				{ return "media/textures/items/question_mark.tga"; } break;
-		case eEquipment_Sickle:				{ return "media/textures/items/question_mark.tga"; } break;
-		case eEquipment_DragonBow:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_Mace:				{ return "media/textures/items/mace.tga"; } break;
+		case eEquipment_Sickle:				{ return "media/textures/items/sickle.tga"; } break;
+		case eEquipment_DragonBow:			{ return "media/textures/items/dragon_bow.tga"; } break;
 		// Equipment
 		case eEquipment_BlacksmithGloves:	{ return "media/textures/items/blacksmith_gloves.tga"; } break;
 		case eEquipment_NormalBoots:		{ return "media/textures/items/normal_boots.tga"; } break;
