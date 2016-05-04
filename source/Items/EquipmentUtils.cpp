@@ -374,12 +374,12 @@ string GetEquipmentTextureForType(eEquipment type)
 		case eEquipment_IceBoots:			{ return "media/textures/items/question_mark.tga"; } break;
 		case eEquipment_IceShoulders:		{ return "media/textures/items/question_mark.tga"; } break;
 		// Spike
-		case eEquipment_SpikeHelm:			{ return "media/textures/items/question_mark.tga"; } break;
-		case eEquipment_SpikeArmor:			{ return "media/textures/items/question_mark.tga"; } break;
-		case eEquipment_SpikePants:			{ return "media/textures/items/question_mark.tga"; } break;
-		case eEquipment_SpikeGloves:		{ return "media/textures/items/question_mark.tga"; } break;
-		case eEquipment_SpikeBoots:			{ return "media/textures/items/question_mark.tga"; } break;
-		case eEquipment_SpikeShoulders:		{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_SpikeHelm:			{ return "media/textures/items/spike_helm.tga"; } break;
+		case eEquipment_SpikeArmor:			{ return "media/textures/items/spike_armor.tga"; } break;
+		case eEquipment_SpikePants:			{ return "media/textures/items/spike_pants.tga"; } break;
+		case eEquipment_SpikeGloves:		{ return "media/textures/items/spike_gloves.tga"; } break;
+		case eEquipment_SpikeBoots:			{ return "media/textures/items/spike_boots.tga"; } break;
+		case eEquipment_SpikeShoulders:		{ return "media/textures/items/spike_shoulders.tga"; } break;
 	}
 
 	cout << "Warning: Reached end of GetEquipmentTextureForType() without finding type - " << type << ".\n";
