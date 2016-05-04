@@ -189,11 +189,11 @@ string GetItemTextureForType(eItem type)
 		case eItem_DroppedItem:		{ return ""; } break;
 		// Herts and coins dropped from killing enemies
 		case eItem_Coin:			{ return "media/textures/items/coin.tga"; } break;
-		case eItem_Heart:			{ return "media/textures/items/question_mark.tga"; } break;
+		case eItem_Heart:			{ return "media/textures/items/heart.tga"; } break;
 		// Zombie gib
 		case eItem_Gib:				{ return "media/textures/items/question_mark.tga"; } break;
 		// Interactable items
-		case eItem_Tombstone:		{ return "media/textures/items/question_mark.tga"; } break;
+		case eItem_Tombstone:		{ return "media/textures/items/tombstone.tga"; } break;
 		case eItem_Chest:			{ return "media/textures/items/chest.tga"; } break;
 		case eItem_Torch:			{ return "media/textures/items/torch.tga"; } break;
 		case eItem_Furnace:			{ return "media/textures/items/furnace.tga"; } break;
