@@ -337,12 +337,12 @@ string GetEquipmentTextureForType(eEquipment type)
 		// Iron
 		case eEquipment_IronSword:			{ return "media/textures/items/iron_sword.tga"; } break;
 		case eEquipment_IronShield:			{ return "media/textures/items/iron_shield.tga"; } break;
-		case eEquipment_IronHelm:			{ return "media/textures/items/question_mark.tga"; } break;
-		case eEquipment_IronArmor:			{ return "media/textures/items/question_mark.tga"; } break;
-		case eEquipment_IronPants:			{ return "media/textures/items/question_mark.tga"; } break;
-		case eEquipment_IronGloves:			{ return "media/textures/items/question_mark.tga"; } break;
-		case eEquipment_IronBoots:			{ return "media/textures/items/question_mark.tga"; } break;
-		case eEquipment_IronShoulders:		{ return "media/textures/items/question_mark.tga"; } break;
+		case eEquipment_IronHelm:			{ return "media/textures/items/iron_helm.tga"; } break;
+		case eEquipment_IronArmor:			{ return "media/textures/items/iron_armor.tga"; } break;
+		case eEquipment_IronPants:			{ return "media/textures/items/iron_pants.tga"; } break;
+		case eEquipment_IronGloves:			{ return "media/textures/items/iron_gloves.tga"; } break;
+		case eEquipment_IronBoots:			{ return "media/textures/items/iron_boots.tga"; } break;
+		case eEquipment_IronShoulders:		{ return "media/textures/items/iron_shoulders.tga"; } break;
 		// Steel
 		case eEquipment_SteelHelm:			{ return "media/textures/items/question_mark.tga"; } break;
 		case eEquipment_SteelArmor:			{ return "media/textures/items/question_mark.tga"; } break;
