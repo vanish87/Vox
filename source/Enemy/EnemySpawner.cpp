@@ -208,8 +208,9 @@ void EnemySpawner::Update(float dt)
 		{
 			vec3 spawnPos;
 			bool spawnGood = GetSpawnPosition(&spawnPos);
+			int numEnemies = m_pEnemyManager->GetNumEnemies();
 
-			if (spawnGood)
+			if (spawnGood && numEnemies < EnemyManager::MAX_NUM_ENEMIES)
 			{
 				vec3 toPlayer = spawnPos - m_pPlayer->GetCenter();
 				if (length(toPlayer) > m_minDistanceFromPlayer)
