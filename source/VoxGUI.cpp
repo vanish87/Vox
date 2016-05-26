@@ -475,6 +475,7 @@ void VoxGame::UpdateGUI(float dt)
 	m_pItemManager->SetWireFrameRender(m_modelWireframe);
 	m_pNPCManager->SetWireFrameRender(m_modelWireframe);
 	m_pEnemyManager->SetWireFrameRender(m_modelWireframe);
+	m_pInstanceManager->SetWireFrameRender(m_modelWireframe);
 
 	// Update console
 	UpdateConsoleLabels();
