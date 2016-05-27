@@ -759,13 +759,13 @@ void VoxGame::QuitToFrontEnd()
 void VoxGame::SetupDataForGame()
 {
 	// Items
-	Item* pFurnace = m_pItemManager->CreateItem(vec3(25.0f, 10.0f, -5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Furnace/Furnace.item", eItem_Furnace, "Furnace", true, false, 0.16f);
+	Item* pFurnace = m_pItemManager->CreateItem(vec3(25.0f, 10.0f, 29.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Furnace/Furnace.item", eItem_Furnace, "Furnace", true, false, 0.16f);
 	pFurnace->SetInteractionPositionOffset(vec3(0.0f, 0.0f, -2.0f));
-	Item* pAnvil = m_pItemManager->CreateItem(vec3(32.0f, 9.0f, -1.5f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Anvil/Anvil.item", eItem_Anvil, "Anvil", true, false, 0.14f);
+	Item* pAnvil = m_pItemManager->CreateItem(vec3(32.0f, 9.0f, 26.5f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Anvil/Anvil.item", eItem_Anvil, "Anvil", true, false, 0.14f);
 	pAnvil->SetInteractionPositionOffset(vec3(0.0f, 0.0f, -1.5f));
 	
 	// Chest with random loot item
-	Item* pChest = m_pItemManager->CreateItem(vec3(24.0f, 12.0f, 13.5f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 180.0f, 0.0f), "media/gamedata/items/Chest/Chest.item", eItem_Chest, "Chest", true, false, 0.08f);
+	Item* pChest = m_pItemManager->CreateItem(vec3(17.0f, 12.0f, 28.5f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Chest/Chest.item", eItem_Chest, "Chest", true, false, 0.08f);
 	eEquipment equipment = eEquipment_None;
 	InventoryItem* pRandomLoot = VoxGame::GetInstance()->GetRandomLootManager()->GetRandomLootItem(&equipment);
 	if (pRandomLoot != NULL && equipment != eEquipment_None)
@@ -795,7 +795,7 @@ void VoxGame::SetupDataForGame()
 	pItemSpawner3->AddItemTypeToSpawn(eItem_Chest);
 
 	// Npcs
-	NPC* pCharacter1 = m_pNPCManager->CreateNPC("Mage", "Human", "Mage", vec3(21.0f, 8.5f, 20.0f), 0.08f, false, true);
+	NPC* pCharacter1 = m_pNPCManager->CreateNPC("Mage", "Human", "Mage", vec3(21.0f, 8.5f, 25.0f), 0.08f, false, true);
 	pCharacter1->SetForwards(vec3(0.0f, 0.0f, -1.0f));
 	pCharacter1->SetTargetForwards(vec3(0.0f, 0.0f, -1.0f));
 	pCharacter1->SetNPCCombatType(eNPCCombatType_Staff, true);
@@ -957,7 +957,7 @@ void VoxGame::SetGameMode(GameMode mode)
 			m_pPlayer->ResetPlayer();
 
 			// Set the water level
-			m_pChunkManager->SetWaterHeight(5.3f);
+			m_pChunkManager->SetWaterHeight(1.3f);
 
 			// Unload actionbar
 			if (m_pActionBar->IsLoaded())
@@ -1019,7 +1019,7 @@ void VoxGame::SetGameMode(GameMode mode)
 			m_pPlayer->ResetPlayer();
 
 			// Set the water level
-			m_pChunkManager->SetWaterHeight(5.3f);
+			m_pChunkManager->SetWaterHeight(1.3f);
 
 			// Load action bar
 			if (m_pActionBar->IsLoaded() == false)
