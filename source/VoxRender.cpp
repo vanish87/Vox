@@ -331,6 +331,9 @@ void VoxGame::Render()
 		// Render 2d
 		// ---------------------------------------
 		m_pRenderer->PushMatrix();
+			// Disable multisampling for 2d gui and text
+			m_pRenderer->DisableMultiSampling();
+
 			// Crosshair
 			if (m_cameraMode == CameraMode_FirstPerson && m_bPaused == false)
 			{
@@ -352,9 +355,6 @@ void VoxGame::Render()
 				RenderHUD();
 			}
 		m_pRenderer->PopMatrix();
-
-		// Disable multisampling for 2d gui and text
-		m_pRenderer->DisableMultiSampling();
 
 		// Render other deferred rendering pipelines
 		// Paperdoll SSAO for CharacterGUI
