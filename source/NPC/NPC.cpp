@@ -2929,7 +2929,7 @@ void NPC::UpdateNPCState(float dt)
 void NPC::UpdatePhysics(float dt)
 {
 	vec3 acceleration;
-	if (IsFrontEndNPC() == false) // Don't do gravity in front-end
+	if (IsFrontEndNPC() == false && IsCreditsNPC() == false) // Don't do gravity in front-end or credits
 	{
 		acceleration = (m_gravityDirection * 9.81f) * 5.0f;
 	}
