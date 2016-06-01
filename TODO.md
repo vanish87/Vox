@@ -157,8 +157,8 @@
 - [x] Create random loot manager and random loot dropping.
 - [x] NPC loading falls through the world when we road trip to the front-end and start the game, Because physics happens during loading.
 - [x] Better front-end scenery and character screens.
+- [x] Add audio and music playback.
 - [ ] Add VLD support to debug version, allow for memory leak detection.
-- [ ] Add audio and music playback.
 - [ ] Saving and loading chunks.
   - [ ] Group together chunks for saving, loading. Not individual
 - [ ] Add voxel editor.
