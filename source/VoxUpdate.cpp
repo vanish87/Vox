@@ -52,7 +52,7 @@ void VoxGame::Update()
 	TimeManager::GetInstance()->Update(m_deltaTime);
 
 	// Update the audio manager
-	AudioManager::GetInstance()->Update(m_deltaTime);
+	AudioManager::GetInstance()->Update(m_pGameCamera->GetPosition(), m_pGameCamera->GetFacing(), m_pGameCamera->GetUp());
 
 	// Update the initial wait timer and variables, so we dont do gameplay updates straight away
 	if (m_initialStartWait == true)

@@ -884,6 +884,12 @@ void VoxGame::SetupDataForGame()
 	m_pQuestJournal->AddQuestJournalEntry(pSlimeQuest);
 	m_pQuestJournal->AddQuestJournalEntry(pCollectQuest);
 	m_pQuestJournal->AddQuestJournalEntry(pFindQuest);
+
+	FMOD::Channel* m_pChannel;
+	FMOD::Sound* m_pMusic;
+	string musicModName = VoxGame::GetInstance()->GetModsManager()->GetSoundPack();
+	string musicFileName = "media/audio/" + musicModName + "/music/vox_intro.ogg";
+	m_pMusic = AudioManager::GetInstance()->PlaySound2D(&m_pChannel, musicFileName.c_str(), true, true);
 }
 
 void VoxGame::SetupDataForFrontEnd()
