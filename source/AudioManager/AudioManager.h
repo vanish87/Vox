@@ -43,6 +43,8 @@ public:
 	FMOD::Sound* PlaySound2D(FMOD::Channel** pChannel, const char* filename, bool looping, bool stream = false);
 	FMOD::Sound* PlaySound3D(FMOD::Channel** pChannel, const char* filename, vec3 position, bool looping, bool stream = false);
 
+	void StopSound(FMOD::Channel* pChannel);
+
 protected:
 	/* Protected methods */
 	AudioManager();

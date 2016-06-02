@@ -178,3 +178,11 @@ FMOD::Sound* AudioManager::PlaySound3D(FMOD::Channel** pChannel, const char* fil
 
 	return NULL;
 }
+
+void AudioManager::StopSound(FMOD::Channel* pChannel)
+{
+	if (m_audioEnabled)
+	{
+		pChannel->stop();
+	}
+}
