@@ -111,6 +111,11 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	/* Biome */
 	m_currentBiome = Biome_None;
 
+	/* Music and Audio */
+	m_pMusicChannel = NULL;
+	m_pMusicSound = NULL;
+	m_currentBiomeMusic = Biome_None;
+
 	/* Create the GUI */
 	m_pGUI = new OpenGLGUI(m_pRenderer);
 
@@ -743,8 +748,24 @@ void VoxGame::StartFrontEndMusic()
 
 void VoxGame::StartGameMusic()
 {
+	Biome currentBiome = m_pBiomeManager->GetBiome(m_pPlayer->GetCenter());
+	m_currentBiomeMusic = currentBiome;
+
+	string biomeFileName = "";
+	switch (m_currentBiomeMusic)
+	{
+		case Biome_None:		{ break; }
+		case Biome_GrassLand:	{ biomeFileName = "biome_plains.ogg"; break; }
+		case Biome_Desert:		{ biomeFileName = "biome_desert.ogg"; break; }
+		//case Biome_Jungle:	{ biomeFileName = "biome_jungle.ogg";break; }
+		case Biome_Tundra:		{ biomeFileName = "biome_snow.ogg"; break; }
+		//case Biome_Swamp:		{ biomeFileName = "";break; }
+		case Biome_AshLand:		{ biomeFileName = "biome_nightmare.ogg"; break; }
+		//case Biome_Nightmare:	{ biomeFileName = "";break; }
+	}
+
 	string musicModName = VoxGame::GetInstance()->GetModsManager()->GetSoundPack();
-	string musicFileName = "media/audio/" + musicModName + "/music/biome_plains.ogg";
+	string musicFileName = "media/audio/" + musicModName + "/music/" + biomeFileName;
 	m_pMusicSound = AudioManager::GetInstance()->PlaySound2D(&m_pMusicChannel, musicFileName.c_str(), true, true);
 }
 
@@ -752,6 +773,20 @@ void VoxGame::StopMusic()
 {
 	// Stop the music
 	AudioManager::GetInstance()->StopSound(m_pMusicChannel);
+
+	m_pMusicChannel = NULL;
+	m_pMusicSound = NULL;
+}
+
+void VoxGame::UpdateGameMusic(float dt)
+{
+	Biome currentBiome = m_pBiomeManager->GetBiome(m_pPlayer->GetCenter());
+
+	if (currentBiome != m_currentBiomeMusic)
+	{
+		StopMusic();
+		StartGameMusic();
+	}
 }
 
 // Game functions

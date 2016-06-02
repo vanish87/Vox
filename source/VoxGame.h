@@ -137,6 +137,7 @@ public:
 	void StartFrontEndMusic();
 	void StartGameMusic();
 	void StopMusic();
+	void UpdateGameMusic(float dt);
 
 	// Controls
 	void UpdateControls(float dt);
@@ -594,6 +595,7 @@ private:
 	// Music and audio
 	FMOD::Channel* m_pMusicChannel;
 	FMOD::Sound* m_pMusicSound;
+	Biome m_currentBiomeMusic;
 
 	// GUI Components
 	bool m_GUICreated;

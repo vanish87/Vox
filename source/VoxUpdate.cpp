@@ -76,6 +76,12 @@ void VoxGame::Update()
 		m_currentBiome = currentBiome;
 	}
 	
+	// Update game music
+	if (m_gameMode == GameMode_Game)
+	{
+		UpdateGameMusic(m_deltaTime);
+	}
+
 	// Main components update
 	if (m_bPaused == false && m_initialStartWait == false)
 	{
