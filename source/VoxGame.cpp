@@ -733,6 +733,27 @@ void VoxGame::UpdateJoySticks()
 	m_pVoxWindow->UpdateJoySticks();
 }
 
+// Music
+void VoxGame::StartFrontEndMusic()
+{
+	string musicModName = VoxGame::GetInstance()->GetModsManager()->GetSoundPack();
+	string musicFileName = "media/audio/" + musicModName + "/music/vox_intro.ogg";
+	m_pMusicSound = AudioManager::GetInstance()->PlaySound2D(&m_pMusicChannel, musicFileName.c_str(), true, true);
+}
+
+void VoxGame::StartGameMusic()
+{
+	string musicModName = VoxGame::GetInstance()->GetModsManager()->GetSoundPack();
+	string musicFileName = "media/audio/" + musicModName + "/music/biome_plains.ogg";
+	m_pMusicSound = AudioManager::GetInstance()->PlaySound2D(&m_pMusicChannel, musicFileName.c_str(), true, true);
+}
+
+void VoxGame::StopMusic()
+{
+	// Stop the music
+	AudioManager::GetInstance()->StopSound(m_pMusicChannel);
+}
+
 // Game functions
 void VoxGame::QuitToFrontEnd()
 {
@@ -884,12 +905,6 @@ void VoxGame::SetupDataForGame()
 	m_pQuestJournal->AddQuestJournalEntry(pSlimeQuest);
 	m_pQuestJournal->AddQuestJournalEntry(pCollectQuest);
 	m_pQuestJournal->AddQuestJournalEntry(pFindQuest);
-
-	FMOD::Channel* m_pChannel;
-	FMOD::Sound* m_pMusic;
-	string musicModName = VoxGame::GetInstance()->GetModsManager()->GetSoundPack();
-	string musicFileName = "media/audio/" + musicModName + "/music/vox_intro.ogg";
-	m_pMusic = AudioManager::GetInstance()->PlaySound2D(&m_pChannel, musicFileName.c_str(), true, true);
 }
 
 void VoxGame::SetupDataForFrontEnd()
@@ -986,6 +1001,10 @@ void VoxGame::SetGameMode(GameMode mode)
 			// Setup the gamedata since we have just loaded fresh into the frontend.
 			SetupDataForFrontEnd();
 
+			// Music
+			StopMusic();
+			StartFrontEndMusic();
+
 			// Initial chunk creation
 			m_pChunkManager->InitializeChunkCreation();
 		}
@@ -1047,6 +1066,10 @@ void VoxGame::SetGameMode(GameMode mode)
 
 			// Setup the gamedata since we have just loaded fresh into a game.
 			SetupDataForGame();
+
+			// Music
+			StopMusic();
+			StartGameMusic();
 
 			// Initial chunk creation
 			m_pChunkManager->InitializeChunkCreation();

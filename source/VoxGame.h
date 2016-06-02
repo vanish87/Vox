@@ -133,6 +133,11 @@ public:
 	void CloseWindow();
 	void UpdateJoySticks();
 
+	// Music
+	void StartFrontEndMusic();
+	void StartGameMusic();
+	void StopMusic();
+
 	// Controls
 	void UpdateControls(float dt);
 	void UpdateKeyboardControls(float dt);
@@ -585,6 +590,10 @@ private:
 	QuestGUI* m_pQuestGUI;
 	ActionBar* m_pActionBar;
 	HUD* m_pHUD;
+
+	// Music and audio
+	FMOD::Channel* m_pMusicChannel;
+	FMOD::Sound* m_pMusicSound;
 
 	// GUI Components
 	bool m_GUICreated;
