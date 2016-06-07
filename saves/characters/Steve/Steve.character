@@ -3,7 +3,7 @@ boneScale: 1 1 1
 NumModifiers: 9
 
 boneName: Head
-Scale: 1
+Scale: 1.1
 Offset: 0 0 0
 
 boneName: Body
