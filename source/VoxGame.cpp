@@ -744,6 +744,8 @@ void VoxGame::StartFrontEndMusic()
 	string musicModName = VoxGame::GetInstance()->GetModsManager()->GetSoundPack();
 	string musicFileName = "media/audio/" + musicModName + "/music/vox_intro.ogg";
 	m_pMusicSound = AudioManager::GetInstance()->PlaySound2D(&m_pMusicChannel, musicFileName.c_str(), true, true);
+
+	UpdateMusicVolume(0.0f);
 }
 
 void VoxGame::StartGameMusic()
@@ -767,6 +769,8 @@ void VoxGame::StartGameMusic()
 	string musicModName = VoxGame::GetInstance()->GetModsManager()->GetSoundPack();
 	string musicFileName = "media/audio/" + musicModName + "/music/" + biomeFileName;
 	m_pMusicSound = AudioManager::GetInstance()->PlaySound2D(&m_pMusicChannel, musicFileName.c_str(), true, true);
+
+	UpdateMusicVolume(0.0f);
 }
 
 void VoxGame::StopMusic()
@@ -786,6 +790,24 @@ void VoxGame::UpdateGameMusic(float dt)
 	{
 		StopMusic();
 		StartGameMusic();
+	}
+}
+
+void VoxGame::UpdateMusicVolume(float dt)
+{
+	if (m_pVoxSettings->m_music)
+	{
+		if (m_pMusicChannel != NULL)
+		{
+			m_pMusicChannel->setVolume(0.5f * m_pVoxSettings->m_musicVolume);
+		}
+	}
+	else
+	{
+		if (m_pMusicChannel != NULL)
+		{
+			m_pMusicChannel->setVolume(0.0f);
+		}
 	}
 }
 

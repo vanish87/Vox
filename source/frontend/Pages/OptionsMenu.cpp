@@ -777,6 +777,12 @@ void OptionsMenu::Update(float dt)
 	}
 
 	VoxGame::GetInstance()->SetGlobalBlurAmount(0.00125f);
+
+	// Always update the music and sound settings so that we can dynamically change audio settings in the options menu
+	VoxGame::GetInstance()->GetVoxSettings()->m_music = m_pMusic->GetToggled();
+	VoxGame::GetInstance()->GetVoxSettings()->m_musicVolume = m_pMusicVolume->GetCurrentValue();
+	VoxGame::GetInstance()->GetVoxSettings()->m_audio = m_pSoundEffects->GetToggled();
+	VoxGame::GetInstance()->GetVoxSettings()->m_audioVolume = m_pSoundEffectsVolume->GetCurrentValue();
 }
 
 // Render

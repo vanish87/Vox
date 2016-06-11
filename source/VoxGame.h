@@ -138,6 +138,7 @@ public:
 	void StartGameMusic();
 	void StopMusic();
 	void UpdateGameMusic(float dt);
+	void UpdateMusicVolume(float dt);
 
 	// Controls
 	void UpdateControls(float dt);

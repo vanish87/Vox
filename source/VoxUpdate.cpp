@@ -81,6 +81,7 @@ void VoxGame::Update()
 	{
 		UpdateGameMusic(m_deltaTime);
 	}
+	UpdateMusicVolume(0.0f);
 
 	// Main components update
 	if (m_bPaused == false && m_initialStartWait == false)
