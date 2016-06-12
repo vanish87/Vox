@@ -140,6 +140,9 @@ public:
 	void UpdateGameMusic(float dt);
 	void UpdateMusicVolume(float dt);
 
+	// Sounds
+	void PlaySound(vec3 soundPosition);
+
 	// Controls
 	void UpdateControls(float dt);
 	void UpdateKeyboardControls(float dt);

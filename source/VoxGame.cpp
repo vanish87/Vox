@@ -811,6 +811,12 @@ void VoxGame::UpdateMusicVolume(float dt)
 	}
 }
 
+// Sounds
+void VoxGame::PlaySound(vec3 soundPosition)
+{
+
+}
+
 // Game functions
 void VoxGame::QuitToFrontEnd()
 {
