@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\AudioManager\AudioManager.cpp" />
+    <ClCompile Include="..\..\source\AudioManager\SoundEffects.cpp" />
     <ClCompile Include="..\..\source\blocks\BiomeManager.cpp" />
     <ClCompile Include="..\..\source\blocks\Chunk.cpp" />
     <ClCompile Include="..\..\source\blocks\ChunkManager.cpp" />
@@ -197,6 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\AudioManager\AudioManager.h" />
+    <ClInclude Include="..\..\source\AudioManager\SoundEffectsEnum.h" />
     <ClInclude Include="..\..\source\blocks\BiomeManager.h" />
     <ClInclude Include="..\..\source\blocks\BlocksEnum.h" />
     <ClInclude Include="..\..\source\blocks\Chunk.h" />

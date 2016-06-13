@@ -243,6 +243,11 @@ void Player::ResetPlayer()
 	m_equippedProperties = 0;
 	SetNormal();
 
+	// Footstep sounds
+	m_footstepSoundTimer = 0.0f;
+	m_footstepSoundDistance = 0.5f;
+	m_footstepSoundIndex = 0;
+
 	// Animation params
 	for (int i = 0; i < AnimationSections_NUMSECTIONS; i++)
 	{
@@ -1558,6 +1563,18 @@ vec3 Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeFo
 	// Create some floor 'dust' particles as we move
 	CreateFloorParticles();
 
+	// Footstep sounds
+	m_footstepSoundDistance -= fabs(speed);
+	if (m_footstepSoundTimer <= 0.0f && m_footstepSoundDistance <= 0.0f && m_bCanJump)
+	{
+		int footStepSound = (int)eSoundEffect_FootStep01 + m_footstepSoundIndex;
+		VoxGame::GetInstance()->PlaySoundEffect((eSoundEffect)footStepSound, m_position, 1.5f);
+		m_footstepSoundIndex = GetRandomNumber(0, 3);
+
+		m_footstepSoundTimer = 0.3f + GetRandomNumber(-10, 10, 1)*0.002f;
+		m_footstepSoundDistance = 1.75f;
+	}
+
 	m_bIsIdle = false;
 
 	return totalAmountMoved;
@@ -2645,6 +2662,8 @@ void Player::UpdatePhysics(float dt)
 					if (m_bCanJump == false)
 					{
 						m_bCanJump = true;
+
+						VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_JumpLand, m_position);
 					}
 				}
 			}
@@ -2878,6 +2897,12 @@ void Player::UpdateTimers(float dt)
 	if (m_floorParticleTimer >= 0.0f)
 	{
 		m_floorParticleTimer -= dt;
+	}
+
+	// Footstep sounds
+	if (m_footstepSoundTimer > 0.0f)
+	{
+		m_footstepSoundTimer -= dt;
 	}
 
 	// Bow attack delay

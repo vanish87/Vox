@@ -41,6 +41,7 @@
 #include "TextEffects/TextEffectsManager.h"
 #include "Mods/ModsManager.h"
 #include "AudioManager/AudioManager.h"
+#include "AudioManager/SoundEffectsEnum.h"
 #include "VoxWindow.h"
 #include "VoxSettings.h"
 #include "GameGUI/ActionBar.h"
@@ -141,7 +142,7 @@ public:
 	void UpdateMusicVolume(float dt);
 
 	// Sounds
-	void PlaySound(vec3 soundPosition);
+	void PlaySoundEffect(eSoundEffect soundEffect, vec3 soundPosition, float soundEnhanceMultiplier = 1.0f);
 
 	// Controls
 	void UpdateControls(float dt);

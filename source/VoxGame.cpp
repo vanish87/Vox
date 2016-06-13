@@ -20,6 +20,8 @@
 #endif //__linux__
 
 
+extern string g_soundEffectFilenames[eSoundEffect_NUM];
+
 // Initialize the singleton instance
 VoxGame *VoxGame::c_instance = 0;
 
@@ -799,7 +801,7 @@ void VoxGame::UpdateMusicVolume(float dt)
 	{
 		if (m_pMusicChannel != NULL)
 		{
-			m_pMusicChannel->setVolume(0.5f * m_pVoxSettings->m_musicVolume);
+			m_pMusicChannel->setVolume(0.125f * m_pVoxSettings->m_musicVolume);
 		}
 	}
 	else
@@ -812,9 +814,19 @@ void VoxGame::UpdateMusicVolume(float dt)
 }
 
 // Sounds
-void VoxGame::PlaySound(vec3 soundPosition)
+void VoxGame::PlaySoundEffect(eSoundEffect soundEffect, vec3 soundPosition, float soundEnhanceMultiplier)
 {
+	if (m_pVoxSettings->m_audio)
+	{
+		string soundModName = VoxGame::GetInstance()->GetModsManager()->GetSoundPack();
+		string soundeffectFilename = g_soundEffectFilenames[soundEffect];
+		string soundFileName = "media/audio/" + soundModName + "/soundeffects/" + soundeffectFilename;
 
+		FMOD::Channel* pSoundChannel;
+		FMOD::Sound* pSound;
+		pSound = AudioManager::GetInstance()->PlaySound3D(&pSoundChannel, soundFileName.c_str(), soundPosition, false);
+		pSoundChannel->setVolume(2.0f * soundEnhanceMultiplier * m_pVoxSettings->m_audioVolume);
+	}
 }
 
 // Game functions
@@ -1267,6 +1279,8 @@ bool VoxGame::CheckInteractions()
 				{
 					m_pPlayer->StopMoving();
 					shouldStopMovement = true;
+
+					PlaySoundEffect(eSoundEffect_ChestOpen, m_pInteractItem->GetCenter());
 
 					if (m_pLootGUI->IsLoaded())
 					{

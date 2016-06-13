@@ -520,6 +520,11 @@ private:
 	// Player radius
 	float m_radius;
 
+	// Footstep sounds
+	int m_footstepSoundIndex;
+	float m_footstepSoundTimer;
+	float m_footstepSoundDistance;
+
 	// Animation params
 	bool m_animationFinished[AnimationSections_NUMSECTIONS];
 	float m_animationTimer;
