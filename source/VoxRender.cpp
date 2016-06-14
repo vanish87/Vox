@@ -39,24 +39,26 @@ void VoxGame::BeginShaderRender()
 		m_pRenderer->BindRawTextureId(m_pRenderer->GetDepthTextureFromFrameBuffer(m_shadowFrameBuffer));
 		glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "renderShadow"), m_shadows);
 		glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "alwaysShadow"), false);
-
-		bool fogEnabled = true;
-		glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "enableFog"), m_fogRender);
-		float lfogEnd = m_pChunkManager->GetLoaderRadius() - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE;
-		float lfogStart = lfogEnd - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*2.0f;
-		GLfloat fogColor[4] = { 1.0f, 1.0f, 1.0f, 0.0f };
-		glFogi(GL_FOG_MODE, GL_LINEAR);
-		glFogfv(GL_FOG_COLOR, fogColor);
-		glFogf(GL_FOG_DENSITY, 1.0f);
-		glHint(GL_FOG_HINT, GL_DONT_CARE);
-		glFogf(GL_FOG_START, lfogStart);
-		glFogf(GL_FOG_END, lfogEnd);
-		glEnable(GL_FOG);
 	}
 	else
 	{
 		m_pRenderer->BeginGLSLShader(m_defaultShader);
+
+		pShader = m_pRenderer->GetShader(m_defaultShader);
 	}
+
+	bool fogEnabled = true;
+	glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "enableFog"), m_fogRender);
+	float lfogEnd = m_pChunkManager->GetLoaderRadius() - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE;
+	float lfogStart = lfogEnd - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*2.0f;
+	GLfloat fogColor[4] = { 1.0f, 1.0f, 1.0f, 0.0f };
+	glFogi(GL_FOG_MODE, GL_LINEAR);
+	glFogfv(GL_FOG_COLOR, fogColor);
+	glFogf(GL_FOG_DENSITY, 1.0f);
+	glHint(GL_FOG_HINT, GL_DONT_CARE);
+	glFogf(GL_FOG_START, lfogStart);
+	glFogf(GL_FOG_END, lfogEnd);
+	glEnable(GL_FOG);
 }
 
 void VoxGame::EndShaderRender()
