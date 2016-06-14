@@ -131,6 +131,7 @@ private:
 	Icon* m_pSliderBackgroundIcon_GamepadSensativity;
 
 	// Graphics
+	CheckBox* m_pShadowsCheckBox;
 	Button* m_pFullscreenButton;
 
 	// Sound

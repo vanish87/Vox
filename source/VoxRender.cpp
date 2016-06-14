@@ -29,7 +29,7 @@ void VoxGame::BeginShaderRender()
 {
 	glShader* pShader = NULL;
 
-	if (m_shadows)
+	if (m_pVoxSettings->m_shadows)
 	{
 		m_pRenderer->BeginGLSLShader(m_shadowShader);
 
@@ -37,7 +37,7 @@ void VoxGame::BeginShaderRender()
 		GLuint shadowMapUniform = glGetUniformLocationARB(pShader->GetProgramObject(), "ShadowMap");
 		m_pRenderer->PrepareShaderTexture(7, shadowMapUniform);
 		m_pRenderer->BindRawTextureId(m_pRenderer->GetDepthTextureFromFrameBuffer(m_shadowFrameBuffer));
-		glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "renderShadow"), m_shadows);
+		glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "renderShadow"), m_pVoxSettings->m_shadows);
 		glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "alwaysShadow"), false);
 	}
 	else
@@ -65,7 +65,7 @@ void VoxGame::EndShaderRender()
 {
 	glDisable(GL_FOG);
 
-	if (m_shadows)
+	if (m_pVoxSettings->m_shadows)
 	{
 		m_pRenderer->EndGLSLShader(m_shadowShader);
 	}
@@ -87,7 +87,7 @@ void VoxGame::Render()
 	m_pRenderer->BeginScene(true, true, true);
 
 		// Shadow rendering to the shadow frame buffer
-		if (m_shadows)
+		if (m_pVoxSettings->m_shadows)
 		{
 			RenderShadows();
 		}

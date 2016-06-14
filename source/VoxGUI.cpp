@@ -27,8 +27,6 @@ void VoxGame::CreateGUI()
 
 	m_pWireframeCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Wireframe");
 	m_pWireframeCheckBox->SetDimensions(10, 10, 14, 14);
-	m_pShadowsCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Shadows");
-	m_pShadowsCheckBox->SetDimensions(10, 28, 14, 14);
 	m_pMSAACheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Anti-Aliasing");
 	m_pMSAACheckBox->SetDimensions(10, 46, 14, 14);
 	m_pDynamicLightingCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Lighting");
@@ -72,7 +70,6 @@ void VoxGame::CreateGUI()
 	m_pCharacterPulldown->SetMenuItemChangedCallBackFunction(_CharacterPullDownChanged);
 	m_pCharacterPulldown->SetMenuItemChangedCallBackData(this);
 
-	m_pMainWindow->AddComponent(m_pShadowsCheckBox);
 	m_pMainWindow->AddComponent(m_pSSAOCheckBox);
 	m_pMainWindow->AddComponent(m_pBlurCheckBox);
 	m_pMainWindow->AddComponent(m_pDynamicLightingCheckBox);
@@ -218,7 +215,6 @@ void VoxGame::CreateGUI()
 void VoxGame::SetupGUI()
 {
 	m_pDeferredCheckBox->SetToggled(m_pVoxSettings->m_deferredRendering);
-	m_pShadowsCheckBox->SetToggled(m_pVoxSettings->m_shadows);
 	m_pSSAOCheckBox->SetToggled(m_pVoxSettings->m_ssao);
 	m_pBlurCheckBox->SetToggled(m_pVoxSettings->m_blur);
 	m_pDynamicLightingCheckBox->SetToggled(m_pVoxSettings->m_dynamicLighting);
@@ -271,7 +267,6 @@ void VoxGame::SetupGUI()
 
 void VoxGame::SkinGUI()
 {
-	m_pFrontendManager->SetCheckboxIcons(m_pShadowsCheckBox);
 	m_pFrontendManager->SetCheckboxIcons(m_pMSAACheckBox);
 	m_pFrontendManager->SetCheckboxIcons(m_pDynamicLightingCheckBox);
 	m_pFrontendManager->SetCheckboxIcons(m_pSSAOCheckBox);
@@ -318,7 +313,6 @@ void VoxGame::SkinGUI()
 
 void VoxGame::UnSkinGUI()
 {
-	m_pShadowsCheckBox->SetDefaultIcons(m_pRenderer);
 	m_pMSAACheckBox->SetDefaultIcons(m_pRenderer);
 	m_pDynamicLightingCheckBox->SetDefaultIcons(m_pRenderer);
 	m_pSSAOCheckBox->SetDefaultIcons(m_pRenderer);
@@ -366,7 +360,6 @@ void VoxGame::UnSkinGUI()
 void VoxGame::DestroyGUI()
 {
 	delete m_pMainWindow;
-	delete m_pShadowsCheckBox;
 	delete m_pSSAOCheckBox;
 	delete m_pBlurCheckBox;
 	delete m_pDynamicLightingCheckBox;
@@ -432,11 +425,11 @@ void VoxGame::UpdateGUI(float dt)
 		m_pDynamicLightingCheckBox->SetToggled(false);
 		m_pDynamicLightingCheckBox->SetDisabled(true);
 	}
-	if (m_shadowShader == -1)
-	{
-		m_pShadowsCheckBox->SetToggled(false);
-		m_pShadowsCheckBox->SetDisabled(true);
-	}
+	//if (m_shadowShader == -1)
+	//{
+	//	m_pShadowsCheckBox->SetToggled(false);
+	//	m_pShadowsCheckBox->SetDisabled(true);
+	//}
 	if (m_pBlockParticleManager->GetInstanceShaderIndex() == -1)
 	{
 		m_pInstanceRenderCheckBox->SetToggled(false);
@@ -453,7 +446,6 @@ void VoxGame::UpdateGUI(float dt)
 		m_pBlurCheckBox->SetDisabled(true);
 	}
 
-	m_shadows = m_pShadowsCheckBox->GetToggled();
 	m_ssao = m_pSSAOCheckBox->GetToggled();
 	m_blur = m_pBlurCheckBox->GetToggled();
 	m_dynamicLighting = m_pDynamicLightingCheckBox->GetToggled();

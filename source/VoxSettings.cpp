@@ -47,15 +47,12 @@ void VoxSettings::LoadSettings()
 	m_vsync = reader.GetBoolean("Graphics", "VSync", false);
 	m_fullscreen = reader.GetBoolean("Graphics", "FullScreen", false);
 	m_deferredRendering = reader.GetBoolean("Graphics", "DeferredRendering", false);
-	m_shadows = reader.GetBoolean("Graphics", "Shadows", false);
 	m_blur = reader.GetBoolean("Graphics", "Blur", false);
 	m_ssao = reader.GetBoolean("Graphics", "SSAO", false);
 	m_dynamicLighting = reader.GetBoolean("Graphics", "DynamicLighting", false);
 	m_msaa = reader.GetBoolean("Graphics", "MSAA", false);
 	m_instancedParticles = reader.GetBoolean("Graphics", "InstancedParticles", false);
 	m_faceMerging = reader.GetBoolean("Graphics", "FaceMerging", false);
-	m_fogRendering = reader.GetBoolean("Graphics", "FogRendering", false);
-	m_waterRendering = reader.GetBoolean("Graphics", "WaterRendering", false);
 
 	// Landscape generation
 	m_landscapeOctaves = (float)reader.GetReal("Landscape", "LandscapeOctaves", 4.0f);
@@ -99,6 +96,9 @@ void VoxSettings::LoadOptions()
 	m_gamepadSensitivity = (float)reader.GetReal("Gameplay", "GamepadSensitivity", 50.0f);
 
 	// Graphics
+	m_shadows = reader.GetBoolean("Graphics", "Shadows", false);
+	m_fogRendering = reader.GetBoolean("Graphics", "FogRendering", false);
+	m_waterRendering = reader.GetBoolean("Graphics", "WaterRendering", false);
 
 	// Sound
 	m_audio = reader.GetBoolean("Sound", "AudioEnabled", true);
@@ -134,6 +134,9 @@ void VoxSettings::SaveOptions()
 	file << "\n";
 
 	file << "[Graphics]\n";
+	file << "Shadows=" << (m_shadows ? "True" : "False") << "\n";
+	file << "FogRendering=" << (m_fogRendering ? "True" : "False") << "\n";
+	file << "WaterRendering=" << (m_waterRendering ? "True" : "False") << "\n";
 	file << "\n";
 
 	file << "[Sound]\n";

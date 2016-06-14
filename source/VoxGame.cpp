@@ -415,7 +415,6 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_multiSampling = true;
 	m_ssao = true;
 	m_blur = false;
-	m_shadows = true;
 	m_dynamicLighting = true;
 	m_animationUpdate = true;
 	m_fullscreen = m_pVoxSettings->m_fullscreen;

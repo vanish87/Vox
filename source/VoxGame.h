@@ -606,7 +606,6 @@ private:
 	// GUI Components
 	bool m_GUICreated;
 	GUIWindow* m_pMainWindow;
-	CheckBox* m_pShadowsCheckBox;
 	CheckBox* m_pSSAOCheckBox;
 	CheckBox* m_pDynamicLightingCheckBox;
 	CheckBox* m_pWireframeCheckBox;
@@ -648,7 +647,6 @@ private:
 	bool m_multiSampling;
 	bool m_ssao;
 	bool m_blur;
-	bool m_shadows;
 	bool m_dynamicLighting;
 	bool m_animationUpdate;
 	bool m_fullscreen;
