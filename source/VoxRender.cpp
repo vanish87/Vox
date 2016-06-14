@@ -48,7 +48,7 @@ void VoxGame::BeginShaderRender()
 	}
 
 	bool fogEnabled = true;
-	glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "enableFog"), m_fogRender);
+	glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "enableFog"), m_pVoxSettings->m_fogRendering);
 	float lfogEnd = m_pChunkManager->GetLoaderRadius() - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE;
 	float lfogStart = lfogEnd - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*2.0f;
 	GLfloat fogColor[4] = { 1.0f, 1.0f, 1.0f, 0.0f };
@@ -124,7 +124,7 @@ void VoxGame::Render()
 			}
 
 			// Water reflections
-			if (m_waterRender && m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()) == false && m_gameMode != GameMode_FrontEnd)
+			if (m_pVoxSettings->m_waterRendering && m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()) == false && m_gameMode != GameMode_FrontEnd)
 			{
 				RenderWaterReflections();
 			}
@@ -224,7 +224,7 @@ void VoxGame::Render()
 			EndShaderRender();
 
 			// Render the transparency items above the water render, so that they appear properly under water
-			if (m_waterRender && m_gameMode != GameMode_FrontEnd)
+			if (m_pVoxSettings->m_waterRendering && m_gameMode != GameMode_FrontEnd)
 			{
 				if (m_cameraMode != CameraMode_FirstPerson)
 				{
@@ -587,7 +587,7 @@ void VoxGame::RenderWater()
 		}
 
 		bool fogEnabled = true;
-		glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "enableFog"), m_fogRender);
+		glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "enableFog"), m_pVoxSettings->m_fogRendering);
 		float lfogEnd = m_pChunkManager->GetLoaderRadius() - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE;
 		float lfogStart = lfogEnd - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*2.0f;
 		GLfloat fogColor[4] = { 1.0f, 1.0f, 1.0f, 0.0f };

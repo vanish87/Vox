@@ -455,8 +455,6 @@ void VoxGame::UpdateGUI(float dt)
 	m_animationUpdate = m_pUpdateCheckBox->GetToggled();
 	m_debugRender = m_pDebugRenderCheckBox->GetToggled();
 	m_instanceRender = m_pInstanceRenderCheckBox->GetToggled();
-	m_fogRender = m_pFogRenderCheckBox->GetToggled();
-	m_waterRender = m_pWaterRenderCheckBox->GetToggled();
 
 	m_pPlayer->SetWireFrameRender(m_modelWireframe);
 	m_pChunkManager->SetWireframeRender(m_modelWireframe);
@@ -705,11 +703,6 @@ void VoxGame::ToggleFullScreenPressed()
 
 	m_pVoxWindow->ToggleFullScreen(m_fullscreen);
 	m_pBlockParticleManager->SetupGLBuffers();
-}
-
-bool VoxGame::GetWaterRender()
-{
-	return m_waterRender;
 }
 
 // GUI callbacks

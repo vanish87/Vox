@@ -260,7 +260,6 @@ public:
 	void ClearConsoleLabels();
 	void UpdateConsoleLabels();
 	void ToggleFullScreenPressed();
-	bool GetWaterRender();
 
 	// Accessors
 	unsigned int GetDefaultViewport();
@@ -652,8 +651,6 @@ private:
 	bool m_fullscreen;
 	bool m_debugRender;
 	bool m_instanceRender;
-	bool m_fogRender;
-	bool m_waterRender;
 
 	// Singleton instance
 	static VoxGame *c_instance;
