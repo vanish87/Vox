@@ -110,9 +110,9 @@ public:
 	void RemoveItems();
 
 	// Block colour
-	void SetColour(int x, int y, int z, float r, float g, float b, float a);
+	void SetColour(int x, int y, int z, float r, float g, float b, float a, bool setBlockType = false);
 	void GetColour(int x, int y, int z, float* r, float* g, float* b, float* a);
-	void SetColour(int x, int y, int z, unsigned int colour);
+	void SetColour(int x, int y, int z, unsigned int colour, bool setBlockType = false);
 	unsigned int GetColour(int x, int y, int z);
 
 	// Block type

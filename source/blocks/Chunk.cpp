@@ -501,7 +501,7 @@ void Chunk::RemoveItems()
 }
 
 // Block colour
-void Chunk::SetColour(int x, int y, int z, float r, float g, float b, float a)
+void Chunk::SetColour(int x, int y, int z, float r, float g, float b, float a, bool setBlockType)
 {
 	if (r > 1.0f) r = 1.0f;
 	if (g > 1.0f) g = 1.0f;
@@ -516,7 +516,7 @@ void Chunk::SetColour(int x, int y, int z, float r, float g, float b, float a)
 	unsigned int red = (int)(r * 255);
 
 	unsigned int colour = red + green + blue + alpha;
-	SetColour(x, y, z, colour);
+	SetColour(x, y, z, colour, setBlockType);
 }
 
 void Chunk::GetColour(int x, int y, int z, float* r, float* g, float* b, float* a)
@@ -536,7 +536,7 @@ void Chunk::GetColour(int x, int y, int z, float* r, float* g, float* b, float* 
 	*a = 1.0f;
 }
 
-void Chunk::SetColour(int x, int y, int z, unsigned int colour)
+void Chunk::SetColour(int x, int y, int z, unsigned int colour, bool setBlockType)
 {
 	if (x < 0 || x >= CHUNK_SIZE || y < 0 || y >= CHUNK_SIZE || z < 0 || z >= CHUNK_SIZE)
 		return;
@@ -549,6 +549,14 @@ void Chunk::SetColour(int x, int y, int z, unsigned int colour)
 	}
 
 	m_colour[x + y * CHUNK_SIZE + z * CHUNK_SIZE_SQUARED] = colour;
+
+	if (setBlockType)
+	{
+		unsigned int blockB = (colour & 0x00FF0000) >> 16;
+		unsigned int blockG = (colour & 0x0000FF00) >> 8;
+		unsigned int blockR = (colour & 0x000000FF);
+		m_blockType[x + y * CHUNK_SIZE + z * CHUNK_SIZE_SQUARED] = m_pChunkManager->SetBlockTypeBasedOnColour(blockR, blockG, blockB);
+	}
 }
 
 unsigned int Chunk::GetColour(int x, int y, int z)
