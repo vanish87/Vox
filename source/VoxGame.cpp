@@ -442,6 +442,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	CreateGUI();
 	SetupGUI();
 	SkinGUI();
+	UpdateGUI(0.0f);
 }
 
 // Destruction

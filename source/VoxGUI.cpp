@@ -44,10 +44,6 @@ void VoxGame::CreateGUI()
 	m_pDebugRenderCheckBox->SetDimensions(110, 10, 14, 14);
 	m_pInstanceRenderCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Instance Particles");
 	m_pInstanceRenderCheckBox->SetDimensions(110, 46, 14, 14);
-	m_pFogRenderCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Fog Rendering");
-	m_pFogRenderCheckBox->SetDimensions(10, -8, 14, 14);
-	m_pWaterRenderCheckBox = new CheckBox(m_pRenderer, m_defaultFont, "Warter Rendering");
-	m_pWaterRenderCheckBox->SetDimensions(10, -26, 14, 14);
 
 	m_pPlayAnimationButton = new Button(m_pRenderer, m_defaultFont, "Play Anim");
 	m_pPlayAnimationButton->SetDimensions(230, 40, 85, 25);
@@ -79,8 +75,6 @@ void VoxGame::CreateGUI()
 	m_pMainWindow->AddComponent(m_pUpdateCheckBox);
 	m_pMainWindow->AddComponent(m_pDebugRenderCheckBox);
 	m_pMainWindow->AddComponent(m_pInstanceRenderCheckBox);
-	m_pMainWindow->AddComponent(m_pFogRenderCheckBox);
-	m_pMainWindow->AddComponent(m_pWaterRenderCheckBox);
 	m_pMainWindow->AddComponent(m_pPlayAnimationButton);
 	m_pMainWindow->AddComponent(m_pAnimationsPulldown);
 	m_pMainWindow->AddComponent(m_pCharacterPulldown);
@@ -220,8 +214,6 @@ void VoxGame::SetupGUI()
 	m_pDynamicLightingCheckBox->SetToggled(m_pVoxSettings->m_dynamicLighting);
 	m_pMSAACheckBox->SetToggled(m_pVoxSettings->m_msaa);
 	m_pInstanceRenderCheckBox->SetToggled(m_pVoxSettings->m_instancedParticles);
-	m_pFogRenderCheckBox->SetToggled(m_pVoxSettings->m_fogRendering);
-	m_pWaterRenderCheckBox->SetToggled(m_pVoxSettings->m_waterRendering);
 	m_pWireframeCheckBox->SetToggled(m_pVoxSettings->m_wireframeRendering);
 	m_pDebugRenderCheckBox->SetToggled(m_pVoxSettings->m_debugRendering);
 	m_pFaceMergingCheckbox->SetToggled(m_pVoxSettings->m_faceMerging);
@@ -278,8 +270,6 @@ void VoxGame::SkinGUI()
 	m_pFrontendManager->SetCheckboxIcons(m_pUpdateCheckBox);
 	m_pFrontendManager->SetCheckboxIcons(m_pDebugRenderCheckBox);
 	m_pFrontendManager->SetCheckboxIcons(m_pInstanceRenderCheckBox);
-	m_pFrontendManager->SetCheckboxIcons(m_pFogRenderCheckBox);
-	m_pFrontendManager->SetCheckboxIcons(m_pWaterRenderCheckBox);
 
 	m_pFrontendManager->SetOptionboxIcons(m_pGameOptionBox);
 	m_pFrontendManager->SetOptionboxIcons(m_pDebugOptionBox);
@@ -324,8 +314,6 @@ void VoxGame::UnSkinGUI()
 	m_pUpdateCheckBox->SetDefaultIcons(m_pRenderer);
 	m_pDebugRenderCheckBox->SetDefaultIcons(m_pRenderer);
 	m_pInstanceRenderCheckBox->SetDefaultIcons(m_pRenderer);
-	m_pFogRenderCheckBox->SetDefaultIcons(m_pRenderer);
-	m_pWaterRenderCheckBox->SetDefaultIcons(m_pRenderer);
 
 	m_pGameOptionBox->SetDefaultIcons(m_pRenderer);
 	m_pDebugOptionBox->SetDefaultIcons(m_pRenderer);
@@ -369,8 +357,6 @@ void VoxGame::DestroyGUI()
 	delete m_pUpdateCheckBox;
 	delete m_pDebugRenderCheckBox;
 	delete m_pInstanceRenderCheckBox;
-	delete m_pFogRenderCheckBox;
-	delete m_pWaterRenderCheckBox;
 	delete m_pPlayAnimationButton;
 	delete m_pAnimationsPulldown;
 	delete m_pCharacterPulldown;
@@ -425,11 +411,10 @@ void VoxGame::UpdateGUI(float dt)
 		m_pDynamicLightingCheckBox->SetToggled(false);
 		m_pDynamicLightingCheckBox->SetDisabled(true);
 	}
-	//if (m_shadowShader == -1)
-	//{
-	//	m_pShadowsCheckBox->SetToggled(false);
-	//	m_pShadowsCheckBox->SetDisabled(true);
-	//}
+	if (m_shadowShader == -1)
+	{
+		m_pFrontendManager->DisableShadowOption();
+	}
 	if (m_pBlockParticleManager->GetInstanceShaderIndex() == -1)
 	{
 		m_pInstanceRenderCheckBox->SetToggled(false);

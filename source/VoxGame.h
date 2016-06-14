@@ -614,8 +614,6 @@ private:
 	CheckBox* m_pBlurCheckBox;
 	CheckBox* m_pDebugRenderCheckBox;
 	CheckBox* m_pInstanceRenderCheckBox;
-	CheckBox* m_pFogRenderCheckBox;
-	CheckBox* m_pWaterRenderCheckBox;
 	Button* m_pPlayAnimationButton;
 	PulldownMenu* m_pAnimationsPulldown;
 	PulldownMenu* m_pCharacterPulldown;

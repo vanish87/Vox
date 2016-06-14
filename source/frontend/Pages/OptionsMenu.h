@@ -46,6 +46,9 @@ public:
 	void Load();
 	void Unload();
 
+	// Disable options
+	void DisableShadowOption();
+
 	// Update
 	void Update(float dt);
 
@@ -132,6 +135,8 @@ private:
 
 	// Graphics
 	CheckBox* m_pShadowsCheckBox;
+	CheckBox* m_pFogRenderCheckBox;
+	CheckBox* m_pWaterRenderCheckBox;
 	Button* m_pFullscreenButton;
 
 	// Sound
