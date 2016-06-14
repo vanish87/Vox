@@ -1146,6 +1146,8 @@ void CreateCharacter::CreatePresetButtons(PresetSection presetSection, bool show
 
 void CreateCharacter::DeletePresetButtons()
 {
+	m_selectedPresetSection = PresetSection_None;
+
 	m_pPresetScrollbar->ClearScrollAreaItems();
 	for(unsigned int i = 0; i < m_vpPresetButtons.size(); i++)
 	{
@@ -1887,6 +1889,25 @@ void CreateCharacter::PresetsPulldownChanged()
 			m_pCustomCreationNPC->GetVoxelCharacter()->UnloadCharacter();
 			m_pCustomCreationNPC->GetVoxelCharacter()->Reset();
 			m_pCustomCreationNPC->GetVoxelCharacter()->LoadVoxelCharacter("Human", presetModelFilename, ms3dFilename, animListFilename, facesFilename, characterFilename, characterBaseFolder, false);
+
+			// Set the default eyes and mouth variables, based on the preset character we just loaded
+			vec3 eyeOffset = m_pCustomCreationNPC->GetVoxelCharacter()->GetEyesOffset();
+			vec3 mouthOffset = m_pCustomCreationNPC->GetVoxelCharacter()->GetMouthOffset();
+			float eyeWidth = m_pCustomCreationNPC->GetVoxelCharacter()->GetEyeTextureWidth();
+			float eyeHeight = m_pCustomCreationNPC->GetVoxelCharacter()->GetEyeTextureHeight();
+			float mouthWidth = m_pCustomCreationNPC->GetVoxelCharacter()->GetMouthTextureWidth();
+			float mouthHeight = m_pCustomCreationNPC->GetVoxelCharacter()->GetMouthTextureHeight();
+
+			m_defaultEyeWidth = eyeWidth;
+			m_defaultMouthWidth = mouthWidth;
+			m_defaultEyeOffset = eyeOffset;
+			m_defaultMouthOffset = mouthOffset;
+
+			// Delete the preset buttons and unselect any body parts
+			DeletePresetButtons();
+
+			VoxGame::GetInstance()->GetNPCManager()->UpdateNamePickingSelection(-1);
+			VoxGame::GetInstance()->GetNPCManager()->UpdateHoverNamePickingSelection(-1);
 		}
 	}	
 }
