@@ -550,6 +550,7 @@ void Player::EquipItem(InventoryItem* pItem)
 		return;
 	}
 
+	bool l_bEquipWeapon = false;
 	switch (pItem->m_equipSlot)
 	{
 	case EquipSlot_LeftHand:
@@ -604,6 +605,8 @@ void Player::EquipItem(InventoryItem* pItem)
 			pQuiverMatrix->m_boneIndex = m_pVoxelCharacter->GetBodyBoneIndex();
 			m_pVoxelCharacter->AddQubicleMatrix(pQuiverMatrix, false);
 		}
+
+		l_bEquipWeapon = true;
 	}
 	break;
 	case EquipSlot_RightHand:
@@ -720,6 +723,8 @@ void Player::EquipItem(InventoryItem* pItem)
 		{
 			m_attackRadius = m_pVoxelCharacter->GetRightWeapon()->GetWeaponRadius();
 		}
+
+		l_bEquipWeapon = true;
 	}
 	break;
 	case EquipSlot_Head:
@@ -853,6 +858,15 @@ void Player::EquipItem(InventoryItem* pItem)
 	{
 	}
 	break;
+	}
+
+	if(l_bEquipWeapon)
+	{
+		VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_EquipSword);
+	}
+	else
+	{
+		VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_EquipCloth);
 	}
 
 	if (VoxGame::GetInstance()->GetCameraMode() == CameraMode_FirstPerson)
@@ -1568,7 +1582,7 @@ vec3 Player::MoveAbsolute(vec3 direction, const float speed, bool shouldChangeFo
 	if (m_footstepSoundTimer <= 0.0f && m_footstepSoundDistance <= 0.0f && m_bCanJump)
 	{
 		int footStepSound = (int)eSoundEffect_FootStep01 + m_footstepSoundIndex;
-		VoxGame::GetInstance()->PlaySoundEffect((eSoundEffect)footStepSound, m_position, 1.5f);
+		VoxGame::GetInstance()->PlaySoundEffect((eSoundEffect)footStepSound);
 		m_footstepSoundIndex = GetRandomNumber(0, 3);
 
 		m_footstepSoundTimer = 0.3f + GetRandomNumber(-10, 10, 1)*0.002f;
@@ -2663,7 +2677,7 @@ void Player::UpdatePhysics(float dt)
 					{
 						m_bCanJump = true;
 
-						VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_JumpLand, m_position);
+						VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_JumpLand);
 					}
 				}
 			}

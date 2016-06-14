@@ -142,7 +142,8 @@ public:
 	void UpdateMusicVolume(float dt);
 
 	// Sounds
-	void PlaySoundEffect(eSoundEffect soundEffect, vec3 soundPosition, float soundEnhanceMultiplier = 1.0f);
+	void PlaySoundEffect(eSoundEffect soundEffect, float soundEnhanceMultiplier = 1.0f);
+	void PlaySoundEffect3D(eSoundEffect soundEffect, vec3 soundPosition, float soundEnhanceMultiplier = 1.0f);
 
 	// Controls
 	void UpdateControls(float dt);

@@ -1008,9 +1008,8 @@ void LootGUI::LootItemReleased(LootSlotItem* pLootItem)
 
 							switched = true;
 							draggedToInventory = true;
-						}
-						else
-						{
+
+							VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_EquipMove);
 						}
 					}
 				}
@@ -1021,6 +1020,8 @@ void LootGUI::LootItemReleased(LootSlotItem* pLootItem)
 	if(switched && draggedToInventory == false && sameSlot == false && equipped == false)
 	{
 		ShowTooltip(pLootItem);
+
+		VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_EquipMove);
 	}
 
 	if(sameSlot)
@@ -1039,6 +1040,8 @@ void LootGUI::LootItemReleased(LootSlotItem* pLootItem)
 			RemoveLootItem(pLootItem);
 
 			m_pCharacterGUI->HideEquipHover();
+
+			VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_EquipMove);
 		}
 	}
 

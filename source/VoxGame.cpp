@@ -814,7 +814,22 @@ void VoxGame::UpdateMusicVolume(float dt)
 }
 
 // Sounds
-void VoxGame::PlaySoundEffect(eSoundEffect soundEffect, vec3 soundPosition, float soundEnhanceMultiplier)
+void VoxGame::PlaySoundEffect(eSoundEffect soundEffect, float soundEnhanceMultiplier)
+{
+	if (m_pVoxSettings->m_audio)
+	{
+		string soundModName = VoxGame::GetInstance()->GetModsManager()->GetSoundPack();
+		string soundeffectFilename = g_soundEffectFilenames[soundEffect];
+		string soundFileName = "media/audio/" + soundModName + "/soundeffects/" + soundeffectFilename;
+
+		FMOD::Channel* pSoundChannel;
+		FMOD::Sound* pSound;
+		pSound = AudioManager::GetInstance()->PlaySound2D(&pSoundChannel, soundFileName.c_str(), false);
+		pSoundChannel->setVolume(soundEnhanceMultiplier * m_pVoxSettings->m_audioVolume);
+	}
+}
+
+void VoxGame::PlaySoundEffect3D(eSoundEffect soundEffect, vec3 soundPosition, float soundEnhanceMultiplier)
 {
 	if (m_pVoxSettings->m_audio)
 	{
@@ -825,7 +840,7 @@ void VoxGame::PlaySoundEffect(eSoundEffect soundEffect, vec3 soundPosition, floa
 		FMOD::Channel* pSoundChannel;
 		FMOD::Sound* pSound;
 		pSound = AudioManager::GetInstance()->PlaySound3D(&pSoundChannel, soundFileName.c_str(), soundPosition, false);
-		pSoundChannel->setVolume(2.0f * soundEnhanceMultiplier * m_pVoxSettings->m_audioVolume);
+		pSoundChannel->setVolume(soundEnhanceMultiplier * m_pVoxSettings->m_audioVolume);
 	}
 }
 
@@ -1280,7 +1295,7 @@ bool VoxGame::CheckInteractions()
 					m_pPlayer->StopMoving();
 					shouldStopMovement = true;
 
-					PlaySoundEffect(eSoundEffect_ChestOpen, m_pInteractItem->GetCenter());
+					PlaySoundEffect(eSoundEffect_ChestOpen);
 
 					if (m_pLootGUI->IsLoaded())
 					{
