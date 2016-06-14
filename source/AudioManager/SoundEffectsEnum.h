@@ -30,6 +30,13 @@ enum eSoundEffect
 
 	eSoundEffect_ChestOpen,
 
+	eSoundEffect_BowDraw,
+	eSoundEffect_ArrowRelease,
+	eSoundEffect_FireballCast,
+	
+	eSoundEffect_MimicJump,
+	eSoundEffect_MimicDie,
+
 	eSoundEffect_NUM,
 };
 

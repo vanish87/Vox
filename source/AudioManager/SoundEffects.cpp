@@ -31,4 +31,11 @@ string g_soundEffectFilenames[eSoundEffect_NUM] =
 	"equip_move.wav",			// eSoundEffect_EquipMove
 
 	"open_chest.wav",			// eSoundEffect_ChestOpen
+
+	"bow_draw.wav",				// eSoundEffect_BowDraw
+	"arrowRelease.wav",			// eSoundEffect_ArrowRelease
+	"fireball_cast.wav",		// eSoundEffect_FireballCast
+
+	"mimic_jump.wav",			// eSoundEffect_MimicJump
+	"mimic_dropped.wav",		// eSoundEffect_MimicDie
 };

@@ -840,7 +840,7 @@ void VoxGame::PlaySoundEffect3D(eSoundEffect soundEffect, vec3 soundPosition, fl
 		FMOD::Channel* pSoundChannel;
 		FMOD::Sound* pSound;
 		pSound = AudioManager::GetInstance()->PlaySound3D(&pSoundChannel, soundFileName.c_str(), soundPosition, false);
-		pSoundChannel->setVolume(soundEnhanceMultiplier * m_pVoxSettings->m_audioVolume);
+		pSoundChannel->setVolume(3.0f * soundEnhanceMultiplier * m_pVoxSettings->m_audioVolume);
 	}
 }
 

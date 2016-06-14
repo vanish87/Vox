@@ -1681,6 +1681,11 @@ void Enemy::Jump(bool jumpUpBlock)
 			}
 		}
 	}
+
+	if (m_eEnemyType == eEnemyType_Mimic)
+	{
+		VoxGame::GetInstance()->PlaySoundEffect3D(eSoundEffect_MimicJump, GetCenter());
+	}
 }
 
 bool Enemy::CanJump()
@@ -2167,6 +2172,11 @@ void Enemy::Explode()
 
 	// Give the player experience
 	m_pPlayer->GetPlayerStats()->GiveExperience(10);
+
+	if (m_eEnemyType == eEnemyType_Mimic)
+	{
+		VoxGame::GetInstance()->PlaySoundEffect3D(eSoundEffect_MimicDie, GetCenter());
+	}
 
 	m_erase = true;
 }

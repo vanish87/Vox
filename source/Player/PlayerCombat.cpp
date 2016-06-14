@@ -51,6 +51,8 @@ void Player::PressAttack()
 					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "BowCharge", 0.2f);
 					m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "BowCharge", 0.2f);
 				}
+
+				VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_BowDraw);
 			}
 		}
 	}
@@ -98,6 +100,8 @@ void Player::PressAttack()
 
 				m_bCanAttackRight = false;
 			}
+
+			VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_FireballCast, 0.5f);
 		}
 	}
 	else if (IsWand())
@@ -329,6 +333,8 @@ void Player::PressAttack()
 
 				m_bCanAttackLeft = false;
 			}
+
+			VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_FireballCast, 0.5f);
 		}
 	}
 	else if (IsShield())
@@ -370,6 +376,8 @@ void Player::ReleaseAttack()
 				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Left_Arm_Hand, false, AnimationSections_Left_Arm_Hand, "BindPose", 0.2f);
 				m_pVoxelCharacter->BlendIntoAnimation(AnimationSections_Right_Arm_Hand, false, AnimationSections_Right_Arm_Hand, "BindPose", 0.2f);
 			}
+
+			VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_ArrowRelease);
 		}
 	}
 }
