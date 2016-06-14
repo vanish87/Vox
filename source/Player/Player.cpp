@@ -304,6 +304,11 @@ string Player::GetModelName()
 	return m_modelName;
 }
 
+void Player::SetPosition(vec3 pos)
+{
+	m_position = pos;
+}
+
 void Player::SetRespawnPosition(vec3 pos)
 {
 	m_respawnPosition = pos;

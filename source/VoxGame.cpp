@@ -868,6 +868,12 @@ void VoxGame::QuitToFrontEnd()
 
 void VoxGame::SetupDataForGame()
 {
+	// Initial player startup position and rotation
+	vec3 starPosition = vec3(10.0f, 8.0f, 23.0f);
+	m_pPlayer->SetPosition(starPosition);
+	m_pPlayer->SetRespawnPosition(starPosition + vec3(0.0f, 0.1f, 0.0f));
+	m_pPlayer->SetRotation(90.0f);
+
 	// Items
 	Item* pFurnace = m_pItemManager->CreateItem(vec3(25.0f, 10.0f, 29.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Furnace/Furnace.item", eItem_Furnace, "Furnace", true, false, 0.16f);
 	pFurnace->SetInteractionPositionOffset(vec3(0.0f, 0.0f, -2.0f));

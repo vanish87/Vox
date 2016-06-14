@@ -92,6 +92,7 @@ public:
 	string GetType();
 	void SetModelname(string modelName);
 	string GetModelName();
+	void SetPosition(vec3 pos);
 	void SetRespawnPosition(vec3 pos);
 	vec3 GetRespawnPosition();
 	vec3 GetCenter();
