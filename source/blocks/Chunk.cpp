@@ -264,6 +264,10 @@ void Chunk::Setup()
 						{
 							m_pChunkManager->ImportQubicleBinary("media/gamedata/terrain/desert/cactus1.qb", treePos, QubicleImportDirection_Normal);
 						}
+						else if (biome == Biome_Tundra)
+						{
+							m_pChunkManager->ImportQubicleBinary("media/gamedata/terrain/tundra/tundra_tree1.qb", treePos, QubicleImportDirection_Normal);
+						}
 						else if (biome == Biome_AshLand)
 						{
 							m_pChunkManager->ImportQubicleBinary("media/gamedata/terrain/ashlands/ashtree1.qb", treePos, QubicleImportDirection_Normal);

@@ -41,13 +41,18 @@ ChunkManager::ChunkManager(Renderer* pRenderer, VoxSettings* pVoxSettings, Qubic
 	AddBlockColourBlockTypeMatching(87, 58, 0, BlockType_Wood);
 	AddBlockColourBlockTypeMatching(25, 21, 14, BlockType_Wood);
 	AddBlockColourBlockTypeMatching(30, 26, 18, BlockType_Wood);
+	AddBlockColourBlockTypeMatching(132, 97, 36, BlockType_Wood);
 	AddBlockColourBlockTypeMatching(55, 172, 3, BlockType_Leaf);
 	AddBlockColourBlockTypeMatching(27, 82, 0, BlockType_Leaf);
 	AddBlockColourBlockTypeMatching(61, 95, 24, BlockType_Leaf);
 	AddBlockColourBlockTypeMatching(67, 104, 27, BlockType_Leaf);
+	AddBlockColourBlockTypeMatching(121, 134, 0, BlockType_Leaf);
+	AddBlockColourBlockTypeMatching(121, 134, 0, BlockType_Leaf);
+	AddBlockColourBlockTypeMatching(113, 113, 1, BlockType_Leaf);
 	AddBlockColourBlockTypeMatching(0, 182, 0, BlockType_Cactus);
 	AddBlockColourBlockTypeMatching(34, 26, 48, BlockType_Wood); // TODO : Should be ash leaf, from ash trees
 	AddBlockColourBlockTypeMatching(33, 26, 45, BlockType_Wood); // TODO : Should be ash leaf, from ash trees
+	AddBlockColourBlockTypeMatching(255, 255, 255, BlockType_Snow);
 
 	// Loader radius
 	m_loaderRadius = m_pVoxSettings->m_loaderRadius;
