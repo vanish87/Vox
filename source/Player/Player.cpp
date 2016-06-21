@@ -547,7 +547,7 @@ void Player::UnloadWeapon(bool left)
 }
 
 // Equipping items
-void Player::EquipItem(InventoryItem* pItem)
+void Player::EquipItem(InventoryItem* pItem, bool supressAudio)
 {
 	if (m_crafting)
 	{
@@ -865,13 +865,16 @@ void Player::EquipItem(InventoryItem* pItem)
 	break;
 	}
 
-	if(l_bEquipWeapon)
+	if (supressAudio == false)
 	{
-		VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_EquipSword);
-	}
-	else
-	{
-		VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_EquipCloth);
+		if (l_bEquipWeapon)
+		{
+			VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_EquipSword);
+		}
+		else
+		{
+			VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_EquipCloth);
+		}
 	}
 
 	if (VoxGame::GetInstance()->GetCameraMode() == CameraMode_FirstPerson)

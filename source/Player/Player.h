@@ -113,7 +113,7 @@ public:
 	void UnloadWeapon(bool left);
 
 	// Equipping items
-	void EquipItem(InventoryItem* pItem);
+	void EquipItem(InventoryItem* pItem, bool supressAudio = false);
 	void UnequipItem(EquipSlot equipSlot, bool left, bool right);
 
 	// Stat modifier values

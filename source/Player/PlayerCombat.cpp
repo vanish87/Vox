@@ -742,7 +742,7 @@ void Player::Respawn()
 		InventoryItem* pItem = m_pInventoryManager->GetInventoryItemForEquipSlot((EquipSlot)i);
 		if (pItem != NULL)
 		{
-			EquipItem(pItem);
+			EquipItem(pItem, true);
 		}
 	}
 
