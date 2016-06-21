@@ -1005,6 +1005,9 @@ void VoxGame::SetupDataForGame()
 
 void VoxGame::SetupDataForFrontEnd()
 {
+	// Safezones (Where we cannot spawn enemies)
+	m_pBiomeManager->AddSafeZone(vec3(21.0f, 8.5f, 20.0f), 25.f, 30.0f, 25.0f);
+	m_pBiomeManager->AddTown(vec3(8.0f, 8.0f, 8.0f), 75.f, 15.0f, 75.0f);
 }
 
 void VoxGame::StartGameFromFrontEnd()

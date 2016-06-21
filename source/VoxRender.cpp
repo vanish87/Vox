@@ -47,8 +47,8 @@ void VoxGame::BeginShaderRender()
 		pShader = m_pRenderer->GetShader(m_defaultShader);
 	}
 
-	bool fogEnabled = true;
-	glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "enableFog"), m_pVoxSettings->m_fogRendering);
+	bool fogEnabled = (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_MainMenu) ? false : m_pVoxSettings->m_fogRendering;
+	glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "enableFog"), fogEnabled);
 	float lfogEnd = m_pChunkManager->GetLoaderRadius() - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE;
 	float lfogStart = lfogEnd - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*2.0f;
 	GLfloat fogColor[4] = { 1.0f, 1.0f, 1.0f, 0.0f };
@@ -589,8 +589,8 @@ void VoxGame::RenderWater()
 			glActiveTextureARB(GL_TEXTURE1_ARB);
 		}
 
-		bool fogEnabled = true;
-		glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "enableFog"), m_pVoxSettings->m_fogRendering);
+		bool fogEnabled = (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_MainMenu) ? false : m_pVoxSettings->m_fogRendering;
+		glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "enableFog"), fogEnabled);
 		float lfogEnd = m_pChunkManager->GetLoaderRadius() - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE;
 		float lfogStart = lfogEnd - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*2.0f;
 		GLfloat fogColor[4] = { 1.0f, 1.0f, 1.0f, 0.0f };
