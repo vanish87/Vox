@@ -191,26 +191,35 @@ void VoxGame::KeyReleased(int key, int scancode, int mods)
 		}
 		case GLFW_KEY_O:
 		{
-			m_pDebugCameraOptionBox->SetToggled(true);
-			CameraModeChanged();
+			if (STEAM_BUILD == false)
+			{
+				m_pDebugCameraOptionBox->SetToggled(true);
+				CameraModeChanged();
+			}
 			break;
 		}
 		case GLFW_KEY_L:
 		{
-			SetPaused(!IsPaused());
+			if (STEAM_BUILD == false)
+			{
+				SetPaused(!IsPaused());
+			}
 			break;
 		}
 		case GLFW_KEY_P:
 		{
-			if (m_pGUI->IsKeyboardInteractingWithGUIComponent() == false)
+			if (STEAM_BUILD == false)
 			{
-				if (m_pMainWindow->IsVisible() == false)
+				if (m_pGUI->IsKeyboardInteractingWithGUIComponent() == false)
 				{
-					ShowGUI();
-				}
-				else
-				{
-					HideGUI();
+					if (m_pMainWindow->IsVisible() == false)
+					{
+						ShowGUI();
+					}
+					else
+					{
+						HideGUI();
+					}
 				}
 			}
 			break;

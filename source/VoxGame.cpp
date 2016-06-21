@@ -19,6 +19,8 @@
 #include <sys/time.h>
 #endif //__linux__
 
+const bool VoxGame::STEAM_BUILD = true;
+
 
 extern string g_soundEffectFilenames[eSoundEffect_NUM];
 

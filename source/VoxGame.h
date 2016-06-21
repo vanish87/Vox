@@ -319,6 +319,7 @@ private:
 
 public:
 	/* Public members */
+	static const bool STEAM_BUILD;
 
 protected:
 	/* Protected members */
