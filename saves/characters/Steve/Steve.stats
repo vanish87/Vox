@@ -1,13 +1,13 @@
 name: Steve
 class: 5
 level: 3
-experience: 260
+experience: 265
 maxExperience: 300
 numStatsPoints: 10
 strength: 8
 dexterity: 5
 intelligence: 3
-vitality: 5
+vitality: 6
 armor: 2
 luck: 4
 
