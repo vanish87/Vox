@@ -4,6 +4,10 @@
 // Author:      Steven Ball
 //
 // Purpose:
+//   A Qubicle Binary (.qb) file loader and renderer, handles all the loading of
+//   matrices and setting up the render meshes and static draw buffers.
+//   Also connected to the Voxel character class, so that bones can be linked with
+//   qubicle matrix oibjects, for animation and character rigging.
 //
 // Revision History:
 //   Initial Revision - 10/07/14
