@@ -59,8 +59,8 @@ void InstanceManager::ClearInstanceObjects()
 	{
 		for(unsigned int j = 0; j < (int)m_vpInstanceParentList[i]->m_vpInstanceObjectList.size(); j++)
 		{
-			delete m_vpInstanceParentList[i]->m_vpInstanceObjectList[i];
-			m_vpInstanceParentList[i]->m_vpInstanceObjectList[i] = 0;
+			delete m_vpInstanceParentList[i]->m_vpInstanceObjectList[j];
+			m_vpInstanceParentList[i]->m_vpInstanceObjectList[j] = 0;
 		}
 		m_vpInstanceParentList[i]->m_vpInstanceObjectList.clear();
 
