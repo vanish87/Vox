@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\AudioManager\AudioManager.cpp" />
+    <ClCompile Include="..\..\source\AudioManager\SoundEffects.cpp" />
     <ClCompile Include="..\..\source\blocks\BiomeManager.cpp" />
     <ClCompile Include="..\..\source\blocks\Chunk.cpp" />
     <ClCompile Include="..\..\source\blocks\ChunkManager.cpp" />
@@ -198,6 +199,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\source\blocks\Chunk.h" />
     <ClInclude Include="..\..\source\AudioManager\AudioManager.h" />
+    <ClInclude Include="..\..\source\AudioManager\SoundEffectsEnum.h" />
     <ClInclude Include="..\..\source\blocks\BiomeManager.h" />
     <ClInclude Include="..\..\source\blocks\BlocksEnum.h" />
     <ClInclude Include="..\..\source\blocks\ChunkManager.h" />
@@ -719,7 +721,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>..\..\source\glfw\libs\2013\d\glfw3.lib;..\..\source\freetype\libs\2013\freetype261d.lib;..\..\source\libnoise\libs\2013\noise_d.lib;opengl32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\..\source\glfw\libs\2013\d\glfw3.lib;..\..\source\freetype\libs\2013\freetype261d.lib;..\..\source\libnoise\libs\2013\noise_d.lib;..\..\source\AudioManager\fmod\libs\fmod_vc.lib;opengl32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>
       </EntryPointSymbol>
       <SubSystem>Console</SubSystem>
@@ -736,7 +738,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>..\..\source\glfw\libs\2013\d\glfw3_64.lib;..\..\source\freetype\libs\2013\freetype261d_64.lib;..\..\source\libnoise\libs\2013\noise64_d.lib;opengl32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\..\source\glfw\libs\2013\d\glfw3_64.lib;..\..\source\freetype\libs\2013\freetype261d_64.lib;..\..\source\libnoise\libs\2013\noise64_d.lib;..\..\source\AudioManager\fmod\libs\fmod64_vc.lib;opengl32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>
       </EntryPointSymbol>
       <SubSystem>Console</SubSystem>
@@ -756,7 +758,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>..\..\source\glfw\libs\2013\r\glfw3.lib;..\..\source\freetype\libs\2013\freetype261.lib;..\..\source\libnoise\libs\2013\noise.lib;opengl32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\..\source\glfw\libs\2013\r\glfw3.lib;..\..\source\freetype\libs\2013\freetype261.lib;..\..\source\libnoise\libs\2013\noise.lib;..\..\source\AudioManager\fmod\libs\fmod_vc.lib;opengl32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
       <AdditionalOptions>
       </AdditionalOptions>
@@ -776,7 +778,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>..\..\source\glfw\libs\2013\r\glfw3_64.lib;..\..\source\freetype\libs\2013\freetype261_64.lib;..\..\source\libnoise\libs\2013\noise64.lib;opengl32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\..\source\glfw\libs\2013\r\glfw3_64.lib;..\..\source\freetype\libs\2013\freetype261_64.lib;..\..\source\libnoise\libs\2013\noise64.lib;..\..\source\AudioManager\fmod\libs\fmod64_vc.lib;opengl32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

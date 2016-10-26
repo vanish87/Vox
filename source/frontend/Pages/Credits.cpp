@@ -234,13 +234,13 @@ void Credits::CreateCreditsNPCForPage(int pageIndex)
 {
 	if(pageIndex == 0)
 	{
-		m_pCreditsNPC = VoxGame::GetInstance()->GetNPCManager()->CreateNPC("CreditsCharacter", "Human", "Steve", vec3(-1.0f, 8.0f, 0.0f), 0.08f, false, false);
+		m_pCreditsNPC = VoxGame::GetInstance()->GetNPCManager()->CreateNPC("CreditsCharacter", "Human", "Steve", vec3(24.0f, 0.51f, 4.5f), 0.08f, false, false);
 		m_pCreditsNPC->SetCreditsNPC(true);
 		//m_pCreditsNPC->LookAtPoint(vec3(0.0f, 8.0f, 1.0f));
 	}
 	if(pageIndex == 1)
 	{
-		m_pCreditsNPC = VoxGame::GetInstance()->GetNPCManager()->CreateNPC("CreditsCharacter", "Human", "Mummy", vec3(1.0f, 8.0f, 0.0f), 0.08f, false, false);
+		m_pCreditsNPC = VoxGame::GetInstance()->GetNPCManager()->CreateNPC("CreditsCharacter", "Human", "Mummy", vec3(26.0f, 0.51f, 4.5f), 0.08f, false, false);
 		m_pCreditsNPC->SetCreditsNPC(true);
 		//m_pCreditsNPC->LookAtPoint(vec3(0.0f, 8.0f, 1.0f));
 		m_pCreditsNPC->SetAnimationSpeed(0.5f, true, AnimationSections_FullBody);
@@ -248,13 +248,13 @@ void Credits::CreateCreditsNPCForPage(int pageIndex)
 	}
 	if(pageIndex == 2)
 	{
-		m_pCreditsNPC = VoxGame::GetInstance()->GetNPCManager()->CreateNPC("CreditsCharacter", "Human", "AshElemental", vec3(-1.0f, 8.0f, 0.0f), 0.08f, false, false);
+		m_pCreditsNPC = VoxGame::GetInstance()->GetNPCManager()->CreateNPC("CreditsCharacter", "Human", "AshElemental", vec3(24.0f, 0.51f, 4.5f), 0.08f, false, false);
 		m_pCreditsNPC->SetCreditsNPC(true);
 		//m_pCreditsNPC->LookAtPoint(vec3(0.0f, 8.0f, 1.0f));
 	}
 	if(pageIndex == 3)
 	{
-		m_pCreditsNPC = VoxGame::GetInstance()->GetNPCManager()->CreateNPC("CreditsCharacter", "Human", "Ranger", vec3(1.0f, 8.0f, 0.0f), 0.08f, false, false);
+		m_pCreditsNPC = VoxGame::GetInstance()->GetNPCManager()->CreateNPC("CreditsCharacter", "Human", "Ranger", vec3(26.0f, 0.51f, 4.5f), 0.08f, false, false);
 		m_pCreditsNPC->SetCreditsNPC(true);
 		//m_pCreditsNPC->LookAtPoint(vec3(0.0f, 8.0f, 1.0f));
 	}
@@ -333,8 +333,8 @@ void Credits::Update(float dt)
 {
 	FrontendPage::Update(dt);
 
-	m_cameraPosition = vec3(0.0f, 9.75f, 3.5f);
-	m_cameraView = vec3(0.0f, 9.0f, 0.0f);
+	m_cameraPosition = vec3(25.0f, 2.25f, 8.0f);
+	m_cameraView = vec3(25.0f, 1.5f, 0.0f);
 
 	if(m_clickToNextTimer > 0.0f)
 	{

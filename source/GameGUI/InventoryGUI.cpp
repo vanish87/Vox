@@ -1149,6 +1149,8 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 	if(switched)
 	{
 		ShowTooltip(pInventoryItem);
+
+		VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_EquipMove);
 	}
 
 
@@ -1340,6 +1342,8 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 
 								switched = true;
 								deleted = true;
+
+								VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_EquipMove);
 							}
 						}
 					}
@@ -1360,25 +1364,12 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 						{
 							m_pActionBar->AddItemToActionBar(pInventoryItem->m_pInventoryItem, i, pInventoryItem->m_slotX, pInventoryItem->m_slotY);
 							m_pActionBar->ExportActionBar(m_pPlayer->GetName());
+
+							VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_EquipMove);
 						}
 					}
 				}
 			}
-
-
-		//	// Check if we released on a crafting GUI slot
-		//	if(m_dontShowCreationAndDelete)
-		//	{
-		//		if(m_pCraftingGUI->IsLoaded())
-		//		{
-		//			m_pCraftingGUI->GetCraftingDimensions(&x, &y, &width, &height);
-
-		//			if(lMouse.x > x && lMouse.x < x+width && lMouse.y > y && lMouse.y < y+height)
-		//			{
-		//				m_pCraftingGUI->AddCraftingItemFromInventory(pInventoryItem->m_pInventoryItem);
-		//			}
-		//		}
-		//	}
 
 			if(switched == false)
 			{
@@ -1475,18 +1466,6 @@ void InventoryGUI::InventoryItemReleased(InventorySlotItem* pInventoryItem)
 					}
 				}
 			}
-
-	//		// Check if we released on the edit item slot
-	//		if(m_pEditItemGUI->IsLoaded())
-	//		{
-	//			m_pEditItemGUI->GetEditSlotDimensions(&x, &y, &width, &height);
-
-	//			if(lMouse.x > x && lMouse.x < x+width && lMouse.y > y && lMouse.y < y+height)
-	//			{
-	//				m_switchingToCreation = true;
-	//				m_pGameWindow->SwitchToCreation(pInventoryItem->m_pInventoryItem, pInventoryItem->m_pInventoryItem->m_equipped);
-	//			}
-	//		}
 		}
 	}
 

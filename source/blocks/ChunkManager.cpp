@@ -35,6 +35,25 @@ ChunkManager::ChunkManager(Renderer* pRenderer, VoxSettings* pVoxSettings, Qubic
 	m_chunkMaterialID = -1;
 	m_pRenderer->CreateMaterial(Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f), 64, &m_chunkMaterialID);
 
+	// Create the block colour to cblock type matching
+	AddBlockColourBlockTypeMatching(59, 34, 4, BlockType_Wood);
+	AddBlockColourBlockTypeMatching(82, 51, 4, BlockType_Wood);
+	AddBlockColourBlockTypeMatching(87, 58, 0, BlockType_Wood);
+	AddBlockColourBlockTypeMatching(25, 21, 14, BlockType_Wood);
+	AddBlockColourBlockTypeMatching(30, 26, 18, BlockType_Wood);
+	AddBlockColourBlockTypeMatching(132, 97, 36, BlockType_Wood);
+	AddBlockColourBlockTypeMatching(55, 172, 3, BlockType_Leaf);
+	AddBlockColourBlockTypeMatching(27, 82, 0, BlockType_Leaf);
+	AddBlockColourBlockTypeMatching(61, 95, 24, BlockType_Leaf);
+	AddBlockColourBlockTypeMatching(67, 104, 27, BlockType_Leaf);
+	AddBlockColourBlockTypeMatching(121, 134, 0, BlockType_Leaf);
+	AddBlockColourBlockTypeMatching(121, 134, 0, BlockType_Leaf);
+	AddBlockColourBlockTypeMatching(113, 113, 1, BlockType_Leaf);
+	AddBlockColourBlockTypeMatching(0, 182, 0, BlockType_Cactus);
+	AddBlockColourBlockTypeMatching(34, 26, 48, BlockType_Wood); // TODO : Should be ash leaf, from ash trees
+	AddBlockColourBlockTypeMatching(33, 26, 45, BlockType_Wood); // TODO : Should be ash leaf, from ash trees
+	AddBlockColourBlockTypeMatching(255, 255, 255, BlockType_Snow);
+
 	// Loader radius
 	m_loaderRadius = m_pVoxSettings->m_loaderRadius;
 
@@ -61,6 +80,14 @@ ChunkManager::ChunkManager(Renderer* pRenderer, VoxSettings* pVoxSettings, Qubic
 
 ChunkManager::~ChunkManager()
 {
+	// Clear the block colour to block type matching data
+	for (unsigned int i = 0; i < m_vpBlockColourTypeMatchList.size(); i++)
+	{
+		delete m_vpBlockColourTypeMatchList[i];
+		m_vpBlockColourTypeMatchList[i] = NULL;
+	}
+	m_vpBlockColourTypeMatchList.clear();
+
 	m_stepLockEnabled = false;
 	m_updateStepLock = true;
 	m_updateThreadFlagLock.lock();
@@ -611,6 +638,54 @@ void ChunkManager::RemoveChunkStorageLoader(ChunkStorageLoader* pChunkStorage)
 	pChunkStorage = NULL;
 }
 
+
+// Block colour to block type matching
+void ChunkManager::AddBlockColourBlockTypeMatching(int r, int g, int b, BlockType blockType)
+{
+	BlockColourTypeMatch* pMatch = new BlockColourTypeMatch();
+	pMatch->m_red = r;
+	pMatch->m_green = g;
+	pMatch->m_blue = b;
+	pMatch->m_blockType = blockType;
+
+	m_vpBlockColourTypeMatchList.push_back(pMatch);
+}
+
+bool ChunkManager::CheckBlockColour(int r, int g, int b, int rCheck, int gCheck, int bCheck)
+{
+	if (r != rCheck)
+	{
+		return false;
+	}
+
+	if (g != gCheck)
+	{
+		return false;
+	}
+
+	if (b != bCheck)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+BlockType ChunkManager::SetBlockTypeBasedOnColour(int r, int g, int b)
+{
+	for (int i = 0; i < m_vpBlockColourTypeMatchList.size(); i++)
+	{
+		BlockColourTypeMatch* pMatch = m_vpBlockColourTypeMatchList[i];
+
+		if (CheckBlockColour(pMatch->m_red, pMatch->m_green, pMatch->m_blue, r, g, b))
+		{
+			return pMatch->m_blockType;
+		}
+	}
+
+	return BlockType_Default;	
+}
+
 // Importing into the world chunks
 void ChunkManager::ImportQubicleBinaryMatrix(QubicleMatrix* pMatrix, vec3 position, QubicleImportDirection direction)
 {
@@ -718,7 +793,8 @@ void ChunkManager::ImportQubicleBinaryMatrix(QubicleMatrix* pMatrix, vec3 positi
 
 					if (pChunk != NULL)
 					{
-						pChunk->SetColour(blockX, blockY, blockZ, colour);
+						// Set the block colour (and also set the block type since we are importing a world scenery object)
+						pChunk->SetColour(blockX, blockY, blockZ, colour, true);
 
 						// Add to batch update list (no duplicates)
 						bool found = false;
@@ -954,7 +1030,7 @@ float ChunkManager::GetWaterHeight()
 
 bool ChunkManager::IsUnderWater(vec3 position)
 {
-	if (VoxGame::GetInstance()->GetWaterRender() == false)
+	if (m_pVoxSettings->m_waterRendering == false)
 	{
 		return false;
 	}
@@ -1309,15 +1385,18 @@ void ChunkManager::Render(bool shadowRender)
 				if (shadowRender == true || m_pRenderer->SphereInFrustum(VoxGame::GetInstance()->GetDefaultViewport(), chunkCenter, Chunk::CHUNK_RADIUS))
 				{
 					// Fog
-					vec3 chunkCenter = pChunk->GetPosition() + vec3((Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE) - Chunk::BLOCK_RENDER_SIZE, (Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE) - Chunk::BLOCK_RENDER_SIZE, (Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE) - Chunk::BLOCK_RENDER_SIZE);
-					float toCamera = length(VoxGame::GetInstance()->GetGameCamera()->GetPosition() - chunkCenter);
-					if (toCamera > GetLoaderRadius() + (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*5.0f))
+					if (VoxGame::GetInstance()->GetGameMode() != GameMode_FrontEnd)
 					{
-						continue;
-					}
-					if (toCamera > GetLoaderRadius() - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*3.0f)
-					{
-						m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
+						vec3 chunkCenter = pChunk->GetPosition() + vec3((Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE) - Chunk::BLOCK_RENDER_SIZE, (Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE) - Chunk::BLOCK_RENDER_SIZE, (Chunk::CHUNK_SIZE * Chunk::BLOCK_RENDER_SIZE) - Chunk::BLOCK_RENDER_SIZE);
+						float toCamera = length(VoxGame::GetInstance()->GetGameCamera()->GetPosition() - chunkCenter);
+						if (toCamera > GetLoaderRadius() + (Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*5.0f))
+						{
+							continue;
+						}
+						if (toCamera > GetLoaderRadius() - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*3.0f)
+						{
+							m_pRenderer->EnableTransparency(BF_SRC_ALPHA, BF_ONE_MINUS_SRC_ALPHA);
+						}
 					}
 
 					pChunk->Render();

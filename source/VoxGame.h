@@ -41,6 +41,7 @@
 #include "TextEffects/TextEffectsManager.h"
 #include "Mods/ModsManager.h"
 #include "AudioManager/AudioManager.h"
+#include "AudioManager/SoundEffectsEnum.h"
 #include "VoxWindow.h"
 #include "VoxSettings.h"
 #include "GameGUI/ActionBar.h"
@@ -132,6 +133,17 @@ public:
 	void ResizeWindow(int width, int height);
 	void CloseWindow();
 	void UpdateJoySticks();
+
+	// Music
+	void StartFrontEndMusic();
+	void StartGameMusic();
+	void StopMusic();
+	void UpdateGameMusic(float dt);
+	void UpdateMusicVolume(float dt);
+
+	// Sounds
+	void PlaySoundEffect(eSoundEffect soundEffect, float soundEnhanceMultiplier = 1.0f);
+	void PlaySoundEffect3D(eSoundEffect soundEffect, vec3 soundPosition, float soundEnhanceMultiplier = 1.0f);
 
 	// Controls
 	void UpdateControls(float dt);
@@ -248,7 +260,6 @@ public:
 	void ClearConsoleLabels();
 	void UpdateConsoleLabels();
 	void ToggleFullScreenPressed();
-	bool GetWaterRender();
 
 	// Accessors
 	unsigned int GetDefaultViewport();
@@ -308,6 +319,7 @@ private:
 
 public:
 	/* Public members */
+	static const bool STEAM_BUILD;
 
 protected:
 	/* Protected members */
@@ -586,10 +598,14 @@ private:
 	ActionBar* m_pActionBar;
 	HUD* m_pHUD;
 
+	// Music and audio
+	FMOD::Channel* m_pMusicChannel;
+	FMOD::Sound* m_pMusicSound;
+	Biome m_currentBiomeMusic;
+
 	// GUI Components
 	bool m_GUICreated;
 	GUIWindow* m_pMainWindow;
-	CheckBox* m_pShadowsCheckBox;
 	CheckBox* m_pSSAOCheckBox;
 	CheckBox* m_pDynamicLightingCheckBox;
 	CheckBox* m_pWireframeCheckBox;
@@ -599,8 +615,6 @@ private:
 	CheckBox* m_pBlurCheckBox;
 	CheckBox* m_pDebugRenderCheckBox;
 	CheckBox* m_pInstanceRenderCheckBox;
-	CheckBox* m_pFogRenderCheckBox;
-	CheckBox* m_pWaterRenderCheckBox;
 	Button* m_pPlayAnimationButton;
 	PulldownMenu* m_pAnimationsPulldown;
 	PulldownMenu* m_pCharacterPulldown;
@@ -631,14 +645,11 @@ private:
 	bool m_multiSampling;
 	bool m_ssao;
 	bool m_blur;
-	bool m_shadows;
 	bool m_dynamicLighting;
 	bool m_animationUpdate;
 	bool m_fullscreen;
 	bool m_debugRender;
 	bool m_instanceRender;
-	bool m_fogRender;
-	bool m_waterRender;
 
 	// Singleton instance
 	static VoxGame *c_instance;

@@ -1600,6 +1600,8 @@ void CharacterGUI::CharacterItemReleased(CharacterSlotItem* pCharacterItem)
 						m_pPlayer->RefreshStatModifierCacheValues();
 
 						unequip = true;
+
+						VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_EquipMove);
 					}
 					else
 					{
@@ -1670,6 +1672,8 @@ void CharacterGUI::CharacterItemReleased(CharacterSlotItem* pCharacterItem)
 							m_pPlayer->RefreshStatModifierCacheValues();
 
 							unequip = true;
+
+							VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_EquipMove);
 						}
 					}
 				}
@@ -1711,6 +1715,8 @@ void CharacterGUI::CharacterItemReleased(CharacterSlotItem* pCharacterItem)
 							m_pPlayer->RefreshStatModifierCacheValues();
 
 							unequip = true;
+
+							VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_EquipMove);
 						}
 					}
 				}
@@ -1729,6 +1735,8 @@ void CharacterGUI::CharacterItemReleased(CharacterSlotItem* pCharacterItem)
 				{
 					m_pActionBar->AddItemToActionBar(pCharacterItem->m_pInventoryItem, i, pCharacterItem->m_slotX, pCharacterItem->m_slotY);
 					m_pActionBar->ExportActionBar(m_pPlayer->GetName());
+
+					VoxGame::GetInstance()->PlaySoundEffect(eSoundEffect_EquipMove);
 				}
 			}
 		}

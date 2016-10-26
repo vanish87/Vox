@@ -201,6 +201,7 @@ public:
 	void SetSelectedNPC(NPC* pSelectedNPC);
 	void SetCharacterSubSelection(string subSelection);
 	void GotoNextCreditScreen();
+	void DisableShadowOption();
 
 	// Constants
 	float GetToolTipAppearDelay();

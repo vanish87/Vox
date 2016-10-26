@@ -29,7 +29,7 @@ void VoxGame::BeginShaderRender()
 {
 	glShader* pShader = NULL;
 
-	if (m_shadows)
+	if (m_pVoxSettings->m_shadows)
 	{
 		m_pRenderer->BeginGLSLShader(m_shadowShader);
 
@@ -37,33 +37,35 @@ void VoxGame::BeginShaderRender()
 		GLuint shadowMapUniform = glGetUniformLocationARB(pShader->GetProgramObject(), "ShadowMap");
 		m_pRenderer->PrepareShaderTexture(7, shadowMapUniform);
 		m_pRenderer->BindRawTextureId(m_pRenderer->GetDepthTextureFromFrameBuffer(m_shadowFrameBuffer));
-		glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "renderShadow"), m_shadows);
+		glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "renderShadow"), m_pVoxSettings->m_shadows);
 		glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "alwaysShadow"), false);
-
-		bool fogEnabled = true;
-		glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "enableFog"), m_fogRender);
-		float lfogEnd = m_pChunkManager->GetLoaderRadius() - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE;
-		float lfogStart = lfogEnd - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*2.0f;
-		GLfloat fogColor[4] = { 1.0f, 1.0f, 1.0f, 0.0f };
-		glFogi(GL_FOG_MODE, GL_LINEAR);
-		glFogfv(GL_FOG_COLOR, fogColor);
-		glFogf(GL_FOG_DENSITY, 1.0f);
-		glHint(GL_FOG_HINT, GL_DONT_CARE);
-		glFogf(GL_FOG_START, lfogStart);
-		glFogf(GL_FOG_END, lfogEnd);
-		glEnable(GL_FOG);
 	}
 	else
 	{
 		m_pRenderer->BeginGLSLShader(m_defaultShader);
+
+		pShader = m_pRenderer->GetShader(m_defaultShader);
 	}
+
+	bool fogEnabled = (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_MainMenu) ? false : m_pVoxSettings->m_fogRendering;
+	glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "enableFog"), fogEnabled);
+	float lfogEnd = m_pChunkManager->GetLoaderRadius() - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE;
+	float lfogStart = lfogEnd - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*2.0f;
+	GLfloat fogColor[4] = { 1.0f, 1.0f, 1.0f, 0.0f };
+	glFogi(GL_FOG_MODE, GL_LINEAR);
+	glFogfv(GL_FOG_COLOR, fogColor);
+	glFogf(GL_FOG_DENSITY, 1.0f);
+	glHint(GL_FOG_HINT, GL_DONT_CARE);
+	glFogf(GL_FOG_START, lfogStart);
+	glFogf(GL_FOG_END, lfogEnd);
+	glEnable(GL_FOG);
 }
 
 void VoxGame::EndShaderRender()
 {
 	glDisable(GL_FOG);
 
-	if (m_shadows)
+	if (m_pVoxSettings->m_shadows)
 	{
 		m_pRenderer->EndGLSLShader(m_shadowShader);
 	}
@@ -85,7 +87,7 @@ void VoxGame::Render()
 	m_pRenderer->BeginScene(true, true, true);
 
 		// Shadow rendering to the shadow frame buffer
-		if (m_shadows)
+		if (m_pVoxSettings->m_shadows)
 		{
 			RenderShadows();
 		}
@@ -96,6 +98,9 @@ void VoxGame::Render()
 		m_pRenderer->PushMatrix();
 			// Set the default projection mode
 			m_pRenderer->SetProjectionMode(PM_PERSPECTIVE, m_defaultViewport);
+
+			// Enable vector normalization, for scaling and lighting
+			m_pRenderer->EnableVectorNormalize();
 
 			// Set back culling as default
 			m_pRenderer->SetCullMode(CM_BACK);
@@ -122,7 +127,7 @@ void VoxGame::Render()
 			}
 
 			// Water reflections
-			if (m_waterRender && m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()) == false && m_gameMode != GameMode_FrontEnd)
+			if (m_pVoxSettings->m_waterRendering && m_pChunkManager->IsUnderWater(m_pGameCamera->GetPosition()) == false && m_gameMode != GameMode_FrontEnd)
 			{
 				RenderWaterReflections();
 			}
@@ -222,7 +227,7 @@ void VoxGame::Render()
 			EndShaderRender();
 
 			// Render the transparency items above the water render, so that they appear properly under water
-			if (m_waterRender && m_gameMode != GameMode_FrontEnd)
+			if (m_pVoxSettings->m_waterRendering && m_gameMode != GameMode_FrontEnd)
 			{
 				if (m_cameraMode != CameraMode_FirstPerson)
 				{
@@ -331,6 +336,9 @@ void VoxGame::Render()
 		// Render 2d
 		// ---------------------------------------
 		m_pRenderer->PushMatrix();
+			// Disable multisampling for 2d gui and text
+			m_pRenderer->DisableMultiSampling();
+
 			// Crosshair
 			if (m_cameraMode == CameraMode_FirstPerson && m_bPaused == false)
 			{
@@ -352,9 +360,6 @@ void VoxGame::Render()
 				RenderHUD();
 			}
 		m_pRenderer->PopMatrix();
-
-		// Disable multisampling for 2d gui and text
-		m_pRenderer->DisableMultiSampling();
 
 		// Render other deferred rendering pipelines
 		// Paperdoll SSAO for CharacterGUI
@@ -584,8 +589,8 @@ void VoxGame::RenderWater()
 			glActiveTextureARB(GL_TEXTURE1_ARB);
 		}
 
-		bool fogEnabled = true;
-		glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "enableFog"), m_fogRender);
+		bool fogEnabled = (m_pFrontendManager->GetFrontendScreen() == FrontendScreen_MainMenu) ? false : m_pVoxSettings->m_fogRendering;
+		glUniform1iARB(glGetUniformLocationARB(pShader->GetProgramObject(), "enableFog"), fogEnabled);
 		float lfogEnd = m_pChunkManager->GetLoaderRadius() - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE;
 		float lfogStart = lfogEnd - Chunk::CHUNK_SIZE*Chunk::BLOCK_RENDER_SIZE*2.0f;
 		GLfloat fogColor[4] = { 1.0f, 1.0f, 1.0f, 0.0f };
@@ -1392,7 +1397,7 @@ void VoxGame::RenderDebugInformation()
 		m_pGameCamera->GetZoomAmount());
 
 	char lDrawingBuff[256];
-	sprintf(lDrawingBuff, "Vertices: %i, Faces: %i", 0, 0); // TODO : Debug rendering Metrics
+	sprintf(lDrawingBuff, "Vertices: %i, Faces: %i", m_pRenderer->GetNumRenderedVertices(), m_pRenderer->GetNumRenderedFaces());
 	char lChunksBuff[256];
 	sprintf(lChunksBuff, "Chunks: %i, Render: %i", m_pChunkManager->GetNumChunksLoaded(), m_pChunkManager->GetNumChunksRender());
 	char lParticlesBuff[256];
@@ -1438,7 +1443,7 @@ void VoxGame::RenderDebugInformation()
 		if (m_debugRender)
 		{
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight * 1) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lCameraBuff);
-			//m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight*2) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lDrawingBuff);
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight*2) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lDrawingBuff);
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight * 3) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lChunksBuff);
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight * 4) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lParticlesBuff);
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight * 5) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lItemsBuff);
@@ -1448,7 +1453,10 @@ void VoxGame::RenderDebugInformation()
 			m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, m_windowHeight - (l_nTextHeight * 9) - 10.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lInstancesBuff);
 		}
 
-		m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth-fpsWidthOffset, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lFPSBuff);
+		if (STEAM_BUILD == false)
+		{
+			m_pRenderer->RenderFreeTypeText(m_defaultFont, m_windowWidth - fpsWidthOffset, 15.0f, 1.0f, Colour(1.0f, 1.0f, 1.0f), 1.0f, lFPSBuff);
+		}
 		m_pRenderer->RenderFreeTypeText(m_defaultFont, 15.0f, 15.0f, 1.0f, Colour(0.75f, 0.75f, 0.75f), 1.0f, lBuildInfo);
 
 	m_pRenderer->PopMatrix();

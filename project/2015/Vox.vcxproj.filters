@@ -651,6 +651,9 @@
     <ClCompile Include="..\..\source\AudioManager\AudioManager.cpp">
       <Filter>source\AudioManager</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\AudioManager\SoundEffects.cpp">
+      <Filter>source\AudioManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\glew\include\GL\glew.h">
@@ -1650,6 +1653,9 @@
       <Filter>source\libnoise</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\AudioManager\AudioManager.h">
+      <Filter>source\AudioManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\AudioManager\SoundEffectsEnum.h">
       <Filter>source\AudioManager</Filter>
     </ClInclude>
   </ItemGroup>

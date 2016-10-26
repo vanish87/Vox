@@ -56,6 +56,9 @@ public:
 	float m_gamepadSensitivity;
 
 	// Graphics
+	bool m_shadows;
+	bool m_fogRendering;
+	bool m_waterRendering;
 
 	// Sound
 	bool m_audio;
@@ -81,15 +84,12 @@ public:
 	bool m_vsync;
 	bool m_fullscreen;
 	bool m_deferredRendering;
-	bool m_shadows;
 	bool m_blur;
 	bool m_ssao;
 	bool m_dynamicLighting;
 	bool m_msaa;
 	bool m_instancedParticles;
 	bool m_faceMerging;
-	bool m_fogRendering;
-	bool m_waterRendering;
 
 	// Landscape generation
 	float m_landscapeOctaves;

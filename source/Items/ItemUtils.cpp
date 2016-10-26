@@ -58,7 +58,7 @@ string GetItemTitleForType(eItem type)
 		case eItem_Block_Dirt:		{ return "Dirt Block"; } break;
 		case eItem_Block_Stone:		{ return "Stone Block"; } break;
 		case eItem_Block_Wood:		{ return "Wood Block"; } break;
-		case eItem_Block_Leaf:		{ return "Lead Block"; } break;
+		case eItem_Block_Leaf:		{ return "Leaf Block"; } break;
 		case eItem_Block_Sand:		{ return "Sand Block"; } break;
 		case eItem_Block_Cactus:	{ return "Cactus Block"; } break;
 		case eItem_Block_Rock:		{ return "Rock Block"; } break;
@@ -113,7 +113,7 @@ string GetItemDescriptionForType(eItem type)
 		case eItem_Block_Dirt:		{ return "Dirt block for world building."; } break;
 		case eItem_Block_Stone:		{ return "Stone block for world building."; } break;
 		case eItem_Block_Wood:		{ return "Wood block for world building."; } break;
-		case eItem_Block_Leaf:		{ return "Lead block for world building."; } break;
+		case eItem_Block_Leaf:		{ return "Leaf block for world building."; } break;
 		case eItem_Block_Sand:		{ return "Sand block for world building."; } break;
 		case eItem_Block_Cactus:	{ return "Cactus block for world building."; } break;
 		case eItem_Block_Rock:		{ return "Rock block for world building."; } break;
@@ -168,7 +168,7 @@ string GetItemFilenameForType(eItem type)
 		case eItem_Block_Dirt:		{ return "media/gamedata/items/Block_Dirt/Block_Dirt.item"; } break;
 		case eItem_Block_Stone:		{ return "media/gamedata/items/Block_Stone/Block_Stone.item"; } break;
 		case eItem_Block_Wood:		{ return "media/gamedata/items/Block_Wood/Block_Wood.item"; } break;
-		case eItem_Block_Leaf:		{ return "media/gamedata/items/Block_Lead/Block_Lead.item"; } break;
+		case eItem_Block_Leaf:		{ return "media/gamedata/items/Block_Leaf/Block_Leaf.item"; } break;
 		case eItem_Block_Sand:		{ return "media/gamedata/items/Block_Sand/Block_Sand.item"; } break;
 		case eItem_Block_Cactus:	{ return "media/gamedata/items/Block_Cactus/Block_Cactus.item"; } break;
 		case eItem_Block_Rock:		{ return "media/gamedata/items/Block_Rock/Block_Rock.item"; } break;

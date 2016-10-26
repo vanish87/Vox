@@ -10,7 +10,7 @@
 // Revision History:
 //   Initial Revision - 12/10/15
 //
-// Copyright (c) 2005-2015, Steven Ball
+// Copyright (c) 2005-2016, Steven Ball
 // ******************************************************************************
 
 #pragma once
@@ -242,12 +242,20 @@ public:
 	void EnableMultiSampling();
 	void DisableMultiSampling();
 
+	// Vector normalize
+	void EnableVectorNormalize();
+	void DisableVectorNormalize();
+
 	// Depth testing
 	void EnableDepthTest(DepthTest lTestFunction);
 	void DisableDepthTest();
 	GLenum GetDepthTest(DepthTest lTest);
 	void EnableDepthWrite();
 	void DisableDepthWrite();
+
+	// Colour material
+	void EnableColourMaterial();
+	void DisableColourMaterial();
 
 	// Immediate mode
 	void EnableImmediateMode(ImmediateModePrimitive mode);
@@ -333,6 +341,7 @@ public:
 	unsigned int AddTriangleToMesh(unsigned int vertexId1, unsigned int vertexId2, unsigned int vertexId3, OpenGLTriangleMesh* pMesh);
 	void ModifyMeshAlpha(float alpha, OpenGLTriangleMesh* pMesh);
 	void ModifyMeshColour(float r, float g, float b, OpenGLTriangleMesh* pMesh);
+	void ConvertMeshColour(float r, float g, float b, float matchR, float matchG, float matchB, OpenGLTriangleMesh* pMesh);
 	void FinishMesh(unsigned int textureID, unsigned int materialID, OpenGLTriangleMesh* pMesh);
 	void RenderMesh(OpenGLTriangleMesh* pMesh);
 	void RenderMesh_NoColour(OpenGLTriangleMesh* pMesh);
@@ -366,6 +375,11 @@ public:
 	unsigned int GetPositionTextureFromFrameBuffer(unsigned int frameBufferId);
 	unsigned int GetNormalTextureFromFrameBuffer(unsigned int frameBufferId);
 	unsigned int GetDepthTextureFromFrameBuffer(unsigned int frameBufferId);
+
+	// Rendered information
+	void ResetRenderedStats();
+	int GetNumRenderedVertices();
+	int GetNumRenderedFaces();
 
 	// Shaders
 	bool LoadGLSLShader(const char* vertexFile, const char* fragmentFile, unsigned int *pID);
@@ -415,7 +429,7 @@ private:
 	vector<Frustum *> m_frustums;
 	// Note : We store a frustum for each viewport, therefore viewport and
 	// frustum are closely linked (See viewport functions)
-	
+
 	// Materials
 	vector<Material *> m_materials;
 
@@ -434,6 +448,10 @@ private:
 
 	// Frame buffers
 	vector<FrameBuffer*> m_vFrameBuffers;
+
+	// Rendered information
+	int m_numRenderedVertices;
+	int m_numRenderedFaces;
 
 	// Shaders
 	glShaderManager ShaderManager;

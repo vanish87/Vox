@@ -19,6 +19,11 @@
 
 #include <stdio.h>
 
+#include "fmod/include/fmod.hpp"
+#include "fmod/include/fmod_errors.h"
+#include "fmod/include/fmod.h"
+
+
 class AudioManager
 {
 public:
@@ -29,11 +34,16 @@ public:
     void Setup();
     void Shutdown();
 
-	void Update(float dt);
+	void Update(vec3 listenerPos, vec3 listenerForward, vec3 listenerUp);
 
     void SetEnableAudio(bool enable);
 
 	void StopAllSounds();
+
+	FMOD::Sound* PlaySound2D(FMOD::Channel** pChannel, const char* filename, bool looping, bool stream = false);
+	FMOD::Sound* PlaySound3D(FMOD::Channel** pChannel, const char* filename, vec3 position, bool looping, bool stream = false);
+
+	void StopSound(FMOD::Channel* pChannel);
 
 protected:
 	/* Protected methods */
@@ -52,6 +62,10 @@ protected:
 
 private:
 	/* Private members */
+	FMOD::System *m_FMODSystem;
+	
+	FMOD_RESULT m_FMODResult;
+	unsigned int m_FMODVersion;
 
     bool m_audioEnabled;
 

@@ -14,7 +14,6 @@
 #include "QubicleBinary.h"
 #include "VoxelCharacter.h"
 #include "../utils/FileUtils.h"
-#include "../VoxGame.h"
 
 const float QubicleBinary::BLOCK_RENDER_SIZE = 0.5f;
 
@@ -276,9 +275,6 @@ bool QubicleBinary::Import(const char* fileName, bool faceMerging)
 		CreateMesh(faceMerging);
 
 		m_loaded = true;
-
-		// TODO : Temp remove qubicle binary log outputting because of spamming and causing GUI to halt.
-		//VoxGame::GetInstance()->AddConsoleLabel("\'" + string(fileName) + "\' loaded.");
 
 		return true;
 	}

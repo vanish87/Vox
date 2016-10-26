@@ -19,6 +19,10 @@
 #include <sys/time.h>
 #endif //__linux__
 
+const bool VoxGame::STEAM_BUILD = true;
+
+
+extern string g_soundEffectFilenames[eSoundEffect_NUM];
 
 // Initialize the singleton instance
 VoxGame *VoxGame::c_instance = 0;
@@ -110,6 +114,11 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 
 	/* Biome */
 	m_currentBiome = Biome_None;
+
+	/* Music and Audio */
+	m_pMusicChannel = NULL;
+	m_pMusicSound = NULL;
+	m_currentBiomeMusic = Biome_None;
 
 	/* Create the GUI */
 	m_pGUI = new OpenGLGUI(m_pRenderer);
@@ -408,14 +417,11 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	m_multiSampling = true;
 	m_ssao = true;
 	m_blur = false;
-	m_shadows = true;
 	m_dynamicLighting = true;
 	m_animationUpdate = true;
 	m_fullscreen = m_pVoxSettings->m_fullscreen;
 	m_debugRender = false;
 	m_instanceRender = true;
-	m_fogRender = true;
-	m_waterRender = true;
 
 	// Camera mode
 	m_cameraMode = CameraMode_Debug;
@@ -438,6 +444,7 @@ void VoxGame::Create(VoxSettings* pVoxSettings)
 	CreateGUI();
 	SetupGUI();
 	SkinGUI();
+	UpdateGUI(0.0f);
 }
 
 // Destruction
@@ -733,6 +740,110 @@ void VoxGame::UpdateJoySticks()
 	m_pVoxWindow->UpdateJoySticks();
 }
 
+// Music
+void VoxGame::StartFrontEndMusic()
+{
+	string musicModName = VoxGame::GetInstance()->GetModsManager()->GetSoundPack();
+	string musicFileName = "media/audio/" + musicModName + "/music/vox_intro.ogg";
+	m_pMusicSound = AudioManager::GetInstance()->PlaySound2D(&m_pMusicChannel, musicFileName.c_str(), true, true);
+
+	UpdateMusicVolume(0.0f);
+}
+
+void VoxGame::StartGameMusic()
+{
+	Biome currentBiome = m_pBiomeManager->GetBiome(m_pPlayer->GetCenter());
+	m_currentBiomeMusic = currentBiome;
+
+	string biomeFileName = "";
+	switch (m_currentBiomeMusic)
+	{
+		case Biome_None:		{ break; }
+		case Biome_GrassLand:	{ biomeFileName = "biome_plains.ogg"; break; }
+		case Biome_Desert:		{ biomeFileName = "biome_desert.ogg"; break; }
+		//case Biome_Jungle:	{ biomeFileName = "biome_jungle.ogg";break; }
+		case Biome_Tundra:		{ biomeFileName = "biome_snow.ogg"; break; }
+		//case Biome_Swamp:		{ biomeFileName = "";break; }
+		case Biome_AshLand:		{ biomeFileName = "biome_nightmare.ogg"; break; }
+		//case Biome_Nightmare:	{ biomeFileName = "";break; }
+	}
+
+	string musicModName = VoxGame::GetInstance()->GetModsManager()->GetSoundPack();
+	string musicFileName = "media/audio/" + musicModName + "/music/" + biomeFileName;
+	m_pMusicSound = AudioManager::GetInstance()->PlaySound2D(&m_pMusicChannel, musicFileName.c_str(), true, true);
+
+	UpdateMusicVolume(0.0f);
+}
+
+void VoxGame::StopMusic()
+{
+	// Stop the music
+	AudioManager::GetInstance()->StopSound(m_pMusicChannel);
+
+	m_pMusicChannel = NULL;
+	m_pMusicSound = NULL;
+}
+
+void VoxGame::UpdateGameMusic(float dt)
+{
+	Biome currentBiome = m_pBiomeManager->GetBiome(m_pPlayer->GetCenter());
+
+	if (currentBiome != m_currentBiomeMusic)
+	{
+		StopMusic();
+		StartGameMusic();
+	}
+}
+
+void VoxGame::UpdateMusicVolume(float dt)
+{
+	if (m_pVoxSettings->m_music)
+	{
+		if (m_pMusicChannel != NULL)
+		{
+			m_pMusicChannel->setVolume(0.125f * m_pVoxSettings->m_musicVolume);
+		}
+	}
+	else
+	{
+		if (m_pMusicChannel != NULL)
+		{
+			m_pMusicChannel->setVolume(0.0f);
+		}
+	}
+}
+
+// Sounds
+void VoxGame::PlaySoundEffect(eSoundEffect soundEffect, float soundEnhanceMultiplier)
+{
+	if (m_pVoxSettings->m_audio)
+	{
+		string soundModName = VoxGame::GetInstance()->GetModsManager()->GetSoundPack();
+		string soundeffectFilename = g_soundEffectFilenames[soundEffect];
+		string soundFileName = "media/audio/" + soundModName + "/soundeffects/" + soundeffectFilename;
+
+		FMOD::Channel* pSoundChannel;
+		FMOD::Sound* pSound;
+		pSound = AudioManager::GetInstance()->PlaySound2D(&pSoundChannel, soundFileName.c_str(), false);
+		pSoundChannel->setVolume(soundEnhanceMultiplier * m_pVoxSettings->m_audioVolume);
+	}
+}
+
+void VoxGame::PlaySoundEffect3D(eSoundEffect soundEffect, vec3 soundPosition, float soundEnhanceMultiplier)
+{
+	if (m_pVoxSettings->m_audio)
+	{
+		string soundModName = VoxGame::GetInstance()->GetModsManager()->GetSoundPack();
+		string soundeffectFilename = g_soundEffectFilenames[soundEffect];
+		string soundFileName = "media/audio/" + soundModName + "/soundeffects/" + soundeffectFilename;
+
+		FMOD::Channel* pSoundChannel;
+		FMOD::Sound* pSound;
+		pSound = AudioManager::GetInstance()->PlaySound3D(&pSoundChannel, soundFileName.c_str(), soundPosition, false);
+		pSoundChannel->setVolume(3.0f * soundEnhanceMultiplier * m_pVoxSettings->m_audioVolume);
+	}
+}
+
 // Game functions
 void VoxGame::QuitToFrontEnd()
 {
@@ -758,14 +869,20 @@ void VoxGame::QuitToFrontEnd()
 
 void VoxGame::SetupDataForGame()
 {
+	// Initial player startup position and rotation
+	vec3 starPosition = vec3(10.0f, 8.0f, 23.0f);
+	m_pPlayer->SetPosition(starPosition);
+	m_pPlayer->SetRespawnPosition(starPosition + vec3(0.0f, 0.1f, 0.0f));
+	m_pPlayer->SetRotation(90.0f);
+
 	// Items
-	Item* pFurnace = m_pItemManager->CreateItem(vec3(25.0f, 10.0f, -5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Furnace/Furnace.item", eItem_Furnace, "Furnace", true, false, 0.16f);
+	Item* pFurnace = m_pItemManager->CreateItem(vec3(25.0f, 10.0f, 29.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Furnace/Furnace.item", eItem_Furnace, "Furnace", true, false, 0.16f);
 	pFurnace->SetInteractionPositionOffset(vec3(0.0f, 0.0f, -2.0f));
-	Item* pAnvil = m_pItemManager->CreateItem(vec3(32.0f, 9.0f, -1.5f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Anvil/Anvil.item", eItem_Anvil, "Anvil", true, false, 0.14f);
+	Item* pAnvil = m_pItemManager->CreateItem(vec3(32.0f, 9.0f, 26.5f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Anvil/Anvil.item", eItem_Anvil, "Anvil", true, false, 0.14f);
 	pAnvil->SetInteractionPositionOffset(vec3(0.0f, 0.0f, -1.5f));
 	
 	// Chest with random loot item
-	Item* pChest = m_pItemManager->CreateItem(vec3(24.0f, 12.0f, 13.5f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 180.0f, 0.0f), "media/gamedata/items/Chest/Chest.item", eItem_Chest, "Chest", true, false, 0.08f);
+	Item* pChest = m_pItemManager->CreateItem(vec3(17.0f, 12.0f, 28.5f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), "media/gamedata/items/Chest/Chest.item", eItem_Chest, "Chest", true, false, 0.08f);
 	eEquipment equipment = eEquipment_None;
 	InventoryItem* pRandomLoot = VoxGame::GetInstance()->GetRandomLootManager()->GetRandomLootItem(&equipment);
 	if (pRandomLoot != NULL && equipment != eEquipment_None)
@@ -795,7 +912,7 @@ void VoxGame::SetupDataForGame()
 	pItemSpawner3->AddItemTypeToSpawn(eItem_Chest);
 
 	// Npcs
-	NPC* pCharacter1 = m_pNPCManager->CreateNPC("Mage", "Human", "Mage", vec3(21.0f, 8.5f, 20.0f), 0.08f, false, true);
+	NPC* pCharacter1 = m_pNPCManager->CreateNPC("Mage", "Human", "Mage", vec3(21.0f, 8.5f, 25.0f), 0.08f, false, true);
 	pCharacter1->SetForwards(vec3(0.0f, 0.0f, -1.0f));
 	pCharacter1->SetTargetForwards(vec3(0.0f, 0.0f, -1.0f));
 	pCharacter1->SetNPCCombatType(eNPCCombatType_Staff, true);
@@ -888,6 +1005,9 @@ void VoxGame::SetupDataForGame()
 
 void VoxGame::SetupDataForFrontEnd()
 {
+	// Safezones (Where we cannot spawn enemies)
+	m_pBiomeManager->AddSafeZone(vec3(21.0f, 8.5f, 20.0f), 25.f, 30.0f, 25.0f);
+	m_pBiomeManager->AddTown(vec3(8.0f, 8.0f, 8.0f), 75.f, 15.0f, 75.0f);
 }
 
 void VoxGame::StartGameFromFrontEnd()
@@ -957,7 +1077,7 @@ void VoxGame::SetGameMode(GameMode mode)
 			m_pPlayer->ResetPlayer();
 
 			// Set the water level
-			m_pChunkManager->SetWaterHeight(5.3f);
+			m_pChunkManager->SetWaterHeight(1.3f);
 
 			// Unload actionbar
 			if (m_pActionBar->IsLoaded())
@@ -979,6 +1099,10 @@ void VoxGame::SetGameMode(GameMode mode)
 
 			// Setup the gamedata since we have just loaded fresh into the frontend.
 			SetupDataForFrontEnd();
+
+			// Music
+			StopMusic();
+			StartFrontEndMusic();
 
 			// Initial chunk creation
 			m_pChunkManager->InitializeChunkCreation();
@@ -1019,7 +1143,7 @@ void VoxGame::SetGameMode(GameMode mode)
 			m_pPlayer->ResetPlayer();
 
 			// Set the water level
-			m_pChunkManager->SetWaterHeight(5.3f);
+			m_pChunkManager->SetWaterHeight(1.3f);
 
 			// Load action bar
 			if (m_pActionBar->IsLoaded() == false)
@@ -1041,6 +1165,10 @@ void VoxGame::SetGameMode(GameMode mode)
 
 			// Setup the gamedata since we have just loaded fresh into a game.
 			SetupDataForGame();
+
+			// Music
+			StopMusic();
+			StartGameMusic();
 
 			// Initial chunk creation
 			m_pChunkManager->InitializeChunkCreation();
@@ -1175,6 +1303,8 @@ bool VoxGame::CheckInteractions()
 				{
 					m_pPlayer->StopMoving();
 					shouldStopMovement = true;
+
+					PlaySoundEffect(eSoundEffect_ChestOpen);
 
 					if (m_pLootGUI->IsLoaded())
 					{

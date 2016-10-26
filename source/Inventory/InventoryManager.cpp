@@ -633,7 +633,7 @@ void InventoryManager::ImportInventory(string playerName)
 				m_equippedSlots[equipSlot]->m_equipped = true;
 
 				m_pInventoryGUI->SetEquippedItem((EquipSlot)equipSlot, title);
-				m_pPlayer->EquipItem(pNewItem);
+				m_pPlayer->EquipItem(pNewItem, true);
 
 				SetInventoryGUINeedsUpdate(true);
 				SetCharacterGUINeedsUpdate(true);

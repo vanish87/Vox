@@ -1,7 +1,7 @@
 // ******************************************************************************
-// Filename:	VoxWindow.h
-// Project:	Vox
-// Author:	Steven Ball
+// Filename:    VoxWindow.h
+// Project:     Vox
+// Author:      Steven Ball
 //
 // Purpose:
 //   The Vox window class is an interface and wrapper around the glfw windows

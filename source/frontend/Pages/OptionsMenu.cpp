@@ -146,11 +146,27 @@ OptionsMenu::OptionsMenu(Renderer* pRenderer, OpenGLGUI* pGUI, FrontendManager* 
 	m_vpGameplayComponents.push_back(m_pSliderBackgroundIcon_GamepadSensativity);
 
 	// Graphics
+	m_pShadowsCheckBox = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Shadows", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	m_pShadowsCheckBox->SetDisplayLabel(true);
+	m_pShadowsCheckBox->SetDepth(2.0f);
+	m_pShadowsCheckBox->SetPressedOffset(0, -2);
+	m_pFogRenderCheckBox = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Fog Rendering", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	m_pFogRenderCheckBox->SetDisplayLabel(true);
+	m_pFogRenderCheckBox->SetDepth(2.0f);
+	m_pFogRenderCheckBox->SetPressedOffset(0, -2);
+	m_pWaterRenderCheckBox = new CheckBox(m_pRenderer, m_pFrontendManager->GetFrontendFont_20(), m_pFrontendManager->GetFrontendFont_20_Outline(), "Warter Rendering", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
+	m_pWaterRenderCheckBox->SetDisplayLabel(true);
+	m_pWaterRenderCheckBox->SetDepth(2.0f);
+	m_pWaterRenderCheckBox->SetPressedOffset(0, -2);
+
 	m_pFullscreenButton = new Button(m_pRenderer, m_pFrontendManager->GetFrontendFont_25(), m_pFrontendManager->GetFrontendFont_25_Outline(), "Fullscreen", Colour(1.0f, 1.0f, 1.0f, 1.0f), Colour(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pFullscreenButton->SetCallBackFunction(_ToggleFullScreenPressed);
 	m_pFullscreenButton->SetCallBackData(this);
 	m_pFullscreenButton->SetPressedOffset(0, -2);
 
+	m_vpGraphicsComponents.push_back(m_pShadowsCheckBox);
+	m_vpGraphicsComponents.push_back(m_pFogRenderCheckBox);
+	m_vpGraphicsComponents.push_back(m_pWaterRenderCheckBox);
 	m_vpGraphicsComponents.push_back(m_pFullscreenButton);
 
 	// Sound
@@ -296,6 +312,9 @@ OptionsMenu::~OptionsMenu()
 	delete m_pSliderBackgroundIcon_GamepadSensativity;
 
 	// Graphics
+	delete m_pShadowsCheckBox;
+	delete m_pFogRenderCheckBox;
+	delete m_pWaterRenderCheckBox;
 	delete m_pFullscreenButton;
 
 	// Sound
@@ -393,6 +412,9 @@ void OptionsMenu::SetWindowDimensions(int windowWidth, int windowHeight)
 	m_pSliderBackgroundIcon_GamepadSensativity->SetDimensions(131, m_optionsWindowHeight-303, 207, 31);
 
 	// Graphics
+	m_pShadowsCheckBox->SetDimensions(25, m_optionsWindowHeight - 65, 20, 20);
+	m_pFogRenderCheckBox->SetDimensions(25, m_optionsWindowHeight - 90, 20, 20);
+	m_pWaterRenderCheckBox->SetDimensions(25, m_optionsWindowHeight - 115, 20, 20);
 	m_pFullscreenButton->SetDimensions(230, 10, 110, 47);
 
 	// Sound
@@ -503,6 +525,18 @@ void OptionsMenu::SkinGUI()
 	dimensions = m_pFollowCamOption->GetDimensions();
 	m_pFollowCamOption->SetDimensions(dimensions.m_x, dimensions.m_y, 20, 20);
 
+	m_pFrontendManager->SetCheckboxIcons(m_pShadowsCheckBox);
+	dimensions = m_pShadowsCheckBox->GetDimensions();
+	m_pShadowsCheckBox->SetDimensions(dimensions.m_x, dimensions.m_y, 20, 20);
+	
+	m_pFrontendManager->SetCheckboxIcons(m_pFogRenderCheckBox);
+	dimensions = m_pFogRenderCheckBox->GetDimensions();
+	m_pFogRenderCheckBox->SetDimensions(dimensions.m_x, dimensions.m_y, 20, 20);
+
+	m_pFrontendManager->SetCheckboxIcons(m_pWaterRenderCheckBox);
+	dimensions = m_pWaterRenderCheckBox->GetDimensions();
+	m_pWaterRenderCheckBox->SetDimensions(dimensions.m_x, dimensions.m_y, 20, 20);
+
 	m_pFrontendManager->SetCheckboxIcons(m_pSoundEffects);
 	dimensions = m_pSoundEffects->GetDimensions();
 	m_pSoundEffects->SetDimensions(dimensions.m_x, dimensions.m_y, 20, 20);
@@ -581,6 +615,18 @@ void OptionsMenu::SkinGUI()
 	m_pFollowCamOption->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
 	m_pFollowCamOption->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
 	m_pFollowCamOption->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+	m_pShadowsCheckBox->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pShadowsCheckBox->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pShadowsCheckBox->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pShadowsCheckBox->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+	m_pFogRenderCheckBox->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pFogRenderCheckBox->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pFogRenderCheckBox->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pFogRenderCheckBox->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
+	m_pWaterRenderCheckBox->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pWaterRenderCheckBox->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
+	m_pWaterRenderCheckBox->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
+	m_pWaterRenderCheckBox->SetPressedLabelColour(m_pFrontendManager->GetPressedFontColour());
 	m_pSoundEffects->SetLabelColour(m_pFrontendManager->GetNormalFontColour());
 	m_pSoundEffects->SetNormalLabelColour(m_pFrontendManager->GetNormalFontColour());
 	m_pSoundEffects->SetHoverLabelColour(m_pFrontendManager->GetHoverFontColour());
@@ -637,7 +683,10 @@ void OptionsMenu::LoadOptions()
 	m_pMouseSensativitySlider->SetCurrentValue(pSettings->m_mouseSensitivity);
 	m_pGamepadSensativitySlider->SetCurrentValue(pSettings->m_gamepadSensitivity);
 
-	// Grapgics
+	// Graphics
+	m_pShadowsCheckBox->SetToggled(pSettings->m_shadows);
+	m_pFogRenderCheckBox->SetToggled(pSettings->m_fogRendering);
+	m_pWaterRenderCheckBox->SetToggled(pSettings->m_waterRendering);
 
 	// Sound
 	m_pSoundEffects->SetToggled(pSettings->m_audio);
@@ -667,6 +716,9 @@ void OptionsMenu::SaveOptions()
 	pSettings->m_gamepadSensitivity = m_pGamepadSensativitySlider->GetCurrentValue();
 
 	// Graphics
+	pSettings->m_shadows = m_pShadowsCheckBox->GetToggled();
+	pSettings->m_fogRendering = m_pFogRenderCheckBox->GetToggled();
+	pSettings->m_waterRendering = m_pWaterRenderCheckBox->GetToggled();
 
 	// Sound
 	pSettings->m_audio = m_pSoundEffects->GetToggled();
@@ -750,6 +802,14 @@ void OptionsMenu::Unload()
 	m_loaded = false;
 }
 
+// Disable options
+void OptionsMenu::DisableShadowOption()
+{
+	m_pShadowsCheckBox->SetToggled(false);
+	m_pShadowsCheckBox->SetDisabled(true);
+	VoxGame::GetInstance()->GetVoxSettings()->m_shadows = false;
+}
+
 // Update
 void OptionsMenu::Update(float dt)
 {
@@ -777,6 +837,17 @@ void OptionsMenu::Update(float dt)
 	}
 
 	VoxGame::GetInstance()->SetGlobalBlurAmount(0.00125f);
+
+	// Always update the music and sound settings so that we can dynamically change audio settings in the options menu
+	VoxGame::GetInstance()->GetVoxSettings()->m_music = m_pMusic->GetToggled();
+	VoxGame::GetInstance()->GetVoxSettings()->m_musicVolume = m_pMusicVolume->GetCurrentValue();
+	VoxGame::GetInstance()->GetVoxSettings()->m_audio = m_pSoundEffects->GetToggled();
+	VoxGame::GetInstance()->GetVoxSettings()->m_audioVolume = m_pSoundEffectsVolume->GetCurrentValue();
+
+	// Always update these graphical settings as soon as we change the toggles
+	VoxGame::GetInstance()->GetVoxSettings()->m_shadows = m_pShadowsCheckBox->GetToggled();
+	VoxGame::GetInstance()->GetVoxSettings()->m_fogRendering = m_pFogRenderCheckBox->GetToggled();
+	VoxGame::GetInstance()->GetVoxSettings()->m_waterRendering = m_pWaterRenderCheckBox->GetToggled();
 }
 
 // Render

@@ -128,6 +128,17 @@ public:
 
 typedef std::vector<ChunkStorageLoader*> ChunkStorageLoaderList;
 
+class BlockColourTypeMatch
+{
+public:
+	int m_red;
+	int m_green;
+	int m_blue;
+	BlockType m_blockType;
+};
+
+typedef std::vector<BlockColourTypeMatch*> BlockColourTypeMatchList;
+
 
 class ChunkManager
 {
@@ -185,6 +196,11 @@ public:
 	// Adding to chunk storage for parts of the world generation that are outside of loaded chunks
 	ChunkStorageLoader* GetChunkStorage(int aX, int aY, int aZ, bool CreateIfNotExist);
 	void RemoveChunkStorageLoader(ChunkStorageLoader* pChunkStorage);
+
+	// Block colour to block type matching
+	void AddBlockColourBlockTypeMatching(int r, int g, int b, BlockType blockType);
+	bool CheckBlockColour(int r, int g, int b, int rCheck, int gCheck, int bCheck);
+	BlockType SetBlockTypeBasedOnColour(int r, int g, int b);
 
 	// Importing into the world chunks
 	void ImportQubicleBinaryMatrix(QubicleMatrix* pMatrix, vec3 position, QubicleImportDirection direction);
@@ -267,6 +283,9 @@ private:
 	// Storage for modifications to chunks that are not loaded yet
 	ChunkStorageLoaderList m_vpChunkStorageList;
 	mutex m_chunkStorageListLock;
+
+	// Block colour to type matching boundaries
+	BlockColourTypeMatchList m_vpBlockColourTypeMatchList;
 
 	// Chunk counters
 	int m_numChunksLoaded;

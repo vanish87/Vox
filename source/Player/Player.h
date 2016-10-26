@@ -92,6 +92,7 @@ public:
 	string GetType();
 	void SetModelname(string modelName);
 	string GetModelName();
+	void SetPosition(vec3 pos);
 	void SetRespawnPosition(vec3 pos);
 	vec3 GetRespawnPosition();
 	vec3 GetCenter();
@@ -112,7 +113,7 @@ public:
 	void UnloadWeapon(bool left);
 
 	// Equipping items
-	void EquipItem(InventoryItem* pItem);
+	void EquipItem(InventoryItem* pItem, bool supressAudio = false);
 	void UnequipItem(EquipSlot equipSlot, bool left, bool right);
 
 	// Stat modifier values
@@ -519,6 +520,11 @@ private:
 
 	// Player radius
 	float m_radius;
+
+	// Footstep sounds
+	int m_footstepSoundIndex;
+	float m_footstepSoundTimer;
+	float m_footstepSoundDistance;
 
 	// Animation params
 	bool m_animationFinished[AnimationSections_NUMSECTIONS];
